@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:pfx="http://www.tibco.com/CommonLE2/namespace/Public/Notification" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/namespaces/tnt/plugins/mail" xmlns:ns1="http://www.tibco.com/CommonLE2/namespace/Public/Common/RequestHeader.xsd" xmlns:ns3="http://www.tibco.com/pe/EngineTypes" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx5="http://www.tibco.com/CommonLE2/namespace/private/Common" xmlns:pfx4="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:pfx3="http://xmlns.tibco.com/encodings/mime" xmlns:pfx2="http://xmlns.tibco.com/body" xmlns:pfx6="http://www.tibco.com/schemas/CommonLE/Plug-ins/Notification/Schemas/eMail.xsd">
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Notification" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/Notification/NotificationMessage.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/private/Common" schemaLocation="/SharedResources/SchemaDefinitions/Private/Common/LocalExceptions.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/schemas/CommonLE/Plug-ins/Notification/Schemas/eMail.xsd" schemaLocation="/Plug-ins/Notification/Resources/Schemas/eMail.xsd"/>
+    <pd:name>Plug-ins/Notification/DataAccess/Email/SendTechnicalEmail.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx6:eMail"/>
+    <pd:startX>26</pd:startX>
+    <pd:startY>55</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>357</pd:endX>
+    <pd:endY>55</pd:endY>
+    <pd:errorSchemas>
+        <SendMailException ref="pfx5:MailNotSent"/>
+    </pd:errorSchemas>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1287607300648</pd:targetNamespace>
+    <pd:activity name="Send Mail">
+        <pd:type>com.tibco.plugin.mail.MailPubActivity</pd:type>
+        <pd:resourceType>ae.activities.MailActivityResource</pd:resourceType>
+        <pd:x>172</pd:x>
+        <pd:y>55</pd:y>
+        <config>
+            <newMimeSupport>true</newMimeSupport>
+            <inputOutputVersion>5.2.0</inputOutputVersion>
+            <host>%%Notification/Email/MIG_Host%%</host>
+            <InputHeaders>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="Content-Type" type="xsd:string" minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </InputHeaders>
+        </config>
+        <pd:inputBindings>
+            <ns2:mailActivityInput>
+                <from>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Notification/Email/MIG_From"/>
+                </from>
+                <to>
+                    <xsl:value-of select="$Start/pfx6:eMail/pfx6:Address"/>
+                </to>
+                <replyTo>
+                    <xsl:value-of select="&quot;Do-Not-Reply&quot;"/>
+                </replyTo>
+                <subject>
+                    <xsl:value-of select="$Start/pfx6:eMail/pfx6:Subject"/>
+                </subject>
+                <sentdate>
+                    <xsl:value-of select="current-dateTime()"/>
+                </sentdate>
+                <pfx2:bodyElement>
+                    <bodyText>
+                        <xsl:value-of select="$Start/pfx6:eMail/pfx6:Body"/>
+                    </bodyText>
+                </pfx2:bodyElement>
+            </ns2:mailActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Generate Error">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>167</pd:x>
+        <pd:y>165</pd:y>
+        <config>
+            <faultName>SendMailException</faultName>
+        </config>
+        <pd:inputBindings>
+            <pfx4:ActivityInput>
+                <message>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Exceptions/Connectors/Notifications/Codes/EmailNotSent"/>
+                </message>
+                <messageCode>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Exceptions/Connectors/Notifications/Messages/EmailNotSent"/>
+                </messageCode>
+                <data>
+                    <pfx5:MailNotSent>
+                        <pfx5:Message>
+                            <xsl:value-of select="$_error/ns3:ErrorReport/Msg"/>
+                        </pfx5:Message>
+                        <pfx5:Code>
+                            <xsl:value-of select="$_error/ns3:ErrorReport/MsgCode"/>
+                        </pfx5:Code>
+                    </pfx5:MailNotSent>
+                </data>
+            </pfx4:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Send Mail</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Send Mail</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Send Mail</pd:from>
+        <pd:to>Generate Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>error</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

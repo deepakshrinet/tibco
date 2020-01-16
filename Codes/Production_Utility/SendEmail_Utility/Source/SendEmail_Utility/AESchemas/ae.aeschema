@@ -1,0 +1,603 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Repository:repository xmlns="http://www.tibco.com/xmlns/aemeta/types/2002" xmlns:Repository="http://www.tibco.com/xmlns/repo/types/2002" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <scalar name="any">
+        <dataTypeName>any</dataTypeName>
+    </scalar>
+    <scalar name="binary">
+        <dataTypeName>binary</dataTypeName>
+        <javaClass>java.lang.Byte[]</javaClass>
+    </scalar>
+    <scalar name="boolean">
+        <dataTypeName>boolean</dataTypeName>
+        <javaClass>java.lang.Boolean</javaClass>
+    </scalar>
+    <scalar name="byte">
+        <dataTypeName>byte</dataTypeName>
+        <javaClass>java.lang.Byte</javaClass>
+    </scalar>
+    <scalar name="char">
+        <dataTypeName>char</dataTypeName>
+        <javaClass>java.lang.String</javaClass>
+    </scalar>
+    <scalar name="date">
+        <dataTypeName>date</dataTypeName>
+        <javaClass>java.util.Date</javaClass>
+    </scalar>
+    <scalar name="dateTime">
+        <dataTypeName>dateTime</dataTypeName>
+        <javaClass>java.util.Date</javaClass>
+    </scalar>
+    <scalar name="dateTime.tz">
+        <dataTypeName>dateTime.tz</dataTypeName>
+    </scalar>
+    <scalar name="i1">
+        <dataTypeName>i1</dataTypeName>
+        <javaClass>java.lang.Short</javaClass>
+    </scalar>
+    <scalar name="i2">
+        <dataTypeName>i2</dataTypeName>
+        <javaClass>java.lang.Short</javaClass>
+    </scalar>
+    <scalar name="i4">
+        <dataTypeName>i4</dataTypeName>
+        <javaClass>java.lang.Integer</javaClass>
+    </scalar>
+    <scalar name="i8">
+        <dataTypeName>i8</dataTypeName>
+        <javaClass>java.lang.Long</javaClass>
+    </scalar>
+    <scalar name="interval">
+        <dataTypeName>interval</dataTypeName>
+    </scalar>
+    <scalar name="r4">
+        <dataTypeName>r4</dataTypeName>
+        <javaClass>java.lang.Float</javaClass>
+    </scalar>
+    <scalar name="r8">
+        <dataTypeName>r8</dataTypeName>
+        <javaClass>java.lang.Double</javaClass>
+    </scalar>
+    <scalar name="string">
+        <dataTypeName>string</dataTypeName>
+        <javaClass>java.lang.String</javaClass>
+    </scalar>
+    <scalar name="time">
+        <dataTypeName>time</dataTypeName>
+        <javaClass>java.util.Date</javaClass>
+    </scalar>
+    <scalar name="ui1">
+        <dataTypeName>ui1</dataTypeName>
+        <javaClass>java.lang.Short</javaClass>
+    </scalar>
+    <scalar name="ui2">
+        <dataTypeName>ui2</dataTypeName>
+        <javaClass>java.lang.Integer</javaClass>
+    </scalar>
+    <scalar name="ui4">
+        <dataTypeName>ui4</dataTypeName>
+        <javaClass>java.lang.Long</javaClass>
+    </scalar>
+    <scalar name="ui8">
+        <dataTypeName>ui8</dataTypeName>
+        <javaClass>java.lang.Long</javaClass>
+    </scalar>
+    <scalar name="void">
+        <dataTypeName>void</dataTypeName>
+    </scalar>
+    <scalar name="assocList">
+        <dataTypeName>assocList</dataTypeName>
+    </scalar>
+    <scalar name="char.30">
+        <dataTypeName>char</dataTypeName>
+        <javaClass>java.lang.String</javaClass>
+        <length>30</length>
+    </scalar>
+    <scalar name="char.8">
+        <dataTypeName>char</dataTypeName>
+        <javaClass>java.lang.String</javaClass>
+        <length>8</length>
+    </scalar>
+    <scalar name="char.6">
+        <dataTypeName>char</dataTypeName>
+        <javaClass>java.lang.String</javaClass>
+        <length>6</length>
+    </scalar>
+    <scalar name="char.4">
+        <dataTypeName>char</dataTypeName>
+        <javaClass>java.lang.String</javaClass>
+        <length>4</length>
+    </scalar>
+    <scalar name="char.3">
+        <dataTypeName>char</dataTypeName>
+        <javaClass>java.lang.String</javaClass>
+        <length>3</length>
+    </scalar>
+    <scalar name="char.2">
+        <dataTypeName>char</dataTypeName>
+        <javaClass>java.lang.String</javaClass>
+        <length>2</length>
+    </scalar>
+    <scalar name="char.1">
+        <dataTypeName>char</dataTypeName>
+        <javaClass>java.lang.String</javaClass>
+        <length>1</length>
+    </scalar>
+    <scalar name="char.21">
+        <dataTypeName>char</dataTypeName>
+        <javaClass>java.lang.String</javaClass>
+        <length>21</length>
+    </scalar>
+    <scalar name="char.20">
+        <dataTypeName>char</dataTypeName>
+        <javaClass>java.lang.String</javaClass>
+        <length>20</length>
+    </scalar>
+    <scalar name="char.16">
+        <dataTypeName>char</dataTypeName>
+        <javaClass>java.lang.String</javaClass>
+        <length>16</length>
+    </scalar>
+    <scalar name="char.14">
+        <dataTypeName>char</dataTypeName>
+        <javaClass>java.lang.String</javaClass>
+        <length>14</length>
+    </scalar>
+    <scalar name="char.10">
+        <dataTypeName>char</dataTypeName>
+        <javaClass>java.lang.String</javaClass>
+        <length>10</length>
+    </scalar>
+    <scalar name="char.70">
+        <dataTypeName>char</dataTypeName>
+        <javaClass>java.lang.String</javaClass>
+        <length>70</length>
+    </scalar>
+    <scalar name="char.1000">
+        <dataTypeName>char</dataTypeName>
+        <javaClass>java.lang.String</javaClass>
+        <length>1000</length>
+    </scalar>
+    <scalar name="char.64">
+        <dataTypeName>char</dataTypeName>
+        <javaClass>java.lang.String</javaClass>
+        <length>64</length>
+    </scalar>
+    <scalar name="char.24">
+        <dataTypeName>char</dataTypeName>
+        <javaClass>java.lang.String</javaClass>
+        <length>24</length>
+    </scalar>
+    <designer>
+        <lockedProperties>
+            <locked>
+                <resource>/Scalars/fixed.15.0</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Scalars/char.140</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Scalars/char.9</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Scalars/char.17</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Scalars/fixed.29.9</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Scalars/fixed.3.1</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Scalars/char.240</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Scalars/fixed.5.1</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Scalars/char.28</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Scalars/char.132</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Scalars/char.31</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Scalars/char.7</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Scalars/char.35</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Scalars/char.1024</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Scalars/char.80</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Scalars/char.60</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Scalars/char.241</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Scalars/fixed.7.2</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Scalars/char.26</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Scalars/fixed.23.6</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Scalars/fixed.21.2</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Scalars/fixed.9.6</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Scalars/char.22</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Scalars/char.62</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Scalars/fixed.15.2</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Scalars/fixed.5.0</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Scalars/fixed.15.3</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Scalars/char.27</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Scalars/char.11</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Scalars/fixed.3.0</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Scalars/fixed.11.2</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Scalars/char.25</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Scalars/char.13</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Scalars/char.12</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Scalars/fixed.13.2</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Scalars/fixed.23.4</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Scalars/char.18</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Scalars/fixed.13.3</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Scalars/char.220</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Scalars/binary.16</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Scalars/char.32</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Scalars/char.15</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Scalars/char.50</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Scalars/fixed.5.3</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Scalars/char.40</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Scalars/char.45</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Scalars/fixed.9.0</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Scalars/fixed.9.5</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Scalars/char.5</resource>
+                <properties>name</properties>
+            </locked>
+        </lockedProperties>
+        <fixedChildren>
+            <fixed>
+                <resource>/Scalars</resource>
+                <children>char.5,fixed.9.5,fixed.9.0,char.45,char.40,fixed.5.3,char.50,char.15,char.32,binary.16,char.220,fixed.13.3,char.18,fixed.23.4,fixed.13.2,char.12,char.13,char.25,fixed.11.2,fixed.3.0,char.11,char.27,fixed.15.3,fixed.5.0,fixed.15.2,char.62,char.22,fixed.9.6,fixed.21.2,fixed.23.6,char.26,fixed.7.2,char.241,char.60,char.80,char.1024,char.35,char.7,char.31,char.132,char.28,fixed.5.1,char.240,fixed.3.1,fixed.29.9,char.17,char.9,char.140,fixed.15.0</children>
+            </fixed>
+        </fixedChildren>
+        <resourceDescriptions/>
+    </designer>
+    <scalar name="char.5">
+        <javaClass>java.lang.String</javaClass>
+        <length>5</length>
+        <dataTypeName>char</dataTypeName>
+    </scalar>
+    <scalar name="fixed.9.5">
+        <javaClass>java.math.BigDecimal</javaClass>
+        <dataTypeName>fixed</dataTypeName>
+    </scalar>
+    <scalar name="fixed.9.0">
+        <javaClass>java.math.BigDecimal</javaClass>
+        <dataTypeName>fixed</dataTypeName>
+    </scalar>
+    <scalar name="char.45">
+        <javaClass>java.lang.String</javaClass>
+        <length>45</length>
+        <dataTypeName>char</dataTypeName>
+    </scalar>
+    <scalar name="char.40">
+        <javaClass>java.lang.String</javaClass>
+        <length>40</length>
+        <dataTypeName>char</dataTypeName>
+    </scalar>
+    <scalar name="fixed.5.3">
+        <javaClass>java.math.BigDecimal</javaClass>
+        <dataTypeName>fixed</dataTypeName>
+    </scalar>
+    <scalar name="char.50">
+        <javaClass>java.lang.String</javaClass>
+        <length>50</length>
+        <dataTypeName>char</dataTypeName>
+    </scalar>
+    <scalar name="char.15">
+        <javaClass>java.lang.String</javaClass>
+        <length>15</length>
+        <dataTypeName>char</dataTypeName>
+    </scalar>
+    <scalar name="char.32">
+        <javaClass>java.lang.String</javaClass>
+        <length>32</length>
+        <dataTypeName>char</dataTypeName>
+    </scalar>
+    <scalar name="binary.16">
+        <javaClass>java.lang.Byte[]</javaClass>
+        <length>16</length>
+        <dataTypeName>binary</dataTypeName>
+    </scalar>
+    <scalar name="char.220">
+        <javaClass>java.lang.String</javaClass>
+        <length>220</length>
+        <dataTypeName>char</dataTypeName>
+    </scalar>
+    <scalar name="fixed.13.3">
+        <javaClass>java.math.BigDecimal</javaClass>
+        <dataTypeName>fixed</dataTypeName>
+    </scalar>
+    <scalar name="char.18">
+        <javaClass>java.lang.String</javaClass>
+        <length>18</length>
+        <dataTypeName>char</dataTypeName>
+    </scalar>
+    <scalar name="fixed.23.4">
+        <javaClass>java.math.BigDecimal</javaClass>
+        <dataTypeName>fixed</dataTypeName>
+    </scalar>
+    <scalar name="fixed.13.2">
+        <javaClass>java.math.BigDecimal</javaClass>
+        <dataTypeName>fixed</dataTypeName>
+    </scalar>
+    <scalar name="char.12">
+        <javaClass>java.lang.String</javaClass>
+        <length>12</length>
+        <dataTypeName>char</dataTypeName>
+    </scalar>
+    <scalar name="char.13">
+        <javaClass>java.lang.String</javaClass>
+        <length>13</length>
+        <dataTypeName>char</dataTypeName>
+    </scalar>
+    <scalar name="char.25">
+        <javaClass>java.lang.String</javaClass>
+        <length>25</length>
+        <dataTypeName>char</dataTypeName>
+    </scalar>
+    <scalar name="fixed.11.2">
+        <javaClass>java.math.BigDecimal</javaClass>
+        <dataTypeName>fixed</dataTypeName>
+    </scalar>
+    <scalar name="fixed.3.0">
+        <javaClass>java.math.BigDecimal</javaClass>
+        <dataTypeName>fixed</dataTypeName>
+    </scalar>
+    <scalar name="char.11">
+        <javaClass>java.lang.String</javaClass>
+        <length>11</length>
+        <dataTypeName>char</dataTypeName>
+    </scalar>
+    <scalar name="char.27">
+        <javaClass>java.lang.String</javaClass>
+        <length>27</length>
+        <dataTypeName>char</dataTypeName>
+    </scalar>
+    <scalar name="fixed.15.3">
+        <javaClass>java.math.BigDecimal</javaClass>
+        <dataTypeName>fixed</dataTypeName>
+    </scalar>
+    <scalar name="fixed.5.0">
+        <javaClass>java.math.BigDecimal</javaClass>
+        <dataTypeName>fixed</dataTypeName>
+    </scalar>
+    <scalar name="fixed.15.2">
+        <javaClass>java.math.BigDecimal</javaClass>
+        <dataTypeName>fixed</dataTypeName>
+    </scalar>
+    <scalar name="char.62">
+        <javaClass>java.lang.String</javaClass>
+        <length>62</length>
+        <dataTypeName>char</dataTypeName>
+    </scalar>
+    <scalar name="char.22">
+        <javaClass>java.lang.String</javaClass>
+        <length>22</length>
+        <dataTypeName>char</dataTypeName>
+    </scalar>
+    <scalar name="fixed.9.6">
+        <javaClass>java.math.BigDecimal</javaClass>
+        <dataTypeName>fixed</dataTypeName>
+    </scalar>
+    <scalar name="fixed.21.2">
+        <javaClass>java.math.BigDecimal</javaClass>
+        <dataTypeName>fixed</dataTypeName>
+    </scalar>
+    <scalar name="fixed.23.6">
+        <javaClass>java.math.BigDecimal</javaClass>
+        <dataTypeName>fixed</dataTypeName>
+    </scalar>
+    <scalar name="char.26">
+        <javaClass>java.lang.String</javaClass>
+        <length>26</length>
+        <dataTypeName>char</dataTypeName>
+    </scalar>
+    <scalar name="fixed.7.2">
+        <javaClass>java.math.BigDecimal</javaClass>
+        <dataTypeName>fixed</dataTypeName>
+    </scalar>
+    <scalar name="char.241">
+        <javaClass>java.lang.String</javaClass>
+        <length>241</length>
+        <dataTypeName>char</dataTypeName>
+    </scalar>
+    <scalar name="char.60">
+        <javaClass>java.lang.String</javaClass>
+        <length>60</length>
+        <dataTypeName>char</dataTypeName>
+    </scalar>
+    <scalar name="char.80">
+        <javaClass>java.lang.String</javaClass>
+        <length>80</length>
+        <dataTypeName>char</dataTypeName>
+    </scalar>
+    <scalar name="char.1024">
+        <javaClass>java.lang.String</javaClass>
+        <length>1024</length>
+        <dataTypeName>char</dataTypeName>
+    </scalar>
+    <scalar name="char.35">
+        <javaClass>java.lang.String</javaClass>
+        <length>35</length>
+        <dataTypeName>char</dataTypeName>
+    </scalar>
+    <scalar name="char.7">
+        <javaClass>java.lang.String</javaClass>
+        <length>7</length>
+        <dataTypeName>char</dataTypeName>
+    </scalar>
+    <scalar name="char.31">
+        <javaClass>java.lang.String</javaClass>
+        <length>31</length>
+        <dataTypeName>char</dataTypeName>
+    </scalar>
+    <scalar name="char.132">
+        <javaClass>java.lang.String</javaClass>
+        <length>132</length>
+        <dataTypeName>char</dataTypeName>
+    </scalar>
+    <scalar name="char.28">
+        <javaClass>java.lang.String</javaClass>
+        <length>28</length>
+        <dataTypeName>char</dataTypeName>
+    </scalar>
+    <scalar name="fixed.5.1">
+        <javaClass>java.math.BigDecimal</javaClass>
+        <dataTypeName>fixed</dataTypeName>
+    </scalar>
+    <scalar name="char.240">
+        <javaClass>java.lang.String</javaClass>
+        <length>240</length>
+        <dataTypeName>char</dataTypeName>
+    </scalar>
+    <scalar name="fixed.3.1">
+        <javaClass>java.math.BigDecimal</javaClass>
+        <dataTypeName>fixed</dataTypeName>
+    </scalar>
+    <scalar name="fixed.29.9">
+        <javaClass>java.math.BigDecimal</javaClass>
+        <dataTypeName>fixed</dataTypeName>
+    </scalar>
+    <scalar name="char.17">
+        <javaClass>java.lang.String</javaClass>
+        <length>17</length>
+        <dataTypeName>char</dataTypeName>
+    </scalar>
+    <scalar name="char.9">
+        <javaClass>java.lang.String</javaClass>
+        <length>9</length>
+        <dataTypeName>char</dataTypeName>
+    </scalar>
+    <scalar name="char.140">
+        <javaClass>java.lang.String</javaClass>
+        <length>140</length>
+        <dataTypeName>char</dataTypeName>
+    </scalar>
+    <scalar name="fixed.15.0">
+        <javaClass>java.math.BigDecimal</javaClass>
+        <dataTypeName>fixed</dataTypeName>
+    </scalar>
+</Repository:repository>

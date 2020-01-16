@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BWSharedResource>
+    <config>
+        <workerWeight>1</workerWeight>
+        <workerTasks>10</workerTasks>
+        <workerCompleteTime>0</workerCompleteTime>
+        <schedulerWeight>1</schedulerWeight>
+        <scheduleHeartbeat>1.0</scheduleHeartbeat>
+        <scheduleActivation>3.5</scheduleActivation>
+        <showExpertSettings>certified</showExpertSettings>
+        <daemon>%%RVTransport/RvDaemon%%</daemon>
+        <network>%%RVTransport/RvNetwork%%</network>
+        <service>%%RVTransport/RvService%%</service>
+        <cmName>%%RVTransport/MIG_LogCM_Name%%</cmName>
+        <ledgerFile>%%RVTransport/MIG_LogLedger_File%%</ledgerFile>
+        <syncLedger>true</syncLedger>
+        <description>The JMS Connections for Log and Exception requests are purposely separated for performance reasons. </description>
+    </config>
+</BWSharedResource>

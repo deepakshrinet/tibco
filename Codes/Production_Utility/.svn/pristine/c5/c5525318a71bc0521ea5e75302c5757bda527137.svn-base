@@ -1,0 +1,37 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>InterfaceId</name>
+			<value>Outbound_Retrigger</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1491906740017</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>TECHNICAL-777</name>
+			<value>TECHNICAL-777</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1491906687707</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>TransactionDomain</name>
+			<value>Utility</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1491906788899</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>TransactionType</name>
+			<value>Retrigger</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1491906817964</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pfx16="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/InterfaceConfigDetail" xmlns:pfx15="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/InterfaceConfigList" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx14="http://www.tibco.com/CommonLE2/Private/Administration" xmlns:ns="http://www.tibco.com/pe/EngineTypes" xmlns:pfx13="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfigList" xmlns:pfx12="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Applications" xmlns:pfx11="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Type" xmlns:pfx10="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Severity" xmlns:pfx="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:ns2="http://www.tibco.com/CommonLE2/namespace/private/Common" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:pfx5="http://xmlns.example.com/unique/default/namespace/1098735544074" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx4="http://xmlns.example.com/unique/default/namespace/1098735151108" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx3="http://xmlns.example.com/unique/default/namespace/1098735700518" xmlns:pfx2="http://xmlns.example.com/unique/default/namespace/1098735702992" xmlns:pfx9="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Category" xmlns:pfx8="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Query" xmlns:pfx7="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig" xmlns:pfx6="http://www.tibco.com/CommonLE/namespace/Custom" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xsd:import namespace="http://xmlns.example.com/unique/default/namespace/1098735702992" schemaLocation="/Shared Resources/Schema Definitions/Custom/ExceptionProcedure.xsd"/>
+    <xsd:import namespace="http://xmlns.example.com/unique/default/namespace/1098735700518" schemaLocation="/Shared Resources/Schema Definitions/Custom/ExceptionSeverity.xsd"/>
+    <xsd:import namespace="http://xmlns.example.com/unique/default/namespace/1098735151108" schemaLocation="/Shared Resources/Schema Definitions/Custom/ExceptionType.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE/namespace/Custom" schemaLocation="/Shared Resources/Schema Definitions/Custom/ExceptionCategory.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Query" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/ConfigurationQuery.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Category" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/ExceptionCategory.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/private/Common" schemaLocation="/SharedResources/SchemaDefinitions/Private/Common/LocalExceptions.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Severity" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/ExceptionSeverity.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Type" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/ExceptionType.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Applications" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/Applications.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/ExceptionConfig.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfigList" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/ExceptionConfigurationList.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/Private/Administration" schemaLocation="/SharedResources/SchemaDefinitions/Private/Administration/QueryUpdate.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/InterfaceConfigList" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/InterfaceConfigList.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/InterfaceConfigDetail" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/InterfaceConfigDetail.xsd"/>
+    <pd:name>Administration/DataAccess/InterfaceConfiguration/Oracle/RetrieveInterfaceConfigurationList.process</pd:name>
+    <pd:description>Retreves a list of all existing exception configurations</pd:description>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx14:ApplicationID"/>
+    <pd:startX>26</pd:startX>
+    <pd:startY>96</pd:startY>
+    <pd:returnBindings>
+        <pfx16:InterfaceList>
+            <xsl:for-each select="$Retrieve-Interface-Configuration-List/resultSet/Record">
+                <pfx16:InterfaceConfig>
+                    <pfx16:ApplicationID>
+                        <xsl:value-of select="APPLICATIONID"/>
+                    </pfx16:ApplicationID>
+                    <pfx16:InterfaceID>
+                        <xsl:value-of select="INTERFACEID"/>
+                    </pfx16:InterfaceID>
+                    <xsl:if test="INTERFACENAME">
+                        <pfx16:InterfaceName>
+                            <xsl:value-of select="INTERFACENAME"/>
+                        </pfx16:InterfaceName>
+                    </xsl:if>
+                    <pfx16:InterfaceType>
+                        <xsl:value-of select="INTERFACETYPE"/>
+                    </pfx16:InterfaceType>
+                    <pfx16:dbUse>
+                        <xsl:value-of select="if (DBUSE=&quot;Y&quot;) then true() else false()"/>
+                    </pfx16:dbUse>
+                    <pfx16:TransComplexity>
+                        <xsl:value-of select="TRANSCOMPLEXITY"/>
+                    </pfx16:TransComplexity>
+                    <pfx16:Owner>
+                        <xsl:value-of select="OWNER"/>
+                    </pfx16:Owner>
+                    <pfx16:SourceSystem>
+                        <xsl:value-of select="SOURCESYSTEM"/>
+                    </pfx16:SourceSystem>
+                    <xsl:if test="TARGETSYSTEM">
+                        <pfx16:TargetSystem>
+                            <xsl:value-of select="TARGETSYSTEM"/>
+                        </pfx16:TargetSystem>
+                    </xsl:if>
+                    <xsl:if test="PROTOCOL">
+                        <pfx16:Protocol>
+                            <xsl:value-of select="PROTOCOL"/>
+                        </pfx16:Protocol>
+                    </xsl:if>
+                    <pfx16:Status>
+                        <xsl:value-of select="STATUS"/>
+                    </pfx16:Status>
+                    <xsl:if test="DESCRIPTION">
+                        <pfx16:Description>
+                            <xsl:value-of select="DESCRIPTION"/>
+                        </pfx16:Description>
+                    </xsl:if>
+                    <xsl:if test="PARENTID">
+                        <pfx16:ParentID>
+                            <xsl:value-of select="PARENTID"/>
+                        </pfx16:ParentID>
+                    </xsl:if>
+                </pfx16:InterfaceConfig>
+            </xsl:for-each>
+        </pfx16:InterfaceList>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType ref="pfx16:InterfaceList"/>
+    <pd:endX>349</pd:endX>
+    <pd:endY>97</pd:endY>
+    <pd:errorSchemas>
+        <Schema0 ref="ns2:DBRecordNotFound"/>
+    </pd:errorSchemas>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1284741897828</pd:targetNamespace>
+    <pd:activity name="No records found">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>161</pd:x>
+        <pd:y>223</pd:y>
+        <config>
+            <faultName>Schema0</faultName>
+        </config>
+        <pd:inputBindings>
+            <pfx:ActivityInput>
+                <message>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/DB/Messages/DBRecordNotFound"/>
+                </message>
+                <messageCode>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/DB/Codes/SQLRecordNotFound"/>
+                </messageCode>
+                <data>
+                    <ns2:DBRecordNotFound>
+                        <ns2:Message>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/DB/Messages/DBRecordNotFound"/>
+                        </ns2:Message>
+                        <ns2:Code>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/DB/Codes/SQLRecordNotFound"/>
+                        </ns2:Code>
+                    </ns2:DBRecordNotFound>
+                </data>
+            </pfx:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Retrieve Interface Configuration List">
+        <pd:type>com.tibco.plugin.jdbc.JDBCQueryActivity</pd:type>
+        <pd:resourceType>ae.activities.JDBCQueryActivity</pd:resourceType>
+        <pd:x>164</pd:x>
+        <pd:y>104</pd:y>
+        <config>
+            <timeout>%%Database/MIG_Timeout%%</timeout>
+            <commit>false</commit>
+            <maxRows>%%Database/MIG_MAXROWS%%</maxRows>
+            <emptyStrAsNil>false</emptyStrAsNil>
+            <jdbcSharedConfig>/SharedResources/Connections/Database/DBServerOracle.sharedjdbc</jdbcSharedConfig>
+            <statement>select * from InterfaceConfig where applicationID=?</statement>
+            <wizardData/>
+            <Prepared_Param_DataType>
+                <parameter>
+                    <parameterName>AppID</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+            </Prepared_Param_DataType>
+            <oraObjects/>
+            <oraTables/>
+            <QueryOutputCachedSchemaColumns>APPLICATIONID</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>INTERFACEID</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>INTERFACENAME</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>INTERFACETYPE</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>OWNER</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>SOURCESYSTEM</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>TARGETSYSTEM</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>DBUSE</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>1</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>char</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>TRANSCOMPLEXITY</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>DESCRIPTION</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>PARENTID</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>STATUS</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>PROTOCOL</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+        </config>
+        <pd:inputBindings>
+            <jdbcQueryActivityInput>
+                <AppID>
+                    <xsl:value-of select="$Start/pfx14:ApplicationID"/>
+                </AppID>
+            </jdbcQueryActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Retrieve Interface Configuration List</pd:to>
+        <pd:xpathDescription/>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Retrieve Interface Configuration List</pd:from>
+        <pd:to>No records found</pd:to>
+        <pd:xpathDescription>No Records Found</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>count($Retrieve-Interface-Configuration-List/resultSet/Record)=0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Retrieve Interface Configuration List</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

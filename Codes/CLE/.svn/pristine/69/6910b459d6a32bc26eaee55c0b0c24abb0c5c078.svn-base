@@ -1,0 +1,69 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>BWRFIntMsg</name>
+			<value>java.sql.SQLException: [tibcosoftwareinc][Oracle JDBC Driver][Oracle]ORA-02291: integrity constraint (SCOTT.SYS_C003950) violated - parent key not found</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874571947</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>DatabaseError</name>
+			<value>BW-JDBC-100039</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874576395</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>InvalidInputSQLState</name>
+			<value>22018</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874576993</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>SQLIntegrityError</name>
+			<value>BW-JDBC-100014</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874571279</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>SQLIntegrityState</name>
+			<value>23000</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874573705</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>SQLRecordExists</name>
+			<value>no value</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874571119</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>SQLRecordNotFound</name>
+			<value>no value</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874571761</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>SQLReferencedIntegrityState</name>
+			<value>HY000</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874574426</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

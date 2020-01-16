@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/RolePermissionInformationRequest"
+	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	 targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/RolePermissionInformationRequest"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xsd:element name="RolePermissionInformationRequest">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="RoleNames"/>
+				<xsd:element name="AppID" type="xsd:string"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="RolePermissionInformationRequests">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="RolePermissionInformationRequest" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="RoleNames">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="RoleName" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

@@ -1,0 +1,1240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns12="http://www.tibco.com/namespaces/tnt/plugins/file" xmlns:ns5="www.tibco.com/plugin/java/JavaMethodActivityOutput" xmlns:ns6="http://xmlns.tibco.com/encodings/mime" xmlns:ns7="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:pfx="urn:enterprise.soap.sforce.com" xmlns:ns11="www.tibco.com/plugin/java/JavaMethodActivityInput" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/pe/EngineTypes" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns4="urn:sobject.enterprise.soap.sforce.com" xmlns:ns3="http://tibco.com/namespaces/tnt/plugins/soap" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx4="http://xmlns.example.com/1321555930384" xmlns:pfx3="http://www.tibco.com/CommonLE/Client/Schema/ClientInterface.xsd" xmlns:pfx21="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/ADB/HCF-ADBAdapterConfiguration" xmlns:pfx2="http://www.tibco.com/schemas/SFDC/SharedResources/Schemas/XSD/Schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xsd:import namespace="http://www.tibco.com/CommonLE/Client/Schema/ClientInterface.xsd" schemaLocation="/CLE/Interface/ClientSchema/ClientInterface.xsd"/>
+    <xsd:import namespace="urn:sobject.enterprise.soap.sforce.com" schemaLocation="/SharedResources/WSDLs/wsdl_sandbox01_6_DEC2016.wsdl"/>
+    <wsdl:import namespace="urn:enterprise.soap.sforce.com" location="/SharedResources/WSDLs/wsdl_sandbox01_6_DEC2016.wsdl"/>
+    <pd:name>UnitTesting/GetEmployeesSFDC_Original.process</pd:name>
+    <pd:startName>ReceiveEmployees</pd:startName>
+    <pd:startX>0</pd:startX>
+    <pd:startY>0</pd:startY>
+    <pd:returnBindings/>
+    <pd:starter name="ReceiveEmployees">
+        <pd:type>com.tibco.plugin.jms.JMSQueueEventSource</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueEventSource</pd:resourceType>
+        <pd:x>85</pd:x>
+        <pd:y>87</pd:y>
+        <config>
+            <PermittedMessageType>XML Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+                <destination>%%ApplicationDetails/SFDC_SF_USER_SEND/Queue/SFDCPerNRQueue%%</destination>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/EnterpriseLibrary/SharedResources/Connections/JMS/TIBCO_JMS_Connection.sharedjmscon</ConnectionReference>
+            <OutDataxsdString>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="TransactionId" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Filename" type="xsd:string"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </OutDataxsdString>
+        </config>
+        <pd:inputBindings/>
+    </pd:starter>
+    <pd:endName>End</pd:endName>
+    <pd:endX>1114</pd:endX>
+    <pd:endY>35</pd:endY>
+    <pd:errorSchemas>
+        <Schema0 ref="pfx3:ExceptionRequest"/>
+    </pd:errorSchemas>
+    <pd:processVariables>
+        <Counter>
+            <xsd:element name="root">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="LoopCounter" type="xsd:string" minOccurs="0"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </Counter>
+        <SFDC>
+            <xsd:element name="root">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="QueryLocator" type="xsd:string" minOccurs="0"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </SFDC>
+    </pd:processVariables>
+    <pd:targetNamespace>http://xmlns.example.com/1483686396044</pd:targetNamespace>
+    <pd:group name="Group">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>376</pd:x>
+        <pd:y>103</pd:y>
+        <pd:width>434</pd:width>
+        <pd:height>178</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>repeat</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:indexSlot>a</pd:indexSlot>
+            <pd:activityOutputName/>
+            <pd:repeatCondition>$ExecuteQueryMore/outputMessage/pfx:queryMoreResponse/pfx:result/pfx:done = "true"</pd:repeatCondition>
+            <pd:accumulateOutput>false</pd:accumulateOutput>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>ExecuteQueryMore</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>SendEmployeeRecord1-1</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>ExecuteQueryMore</pd:from>
+            <pd:to>Assign</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Assign</pd:from>
+            <pd:to>SendEmployeeRecord1-1</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="ExecuteQueryMore">
+            <pd:type>com.tibco.plugin.soap.SOAPSendReceiveActivity</pd:type>
+            <pd:resourceType>ae.activities.SOAPSendReceiveUI</pd:resourceType>
+            <pd:x>471</pd:x>
+            <pd:y>165</pd:y>
+            <config>
+                <timeout>%%ApplicationDetails/SFDC_WS_CONNECTION/Timeout%%</timeout>
+                <soapAttachmentStyle>SwA</soapAttachmentStyle>
+                <timeoutType>Seconds</timeoutType>
+                <service>pfx:SforceService</service>
+                <servicePort>Soap</servicePort>
+                <operation>queryMore</operation>
+                <soapAction/>
+                <endpointURL>%%ApplicationDetails/SFDC_WS_CONNECTION/EndPointURL%%</endpointURL>
+                <authScheme>NONE</authScheme>
+                <useProxy>true</useProxy>
+                <proxyName>/EnterpriseLibrary/SharedResources/Connections/HTTP/ProxyConfiguration.httpProxy</proxyName>
+                <ns0:ssl xmlns:ns0="http://www.tibco.com/xmlns/aemeta/services/2002">
+                    <ns0:strongCipherSuitesOnly>true</ns0:strongCipherSuitesOnly>
+                    <ns0:cert isRef="true">/SharedResources/Certificates/.folder</ns0:cert>
+                </ns0:ssl>
+            </config>
+            <pd:inputBindings>
+                <inputMessage>
+                    <pfx:queryMore>
+                        <xsl:choose>
+                            <xsl:when test="$a=1">
+                                <pfx:queryLocator>
+                                    <xsl:value-of select="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:queryLocator"/>
+                                </pfx:queryLocator>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <pfx:queryLocator>
+                                    <xsl:value-of select="$SFDC/root/QueryLocator"/>
+                                </pfx:queryLocator>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </pfx:queryMore>
+                    <headers>
+                        <Header.SessionHeader>
+                            <pfx:SessionHeader>
+                                <pfx:sessionId>
+                                    <xsl:value-of select="$StoreSessionDetails/root/SessionId"/>
+                                </pfx:sessionId>
+                            </pfx:SessionHeader>
+                        </Header.SessionHeader>
+                        <Header.QueryOptions>
+                            <xsl:attribute name="mustUnderstand">
+                                <xsl:value-of select="1"/>
+                            </xsl:attribute>
+                            <pfx:QueryOptions>
+                                <pfx:batchSize>
+                                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/SFDC_WS_CONNECTION/BatchSize"/>
+                                </pfx:batchSize>
+                            </pfx:QueryOptions>
+                        </Header.QueryOptions>
+                    </headers>
+                    <ns3:_configData>
+                        <xsl:if test="$StoreSessionDetails/root/EndPointUrl">
+                            <endpointURL>
+                                <xsl:value-of select="$StoreSessionDetails/root/EndPointUrl"/>
+                            </endpointURL>
+                        </xsl:if>
+                    </ns3:_configData>
+                </inputMessage>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="Assign">
+            <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+            <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+            <pd:x>575</pd:x>
+            <pd:y>220</pd:y>
+            <config>
+                <variableName>SFDC</variableName>
+            </config>
+            <pd:inputBindings>
+                <root>
+                    <QueryLocator>
+                        <xsl:value-of select="$ExecuteQueryMore/outputMessage/pfx:queryMoreResponse/pfx:result/pfx:queryLocator"/>
+                    </QueryLocator>
+                </root>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="SendEmployeeRecord1-1">
+            <pd:type>com.tibco.plugin.jms.JMSQueueRequestReplyActivity</pd:type>
+            <pd:resourceType>ae.activities.JMSQueueRequestReplyActivity</pd:resourceType>
+            <pd:x>683</pd:x>
+            <pd:y>163</pd:y>
+            <config>
+                <PermittedMessageType>XML Text</PermittedMessageType>
+                <SessionAttributes>
+                    <transacted>false</transacted>
+                    <acknowledgeMode>1</acknowledgeMode>
+                    <maxSessions>1</maxSessions>
+                    <destination>%%ApplicationDetails/SFDC_SF_USER_SEND/Queue/WritePerNRFileRequestQueue%%</destination>
+                </SessionAttributes>
+                <ConfigurableHeaders>
+                    <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                    <JMSExpiration>0</JMSExpiration>
+                    <JMSPriority>4</JMSPriority>
+                </ConfigurableHeaders>
+                <ConnectionReference>/EnterpriseLibrary/SharedResources/Connections/JMS/TIBCO_JMS_Connection.sharedjmscon</ConnectionReference>
+                <InDataxsdString>
+                    <xsd:element name="Users">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="Records" minOccurs="0" maxOccurs="unbounded">
+                                    <xsd:complexType>
+                                        <xsd:sequence>
+                                            <xsd:element name="ID" type="xsd:string" minOccurs="0"/>
+                                            <xsd:element name="FirstName" type="xsd:string" minOccurs="0"/>
+                                            <xsd:element name="MiddleName" type="xsd:string" minOccurs="0"/>
+                                            <xsd:element name="LastName" type="xsd:string" minOccurs="0"/>
+                                            <xsd:element name="Title" type="xsd:string" minOccurs="0"/>
+                                            <xsd:element name="Email" type="xsd:string" minOccurs="0"/>
+                                            <xsd:element name="Inactive__c" type="xsd:string" minOccurs="0"/>
+                                            <xsd:element name="MobilePhone" type="xsd:string" minOccurs="0"/>
+                                            <xsd:element name="Phone" type="xsd:string" minOccurs="0"/>
+                                            <xsd:element name="Territory_Number__c" type="xsd:string" minOccurs="0"/>
+                                            <xsd:element name="Role_Classification__c" type="xsd:string" minOccurs="0"/>
+                                            <xsd:element name="Sales_Assoc_ID__c" type="xsd:string" minOccurs="0"/>
+                                            <xsd:element name="Sales_Specialty__c" type="xsd:string" minOccurs="0"/>
+                                            <xsd:element name="ReportsToId" type="xsd:string" minOccurs="0"/>
+                                            <xsd:element name="SAP__c" type="xsd:string" minOccurs="0"/>
+                                            <xsd:element name="Class_Description__c" type="xsd:string" minOccurs="0"/>
+                                            <xsd:element name="AccountId" type="xsd:string" minOccurs="0"/>
+                                            <xsd:element name="AccountName" type="xsd:string" minOccurs="0"/>
+                                            <xsd:element name="Record_Edit_Status__c" type="xsd:string" minOccurs="0"/>
+                                            <xsd:element name="Employee_Non_Employee__c" type="xsd:string" minOccurs="0"/>
+                                            <xsd:element name="Lms_required__c" type="xsd:string" minOccurs="0"/>
+                                            <xsd:element name="RecordTypeId" type="xsd:string" minOccurs="0"/>
+                                            <xsd:element name="ReportsToEmail" type="xsd:string" minOccurs="0"/>
+                                            <xsd:element name="Hire_Date__c" type="xsd:string" minOccurs="0"/>
+                                            <xsd:element name="Fax" type="xsd:string" minOccurs="0"/>
+                                            <xsd:element name="MAILINGSTREET" type="xsd:string" minOccurs="0"/>
+                                            <xsd:element name="MAILINGCITY" type="xsd:string" minOccurs="0"/>
+                                            <xsd:element name="MAILINGSTATE" type="xsd:string" minOccurs="0"/>
+                                            <xsd:element name="MAILINGPOSTALCODE" type="xsd:string" minOccurs="0"/>
+                                            <xsd:element name="MAILINGCOUNTRY" type="xsd:string" minOccurs="0"/>
+                                            <xsd:element name="CreatedDate" type="xsd:string" minOccurs="0"/>
+                                            <xsd:element name="LastModifiedDate" type="xsd:string" minOccurs="0"/>
+                                        </xsd:sequence>
+                                    </xsd:complexType>
+                                </xsd:element>
+                                <xsd:element name="Lot" type="xsd:string" minOccurs="0"/>
+                                <xsd:element name="Transactionid" type="xsd:string" minOccurs="0"/>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </InDataxsdString>
+                <OutDataxsdString>
+                    <xsd:element name="root">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="lot" type="xsd:string" minOccurs="0"/>
+                                <xsd:element name="status" type="xsd:string" minOccurs="0"/>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </OutDataxsdString>
+            </config>
+            <pd:coercions>
+                <pd:coercion xpath="$ExecuteQueryMore/outputMessage/pfx:queryMoreResponse/pfx:result/pfx:records" type="ns4:Contact"/>
+            </pd:coercions>
+            <pd:inputBindings>
+                <ns7:ActivityInput>
+                    <Body>
+                        <Users>
+                            <xsl:for-each xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="$ExecuteQueryMore/outputMessage/pfx:queryMoreResponse/pfx:result/pfx:records">
+                                <Records>
+                                    <ID>
+                                        <xsl:value-of select="ns4:Id"/>
+                                    </ID>
+                                    <xsl:if test="ns4:FirstName">
+                                        <FirstName>
+                                            <xsl:value-of select="ns4:FirstName"/>
+                                        </FirstName>
+                                    </xsl:if>
+                                    <xsl:if test="ns4:MiddleName">
+                                        <MiddleName>
+                                            <xsl:value-of select="ns4:MiddleName"/>
+                                        </MiddleName>
+                                    </xsl:if>
+                                    <xsl:if test="ns4:LastName">
+                                        <LastName>
+                                            <xsl:value-of select="ns4:LastName"/>
+                                        </LastName>
+                                    </xsl:if>
+                                    <xsl:if test="ns4:Title">
+                                        <Title>
+                                            <xsl:value-of select="ns4:Title"/>
+                                        </Title>
+                                    </xsl:if>
+                                    <xsl:if test="ns4:Email">
+                                        <Email>
+                                            <xsl:value-of select="ns4:Email"/>
+                                        </Email>
+                                    </xsl:if>
+                                    <xsl:if test="ns4:Inactive__c">
+                                        <Inactive__c>
+                                            <xsl:value-of select="ns4:Inactive__c"/>
+                                        </Inactive__c>
+                                    </xsl:if>
+                                    <xsl:if test="ns4:MobilePhone">
+                                        <MobilePhone>
+                                            <xsl:value-of select="ns4:MobilePhone"/>
+                                        </MobilePhone>
+                                    </xsl:if>
+                                    <xsl:if test="ns4:Phone">
+                                        <Phone>
+                                            <xsl:value-of select="ns4:Phone"/>
+                                        </Phone>
+                                    </xsl:if>
+                                    <xsl:if test="ns4:Territory_Number__c">
+                                        <Territory_Number__c>
+                                            <xsl:value-of select="ns4:Territory_Number__c"/>
+                                        </Territory_Number__c>
+                                    </xsl:if>
+                                    <xsl:if test="ns4:Role_Classification__c">
+                                        <Role_Classification__c>
+                                            <xsl:value-of select="ns4:Role_Classification__c"/>
+                                        </Role_Classification__c>
+                                    </xsl:if>
+                                    <xsl:if test="ns4:Sales_Assoc_ID__c">
+                                        <Sales_Assoc_ID__c>
+                                            <xsl:value-of select="ns4:Sales_Assoc_ID__c"/>
+                                        </Sales_Assoc_ID__c>
+                                    </xsl:if>
+                                    <xsl:if test="ns4:Sales_Specialty__c">
+                                        <Sales_Specialty__c>
+                                            <xsl:value-of select="ns4:Sales_Specialty__c"/>
+                                        </Sales_Specialty__c>
+                                    </xsl:if>
+                                    <xsl:if test="ns4:ReportsToId">
+                                        <ReportsToId>
+                                            <xsl:value-of select="ns4:ReportsToId"/>
+                                        </ReportsToId>
+                                    </xsl:if>
+                                    <xsl:if test="ns4:SAP__c">
+                                        <SAP__c>
+                                            <xsl:value-of select="ns4:SAP__c"/>
+                                        </SAP__c>
+                                    </xsl:if>
+                                    <xsl:if test="ns4:Account/ns4:Class_Description__c">
+                                        <Class_Description__c>
+                                            <xsl:value-of select="ns4:Account/ns4:Class_Description__c"/>
+                                        </Class_Description__c>
+                                    </xsl:if>
+                                    <xsl:if test="ns4:AccountId">
+                                        <AccountId>
+                                            <xsl:value-of select="ns4:AccountId"/>
+                                        </AccountId>
+                                    </xsl:if>
+                                    <xsl:if test="ns4:Account/ns4:Name">
+                                        <AccountName>
+                                            <xsl:value-of select="ns4:Account/ns4:Name"/>
+                                        </AccountName>
+                                    </xsl:if>
+                                    <xsl:if test="ns4:Record_Edit_Status__c">
+                                        <Record_Edit_Status__c>
+                                            <xsl:value-of select="ns4:Record_Edit_Status__c"/>
+                                        </Record_Edit_Status__c>
+                                    </xsl:if>
+                                    <xsl:if test="ns4:Employee_Non_Employee__c">
+                                        <Employee_Non_Employee__c>
+                                            <xsl:value-of select="ns4:Employee_Non_Employee__c"/>
+                                        </Employee_Non_Employee__c>
+                                    </xsl:if>
+                                    <xsl:if test="ns4:LMS_Required__c">
+                                        <Lms_required__c>
+                                            <xsl:value-of select="ns4:LMS_Required__c"/>
+                                        </Lms_required__c>
+                                    </xsl:if>
+                                    <xsl:if test="ns4:RecordTypeId">
+                                        <RecordTypeId>
+                                            <xsl:value-of select="ns4:RecordTypeId"/>
+                                        </RecordTypeId>
+                                    </xsl:if>
+                                    <ReportsToEmail>
+                                        <xsl:value-of select="ns4:ReportsTo/ns4:Email"/>
+                                    </ReportsToEmail>
+                                    <xsl:if test="ns4:Hire_Date__c">
+                                        <Hire_Date__c>
+                                            <xsl:value-of select="ns4:Hire_Date__c"/>
+                                        </Hire_Date__c>
+                                    </xsl:if>
+                                    <xsl:if test="ns4:Fax">
+                                        <Fax>
+                                            <xsl:value-of select="ns4:Fax"/>
+                                        </Fax>
+                                    </xsl:if>
+                                    <xsl:if test="ns4:MailingStreet">
+                                        <MAILINGSTREET>
+                                            <xsl:value-of select="ns4:MailingStreet"/>
+                                        </MAILINGSTREET>
+                                    </xsl:if>
+                                    <xsl:if test="ns4:MailingCity">
+                                        <MAILINGCITY>
+                                            <xsl:value-of select="ns4:MailingCity"/>
+                                        </MAILINGCITY>
+                                    </xsl:if>
+                                    <xsl:if test="ns4:MailingState">
+                                        <MAILINGSTATE>
+                                            <xsl:value-of select="ns4:MailingState"/>
+                                        </MAILINGSTATE>
+                                    </xsl:if>
+                                    <xsl:if test="ns4:MailingPostalCode">
+                                        <MAILINGPOSTALCODE>
+                                            <xsl:value-of select="ns4:MailingPostalCode"/>
+                                        </MAILINGPOSTALCODE>
+                                    </xsl:if>
+                                    <xsl:if test="ns4:MailingCountry">
+                                        <MAILINGCOUNTRY>
+                                            <xsl:value-of select="ns4:MailingCountry"/>
+                                        </MAILINGCOUNTRY>
+                                    </xsl:if>
+                                    <xsl:if test="ns4:CreatedDate">
+                                        <CreatedDate>
+                                            <xsl:value-of select="ns4:CreatedDate"/>
+                                        </CreatedDate>
+                                    </xsl:if>
+                                    <xsl:if test="ns4:LastModifiedDate">
+                                        <LastModifiedDate>
+                                            <xsl:value-of select="ns4:LastModifiedDate"/>
+                                        </LastModifiedDate>
+                                    </xsl:if>
+                                </Records>
+                            </xsl:for-each>
+                            <Lot>
+                                <xsl:value-of select="$a+1"/>
+                            </Lot>
+                            <xsl:if test="$ReceiveEmployees/ns7:ActivityOutput/Body/root/TransactionId">
+                                <Transactionid>
+                                    <xsl:value-of select="$ReceiveEmployees/ns7:ActivityOutput/Body/root/TransactionId"/>
+                                </Transactionid>
+                            </xsl:if>
+                        </Users>
+                    </Body>
+                </ns7:ActivityInput>
+            </pd:inputBindings>
+        </pd:activity>
+    </pd:group>
+    <pd:activity name="StoreSessionDetails">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>84</pd:x>
+        <pd:y>343</pd:y>
+        <config>
+            <processName>/Services/SFDC_SF/Operations/StoreSessionDetails.process</processName>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="ExecuteQuery">
+        <pd:type>com.tibco.plugin.soap.SOAPSendReceiveActivity</pd:type>
+        <pd:resourceType>ae.activities.SOAPSendReceiveUI</pd:resourceType>
+        <pd:x>189</pd:x>
+        <pd:y>344</pd:y>
+        <config>
+            <timeout>%%ApplicationDetails/SFDC_WS_CONNECTION/Timeout%%</timeout>
+            <soapAttachmentStyle>SwA</soapAttachmentStyle>
+            <timeoutType>Seconds</timeoutType>
+            <service>pfx:SforceService</service>
+            <servicePort>Soap</servicePort>
+            <operation>query</operation>
+            <soapAction/>
+            <endpointURL>%%ApplicationDetails/SFDC_WS_CONNECTION/EndPointURL%%</endpointURL>
+            <authScheme>NONE</authScheme>
+            <useProxy>true</useProxy>
+            <proxyName>/EnterpriseLibrary/SharedResources/Connections/HTTP/ProxyConfiguration.httpProxy</proxyName>
+            <ns0:ssl xmlns:ns0="http://www.tibco.com/xmlns/aemeta/services/2002">
+                <ns0:strongCipherSuitesOnly>true</ns0:strongCipherSuitesOnly>
+                <ns0:cert isRef="true">/SharedResources/Certificates/.folder</ns0:cert>
+            </ns0:ssl>
+        </config>
+        <pd:inputBindings>
+            <inputMessage>
+                <pfx:query>
+                    <pfx:queryString>
+                        <xsl:value-of select="&quot;Select Id, FirstName, Middlename,LastName, Title, Email,Inactive__c, MobilePhone, Phone, Territory_Number__c, Role_Classification__c, Sales_Assoc_ID__c, Sales_Specialty__c, ReportsToId, SAP__c, Account.Class_Description__c, AccountId, Contact.Account.Name,Record_Edit_Status__c, Employee_Non_Employee__c,Lms_required__c,  RecordTypeId,ReportsTo.Email,ReportsTo.Name,Hire_Date__c,Fax,MAILINGSTREET,MAILINGCITY,MAILINGSTATE,MAILINGPOSTALCODE,MAILINGCOUNTRY,CreatedDate, LastModifiedDate  FROM Contact WHERE SAP__c!='' and RecordTypeId='012800000002DoB' and Email != '' and Firstname !='' and Lastname!='' order by LastModifiedDate DESC&quot;"/>
+                    </pfx:queryString>
+                </pfx:query>
+                <ns3:_configData>
+                    <xsl:if test="$StoreSessionDetails/root/EndPointUrl">
+                        <endpointURL>
+                            <xsl:value-of select="$StoreSessionDetails/root/EndPointUrl"/>
+                        </endpointURL>
+                    </xsl:if>
+                </ns3:_configData>
+                <headers>
+                    <Header.SessionHeader>
+                        <pfx:SessionHeader>
+                            <pfx:sessionId>
+                                <xsl:value-of select="$StoreSessionDetails/root/SessionId"/>
+                            </pfx:sessionId>
+                        </pfx:SessionHeader>
+                    </Header.SessionHeader>
+                    <Header.QueryOptions>
+                        <xsl:attribute name="mustUnderstand">
+                            <xsl:value-of select="1"/>
+                        </xsl:attribute>
+                        <pfx:QueryOptions>
+                            <pfx:batchSize>
+                                <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/SFDC_WS_CONNECTION/BatchSize"/>
+                            </pfx:batchSize>
+                        </pfx:QueryOptions>
+                    </Header.QueryOptions>
+                    <Header.MruHeader>
+                        <xsl:attribute name="mustUnderstand">
+                            <xsl:value-of select="1"/>
+                        </xsl:attribute>
+                    </Header.MruHeader>
+                    <Header.PackageVersionHeader>
+                        <xsl:attribute name="mustUnderstand">
+                            <xsl:value-of select="1"/>
+                        </xsl:attribute>
+                    </Header.PackageVersionHeader>
+                </headers>
+            </inputMessage>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SendLog">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>910</pd:x>
+        <pd:y>134</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendLog.process</processName>
+        </config>
+        <pd:inputBindings>
+            <pfx3:LogRequest>
+                <pfx3:Header>
+                    <pfx3:ComponentName>
+                        <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns2:ProcessContext/ProcessId)"/>
+                    </pfx3:ComponentName>
+                    <pfx3:Hostname>
+                        <xsl:value-of select="BW:getHostName()"/>
+                    </pfx3:Hostname>
+                    <pfx3:TransactionDomain>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/SFDC_SF_USER_SEND/TransactionDomain"/>
+                    </pfx3:TransactionDomain>
+                    <pfx3:TransactionType>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/SFDC_SF_USER_SEND/TransactionType"/>
+                    </pfx3:TransactionType>
+                    <pfx3:TransactionID>
+                        <xsl:value-of select="$ReceiveEmployees/ns7:ActivityOutput/Body/root/TransactionId"/>
+                    </pfx3:TransactionID>
+                    <pfx3:CorrelationID>
+                        <xsl:value-of select="current-date()"/>
+                    </pfx3:CorrelationID>
+                    <pfx3:InterfaceID>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/SFDC_SF_USER_SEND/InterfaceID"/>
+                    </pfx3:InterfaceID>
+                    <pfx3:Message>
+                        <xsl:value-of select="concat($ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:size, ' PerNR User Records Fetched From SFDC')"/>
+                    </pfx3:Message>
+                </pfx3:Header>
+                <pfx3:Category>
+                    <xsl:value-of select="'FULL_LOAD'"/>
+                </pfx3:Category>
+                <pfx3:Status>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/Status/IN-PROGRESS"/>
+                </pfx3:Status>
+                <pfx3:Audit>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/AuditFlag"/>
+                </pfx3:Audit>
+                <pfx3:LogLevel>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/Environment/CommonLE/LOGGING_LEVEL_NUM_INFO"/>
+                </pfx3:LogLevel>
+            </pfx3:LogRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="CatchUnknownException">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>1115</pd:x>
+        <pd:y>326</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="SendUnknownExceptions">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>1115</pd:x>
+        <pd:y>210</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendException.process</processName>
+        </config>
+        <pd:inputBindings>
+            <pfx3:ExceptionRequest>
+                <pfx3:Header>
+                    <pfx3:ComponentName>
+                        <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns2:ProcessContext/ProcessId)"/>
+                    </pfx3:ComponentName>
+                    <pfx3:Hostname>
+                        <xsl:value-of select="BW:getHostName()"/>
+                    </pfx3:Hostname>
+                    <pfx3:TransactionDomain>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/SFDC_SF_USER_SEND/TransactionDomain"/>
+                    </pfx3:TransactionDomain>
+                    <pfx3:TransactionType>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/SFDC_SF_USER_SEND/TransactionType"/>
+                    </pfx3:TransactionType>
+                    <xsl:choose xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                        <xsl:when test="tib:trim($ReceiveEmployees/ns7:ActivityOutput/JMSHeaders/ns7:JMSCorrelationID)!=''">
+                            <pfx3:TransactionID>
+                                <xsl:value-of select="$ReceiveEmployees/ns7:ActivityOutput/JMSHeaders/ns7:JMSCorrelationID"/>
+                            </pfx3:TransactionID>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <pfx3:TransactionID>
+                                <xsl:value-of select="tib:format-dateTime('ddMMyyHHmmss', current-dateTime())"/>
+                            </pfx3:TransactionID>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <pfx3:CorrelationID>
+                        <xsl:value-of select="current-date()"/>
+                    </pfx3:CorrelationID>
+                    <pfx3:InterfaceID>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/SFDC_SF_USER_SEND/InterfaceID"/>
+                    </pfx3:InterfaceID>
+                    <pfx3:Message>
+                        <xsl:value-of select="'Error Fetching PerNR User Data from SFDC'"/>
+                    </pfx3:Message>
+                    <pfx3:Transaction>
+                        <xsl:value-of select="tib:render-xml($CatchUnknownException)"/>
+                    </pfx3:Transaction>
+                </pfx3:Header>
+                <pfx3:ExceptionCode>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/ErrorCodes/Technical/TECHNICAL_777"/>
+                </pfx3:ExceptionCode>
+                <pfx3:StackTrace>
+                    <xsl:value-of select="concat(&quot;Error Message: &quot;, $_error/ns2:ErrorReport/Msg, &quot;&#xA;&quot;, &quot;  BW MsgCode: &quot;, &#xA;$_error/ns2:ErrorReport/MsgCode, &quot;&#xA;&quot;,&#xA;&quot;Stack Trace: &quot;, $_error/ns2:ErrorReport/StackTrace, &quot;&#xA;&quot;,&#xA;&quot; Process Stack: &quot;, $_error/ns2:ErrorReport/ProcessStack)"/>
+                </pfx3:StackTrace>
+            </pfx3:ExceptionRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="TriggerSendUserFileToSF">
+        <pd:type>com.tibco.plugin.jms.JMSQueueSendActivity</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueSendActivity</pd:resourceType>
+        <pd:x>1016</pd:x>
+        <pd:y>132</pd:y>
+        <config>
+            <PermittedMessageType>Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+                <destination>%%ApplicationDetails/SFDC_SF_USER_SEND/Queue/TriggerSendFileQueue%%</destination>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/EnterpriseLibrary/SharedResources/Connections/JMS/TIBCO_JMS_Connection.sharedjmscon</ConnectionReference>
+        </config>
+        <pd:inputBindings>
+            <ns7:ActivityInput>
+                <Body>
+                    <xsl:value-of select="$ReceiveEmployees/ns7:ActivityOutput/Body/root/TransactionId"/>
+                </Body>
+            </ns7:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SendEmployeeRecord1">
+        <pd:type>com.tibco.plugin.jms.JMSQueueRequestReplyActivity</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueRequestReplyActivity</pd:resourceType>
+        <pd:x>587</pd:x>
+        <pd:y>346</pd:y>
+        <config>
+            <PermittedMessageType>XML Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+                <destination>%%ApplicationDetails/SFDC_SF_USER_SEND/Queue/WritePerNRFileRequestQueue%%</destination>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/EnterpriseLibrary/SharedResources/Connections/JMS/TIBCO_JMS_Connection.sharedjmscon</ConnectionReference>
+            <InDataxsdString>
+                <xsd:element name="Users">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="Records" minOccurs="0" maxOccurs="unbounded">
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element name="ID" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="FirstName" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="MiddleName" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="LastName" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Title" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Email" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Inactive__c" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="MobilePhone" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Phone" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Territory_Number__c" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Role_Classification__c" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Sales_Assoc_ID__c" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Sales_Specialty__c" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="ReportsToId" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="SAP__c" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Class_Description__c" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="AccountId" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="AccountName" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Record_Edit_Status__c" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Employee_Non_Employee__c" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Lms_required__c" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="RecordTypeId" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="ReportsToEmail" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Hire_Date__c" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Fax" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="MAILINGSTREET" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="MAILINGCITY" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="MAILINGSTATE" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="MAILINGPOSTALCODE" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="MAILINGCOUNTRY" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="CreatedDate" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="LastModifiedDate" type="xsd:string" minOccurs="0"/>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                            <xsd:element name="Lot" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Transactionid" type="xsd:string" minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </InDataxsdString>
+            <OutDataxsdString>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="lot" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="status" type="xsd:string" minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </OutDataxsdString>
+        </config>
+        <pd:coercions>
+            <pd:coercion xpath="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records" type="ns4:Contact"/>
+        </pd:coercions>
+        <pd:inputBindings>
+            <ns7:ActivityInput>
+                <Body>
+                    <Users>
+                        <xsl:for-each select="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records">
+                            <Records>
+                                <ID>
+                                    <xsl:value-of select="ns4:Id"/>
+                                </ID>
+                                <xsl:if test="ns4:FirstName">
+                                    <FirstName>
+                                        <xsl:value-of select="ns4:FirstName"/>
+                                    </FirstName>
+                                </xsl:if>
+                                <xsl:if test="ns4:MiddleName">
+                                    <MiddleName>
+                                        <xsl:value-of select="ns4:MiddleName"/>
+                                    </MiddleName>
+                                </xsl:if>
+                                <xsl:if test="ns4:LastName">
+                                    <LastName>
+                                        <xsl:value-of select="ns4:LastName"/>
+                                    </LastName>
+                                </xsl:if>
+                                <xsl:if test="ns4:Title">
+                                    <Title>
+                                        <xsl:value-of select="ns4:Title"/>
+                                    </Title>
+                                </xsl:if>
+                                <xsl:if test="ns4:Email">
+                                    <Email>
+                                        <xsl:value-of select="ns4:Email"/>
+                                    </Email>
+                                </xsl:if>
+                                <xsl:if test="ns4:Inactive__c">
+                                    <Inactive__c>
+                                        <xsl:value-of select="ns4:Inactive__c"/>
+                                    </Inactive__c>
+                                </xsl:if>
+                                <xsl:if test="ns4:MobilePhone">
+                                    <MobilePhone>
+                                        <xsl:value-of select="ns4:MobilePhone"/>
+                                    </MobilePhone>
+                                </xsl:if>
+                                <xsl:if test="ns4:Phone">
+                                    <Phone>
+                                        <xsl:value-of select="ns4:Phone"/>
+                                    </Phone>
+                                </xsl:if>
+                                <xsl:if test="ns4:Territory_Number__c">
+                                    <Territory_Number__c>
+                                        <xsl:value-of select="ns4:Territory_Number__c"/>
+                                    </Territory_Number__c>
+                                </xsl:if>
+                                <xsl:if test="ns4:Role_Classification__c">
+                                    <Role_Classification__c>
+                                        <xsl:value-of select="ns4:Role_Classification__c"/>
+                                    </Role_Classification__c>
+                                </xsl:if>
+                                <xsl:if test="ns4:Sales_Assoc_ID__c">
+                                    <Sales_Assoc_ID__c>
+                                        <xsl:value-of select="ns4:Sales_Assoc_ID__c"/>
+                                    </Sales_Assoc_ID__c>
+                                </xsl:if>
+                                <xsl:if test="ns4:Sales_Specialty__c">
+                                    <Sales_Specialty__c>
+                                        <xsl:value-of select="ns4:Sales_Specialty__c"/>
+                                    </Sales_Specialty__c>
+                                </xsl:if>
+                                <xsl:if test="ns4:ReportsToId">
+                                    <ReportsToId>
+                                        <xsl:value-of select="ns4:ReportsToId"/>
+                                    </ReportsToId>
+                                </xsl:if>
+                                <xsl:if test="ns4:SAP__c">
+                                    <SAP__c>
+                                        <xsl:value-of select="ns4:SAP__c"/>
+                                    </SAP__c>
+                                </xsl:if>
+                                <xsl:if test="ns4:Account/ns4:Class_Description__c">
+                                    <Class_Description__c>
+                                        <xsl:value-of select="ns4:Account/ns4:Class_Description__c"/>
+                                    </Class_Description__c>
+                                </xsl:if>
+                                <xsl:if test="ns4:AccountId">
+                                    <AccountId>
+                                        <xsl:value-of select="ns4:AccountId"/>
+                                    </AccountId>
+                                </xsl:if>
+                                <xsl:if test="ns4:Account/ns4:Name">
+                                    <AccountName>
+                                        <xsl:value-of select="ns4:Account/ns4:Name"/>
+                                    </AccountName>
+                                </xsl:if>
+                                <xsl:if test="ns4:Record_Edit_Status__c">
+                                    <Record_Edit_Status__c>
+                                        <xsl:value-of select="ns4:Record_Edit_Status__c"/>
+                                    </Record_Edit_Status__c>
+                                </xsl:if>
+                                <xsl:if test="ns4:Employee_Non_Employee__c">
+                                    <Employee_Non_Employee__c>
+                                        <xsl:value-of select="ns4:Employee_Non_Employee__c"/>
+                                    </Employee_Non_Employee__c>
+                                </xsl:if>
+                                <xsl:if test="ns4:LMS_Required__c">
+                                    <Lms_required__c>
+                                        <xsl:value-of select="ns4:LMS_Required__c"/>
+                                    </Lms_required__c>
+                                </xsl:if>
+                                <xsl:if test="ns4:RecordTypeId">
+                                    <RecordTypeId>
+                                        <xsl:value-of select="ns4:RecordTypeId"/>
+                                    </RecordTypeId>
+                                </xsl:if>
+                                <ReportsToEmail>
+                                    <xsl:value-of select="ns4:ReportsTo/ns4:Email"/>
+                                </ReportsToEmail>
+                                <xsl:if test="ns4:Hire_Date__c">
+                                    <Hire_Date__c>
+                                        <xsl:value-of select="ns4:Hire_Date__c"/>
+                                    </Hire_Date__c>
+                                </xsl:if>
+                                <xsl:if test="ns4:Fax">
+                                    <Fax>
+                                        <xsl:value-of select="ns4:Fax"/>
+                                    </Fax>
+                                </xsl:if>
+                                <xsl:if test="ns4:MailingStreet">
+                                    <MAILINGSTREET>
+                                        <xsl:value-of select="ns4:MailingStreet"/>
+                                    </MAILINGSTREET>
+                                </xsl:if>
+                                <xsl:if test="ns4:MailingCity">
+                                    <MAILINGCITY>
+                                        <xsl:value-of select="ns4:MailingCity"/>
+                                    </MAILINGCITY>
+                                </xsl:if>
+                                <xsl:if test="ns4:MailingState">
+                                    <MAILINGSTATE>
+                                        <xsl:value-of select="ns4:MailingState"/>
+                                    </MAILINGSTATE>
+                                </xsl:if>
+                                <xsl:if test="ns4:MailingPostalCode">
+                                    <MAILINGPOSTALCODE>
+                                        <xsl:value-of select="ns4:MailingPostalCode"/>
+                                    </MAILINGPOSTALCODE>
+                                </xsl:if>
+                                <xsl:if test="ns4:MailingCountry">
+                                    <MAILINGCOUNTRY>
+                                        <xsl:value-of select="ns4:MailingCountry"/>
+                                    </MAILINGCOUNTRY>
+                                </xsl:if>
+                                <xsl:if test="ns4:CreatedDate">
+                                    <CreatedDate>
+                                        <xsl:value-of select="ns4:CreatedDate"/>
+                                    </CreatedDate>
+                                </xsl:if>
+                                <xsl:if test="ns4:LastModifiedDate">
+                                    <LastModifiedDate>
+                                        <xsl:value-of select="ns4:LastModifiedDate"/>
+                                    </LastModifiedDate>
+                                </xsl:if>
+                            </Records>
+                        </xsl:for-each>
+                        <Lot>
+                            <xsl:value-of select="1"/>
+                        </Lot>
+                        <xsl:if test="$ReceiveEmployees/ns7:ActivityOutput/Body/root/TransactionId">
+                            <Transactionid>
+                                <xsl:value-of select="$ReceiveEmployees/ns7:ActivityOutput/Body/root/TransactionId"/>
+                            </Transactionid>
+                        </xsl:if>
+                    </Users>
+                </Body>
+            </ns7:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Null-1">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>914</pd:x>
+        <pd:y>351</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Trigger SAPHR Load">
+        <pd:type>com.tibco.plugin.jms.JMSQueueSendActivity</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueSendActivity</pd:resourceType>
+        <pd:x>320</pd:x>
+        <pd:y>70</pd:y>
+        <config>
+            <PermittedMessageType>XML Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+                <destination>%%ApplicationDetails/SFDC_SF_USER_SEND/Queue/CompareSFDCSAPHRExtractQueue%%</destination>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/EnterpriseLibrary/SharedResources/Connections/JMS/TIBCO_JMS_Connection.sharedjmscon</ConnectionReference>
+            <InDataxsdString>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="TransactionId" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Filename" type="xsd:string" minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </InDataxsdString>
+        </config>
+        <pd:inputBindings>
+            <ns1:ActivityInput xmlns:ns1="http://www.tibco.com/namespaces/tnt/plugins/jms">
+                <Body>
+                    <root>
+                        <TransactionId>
+                            <xsl:value-of select="$ReceiveEmployees/ns7:ActivityOutput/Body/root/TransactionId"/>
+                        </TransactionId>
+                        <Filename>
+                            <xsl:value-of select="$ReceiveEmployees/ns7:ActivityOutput/Body/root/Filename"/>
+                        </Filename>
+                    </root>
+                </Body>
+            </ns1:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Null">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>192</pd:x>
+        <pd:y>463</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:group name="Group (1)">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>271</pd:x>
+        <pd:y>278</pd:y>
+        <pd:width>164</pd:width>
+        <pd:height>140</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>inputLoop</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:over>$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records</pd:over>
+            <pd:iterationElementSlot>Id</pd:iterationElementSlot>
+            <pd:indexSlot>i</pd:indexSlot>
+            <pd:activityOutputName/>
+            <pd:accumulateOutput>false</pd:accumulateOutput>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>ExecuteQuery-1</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>ExecuteQuery-1</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="ExecuteQuery-1">
+            <pd:type>com.tibco.plugin.soap.SOAPSendReceiveActivity</pd:type>
+            <pd:resourceType>ae.activities.SOAPSendReceiveUI</pd:resourceType>
+            <pd:x>342</pd:x>
+            <pd:y>342</pd:y>
+            <config>
+                <timeout>%%ApplicationDetails/SFDC_WS_CONNECTION/Timeout%%</timeout>
+                <soapAttachmentStyle>SwA</soapAttachmentStyle>
+                <timeoutType>Seconds</timeoutType>
+                <service>pfx:SforceService</service>
+                <servicePort>Soap</servicePort>
+                <operation>query</operation>
+                <soapAction/>
+                <endpointURL>%%ApplicationDetails/SFDC_WS_CONNECTION/EndPointURL%%</endpointURL>
+                <authScheme>NONE</authScheme>
+                <useProxy>true</useProxy>
+                <proxyName>/EnterpriseLibrary/SharedResources/Connections/HTTP/ProxyConfiguration.httpProxy</proxyName>
+                <ns0:ssl xmlns:ns0="http://www.tibco.com/xmlns/aemeta/services/2002">
+                    <ns0:strongCipherSuitesOnly>true</ns0:strongCipherSuitesOnly>
+                    <ns0:cert isRef="true">/SharedResources/Certificates/.folder</ns0:cert>
+                </ns0:ssl>
+            </config>
+            <pd:inputBindings>
+                <inputMessage>
+                    <pfx:query>
+                        <pfx:queryString>
+                            <xsl:value-of select="concat(&quot;Select Id, FirstName, Middlename,LastName, Title, Email,Inactive__c, MobilePhone, Phone, Territory_Number__c, Role_Classification__c, Sales_Assoc_ID__c, Sales_Specialty__c, ReportsToId, SAP__c, Account.Class_Description__c, AccountId, Contact.Account.Name,Record_Edit_Status__c, Employee_Non_Employee__c,Lms_required__c,  RecordTypeId,ReportsTo.Email,ReportsTo.Name,Hire_Date__c,Fax,MAILINGSTREET,MAILINGCITY,MAILINGSTATE,MAILINGPOSTALCODE,MAILINGCOUNTRY,CreatedDate, LastModifiedDate  FROM Contact WHERE  LastModifiedDate=LAST_N_DAYS:&quot;,$_globalVariables/ns1:GlobalVariables/ApplicationDetails/Mapping/N_Days,&quot; and Id=&quot;,$Id/pfx:records/ns4:Id,&quot; order by LastModifiedDate DESC&quot;)"/>
+                        </pfx:queryString>
+                    </pfx:query>
+                    <ns3:_configData>
+                        <xsl:if test="$StoreSessionDetails/root/EndPointUrl">
+                            <endpointURL>
+                                <xsl:value-of select="$StoreSessionDetails/root/EndPointUrl"/>
+                            </endpointURL>
+                        </xsl:if>
+                    </ns3:_configData>
+                    <headers>
+                        <Header.SessionHeader>
+                            <pfx:SessionHeader>
+                                <pfx:sessionId>
+                                    <xsl:value-of select="$StoreSessionDetails/root/SessionId"/>
+                                </pfx:sessionId>
+                            </pfx:SessionHeader>
+                        </Header.SessionHeader>
+                        <Header.QueryOptions>
+                            <xsl:attribute name="mustUnderstand">
+                                <xsl:value-of select="1"/>
+                            </xsl:attribute>
+                        </Header.QueryOptions>
+                        <Header.MruHeader>
+                            <xsl:attribute xmlns:xsl="http://www.w3.org/1999/XSL/Transform" name="mustUnderstand">
+                                <xsl:value-of select="1"/>
+                            </xsl:attribute>
+                        </Header.MruHeader>
+                        <Header.PackageVersionHeader>
+                            <xsl:attribute xmlns:xsl="http://www.w3.org/1999/XSL/Transform" name="mustUnderstand">
+                                <xsl:value-of select="1"/>
+                            </xsl:attribute>
+                        </Header.PackageVersionHeader>
+                    </headers>
+                </inputMessage>
+            </pd:inputBindings>
+        </pd:activity>
+    </pd:group>
+    <pd:transition>
+        <pd:from>ReceiveEmployees</pd:from>
+        <pd:to>StoreSessionDetails</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>StoreSessionDetails</pd:from>
+        <pd:to>ExecuteQuery</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>ExecuteQuery</pd:from>
+        <pd:to>Null</pd:to>
+        <pd:xpathDescription/>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>Null-1</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>CatchUnknownException</pd:from>
+        <pd:to>SendUnknownExceptions</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SendUnknownExceptions</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SendLog</pd:from>
+        <pd:to>TriggerSendUserFileToSF</pd:to>
+        <pd:xpathDescription/>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>TriggerSendUserFileToSF</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SendEmployeeRecord1</pd:from>
+        <pd:to>Group</pd:to>
+        <pd:xpathDescription>More Records</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:done!='true'</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SendEmployeeRecord1</pd:from>
+        <pd:to>Null-1</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null-1</pd:from>
+        <pd:to>SendLog</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Trigger SAPHR Load</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Straight</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null</pd:from>
+        <pd:to>Null-1</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>ExecuteQuery</pd:from>
+        <pd:to>Group (1)</pd:to>
+        <pd:xpathDescription>Record Exist</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>count($ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records)&gt;=1</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group (1)</pd:from>
+        <pd:to>Trigger SAPHR Load</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group (1)</pd:from>
+        <pd:to>SendEmployeeRecord1</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>count($ExecuteQuery-1/outputMessage/pfx:queryResponse/pfx:result/pfx:records)&gt;=1</pd:xpath>
+    </pd:transition>
+    <pd:label>
+        <pd:name>Label</pd:name>
+        <pd:description>Process is triggered from GetIndirectEmployeesSFDC.
+Process retrieves all Employees from SFDC with SAP ID(Pernr) for records modified from yesterday to today.
+The records are sent to WriteEmpDataToFile Process and trigger SendUserFileToSF
+</pd:description>
+        <pd:x>695</pd:x>
+        <pd:y>24</pd:y>
+        <pd:width>639</pd:width>
+        <pd:height>46</pd:height>
+        <pd:fontColor>-16777216</pd:fontColor>
+        <pd:color>-1</pd:color>
+        <pd:type>solid</pd:type>
+        <pd:thickness>0</pd:thickness>
+        <pd:fade>true</pd:fade>
+    </pd:label>
+</pd:ProcessDefinition>

@@ -1,0 +1,610 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/namespaces/tnt/plugins/json" xmlns:Zimmer="java://CustomFunctions" xmlns:ns12="http://www.tibco.com/CommonLE/Client/Schema/ClientInterface.xsd" xmlns:pfx="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:ns2="http://www.tibco.com/pe/DeployedVarsType" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="http://www.tibco.com/pe/EngineTypes" xmlns:ns4="http://schemas.tibco.com/bw/plugins/xml/5.0/RESTJSONExceptions" xmlns:ns3="http://www.tibco.com/CommonLE2/namespace/Public/Common/RequestHeader.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx4="http://www.zimmer.com/SendEmailSchema_v_1_0.xsd" xmlns:pfx3="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:pfx2="http://www.tibco.com/CommonLE2/namespace/Public/Exception/ExceptionRequest.xsd">
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Exception/ExceptionRequest.xsd" schemaLocation="/CLE/SharedResources/Schemas/Public/Exception/ExceptionRequest.xsd"/>
+    <pd:name>Services/Operations/triggerInterface.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="UserId" type="xsd:string"/>
+                    <xsd:element name="Pass" type="xsd:string"/>
+                    <xsd:element name="InterfaceId" type="xsd:string"/>
+                    <xsd:element name="Msg" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>28</pd:startX>
+    <pd:startY>87</pd:startY>
+    <pd:returnBindings>
+        <root>
+            <xsl:choose>
+                <xsl:when test="tib:trim($Render-error-message-into-JSON/ns:ActivityOutputClass/jsonString)!=''">
+                    <RESPONSE>
+                        <xsl:value-of select="$Render-error-message-into-JSON/ns:ActivityOutputClass/jsonString"/>
+                    </RESPONSE>
+                </xsl:when>
+                <xsl:otherwise>
+                    <RESPONSE>
+                        <xsl:value-of select="$Render-success-message-into-JSON/ns:ActivityOutputClass/jsonString"/>
+                    </RESPONSE>
+                </xsl:otherwise>
+            </xsl:choose>
+        </root>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="RESPONSE" type="xsd:string" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>1282</pd:endX>
+    <pd:endY>85</pd:endY>
+    <pd:errorSchemas>
+        <AuthenticationErrorSchema ref="pfx2:ExceptionRequest"/>
+    </pd:errorSchemas>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1473175450500</pd:targetNamespace>
+    <pd:activity name="Invoke AD Authentication Service">
+        <pd:type>com.tibco.plugin.json.activities.RestActivity</pd:type>
+        <pd:resourceType>ae.activities.RestActivity</pd:resourceType>
+        <pd:x>315</pd:x>
+        <pd:y>105</pd:y>
+        <config>
+            <enableProtocolUI>None</enableProtocolUI>
+            <restMethodUI>%%ApplicationDetails/InvokeParam/Method%%</restMethodUI>
+            <restResponseType>%%ApplicationDetails/InvokeParam/ResponseType%%</restResponseType>
+            <authChoiceUI>No Authentication</authChoiceUI>
+            <WADLPaths/>
+            <WADLBaseURL/>
+            <restMethodIDUI/>
+            <restURI>%%ApplicationDetails/InvokeParam/ResourceURI%%</restURI>
+            <restInputReferNode>
+                <xsd:element name="Parameters">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="Query" minOccurs="0">
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element name="UserId" type="xsd:string"/>
+                                        <xsd:element name="Password" type="xsd:normalizedString"/>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                            <xsd:element name="Header" minOccurs="0">
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element name="param" type="xsd:string" minOccurs="0"/>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                            <xsd:element name="Body" minOccurs="0">
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element name="Form" minOccurs="0">
+                                            <xsd:complexType>
+                                                <xsd:sequence>
+                                                    <xsd:element name="param" type="xsd:string" minOccurs="0"/>
+                                                </xsd:sequence>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                        <xsd:element name="Text" minOccurs="0">
+                                            <xsd:complexType>
+                                                <xsd:sequence>
+                                                    <xsd:element name="type" type="xsd:string" minOccurs="0"/>
+                                                    <xsd:element name="content" type="xsd:string" minOccurs="0"/>
+                                                </xsd:sequence>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                        <xsd:element name="Binary" minOccurs="0">
+                                            <xsd:complexType>
+                                                <xsd:sequence>
+                                                    <xsd:element name="type" type="xsd:string" minOccurs="0"/>
+                                                    <xsd:element name="content" type="xsd:base64Binary" minOccurs="0"/>
+                                                </xsd:sequence>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                        <xsd:element name="Multipart" minOccurs="0" maxOccurs="unbounded">
+                                            <xsd:complexType>
+                                                <xsd:sequence>
+                                                    <xsd:element name="content-disposition" type="xsd:string" minOccurs="0"/>
+                                                    <xsd:element name="name" type="xsd:string" minOccurs="0"/>
+                                                    <xsd:element name="filename" type="xsd:string" minOccurs="0"/>
+                                                    <xsd:element name="content-type" type="xsd:string" minOccurs="0"/>
+                                                    <xsd:element name="content-id" type="xsd:string" minOccurs="0"/>
+                                                    <xsd:element name="content" minOccurs="0">
+                                                        <xsd:complexType>
+                                                            <xsd:choice>
+                                                                <xsd:element name="binary" type="xsd:base64Binary"/>
+                                                                <xsd:element name="text" type="xsd:string"/>
+                                                                <xsd:element name="fileName" type="xsd:string"/>
+                                                            </xsd:choice>
+                                                        </xsd:complexType>
+                                                    </xsd:element>
+                                                </xsd:sequence>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </restInputReferNode>
+            <restOutputReferNode>
+                <xsd:element name="header">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="Server" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Location" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Allow" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Date" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Set-Cookie" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Pragma" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Content-Type" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Content-Length" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Content-Encoding" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Content-Range" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Last-Modifie" type="xsd:string" minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </restOutputReferNode>
+        </config>
+        <pd:inputBindings>
+            <ns:ActivityInput>
+                <ns:Parameters>
+                    <Query>
+                        <UserId>
+                            <xsl:value-of select="$Start/root/UserId"/>
+                        </UserId>
+                        <Password>
+                            <xsl:value-of select="$Start/root/Pass"/>
+                        </Password>
+                    </Query>
+                </ns:Parameters>
+            </ns:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SetCLEHeader">
+        <pd:type>com.tibco.pe.core.SetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.setSharedVariable</pd:resourceType>
+        <pd:x>178</pd:x>
+        <pd:y>88</pd:y>
+        <config>
+            <variableConfig>/CLE/Interface/SharedVariables/CLEHeader.jobsharedvariable</variableConfig>
+            <showResult>true</showResult>
+        </config>
+        <pd:inputBindings>
+            <ns12:Header>
+                <ns12:ComponentName>
+                    <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns1:ProcessContext/ProcessId)"/>
+                </ns12:ComponentName>
+                <ns12:Hostname>
+                    <xsl:value-of select="BW:getHostName()"/>
+                </ns12:Hostname>
+                <ns12:TransactionDomain>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ApplicationDetails/Common/TransactionDomain"/>
+                </ns12:TransactionDomain>
+                <ns12:TransactionType>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ApplicationDetails/Common/TransactionType"/>
+                </ns12:TransactionType>
+                <ns12:TransactionID>
+                    <xsl:value-of select="tib:format-dateTime('yyyyMMdd-HHmmss',current-dateTime())"/>
+                </ns12:TransactionID>
+                <ns12:CorrelationID>
+                    <xsl:value-of select="tib:format-dateTime('yyyyMMdd-HHmmss',current-dateTime())"/>
+                </ns12:CorrelationID>
+                <ns12:InterfaceID>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ApplicationDetails/Common/InterfaceId"/>
+                </ns12:InterfaceID>
+            </ns12:Header>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="GetQueueName">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>510</pd:x>
+        <pd:y>90</pd:y>
+        <config>
+            <processName>/Services/Operations/GetQueueName.process</processName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <InterfaceId>
+                    <xsl:value-of select="$Start/root/InterfaceId"/>
+                </InterfaceId>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Trigger Message on Queue">
+        <pd:type>com.tibco.plugin.jms.JMSQueueSendActivity</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueSendActivity</pd:resourceType>
+        <pd:x>675</pd:x>
+        <pd:y>100</pd:y>
+        <config>
+            <PermittedMessageType>Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/EnterpriseLibrary/SharedResources/Connections/JMS/TIBCO_JMS_Connection.sharedjmscon</ConnectionReference>
+        </config>
+        <pd:inputBindings>
+            <pfx:ActivityInput>
+                <destinationQueue>
+                    <xsl:value-of select="$GetQueueName/root/Queue"/>
+                </destinationQueue>
+                <Body>
+                    <xsl:value-of select="$Start/root/Msg"/>
+                </Body>
+            </pfx:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="CatchUknownException">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>675</pd:x>
+        <pd:y>248</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="SendExceptiontoCLE">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>807</pd:x>
+        <pd:y>247</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendException.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns12:ExceptionRequest>
+                <ns12:Header>
+                    <xsl:if test="$_error/ns1:ErrorReport/Msg">
+                        <ns12:Message>
+                            <xsl:value-of select="$_error/ns1:ErrorReport/Msg"/>
+                        </ns12:Message>
+                    </xsl:if>
+                    <ns12:Transaction>
+                        <xsl:value-of select="tib:render-xml($CatchUknownException/exceptiondata)"/>
+                    </ns12:Transaction>
+                </ns12:Header>
+                <ns12:ExceptionCode>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ApplicationDetails/ExceptionCode/TECHNICAL-777"/>
+                </ns12:ExceptionCode>
+                <ns12:StackTrace>
+                    <xsl:value-of select="concat(&quot;Error Message: &quot;, $_error/ns1:ErrorReport/Msg, &quot;  BW MsgCode: &quot;, &#xA;$_error/ns1:ErrorReport/MsgCode, &quot;&#xA;&quot;,&#xA;&quot;Stack Trace: &quot;, $_error/ns1:ErrorReport/StackTrace, &quot;&#xA;&quot;,&#xA;&quot; Process Stack: &quot;, $_error/ns1:ErrorReport/ProcessStack)"/>
+                </ns12:StackTrace>
+            </ns12:ExceptionRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Log Audit details">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>829</pd:x>
+        <pd:y>93</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendLog.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns12:LogRequest>
+                <ns12:Header>
+                    <ns12:Message>
+                        <xsl:value-of select="'MESSAGE SENT TO QUEUE'"/>
+                    </ns12:Message>
+                    <ns12:Transaction>
+                        <xsl:value-of select="concat('UserId:  ',$Start/root/UserId,'   InterfaceId:   ',$Start/root/InterfaceId,'   Message:    ',$Start/root/Msg,'   Queue:   ',$GetQueueName/root/Queue)"/>
+                    </ns12:Transaction>
+                </ns12:Header>
+                <ns12:Status>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/CLE/Status/COMPLETED"/>
+                </ns12:Status>
+                <ns12:Audit>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ApplicationDetails/AuditFlag"/>
+                </ns12:Audit>
+                <ns12:LogLevel>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/CLE/Environment/CommonLE/LOGGING_LEVEL_NUM_INFO"/>
+                </ns12:LogLevel>
+            </ns12:LogRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Generate Error on incorrect credentials">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>317</pd:x>
+        <pd:y>257</pd:y>
+        <config>
+            <faultName>AuthenticationErrorSchema</faultName>
+        </config>
+        <pd:inputBindings>
+            <pfx3:ActivityInput>
+                <data>
+                    <pfx2:ExceptionRequest>
+                        <ns3:Header>
+                            <ns3:ApplicationID>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/CLE/Environment/CommonLE/ApplicationID"/>
+                            </ns3:ApplicationID>
+                            <ns3:Timestamp>
+                                <xsl:value-of select="current-dateTime()"/>
+                            </ns3:Timestamp>
+                            <ns3:InterfaceID>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ApplicationDetails/Common/InterfaceId"/>
+                            </ns3:InterfaceID>
+                            <ns3:Message>
+                                <xsl:value-of select="'UserName - Password did not match'"/>
+                            </ns3:Message>
+                            <ns3:Transaction>
+                                <xsl:value-of select="$Start/root/UserId"/>
+                            </ns3:Transaction>
+                        </ns3:Header>
+                        <ExceptionCode>
+                            <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ApplicationDetails/ExceptionCode/TECHNICAL-777"/>
+                        </ExceptionCode>
+                    </pfx2:ExceptionRequest>
+                </data>
+            </pfx3:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Render error message into JSON">
+        <pd:type>com.tibco.plugin.json.activities.JSONRenderActivity</pd:type>
+        <pd:resourceType>ae.activities.JSONRenderActivity</pd:resourceType>
+        <pd:x>1081</pd:x>
+        <pd:y>249</pd:y>
+        <config>
+            <SchemaType>xsdType</SchemaType>
+            <BadgerfishCheck>false</BadgerfishCheck>
+            <removeRootElementForInput>true</removeRootElementForInput>
+            <ActivityInputEditor>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="ERROR" type="xsd:string" minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </ActivityInputEditor>
+        </config>
+        <pd:inputBindings>
+            <ns:ActivityInputClass>
+                <root>
+                    <xsl:choose>
+                        <xsl:when test="exists($CatchKnownException/pfx2:ExceptionRequest/ns3:Header/ns3:Message) and tib:trim($CatchKnownException/pfx2:ExceptionRequest/ns3:Header/ns3:Message)!=''">
+                            <xsl:if test="$CatchKnownException/pfx2:ExceptionRequest/ns3:Header/ns3:Message">
+                                <ERROR>
+                                    <xsl:value-of select="$CatchKnownException/pfx2:ExceptionRequest/ns3:Header/ns3:Message"/>
+                                </ERROR>
+                            </xsl:if>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <ERROR>
+                                <xsl:value-of select="$CatchUknownException/exceptiondata/*"/>
+                            </ERROR>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </root>
+            </ns:ActivityInputClass>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Render success message into JSON">
+        <pd:type>com.tibco.plugin.json.activities.JSONRenderActivity</pd:type>
+        <pd:resourceType>ae.activities.JSONRenderActivity</pd:resourceType>
+        <pd:x>990</pd:x>
+        <pd:y>100</pd:y>
+        <config>
+            <SchemaType>xsdType</SchemaType>
+            <BadgerfishCheck>false</BadgerfishCheck>
+            <removeRootElementForInput>true</removeRootElementForInput>
+            <ActivityInputEditor>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="SUCCESS" type="xsd:string"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </ActivityInputEditor>
+        </config>
+        <pd:inputBindings>
+            <ns:ActivityInputClass>
+                <root>
+                    <SUCCESS>
+                        <xsl:value-of select="'MESSAGE SENT TO QUEUE'"/>
+                    </SUCCESS>
+                </root>
+            </ns:ActivityInputClass>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="CatchKnownException">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>676</pd:x>
+        <pd:y>343</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=ExceptionRequest namespace=http://www.tibco.com/CommonLE2/namespace/Public/Exception/ExceptionRequest.xsd</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="SendExceptiontoCLE-1">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>814</pd:x>
+        <pd:y>345</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendException.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns12:ExceptionRequest>
+                <ns12:Header>
+                    <xsl:if test="$CatchKnownException/pfx2:ExceptionRequest/ns3:Header/ns3:InterfaceID">
+                        <ns12:InterfaceID>
+                            <xsl:value-of select="$CatchKnownException/pfx2:ExceptionRequest/ns3:Header/ns3:InterfaceID"/>
+                        </ns12:InterfaceID>
+                    </xsl:if>
+                    <xsl:if test="$CatchKnownException/pfx2:ExceptionRequest/ns3:Header/ns3:Message">
+                        <ns12:Message>
+                            <xsl:value-of select="$CatchKnownException/pfx2:ExceptionRequest/ns3:Header/ns3:Message"/>
+                        </ns12:Message>
+                    </xsl:if>
+                </ns12:Header>
+                <ns12:ExceptionCode>
+                    <xsl:value-of select="$CatchKnownException/pfx2:ExceptionRequest/ExceptionCode"/>
+                </ns12:ExceptionCode>
+                <xsl:if test="$CatchKnownException/pfx2:ExceptionRequest/StackTrace">
+                    <ns12:StackTrace>
+                        <xsl:value-of select="$CatchKnownException/pfx2:ExceptionRequest/StackTrace"/>
+                    </ns12:StackTrace>
+                </xsl:if>
+            </ns12:ExceptionRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SendMailNotification">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>1130</pd:x>
+        <pd:y>89</pd:y>
+        <config>
+            <processName>/EnterpriseLibrary/Services/SendEmail/SendEmailNotification.process</processName>
+        </config>
+        <pd:inputBindings>
+            <pfx4:SendEmail>
+                <pfx4:From>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/SendEmail/Email_From"/>
+                </pfx4:From>
+                <pfx4:To>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/SendEmail/Email_To"/>
+                </pfx4:To>
+                <pfx4:CC>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/SendEmail/Email_CC"/>
+                </pfx4:CC>
+                <pfx4:Subject>
+                    <xsl:value-of select="concat($_globalVariables/ns2:GlobalVariables/ApplicationDetails/Environment,&quot; Environment&quot;,  &quot; || &quot;,  &quot;Interface Retrigger : &quot;, $Start/root/InterfaceId)"/>
+                </pfx4:Subject>
+                <pfx4:BodyElement>
+                    <pfx4:BodyText>
+                        <xsl:value-of select="concat&#xA;(&quot;Hi ServiceDesk Team,&lt;/br>&quot;,&quot;&lt;br>Please create a ticket and assign to TIBCO_NAM_T2 group to retrigger interface. Please find requested user id and interface ID:&lt;/br>&quot;,&#xA;&quot;Interface_ID: &quot;,$Start/root/InterfaceId,&quot;&lt;/br>&quot;,&quot;User_Name: &quot; ,$Start/root/UserId,&quot;&lt;/br>&quot;,&quot;Environment: &quot;,$_globalVariables/ns2:GlobalVariables/ApplicationDetails/Environment,&#xA;&quot;&lt;/br>&quot;,&quot;Run_Date: &quot;,current-dateTime()&#xA;)"/>
+                    </pfx4:BodyText>
+                </pfx4:BodyElement>
+                <pfx4:Header>
+                    <pfx4:ContentType>
+                        <xsl:value-of select="'text/html'"/>
+                    </pfx4:ContentType>
+                </pfx4:Header>
+            </pfx4:SendEmail>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>SetCLEHeader</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SetCLEHeader</pd:from>
+        <pd:to>Invoke AD Authentication Service</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Invoke AD Authentication Service</pd:from>
+        <pd:to>GetQueueName</pd:to>
+        <pd:xpathDescription>authentication successful</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>upper-case(substring-before(substring-after($Invoke-AD-Authentication-Service/ns:RESTOutput/msg, '&lt;IsAuthenticatedResult&gt;'), '&lt;/IsAuthenticatedResult&gt;'))=upper-case('true')</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>CatchUknownException</pd:from>
+        <pd:to>SendExceptiontoCLE</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Trigger Message on Queue</pd:from>
+        <pd:to>Log Audit details</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Invoke AD Authentication Service</pd:from>
+        <pd:to>Generate Error on incorrect credentials</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetQueueName</pd:from>
+        <pd:to>Trigger Message on Queue</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SendExceptiontoCLE</pd:from>
+        <pd:to>Render error message into JSON</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Render error message into JSON</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Log Audit details</pd:from>
+        <pd:to>Render success message into JSON</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Render success message into JSON</pd:from>
+        <pd:to>SendMailNotification</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>CatchKnownException</pd:from>
+        <pd:to>SendExceptiontoCLE-1</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SendExceptiontoCLE-1</pd:from>
+        <pd:to>Render error message into JSON</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SendMailNotification</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

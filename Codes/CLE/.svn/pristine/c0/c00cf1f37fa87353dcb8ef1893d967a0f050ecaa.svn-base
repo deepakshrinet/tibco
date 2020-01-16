@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns="http://www.tibco.com/CommonLE2/Private/Exception"
+	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	 targetNamespace="http://www.tibco.com/CommonLE2/Private/Exception"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xsd:element name="ApplicationID" type="xsd:string"/>
+	<xsd:element name="TTL" type="xsd:integer"/>
+	<xsd:element name="ExceptionCode" type="xsd:string"/>
+	<xsd:element name="InterfaceID" type="xsd:string"/>
+	<xsd:element name="ExceptionTTLQuery">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="ApplicationID"/>
+				<xsd:element ref="ExceptionCode"/>
+				<xsd:element ref="TTL"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ExceptionConfigurationQuery">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="ApplicationID"/>
+				<xsd:element ref="ExceptionCode"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ExceptionID" type="xsd:positiveInteger"/>
+	<xsd:element name="ExceptionDetailQuery">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="ExceptionID"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Status" type="xsd:string"/>
+	<xsd:element name="ExceptionStatusUpdate">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="ExceptionID"/>
+				<xsd:element ref="Status"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="InterfaceConfigurationQuery">
+		<xsd:complexType>
+		<xsd:sequence>
+				<xsd:element ref="ApplicationID"/>
+				<xsd:element ref="InterfaceID"/>
+			</xsd:sequence>
+	</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

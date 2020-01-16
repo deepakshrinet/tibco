@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Repository:repository xmlns:Repository="http://www.tibco.com/xmlns/repo/types/2002">
+    <name name="LibraryBuilder">
+        <version>46</version>
+        <author>singhalr</author>
+        <fileLocation>C:\Users\singhalr\Desktop\EnterpriseLIbrary_v2.7.projlib</fileLocation>
+        <resources>/EnterpriseLibrary/Services/CentralizedScheduler/CentralizedScheduler_SendStatus.process,/EnterpriseLibrary/Services/SendEmail/SendEmailNotification.process,/EnterpriseLibrary/Services/StoreReplayService/StoreMessage.process,/EnterpriseLibrary/SharedResources/Connections/HTTP/ProxyConfiguration.httpProxy,/EnterpriseLibrary/SharedResources/Connections/JDBC/TIBCO_JDBC_Connection.sharedjdbc,/EnterpriseLibrary/SharedResources/Connections/JMS/TIBCO_JMS_Connection.sharedjmscon,/EnterpriseLibrary/SharedResources/Connections/MFT/MFT Shared Connection.mftsharedconn,/EnterpriseLibrary/SharedResources/CustomFunctions/CustomFunctions.javaxpath,/EnterpriseLibrary/SharedResources/Schemas/CommonHeader/AuditTrackBase.xsd,/EnterpriseLibrary/SharedResources/Schemas/CommonHeader/ErrorMessage.xsd,/EnterpriseLibrary/SharedResources/Schemas/CommonHeader/RequestBaseType.xsd,/EnterpriseLibrary/SharedResources/Schemas/CommonHeader/ResponseBaseType.xsd,/EnterpriseLibrary/SharedResources/Schemas/CommonHeader/ServiceBaseTypes.xsd</resources>
+        <description>V2.7
+Rishabh:
+BC user detail updated as per BC version 6.4
+
+V2.6
+Sachin:
+Updated SendEmailNotification process to send message over JMS queue.
+
+v2.5
+
+ANI: Java custome code updated to replace the wildcards</description>
+    </name>
+</Repository:repository>

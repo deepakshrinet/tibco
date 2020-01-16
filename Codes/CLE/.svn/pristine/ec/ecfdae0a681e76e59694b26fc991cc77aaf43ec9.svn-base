@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/schemas/CLE-Handlers/SharedResources/SchemaDefinitions/Private/Exception/Schema.xsd" xmlns:ns5="http://www.tibco.com/pe/EngineTypes" xmlns:ns12="http://www.tibco.com/CommonLE2/Private/Exception" xmlns:ns6="http://www.tibco.com/CommonLE2/Private/Common" xmlns:ns13="http://www.tibco.com/CommonLE2/Public/Pluggable/Workflow" xmlns:ns7="http://www.tibco.com/CommonLE2/namespace/Private/Common/RequestHeader.xsd" xmlns:pfx="http://www.tibco.com/CommonLE/namespace/Common" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Exception/ExceptionIDList" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns4="http://www.tibco.com/CommonLE2/Private/Administration" xmlns:ns3="http://www.tibco.com/CommonLE2/namespace/Public/Common/RequestHeader.xsd" xmlns:ns0="http://www.tibco.com/schemas/CLE/SharedResources/SchemaDefinitions/Public/Pluggable/Workflow/Schema.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx2="http://www.tibco.com/CommonLE2/namespace/Private/Exception">
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Private/Exception" schemaLocation="/SharedResources/SchemaDefinitions/Private/Exception/ExceptionParameters.xsd"/>
+    <pd:name>ExceptionManagement/Logic/NotifyHandlingProcedureByEvent.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx2:EventType"/>
+    <pd:startX>26</pd:startX>
+    <pd:startY>105</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>750</pd:endX>
+    <pd:endY>116</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1287607774197</pd:targetNamespace>
+    <pd:activity name="Catch All">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>392</pd:x>
+        <pd:y>234</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Handle Local Exception">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>552</pd:x>
+        <pd:y>239</pd:y>
+        <config>
+            <processName>/Common/Local Exception Handler.process</processName>
+        </config>
+        <pd:inputBindings>
+            <pfx:Exception>
+                <ErrorMessage>
+                    <xsl:value-of select="$_error/ns5:ErrorReport/Msg"/>
+                </ErrorMessage>
+                <ErrorCode>
+                    <xsl:value-of select="$_error/ns5:ErrorReport/MsgCode"/>
+                </ErrorCode>
+                <pfx:Error>
+                    <xsl:for-each xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="$_error/ns5:ErrorReport">
+                        <pfx:ErrorReport>
+                            <StackTrace>
+                                <xsl:value-of select="StackTrace"/>
+                            </StackTrace>
+                            <Msg>
+                                <xsl:value-of select="Msg"/>
+                            </Msg>
+                            <FullClass>
+                                <xsl:value-of select="FullClass"/>
+                            </FullClass>
+                            <Class>
+                                <xsl:value-of select="Class"/>
+                            </Class>
+                            <ProcessStack>
+                                <xsl:value-of select="ProcessStack"/>
+                            </ProcessStack>
+                            <MsgCode>
+                                <xsl:value-of select="MsgCode"/>
+                            </MsgCode>
+                        </pfx:ErrorReport>
+                    </xsl:for-each>
+                </pfx:Error>
+            </pfx:Exception>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Retrieve Exceptions By Event from Database">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>135</pd:x>
+        <pd:y>128</pd:y>
+        <config>
+            <processNameXPath>concat("/ExceptionManagement/DataAccess/",$_globalVariables/ns1:GlobalVariables/Database/MIG_DatabaseType,"/RetrieveExceptionsByEventType.process")</processNameXPath>
+            <processName>/ExceptionManagement/DataAccess/Oracle/RetrieveExceptionsByEventType.process</processName>
+        </config>
+        <pd:inputBindings>
+            <pfx2:ExceptionQuery>
+                <pfx2:EventType>
+                    <xsl:value-of select="$Start/pfx2:EventType"/>
+                </pfx2:EventType>
+            </pfx2:ExceptionQuery>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:group name="Group">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>255</pd:x>
+        <pd:y>21</pd:y>
+        <pd:width>328</pd:width>
+        <pd:height>155</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>inputLoop</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:over>$Retrieve-Exceptions-By-Event-from-Database/ns12:ExceptionDetails/ns12:ExceptionDetail</pd:over>
+            <pd:iterationElementSlot>ExceptionDetail</pd:iterationElementSlot>
+            <pd:indexSlot>counter</pd:indexSlot>
+            <pd:activityOutputName/>
+            <pd:accumulateOutput>false</pd:accumulateOutput>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>Retrieve Exception Configuration</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Notify Procedure</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Retrieve Exception Configuration</pd:from>
+            <pd:to>Notify Procedure</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="Notify Procedure">
+            <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+            <pd:resourceType>ae.process.subprocess</pd:resourceType>
+            <pd:x>492</pd:x>
+            <pd:y>105</pd:y>
+            <config>
+                <processName>/ExceptionManagement/Logic/NotifyHandlingProcedure.process</processName>
+                <processNameXPath/>
+                <x__copyToClipboardReference>
+                    <ref>
+                        <pfx>xsd</pfx>
+                        <type>N</type>
+                        <ns>http://www.w3.org/2001/XMLSchema</ns>
+                    </ref>
+                </x__copyToClipboardReference>
+            </config>
+            <pd:inputBindings>
+                <ns13:ProcedureInfo>
+                    <ExceptionID>
+                        <xsl:value-of select="$ExceptionDetail/ns12:ExceptionDetail/ExceptionInstanceID"/>
+                    </ExceptionID>
+                    <RoleNme>
+                        <xsl:value-of select="$Retrieve-Exception-Configuration/ns4:ExceptionConfigurationResult/ns4:RoleName"/>
+                    </RoleNme>
+                    <PhysicalProcedureName>
+                        <xsl:value-of select="$Retrieve-Exception-Configuration/ns4:ExceptionConfigurationResult/ns4:PhysicalProcedureName"/>
+                    </PhysicalProcedureName>
+                    <ProcedureDestination>
+                        <xsl:value-of select="$Retrieve-Exception-Configuration/ns4:ExceptionConfigurationResult/ns4:ProcedureChannel"/>
+                    </ProcedureDestination>
+                    <RequestDestination>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/JMSDestinationNames/MIG_WorkflowRequestQueue"/>
+                    </RequestDestination>
+                    <ReplyDestination>
+                        <xsl:value-of select="$Retrieve-Exception-Configuration/ns4:ExceptionConfigurationResult/ns4:ReplyDestination"/>
+                    </ReplyDestination>
+                    <xsl:for-each select="$ExceptionDetail/ns12:ExceptionDetail">
+                        <ns13:ExceptionDetail>
+                            <xsl:for-each select="ns7:Header">
+                                <ns3:Header>
+                                    <ns3:ApplicationID>
+                                        <xsl:value-of select="ns7:ApplicationID"/>
+                                    </ns3:ApplicationID>
+                                    <xsl:if test="ns7:ComponentName">
+                                        <ns3:ComponentName>
+                                            <xsl:value-of select="ns7:ComponentName"/>
+                                        </ns3:ComponentName>
+                                    </xsl:if>
+                                    <xsl:if test="ns7:Hostname">
+                                        <ns3:Hostname>
+                                            <xsl:value-of select="ns7:Hostname"/>
+                                        </ns3:Hostname>
+                                    </xsl:if>
+                                    <ns3:Timestamp>
+                                        <xsl:value-of select="ns7:Timestamp"/>
+                                    </ns3:Timestamp>
+                                    <xsl:if test="ns7:TransactionDomain">
+                                        <ns3:TransactionDomain>
+                                            <xsl:value-of select="ns7:TransactionDomain"/>
+                                        </ns3:TransactionDomain>
+                                    </xsl:if>
+                                    <xsl:if test="ns7:TransactionType">
+                                        <ns3:TransactionType>
+                                            <xsl:value-of select="ns7:TransactionType"/>
+                                        </ns3:TransactionType>
+                                    </xsl:if>
+                                    <xsl:if test="ns7:TransactionID">
+                                        <ns3:TransactionID>
+                                            <xsl:value-of select="ns7:TransactionID"/>
+                                        </ns3:TransactionID>
+                                    </xsl:if>
+                                    <xsl:if test="ns7:CorrelationID">
+                                        <ns3:CorrelationID>
+                                            <xsl:value-of select="ns7:CorrelationID"/>
+                                        </ns3:CorrelationID>
+                                    </xsl:if>
+                                    <xsl:if test="ns7:InterfaceID">
+                                        <ns3:InterfaceID>
+                                            <xsl:value-of select="ns7:InterfaceID"/>
+                                        </ns3:InterfaceID>
+                                    </xsl:if>
+                                    <xsl:if test="ns7:Filename">
+                                        <ns3:Filename>
+                                            <xsl:value-of select="ns7:Filename"/>
+                                        </ns3:Filename>
+                                    </xsl:if>
+                                    <xsl:if test="ns7:Message">
+                                        <ns3:Message>
+                                            <xsl:value-of select="ns7:Message"/>
+                                        </ns3:Message>
+                                    </xsl:if>
+                                    <xsl:if test="ns7:RenderID">
+                                        <ns3:RenderID>
+                                            <xsl:value-of select="ns7:RenderID"/>
+                                        </ns3:RenderID>
+                                    </xsl:if>
+                                    <xsl:if test="ns7:DataEncoding">
+                                        <ns3:DataEncoding>
+                                            <xsl:value-of select="ns7:DataEncoding"/>
+                                        </ns3:DataEncoding>
+                                    </xsl:if>
+                                    <xsl:if test="ns7:Transaction">
+                                        <ns3:Transaction>
+                                            <xsl:value-of select="ns7:Transaction"/>
+                                        </ns3:Transaction>
+                                    </xsl:if>
+                                </ns3:Header>
+                            </xsl:for-each>
+                            <ExceptionInstanceID>
+                                <xsl:value-of select="ExceptionInstanceID"/>
+                            </ExceptionInstanceID>
+                            <ExceptionCode>
+                                <xsl:value-of select="ExceptionCode"/>
+                            </ExceptionCode>
+                            <Category>
+                                <xsl:value-of select="Category"/>
+                            </Category>
+                            <Type>
+                                <xsl:value-of select="Type"/>
+                            </Type>
+                            <Severity>
+                                <xsl:value-of select="Severity"/>
+                            </Severity>
+                            <Timeout>
+                                <xsl:value-of select="Timeout"/>
+                            </Timeout>
+                            <ReplyDestination>
+                                <xsl:value-of select="ReplyDestination"/>
+                            </ReplyDestination>
+                            <NotificationChannel>
+                                <xsl:value-of select="NotificationChannel"/>
+                            </NotificationChannel>
+                            <ResolutionDescription>
+                                <xsl:value-of select="ResolutionDescription"/>
+                            </ResolutionDescription>
+                            <Status>
+                                <xsl:value-of select="Status"/>
+                            </Status>
+                            <TransactionDataAfterResolve>
+                                <xsl:value-of select="TransactionDataAfterResolve"/>
+                            </TransactionDataAfterResolve>
+                            <Custom>
+                                <xsl:value-of select="Custom"/>
+                            </Custom>
+                            <ResolveDelayTime>
+                                <xsl:value-of select="ResolveDelayTime"/>
+                            </ResolveDelayTime>
+                            <EventType>
+                                <xsl:value-of select="EventType"/>
+                            </EventType>
+                            <Stacktrace>
+                                <xsl:value-of select="Stacktrace"/>
+                            </Stacktrace>
+                        </ns13:ExceptionDetail>
+                    </xsl:for-each>
+                </ns13:ProcedureInfo>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="Retrieve Exception Configuration">
+            <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+            <pd:resourceType>ae.process.subprocess</pd:resourceType>
+            <pd:x>348</pd:x>
+            <pd:y>113</pd:y>
+            <config>
+                <processName>/ExceptionManagement/Logic/RetrieveExceptionConfiguration.process</processName>
+                <x__copyToClipboardReference>
+                    <ref>
+                        <pfx>xsd</pfx>
+                        <type>N</type>
+                        <ns>http://www.w3.org/2001/XMLSchema</ns>
+                    </ref>
+                </x__copyToClipboardReference>
+            </config>
+            <pd:inputBindings>
+                <ns12:ExceptionConfigurationQuery>
+                    <ns12:ApplicationID>
+                        <xsl:value-of select="$ExceptionDetail/ns12:ExceptionDetail/ns7:Header/ns7:ApplicationID"/>
+                    </ns12:ApplicationID>
+                    <ns12:ExceptionCode>
+                        <xsl:value-of select="$ExceptionDetail/ns12:ExceptionDetail/ExceptionCode"/>
+                    </ns12:ExceptionCode>
+                </ns12:ExceptionConfigurationQuery>
+            </pd:inputBindings>
+        </pd:activity>
+    </pd:group>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Retrieve Exceptions By Event from Database</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch All</pd:from>
+        <pd:to>Handle Local Exception</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Handle Local Exception</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>S-Shaped</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Retrieve Exceptions By Event from Database</pd:from>
+        <pd:to>Group</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

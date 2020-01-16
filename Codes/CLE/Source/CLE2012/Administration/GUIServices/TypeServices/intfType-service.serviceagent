@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serviceResource xmlns:wsdl="http://www.tibco.com/CommonLE2/namespace/Administration/GUIServices/Type">
+    <ns0:import xmlns:ns0="http://schemas.xmlsoap.org/wsdl/" namespace="http://www.tibco.com/CommonLE2/namespace/Administration/GUIServices/Type" location="/SharedResources/WSDL/GUI/Administration/intfUpdateType.wsdl"/>
+    <config>
+        <class>com.tibco.bw.service.serviceAgent.ServiceServiceAgent</class>
+        <name>intfType-service</name>
+        <resourceType>service.definition</resourceType>
+        <implType>bw</implType>
+        <groups>
+            <row isDefault="true" groupName="Default"/>
+        </groups>
+        <wsdl namespace="http://www.tibco.com/CommonLE2/Administration/GUIServices/TypeServices" embedWsdlComponents="true" embedSchemaComponents="true" embedJndiProperties="false"/>
+        <serviceChange>Wed Oct 10 15:05:35 CDT 2007</serviceChange>
+        <interfaceImpl>
+            <tab>
+                <tabName>portType</tabName>
+                <tabType>bw</tabType>
+                <config>
+                    <wsdlDetail location="/SharedResources/WSDL/GUI/Administration/intfUpdateType.wsdl" portType="portType" ns="http://www.tibco.com/CommonLE2/namespace/Administration/GUIServices/Type"/>
+                    <detail>
+                        <tab>
+                            <tabName>service.definition.impl.tab.label</tabName>
+                            <tabType>impl</tabType>
+                            <config>
+                                <operations>
+                                    <row opName="UpdateTypeOp" opImpl="/Administration/GUIServices/TypeServices/wsUpdateType.process"/>
+                                    <row opName="RetrieveSpecificTypeOp" opImpl="/Administration/GUIServices/TypeServices/wsRetrieveSpecificType.process"/>
+                                    <row opName="DeleteTypeOp" opImpl="/Administration/GUIServices/TypeServices/wsDeleteType.process"/>
+                                    <row opName="CreateTypeOp" opImpl="/Administration/GUIServices/TypeServices/wsCreateType.process"/>
+                                    <row opName="RetrieveTypeListWithSysIDOp" opImpl="/Administration/GUIServices/TypeServices/wsRetrieveTypeListWithSysID.process"/>
+                                </operations>
+                            </config>
+                        </tab>
+                        <tab>
+                            <tabName>service.definition.ep.tab.label</tabName>
+                            <tabType>ep</tabType>
+                            <config>
+                                <epBindings>
+                                    <row epName="intfwsUpdateTypeEndpoint1" epType="soap">
+                                        <config>
+                                            <epDetail>
+                                                <tab>
+                                                    <tabName>soap.service.transport.ui.transport.tab.label</tabName>
+                                                    <tabType>transport</tabType>
+                                                    <config>
+                                                        <sharedChannel>/SharedResources/Connections/SOAP/HTTP GUIServicesAdministration.sharedhttp</sharedChannel>
+                                                        <transport>
+                                                            <config>
+                                                                <useBasicAuthentication>false</useBasicAuthentication>
+                                                                <httpURI>/Administration/GUIServices/TypeServices/intfType-service.serviceagent/intfwsUpdateTypeEndpoint1</httpURI>
+                                                            </config>
+                                                        </transport>
+                                                    </config>
+                                                </tab>
+                                                <tab>
+                                                    <tabName>soap.service.transport.ui.details.tab.label</tabName>
+                                                    <tabType>details</tabType>
+                                                    <config>
+                                                        <operationStyle>document</operationStyle>
+                                                        <soapVersion>SOAP 1.1</soapVersion>
+                                                        <soap>
+                                                            <operation name="UpdateTypeOp">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Administration/GUIServices/TypeServices/intfUpdateType-service.serviceagent/intfwsUpdateTypeEndpoint1/UpdateTypeOp</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="RetrieveSpecificTypeOp">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Administration/GUIServices/TypeServices/intfUpdateType-service.serviceagent/intfwsUpdateTypeEndpoint1/RetrieveSpecificTypeOp</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="DeleteTypeOp">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Administration/GUIServices/TypeServices/intfUpdateType-service.serviceagent/intfwsUpdateTypeEndpoint1/DeleteTypeOp</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="CreateTypeOp">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Administration/GUIServices/TypeServices/intfUpdateType-service.serviceagent/intfwsUpdateTypeEndpoint1/CreateTypeOp</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="RetrieveTypeListWithSysIDOp">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Administration/GUIServices/TypeServices/intfType-service.serviceagent//RetrieveTypeListWithSysIDOp</soapAction>
+                                                                        <soapUse>literal</soapUse>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                        </soap>
+                                                    </config>
+                                                </tab>
+                                            </epDetail>
+                                        </config>
+                                    </row>
+                                </epBindings>
+                            </config>
+                        </tab>
+                    </detail>
+                </config>
+            </tab>
+        </interfaceImpl>
+    </config>
+</serviceResource>

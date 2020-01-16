@@ -1,0 +1,184 @@
+<data jsxnamespace="propsbundle" locales="">
+  <locale>
+    <record jsxid="m_copyright" jsxtext="&amp;copy;2005-2012 TIBCO Software Inc. All Rights Reserved"/>
+    <record jsxid="m_options" jsxtext="Options"/>
+    <record jsxid="m_create" jsxtext="Create"/>
+    <record jsxid="m_close" jsxtext="Close"/>
+    <record jsxid="m_closeTip" jsxtext="Apply changes, close the dialog."/>
+    <record jsxid="m_apply" jsxtext="Apply"/>
+    <record jsxid="m_applyTip" jsxtext="Apply the changes, dialog remains open."/>
+    <record jsxid="m_search" jsxtext="Search"/>
+    <record jsxid="m_cancel" jsxtext="Cancel"/>
+    <record jsxid="m_cancelTip" jsxtext="Cancel the changes, close the dialog."/>
+    <record jsxid="m_ok" jsxtext="OK"/>
+    <record jsxid="m_No" jsxtext="No"/>
+    <record jsxid="m_exit" jsxtext="exit"/>
+    <record jsxid="m_true" jsxtext="true"/>
+    <record jsxid="m_false" jsxtext="false"/>
+    <record jsxid="m_name" jsxtext="Name"/>
+    <record jsxid="m_value" jsxtext="Value"/>
+    <record jsxid="m_confirmCaption" jsxtext="Confirm"/>
+    <record jsxid="m_confirmUnloadApplication" jsxtext="Do you want to end this session?"/>
+    <record jsxid="m_bannerTitle" jsxtext="Common Logging and Exception Handling"/>
+    <record jsxid="m_included" jsxtext="Included"/>
+    <record jsxid="m_notIncluded" jsxtext=""/>
+    <record jsxid="m_timeout" jsxtext="Timeout"/>
+    <record jsxid="m_retrievingRecords" jsxtext="Retrieving records..."/>
+    <record jsxid="m_loadingData" jsxtext="loading data..."/>
+    <record jsxid="m_timeoutMessage" jsxtext="The service did not respond, please try again later."/>
+    <record jsxid="m_columnManager" jsxtext="Column Manager"/>
+    <record jsxid="m_minutes" jsxtext="minute(s)"/>
+    <record jsxid="m_hours" jsxtext="hour(s)"/>
+    <record jsxid="m_notFound" jsxtext="not found"/>
+    <!-- added for settings interface -->
+    <record jsxid="m_showProfileDialog" jsxtext="Show Profile Dialog"/>
+    <record jsxid="m_themes" jsxtext="Themes"/>
+    <record jsxid="m_blueTheme" jsxtext="Blue Theme"/>
+    <record jsxid="m_customTheme" jsxtext="Custom Theme"/>
+    <record jsxid="m_greyTheme" jsxtext="Grey Theme"/>
+    <record jsxid="m_settings" jsxtext="Settings"/>
+    <record jsxid="m_settingsMenu" jsxtext="Settings"/>
+    <record jsxid="m_settingsMenuTip" jsxtext="Settings menu"/>
+    <record jsxid="m_preferences" jsxtext="User Preferences"/>
+    <record jsxid="m_languages" jsxtext="Languages"/>
+    <record jsxid="m_english" jsxtext="English"/>
+    <record jsxid="m_english_us" jsxtext="English (US)"/>
+    <record jsxid="m_english_uk" jsxtext="English (UK)"/>
+    <record jsxid="m_chinese" jsxtext="Chinese"/>
+    <record jsxid="m_chinese_traditional" jsxtext="Chinese (Traditional)"/>
+    <record jsxid="m_italian" jsxtext="Italian"/>
+    <record jsxid="m_french" jsxtext="French"/>
+    <record jsxid="m_spanish" jsxtext="Spanish"/>
+    <record jsxid="m_spanish_ar" jsxtext="Spanish (Argentina)"/>
+    <record jsxid="m_spanish_mx" jsxtext="Spanish (Mexico)"/>
+    <record jsxid="m_swedish" jsxtext="Swedish"/>
+    <record jsxid="m_portuguese" jsxtext="Portuguese"/>
+    <record jsxid="m_portuguese_brazil" jsxtext="Portuguese (Brazil)"/>
+    <record jsxid="m_invalid" jsxtext="Invalid"/>
+    <record jsxid="m_invalidMessage" jsxtext="The following message node just failed validation:"/>
+  </locale>
+  <locale key="pt_BR">
+    <record jsxid="m_copyright" jsxtext="&amp;copy;2005-2011 TIBCO Software Inc. Todos Direitos Reservados"/>
+    <record jsxid="m_options" jsxtext="Opções"/>
+    <record jsxid="m_create" jsxtext="Criar"/>
+    <record jsxid="m_close" jsxtext="Fechar"/>
+    <record jsxid="m_closeTip" jsxtext="Aplicar alterações e fechar a janela."/>
+    <record jsxid="m_apply" jsxtext="Aplicar"/>
+    <record jsxid="m_applyTip" jsxtext="Aplicar alterações e deixar a janela aberta."/>
+    <record jsxid="m_search" jsxtext="Procurar"/>
+    <record jsxid="m_cancel" jsxtext="Cancelar"/>
+    <record jsxid="m_cancelTip" jsxtext="Cancelar as alterações e fechar a janela."/>
+    <record jsxid="m_ok" jsxtext="OK"/>
+    <record jsxid="m_No" jsxtext="Não"/>
+    <record jsxid="m_exit" jsxtext="sair"/>
+    <record jsxid="m_true" jsxtext="verdadeiro"/>
+    <record jsxid="m_false" jsxtext="falso"/>
+    <record jsxid="m_name" jsxtext="Nome"/>
+    <record jsxid="m_value" jsxtext="Valor"/>
+    <record jsxid="m_confirmCaption" jsxtext="Confirmar"/>
+    <record jsxid="m_confirmUnloadApplication" jsxtext="Você quer finalizar esta sessão?"/>
+    <record jsxid="m_bannerTitle" jsxtext="Common Logging and Exception Handling"/>
+    <record jsxid="m_included" jsxtext="Incluído"/>
+    <record jsxid="m_notIncluded" jsxtext=""/>
+    <record jsxid="m_timeout" jsxtext="Timeout"/>
+    <record jsxid="m_retrievingRecords" jsxtext="Recuperando registros..."/>
+    <record jsxid="m_loadingData" jsxtext="carregando dados..."/>
+    <record jsxid="m_timeoutMessage" jsxtext="O serviço não respondeu. Por favor, tente mais tarde."/>
+    <record jsxid="m_columnManager" jsxtext="Gerenciador de Colunas"/>
+    <record jsxid="m_minutes" jsxtext="minuto(s)"/>
+    <record jsxid="m_hours" jsxtext="hora(s)"/>
+  </locale>
+  <locale key="es_ES">
+    <record jsxid="m_copyright" jsxtext="&amp;copy;2005-2011 TIBCO Software Inc. All Rights Reserved"/>
+    <record jsxid="m_options" jsxtext="Opciones"/>
+    <record jsxid="m_create" jsxtext="Crear"/>
+    <record jsxid="m_close" jsxtext="Cerrar"/>
+    <record jsxid="m_closeTip" jsxtext="Aplica cambios, cierra el diálogo."/>
+    <record jsxid="m_apply" jsxtext="Aplicar"/>
+    <record jsxid="m_applyTip" jsxtext="Aplica los cambios, el diálogo se mantiene abierto."/>
+    <record jsxid="m_search" jsxtext="Buscar"/>
+    <record jsxid="m_cancel" jsxtext="Cancelar"/>
+    <record jsxid="m_cancelTip" jsxtext="Cancela los cambios, cierra el diálogo."/>
+    <record jsxid="m_ok" jsxtext="OK"/>
+    <record jsxid="m_No" jsxtext="No"/>
+    <record jsxid="m_exit" jsxtext="salir"/>
+    <record jsxid="m_true" jsxtext="verdadero"/>
+    <record jsxid="m_false" jsxtext="falso"/>
+    <record jsxid="m_name" jsxtext="Nombre"/>
+    <record jsxid="m_value" jsxtext="Valor"/>
+    <record jsxid="m_confirmCaption" jsxtext="Confirmar"/>
+    <record jsxid="m_confirmUnloadApplication" jsxtext="¿Desea terminar esta sesión?"/>
+    <record jsxid="m_bannerTitle" jsxtext="Common Logging and Exception Handling"/>
+    <record jsxid="m_included" jsxtext="Incluido"/>
+    <record jsxid="m_notIncluded" jsxtext=""/>
+    <record jsxid="m_timeout" jsxtext="Tiempo Agotado"/>
+    <record jsxid="m_retrievingRecords" jsxtext="Obteniendo registros..."/>
+    <record jsxid="m_loadingData" jsxtext="cargando datos..."/>
+    <record jsxid="m_timeoutMessage" jsxtext="El servicio no responde, por favor intente de nuevo."/>
+    <record jsxid="m_columnManager" jsxtext="Administrador de Columnas"/>
+    <record jsxid="m_minutes" jsxtext="minuto(s)"/>
+    <record jsxid="m_hours" jsxtext="hora(s)"/>
+  </locale>
+  <locale key="sv_SV">
+    <record jsxid="m_copyright" jsxtext="&amp;copy;2005-2011 TIBCO Software Inc. All Rights Reserved"/>
+    <record jsxid="m_options" jsxtext="Alternativ"/>
+    <record jsxid="m_create" jsxtext="Skapa"/>
+    <record jsxid="m_close" jsxtext="Stäng"/>
+    <record jsxid="m_closeTip" jsxtext="Applicera ändringarna och stäng dialogfönstret."/>
+    <record jsxid="m_apply" jsxtext="Applicera"/>
+    <record jsxid="m_applyTip" jsxtext="Applicera ändringarna och låt dialogfönstret vara öppet."/>
+    <record jsxid="m_search" jsxtext="Sök"/>
+    <record jsxid="m_cancel" jsxtext="Avbryt"/>
+    <record jsxid="m_cancelTip" jsxtext="Avbryt ändringarna och stäng dialogfönstret."/>
+    <record jsxid="m_ok" jsxtext="OK"/>
+    <record jsxid="m_No" jsxtext="Nej"/>
+    <record jsxid="m_exit" jsxtext="avsluta"/>
+    <record jsxid="m_true" jsxtext="sann"/>
+    <record jsxid="m_false" jsxtext="falsk"/>
+    <record jsxid="m_name" jsxtext="Namn"/>
+    <record jsxid="m_value" jsxtext="Värde"/>
+    <record jsxid="m_confirmCaption" jsxtext="Bekräfta"/>
+    <record jsxid="m_confirmUnloadApplication" jsxtext="Vill du absluta denna session?"/>
+    <record jsxid="m_bannerTitle" jsxtext="Gemensam Loggnings- och Undantagshantering"/>
+    <record jsxid="m_included" jsxtext="Ingår"/>
+    <record jsxid="m_notIncluded" jsxtext="Ingår inte"/>
+    <record jsxid="m_timeout" jsxtext="Överskriden tidsgräns"/>
+    <record jsxid="m_retrievingRecords" jsxtext="Hämtar poster..."/>
+    <record jsxid="m_loadingData" jsxtext="laddar data..."/>
+    <record jsxid="m_timeoutMessage" jsxtext="Inget svar erhölls, försök igen senare."/>
+    <record jsxid="m_columnManager" jsxtext="Kolumnhanterare"/>
+    <record jsxid="m_minutes" jsxtext="minuter"/>
+    <record jsxid="m_hours" jsxtext="timmar"/>
+  </locale>
+  <locale key="zh_CH">
+    <record jsxid="m_copyright" jsxtext="&amp;拷贝;2005-2011 TIBCO软件有限公司 保留所有权利"/>
+    <record jsxid="m_options" jsxtext="选择"/>
+    <record jsxid="m_create" jsxtext="创建"/>
+    <record jsxid="m_close" jsxtext="关闭"/>
+    <record jsxid="m_closeTip" jsxtext="应用改变，关闭对话。"/>
+    <record jsxid="m_apply" jsxtext="应用"/>
+    <record jsxid="m_applyTip" jsxtext="应用这个改变，对话保持打开。"/>
+    <record jsxid="m_search" jsxtext="搜索"/>
+    <record jsxid="m_cancel" jsxtext="放弃"/>
+    <record jsxid="m_cancelTip" jsxtext="放弃改变，关闭对话。"/>
+    <record jsxid="m_ok" jsxtext="OK"/>
+    <record jsxid="m_No" jsxtext="不"/>
+    <record jsxid="m_exit" jsxtext="退出"/>
+    <record jsxid="m_true" jsxtext="真"/>
+    <record jsxid="m_false" jsxtext="假"/>
+    <record jsxid="m_name" jsxtext="名字"/>
+    <record jsxid="m_value" jsxtext="值"/>
+    <record jsxid="m_confirmCaption" jsxtext="确认"/>
+    <record jsxid="m_confirmUnloadApplication" jsxtext="你想要结束这个会话吗?"/>
+    <record jsxid="m_bannerTitle" jsxtext="公共日志记录和例外处理"/>
+    <record jsxid="m_included" jsxtext="包含"/>
+    <record jsxid="m_notIncluded" jsxtext=""/>
+    <record jsxid="m_timeout" jsxtext="超时"/>
+    <record jsxid="m_retrievingRecords" jsxtext="检索记录。。。"/>
+    <record jsxid="m_loadingData" jsxtext="加载数据。。。"/>
+    <record jsxid="m_timeoutMessage" jsxtext="服务没有相应， 请晚点再尝试。"/>
+    <record jsxid="m_columnManager" jsxtext="列管理"/>
+    <record jsxid="m_minutes" jsxtext="（几）分钟"/>
+    <record jsxid="m_hours" jsxtext="（几）小时"/>
+  </locale>
+</data>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Repository:repository xmlns:Repository="http://www.tibco.com/xmlns/repo/types/2002">
+    <enterpriseArchive>
+        <sharedArchive name="Shared Archive">
+            <resourceType>shared.archive.resource</resourceType>
+            <authorProperty>chandraj</authorProperty>
+        </sharedArchive>
+        <processArchive name="SFDC_SF_USER_SEND">
+            <resourceType>process.archive.resource</resourceType>
+            <authorProperty>singhalr</authorProperty>
+            <processProperty>/Services/SFDC_SF/Processes/Combine&amp;SendUserFile.process,/Services/SFDC_SF/Processes/CompareSFDCSAPHRExtract.process,/Services/SFDC_SF/Processes/GetEmployeesSFDC.process,/Services/SFDC_SF/Processes/GetIndirectEmployeesSFDC.process,/Services/SFDC_SF/Processes/GetSAPHRFile.process,/Services/SFDC_SF/Processes/ProcessSAPHRLoad.process,/Services/SFDC_SF/Processes/WriteEmpDataToFile.process,/Services/SFDC_SF/Processes/WriteIndirectEmpDataToFile.process,/CLE/Interface/Loader/InitializeLogLevel.process</processProperty>
+        </processArchive>
+        <versionProperty>1.0.2</versionProperty>
+        <authorProperty>singhd7</authorProperty>
+        <addServiceSettableGvars>true</addServiceSettableGvars>
+        <name>SFDC_SF_USER_SEND</name>
+        <designer>
+            <lockedProperties/>
+            <fixedChildren/>
+            <resourceDescriptions/>
+        </designer>
+        <fileLocationProperty>C:\Users\singhd7\Desktop\SFDC_SF_USER_SEND\Install\DEV\SFDC_SF_USER_SEND\SFDC_SF_USER_SEND.ear</fileLocationProperty>
+        <description>updated logic to check for modified records and compare pernr with sap hr file received.</description>
+    </enterpriseArchive>
+</Repository:repository>

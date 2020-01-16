@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by TIBCO WSDL-->
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://xmlns.example.com/1181230889129" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns0="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/RolePermissionInformationRequest" xmlns:ns1="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/RolePermissionInformation" xmlns:ns2="http://www.tibco.com/CommonLE2/Public/Common" xmlns:ns3="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/AllRolesRetrievalResponse" xmlns:ns4="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/UserRolesRequest" xmlns:ns5="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/UserAuthenticationRequest" xmlns:ns6="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/UserAuthenticationResponse" xmlns:ns7="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Applications" targetNamespace="http://xmlns.example.com/1181230889129">
+    <wsdl:types>
+        <xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/UserAuthenticationRequest" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/UserAuthenticationRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xsd:element name="UserAuthenticationRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="UserName" type="xsd:string"/>
+                        <xsd:element name="Password" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+        <xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/RolePermissionInformation" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/RolePermissionInformation" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xsd:element name="RolePermissionsInfo">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="rolename" type="xsd:string"/>
+                        <xsd:element name="appid" type="xsd:string"/>
+                        <xsd:element ref="ns1:permissions"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="permission">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="permissionID" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="permissions">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="ns1:permission" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+        <xsd:schema xmlns="http://www.tibco.com/CommonLE2/Public/Common" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tibco.com/CommonLE2/Public/Common" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xsd:element name="Code" type="xsd:string"/>
+            <xsd:element name="Error">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="ns2:Message" minOccurs="0"/>
+                        <xsd:element ref="ns2:Code" minOccurs="0"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="Message" type="xsd:string"/>
+        </xsd:schema>
+        <xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/RolePermissionInformationRequest" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/RolePermissionInformationRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xsd:element name="RoleNames">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="RoleName" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="RolePermissionInformationRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="ns0:RoleNames"/>
+                        <xsd:element name="AppID" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="RolePermissionInformationRequests">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="ns0:RolePermissionInformationRequest" minOccurs="0" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+        <xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/AllRolesRetrievalResponse" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/AllRolesRetrievalResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xsd:element name="AllRoles">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="ns3:Role" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="Role">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="rolename" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+        <xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/UserAuthenticationResponse" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/UserAuthenticationResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xsd:element name="UserAuthenticationResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="AuthenticationResult" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+        <xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/UserRolesRequest" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/UserRolesRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xsd:element name="UserRolesRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="UserName" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+        <xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Applications" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Applications" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xsd:element name="Application">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ApplicationID" type="xsd:string"/>
+                        <xsd:element name="Name" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="Description" type="xsd:string" minOccurs="0"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="Applications">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="ns7:Application" minOccurs="0" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:service name="intfACL-service">
+        <wsdl:port name="intfwsUpdateRoleACLEndpoint0" binding="tns:intfwsUpdateRoleACLEndpoint0Binding">
+            <soap:address location="http://localhost:21000/SecurityManagement/GUIServices/intfUpdateRoleACL-service.serviceagent/intfwsUpdateRoleACLEndpoint0"/>
+        </wsdl:port>
+    </wsdl:service>
+    <wsdl:portType name="SecurityPortType">
+        <wsdl:operation name="RetrieveACLOp">
+            <wsdl:input message="tns:RolePermissionInformationRequest"/>
+            <wsdl:output message="tns:RolePermissionsInfo"/>
+            <wsdl:fault name="fault1" message="tns:Error"/>
+        </wsdl:operation>
+        <wsdl:operation name="AvailableRolesRetrievalOp">
+            <wsdl:input message="tns:Dummy"/>
+            <wsdl:output message="tns:AllRoles"/>
+            <wsdl:fault name="fault1" message="tns:Error"/>
+        </wsdl:operation>
+        <wsdl:operation name="DeleteRoleFromACLTableOp">
+            <wsdl:input message="tns:RolePermissionInformationRequests"/>
+            <wsdl:output message="tns:Dummy"/>
+            <wsdl:fault name="fault1" message="tns:Error"/>
+        </wsdl:operation>
+        <wsdl:operation name="UserRolesRetrievalOp">
+            <wsdl:input message="tns:UserRolesRequest"/>
+            <wsdl:output message="tns:AllRoles"/>
+            <wsdl:fault name="fault1" message="tns:Error"/>
+        </wsdl:operation>
+        <wsdl:operation name="SetRoleACLOp">
+            <wsdl:input message="tns:RolePermissionsInfo"/>
+            <wsdl:output message="tns:Dummy"/>
+            <wsdl:fault name="fault1" message="tns:Error"/>
+        </wsdl:operation>
+        <wsdl:operation name="UserAuthenticationOp">
+            <wsdl:input message="tns:UserAuthenticationRequest"/>
+            <wsdl:output message="tns:UserAuthenticationResponse"/>
+            <wsdl:fault name="fault1" message="tns:Error"/>
+        </wsdl:operation>
+        <wsdl:operation name="UpdateRoleACLOp">
+            <wsdl:input message="tns:RolePermissionsInfo"/>
+            <wsdl:output message="tns:Dummy"/>
+            <wsdl:fault name="fault1" message="tns:Error"/>
+        </wsdl:operation>
+        <wsdl:operation name="UserRolesAppsRetrievalOp">
+            <wsdl:input message="tns:UserRolesRequest"/>
+            <wsdl:output message="tns:Applications"/>
+            <wsdl:fault name="fault1" message="tns:Error"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="intfwsUpdateRoleACLEndpoint0Binding" type="tns:SecurityPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="RetrieveACLOp">
+            <soap:operation style="document" soapAction="/SecurityManagement/GUIServices/intfUpdateRoleACL-service.serviceagent/intfwsUpdateRoleACLEndpoint0/RetrieveACLOp"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:output>
+            <wsdl:fault name="fault1">
+                <soap:fault use="literal" name="fault1"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="AvailableRolesRetrievalOp">
+            <soap:operation style="document" soapAction="/SecurityManagement/GUIServices/intfUpdateRoleACL-service.serviceagent/intfwsUpdateRoleACLEndpoint0/AvailableRolesRetrievalOp"/>
+            <wsdl:input>
+                <soap:body use="literal" parts=""/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:output>
+            <wsdl:fault name="fault1">
+                <soap:fault use="literal" name="fault1"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="DeleteRoleFromACLTableOp">
+            <soap:operation style="document" soapAction="/SecurityManagement/GUIServices/intfUpdateRoleACL-service.serviceagent/intfwsUpdateRoleACLEndpoint0/DeleteRoleFromACLTableOp"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts=""/>
+            </wsdl:output>
+            <wsdl:fault name="fault1">
+                <soap:fault use="literal" name="fault1"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="UserRolesRetrievalOp">
+            <soap:operation style="document" soapAction="/SecurityManagement/GUIServices/intfUpdateRoleACL-service.serviceagent/intfwsUpdateRoleACLEndpoint0/UserRolesRetrievalOp"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:output>
+            <wsdl:fault name="fault1">
+                <soap:fault use="literal" name="fault1"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="SetRoleACLOp">
+            <soap:operation style="document" soapAction="/SecurityManagement/GUIServices/intfUpdateRoleACL-service.serviceagent/intfwsUpdateRoleACLEndpoint0/SetRoleACLOp"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts=""/>
+            </wsdl:output>
+            <wsdl:fault name="fault1">
+                <soap:fault use="literal" name="fault1"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="UserAuthenticationOp">
+            <soap:operation style="document" soapAction="/SecurityManagement/GUIServices/intfUpdateRoleACL-service.serviceagent/intfwsUpdateRoleACLEndpoint0/UserAuthenticationOp"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:output>
+            <wsdl:fault name="fault1">
+                <soap:fault use="literal" name="fault1"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="UpdateRoleACLOp">
+            <soap:operation style="document" soapAction="/SecurityManagement/GUIServices/intfUpdateRoleACL-service.serviceagent/intfwsUpdateRoleACLEndpoint0/UpdateRoleACLOp"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts=""/>
+            </wsdl:output>
+            <wsdl:fault name="fault1">
+                <soap:fault use="literal" name="fault1"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="UserRolesAppsRetrievalOp">
+            <soap:operation style="document" soapAction="/SecurityManagement/GUIServices/intfACL-service.serviceagent//UserRolesAppsRetrievalOp"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:output>
+            <wsdl:fault name="fault1">
+                <soap:fault use="literal" name="fault1"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:message name="RolePermissionInformationRequest">
+        <wsdl:part name="parameters" element="ns0:RolePermissionInformationRequest"/>
+    </wsdl:message>
+    <wsdl:message name="RolePermissionsInfo">
+        <wsdl:part name="parameters" element="ns1:RolePermissionsInfo"/>
+    </wsdl:message>
+    <wsdl:message name="Error">
+        <wsdl:part name="Error" element="ns2:Error"/>
+    </wsdl:message>
+    <wsdl:message name="Dummy"/>
+    <wsdl:message name="AllRoles">
+        <wsdl:part name="parameters" element="ns3:AllRoles"/>
+    </wsdl:message>
+    <wsdl:message name="RolePermissionInformationRequests">
+        <wsdl:part name="parameters" element="ns0:RolePermissionInformationRequests"/>
+    </wsdl:message>
+    <wsdl:message name="UserRolesRequest">
+        <wsdl:part name="parameters" element="ns4:UserRolesRequest"/>
+    </wsdl:message>
+    <wsdl:message name="UserAuthenticationRequest">
+        <wsdl:part name="parameters" element="ns5:UserAuthenticationRequest"/>
+    </wsdl:message>
+    <wsdl:message name="UserAuthenticationResponse">
+        <wsdl:part name="parameters" element="ns6:UserAuthenticationResponse"/>
+    </wsdl:message>
+    <wsdl:message name="Applications">
+        <wsdl:part name="part1" element="ns7:Applications"/>
+    </wsdl:message>
+</wsdl:definitions>

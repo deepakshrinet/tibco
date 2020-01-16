@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BWSharedResource xmlns:pfx="http://www.zimmer.com/tibco/schemas/ZBS/XSD/ExceptionHandler/v1/ExceptionMessageSchema.xsd">
+    <import namespace="http://www.zimmer.com/tibco/schemas/ZBS/XSD/ExceptionHandler/v1/ExceptionMessageSchema.xsd" schemaLocation="/EnterpriseLibrary/SharedResources/Schemas/XSD/ExceptionMessageSchema.xsd"/>
+    <name>ExceptionDetails</name>
+    <resourceType>ae.shared.jobSharedVariable</resourceType>
+    <config xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <initialValue>none</initialValue>
+        <xsdString ref="pfx:ExceptionMessage"/>
+    </config>
+</BWSharedResource>

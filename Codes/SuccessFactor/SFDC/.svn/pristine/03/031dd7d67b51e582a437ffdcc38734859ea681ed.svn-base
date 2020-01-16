@@ -1,0 +1,883 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/pe/EngineTypes" xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/FileAdapter/wire/SAPHR_UserFileAdapter" xmlns:ns3="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:ns12="http://www.tibco.com/CommonLE/Client/Schema/ClientInterface.xsd" xmlns:pfx="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/baseDocument" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xsd:import namespace="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/FileAdapter/wire/SAPHR_UserFileAdapter" schemaLocation="/AESchemas/ae/FileAdapter/wire/SAPHR_UserFileAdapter.aeschema"/>
+    <pd:name>Services/SFDC_SF/Processes/ProcessSAPHRLoad.process</pd:name>
+    <pd:startName>Adapter Subscriber</pd:startName>
+    <pd:startX>0</pd:startX>
+    <pd:startY>0</pd:startY>
+    <pd:returnBindings/>
+    <pd:starter name="Adapter Subscriber">
+        <pd:type>com.tibco.plugin.ae.AESubscriberActivity</pd:type>
+        <pd:resourceType>ae.aepalette.aeSubscription</pd:resourceType>
+        <pd:x>94</pd:x>
+        <pd:y>138</pd:y>
+        <config>
+            <ae.aepalette.sharedProperties.transportChoice>default</ae.aepalette.sharedProperties.transportChoice>
+            <ae.aepalette.sharedProperties.useRequestReply>false</ae.aepalette.sharedProperties.useRequestReply>
+            <ae.aepalette.sharedProperties.adapterService>/Adapter/SAPHR_UserFileAdapter.adfiles#adapterService.PublicationService</ae.aepalette.sharedProperties.adapterService>
+            <tpPluginEndpointName>PublicationServiceEndPoint</tpPluginEndpointName>
+            <ae.aepalette.sharedProperties.transportType>jmsQueue</ae.aepalette.sharedProperties.transportType>
+            <ae.aepalette.sharedProperties.jmsQueueSessionQueue>%%ApplicationDetails/SFDC_SF_USER_SEND/Queue/FileAdapterQueue%%</ae.aepalette.sharedProperties.jmsQueueSessionQueue>
+            <ae.aepalette.sharedProperties.jmsQueueSessionConnectionFactory>%%EnvVariables/TIBCO_JMS_Connection/QUEUE_CONNECTION_FACTORY%%</ae.aepalette.sharedProperties.jmsQueueSessionConnectionFactory>
+            <ae.aepalette.sharedProperties.jmsSessionUsername>%%EnvVariables/TIBCO_JMS_Connection/JNDI_USERNAME%%</ae.aepalette.sharedProperties.jmsSessionUsername>
+            <ae.aepalette.sharedProperties.jmsSessionProviderURL>%%EnvVariables/TIBCO_JMS_Connection/JNDI_URL%%</ae.aepalette.sharedProperties.jmsSessionProviderURL>
+            <ae.aepalette.sharedProperties.outputMeta>
+                <aeMeta>/AESchemas/ae/FileAdapter/wire/SAPHR_UserFileAdapter.aeschema#class.DelimitedFileRecord</aeMeta>
+            </ae.aepalette.sharedProperties.outputMeta>
+            <_sequenceKey>ProcessStarterOutput/body/pfx:MBusinessDocument/LotId</_sequenceKey>
+            <ae.aepalette.sharedProperties.useCustomOutput>true</ae.aepalette.sharedProperties.useCustomOutput>
+            <ae.aepalette.sharedProperties.customOutputMeta>/AESchemas/ae/baseDocument.aeschema#class.MBusinessDocument</ae.aepalette.sharedProperties.customOutputMeta>
+            <ae.aepalette.sharedProperties.jmsSessionJNDILookups>true</ae.aepalette.sharedProperties.jmsSessionJNDILookups>
+            <ae.aepalette.sharedProperties.jmsSessionPassword>%%EnvVariables/TIBCO_JMS_Connection/JNDI_PASSWORD%%</ae.aepalette.sharedProperties.jmsSessionPassword>
+            <ae.aepalette.sharedProperties.autoGenClientID>true</ae.aepalette.sharedProperties.autoGenClientID>
+        </config>
+        <pd:inputBindings/>
+    </pd:starter>
+    <pd:endName>End</pd:endName>
+    <pd:endX>599</pd:endX>
+    <pd:endY>262</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables>
+        <Variable0>
+            <xsd:element name="root">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="Transactionid" type="xsd:string" minOccurs="0"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </Variable0>
+    </pd:processVariables>
+    <pd:targetNamespace>http://xmlns.example.com/1486620839856</pd:targetNamespace>
+    <pd:activity name="CatchUnknownException">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>744</pd:x>
+        <pd:y>260</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Confirm">
+        <pd:type>com.tibco.pe.core.ConfirmActivity</pd:type>
+        <pd:resourceType>activity.confirm</pd:resourceType>
+        <pd:x>480</pd:x>
+        <pd:y>264</pd:y>
+        <config>
+            <ConfirmEvent>Adapter Subscriber</ConfirmEvent>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Confirm-Error">
+        <pd:type>com.tibco.pe.core.ConfirmActivity</pd:type>
+        <pd:resourceType>activity.confirm</pd:resourceType>
+        <pd:x>592</pd:x>
+        <pd:y>126</pd:y>
+        <config>
+            <ConfirmEvent>Adapter Subscriber</ConfirmEvent>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="SendLog">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>349</pd:x>
+        <pd:y>139</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendLog.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns12:LogRequest>
+                <ns12:Header>
+                    <ns12:ComponentName>
+                        <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns2:ProcessContext/ProcessId)"/>
+                    </ns12:ComponentName>
+                    <ns12:Hostname>
+                        <xsl:value-of select="BW:getHostName()"/>
+                    </ns12:Hostname>
+                    <ns12:TransactionDomain>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/SFDC_SF_USER_SEND/TransactionDomain"/>
+                    </ns12:TransactionDomain>
+                    <ns12:TransactionType>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/SFDC_SF_USER_SEND/TransactionType"/>
+                    </ns12:TransactionType>
+                    <xsl:if test="$Variable0/root/Transactionid">
+                        <ns12:TransactionID>
+                            <xsl:value-of select="$Variable0/root/Transactionid"/>
+                        </ns12:TransactionID>
+                    </xsl:if>
+                    <ns12:CorrelationID>
+                        <xsl:value-of select="current-date()"/>
+                    </ns12:CorrelationID>
+                    <ns12:InterfaceID>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/SFDC_SF_USER_SEND/InterfaceID"/>
+                    </ns12:InterfaceID>
+                    <xsl:if test="not(($Adapter-Subscriber/ProcessStarterOutput/body/pfx:MBusinessDocument/LotId/@xsi:nil=(&quot;true&quot;)) or ($Adapter-Subscriber/ProcessStarterOutput/body/pfx:MBusinessDocument/LotId/@xsi:nil=(&quot;1&quot;)))">
+                        <ns12:Filename>
+                            <xsl:value-of select="$Adapter-Subscriber/ProcessStarterOutput/body/pfx:MBusinessDocument/LotId"/>
+                        </ns12:Filename>
+                    </xsl:if>
+                    <ns12:Message>
+                        <xsl:value-of select="concat('Lot::',$Adapter-Subscriber/ProcessStarterOutput/body/pfx:MBusinessDocument/LotItem,' Processed')"/>
+                    </ns12:Message>
+                </ns12:Header>
+                <ns12:Category>
+                    <xsl:value-of select="'FULL_LOAD'"/>
+                </ns12:Category>
+                <ns12:Status>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/Status/STARTED"/>
+                </ns12:Status>
+                <ns12:Audit>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/AuditFlag"/>
+                </ns12:Audit>
+                <ns12:LogLevel>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/Environment/CommonLE/LOGGING_LEVEL_NUM_INFO"/>
+                </ns12:LogLevel>
+            </ns12:LogRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SendUnknownExceptions">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>740</pd:x>
+        <pd:y>126</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendException.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns12:ExceptionRequest>
+                <ns12:Header>
+                    <ns12:ComponentName>
+                        <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns2:ProcessContext/ProcessId)"/>
+                    </ns12:ComponentName>
+                    <ns12:Hostname>
+                        <xsl:value-of select="BW:getHostName()"/>
+                    </ns12:Hostname>
+                    <ns12:TransactionDomain>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/SFDC_SF_USER_SEND/TransactionDomain"/>
+                    </ns12:TransactionDomain>
+                    <ns12:TransactionType>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/SFDC_SF_USER_SEND/TransactionType"/>
+                    </ns12:TransactionType>
+                    <xsl:choose xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                        <xsl:when test="exists($Adapter-Subscriber/ProcessStarterOutput/body/pfx:MBusinessDocument/LotId) and tib:trim($Adapter-Subscriber/ProcessStarterOutput/body/pfx:MBusinessDocument/LotId)!=''">
+                            <ns12:TransactionID>
+                                <xsl:value-of select="$Adapter-Subscriber/ProcessStarterOutput/body/pfx:MBusinessDocument/LotId"/>
+                            </ns12:TransactionID>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <ns12:TransactionID>
+                                <xsl:value-of select="tib:format-dateTime('ddMMyyHHmmss', current-dateTime())"/>
+                            </ns12:TransactionID>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <ns12:CorrelationID>
+                        <xsl:value-of select="current-date()"/>
+                    </ns12:CorrelationID>
+                    <ns12:InterfaceID>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/SFDC_SF_USER_SEND/InterfaceID"/>
+                    </ns12:InterfaceID>
+                    <ns12:Message>
+                        <xsl:value-of select="&quot;Error Processing SAPHR File&quot;"/>
+                    </ns12:Message>
+                    <ns12:Transaction>
+                        <xsl:value-of select="concat(&quot;Payload::&quot;,tib:render-xml($Adapter-Subscriber/ProcessStarterOutput),&quot;   Error:::&quot;,tib:render-xml($CatchUnknownException/exceptiondata))"/>
+                    </ns12:Transaction>
+                </ns12:Header>
+                <ns12:ExceptionCode>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/ErrorCodes/Technical/TECHNICAL_777"/>
+                </ns12:ExceptionCode>
+                <ns12:StackTrace>
+                    <xsl:value-of select="concat(&quot;Error Message: &quot;, $_error/ns2:ErrorReport/Msg, &quot;&#xA;&quot;, &quot;  BW MsgCode: &quot;, &#xA;$_error/ns2:ErrorReport/MsgCode, &quot;&#xA;&quot;,&#xA;&quot;Stack Trace: &quot;, $_error/ns2:ErrorReport/StackTrace, &quot;&#xA;&quot;,&#xA;&quot; Process Stack: &quot;, $_error/ns2:ErrorReport/ProcessStack)"/>
+                </ns12:StackTrace>
+            </ns12:ExceptionRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="WriteFileHeader">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>96</pd:x>
+        <pd:y>254</pd:y>
+        <config>
+            <processName>/Services/SFDC_SF/Operations/WriteFileHeader.process</processName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <UserFileName>
+                    <xsl:value-of select="concat($_globalVariables/ns1:GlobalVariables/ApplicationDetails/SFDC_SF_USER_SEND/File/FileLocation,$_globalVariables/ns1:GlobalVariables/ApplicationDetails/SuccesFactor/coreFilename)"/>
+                </UserFileName>
+                <ExtFileName>
+                    <xsl:value-of select="concat($_globalVariables/ns1:GlobalVariables/ApplicationDetails/SFDC_SF_USER_SEND/File/FileLocation,$_globalVariables/ns1:GlobalVariables/ApplicationDetails/SuccesFactor/extendedFilename)"/>
+                </ExtFileName>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="WriteFileRecords">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>232</pd:x>
+        <pd:y>140</pd:y>
+        <config>
+            <processName>/Services/SFDC_SF/Operations/WriteAdapterFileRecords.process</processName>
+        </config>
+        <pd:coercions>
+            <pd:coercion xpath="$Adapter-Subscriber/ProcessStarterOutput/body/pfx:MBusinessDocument/DataSection/item/Data" type="ns:DelimitedFileRecord"/>
+        </pd:coercions>
+        <pd:inputBindings>
+            <root>
+                <Rows>
+                    <xsl:choose>
+                        <xsl:when test="$Adapter-Subscriber/ProcessStarterOutput/body/pfx:MBusinessDocument/LotItem=0">
+                            <xsl:for-each select="$Adapter-Subscriber/ProcessStarterOutput/body/pfx:MBusinessDocument/DataSection/item[position()>=$_globalVariables/ns1:GlobalVariables/ApplicationDetails/SAPHRIS/DataStart]/Data">
+                                <User>
+                                    <xsl:if test="STATUS">
+                                        <STATUS>
+                                            <xsl:value-of select="STATUS"/>
+                                        </STATUS>
+                                    </xsl:if>
+                                    <xsl:if test="USERID">
+                                        <USERID>
+                                            <xsl:value-of select="USERID"/>
+                                        </USERID>
+                                    </xsl:if>
+                                    <xsl:if test="USERNAME">
+                                        <USERNAME>
+                                            <xsl:value-of select="USERNAME"/>
+                                        </USERNAME>
+                                    </xsl:if>
+                                    <xsl:if test="FIRSTNAME">
+                                        <FIRSTNAME>
+                                            <xsl:value-of select="FIRSTNAME"/>
+                                        </FIRSTNAME>
+                                    </xsl:if>
+                                    <xsl:if test="LASTNAME">
+                                        <LASTNAME>
+                                            <xsl:value-of select="LASTNAME"/>
+                                        </LASTNAME>
+                                    </xsl:if>
+                                    <xsl:if test="MI">
+                                        <MI>
+                                            <xsl:value-of select="MI"/>
+                                        </MI>
+                                    </xsl:if>
+                                    <xsl:if test="EMAIL">
+                                        <EMAIL>
+                                            <xsl:value-of select="EMAIL"/>
+                                        </EMAIL>
+                                    </xsl:if>
+                                    <xsl:if test="MANAGER">
+                                        <MANAGER>
+                                            <xsl:value-of select="MANAGER"/>
+                                        </MANAGER>
+                                    </xsl:if>
+                                    <xsl:if test="HR">
+                                        <HR>
+                                            <xsl:value-of select="HR"/>
+                                        </HR>
+                                    </xsl:if>
+                                    <xsl:if test="DIVISION">
+                                        <DIVISION>
+                                            <xsl:value-of select="DIVISION"/>
+                                        </DIVISION>
+                                    </xsl:if>
+                                    <xsl:if test="DEPARTMENT">
+                                        <DEPARTMENT>
+                                            <xsl:value-of select="DEPARTMENT"/>
+                                        </DEPARTMENT>
+                                    </xsl:if>
+                                    <xsl:if test="LOCATION">
+                                        <LOCATION>
+                                            <xsl:value-of select="LOCATION"/>
+                                        </LOCATION>
+                                    </xsl:if>
+                                    <xsl:if test="JOBCODE">
+                                        <JOBCODE>
+                                            <xsl:value-of select="JOBCODE"/>
+                                        </JOBCODE>
+                                    </xsl:if>
+                                    <xsl:if test="TIMEZONE">
+                                        <TIMEZONE>
+                                            <xsl:value-of select="TIMEZONE"/>
+                                        </TIMEZONE>
+                                    </xsl:if>
+                                    <xsl:if test="HIREDATE">
+                                        <HIREDATE>
+                                            <xsl:value-of select="HIREDATE"/>
+                                        </HIREDATE>
+                                    </xsl:if>
+                                    <xsl:if test="EMPID">
+                                        <EMPID>
+                                            <xsl:value-of select="EMPID"/>
+                                        </EMPID>
+                                    </xsl:if>
+                                    <xsl:if test="TITLE">
+                                        <TITLE>
+                                            <xsl:value-of select="TITLE"/>
+                                        </TITLE>
+                                    </xsl:if>
+                                    <xsl:if test="BIZ__PHONE">
+                                        <BIZ_PHONE>
+                                            <xsl:value-of select="BIZ__PHONE"/>
+                                        </BIZ_PHONE>
+                                    </xsl:if>
+                                    <xsl:if test="FAX">
+                                        <FAX>
+                                            <xsl:value-of select="FAX"/>
+                                        </FAX>
+                                    </xsl:if>
+                                    <xsl:if test="CITY">
+                                        <CITY>
+                                            <xsl:value-of select="CITY"/>
+                                        </CITY>
+                                    </xsl:if>
+                                    <xsl:if test="STATE">
+                                        <STATE>
+                                            <xsl:value-of select="STATE"/>
+                                        </STATE>
+                                    </xsl:if>
+                                    <xsl:if test="ZIP">
+                                        <ZIP>
+                                            <xsl:value-of select="ZIP"/>
+                                        </ZIP>
+                                    </xsl:if>
+                                    <xsl:if test="COUNTRY">
+                                        <COUNTRY>
+                                            <xsl:value-of select="COUNTRY"/>
+                                        </COUNTRY>
+                                    </xsl:if>
+                                    <xsl:if test="not((REVIEW__FREQ/@xsi:nil=(&quot;true&quot;)) or (REVIEW__FREQ/@xsi:nil=(&quot;1&quot;)))">
+                                        <REVIEW_FREQ>
+                                            <xsl:value-of select="REVIEW__FREQ"/>
+                                        </REVIEW_FREQ>
+                                    </xsl:if>
+                                    <xsl:if test="not((LAST__REVIEW__DATE/@xsi:nil=(&quot;true&quot;)) or (LAST__REVIEW__DATE/@xsi:nil=(&quot;1&quot;)))">
+                                        <LAST_REVIEW_DATE>
+                                            <xsl:value-of select="LAST__REVIEW__DATE"/>
+                                        </LAST_REVIEW_DATE>
+                                    </xsl:if>
+                                    <xsl:if test="not((CUSTOM1/@xsi:nil=(&quot;true&quot;)) or (CUSTOM1/@xsi:nil=(&quot;1&quot;)))">
+                                        <CUSTOM01>
+                                            <xsl:value-of select="CUSTOM1"/>
+                                        </CUSTOM01>
+                                    </xsl:if>
+                                    <xsl:if test="not((CUSTOM2/@xsi:nil=(&quot;true&quot;)) or (CUSTOM2/@xsi:nil=(&quot;1&quot;)))">
+                                        <CUSTOM02>
+                                            <xsl:value-of select="CUSTOM2"/>
+                                        </CUSTOM02>
+                                    </xsl:if>
+                                    <xsl:if test="not((CUSTOM3/@xsi:nil=(&quot;true&quot;)) or (CUSTOM3/@xsi:nil=(&quot;1&quot;)))">
+                                        <CUSTOM03>
+                                            <xsl:value-of select="CUSTOM3"/>
+                                        </CUSTOM03>
+                                    </xsl:if>
+                                    <xsl:if test="not((CUSTOM4/@xsi:nil=(&quot;true&quot;)) or (CUSTOM4/@xsi:nil=(&quot;1&quot;)))">
+                                        <CUSTOM04>
+                                            <xsl:value-of select="CUSTOM4"/>
+                                        </CUSTOM04>
+                                    </xsl:if>
+                                    <xsl:if test="not((CUSTOM5/@xsi:nil=(&quot;true&quot;)) or (CUSTOM5/@xsi:nil=(&quot;1&quot;)))">
+                                        <CUSTOM05>
+                                            <xsl:value-of select="CUSTOM5"/>
+                                        </CUSTOM05>
+                                    </xsl:if>
+                                    <xsl:if test="not((CUSTOM6/@xsi:nil=(&quot;true&quot;)) or (CUSTOM6/@xsi:nil=(&quot;1&quot;)))">
+                                        <CUSTOM06>
+                                            <xsl:value-of select="CUSTOM6"/>
+                                        </CUSTOM06>
+                                    </xsl:if>
+                                    <xsl:if test="not((CUSTOM7/@xsi:nil=(&quot;true&quot;)) or (CUSTOM7/@xsi:nil=(&quot;1&quot;)))">
+                                        <CUSTOM07>
+                                            <xsl:value-of select="CUSTOM7"/>
+                                        </CUSTOM07>
+                                    </xsl:if>
+                                    <xsl:if test="not((CUSTOM8/@xsi:nil=(&quot;true&quot;)) or (CUSTOM8/@xsi:nil=(&quot;1&quot;)))">
+                                        <CUSTOM08>
+                                            <xsl:value-of select="CUSTOM8"/>
+                                        </CUSTOM08>
+                                    </xsl:if>
+                                    <xsl:if test="not((CUSTOM9/@xsi:nil=(&quot;true&quot;)) or (CUSTOM9/@xsi:nil=(&quot;1&quot;)))">
+                                        <CUSTOM09>
+                                            <xsl:value-of select="CUSTOM9"/>
+                                        </CUSTOM09>
+                                    </xsl:if>
+                                    <xsl:if test="CUSTOM10">
+                                        <CUSTOM10>
+                                            <xsl:value-of select="CUSTOM10"/>
+                                        </CUSTOM10>
+                                    </xsl:if>
+                                    <xsl:if test="CUSTOM11">
+                                        <CUSTOM11>
+                                            <xsl:value-of select="CUSTOM11"/>
+                                        </CUSTOM11>
+                                    </xsl:if>
+                                    <xsl:if test="CUSTOM12">
+                                        <CUSTOM12>
+                                            <xsl:value-of select="CUSTOM12"/>
+                                        </CUSTOM12>
+                                    </xsl:if>
+                                    <xsl:if test="CUSTOM13">
+                                        <CUSTOM13>
+                                            <xsl:value-of select="CUSTOM13"/>
+                                        </CUSTOM13>
+                                    </xsl:if>
+                                    <xsl:if test="CUSTOM14">
+                                        <CUSTOM14>
+                                            <xsl:value-of select="CUSTOM14"/>
+                                        </CUSTOM14>
+                                    </xsl:if>
+                                    <xsl:if test="CUSTOM15">
+                                        <CUSTOM15>
+                                            <xsl:value-of select="CUSTOM15"/>
+                                        </CUSTOM15>
+                                    </xsl:if>
+                                    <xsl:if test="not((MATRIX__MANAGER/@xsi:nil=(&quot;true&quot;)) or (MATRIX__MANAGER/@xsi:nil=(&quot;1&quot;)))">
+                                        <MATRIX_MANAGER>
+                                            <xsl:value-of select="MATRIX__MANAGER"/>
+                                        </MATRIX_MANAGER>
+                                    </xsl:if>
+                                    <xsl:if test="not((DEFAULT__LOCALE/@xsi:nil=(&quot;true&quot;)) or (DEFAULT__LOCALE/@xsi:nil=(&quot;1&quot;)))">
+                                        <DEFAULT_LOCALE>
+                                            <xsl:value-of select="DEFAULT__LOCALE"/>
+                                        </DEFAULT_LOCALE>
+                                    </xsl:if>
+                                    <xsl:if test="PROXY">
+                                        <PROXY>
+                                            <xsl:value-of select="PROXY"/>
+                                        </PROXY>
+                                    </xsl:if>
+                                    <xsl:if test="not((CUSTOM__MANAGER/@xsi:nil=(&quot;true&quot;)) or (CUSTOM__MANAGER/@xsi:nil=(&quot;1&quot;)))">
+                                        <CUSTOM_MANAGER>
+                                            <xsl:value-of select="CUSTOM__MANAGER"/>
+                                        </CUSTOM_MANAGER>
+                                    </xsl:if>
+                                    <xsl:if test="not((SECOND__MANAGER/@xsi:nil=(&quot;true&quot;)) or (SECOND__MANAGER/@xsi:nil=(&quot;1&quot;)))">
+                                        <SECOND_MANAGER>
+                                            <xsl:value-of select="SECOND__MANAGER"/>
+                                        </SECOND_MANAGER>
+                                    </xsl:if>
+                                    <xsl:if test="not((LOGIN__METHOD/@xsi:nil=(&quot;true&quot;)) or (LOGIN__METHOD/@xsi:nil=(&quot;1&quot;)))">
+                                        <LOGIN_METHOD>
+                                            <xsl:value-of select="LOGIN__METHOD"/>
+                                        </LOGIN_METHOD>
+                                    </xsl:if>
+                                </User>
+                            </xsl:for-each>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:for-each select="$Adapter-Subscriber/ProcessStarterOutput/body/pfx:MBusinessDocument/DataSection/item/Data">
+                                <User>
+                                    <xsl:if test="STATUS">
+                                        <STATUS>
+                                            <xsl:value-of select="STATUS"/>
+                                        </STATUS>
+                                    </xsl:if>
+                                    <xsl:if test="USERID">
+                                        <USERID>
+                                            <xsl:value-of select="USERID"/>
+                                        </USERID>
+                                    </xsl:if>
+                                    <xsl:if test="USERNAME">
+                                        <USERNAME>
+                                            <xsl:value-of select="USERNAME"/>
+                                        </USERNAME>
+                                    </xsl:if>
+                                    <xsl:if test="FIRSTNAME">
+                                        <FIRSTNAME>
+                                            <xsl:value-of select="FIRSTNAME"/>
+                                        </FIRSTNAME>
+                                    </xsl:if>
+                                    <xsl:if test="LASTNAME">
+                                        <LASTNAME>
+                                            <xsl:value-of select="LASTNAME"/>
+                                        </LASTNAME>
+                                    </xsl:if>
+                                    <xsl:if test="MI">
+                                        <MI>
+                                            <xsl:value-of select="MI"/>
+                                        </MI>
+                                    </xsl:if>
+                                    <xsl:if test="EMAIL">
+                                        <EMAIL>
+                                            <xsl:value-of select="EMAIL"/>
+                                        </EMAIL>
+                                    </xsl:if>
+                                    <xsl:if test="MANAGER">
+                                        <MANAGER>
+                                            <xsl:value-of select="MANAGER"/>
+                                        </MANAGER>
+                                    </xsl:if>
+                                    <xsl:if test="HR">
+                                        <HR>
+                                            <xsl:value-of select="HR"/>
+                                        </HR>
+                                    </xsl:if>
+                                    <xsl:if test="DIVISION">
+                                        <DIVISION>
+                                            <xsl:value-of select="DIVISION"/>
+                                        </DIVISION>
+                                    </xsl:if>
+                                    <xsl:if test="DEPARTMENT">
+                                        <DEPARTMENT>
+                                            <xsl:value-of select="DEPARTMENT"/>
+                                        </DEPARTMENT>
+                                    </xsl:if>
+                                    <xsl:if test="LOCATION">
+                                        <LOCATION>
+                                            <xsl:value-of select="LOCATION"/>
+                                        </LOCATION>
+                                    </xsl:if>
+                                    <xsl:if test="JOBCODE">
+                                        <JOBCODE>
+                                            <xsl:value-of select="JOBCODE"/>
+                                        </JOBCODE>
+                                    </xsl:if>
+                                    <xsl:if test="TIMEZONE">
+                                        <TIMEZONE>
+                                            <xsl:value-of select="TIMEZONE"/>
+                                        </TIMEZONE>
+                                    </xsl:if>
+                                    <xsl:if test="HIREDATE">
+                                        <HIREDATE>
+                                            <xsl:value-of select="HIREDATE"/>
+                                        </HIREDATE>
+                                    </xsl:if>
+                                    <xsl:if test="EMPID">
+                                        <EMPID>
+                                            <xsl:value-of select="EMPID"/>
+                                        </EMPID>
+                                    </xsl:if>
+                                    <xsl:if test="TITLE">
+                                        <TITLE>
+                                            <xsl:value-of select="TITLE"/>
+                                        </TITLE>
+                                    </xsl:if>
+                                    <xsl:if test="not((BIZ__PHONE/@xsi:nil=(&quot;true&quot;)) or (BIZ__PHONE/@xsi:nil=(&quot;1&quot;)))">
+                                        <BIZ_PHONE>
+                                            <xsl:value-of select="BIZ__PHONE"/>
+                                        </BIZ_PHONE>
+                                    </xsl:if>
+                                    <xsl:if test="FAX">
+                                        <FAX>
+                                            <xsl:value-of select="FAX"/>
+                                        </FAX>
+                                    </xsl:if>
+                                    <xsl:if test="CITY">
+                                        <CITY>
+                                            <xsl:value-of select="CITY"/>
+                                        </CITY>
+                                    </xsl:if>
+                                    <xsl:if test="STATE">
+                                        <STATE>
+                                            <xsl:value-of select="STATE"/>
+                                        </STATE>
+                                    </xsl:if>
+                                    <xsl:if test="ZIP">
+                                        <ZIP>
+                                            <xsl:value-of select="ZIP"/>
+                                        </ZIP>
+                                    </xsl:if>
+                                    <xsl:if test="COUNTRY">
+                                        <COUNTRY>
+                                            <xsl:value-of select="COUNTRY"/>
+                                        </COUNTRY>
+                                    </xsl:if>
+                                    <xsl:if test="not((REVIEW__FREQ/@xsi:nil=(&quot;true&quot;)) or (REVIEW__FREQ/@xsi:nil=(&quot;1&quot;)))">
+                                        <REVIEW_FREQ>
+                                            <xsl:value-of select="REVIEW__FREQ"/>
+                                        </REVIEW_FREQ>
+                                    </xsl:if>
+                                    <xsl:if test="not((LAST__REVIEW__DATE/@xsi:nil=(&quot;true&quot;)) or (LAST__REVIEW__DATE/@xsi:nil=(&quot;1&quot;)))">
+                                        <LAST_REVIEW_DATE>
+                                            <xsl:value-of select="LAST__REVIEW__DATE"/>
+                                        </LAST_REVIEW_DATE>
+                                    </xsl:if>
+                                    <xsl:if test="not((CUSTOM1/@xsi:nil=(&quot;true&quot;)) or (CUSTOM1/@xsi:nil=(&quot;1&quot;)))">
+                                        <CUSTOM01>
+                                            <xsl:value-of select="CUSTOM1"/>
+                                        </CUSTOM01>
+                                    </xsl:if>
+                                    <xsl:if test="not((CUSTOM2/@xsi:nil=(&quot;true&quot;)) or (CUSTOM2/@xsi:nil=(&quot;1&quot;)))">
+                                        <CUSTOM02>
+                                            <xsl:value-of select="CUSTOM2"/>
+                                        </CUSTOM02>
+                                    </xsl:if>
+                                    <xsl:if test="not((CUSTOM3/@xsi:nil=(&quot;true&quot;)) or (CUSTOM3/@xsi:nil=(&quot;1&quot;)))">
+                                        <CUSTOM03>
+                                            <xsl:value-of select="CUSTOM3"/>
+                                        </CUSTOM03>
+                                    </xsl:if>
+                                    <xsl:if test="not((CUSTOM4/@xsi:nil=(&quot;true&quot;)) or (CUSTOM4/@xsi:nil=(&quot;1&quot;)))">
+                                        <CUSTOM04>
+                                            <xsl:value-of select="CUSTOM4"/>
+                                        </CUSTOM04>
+                                    </xsl:if>
+                                    <xsl:if test="not((CUSTOM5/@xsi:nil=(&quot;true&quot;)) or (CUSTOM5/@xsi:nil=(&quot;1&quot;)))">
+                                        <CUSTOM05>
+                                            <xsl:value-of select="CUSTOM5"/>
+                                        </CUSTOM05>
+                                    </xsl:if>
+                                    <xsl:if test="not((CUSTOM6/@xsi:nil=(&quot;true&quot;)) or (CUSTOM6/@xsi:nil=(&quot;1&quot;)))">
+                                        <CUSTOM06>
+                                            <xsl:value-of select="CUSTOM6"/>
+                                        </CUSTOM06>
+                                    </xsl:if>
+                                    <xsl:if test="not((CUSTOM7/@xsi:nil=(&quot;true&quot;)) or (CUSTOM7/@xsi:nil=(&quot;1&quot;)))">
+                                        <CUSTOM07>
+                                            <xsl:value-of select="CUSTOM7"/>
+                                        </CUSTOM07>
+                                    </xsl:if>
+                                    <xsl:if test="not((CUSTOM8/@xsi:nil=(&quot;true&quot;)) or (CUSTOM8/@xsi:nil=(&quot;1&quot;)))">
+                                        <CUSTOM08>
+                                            <xsl:value-of select="CUSTOM8"/>
+                                        </CUSTOM08>
+                                    </xsl:if>
+                                    <xsl:if test="not((CUSTOM9/@xsi:nil=(&quot;true&quot;)) or (CUSTOM9/@xsi:nil=(&quot;1&quot;)))">
+                                        <CUSTOM09>
+                                            <xsl:value-of select="CUSTOM9"/>
+                                        </CUSTOM09>
+                                    </xsl:if>
+                                    <xsl:if test="CUSTOM10">
+                                        <CUSTOM10>
+                                            <xsl:value-of select="CUSTOM10"/>
+                                        </CUSTOM10>
+                                    </xsl:if>
+                                    <xsl:if test="CUSTOM11">
+                                        <CUSTOM11>
+                                            <xsl:value-of select="CUSTOM11"/>
+                                        </CUSTOM11>
+                                    </xsl:if>
+                                    <xsl:if test="CUSTOM12">
+                                        <CUSTOM12>
+                                            <xsl:value-of select="CUSTOM12"/>
+                                        </CUSTOM12>
+                                    </xsl:if>
+                                    <xsl:if test="CUSTOM13">
+                                        <CUSTOM13>
+                                            <xsl:value-of select="CUSTOM13"/>
+                                        </CUSTOM13>
+                                    </xsl:if>
+                                    <xsl:if test="CUSTOM14">
+                                        <CUSTOM14>
+                                            <xsl:value-of select="CUSTOM14"/>
+                                        </CUSTOM14>
+                                    </xsl:if>
+                                    <xsl:if test="CUSTOM15">
+                                        <CUSTOM15>
+                                            <xsl:value-of select="CUSTOM15"/>
+                                        </CUSTOM15>
+                                    </xsl:if>
+                                    <xsl:if test="not((MATRIX__MANAGER/@xsi:nil=(&quot;true&quot;)) or (MATRIX__MANAGER/@xsi:nil=(&quot;1&quot;)))">
+                                        <MATRIX_MANAGER>
+                                            <xsl:value-of select="MATRIX__MANAGER"/>
+                                        </MATRIX_MANAGER>
+                                    </xsl:if>
+                                    <xsl:if test="not((DEFAULT__LOCALE/@xsi:nil=(&quot;true&quot;)) or (DEFAULT__LOCALE/@xsi:nil=(&quot;1&quot;)))">
+                                        <DEFAULT_LOCALE>
+                                            <xsl:value-of select="DEFAULT__LOCALE"/>
+                                        </DEFAULT_LOCALE>
+                                    </xsl:if>
+                                    <xsl:if test="PROXY">
+                                        <PROXY>
+                                            <xsl:value-of select="PROXY"/>
+                                        </PROXY>
+                                    </xsl:if>
+                                    <xsl:if test="not((CUSTOM__MANAGER/@xsi:nil=(&quot;true&quot;)) or (CUSTOM__MANAGER/@xsi:nil=(&quot;1&quot;)))">
+                                        <CUSTOM_MANAGER>
+                                            <xsl:value-of select="CUSTOM__MANAGER"/>
+                                        </CUSTOM_MANAGER>
+                                    </xsl:if>
+                                    <xsl:if test="not((SECOND__MANAGER/@xsi:nil=(&quot;true&quot;)) or (SECOND__MANAGER/@xsi:nil=(&quot;1&quot;)))">
+                                        <SECOND_MANAGER>
+                                            <xsl:value-of select="SECOND__MANAGER"/>
+                                        </SECOND_MANAGER>
+                                    </xsl:if>
+                                    <xsl:if test="not((LOGIN__METHOD/@xsi:nil=(&quot;true&quot;)) or (LOGIN__METHOD/@xsi:nil=(&quot;1&quot;)))">
+                                        <LOGIN_METHOD>
+                                            <xsl:value-of select="LOGIN__METHOD"/>
+                                        </LOGIN_METHOD>
+                                    </xsl:if>
+                                </User>
+                            </xsl:for-each>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </Rows>
+                <UserFileName>
+                    <xsl:value-of select="concat($_globalVariables/ns1:GlobalVariables/ApplicationDetails/SFDC_SF_USER_SEND/File/FileLocation,$_globalVariables/ns1:GlobalVariables/ApplicationDetails/SuccesFactor/coreFilename)"/>
+                </UserFileName>
+                <ExtFileName>
+                    <xsl:value-of select="concat($_globalVariables/ns1:GlobalVariables/ApplicationDetails/SFDC_SF_USER_SEND/File/FileLocation,$_globalVariables/ns1:GlobalVariables/ApplicationDetails/SuccesFactor/extendedFilename)"/>
+                </ExtFileName>
+                <SourceFile>
+                    <xsl:value-of select="'SAPHR_FULL_LOAD'"/>
+                </SourceFile>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="TriggerMainProcess">
+        <pd:type>com.tibco.plugin.jms.JMSQueueSendActivity</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueSendActivity</pd:resourceType>
+        <pd:x>356</pd:x>
+        <pd:y>261</pd:y>
+        <config>
+            <PermittedMessageType>XML Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+                <destination>%%ApplicationDetails/SFDC_SF_USER_SEND/Queue/SFDCNoPerNRQueue%%</destination>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/EnterpriseLibrary/SharedResources/Connections/JMS/TIBCO_JMS_Connection.sharedjmscon</ConnectionReference>
+            <InDataxsdString>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="TransactionId" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Filename" type="xsd:string" minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </InDataxsdString>
+        </config>
+        <pd:inputBindings>
+            <ns3:ActivityInput>
+                <Body>
+                    <root>
+                        <xsl:if test="$Variable0/root/Transactionid">
+                            <TransactionId>
+                                <xsl:value-of select="$Variable0/root/Transactionid"/>
+                            </TransactionId>
+                        </xsl:if>
+                        <Filename>
+                            <xsl:value-of select="tib:substring-after-last(tib:trim($Adapter-Subscriber/ProcessStarterOutput/body/pfx:MBusinessDocument/LotId), '\')"/>
+                        </Filename>
+                    </root>
+                </Body>
+            </ns3:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Assign">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>234</pd:x>
+        <pd:y>243</pd:y>
+        <config>
+            <variableName>Variable0</variableName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <Transactionid>
+                    <xsl:value-of select="tib:format-dateTime('ddMMyyHHmmss', current-dateTime())"/>
+                </Transactionid>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Adapter Subscriber</pd:from>
+        <pd:to>WriteFileHeader</pd:to>
+        <pd:xpathDescription>First Lot</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$Adapter-Subscriber/ProcessStarterOutput/body/pfx:MBusinessDocument/LotItem=0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Adapter Subscriber</pd:from>
+        <pd:to>WriteFileRecords</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>WriteFileHeader</pd:from>
+        <pd:to>WriteFileRecords</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>WriteFileRecords</pd:from>
+        <pd:to>Assign</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SendLog</pd:from>
+        <pd:to>Confirm</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Confirm</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>CatchUnknownException</pd:from>
+        <pd:to>SendUnknownExceptions</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SendUnknownExceptions</pd:from>
+        <pd:to>Confirm-Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Confirm-Error</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SendLog</pd:from>
+        <pd:to>TriggerMainProcess</pd:to>
+        <pd:xpathDescription>Last Lot</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>lower-case($Adapter-Subscriber/ProcessStarterOutput/body/pfx:MBusinessDocument/LotEnd)='true'</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>TriggerMainProcess</pd:from>
+        <pd:to>Confirm</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign</pd:from>
+        <pd:to>SendLog</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:label>
+        <pd:name>Label (1)</pd:name>
+        <pd:description>Process is triggered when a file is placed at File Adapter Input location.
+It triggers MainProcess.</pd:description>
+        <pd:x>448</pd:x>
+        <pd:y>41</pd:y>
+        <pd:width>548</pd:width>
+        <pd:height>80</pd:height>
+        <pd:fontColor>-16777216</pd:fontColor>
+        <pd:color>-1</pd:color>
+        <pd:type>solid</pd:type>
+        <pd:thickness>0</pd:thickness>
+        <pd:fade>true</pd:fade>
+    </pd:label>
+</pd:ProcessDefinition>

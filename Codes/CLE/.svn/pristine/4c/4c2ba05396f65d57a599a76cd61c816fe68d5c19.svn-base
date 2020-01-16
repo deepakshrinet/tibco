@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serviceResource xmlns:wsdl="http://www.tibco.com/CommonLE2/namespace/Administration/GUIServices/Applications">
+    <ns0:import xmlns:ns0="http://schemas.xmlsoap.org/wsdl/" namespace="http://www.tibco.com/CommonLE2/namespace/Administration/GUIServices/Applications" location="/SharedResources/WSDL/GUI/Administration/intfUpdate_ApplicationConfiguration.wsdl"/>
+    <config>
+        <class>com.tibco.bw.service.serviceAgent.ServiceServiceAgent</class>
+        <name>intfUpdate_ApplicationConfiguration-service</name>
+        <resourceType>service.definition</resourceType>
+        <implType>bw</implType>
+        <groups>
+            <row isDefault="true" groupName="Default"/>
+        </groups>
+        <serviceChange>Mon Sep 20 16:51:10 PDT 2010</serviceChange>
+        <description>Application Configuration Web Service</description>
+        <description>Application Configuration Web Service</description>
+        <wsdl namespace="http://www.tibco.com/CommonLE2/Administration/GUIServices/ApplicationServices" embedWsdlComponents="true" embedSchemaComponents="true" embedJndiProperties="false"/>
+        <description>Application Configuration Web Service</description>
+        <description>Application Configuration Web Service</description>
+        <description>Application Configuration Web Service</description>
+        <description>Application Configuration Web Service</description>
+        <description>Application Configuration Web Service</description>
+        <description>Application Configuration Web Service</description>
+        <description>Application Configuration Web Service</description>
+        <description>Application Configuration Web Service</description>
+        <description>Application Configuration Web Service</description>
+        <description>Application Configuration Web Service</description>
+        <description>Application Configuration Web Service</description>
+        <interfaceImpl>
+            <tab>
+                <tabName>portType</tabName>
+                <tabType>bw</tabType>
+                <config>
+                    <wsdlDetail location="/SharedResources/WSDL/GUI/Administration/intfUpdate_ApplicationConfiguration.wsdl" portType="portType" ns="http://www.tibco.com/CommonLE2/namespace/Administration/GUIServices/Applications"/>
+                    <detail>
+                        <tab>
+                            <tabName>service.definition.impl.tab.label</tabName>
+                            <tabType>impl</tabType>
+                            <config>
+                                <operations>
+                                    <row opName="Update_sp_ApplicationConfigurationOp" opImpl="/Administration/GUIServices/ApplicationServices/wsUpdate_ApplicationConfiguration.process"/>
+                                    <row opName="Retrieve_sp_ApplicationConfiguration_sp_ListOp" opImpl="/Administration/GUIServices/ApplicationServices/wsRetrieve_ApplicationConfiguration_List.process"/>
+                                    <row opName="Delete_sp_ApplicationConfigurationOp" opImpl="/Administration/GUIServices/ApplicationServices/wsDelete_ApplicationConfiguration.process"/>
+                                    <row opName="CreateApplicationConfigurationOp" opImpl="/Administration/GUIServices/ApplicationServices/wsCreateApplicationConfiguration.process"/>
+                                </operations>
+                            </config>
+                        </tab>
+                        <tab>
+                            <tabName>service.definition.ep.tab.label</tabName>
+                            <tabType>ep</tabType>
+                            <config>
+                                <epBindings>
+                                    <row epName="intfwsUpdate_ApplicationConfigurationEndpoint2" epType="soap">
+                                        <config>
+                                            <epDetail>
+                                                <tab>
+                                                    <tabName>soap.service.transport.ui.transport.tab.label</tabName>
+                                                    <tabType>transport</tabType>
+                                                    <config>
+                                                        <sharedChannel>/SharedResources/Connections/SOAP/HTTP GUIServicesAdministration.sharedhttp</sharedChannel>
+                                                        <transport>
+                                                            <config>
+                                                                <useBasicAuthentication>false</useBasicAuthentication>
+                                                                <httpURI>/Administration/GUIServices/ApplicationServices/intfUpdate_ApplicationConfiguration-service.serviceagent/intfwsUpdate_ApplicationConfigurationEndpoint2</httpURI>
+                                                            </config>
+                                                        </transport>
+                                                    </config>
+                                                </tab>
+                                                <tab>
+                                                    <tabName>soap.service.transport.ui.details.tab.label</tabName>
+                                                    <tabType>details</tabType>
+                                                    <config>
+                                                        <operationStyle>document</operationStyle>
+                                                        <soapVersion>SOAP 1.1</soapVersion>
+                                                        <soap>
+                                                            <operation name="Update_sp_ApplicationConfigurationOp">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Administration/GUIServices/intfUpdate_ApplicationConfiguration-service.serviceagent/intfwsUpdate_ApplicationConfigurationEndpoint2/Update_sp_ApplicationConfigurationOp</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="Retrieve_sp_ApplicationConfiguration_sp_ListOp">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Administration/GUIServices/intfUpdate_ApplicationConfiguration-service.serviceagent/intfwsUpdate_ApplicationConfigurationEndpoint2/Retrieve_sp_ApplicationConfiguration_sp_ListOp</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="Delete_sp_ApplicationConfigurationOp">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Administration/GUIServices/intfUpdate_ApplicationConfiguration-service.serviceagent/intfwsUpdate_ApplicationConfigurationEndpoint2/Delete_sp_ApplicationConfigurationOp</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="CreateApplicationConfigurationOp">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Administration/GUIServices/intfUpdate_ApplicationConfiguration-service.serviceagent/intfwsUpdate_ApplicationConfigurationEndpoint2/CreateApplicationConfigurationOp</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                        </soap>
+                                                    </config>
+                                                </tab>
+                                            </epDetail>
+                                        </config>
+                                    </row>
+                                </epBindings>
+                            </config>
+                        </tab>
+                    </detail>
+                </config>
+            </tab>
+        </interfaceImpl>
+        <description>Application Configuration Web Service</description>
+        <description>Application Configuration Web Service</description>
+        <description>Application Configuration Web Service</description>
+        <description>Application Configuration Web Service</description>
+        <description>Application Configuration Web Service</description>
+    </config>
+</serviceResource>

@@ -1,0 +1,62 @@
+<data jsxnamespace="propsbundle" locales="">
+  <locale>
+    <record jsxid="login_userId" jsxtext="User Id:"/>
+    <record jsxid="login_password" jsxtext="Password:"/>
+    <record jsxid="login_buttonLogin" jsxtext="Login"/>
+    <record jsxid="login_incompleteLogin" jsxtext="Incomplete Login Information"/>
+    <record jsxid="login_errorCaption" jsxtext="Login Error"/>
+    <record jsxid="login_completeLoginToContinue" jsxtext="Please enter a userId and password to continue."/>
+    <record jsxid="login_timeoutCaption" jsxtext="Login Timeout"/>
+    <record jsxid="login_timeoutMessage" jsxtext="The service did not respond, please try again later."/>
+    <record jsxid="login_invalidRequestCaption" jsxtext="Invalid Service Request"/>
+    <record jsxid="login_invalidRequestMessage" jsxtext="The following message node just failed validation: "/>
+  </locale>
+  <locale key="pt_BR">
+    <record jsxid="login_userId" jsxtext="Usuário:"/>
+    <record jsxid="login_password" jsxtext="Senha:"/>
+    <record jsxid="login_buttonLogin" jsxtext="Acessar"/>
+    <record jsxid="login_incompleteLogin" jsxtext="Informação de Login Incompleta"/>
+    <record jsxid="login_errorCaption" jsxtext="Erro de Login"/>
+    <record jsxid="login_completeLoginToContinue" jsxtext="Por favor entre com o usuário e senha para continuar."/>
+    <record jsxid="login_timeoutCaption" jsxtext="Expirado o tempo de espera de acesso."/>
+    <record jsxid="login_timeoutMessage" jsxtext="O serviço não respondeu, por favor tente novamente mais tarde."/>
+    <record jsxid="login_invalidRequestCaption" jsxtext="Requisição ao serviço inválida."/>
+    <record jsxid="login_invalidRequestMessage" jsxtext="A seguinte mensagem acabou de falhar na validação: "/>
+  </locale>
+  <locale key="es_ES">
+    <record jsxid="login_userId" jsxtext="ID de Usuario:"/>
+    <record jsxid="login_password" jsxtext="Contraseña:"/>
+    <record jsxid="login_buttonLogin" jsxtext="Iniciar Sesión"/>
+    <record jsxid="login_incompleteLogin" jsxtext="Información de Inicio de Sesión Incompleta"/>
+    <record jsxid="login_errorCaption" jsxtext="Error de Inicio de Sesión"/>
+    <record jsxid="login_completeLoginToContinue" jsxtext="Por favor introduzca un ID de usuario y contraseña para continuar."/>
+    <record jsxid="login_timeoutCaption" jsxtext="Tiempo Agotado en Inicio de Sesión"/>
+    <record jsxid="login_timeoutMessage" jsxtext="El servicio no respondió, por favor vuelva a intentarlo más tarde."/>
+    <record jsxid="login_invalidRequestCaption" jsxtext="Petición de Servicio Invalida"/>
+    <record jsxid="login_invalidRequestMessage" jsxtext="El siguiente nodo de mensaje falló la validación: "/>
+  </locale>
+  <locale key="sv_SV">
+    <record jsxid="login_userId" jsxtext="AnvändarID:"/>
+    <record jsxid="login_password" jsxtext="Lösenord:"/>
+    <record jsxid="login_buttonLogin" jsxtext="Inloggning"/>
+    <record jsxid="login_incompleteLogin" jsxtext="Ofullständig inloggningsinformation"/>
+    <record jsxid="login_errorCaption" jsxtext="Inloggningsfel"/>
+    <record jsxid="login_completeLoginToContinue" jsxtext="Ange användarID och lösenord för att fortsätta."/>
+    <record jsxid="login_timeoutCaption" jsxtext="Inloggningsförsök överskred tidsgränsen"/>
+    <record jsxid="login_timeoutMessage" jsxtext="Inget svar erhölls, försök igen senare."/>
+    <record jsxid="login_invalidRequestCaption" jsxtext="Ogiltligt anrop"/>
+    <record jsxid="login_invalidRequestMessage" jsxtext="Följande meddelandenod var ogiltlig: "/>
+  </locale>
+  <locale key="zh_CH">
+    <record jsxid="login_userId" jsxtext="用户Id:"/>
+    <record jsxid="login_password" jsxtext="密码:"/>
+    <record jsxid="login_buttonLogin" jsxtext="登录"/>
+    <record jsxid="login_incompleteLogin" jsxtext="不完整的登录信息"/>
+    <record jsxid="login_errorCaption" jsxtext="登录错误"/>
+    <record jsxid="login_completeLoginToContinue" jsxtext="请输入一个用户Id和密码来继续。"/>
+    <record jsxid="login_timeoutCaption" jsxtext="登录超时"/>
+    <record jsxid="login_timeoutMessage" jsxtext="服务没有响应，请稍候再试。"/>
+    <record jsxid="login_invalidRequestCaption" jsxtext="无效的服务请求"/>
+    <record jsxid="login_invalidRequestMessage" jsxtext="下面的消息仅仅确认失败: "/>
+  </locale>
+</data>

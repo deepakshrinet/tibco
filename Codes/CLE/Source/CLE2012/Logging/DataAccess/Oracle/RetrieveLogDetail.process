@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:pfx13="http://www.tibco.com/CommonLE2/namespace/private/Common" xmlns:pfx12="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogDetail" xmlns:pfx11="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogDetailQuery" xmlns:pfx10="http://schemas.tibco.com/bw/plugins/jdbc/5.0/jdbcExceptions" xmlns:pfx5="http://www.tibco.com/CommonLE/namespace/LogListResponse" xmlns:pfx4="http://www.tibco.com/CommonLE/namespace/InternalLogResponse" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx3="http://www.tibco.com/CommonLE/namespace/Common" xmlns:pfx2="http://www.tibco.com/unique/default/namespace/CommonLE" xmlns:pfx9="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log" xmlns:pfx8="http://www.tibco.com/CommonLE2/namespace/Log" xmlns:pfx7="http://www.tibco.com/CommonLE2/namespace/Exception" xmlns:pfx6="http://www.tibco.com/CommonLE/namespace/GUI" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns5="http://schemas.tibco.com/bw/plugins/xml/5.0/xmlExceptions" xmlns:ns6="http://www.tibco.com/CommonLE2/namespace/Public/Common" xmlns:ns7="http://www.tibco.com/CommonLE2/namespace/Public/Common/RequestHeader.xsd" xmlns:pfx="http://www.tibco.com/unique/default/namespace/Log" xmlns:ns2="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="http://www.tibco.com/pe/EngineTypes" xmlns:ns4="http://www.tibco.com/CommonLE2/namespace/Common" xmlns:ns3="http://www.tibco.com/CommonLE/namespace/Custom" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xsd:import namespace="http://www.tibco.com/CommonLE/namespace/Common" schemaLocation="/SharedResources/SchemaDefinitions/Public/Common/LogQuery.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE/namespace/InternalLogResponse" schemaLocation="/SharedResources/SchemaDefinitions/Private/Logging/LogStoredProcedureResponse.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogDetailQuery" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Log/LogDetailQuery.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogDetail" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Log/LogDetail.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/private/Common" schemaLocation="/SharedResources/SchemaDefinitions/Private/Common/LocalExceptions.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE/namespace/LogListResponse" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Log/LogList.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Exception"/>
+    <pd:name>Logging/DataAccess/Oracle/RetrieveLogDetail.process</pd:name>
+    <pd:description>This process is used to retrieve the details of one log records based on the unique LOGID</pd:description>
+    <pd:startName>Start</pd:startName>
+    <pd:startDescription>Contains the LogID based on which the log details have to be retrieved</pd:startDescription>
+    <pd:startType ref="pfx11:LogDetailQuery"/>
+    <pd:startX>26</pd:startX>
+    <pd:startY>34</pd:startY>
+    <pd:returnBindings>
+        <xsl:for-each select="$Get-Log-Details/resultSet/Record[1]">
+            <pfx12:LogDetail>
+                <ns7:Header>
+                    <ns7:ApplicationID>
+                        <xsl:value-of select="APPLICATIONID"/>
+                    </ns7:ApplicationID>
+                    <xsl:if test="COMPONENTNAME">
+                        <ns7:ComponentName>
+                            <xsl:value-of select="COMPONENTNAME"/>
+                        </ns7:ComponentName>
+                    </xsl:if>
+                    <xsl:if test="HOSTNAME">
+                        <ns7:Hostname>
+                            <xsl:value-of select="HOSTNAME"/>
+                        </ns7:Hostname>
+                    </xsl:if>
+                    <ns7:Timestamp>
+                        <xsl:value-of select="TIME_STAMP"/>
+                    </ns7:Timestamp>
+                    <xsl:if test="TRANSACTIONDOMAIN">
+                        <ns7:TransactionDomain>
+                            <xsl:value-of select="TRANSACTIONDOMAIN"/>
+                        </ns7:TransactionDomain>
+                    </xsl:if>
+                    <ns7:TransactionType>
+                        <xsl:value-of select="TRANSACTIONTYPE"/>
+                    </ns7:TransactionType>
+                    <xsl:if test="TRANSACTIONID">
+                        <ns7:TransactionID>
+                            <xsl:value-of select="TRANSACTIONID"/>
+                        </ns7:TransactionID>
+                    </xsl:if>
+                    <xsl:if test="CORRELATIONID">
+                        <ns7:CorrelationID>
+                            <xsl:value-of select="CORRELATIONID"/>
+                        </ns7:CorrelationID>
+                    </xsl:if>
+                    <xsl:if test="INTERFACEID">
+                        <ns7:InterfaceID>
+                            <xsl:value-of select="INTERFACEID"/>
+                        </ns7:InterfaceID>
+                    </xsl:if>
+                    <xsl:if test="FILENAME">
+                        <ns7:Filename>
+                            <xsl:value-of select="FILENAME"/>
+                        </ns7:Filename>
+                    </xsl:if>
+                    <xsl:if test="MESSAGE">
+                        <ns7:Message>
+                            <xsl:value-of select="MESSAGE"/>
+                        </ns7:Message>
+                    </xsl:if>
+                    <xsl:if test="RENDERID">
+                        <ns7:RenderID>
+                            <xsl:value-of select="RENDERID"/>
+                        </ns7:RenderID>
+                    </xsl:if>
+                    <xsl:if test="DATAENCODING">
+                        <ns7:DataEncoding>
+                            <xsl:value-of select="DATAENCODING"/>
+                        </ns7:DataEncoding>
+                    </xsl:if>
+                    <xsl:if test="TRANSACTION">
+                        <ns7:Transaction>
+                            <xsl:value-of select="TRANSACTION"/>
+                        </ns7:Transaction>
+                    </xsl:if>
+                </ns7:Header>
+                <LogID>
+                    <xsl:value-of select="LOGID"/>
+                </LogID>
+                <TimeDuration>
+                    <xsl:value-of select="TIMEDURATION"/>
+                </TimeDuration>
+                <Category>
+                    <xsl:value-of select="CATEGORY"/>
+                </Category>
+                <Status>
+                    <xsl:value-of select="STATUS"/>
+                </Status>
+                <xsl:choose>
+                    <xsl:when test="string-length(TRANSACTIONSIZE)>0">
+                        <Size>
+                            <xsl:value-of select="ceiling(TRANSACTIONSIZE)"/>
+                        </Size>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <Size>
+                            <xsl:value-of select="0"/>
+                        </Size>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </pfx12:LogDetail>
+        </xsl:for-each>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endDescription>Returns the LogDetails XML message containing all the details associated with the Log ID</pd:endDescription>
+    <pd:endType ref="pfx12:LogDetail"/>
+    <pd:endX>267</pd:endX>
+    <pd:endY>34</pd:endY>
+    <pd:errorSchemas>
+        <RecordNotFound ref="pfx13:DBRecordNotFound"/>
+    </pd:errorSchemas>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1284482837162</pd:targetNamespace>
+    <pd:activity name="Get Log Details">
+        <pd:type>com.tibco.plugin.jdbc.JDBCQueryActivity</pd:type>
+        <pd:resourceType>ae.activities.JDBCQueryActivity</pd:resourceType>
+        <pd:description>Retrieves the log information from the database</pd:description>
+        <pd:x>138</pd:x>
+        <pd:y>35</pd:y>
+        <config>
+            <timeout>%%Database/MIG_Timeout%%</timeout>
+            <commit>false</commit>
+            <maxRows>1</maxRows>
+            <emptyStrAsNil>false</emptyStrAsNil>
+            <statement>select * from log where logid = ?</statement>
+            <jdbcSharedConfig>/SharedResources/Connections/Database/DBServerOracle.sharedjdbc</jdbcSharedConfig>
+            <Prepared_Param_DataType>
+                <parameter>
+                    <parameterName>logid</parameterName>
+                    <dataType>INTEGER</dataType>
+                </parameter>
+            </Prepared_Param_DataType>
+            <QueryOutputCachedSchemaColumns>APPLICATIONID</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>VARCHAR2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>LOGID</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>2</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>NUMBER</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>COMPONENTNAME</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>VARCHAR2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>HOSTNAME</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>VARCHAR2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>TRANSACTIONDOMAIN</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>VARCHAR2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>TRANSACTIONID</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>VARCHAR2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>TRANSACTIONTYPE</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>VARCHAR2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>TIME_STAMP</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>93</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>DATE</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>TIMEDURATION</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>2</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>NUMBER</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>CATEGORY</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>VARCHAR2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>MESSAGE</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>VARCHAR2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>STATUS</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>VARCHAR2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>TRANSACTION</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>2005</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>CLOB</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>FILENAME</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>VARCHAR2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>LOGAUDIT</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>2</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>NUMBER</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>INTERFACEID</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>VARCHAR2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>TRANSACTIONSIZE</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>2</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>NUMBER</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>DATAENCODING</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>VARCHAR2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>CORRELATIONID</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>VARCHAR2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>RENDERID</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>VARCHAR2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <oraObjects/>
+            <oraTables/>
+        </config>
+        <pd:inputBindings>
+            <jdbcQueryActivityInput>
+                <logid>
+                    <xsl:value-of select="$Start/pfx11:LogDetailQuery/pfx11:LogID"/>
+                </logid>
+            </jdbcQueryActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Generate Error">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>137</pd:x>
+        <pd:y>125</pd:y>
+        <config>
+            <faultName>RecordNotFound</faultName>
+        </config>
+        <pd:inputBindings>
+            <ns2:ActivityInput>
+                <message>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Exceptions/Log/Messages/LogDetailRecNotFound"/>
+                </message>
+                <messageCode>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Exceptions/Log/Codes/LogDetailRecNotFound"/>
+                </messageCode>
+                <data>
+                    <pfx13:DBRecordNotFound>
+                        <pfx13:Message>
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Exceptions/Log/Messages/LogDetailRecNotFound"/>
+                        </pfx13:Message>
+                        <pfx13:Code>
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Exceptions/Log/Codes/LogDetailRecNotFound"/>
+                        </pfx13:Code>
+                    </pfx13:DBRecordNotFound>
+                </data>
+            </ns2:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Get Log Details</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Get Log Details</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Straight</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Get Log Details</pd:from>
+        <pd:to>Generate Error</pd:to>
+        <pd:xpathDescription>Record Not Found</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>count($Get-Log-Details/resultSet/Record) = 0</pd:xpath>
+    </pd:transition>
+</pd:ProcessDefinition>

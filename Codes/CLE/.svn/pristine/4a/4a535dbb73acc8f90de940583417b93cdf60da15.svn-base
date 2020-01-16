@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by TIBCO WSDL-->
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.tibco.com/CommonLE2/Administration/GUIServices/ApplicationServices" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns0="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Applications" xmlns:ns1="http://www.tibco.com/CommonLE2/Public/Common" xmlns:ns2="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Query" targetNamespace="http://www.tibco.com/CommonLE2/Administration/GUIServices/ApplicationServices">
+    <wsdl:types>
+        <xsd:schema xmlns="http://www.tibco.com/CommonLE2/Public/Common" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tibco.com/CommonLE2/Public/Common" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xsd:element name="Code" type="xsd:string"/>
+            <xsd:element name="Error">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="ns1:Message" minOccurs="0"/>
+                        <xsd:element ref="ns1:Code" minOccurs="0"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="Message" type="xsd:string"/>
+        </xsd:schema>
+        <xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Applications" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Applications" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xsd:element name="Application">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ApplicationID" type="xsd:string"/>
+                        <xsd:element name="Name" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="Description" type="xsd:string" minOccurs="0"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="Applications">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="ns0:Application" minOccurs="0" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+        <xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Query" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Query" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xsd:element name="Query">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ID" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:service name="intfUpdate_ApplicationConfiguration-service">
+        <wsdl:port name="intfwsUpdate_ApplicationConfigurationEndpoint2" binding="tns:intfwsUpdate_ApplicationConfigurationEndpoint2Binding">
+            <soap:address location="http://localhost:18000/Administration/GUIServices/intfUpdate_ApplicationConfiguration-service.serviceagent/intfwsUpdate_ApplicationConfigurationEndpoint2"/>
+        </wsdl:port>
+    </wsdl:service>
+    <wsdl:portType name="portType">
+        <wsdl:operation name="Update_sp_ApplicationConfigurationOp">
+            <wsdl:input message="tns:Applications"/>
+            <wsdl:output message="tns:Dummy"/>
+            <wsdl:fault name="fault1" message="tns:Error"/>
+        </wsdl:operation>
+        <wsdl:operation name="Retrieve_sp_SpecificApplicationConfigurationOp">
+            <wsdl:input message="tns:Query"/>
+            <wsdl:output message="tns:Applications"/>
+            <wsdl:fault name="fault1" message="tns:Error"/>
+        </wsdl:operation>
+        <wsdl:operation name="Retrieve_sp_ApplicationConfiguration_sp_ListOp">
+            <wsdl:input message="tns:Query"/>
+            <wsdl:output message="tns:Applications"/>
+            <wsdl:fault name="fault1" message="tns:Error"/>
+        </wsdl:operation>
+        <wsdl:operation name="Delete_sp_ApplicationConfigurationOp">
+            <wsdl:input message="tns:Query"/>
+            <wsdl:output message="tns:Dummy"/>
+            <wsdl:fault name="fault1" message="tns:Error"/>
+        </wsdl:operation>
+        <wsdl:operation name="CreateApplicationConfigurationOp">
+            <wsdl:input message="tns:Applications"/>
+            <wsdl:output message="tns:Dummy"/>
+            <wsdl:fault name="fault1" message="tns:Error"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="intfwsUpdate_ApplicationConfigurationEndpoint2Binding" type="tns:portType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="Update_sp_ApplicationConfigurationOp">
+            <soap:operation style="document" soapAction="/Administration/GUIServices/intfUpdate_ApplicationConfiguration-service.serviceagent/intfwsUpdate_ApplicationConfigurationEndpoint2/Update_sp_ApplicationConfigurationOp"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts=""/>
+            </wsdl:output>
+            <wsdl:fault name="fault1">
+                <soap:fault use="literal" name="fault1"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="Retrieve_sp_SpecificApplicationConfigurationOp">
+            <soap:operation style="document" soapAction="/Administration/GUIServices/intfUpdate_ApplicationConfiguration-service.serviceagent/intfwsUpdate_ApplicationConfigurationEndpoint2/Retrieve_sp_SpecificApplicationConfigurationOp"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:output>
+            <wsdl:fault name="fault1">
+                <soap:fault use="literal" name="fault1"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="Retrieve_sp_ApplicationConfiguration_sp_ListOp">
+            <soap:operation style="document" soapAction="/Administration/GUIServices/intfUpdate_ApplicationConfiguration-service.serviceagent/intfwsUpdate_ApplicationConfigurationEndpoint2/Retrieve_sp_ApplicationConfiguration_sp_ListOp"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:output>
+            <wsdl:fault name="fault1">
+                <soap:fault use="literal" name="fault1"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="Delete_sp_ApplicationConfigurationOp">
+            <soap:operation style="document" soapAction="/Administration/GUIServices/intfUpdate_ApplicationConfiguration-service.serviceagent/intfwsUpdate_ApplicationConfigurationEndpoint2/Delete_sp_ApplicationConfigurationOp"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts=""/>
+            </wsdl:output>
+            <wsdl:fault name="fault1">
+                <soap:fault use="literal" name="fault1"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="CreateApplicationConfigurationOp">
+            <soap:operation style="document" soapAction="/Administration/GUIServices/intfUpdate_ApplicationConfiguration-service.serviceagent/intfwsUpdate_ApplicationConfigurationEndpoint2/CreateApplicationConfigurationOp"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts=""/>
+            </wsdl:output>
+            <wsdl:fault name="fault1">
+                <soap:fault use="literal" name="fault1"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:message name="Applications">
+        <wsdl:part name="parameters" element="ns0:Applications"/>
+    </wsdl:message>
+    <wsdl:message name="Dummy"/>
+    <wsdl:message name="Error">
+        <wsdl:part name="parameters" element="ns1:Error"/>
+    </wsdl:message>
+    <wsdl:message name="Query">
+        <wsdl:part name="parameters" element="ns2:Query"/>
+    </wsdl:message>
+</wsdl:definitions>

@@ -1,0 +1,45 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>Category</name>
+			<value>PUBLISHTOESB</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1491985996492</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>InterfaceID</name>
+			<value>PUBLISHTOESB</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1491985996555</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>JMSExpiration</name>
+			<value>3600</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1483626386760</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>TransactionDomain</name>
+			<value>MANUFACTURING</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1481205108841</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>TransactionType</name>
+			<value>PUBLISHTOESB</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1481205108437</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

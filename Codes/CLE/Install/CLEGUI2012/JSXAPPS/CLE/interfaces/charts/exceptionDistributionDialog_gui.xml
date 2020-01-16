@@ -1,0 +1,65 @@
+<serialization xmlns="urn:tibco.com/v3.0" jsxversion="3.9">
+  <onAfterDeserialize><![CDATA[
+  ]]></onAfterDeserialize>
+  <object type="jsx3.gui.Dialog">
+    <variants jsxwidth="418" jsxheight="372" jsxwindowstate="1" jsxzindex="5003" jsxleft="880" jsxtop="10" jsxresize="0"/>
+    <strings jsxname="exceptionDistributionDialog"/>
+    <events jsxafterresize="1;"/>
+    <dynamics jsxbgcolor="mediumBG"/>
+    <object type="jsx3.gui.WindowBar">
+      <variants/>
+      <strings jsxname="windowBar"/>
+      <dynamics  jsxtext="chart_exceptionDistribution_caption" jsxbgcolor="mediumBG"/>
+      <object type="jsx3.gui.ToolbarButton">
+        <variants/>
+        <strings jsxname="btnMinimize"/>
+        <dynamics jsximage="@Min Icon" jsxtip="jsx3.gui.Dialog.min"/>
+        <events jsxexecute="this.getAncestorOfType(jsx3.gui.Dialog).doToggleState();"/>
+      </object>
+    </object>
+    <object type="jsx3.gui.Block">
+      <variants jsxoverflow="3" jsxloadtype="1"/>
+      <strings jsxname="block" jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1" jsxtextalign="center"/>
+      <object type="jsx3.gui.LayoutGrid">
+        <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+        <strings jsxname="layoutRows" jsxrows="28,*" jsxwidth="100%" jsxheight="100%"/>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="2"/>
+          <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%"/>
+          <dynamics jsxborder="@Outset"/>
+          <object type="jsx3.gui.WindowBar">
+            <variants jsxbartype="1"/>
+            <strings jsxname="toolBar"/>
+            <object type="jsx3.gui.ToolbarButton">
+              <variants/>
+              <strings jsxname="toolBarBtn" jsximage="images/icons/zoomin.png"/>
+              <events jsxexecute="cle.charts.zoomMe(this);"/>
+              <dynamics jsxtext="chart_zoom"/>
+            </object>
+          </object>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="1"/>
+          <strings jsxname="pane2" jsxwidth="100%" jsxheight="100%"/>
+          <dynamics jsxborder="@Outset" jsxbgcolor="neutralBG"/>
+		  <object type="jsx3.chart.PieChart">
+		    <variants jsxleft="0" jsxtop="0" jsxwidth="400" jsxheight="300" borderWidth="1" borderAlpha="1" alpha="1" jsxrelativeposition="1" loadState="1" jsxxmlbind="1" innerRadius="0" seriesPadding="0.1" totalAngle="360" startAngle="0" colors="['#66FF66','#FF3333','#00FF66','#CCCCCC','#FFCC33','#66CCCC','#CCFF66','#666666']"/>
+		    <strings jsxname="pieChart" titlePlacement="top" legendPlacement="right" dataPadding="20" borderColor="#999999" categoryField="name" colorFunction="cle.charts.pieColoring" seriesStroke="#666666" jsxbgcolor="#FFFFFF"  jsxxmlid="exceptionDistributionChartData_cdf"/>
+		    <object type="jsx3.chart.PieSeries">
+		      <variants usePrimaryX="1" usePrimaryY="1" index="0" jsxzindex="21" jsxleft="0" jsxtop="0" jsxwidth="258" jsxheight="233"/>
+		      <strings jsxname="series1" seriesName="Series 1" field="value" tooltipFunction="jsx3.chart.PieSeries.tooltip"/>
+		    </object>
+		    <object type="jsx3.chart.Legend">
+		      <variants boxHeight="10" lineHeight="22" titleSpace="8" boxSpace="6" jsxleft="292" jsxtop="25" jsxwidth="120" jsxheight="273" jsxzindex="990"/>
+		      <strings jsxname="legend" labelStyle="font-size: 10px; font-weight: bold;" backgroundStroke="#BBBBBB" jsxmargin="10 8 10 4" jsxpadding="4 4 0 4"/>
+		      <object type="jsx3.chart.ChartLabel">
+		        <variants labelRotation="0" jsxfontsize="12" preferredHeight="20" jsxleft="8" jsxtop="103" jsxwidth="78" jsxheight="20" jsxzindex="3"/>
+		        <strings jsxname="legendTitle" jsxtext="Distribution" jsxfontname="Arial" jsxfontweight="bold" jsxtextalign="center"/>
+		      </object>
+		    </object>
+		  </object>
+        </object>
+      </object>
+    </object>
+  </object>
+</serialization>

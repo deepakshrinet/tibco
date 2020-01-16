@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serviceResource>
+    <config>
+        <class>com.tibco.bw.service.serviceAgent.ServiceServiceAgent</class>
+        <name>Retrieve_Log_service</name>
+        <resourceType>service.definition</resourceType>
+        <implType>bw</implType>
+        <groups>
+            <row isDefault="true" groupName="Default"/>
+        </groups>
+        <description>Log Operations Web Service</description>
+        <description>Log Operations Web Service</description>
+        <wsdl namespace="http://www.tibco.com/CommonLE2/Logging/GUIServices" embedWsdlComponents="true" embedSchemaComponents="true" embedJndiProperties="false"/>
+        <description>Log Operations Web Service</description>
+        <serviceChange>Mon Sep 20 17:09:03 PDT 2010</serviceChange>
+        <description>Log Operations Web Service</description>
+        <description>Log Operations Web Service</description>
+        <description>Log Operations Web Service</description>
+        <description>Log Operations Web Service</description>
+        <description>Log Operations Web Service</description>
+        <description>Log Operations Web Service</description>
+        <description>Log Operations Web Service</description>
+        <description>Log Operations Web Service</description>
+        <description>Log Operations Web Service</description>
+        <description>Log Operations Web Service</description>
+        <interfaceImpl>
+            <tab>
+                <tabName>portType</tabName>
+                <tabType>bw</tabType>
+                <config>
+                    <wsdlDetail location="/SharedResources/WSDL/GUI/Log/intfRetrieve_Log.wsdl" portType="portType" ns="http://www.tibco.com/CommonLE2/namespace/Logging/GUIServices"/>
+                    <detail>
+                        <tab>
+                            <tabName>service.definition.impl.tab.label</tabName>
+                            <tabType>impl</tabType>
+                            <config>
+                                <operations>
+                                    <row opName="Retrieve_sp_Log_sp_DetailOp" opImpl="/Logging/GUIServices/wsRetrieve_Log_Detail.process"/>
+                                    <row opName="Retrieve_sp_Log_sp_ListOp" opImpl="/Logging/GUIServices/wsRetrieve_Log_List.process"/>
+                                    <row opName="DeleteLogOp" opImpl="/Logging/GUIServices/wsDeleteLogs.process"/>
+                                </operations>
+                            </config>
+                        </tab>
+                        <tab>
+                            <tabName>service.definition.ep.tab.label</tabName>
+                            <tabType>ep</tabType>
+                            <config>
+                                <epBindings>
+                                    <row epName="intfwsRetrieve_Log_DetailEndpoint2" epType="soap">
+                                        <config>
+                                            <epDetail>
+                                                <tab>
+                                                    <tabName>soap.service.transport.ui.transport.tab.label</tabName>
+                                                    <tabType>transport</tabType>
+                                                    <config>
+                                                        <sharedChannel>/SharedResources/Connections/SOAP/HTTP GUIServicesAdministration.sharedhttp</sharedChannel>
+                                                        <transport>
+                                                            <config>
+                                                                <useBasicAuthentication>false</useBasicAuthentication>
+                                                                <httpURI>/Logging/GUIServices/Retrieve_Log_service.serviceagent/intfwsRetrieve_Log_DetailEndpoint2</httpURI>
+                                                            </config>
+                                                        </transport>
+                                                    </config>
+                                                </tab>
+                                                <tab>
+                                                    <tabName>soap.service.transport.ui.details.tab.label</tabName>
+                                                    <tabType>details</tabType>
+                                                    <config>
+                                                        <operationStyle>document</operationStyle>
+                                                        <soapVersion>SOAP 1.1</soapVersion>
+                                                        <soap>
+                                                            <operation name="Retrieve_sp_Log_sp_DetailOp">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Logging/GUIServices/intfRetrieve_Log_Detail-service.serviceagent/intfwsRetrieve_Log_DetailEndpoint2/Retrieve_sp_Log_sp_DetailOp</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="Retrieve_sp_Log_sp_ListOp">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Logging/GUIServices/intfRetrieve_Log_Detail-service.serviceagent/intfwsRetrieve_Log_DetailEndpoint2/Retrieve_sp_Log_sp_ListOp</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="DeleteLogOp">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Logging/GUIServices/Retrieve_Log_service.serviceagent//DeleteLogOp</soapAction>
+                                                                        <soapUse>literal</soapUse>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                        </soap>
+                                                    </config>
+                                                </tab>
+                                            </epDetail>
+                                        </config>
+                                    </row>
+                                </epBindings>
+                            </config>
+                        </tab>
+                    </detail>
+                </config>
+            </tab>
+        </interfaceImpl>
+        <description>Log Operations Web Service</description>
+        <description>Log Operations Web Service</description>
+        <description>Log Operations Web Service</description>
+        <description>Log Operations Web Service</description>
+        <description>Log Operations Web Service</description>
+    </config>
+</serviceResource>

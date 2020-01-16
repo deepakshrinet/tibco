@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BWSharedResource xmlns:pfx="http://www.zimmer.com/V1_0/TextMsgProfileFile">
+    <import namespace="http://www.zimmer.com/V1_0/TextMsgProfileFile" schemaLocation="/SharedResources/Schemas/XSD/TextMsgProfileFile.xsd"/>
+    <name>TextMsg</name>
+    <resourceType>ae.shared.sharedVariable</resourceType>
+    <config xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <persistent>false</persistent>
+        <multi-engine>false</multi-engine>
+        <initialValue>none</initialValue>
+        <xsdString ref="pfx:Profiles"/>
+    </config>
+</BWSharedResource>

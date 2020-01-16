@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Repository:repository xmlns:Repository="http://www.tibco.com/xmlns/repo/types/2002">
+    <enterpriseArchive>
+        <sharedArchive name="Shared Archive">
+            <resourceType>shared.archive.resource</resourceType>
+            <authorProperty>khuranak</authorProperty>
+        </sharedArchive>
+        <processArchive name="InterfaceReTrigger_Utility">
+            <resourceType>process.archive.resource</resourceType>
+            <authorProperty>khuranak</authorProperty>
+            <processProperty>/CLE/Interface/Loader/InitializeLogLevel.process,/Services/Processes/InterfaceTriggerService.process,/Services/Processes/UpdateQueueFile.process</processProperty>
+        </processArchive>
+        <versionProperty>1.0.1</versionProperty>
+        <authorProperty>Deepesh</authorProperty>
+        <addServiceSettableGvars>true</addServiceSettableGvars>
+        <name>InterfaceReTrigger_Utility</name>
+        <designer>
+            <lockedProperties/>
+            <fixedChildren/>
+            <resourceDescriptions/>
+        </designer>
+        <fileLocationProperty>C:\Users\gargd2\Desktop\Interfaces\InterfaceReTrigger_Utility\Install\DEV\InterfaceReTrigger_Utility.ear</fileLocationProperty>
+        <description>Add a functionality to create an incident</description>
+    </enterpriseArchive>
+</Repository:repository>

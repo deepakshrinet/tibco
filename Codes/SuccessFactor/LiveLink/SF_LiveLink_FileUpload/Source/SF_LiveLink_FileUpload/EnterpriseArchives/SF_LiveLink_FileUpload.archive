@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Repository:repository xmlns:Repository="http://www.tibco.com/xmlns/repo/types/2002">
+    <enterpriseArchive>
+        <sharedArchive name="Shared Archive">
+            <resourceType>shared.archive.resource</resourceType>
+            <authorProperty>banerja3</authorProperty>
+        </sharedArchive>
+        <processArchive name="SF_LiveLink_FileUpload">
+            <resourceType>process.archive.resource</resourceType>
+            <authorProperty>singhalr</authorProperty>
+            <processProperty>/Services/Processes/LiveLinkFile_StarterProcess.process,/Services/Processes/JMSReceiver_LiveLinkFile.process,/CLE/Interface/Loader/InitializeLogLevel.process,/Services/Processes/JMSReceiver_HTTPRequest.process</processProperty>
+        </processArchive>
+        <versionProperty>1.0.0</versionProperty>
+        <authorProperty>singhalr</authorProperty>
+        <addServiceSettableGvars>true</addServiceSettableGvars>
+        <name>SF_LiveLink_FileUpload</name>
+        <designer>
+            <lockedProperties/>
+            <fixedChildren/>
+            <resourceDescriptions/>
+        </designer>
+        <fileLocationProperty>C:\Users\singhalr\Desktop\SF_LiveLink_FileUpload.ear</fileLocationProperty>
+        <description/>
+    </enterpriseArchive>
+</Repository:repository>

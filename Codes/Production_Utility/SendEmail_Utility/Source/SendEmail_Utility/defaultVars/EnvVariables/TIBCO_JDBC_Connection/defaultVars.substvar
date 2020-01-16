@@ -1,0 +1,53 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>JDBCTimeout</name>
+			<value>300</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>Integer</type>
+			<modTime>1327173981736</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>LoggerDBURL</name>
+			<value>jdbc:oracle:thin:@ xsp-tibdb-snd1.pac.zimmer.com:1521:tibsb</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1327173982938</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>LoginTimeout</name>
+			<value>300</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>Integer</type>
+			<modTime>1328295769359</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>MaxConnection</name>
+			<value>10</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>Integer</type>
+			<modTime>1328295796093</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>PASSWORD</name>
+			<value>#!jzgEBy0rqaT+VqWXTlxBLOOEpt16f+8RLNRlar61gSWxa5PVMAWnXg==</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>Password</type>
+			<modTime>1327173981970</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>USERNAME</name>
+			<value>TIBCO_ADMIN</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1327173982688</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

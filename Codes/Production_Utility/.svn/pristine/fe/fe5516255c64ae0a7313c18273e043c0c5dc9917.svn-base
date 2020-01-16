@@ -1,0 +1,37 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>Email_CC</name>
+			<value>MG-ZIM-WAR-COMMON-TIB-SUP@zimmer.com</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1473553258519</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>Email_From</name>
+			<value>MG-ZIM-WAR-COMMON-TIB-SUP@zimmer.com</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1473553257130</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>Email_To</name>
+			<value>MG-ZIM-WAR-COMMON-TIB-SUP@zimmer.com</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1473553257690</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>SMTP_Server</name>
+			<value>webmail.zimmer.com</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1473553258472</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

@@ -1,0 +1,29 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>InterfaceID</name>
+			<value>SendEmailUtility</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1507046581167</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>TransactionDomain</name>
+			<value>Utility</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1507046581089</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>TransactionType</name>
+			<value>SendEmail</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1507046581121</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

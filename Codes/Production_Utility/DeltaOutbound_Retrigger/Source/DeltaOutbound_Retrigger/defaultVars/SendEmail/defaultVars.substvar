@@ -1,0 +1,37 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>Email_CC</name>
+			<value>jahnavi.chandra@zimmer.com,sreemoy.mohan@zimmerbiomet.com</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1478069133497</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>Email_From</name>
+			<value>jahnavi.chandra@zimmer.com</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1476880499286</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>Email_To</name>
+			<value>kartik.khurana@zimmerbiomet.com</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1492503785854</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>SMTP_Server</name>
+			<value>webmail.zimmer.com</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1436296650559</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

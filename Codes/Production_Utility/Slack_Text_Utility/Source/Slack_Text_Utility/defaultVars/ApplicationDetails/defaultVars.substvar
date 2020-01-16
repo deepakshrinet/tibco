@@ -1,0 +1,29 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>ApplicationName</name>
+			<value>Slack_Text_Utility</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1507213827504</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>AuditFlag</name>
+			<value>false</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>Boolean</type>
+			<modTime>1501304347178</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>Environment</name>
+			<value>DEV</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1501304346763</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

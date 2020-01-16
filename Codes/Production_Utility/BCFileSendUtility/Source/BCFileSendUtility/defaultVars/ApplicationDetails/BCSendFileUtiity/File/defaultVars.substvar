@@ -1,0 +1,21 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>ArchiveLocation</name>
+			<value>\\tibco-nas\TIB_FILESHARE\DEV\PRODUCTION_UTILITY\BC_FileSend_Utility\Archive\</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1534393806766</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>InputFileLocation</name>
+			<value>\\tibco-nas\TIB_FILESHARE\DEV\PRODUCTION_UTILITY\BC_FileSend_Utility\InputFile\</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1534393806828</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

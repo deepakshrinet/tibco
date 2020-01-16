@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="www.tibco.com/plugin/java/JavaMethodActivityOutput" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/CommonLE/Client/Schema/ClientInterface.xsd" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns12="www.tibco.com/plugin/java/JavaMethodActivityInput" xmlns:pfx="http://xmlns.example.com/1321555930384" xmlns:pfx7="urn:enterprise.soap.sforce.com">
+    <wsdl:import namespace="urn:enterprise.soap.sforce.com" location="/SharedResources/WSDLs/wsdl_sandbox01_6_DEC2016.wsdl"/>
+    <pd:name>Services/SFDC_SF/Operations/StoreSessionDetails.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startX>27</pd:startX>
+    <pd:startY>108</pd:startY>
+    <pd:returnBindings>
+        <root>
+            <IntegrationUserID>
+                <xsl:value-of select="$SOAPRequestReply/outputMessage/pfx7:loginResponse/pfx7:result/pfx7:userId"/>
+            </IntegrationUserID>
+            <EndPointUrl>
+                <xsl:value-of select="$SOAPRequestReply/outputMessage/pfx7:loginResponse/pfx7:result/pfx7:serverUrl"/>
+            </EndPointUrl>
+            <SessionId>
+                <xsl:value-of select="$SOAPRequestReply/outputMessage/pfx7:loginResponse/pfx7:result/pfx7:sessionId"/>
+            </SessionId>
+        </root>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="IntegrationUserID" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="EndPointUrl" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="SessionId" type="xsd:string" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>502</pd:endX>
+    <pd:endY>107</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1345805515497</pd:targetNamespace>
+    <pd:activity name="SOAPRequestReply">
+        <pd:type>com.tibco.plugin.soap.SOAPSendReceiveActivity</pd:type>
+        <pd:resourceType>ae.activities.SOAPSendReceiveUI</pd:resourceType>
+        <pd:x>363</pd:x>
+        <pd:y>106</pd:y>
+        <config>
+            <timeout>%%ApplicationDetails/SFDC_WS_CONNECTION/Timeout%%</timeout>
+            <soapAttachmentStyle>SwA</soapAttachmentStyle>
+            <service>pfx7:SforceService</service>
+            <servicePort>Soap</servicePort>
+            <operation>login</operation>
+            <soapAction/>
+            <endpointURL>%%ApplicationDetails/SFDC_WS_CONNECTION/EndPointURL%%</endpointURL>
+            <requireBasicAuth>false</requireBasicAuth>
+            <basicHttpAuthIdentity/>
+            <useProxy>true</useProxy>
+            <proxyName>/EnterpriseLibrary/SharedResources/Connections/HTTP/ProxyConfiguration.httpProxy</proxyName>
+            <ns0:ssl xmlns:ns0="http://www.tibco.com/xmlns/aemeta/services/2002">
+                <ns0:strongCipherSuitesOnly>false</ns0:strongCipherSuitesOnly>
+                <ns0:cert isRef="true">/SharedResources/Certificates/.folder</ns0:cert>
+                <ns0:verifyHostName>false</ns0:verifyHostName>
+            </ns0:ssl>
+            <authScheme>NONE</authScheme>
+            <timeoutType>Seconds</timeoutType>
+        </config>
+        <pd:inputBindings>
+            <inputMessage>
+                <pfx7:login>
+                    <pfx7:username>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/SFDC_WS_CONNECTION/USER_ID"/>
+                    </pfx7:username>
+                    <pfx7:password>
+                        <xsl:value-of select="$Get-SFDC-Password/javaCodeActivityOutput/output"/>
+                    </pfx7:password>
+                </pfx7:login>
+            </inputMessage>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Get SFDC Password">
+        <pd:type>com.tibco.plugin.java.JavaActivity</pd:type>
+        <pd:resourceType>ae.javapalette.javaActivity</pd:resourceType>
+        <pd:x>199</pd:x>
+        <pd:y>107</pd:y>
+        <config>
+            <fullsource>package Services.SFDC_SF.Operations.StoreSessionDetails;
+import java.util.*;
+import java.io.*;
+import com.tibco.pe.plugin.PluginProperties;
+public class StoreSessionDetailsGetSFDCPassword{
+/****** START SET/GET METHOD, DO NOT MODIFY *****/
+	protected String input = "";
+	protected String output = "";
+	public String getinput() {
+		return input;
+	}
+	public void setinput(String val) {
+		input = val;
+	}
+	public String getoutput() {
+		return output;
+	}
+	public void setoutput(String val) {
+		output = val;
+	}
+/****** END SET/GET METHOD, DO NOT MODIFY *****/
+	public StoreSessionDetailsGetSFDCPassword() {
+	}
+	public void invoke() throws Exception {
+/* Available Variables: DO NOT MODIFY
+	In  : String input
+	Out : String output
+* Available Variables: DO NOT MODIFY *****/
+
+
+
+output=PluginProperties.getProperty(input);
+}
+}
+</fullsource>
+            <fileName>StoreSessionDetailsGetSFDCPassword</fileName>
+            <packageName>Services.SFDC_SF.Operations.StoreSessionDetails</packageName>
+            <inputData>
+                <row>
+                    <fieldName>input</fieldName>
+                    <fieldType>string</fieldType>
+                    <fieldRequired>optional</fieldRequired>
+                </row>
+            </inputData>
+            <outputData>
+                <row>
+                    <fieldName>output</fieldName>
+                    <fieldType>string</fieldType>
+                    <fieldRequired>optional</fieldRequired>
+                </row>
+            </outputData>
+            <byteCode>
+                <class>
+                    <name>StoreSessionDetailsGetSFDCPassword</name>
+                    <byteCode>yv66vgAAADMAJgkABgAaCQAGABsKAAcAHAgAHQoAHgAfBwAgBwAhAQAFaW5wdXQBABJMamF2YS9sYW5nL1N0cmluZzsBAAZvdXRwdXQBAAhnZXRpbnB1dAEAFCgpTGphdmEvbGFuZy9TdHJpbmc7AQAEQ29kZQEAD0xpbmVOdW1iZXJUYWJsZQEACHNldGlucHV0AQAVKExqYXZhL2xhbmcvU3RyaW5nOylWAQAJZ2V0b3V0cHV0AQAJc2V0b3V0cHV0AQAGPGluaXQ+AQADKClWAQAGaW52b2tlAQAKRXhjZXB0aW9ucwcAIgEAClNvdXJjZUZpbGUBACdTdG9yZVNlc3Npb25EZXRhaWxzR2V0U0ZEQ1Bhc3N3b3JkLmphdmEMAAgACQwACgAJDAATABQBAAAHACMMACQAJQEAUlNlcnZpY2VzL1NGRENfU0YvT3BlcmF0aW9ucy9TdG9yZVNlc3Npb25EZXRhaWxzL1N0b3JlU2Vzc2lvbkRldGFpbHNHZXRTRkRDUGFzc3dvcmQBABBqYXZhL2xhbmcvT2JqZWN0AQATamF2YS9sYW5nL0V4Y2VwdGlvbgEAJGNvbS90aWJjby9wZS9wbHVnaW4vUGx1Z2luUHJvcGVydGllcwEAC2dldFByb3BlcnR5AQAmKExqYXZhL2xhbmcvU3RyaW5nOylMamF2YS9sYW5nL1N0cmluZzsAIQAGAAcAAAACAAQACAAJAAAABAAKAAkAAAAGAAEACwAMAAEADQAAAB0AAQABAAAABSq0AAGwAAAAAQAOAAAABgABAAAACgABAA8AEAABAA0AAAAiAAIAAgAAAAYqK7UAAbEAAAABAA4AAAAKAAIAAAANAAUADgABABEADAABAA0AAAAdAAEAAQAAAAUqtAACsAAAAAEADgAAAAYAAQAAABAAAQASABAAAQANAAAAIgACAAIAAAAGKiu1AAKxAAAAAQAOAAAACgACAAAAEwAFABQAAQATABQAAQANAAAANQACAAEAAAARKrcAAyoSBLUAASoSBLUAArEAAAABAA4AAAASAAQAAAAWAAQABwAKAAgAEAAXAAEAFQAUAAIADQAAACgAAgABAAAADCoqtAABuAAFtQACsQAAAAEADgAAAAoAAgAAACAACwAhABYAAAAEAAEAFwABABgAAAACABk=</byteCode>
+                </class>
+            </byteCode>
+        </config>
+        <pd:inputBindings>
+            <javaCodeActivityInput>
+                <input>
+                    <xsl:value-of select="&quot;tibco.clientVar.ApplicationDetails/SFDC_WS_CONNECTION/PASSWORD&quot;"/>
+                </input>
+            </javaCodeActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Get SFDC Password</pd:from>
+        <pd:to>SOAPRequestReply</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Get SFDC Password</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SOAPRequestReply</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

@@ -1,0 +1,29 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>Ready</name>
+			<value>READY</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1439401371044</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>Replayed</name>
+			<value>REPLAYED</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1439401370678</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>SystemError</name>
+			<value>SYS_ERROR</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1439401371153</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

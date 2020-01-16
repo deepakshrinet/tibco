@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns="http://www.tibco.com/CommonLE/namespace/Public/Pluggable/GUI/ExceptionManagement/ResolutionReply.xsd"
+	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	 xmlns:Common="http://www.tibco.com/CommonLE2/namespace/Public/Common/RequestHeader.xsd"
+	 targetNamespace="http://www.tibco.com/CommonLE/namespace/Public/Pluggable/GUI//ExceptionManagement/ResolutionReply.xsd"
+	 elementFormDefault="unqualified"
+	 attributeFormDefault="unqualified">
+	<xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Common/RequestHeader.xsd" schemaLocation="../../../Common/RequestHeader.xsd"/>
+	<xsd:element name="ResolutionReply">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Common:Header"/>
+				<xsd:element name="ResolutionDescription" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="Status" type="xsd:string" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

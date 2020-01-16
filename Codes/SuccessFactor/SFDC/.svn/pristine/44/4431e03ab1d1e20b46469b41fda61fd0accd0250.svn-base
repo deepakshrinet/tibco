@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns12="http://www.tibco.com/namespaces/tnt/plugins/file" xmlns:ns5="www.tibco.com/plugin/java/JavaMethodActivityOutput" xmlns:ns6="http://xmlns.tibco.com/encodings/mime" xmlns:ns7="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:pfx="urn:enterprise.soap.sforce.com" xmlns:ns11="www.tibco.com/plugin/java/JavaMethodActivityInput" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/pe/EngineTypes" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns4="urn:sobject.enterprise.soap.sforce.com" xmlns:ns3="http://tibco.com/namespaces/tnt/plugins/soap" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx4="http://xmlns.example.com/1321555930384" xmlns:pfx3="http://www.tibco.com/CommonLE/Client/Schema/ClientInterface.xsd" xmlns:pfx21="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/ADB/HCF-ADBAdapterConfiguration" xmlns:pfx2="http://www.tibco.com/schemas/SFDC/SharedResources/Schemas/XSD/Schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xsd:import namespace="http://www.tibco.com/CommonLE/Client/Schema/ClientInterface.xsd" schemaLocation="/CLE/Interface/ClientSchema/ClientInterface.xsd"/>
+    <xsd:import namespace="urn:sobject.enterprise.soap.sforce.com" schemaLocation="/SharedResources/WSDLs/wsdl_sandbox01_6_DEC2016.wsdl"/>
+    <wsdl:import namespace="urn:enterprise.soap.sforce.com" location="/SharedResources/WSDLs/wsdl_sandbox01_6_DEC2016.wsdl"/>
+    <pd:name>UnitTesting/MainProcess.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startX>68</pd:startX>
+    <pd:startY>143</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>750</pd:endX>
+    <pd:endY>248</pd:endY>
+    <pd:errorSchemas>
+        <Schema0 ref="pfx3:ExceptionRequest"/>
+    </pd:errorSchemas>
+    <pd:processVariables>
+        <SFDC>
+            <xsd:element name="root">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="QueryLocator" type="xsd:string" minOccurs="0"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </SFDC>
+        <Counter1>
+            <xsd:element name="root">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="LoopCounter" type="xsd:string" minOccurs="0"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </Counter1>
+    </pd:processVariables>
+    <pd:targetNamespace>http://xmlns.example.com/1483686396044</pd:targetNamespace>
+    <pd:activity name="StoreSessionDetails">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>77</pd:x>
+        <pd:y>266</pd:y>
+        <config>
+            <processName>/Services/SFDC_SF/Operations/StoreSessionDetails.process</processName>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="ExecuteQuery">
+        <pd:type>com.tibco.plugin.soap.SOAPSendReceiveActivity</pd:type>
+        <pd:resourceType>ae.activities.SOAPSendReceiveUI</pd:resourceType>
+        <pd:x>210</pd:x>
+        <pd:y>267</pd:y>
+        <config>
+            <timeout>%%ApplicationDetails/SFDC_WS_CONNECTION/Timeout%%</timeout>
+            <soapAttachmentStyle>SwA</soapAttachmentStyle>
+            <timeoutType>Seconds</timeoutType>
+            <service>pfx:SforceService</service>
+            <servicePort>Soap</servicePort>
+            <operation>query</operation>
+            <soapAction/>
+            <endpointURL>%%ApplicationDetails/SFDC_WS_CONNECTION/EndPointURL%%</endpointURL>
+            <authScheme>NONE</authScheme>
+            <useProxy>true</useProxy>
+            <proxyName>/EnterpriseLibrary/SharedResources/Connections/HTTP/ProxyConfiguration.httpProxy</proxyName>
+            <ns0:ssl xmlns:ns0="http://www.tibco.com/xmlns/aemeta/services/2002">
+                <ns0:strongCipherSuitesOnly>true</ns0:strongCipherSuitesOnly>
+                <ns0:cert isRef="true">/SharedResources/Certificates/.folder</ns0:cert>
+            </ns0:ssl>
+        </config>
+        <pd:inputBindings>
+            <inputMessage>
+                <pfx:query>
+                    <pfx:queryString>
+                        <xsl:value-of select="concat(&quot;Select Id FROM Contact WHERE RecordTypeId='012800000002DoB' and Email != '' and Firstname !='' and Lastname!=''  and LastModifiedDate=LAST_N_DAYS:&quot;,$_globalVariables/ns1:GlobalVariables/ApplicationDetails/Mapping/N_Days)"/>
+                    </pfx:queryString>
+                </pfx:query>
+                <ns3:_configData>
+                    <xsl:if test="$StoreSessionDetails/root/EndPointUrl">
+                        <endpointURL>
+                            <xsl:value-of select="$StoreSessionDetails/root/EndPointUrl"/>
+                        </endpointURL>
+                    </xsl:if>
+                </ns3:_configData>
+                <headers>
+                    <Header.SessionHeader>
+                        <pfx:SessionHeader>
+                            <pfx:sessionId>
+                                <xsl:value-of select="$StoreSessionDetails/root/SessionId"/>
+                            </pfx:sessionId>
+                        </pfx:SessionHeader>
+                    </Header.SessionHeader>
+                    <Header.QueryOptions>
+                        <xsl:attribute name="mustUnderstand">
+                            <xsl:value-of select="1"/>
+                        </xsl:attribute>
+                        <pfx:QueryOptions>
+                            <pfx:batchSize>
+                                <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/SFDC_WS_CONNECTION/BatchSize"/>
+                            </pfx:batchSize>
+                        </pfx:QueryOptions>
+                    </Header.QueryOptions>
+                    <Header.MruHeader>
+                        <xsl:attribute name="mustUnderstand">
+                            <xsl:value-of select="1"/>
+                        </xsl:attribute>
+                    </Header.MruHeader>
+                    <Header.PackageVersionHeader>
+                        <xsl:attribute name="mustUnderstand">
+                            <xsl:value-of select="1"/>
+                        </xsl:attribute>
+                    </Header.PackageVersionHeader>
+                </headers>
+            </inputMessage>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SendLog">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>601</pd:x>
+        <pd:y>249</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendLog.process</processName>
+        </config>
+        <pd:inputBindings>
+            <pfx3:LogRequest>
+                <pfx3:Header>
+                    <pfx3:ComponentName>
+                        <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns2:ProcessContext/ProcessId)"/>
+                    </pfx3:ComponentName>
+                    <pfx3:Hostname>
+                        <xsl:value-of select="BW:getHostName()"/>
+                    </pfx3:Hostname>
+                    <pfx3:TransactionDomain>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/SFDC_SF_USER_SEND/TransactionDomain"/>
+                    </pfx3:TransactionDomain>
+                    <pfx3:TransactionType>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/SFDC_SF_USER_SEND/TransactionType"/>
+                    </pfx3:TransactionType>
+                    <pfx3:TransactionID>
+                        <xsl:value-of select="$ReceiverMainProcess/ns7:ActivityOutput/Body/root/TransactionId"/>
+                    </pfx3:TransactionID>
+                    <pfx3:CorrelationID>
+                        <xsl:value-of select="current-date()"/>
+                    </pfx3:CorrelationID>
+                    <pfx3:InterfaceID>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/SFDC_SF_USER_SEND/InterfaceID"/>
+                    </pfx3:InterfaceID>
+                    <xsl:choose>
+                        <xsl:when test="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:size>0">
+                            <pfx3:Message>
+                                <xsl:value-of select="concat($ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:size, ' User Records Modified',', ','SFDC Load Triggered')"/>
+                            </pfx3:Message>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <pfx3:Message>
+                                <xsl:value-of select="concat($ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:size, ' User Records Modified',', ','Compare SAPHR File Load Triggered')"/>
+                            </pfx3:Message>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </pfx3:Header>
+                <pfx3:Category>
+                    <xsl:value-of select="'FULL_LOAD'"/>
+                </pfx3:Category>
+                <pfx3:Status>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/Status/IN-PROGRESS"/>
+                </pfx3:Status>
+                <pfx3:Audit>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/AuditFlag"/>
+                </pfx3:Audit>
+                <pfx3:LogLevel>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/Environment/CommonLE/LOGGING_LEVEL_NUM_INFO"/>
+                </pfx3:LogLevel>
+            </pfx3:LogRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="CatchUnknownException">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>893</pd:x>
+        <pd:y>372</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="SendUnknownExceptions">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>744</pd:x>
+        <pd:y>374</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendException.process</processName>
+        </config>
+        <pd:inputBindings>
+            <pfx3:ExceptionRequest>
+                <pfx3:Header>
+                    <pfx3:ComponentName>
+                        <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns2:ProcessContext/ProcessId)"/>
+                    </pfx3:ComponentName>
+                    <pfx3:Hostname>
+                        <xsl:value-of select="BW:getHostName()"/>
+                    </pfx3:Hostname>
+                    <pfx3:TransactionDomain>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/SFDC_SF_USER_SEND/TransactionDomain"/>
+                    </pfx3:TransactionDomain>
+                    <pfx3:TransactionType>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/SFDC_SF_USER_SEND/TransactionType"/>
+                    </pfx3:TransactionType>
+                    <xsl:choose xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                        <xsl:when test="tib:trim($ReceiverMainProcess/ns7:ActivityOutput/Body/root/TransactionId)!=''">
+                            <pfx3:TransactionID>
+                                <xsl:value-of select="$ReceiverMainProcess/ns7:ActivityOutput/Body/root/TransactionId"/>
+                            </pfx3:TransactionID>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <pfx3:TransactionID>
+                                <xsl:value-of select="tib:format-dateTime('ddMMyyHHmmss', current-dateTime())"/>
+                            </pfx3:TransactionID>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <pfx3:CorrelationID>
+                        <xsl:value-of select="current-date()"/>
+                    </pfx3:CorrelationID>
+                    <pfx3:InterfaceID>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/SFDC_SF_USER_SEND/InterfaceID"/>
+                    </pfx3:InterfaceID>
+                    <pfx3:Message>
+                        <xsl:value-of select="'Error Fetching User Data from SFDC'"/>
+                    </pfx3:Message>
+                    <pfx3:Transaction>
+                        <xsl:value-of select="tib:render-xml($CatchUnknownException)"/>
+                    </pfx3:Transaction>
+                </pfx3:Header>
+                <pfx3:ExceptionCode>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/ErrorCodes/Technical/TECHNICAL_777"/>
+                </pfx3:ExceptionCode>
+                <pfx3:StackTrace>
+                    <xsl:value-of select="concat(&quot;Error Message: &quot;, $_error/ns2:ErrorReport/Msg, &quot;&#xA;&quot;, &quot;  BW MsgCode: &quot;, &#xA;$_error/ns2:ErrorReport/MsgCode, &quot;&#xA;&quot;,&#xA;&quot;Stack Trace: &quot;, $_error/ns2:ErrorReport/StackTrace, &quot;&#xA;&quot;,&#xA;&quot; Process Stack: &quot;, $_error/ns2:ErrorReport/ProcessStack)"/>
+                </pfx3:StackTrace>
+            </pfx3:ExceptionRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Trigger SAPHR Load">
+        <pd:type>com.tibco.plugin.jms.JMSQueueSendActivity</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueSendActivity</pd:resourceType>
+        <pd:x>421</pd:x>
+        <pd:y>162</pd:y>
+        <config>
+            <PermittedMessageType>XML Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+                <destination>%%ApplicationDetails/SFDC_SF_USER_SEND/Queue/CompareSFDCSAPHRExtractQueue%%</destination>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/EnterpriseLibrary/SharedResources/Connections/JMS/TIBCO_JMS_Connection.sharedjmscon</ConnectionReference>
+            <InDataxsdString>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="TransactionId" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Filename" type="xsd:string" minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </InDataxsdString>
+        </config>
+        <pd:inputBindings>
+            <ns7:ActivityInput>
+                <Body>
+                    <root>
+                        <xsl:if test="$ReceiverMainProcess/ns7:ActivityOutput/Body/root/TransactionId">
+                            <TransactionId>
+                                <xsl:value-of select="$ReceiverMainProcess/ns7:ActivityOutput/Body/root/TransactionId"/>
+                            </TransactionId>
+                        </xsl:if>
+                        <xsl:if test="$ReceiverMainProcess/ns7:ActivityOutput/Body/root/Filename">
+                            <Filename>
+                                <xsl:value-of select="$ReceiverMainProcess/ns7:ActivityOutput/Body/root/Filename"/>
+                            </Filename>
+                        </xsl:if>
+                    </root>
+                </Body>
+            </ns7:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Trigger SFDC Load">
+        <pd:type>com.tibco.plugin.jms.JMSQueueSendActivity</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueSendActivity</pd:resourceType>
+        <pd:x>379</pd:x>
+        <pd:y>325</pd:y>
+        <config>
+            <PermittedMessageType>XML Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+                <destination>%%ApplicationDetails/SFDC_SF_USER_SEND/Queue/SFDCNoPerNRQueue%%</destination>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/EnterpriseLibrary/SharedResources/Connections/JMS/TIBCO_JMS_Connection.sharedjmscon</ConnectionReference>
+            <InDataxsdString>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="TransactionId" type="xsd:string" minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </InDataxsdString>
+        </config>
+        <pd:inputBindings>
+            <ns7:ActivityInput>
+                <Body>
+                    <root>
+                        <xsl:if test="$ReceiverMainProcess/ns7:ActivityOutput/Body/root/TransactionId">
+                            <TransactionId>
+                                <xsl:value-of select="$ReceiverMainProcess/ns7:ActivityOutput/Body/root/TransactionId"/>
+                            </TransactionId>
+                        </xsl:if>
+                    </root>
+                </Body>
+            </ns7:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Remove Temp File">
+        <pd:type>com.tibco.plugin.file.FileRemoveActivity</pd:type>
+        <pd:resourceType>ae.activities.FileRemoveActivity</pd:resourceType>
+        <pd:x>528</pd:x>
+        <pd:y>324</pd:y>
+        <config/>
+        <pd:inputBindings>
+            <ns12:RemoveActivityInputClass>
+                <fileName>
+                    <xsl:value-of select="concat($_globalVariables/ns1:GlobalVariables/ApplicationDetails/FileAdapter/TempFolder,$ReceiverMainProcess/ns7:ActivityOutput/Body/root/Filename)"/>
+                </fileName>
+            </ns12:RemoveActivityInputClass>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>StoreSessionDetails</pd:from>
+        <pd:to>ExecuteQuery</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>ExecuteQuery</pd:from>
+        <pd:to>Trigger SFDC Load</pd:to>
+        <pd:xpathDescription>Record Exist</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>count($ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records)&gt;=1</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>ExecuteQuery</pd:from>
+        <pd:to>Trigger SAPHR Load</pd:to>
+        <pd:xpathDescription/>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SendLog</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>CatchUnknownException</pd:from>
+        <pd:to>SendUnknownExceptions</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SendUnknownExceptions</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Trigger SAPHR Load</pd:from>
+        <pd:to>SendLog</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Trigger SFDC Load</pd:from>
+        <pd:to>Remove Temp File</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Remove Temp File</pd:from>
+        <pd:to>SendLog</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>StoreSessionDetails</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:label>
+        <pd:name>Label</pd:name>
+        <pd:description>This Process is triggered from GetIndirectEmployeesSFDC.
+Process retrieves all Employees from SFDC with SAP ID(Pernr). It is a full load.
+The records are sent to WritePerNRDataToFile Process</pd:description>
+        <pd:x>1603</pd:x>
+        <pd:y>41</pd:y>
+        <pd:width>451</pd:width>
+        <pd:height>63</pd:height>
+        <pd:fontColor>-16777216</pd:fontColor>
+        <pd:color>-1</pd:color>
+        <pd:type>solid</pd:type>
+        <pd:thickness>0</pd:thickness>
+        <pd:fade>true</pd:fade>
+    </pd:label>
+    <pd:label>
+        <pd:name>Label (2)</pd:name>
+        <pd:description>Process is triggered from ProcessSAPHRLoad 
+If Last_N_Days is 1, it fetches all records from SFDC for today and yesterday and if records exist it trigger SFDC Load else
+It triggers CompareSFDCSAPHRExtract flow.</pd:description>
+        <pd:x>400</pd:x>
+        <pd:y>82</pd:y>
+        <pd:width>539</pd:width>
+        <pd:height>103</pd:height>
+        <pd:fontColor>-16777216</pd:fontColor>
+        <pd:color>-1</pd:color>
+        <pd:type>solid</pd:type>
+        <pd:thickness>0</pd:thickness>
+        <pd:fade>true</pd:fade>
+    </pd:label>
+</pd:ProcessDefinition>

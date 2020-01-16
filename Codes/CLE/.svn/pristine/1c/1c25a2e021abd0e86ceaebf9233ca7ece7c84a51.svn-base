@@ -1,0 +1,322 @@
+<serialization jsxversion="3.8" xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Dialog]]></name>
+  <icon><![CDATA[images/prototypes/dialog.gif]]></icon>
+  <description><![CDATA[Dialog box.  (Set Modal property for a modal dialog).]]></description>
+  <onBeforeDeserialize></onBeforeDeserialize>
+  <onAfterDeserialize></onAfterDeserialize>
+  <object type="jsx3.gui.Dialog">
+    <variants jsxwidth="600" jsxheight="200" jsxzindex="5000" jsxwindowstate="1" jsxleft="132" jsxtop="87"></variants>
+    <strings jsxname="dialog"></strings>
+    <dynamics jsxbgcolor="@Solid Light"></dynamics>
+    <object type="jsx3.gui.WindowBar">
+      <variants></variants>
+      <strings jsxname="windowBar"></strings>
+      <dynamics jsxtext="settings.settingWindowCaption" jsxbgcolor="mediumBG" jsxfontsize="main.fontSize"></dynamics>
+      <object type="jsx3.gui.ToolbarButton">
+        <variants></variants>
+        <strings jsxname="btnClose"></strings>
+        <dynamics jsximage="@Close Icon" jsxtip="@Close Tip"></dynamics>
+        <events jsxexecute="this.getAncestorOfType(jsx3.gui.Dialog).doClose();"></events>
+      </object>
+    </object>
+    <object type="jsx3.gui.LayoutGrid">
+      <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"></variants>
+      <strings jsxname="layoutRows" jsxrows="28,*" jsxwidth="100%" jsxheight="100%"></strings>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="2"></variants>
+        <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%"></strings>
+        <dynamics jsxborder="@Outset"></dynamics>
+        <object type="jsx3.gui.WindowBar">
+          <variants jsxbartype="1"></variants>
+          <strings jsxname="toolBar"></strings>
+          <dynamics jsxbgcolor="lightBG"></dynamics>
+          <object type="jsx3.gui.ToolbarButton">
+            <variants jsxenabled="1"></variants>
+            <strings jsxname="restoreDefaultsButton" jsximage="images/icons/update.gif"></strings>
+            <dynamics jsxtext="settings.restoreDefaults" jsxfontsize="main.fontSize"></dynamics>
+            <events jsxexecute="redi.settings.restoreDefaults(this);"></events>
+          </object>
+          <object type="jsx3.gui.ToolbarButton">
+            <variants jsxenabled="0"></variants>
+            <strings jsxname="saveSettingsButton" jsximage="images/icons/save.gif"></strings>
+            <dynamics jsxtext="redi.save" jsxfontsize="main.fontSize"></dynamics>
+            <events jsxexecute="redi.settings.save(this);"></events>
+          </object>
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="1"></variants>
+        <strings jsxname="pane2" jsxwidth="100%" jsxheight="100%"></strings>
+        <dynamics jsxborder="@Outset"></dynamics>
+        <object type="jsx3.gui.TabbedPane">
+          <variants selectedIndex="2" jsxselectedindex="0"></variants>
+          <strings jsxname="tabbedpane" jsxtextalign="0"></strings>
+          <object type="jsx3.gui.Tab">
+            <variants jsxzindex="3" jsxheight="20" jsxwidth="72"></variants>
+            <strings jsxname="networkTab" jsxbgcolor="#d8d8e5"></strings>
+            <dynamics jsxtext="settings.network" jsxfontsize="main.fontSize"></dynamics>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2" jsxrelativeposition="0" jsxleft="0" jsxtop="0"></variants>
+              <strings jsxname="pane" jsxwidth="100%" jsxheight="100%" jsxdisplay="" jsxvisibility=""></strings>
+              <dynamics jsxbgcolor="@Solid Medium"></dynamics>
+              <object type="jsx3.gui.Matrix">
+                <variants jsxpagingmodel="1" jsxselectionmodel="0" jsxxmlbind="1" jsxshare="1" jsxscalewidth="0" jsxsuppresshscroll="0" jsxsuppressvscroll="0" jsxheaderheight="24"></variants>
+                <strings jsxname="settingsNetworkMatrix" jsxbodyborder="1px solid #dfdfef" jsxheaderborder="1px solid #dfdfef" jsxxmlid="settingsMatrix_cdf_xml" jsxxmlurl="interfaces/settings/settingsMatrix_cdf.xml" jsxrenderingcontext="network"></strings>
+                <dynamics jsxbgcolor="lightBG"></dynamics>
+                <events jsxbeforeedit="redi.settings.onBeforeEdit(this, objCOLUMN, strRECORDID);" jsxaftercommit="redi.settings.updateSettings(this,strRECORDID,strVALUE);"></events>
+                <xslparameters jsx_rowbg1="#ffffff" jsx_rowbg2="#ffffff"></xslparameters>
+                <object type="jsx3.gui.Matrix.Column">
+                  <variants></variants>
+                  <strings jsxname="descriptionCol" jsxpadding="2" jsxcellpadding="2 8 2 2" jsxpath="jsxtext" jsxcelltextalign="right" jsxtextalign="center" jsxwidth="220"></strings>
+                  <dynamics jsxtext="redi.name" jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="lightBG" jsxcellborder="columnLeftBorder"></dynamics>
+                </object>
+                <object type="jsx3.gui.Matrix.Column">
+                  <variants jsxwidth="340"></variants>
+                  <strings jsxname="dataCol" jsxpadding="2" jsxcellpadding="3" jsxpath="jsxvalue" jsxtextalign="center"></strings>
+                  <dynamics jsxtext="redi.value" jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="lightBG" jsxcellborder="columnRightBorder"></dynamics>
+                  <object type="jsx3.gui.TextBox">
+                    <variants jsxrelativeposition="0" jsxleft="200" jsxtop="20" jsxzindex="10"></variants>
+                    <strings jsxname="textMask" jsxdisplay="none" jsxvalue=""></strings>
+                    <events jsxkeydown="1;" jsxchange=""></events>
+                    <dynamics jsxfontsize="main.fontSize"></dynamics>
+                  </object>
+                  <object type="jsx3.gui.TextBox">
+                    <variants jsxrelativeposition="0" jsxleft="200" jsxtop="20" jsxzindex="10" jsxtype="2"></variants>
+                    <strings jsxname="passwordMask" jsxdisplay="none" jsxvalue=""></strings>
+                    <dynamics jsxfontsize="main.fontSize"></dynamics>
+                    <events jsxkeydown="1;" jsxchange=""></events>
+                  </object>
+                  <object type="jsx3.gui.Select">
+                    <variants jsxwidth="150" jsxheight="18" jsxrelativeposition="0" jsxleft="200" jsxtop="20" jsxzindex="10"></variants>
+                    <strings jsxname="selectMask" jsxmargin="0 4 0 0" jsxdisplay="none"></strings>
+                    <dynamics jsxfontsize="main.fontSize"></dynamics>
+                  </object>
+                </object>
+              </object>
+            </object>
+          </object>
+          <object type="jsx3.gui.Tab">
+            <variants jsxzindex="3" jsxheight="18" jsxwidth="72"></variants>
+            <strings jsxname="orderTreeTab" jsxbgcolor="#d8d8e5"></strings>
+            <dynamics jsxtext="settings.orderTree" jsxfontsize="main.fontSize"></dynamics>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2" jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxloadtype="4"></variants>
+              <strings jsxname="pane" jsxwidth="100%" jsxheight="100%" jsxdisplay="none" jsxvisibility=""></strings>
+              <dynamics jsxbgcolor="@Solid Medium"></dynamics>
+              <object type="jsx3.gui.Matrix">
+                <variants jsxpagingmodel="1" jsxselectionmodel="0" jsxxmlbind="1" jsxshare="1" jsxscalewidth="0" jsxsuppresshscroll="0" jsxsuppressvscroll="0" jsxheaderheight="24"></variants>
+                <strings jsxname="settingsOrderTreeMatrix" jsxbodyborder="1px solid #dfdfef" jsxheaderborder="1px solid #dfdfef" jsxxmlid="settingsMatrix_cdf_xml" jsxrenderingcontext="orderTree"></strings>
+                <dynamics jsxbgcolor="lightBG"></dynamics>
+                <events jsxbeforeedit="redi.settings.onBeforeEdit(this, objCOLUMN, strRECORDID);" jsxaftercommit="redi.settings.updateSettings(this,strRECORDID,strVALUE);"></events>
+                <xslparameters jsx_rowbg1="#ffffff" jsx_rowbg2="#ffffff"></xslparameters>
+                <object type="jsx3.gui.Matrix.Column">
+                  <variants></variants>
+                  <strings jsxname="descriptionCol" jsxpadding="2" jsxcellpadding="2 8 2 2" jsxpath="jsxtext" jsxcelltextalign="right" jsxtextalign="center" jsxwidth="220"></strings>
+                  <dynamics jsxtext="redi.name" jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="lightBG" jsxcellborder="columnLeftBorder"></dynamics>
+                </object>
+                <object type="jsx3.gui.Matrix.Column">
+                  <variants jsxwidth="340"></variants>
+                  <strings jsxname="dataCol" jsxpadding="2" jsxcellpadding="3" jsxpath="jsxvalue" jsxtextalign="center"></strings>
+                  <dynamics jsxtext="redi.value" jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="lightBG" jsxcellborder="columnRightBorder"></dynamics>
+                  <object type="jsx3.gui.TextBox">
+                    <variants jsxrelativeposition="0" jsxleft="200" jsxtop="20" jsxzindex="10"></variants>
+                    <strings jsxname="textMask" jsxdisplay="none" jsxvalue=""></strings>
+                    <events jsxkeydown="1;" jsxchange=""></events>
+                    <dynamics jsxfontsize="main.fontSize"></dynamics>
+                  </object>
+                  <object type="jsx3.gui.TextBox">
+                    <variants jsxrelativeposition="0" jsxleft="200" jsxtop="20" jsxzindex="10" jsxtype="2"></variants>
+                    <strings jsxname="passwordMask" jsxdisplay="none" jsxvalue=""></strings>
+                    <events jsxkeydown="1;" jsxchange=""></events>
+                    <dynamics jsxfontsize="main.fontSize"></dynamics>
+                  </object>
+                  <object type="jsx3.gui.Select">
+                    <variants jsxwidth="150" jsxheight="18" jsxrelativeposition="0" jsxleft="200" jsxtop="20" jsxzindex="10"></variants>
+                    <strings jsxname="selectMask" jsxmargin="0 4 0 0" jsxdisplay="none"></strings>
+                    <dynamics jsxfontsize="main.fontSize"></dynamics>
+                  </object>
+                </object>
+              </object>
+            </object>
+          </object>
+          <object type="jsx3.gui.Tab">
+            <variants jsxzindex="3" jsxheight="18" jsxwidth="72"></variants>
+            <strings jsxname="notificationsTab" jsxbgcolor="#e8e8f5"></strings>
+            <dynamics jsxtext="settings.notifications" jsxfontsize="main.fontSize"></dynamics>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2" jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxloadtype="4"></variants>
+              <strings jsxname="pane" jsxwidth="100%" jsxheight="100%" jsxdisplay="none" jsxvisibility=""></strings>
+              <dynamics jsxbgcolor="@Solid Medium"></dynamics>
+              <object type="jsx3.gui.Matrix">
+                <variants jsxpagingmodel="1" jsxselectionmodel="0" jsxxmlbind="1" jsxshare="1" jsxscalewidth="0" jsxsuppresshscroll="0" jsxsuppressvscroll="0" jsxheaderheight="24"></variants>
+                <strings jsxname="settingsNotificationsMatrix" jsxbodyborder="1px solid #dfdfef" jsxheaderborder="1px solid #dfdfef" jsxxmlid="settingsMatrix_cdf_xml" jsxrenderingcontext="notifications"></strings>
+                <dynamics jsxbgcolor="lightBG"></dynamics>
+                <events jsxbeforeedit="redi.settings.onBeforeEdit(this, objCOLUMN, strRECORDID);" jsxaftercommit="redi.settings.updateSettings(this,strRECORDID,strVALUE);"></events>
+                <xslparameters jsx_rowbg1="#ffffff" jsx_rowbg2="#ffffff"></xslparameters>
+                <object type="jsx3.gui.Matrix.Column">
+                  <variants></variants>
+                  <strings jsxname="descriptionCol" jsxpadding="2" jsxcellpadding="2 8 2 2" jsxpath="jsxtext" jsxcelltextalign="right" jsxtextalign="center" jsxwidth="220"></strings>
+                  <dynamics jsxtext="redi.name" jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="lightBG" jsxcellborder="columnLeftBorder"></dynamics>
+                </object>
+                <object type="jsx3.gui.Matrix.Column">
+                  <variants jsxwidth="340"></variants>
+                  <strings jsxname="dataCol" jsxpadding="2" jsxcellpadding="3" jsxpath="jsxvalue" jsxtextalign="center"></strings>
+                  <dynamics jsxtext="redi.value" jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="lightBG" jsxcellborder="columnRightBorder"></dynamics>
+                  <object type="jsx3.gui.TextBox">
+                    <variants jsxrelativeposition="0" jsxleft="200" jsxtop="20" jsxzindex="10"></variants>
+                    <strings jsxname="textMask" jsxdisplay="none" jsxvalue=""></strings>
+                    <events jsxkeydown="1;" jsxchange=""></events>
+                    <dynamics jsxfontsize="main.fontSize"></dynamics>
+                  </object>
+                  <object type="jsx3.gui.TextBox">
+                    <variants jsxrelativeposition="0" jsxleft="200" jsxtop="20" jsxzindex="10" jsxtype="2"></variants>
+                    <strings jsxname="passwordMask" jsxdisplay="none" jsxvalue=""></strings>
+                    <events jsxkeydown="1;" jsxchange=""></events>
+                    <dynamics jsxfontsize="main.fontSize"></dynamics>
+                  </object>
+                  <object type="jsx3.gui.Select">
+                    <variants jsxwidth="150" jsxheight="18" jsxrelativeposition="0" jsxleft="200" jsxtop="20" jsxzindex="10"></variants>
+                    <strings jsxname="selectMask" jsxmargin="0 4 0 0" jsxdisplay="none"></strings>
+                    <dynamics jsxfontsize="main.fontSize"></dynamics>
+                  </object>
+                </object>
+              </object>
+            </object>
+          </object>
+          <object type="jsx3.gui.Tab">
+            <variants jsxzindex="3" jsxheight="18" jsxwidth="72"></variants>
+            <strings jsxname="outboundTab" jsxbgcolor="#e8e8f5"></strings>
+            <dynamics jsxtext="settings.outbound" jsxfontsize="main.fontSize"></dynamics>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2" jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxloadtype="4"></variants>
+              <strings jsxname="pane" jsxwidth="100%" jsxheight="100%" jsxdisplay="none" jsxvisibility=""></strings>
+              <dynamics jsxbgcolor="@Solid Medium"></dynamics>
+              <object type="jsx3.gui.Matrix">
+                <variants jsxpagingmodel="1" jsxselectionmodel="0" jsxxmlbind="1" jsxshare="1" jsxscalewidth="0" jsxsuppresshscroll="0" jsxsuppressvscroll="0" jsxheaderheight="24"></variants>
+                <strings jsxname="settingsOutboundMatrix" jsxbodyborder="1px solid #dfdfef" jsxheaderborder="1px solid #dfdfef" jsxxmlid="settingsMatrix_cdf_xml" jsxrenderingcontext="outbound"></strings>
+                <dynamics jsxbgcolor="lightBG"></dynamics>
+                <events jsxbeforeedit="redi.settings.onBeforeEdit(this, objCOLUMN, strRECORDID);" jsxaftercommit="redi.settings.updateSettings(this,strRECORDID,strVALUE);"></events>
+                <xslparameters jsx_rowbg1="#ffffff" jsx_rowbg2="#ffffff"></xslparameters>
+                <object type="jsx3.gui.Matrix.Column">
+                  <variants></variants>
+                  <strings jsxname="descriptionCol" jsxpadding="2" jsxcellpadding="2 8 2 2" jsxpath="jsxtext" jsxcelltextalign="right" jsxtextalign="center" jsxwidth="220"></strings>
+                  <dynamics jsxtext="redi.name" jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="lightBG" jsxcellborder="columnLeftBorder"></dynamics>
+                </object>
+                <object type="jsx3.gui.Matrix.Column">
+                  <variants jsxwidth="340"></variants>
+                  <strings jsxname="dataCol" jsxpadding="2" jsxcellpadding="3" jsxpath="jsxvalue" jsxtextalign="center"></strings>
+                  <dynamics jsxtext="redi.value" jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="lightBG" jsxcellborder="columnRightBorder"></dynamics>
+                  <object type="jsx3.gui.TextBox">
+                    <variants jsxrelativeposition="0" jsxleft="200" jsxtop="20" jsxzindex="10"></variants>
+                    <strings jsxname="textMask" jsxdisplay="none" jsxvalue=""></strings>
+                    <events jsxkeydown="1;" jsxchange=""></events>
+                    <dynamics jsxfontsize="main.fontSize"></dynamics>
+                  </object>
+                  <object type="jsx3.gui.TextBox">
+                    <variants jsxrelativeposition="0" jsxleft="200" jsxtop="20" jsxzindex="10" jsxtype="2"></variants>
+                    <strings jsxname="passwordMask" jsxdisplay="none" jsxvalue=""></strings>
+                    <events jsxkeydown="1;" jsxchange=""></events>
+                    <dynamics jsxfontsize="main.fontSize"></dynamics>
+                  </object>
+                  <object type="jsx3.gui.Select">
+                    <variants jsxwidth="150" jsxheight="18" jsxrelativeposition="0" jsxleft="200" jsxtop="20" jsxzindex="10"></variants>
+                    <strings jsxname="selectMask" jsxmargin="0 4 0 0" jsxdisplay="none"></strings>
+                    <dynamics jsxfontsize="main.fontSize"></dynamics>
+                  </object>
+                </object>
+              </object>
+            </object>
+          </object>
+          <object type="jsx3.gui.Tab">
+            <variants jsxzindex="3" jsxheight="18" jsxwidth="72"></variants>
+            <strings jsxname="billingAddressTab" jsxbgcolor="#d8d8e5"></strings>
+            <dynamics jsxtext="settings.billingAddress" jsxfontsize="main.fontSize"></dynamics>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2" jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxloadtype="4"></variants>
+              <strings jsxname="pane" jsxwidth="100%" jsxheight="100%" jsxdisplay="none" jsxvisibility=""></strings>
+              <dynamics jsxbgcolor="@Solid Medium"></dynamics>
+              <object type="jsx3.gui.Matrix">
+                <variants jsxpagingmodel="1" jsxselectionmodel="0" jsxxmlbind="1" jsxshare="1" jsxscalewidth="0" jsxsuppresshscroll="0" jsxsuppressvscroll="0" jsxheaderheight="24"></variants>
+                <strings jsxname="settingsBillingAddressMatrix" jsxbodyborder="1px solid #dfdfef" jsxheaderborder="1px solid #dfdfef" jsxxmlid="settingsMatrix_cdf_xml" jsxrenderingcontext="billingAddress"></strings>
+                <dynamics jsxbgcolor="lightBG"></dynamics>
+                <events jsxbeforeedit="redi.settings.onBeforeEdit(this, objCOLUMN, strRECORDID);" jsxaftercommit="redi.settings.updateSettings(this,strRECORDID,strVALUE);"></events>
+                <xslparameters jsx_rowbg1="#ffffff" jsx_rowbg2="#ffffff"></xslparameters>
+                <object type="jsx3.gui.Matrix.Column">
+                  <variants></variants>
+                  <strings jsxname="descriptionCol" jsxpadding="2" jsxcellpadding="2 8 2 2" jsxpath="jsxtext" jsxcelltextalign="right" jsxtextalign="center" jsxwidth="220"></strings>
+                  <dynamics jsxtext="redi.name" jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="lightBG" jsxcellborder="columnLeftBorder"></dynamics>
+                </object>
+                <object type="jsx3.gui.Matrix.Column">
+                  <variants jsxwidth="340"></variants>
+                  <strings jsxname="dataCol" jsxpadding="2" jsxcellpadding="3" jsxpath="jsxvalue" jsxtextalign="center"></strings>
+                  <dynamics jsxtext="redi.value" jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="lightBG" jsxcellborder="columnRightBorder"></dynamics>
+                  <object type="jsx3.gui.TextBox">
+                    <variants jsxrelativeposition="0" jsxleft="200" jsxtop="20" jsxzindex="10"></variants>
+                    <strings jsxname="textMask" jsxdisplay="none" jsxvalue=""></strings>
+                    <events jsxkeydown="1;" jsxchange=""></events>
+                    <dynamics jsxfontsize="main.fontSize"></dynamics>
+                  </object>
+                  <object type="jsx3.gui.TextBox">
+                    <variants jsxrelativeposition="0" jsxleft="200" jsxtop="20" jsxzindex="10" jsxtype="2"></variants>
+                    <strings jsxname="passwordMask" jsxdisplay="none" jsxvalue=""></strings>
+                    <events jsxkeydown="1;" jsxchange=""></events>
+                    <dynamics jsxfontsize="main.fontSize"></dynamics>
+                  </object>
+                  <object type="jsx3.gui.Select">
+                    <variants jsxwidth="150" jsxheight="18" jsxrelativeposition="0" jsxleft="200" jsxtop="20" jsxzindex="10"></variants>
+                    <strings jsxname="selectMask" jsxmargin="0 4 0 0" jsxdisplay="none"></strings>
+                    <dynamics jsxfontsize="main.fontSize"></dynamics>
+                  </object>
+                </object>
+              </object>
+            </object>
+          </object>
+          <object type="jsx3.gui.Tab">
+            <variants jsxzindex="3" jsxheight="18" jsxwidth="72"></variants>
+            <strings jsxname="workorderTab" jsxbgcolor="#d8d8e5"></strings>
+            <dynamics jsxtext="settings.workorder" jsxfontsize="main.fontSize"></dynamics>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2" jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxloadtype="4"></variants>
+              <strings jsxname="pane" jsxwidth="100%" jsxheight="100%" jsxdisplay="none" jsxvisibility=""></strings>
+              <dynamics jsxbgcolor="@Solid Medium"></dynamics>
+              <object type="jsx3.gui.Matrix">
+                <variants jsxpagingmodel="1" jsxselectionmodel="0" jsxxmlbind="1" jsxshare="1" jsxscalewidth="0" jsxsuppresshscroll="0" jsxsuppressvscroll="0" jsxheaderheight="24"></variants>
+                <strings jsxname="settingsWorkorderMatrix" jsxbodyborder="1px solid #dfdfef" jsxheaderborder="1px solid #dfdfef" jsxxmlid="settingsMatrix_cdf_xml" jsxrenderingcontext="workorder"></strings>
+                <dynamics jsxbgcolor="lightBG"></dynamics>
+                <events jsxbeforeedit="redi.settings.onBeforeEdit(this, objCOLUMN, strRECORDID);" jsxaftercommit="redi.settings.updateSettings(this,strRECORDID,strVALUE);"></events>
+                <xslparameters jsx_rowbg1="#ffffff" jsx_rowbg2="#ffffff"></xslparameters>
+                <object type="jsx3.gui.Matrix.Column">
+                  <variants></variants>
+                  <strings jsxname="descriptionCol" jsxpadding="2" jsxcellpadding="2 8 2 2" jsxpath="jsxtext" jsxcelltextalign="right" jsxtextalign="center" jsxwidth="220"></strings>
+                  <dynamics jsxtext="redi.name" jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="lightBG" jsxcellborder="columnLeftBorder"></dynamics>
+                </object>
+                <object type="jsx3.gui.Matrix.Column">
+                  <variants jsxwidth="340"></variants>
+                  <strings jsxname="dataCol" jsxpadding="2" jsxcellpadding="3" jsxpath="jsxvalue" jsxtextalign="center"></strings>
+                  <dynamics jsxtext="redi.value" jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="lightBG" jsxcellborder="columnRightBorder"></dynamics>
+                  <object type="jsx3.gui.TextBox">
+                    <variants jsxrelativeposition="0" jsxleft="200" jsxtop="20" jsxzindex="10"></variants>
+                    <strings jsxname="textMask" jsxdisplay="none" jsxvalue=""></strings>
+                    <events jsxkeydown="1;" jsxchange=""></events>
+                    <dynamics jsxfontsize="main.fontSize"></dynamics>
+                  </object>
+                  <object type="jsx3.gui.TextBox">
+                    <variants jsxrelativeposition="0" jsxleft="200" jsxtop="20" jsxzindex="10" jsxtype="2"></variants>
+                    <strings jsxname="passwordMask" jsxdisplay="none" jsxvalue=""></strings>
+                    <events jsxkeydown="1;" jsxchange=""></events>
+                    <dynamics jsxfontsize="main.fontSize"></dynamics>
+                  </object>
+                  <object type="jsx3.gui.Select">
+                    <variants jsxwidth="150" jsxheight="18" jsxrelativeposition="0" jsxleft="200" jsxtop="20" jsxzindex="10"></variants>
+                    <strings jsxname="selectMask" jsxmargin="0 4 0 0" jsxdisplay="none"></strings>
+                    <dynamics jsxfontsize="main.fontSize"></dynamics>
+                  </object>
+                </object>
+              </object>
+            </object>
+          </object>
+        </object>
+      </object>
+    </object>
+  </object>
+</serialization>

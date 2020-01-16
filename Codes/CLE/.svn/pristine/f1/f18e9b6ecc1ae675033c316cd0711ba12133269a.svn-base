@@ -1,0 +1,23 @@
+﻿<data jsxnamespace="propsbundle" locales="">
+  <locale key="zh_CH">
+    <record jsxid="interface_ApplicationID" jsxtext="应用程序ID"/>
+    <record jsxid="interface_InterfaceID" jsxtext="ID"/>
+    <record jsxid="interface_ID" jsxtext="ID"/>
+    <record jsxid="interface_InterfaceName" jsxtext="名字"/>
+    <record jsxid="interface_Name" jsxtext="名字"/>
+    <record jsxid="interface_InterfaceType" jsxtext="类型"/>
+    <record jsxid="interface_Type" jsxtext="类型"/>
+    <record jsxid="interface_dbUse" jsxtext="db 使用"/>
+    <record jsxid="interface_TransComplexity" jsxtext="Trans复杂度"/>
+    <record jsxid="interface_Owner" jsxtext="所有者"/>
+    <record jsxid="interface_SourceSystem" jsxtext="源系统"/>
+    <record jsxid="interface_TargetSystem" jsxtext="目标系统"/>
+    <record jsxid="interface_Protocol" jsxtext="协议"/>
+    <record jsxid="interface_Status" jsxtext="状态"/>
+    <record jsxid="interface_Description" jsxtext="描述"/>
+    <record jsxid="interface_ParentID" jsxtext="父ID"/>
+    <record jsxid="interface_createNewItemCaption" jsxtext="创建新接口"/>
+    <record jsxid="interface_createInterface" jsxtext="创建接口"/>
+    <record jsxid="interface_createInterfaceTip" jsxtext="创建接口"/>
+  </locale>
+</data>

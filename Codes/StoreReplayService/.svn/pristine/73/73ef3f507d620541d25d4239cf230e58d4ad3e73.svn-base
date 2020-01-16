@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Repository:repository xmlns:Repository="http://www.tibco.com/xmlns/repo/types/2002">
+    <enterpriseArchive>
+        <sharedArchive name="Shared Archive">
+            <resourceType>shared.archive.resource</resourceType>
+            <authorProperty>sivaramp</authorProperty>
+        </sharedArchive>
+        <processArchive name="StoreReplayService_StoreReplay">
+            <resourceType>process.archive.resource</resourceType>
+            <authorProperty>mahapatd</authorProperty>
+            <processProperty>/StoreAndReplayService/Processes/StarterProcesses/BatchReplayMessage.process,/StoreAndReplayService/Processes/StarterProcesses/StoreMessage.process</processProperty>
+        </processArchive>
+        <versionProperty>2.0.0</versionProperty>
+        <authorProperty>baidyaa</authorProperty>
+        <addServiceSettableGvars>true</addServiceSettableGvars>
+        <name>StoreReplayService</name>
+        <designer>
+            <lockedProperties/>
+            <fixedChildren/>
+            <resourceDescriptions/>
+        </designer>
+        <fileLocationProperty>C:\LifeIsBeautiful\STORE_REPLAY_SERVICE\components\Install\StoreReplayService.ear</fileLocationProperty>
+    </enterpriseArchive>
+</Repository:repository>

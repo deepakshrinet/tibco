@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/namespaces/tnt/plugins/file" xmlns:pfx="http://www.tibco.com/namespaces/tnt/plugins/file/v2" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/namespaces/tnt/plugins/json" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns4="http://www.tibco.com/pe/EngineTypes" xmlns:ns3="http://www.tibco.com/CommonLE2/namespace/Public/Common/RequestHeader.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx5="http://www.tibco.com/ns/no_namespace_schema_location/SharedResources/Schemas/XSD/Schema1.xsd" xmlns:pfx4="http://www.tibco.com/ns/no_namespace_schema_location/SharedResources/Connections/Schema/Schema1.xsd" xmlns:pfx3="http://www.tibco.com/ns/no_namespace_schema_location/SharedResources/Connections/Schema/Schema.xsd" xmlns:pfx2="http://www.tibco.com/ns/no_namespace_schema_location/SharedResources/Connections/Folder/Schema.xsd" xmlns:pfx8="http://www.tibco.com/ns/no_namespace_schema_location/SharedResources/Schemas/XSD/Interface_QueueSchema.xsd" xmlns:pfx7="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:pfx6="http://www.tibco.com/CommonLE2/namespace/Public/Exception/ExceptionRequest.xsd">
+    <xsd:import namespace="http://www.tibco.com/ns/no_namespace_schema_location/SharedResources/Connections/Schema/Schema1.xsd" schemaLocation="/SharedResources/Connections/Schema/Schema1.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/ns/no_namespace_schema_location/SharedResources/Connections/Schema/Schema.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/ns/no_namespace_schema_location/SharedResources/Schemas/XSD/Schema1.xsd" schemaLocation="/SharedResources/Schemas/XSD/Schema1.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Exception/ExceptionRequest.xsd" schemaLocation="/CLE/SharedResources/Schemas/Public/Exception/ExceptionRequest.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/ns/no_namespace_schema_location/SharedResources/Schemas/XSD/Interface_QueueSchema.xsd" schemaLocation="/SharedResources/Schemas/XSD/Interface_QueueSchema.xsd"/>
+    <pd:name>Services/Operations/GetQueueName.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="InterfaceId" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>91</pd:startX>
+    <pd:startY>137</pd:startY>
+    <pd:returnBindings>
+        <root>
+            <Queue>
+                <xsl:value-of select="$Get-Queue-Name/root/INTERFACE_QUEUE[1]/QUEUE"/>
+            </Queue>
+        </root>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="Queue" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>853</pd:endX>
+    <pd:endY>145</pd:endY>
+    <pd:errorSchemas>
+        <QueueNotFound ref="pfx6:ExceptionRequest"/>
+    </pd:errorSchemas>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1473175604915</pd:targetNamespace>
+    <pd:activity name="Parse Interface_Queue File">
+        <pd:type>com.tibco.plugin.json.activities.JSONParserActivity</pd:type>
+        <pd:resourceType>ae.activities.JSONParserActivity</pd:resourceType>
+        <pd:x>439</pd:x>
+        <pd:y>148</pd:y>
+        <config>
+            <SchemaType>xsdType</SchemaType>
+            <BadgerfishCheck>false</BadgerfishCheck>
+            <ActivityOutputEditor ref="pfx8:root"/>
+        </config>
+        <pd:inputBindings>
+            <ns2:ActivityInputClass>
+                <jsonString>
+                    <xsl:value-of select="$Read-JSON-Interface_Queue-file/ns:ReadActivityOutputTextClass/fileContent/textContent"/>
+                </jsonString>
+            </ns2:ActivityInputClass>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Read JSON Interface_Queue file">
+        <pd:type>com.tibco.plugin.file.FileReadActivity</pd:type>
+        <pd:resourceType>ae.activities.FileReadActivity</pd:resourceType>
+        <pd:x>259</pd:x>
+        <pd:y>154</pd:y>
+        <config>
+            <encoding>text</encoding>
+        </config>
+        <pd:inputBindings>
+            <pfx:ReadActivityInputClass>
+                <fileName>
+                    <xsl:value-of select="concat($_globalVariables/ns1:GlobalVariables/ApplicationDetails/Common/JSONSharedLoc,$_globalVariables/ns1:GlobalVariables/ApplicationDetails/Common/FileName)"/>
+                </fileName>
+            </pfx:ReadActivityInputClass>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Get Queue Name">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>616</pd:x>
+        <pd:y>140</pd:y>
+        <config>
+            <element>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="INTERFACE_QUEUE" minOccurs="0" maxOccurs="unbounded">
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element name="INTERFACEID" type="xsd:string"/>
+                                        <xsd:element name="QUEUE" type="xsd:string"/>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </element>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <xsl:for-each select="$Parse-Interface_Queue-File/ns2:ActivityOutputClass/root/INTERFACEID-QUEUENAMEPROCESS/QUEUE[../INTERFACEID=upper-case($Start/root/InterfaceId)]">
+                    <INTERFACE_QUEUE>
+                        <INTERFACEID>
+                            <xsl:value-of select="../INTERFACEID"/>
+                        </INTERFACEID>
+                        <QUEUE>
+                            <xsl:value-of select="."/>
+                        </QUEUE>
+                    </INTERFACE_QUEUE>
+                </xsl:for-each>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Generate Error on wrong Interfaceid or queue name">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>669</pd:x>
+        <pd:y>278</pd:y>
+        <config>
+            <faultName>QueueNotFound</faultName>
+        </config>
+        <pd:inputBindings>
+            <pfx7:ActivityInput>
+                <data>
+                    <pfx6:ExceptionRequest>
+                        <ns3:Header>
+                            <ns3:ApplicationID>
+                                <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/Environment/CommonLE/ApplicationID"/>
+                            </ns3:ApplicationID>
+                            <ns3:Timestamp>
+                                <xsl:value-of select="current-dateTime()"/>
+                            </ns3:Timestamp>
+                            <ns3:InterfaceID>
+                                <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/Common/InterfaceId"/>
+                            </ns3:InterfaceID>
+                            <ns3:Message>
+                                <xsl:value-of select="'InterfaceId-Queue not found'"/>
+                            </ns3:Message>
+                        </ns3:Header>
+                        <ExceptionCode>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/ExceptionCode/TECHNICAL-777"/>
+                        </ExceptionCode>
+                    </pfx6:ExceptionRequest>
+                </data>
+            </pfx7:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Read JSON Interface_Queue file</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Read JSON Interface_Queue file</pd:from>
+        <pd:to>Parse Interface_Queue File</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse Interface_Queue File</pd:from>
+        <pd:to>Get Queue Name</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Get Queue Name</pd:from>
+        <pd:to>End</pd:to>
+        <pd:xpathDescription>InterfaceId-queue exists</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$Get-Queue-Name/root/INTERFACE_QUEUE/QUEUE!=''
+and
+$Get-Queue-Name/root/INTERFACE_QUEUE/INTERFACEID!=''</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Get Queue Name</pd:from>
+        <pd:to>Generate Error on wrong Interfaceid or queue name</pd:to>
+        <pd:xpathDescription>otherwise</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

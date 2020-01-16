@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serviceResource xmlns:wsdl="http://www.tibco.com/CommonLE2/namespace/Administration/GUIServices/Category">
+    <ns0:import xmlns:ns0="http://schemas.xmlsoap.org/wsdl/" namespace="http://www.tibco.com/CommonLE2/namespace/Administration/GUIServices/Category" location="/SharedResources/WSDL/GUI/Administration/intfUpdateCategory.wsdl"/>
+    <config>
+        <class>com.tibco.bw.service.serviceAgent.ServiceServiceAgent</class>
+        <name>intfCategory-service</name>
+        <resourceType>service.definition</resourceType>
+        <implType>bw</implType>
+        <groups>
+            <row isDefault="true" groupName="Default"/>
+        </groups>
+        <wsdl namespace="http://www.tibco.com/CommonLE2/Administration/GUIServices/CategoryServices" embedWsdlComponents="true" embedSchemaComponents="true" embedJndiProperties="false"/>
+        <serviceChange>Wed Oct 10 16:00:48 CDT 2007</serviceChange>
+        <interfaceImpl>
+            <tab>
+                <tabName>portType</tabName>
+                <tabType>bw</tabType>
+                <config>
+                    <wsdlDetail location="/SharedResources/WSDL/GUI/Administration/intfUpdateCategory.wsdl" portType="portType" ns="http://www.tibco.com/CommonLE2/namespace/Administration/GUIServices/Category"/>
+                    <detail>
+                        <tab>
+                            <tabName>service.definition.impl.tab.label</tabName>
+                            <tabType>impl</tabType>
+                            <config>
+                                <operations>
+                                    <row opName="UpdateCategoryOp" opImpl="/Administration/GUIServices/CategoryServices/wsUpdateCategory.process"/>
+                                    <row opName="RetrieveCategoryDetailOp" opImpl="/Administration/GUIServices/CategoryServices/wsRetrieveCategoryDetail.process"/>
+                                    <row opName="DeleteCategoryOp" opImpl="/Administration/GUIServices/CategoryServices/wsDeleteCategory.process"/>
+                                    <row opName="CreateCategoryOp" opImpl="/Administration/GUIServices/CategoryServices/wsCreateCategory.process"/>
+                                    <row opName="RetrieveCategoryListWithSysIDOp" opImpl="/Administration/GUIServices/CategoryServices/wsRetrieveCategoryListWithSysID.process"/>
+                                </operations>
+                            </config>
+                        </tab>
+                        <tab>
+                            <tabName>service.definition.ep.tab.label</tabName>
+                            <tabType>ep</tabType>
+                            <config>
+                                <epBindings>
+                                    <row epName="intfwsUpdateCategoryEndpoint0" epType="soap">
+                                        <config>
+                                            <epDetail>
+                                                <tab>
+                                                    <tabName>soap.service.transport.ui.transport.tab.label</tabName>
+                                                    <tabType>transport</tabType>
+                                                    <config>
+                                                        <sharedChannel>/SharedResources/Connections/SOAP/HTTP GUIServicesAdministration.sharedhttp</sharedChannel>
+                                                        <transport>
+                                                            <config>
+                                                                <useBasicAuthentication>false</useBasicAuthentication>
+                                                                <httpURI>/Administration/GUIServices/CategoryServices/intfCategory-service.serviceagent/intfwsUpdateCategoryEndpoint0</httpURI>
+                                                            </config>
+                                                        </transport>
+                                                    </config>
+                                                </tab>
+                                                <tab>
+                                                    <tabName>soap.service.transport.ui.details.tab.label</tabName>
+                                                    <tabType>details</tabType>
+                                                    <config>
+                                                        <operationStyle>document</operationStyle>
+                                                        <soapVersion>SOAP 1.1</soapVersion>
+                                                        <soap>
+                                                            <operation name="UpdateCategoryOp">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Administration/GUIServices/CategoryServices/intfUpdateCategory-service.serviceagent/intfwsUpdateCategoryEndpoint0/UpdateCategoryOp</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="RetrieveCategoryDetailOp">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Administration/GUIServices/CategoryServices/intfUpdateCategory-service.serviceagent/intfwsUpdateCategoryEndpoint0/RetrieveCategoryDetailOp</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="DeleteCategoryOp">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Administration/GUIServices/CategoryServices/intfUpdateCategory-service.serviceagent/intfwsUpdateCategoryEndpoint0/DeleteCategoryOp</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="CreateCategoryOp">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Administration/GUIServices/CategoryServices/intfUpdateCategory-service.serviceagent/intfwsUpdateCategoryEndpoint0/CreateCategoryOp</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="RetrieveCategoryListWithSysIDOp">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Administration/GUIServices/CategoryServices/intfCategory-service.serviceagent//RetrieveCategoryListWithSysIDOp</soapAction>
+                                                                        <soapUse>literal</soapUse>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                        </soap>
+                                                    </config>
+                                                </tab>
+                                            </epDetail>
+                                        </config>
+                                    </row>
+                                </epBindings>
+                            </config>
+                        </tab>
+                    </detail>
+                </config>
+            </tab>
+        </interfaceImpl>
+    </config>
+</serviceResource>

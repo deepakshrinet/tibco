@@ -1,0 +1,13 @@
+﻿<data jsxnamespace="propsbundle" locales="">
+  <locale key="zh_CH">
+    <record jsxid="category_ApplicationID" jsxtext="应用程序ID"/>
+    <record jsxid="category_ID" jsxtext="类别ID"/>
+    <record jsxid="category_Name" jsxtext="Name"/>
+    <record jsxid="category_Description" jsxtext="描述"/>
+    <record jsxid="category_CategoryName" jsxtext="类别名字"/>
+    <record jsxid="category_CategoryID" jsxtext="类别ID"/>
+    <record jsxid="category_createNewItemCaption" jsxtext="创建新类别"/>
+    <record jsxid="category_createCategory" jsxtext="创建类别"/>
+    <record jsxid="category_createCategoryTip" jsxtext="创建类别"/>
+  </locale>
+</data>

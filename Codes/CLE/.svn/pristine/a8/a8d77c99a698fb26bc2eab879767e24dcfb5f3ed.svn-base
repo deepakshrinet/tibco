@@ -1,0 +1,29 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>InterfaceID</name>
+			<value>846Inbound</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1339789377937</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>TransactionDomain</name>
+			<value>HR</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1339788089796</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>TransactionType</name>
+			<value>BonusCalculation</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1339788089937</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

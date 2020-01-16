@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns="http://www.tibco.com/CommonLE2/Private/Administration"
+	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	 targetNamespace="http://www.tibco.com/CommonLE2/Private/Administration"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xsd:element name="ApplicationID" type="xsd:string"/>
+	<xsd:element name="ExceptionTTL" type="xsd:integer"/>
+	<xsd:element name="ExceptionCode" type="xsd:string"/>
+	<xsd:element name="ExceptionConfigurationResult">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="ApplicationID"/>
+				<xsd:element ref="ExceptionCode"/>
+				<xsd:element ref="CategoryName"/>
+				<xsd:element ref="TypeName"/>
+				<xsd:element ref="SeverityName"/>
+				<xsd:element ref="ProcedureName" minOccurs="0"/>
+				<xsd:element ref="Description" minOccurs="0"/>
+				<xsd:element ref="ExceptionTTL" minOccurs="0"/>
+				<xsd:element ref="NotificationChannel" minOccurs="0"/>
+				<xsd:element ref="ProcedureChannel" minOccurs="0"/>
+				<xsd:element ref="PhysicalProcedureName" minOccurs="0"/>
+				<xsd:element ref="RoleName" minOccurs="0"/>
+				<xsd:element ref="EmailTo" minOccurs="0"/>
+				<xsd:element ref="EmailCC" minOccurs="0"/>
+				<xsd:element ref="ReplyDestination" minOccurs="0"/>
+				<xsd:element ref="Instruction" minOccurs="0"/>
+				<xsd:element ref="EventType" minOccurs="0"/>
+				<xsd:element ref="ResolveDelayInterval" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="NotificationChannel" type="xsd:string"/>
+	<xsd:element name="ProcedureChannel" type="xsd:string"/>
+	<xsd:element name="PhysicalProcedureName" type="xsd:string"/>
+	<xsd:element name="RoleName" type="xsd:string"/>
+	<xsd:element name="EmailTo" type="xsd:string"/>
+	<xsd:element name="EmailCC" type="xsd:string"/>
+	<xsd:element name="ReplyDestination" type="xsd:string"/>
+	<xsd:element name="Instruction" type="xsd:string"/>
+	<xsd:element name="Description" type="xsd:string"/>
+	<xsd:element name="ProcedureName" type="xsd:string"/>
+	<xsd:element name="CategoryName" type="xsd:string"/>
+	<xsd:element name="TypeName" type="xsd:string"/>
+	<xsd:element name="SeverityName" type="xsd:string"/>
+	<xsd:element name="ExceptionID" type="xsd:positiveInteger"/>
+	<xsd:element name="EventType" type="xsd:string"/>
+	<xsd:element name="ResolveDelayInterval" type="xsd:integer"/>
+	<xsd:element name="ExceptionConfigurationResults">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="ExceptionConfigurationResult" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

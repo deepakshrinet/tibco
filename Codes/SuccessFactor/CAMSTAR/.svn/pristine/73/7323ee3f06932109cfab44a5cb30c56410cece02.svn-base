@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="Camstar.WCF.ObjectStack" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:pfx="http://tempuri.org/" xmlns:ns2="http://www.tibco.com/pe/DeployedVarsType" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="http://www.openapplications.org/oagis/10" xmlns:ns4="http://xmlns.tibco.com/encodings/mime" xmlns:ns3="http://www.tibco.com/pe/EngineTypes" xmlns:ns0="www.tibco.com/plugin/Sleep" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx5="http://schemas.tibco.com/bw/pe/plugin/5.0/exceptions" xmlns:pfx4="http://www.tibco.com/CommonLE/Client/Schema/ClientInterface.xsd" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx3="http://www.zimmer.com/v1_0/LMSGroup/SyncPersonel.xsd" xmlns:pfx2="http://xmlns.example.com/1462347213631" xmlns:pfx7="http://schemas.tibco.com/bw/plugins/http/5.0/httpExceptions" xmlns:pfx6="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xsd:import namespace="http://tempuri.org/" schemaLocation="/SharedResources/WSDLs/xsd0.xsd"/>
+    <xsd:import namespace="http://www.zimmer.com/v1_0/LMSGroup/SyncPersonel.xsd" schemaLocation="/SharedResources/Schemas/XSD/LMS-Group/SyncPersonnelCDM.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE/Client/Schema/ClientInterface.xsd" schemaLocation="/CLE/Interface/ClientSchema/ClientInterface.xsd"/>
+    <wsdl:import namespace="http://tempuri.org/" location="/SharedResources/WSDL/SuccessFactorUpdateTxnService.svc.wsdl"/>
+    <pd:name>Services/Camstar_LSOEmpCurrRec/Operations/InvokeWCF.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx3:LMSGroup"/>
+    <pd:startX>101</pd:startX>
+    <pd:startY>202</pd:startY>
+    <pd:returnBindings>
+        <root>
+            <xsl:if test="$Update-Curriculum-Status/outputMessage/pfx:ExecuteTransactionResponse/pfx:ExecuteTransactionResult/ns:Message">
+                <SuccessResponse>
+                    <xsl:value-of select="$Update-Curriculum-Status/outputMessage/pfx:ExecuteTransactionResponse/pfx:ExecuteTransactionResult/ns:Message"/>
+                </SuccessResponse>
+            </xsl:if>
+        </root>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="SuccessResponse" type="xsd:string" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>930</pd:endX>
+    <pd:endY>200</pd:endY>
+    <pd:errorSchemas>
+        <CLEException ref="pfx4:ExceptionRequest"/>
+    </pd:errorSchemas>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1478187602222</pd:targetNamespace>
+    <pd:group name="Group">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>375</pd:x>
+        <pd:y>23</pd:y>
+        <pd:width>423</pd:width>
+        <pd:height>338</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>errorLoop</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:indexSlot>Err</pd:indexSlot>
+            <pd:errorCondition>$Err=$_globalVariables/ns2:GlobalVariables/ApplicationDetails/ESB_MES_CRCLM_NAM/CamstarServiceConnection/RetryCount</pd:errorCondition>
+            <pd:suspendAfterErrorRetry>false</pd:suspendAfterErrorRetry>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>Update Curriculum Status</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Null</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>otherwise</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Update Curriculum Status</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Update Curriculum Status</pd:from>
+            <pd:to>Null</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-65485</pd:lineColor>
+            <pd:conditionType>error</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Null</pd:from>
+            <pd:to>Sleep</pd:to>
+            <pd:xpathDescription>Time Out</pd:xpathDescription>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>xpath</pd:conditionType>
+            <pd:xpath>exists($_error_Update-Curriculum-Status/ActivityErrors/pfx5:ActivityTimedOutException)</pd:xpath>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Sleep</pd:from>
+            <pd:to>Generate TimeoutError</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="Update Curriculum Status">
+            <pd:type>com.tibco.plugin.soap.SOAPSendReceiveActivity</pd:type>
+            <pd:resourceType>ae.activities.SOAPSendReceiveUI</pd:resourceType>
+            <pd:x>516</pd:x>
+            <pd:y>86</pd:y>
+            <config>
+                <timeout>%%ApplicationDetails/ESB_MES_CRCLM_NAM/CamstarServiceConnection/TimeOut%%</timeout>
+                <soapAttachmentStyle>SwA</soapAttachmentStyle>
+                <timeoutType>Seconds</timeoutType>
+                <service>pfx:zimLMSInboundTxnService</service>
+                <servicePort>BasicHttpBinding_IzimLMSInboundTxnService</servicePort>
+                <operation>ExecuteTransaction</operation>
+                <soapAction>http://tempuri.org/IzimLMSInboundTxnService/ExecuteTransaction</soapAction>
+                <endpointURL>%%ApplicationDetails/ESB_MES_CRCLM_NAM/CamstarServiceConnection/EndPointURL%%</endpointURL>
+                <authScheme>NONE</authScheme>
+                <useProxy>false</useProxy>
+            </config>
+            <pd:inputBindings>
+                <inputMessage>
+                    <pfx:ExecuteTransaction>
+                        <pfx:userProfile>
+                            <ns:Name>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ApplicationDetails/ESB_MES_CRCLM_NAM/CamstarServiceConnection/UserName"/>
+                            </ns:Name>
+                            <ns:Password>
+                                <ns:Value>
+                                    <xsl:choose>
+                                        <xsl:when test="exists($Get-WCF-Password/javaCodeActivityOutput/output)">
+                                            <xsl:value-of select="$Get-WCF-Password/javaCodeActivityOutput/output"/>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </ns:Value>
+                            </ns:Password>
+                        </pfx:userProfile>
+                        <pfx:zimLMSInboundTxn>
+                            <ns:zimLMSInboundTxn_CurriculumDesc>
+                                <xsl:if test="$Start/pfx3:LMSGroup/pfx3:SyncPersonnel/ns1:DataArea/ns1:Personnel[1]/ns1:ProfessionalQualification[1]/ns1:Description[1]">
+                                    <ns:Value>
+                                        <xsl:copy-of select="$Start/pfx3:LMSGroup/pfx3:SyncPersonnel/ns1:DataArea/ns1:Personnel[1]/ns1:ProfessionalQualification[1]/ns1:Description[1]/@xsi:nil"/>
+                                        <xsl:value-of select="$Start/pfx3:LMSGroup/pfx3:SyncPersonnel/ns1:DataArea/ns1:Personnel[1]/ns1:ProfessionalQualification[1]/ns1:Description[1]"/>
+                                    </ns:Value>
+                                </xsl:if>
+                            </ns:zimLMSInboundTxn_CurriculumDesc>
+                            <ns:zimLMSInboundTxn_CurriculumID>
+                                <xsl:if test="$Start/pfx3:LMSGroup/pfx3:SyncPersonnel/ns1:DataArea/ns1:Personnel[1]/ns1:ProfessionalQualification[1]/ns1:ID[1]">
+                                    <ns:Value>
+                                        <xsl:copy-of select="$Start/pfx3:LMSGroup/pfx3:SyncPersonnel/ns1:DataArea/ns1:Personnel[1]/ns1:ProfessionalQualification[1]/ns1:ID[1]/@xsi:nil"/>
+                                        <xsl:value-of select="$Start/pfx3:LMSGroup/pfx3:SyncPersonnel/ns1:DataArea/ns1:Personnel[1]/ns1:ProfessionalQualification[1]/ns1:ID[1]"/>
+                                    </ns:Value>
+                                </xsl:if>
+                            </ns:zimLMSInboundTxn_CurriculumID>
+                            <ns:zimLMSInboundTxn_CurriculumStatus>
+                                <xsl:if test="$Start/pfx3:LMSGroup/pfx3:SyncPersonnel/ns1:DataArea/ns1:Personnel[1]/ns1:ProfessionalQualification[1]/ns1:Note[1]">
+                                    <ns:Value>
+                                        <xsl:copy-of select="$Start/pfx3:LMSGroup/pfx3:SyncPersonnel/ns1:DataArea/ns1:Personnel[1]/ns1:ProfessionalQualification[1]/ns1:Note[1]/@xsi:nil"/>
+                                        <xsl:value-of select="$Start/pfx3:LMSGroup/pfx3:SyncPersonnel/ns1:DataArea/ns1:Personnel[1]/ns1:ProfessionalQualification[1]/ns1:Note[1]"/>
+                                    </ns:Value>
+                                </xsl:if>
+                            </ns:zimLMSInboundTxn_CurriculumStatus>
+                            <ns:zimLMSInboundTxn_SAPId>
+                                <xsl:if test="$Start/pfx3:LMSGroup/pfx3:SyncPersonnel/ns1:DataArea/ns1:Personnel[1]/ns1:ID[1]">
+                                    <ns:Value>
+                                        <xsl:copy-of select="$Start/pfx3:LMSGroup/pfx3:SyncPersonnel/ns1:DataArea/ns1:Personnel[1]/ns1:ID[1]/@xsi:nil"/>
+                                        <xsl:value-of select="$Start/pfx3:LMSGroup/pfx3:SyncPersonnel/ns1:DataArea/ns1:Personnel[1]/ns1:ID[1]"/>
+                                    </ns:Value>
+                                </xsl:if>
+                            </ns:zimLMSInboundTxn_SAPId>
+                            <ns:zimLMSInboundTxn_UserId>
+                                <xsl:if test="$Start/pfx3:LMSGroup/pfx3:SyncPersonnel/ns1:DataArea/ns1:Personnel[1]/ns1:IDSet[1]/ns1:ID[1]">
+                                    <ns:Value>
+                                        <xsl:copy-of select="$Start/pfx3:LMSGroup/pfx3:SyncPersonnel/ns1:DataArea/ns1:Personnel[1]/ns1:IDSet[1]/ns1:ID[1]/@xsi:nil"/>
+                                        <xsl:value-of select="$Start/pfx3:LMSGroup/pfx3:SyncPersonnel/ns1:DataArea/ns1:Personnel[1]/ns1:IDSet[1]/ns1:ID[1]"/>
+                                    </ns:Value>
+                                </xsl:if>
+                            </ns:zimLMSInboundTxn_UserId>
+                        </pfx:zimLMSInboundTxn>
+                    </pfx:ExecuteTransaction>
+                </inputMessage>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="Generate TimeoutError">
+            <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+            <pd:resourceType>ae.activities.throw</pd:resourceType>
+            <pd:x>485</pd:x>
+            <pd:y>288</pd:y>
+            <config>
+                <faultName>CLEException</faultName>
+            </config>
+            <pd:inputBindings>
+                <pfx6:ActivityInput>
+                    <data>
+                        <pfx4:ExceptionRequest>
+                            <pfx4:Header>
+                                <pfx4:Message>
+                                    <xsl:value-of select="'TimedOut from WCF API after retrying for 3 times'"/>
+                                </pfx4:Message>
+                            </pfx4:Header>
+                            <pfx4:ExceptionCode>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/CLE/ExceptionCode/Technical/TECHNICAL-101"/>
+                            </pfx4:ExceptionCode>
+                            <pfx4:StackTrace>
+                                <xsl:value-of select="tib:render-xml($_error/ns3:ErrorReport)"/>
+                            </pfx4:StackTrace>
+                        </pfx4:ExceptionRequest>
+                    </data>
+                </pfx6:ActivityInput>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="Null">
+            <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+            <pd:resourceType>ae.activities.null</pd:resourceType>
+            <pd:x>519</pd:x>
+            <pd:y>211</pd:y>
+            <config/>
+            <pd:inputBindings/>
+        </pd:activity>
+        <pd:activity name="Sleep">
+            <pd:type>com.tibco.plugin.timer.SleepActivity</pd:type>
+            <pd:resourceType>ae.activities.sleep</pd:resourceType>
+            <pd:x>694</pd:x>
+            <pd:y>278</pd:y>
+            <config/>
+            <pd:inputBindings>
+                <ns0:SleepInputSchema>
+                    <IntervalInMillisec>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ApplicationDetails/ESB_MES_CRCLM_NAM/CamstarServiceConnection/Sleep_Interval"/>
+                    </IntervalInMillisec>
+                </ns0:SleepInputSchema>
+            </pd:inputBindings>
+        </pd:activity>
+    </pd:group>
+    <pd:activity name="Map TimeOutError">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>590</pd:x>
+        <pd:y>439</pd:y>
+        <config>
+            <faultName>CLEException</faultName>
+        </config>
+        <pd:inputBindings>
+            <pfx6:ActivityInput>
+                <data>
+                    <xsl:copy-of select="$_error_Generate-TimeoutError/pfx4:ExceptionRequest"/>
+                </data>
+            </pfx6:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Undefined Technical Error">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>787</pd:x>
+        <pd:y>428</pd:y>
+        <config>
+            <faultName>CLEException</faultName>
+        </config>
+        <pd:inputBindings>
+            <pfx6:ActivityInput>
+                <data>
+                    <pfx4:ExceptionRequest>
+                        <pfx4:Header>
+                            <pfx4:Message>
+                                <xsl:value-of select="&quot;CurriculumStatus Update Failed :SOAP Service Invoke Exception&quot;"/>
+                            </pfx4:Message>
+                        </pfx4:Header>
+                        <pfx4:ExceptionCode>
+                            <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/CLE/ExceptionCode/Technical/TECHNICAL-111"/>
+                        </pfx4:ExceptionCode>
+                        <pfx4:StackTrace>
+                            <xsl:value-of select="tib:render-xml($_error/ns3:ErrorReport)"/>
+                        </pfx4:StackTrace>
+                    </pfx4:ExceptionRequest>
+                </data>
+            </pfx6:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Get WCF Password">
+        <pd:type>com.tibco.plugin.java.JavaActivity</pd:type>
+        <pd:resourceType>ae.javapalette.javaActivity</pd:resourceType>
+        <pd:x>242</pd:x>
+        <pd:y>202</pd:y>
+        <config>
+            <fullsource>package Services.Camstar_LSOEmpCurrRec.Operations.InvokeWCF;
+import java.util.*;
+import java.io.*;
+import com.tibco.pe.plugin.PluginProperties;
+public class InvokeWCFGetWCFPassword{
+/****** START SET/GET METHOD, DO NOT MODIFY *****/
+	protected String input = "";
+	protected String output = "";
+	public String getinput() {
+		return input;
+	}
+	public void setinput(String val) {
+		input = val;
+	}
+	public String getoutput() {
+		return output;
+	}
+	public void setoutput(String val) {
+		output = val;
+	}
+/****** END SET/GET METHOD, DO NOT MODIFY *****/
+	public InvokeWCFGetWCFPassword() {
+	}
+	public void invoke() throws Exception {
+/* Available Variables: DO NOT MODIFY
+	In  : String input
+	Out : String output
+* Available Variables: DO NOT MODIFY *****/
+
+
+
+output=PluginProperties.getProperty(input);
+}
+}
+</fullsource>
+            <fileName>InvokeWCFGetWCFPassword</fileName>
+            <packageName>Services.Camstar_LSOEmpCurrRec.Operations.InvokeWCF</packageName>
+            <inputData>
+                <row>
+                    <fieldName>input</fieldName>
+                    <fieldType>string</fieldType>
+                    <fieldRequired>optional</fieldRequired>
+                </row>
+            </inputData>
+            <outputData>
+                <row>
+                    <fieldName>output</fieldName>
+                    <fieldType>string</fieldType>
+                    <fieldRequired>optional</fieldRequired>
+                </row>
+            </outputData>
+            <byteCode>
+                <class>
+                    <name>InvokeWCFGetWCFPassword</name>
+                    <byteCode>yv66vgAAADMAJgkABgAaCQAGABsKAAcAHAgAHQoAHgAfBwAgBwAhAQAFaW5wdXQBABJMamF2YS9sYW5nL1N0cmluZzsBAAZvdXRwdXQBAAhnZXRpbnB1dAEAFCgpTGphdmEvbGFuZy9TdHJpbmc7AQAEQ29kZQEAD0xpbmVOdW1iZXJUYWJsZQEACHNldGlucHV0AQAVKExqYXZhL2xhbmcvU3RyaW5nOylWAQAJZ2V0b3V0cHV0AQAJc2V0b3V0cHV0AQAGPGluaXQ+AQADKClWAQAGaW52b2tlAQAKRXhjZXB0aW9ucwcAIgEAClNvdXJjZUZpbGUBABxJbnZva2VXQ0ZHZXRXQ0ZQYXNzd29yZC5qYXZhDAAIAAkMAAoACQwAEwAUAQAABwAjDAAkACUBAEtTZXJ2aWNlcy9DYW1zdGFyX0xTT0VtcEN1cnJSZWMvT3BlcmF0aW9ucy9JbnZva2VXQ0YvSW52b2tlV0NGR2V0V0NGUGFzc3dvcmQBABBqYXZhL2xhbmcvT2JqZWN0AQATamF2YS9sYW5nL0V4Y2VwdGlvbgEAJGNvbS90aWJjby9wZS9wbHVnaW4vUGx1Z2luUHJvcGVydGllcwEAC2dldFByb3BlcnR5AQAmKExqYXZhL2xhbmcvU3RyaW5nOylMamF2YS9sYW5nL1N0cmluZzsAIQAGAAcAAAACAAQACAAJAAAABAAKAAkAAAAGAAEACwAMAAEADQAAAB0AAQABAAAABSq0AAGwAAAAAQAOAAAABgABAAAACgABAA8AEAABAA0AAAAiAAIAAgAAAAYqK7UAAbEAAAABAA4AAAAKAAIAAAANAAUADgABABEADAABAA0AAAAdAAEAAQAAAAUqtAACsAAAAAEADgAAAAYAAQAAABAAAQASABAAAQANAAAAIgACAAIAAAAGKiu1AAKxAAAAAQAOAAAACgACAAAAEwAFABQAAQATABQAAQANAAAANQACAAEAAAARKrcAAyoSBLUAASoSBLUAArEAAAABAA4AAAASAAQAAAAWAAQABwAKAAgAEAAXAAEAFQAUAAIADQAAACgAAgABAAAADCoqtAABuAAFtQACsQAAAAEADgAAAAoAAgAAACAACwAhABYAAAAEAAEAFwABABgAAAACABk=</byteCode>
+                </class>
+            </byteCode>
+        </config>
+        <pd:inputBindings>
+            <javaCodeActivityInput>
+                <input>
+                    <xsl:value-of select="&quot;tibco.clientVar.ApplicationDetails/ESB_MES_CRCLM_NAM/CamstarServiceConnection/Password&quot;"/>
+                </input>
+            </javaCodeActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Functional Error">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>886</pd:x>
+        <pd:y>327</pd:y>
+        <config>
+            <faultName>CLEException</faultName>
+        </config>
+        <pd:inputBindings>
+            <pfx6:ActivityInput>
+                <data>
+                    <pfx4:ExceptionRequest>
+                        <pfx4:Header>
+                            <xsl:if test="not(($Update-Curriculum-Status/outputMessage/pfx:ExecuteTransactionResponse/pfx:ExecuteTransactionResult/ns:ExceptionData/ns:Description/@xsi:nil=(&quot;true&quot;)) or ($Update-Curriculum-Status/outputMessage/pfx:ExecuteTransactionResponse/pfx:ExecuteTransactionResult/ns:ExceptionData/ns:Description/@xsi:nil=(&quot;1&quot;)))">
+                                <pfx4:Message>
+                                    <xsl:value-of select="$Update-Curriculum-Status/outputMessage/pfx:ExecuteTransactionResponse/pfx:ExecuteTransactionResult/ns:ExceptionData/ns:Description"/>
+                                </pfx4:Message>
+                            </xsl:if>
+                        </pfx4:Header>
+                        <pfx4:ExceptionCode>
+                            <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/CLE/ExceptionCode/Functional/FUNC-CAMSTAR-01"/>
+                        </pfx4:ExceptionCode>
+                        <pfx4:StackTrace>
+                            <xsl:value-of select="tib:render-xml($Update-Curriculum-Status/outputMessage/pfx:ExecuteTransactionResponse/pfx:ExecuteTransactionResult)"/>
+                        </pfx4:StackTrace>
+                    </pfx4:ExceptionRequest>
+                </data>
+            </pfx6:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Get WCF Password</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>End</pd:to>
+        <pd:xpathDescription>Success</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$Update-Curriculum-Status/outputMessage/pfx:ExecuteTransactionResponse/pfx:ExecuteTransactionResult/ns:IsSuccess='true'</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>Map TimeOutError</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-65485</pd:lineColor>
+        <pd:conditionType>error</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>Undefined Technical Error</pd:to>
+        <pd:xpathDescription>other errors</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-65485</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>exists($_error_Update-Curriculum-Status/ActivityErrors/defaultFaultElement)
+or
+exists($_error_Update-Curriculum-Status/ActivityErrors/pfx7:HttpClientException)
+or
+exists($_error_Update-Curriculum-Status/ActivityErrors/pfx7:HttpServerException)
+or
+exists($_error_Update-Curriculum-Status/ActivityErrors/pfx7:HttpCommunicationException)</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Get WCF Password</pd:from>
+        <pd:to>Group</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>Functional Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-65536</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

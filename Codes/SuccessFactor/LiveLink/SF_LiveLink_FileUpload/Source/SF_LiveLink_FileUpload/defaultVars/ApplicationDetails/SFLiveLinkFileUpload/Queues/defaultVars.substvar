@@ -1,0 +1,21 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>LiveLinkFile_TriggerQueue</name>
+			<value>ZBS.EAI.TRIGGER_LIVELINK_FILE.PUBLISH.ASYNC</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1487754744998</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>Send_HTTPPOST_Request</name>
+			<value>ZBS.EAI.HTTP_POST_REQUEST_LIVELINK.PUBLISH.ASYNC</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1493041147684</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

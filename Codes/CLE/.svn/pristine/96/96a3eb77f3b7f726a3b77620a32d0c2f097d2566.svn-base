@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:pfx3="http://www.tibco.com/schemas/CLE-Handlers/SharedResources/SchemaDefinitions/Private/Notification/NotificationParameters.xsd" xmlns:pfx2="http://www.tibco.com/CommonLE2/namespace/private/Common" xmlns:pfx="http://www.tibco.com/CommonLE2/namespace/Private/Logging">
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/CommonLE2/namespace/private/Common" schemaLocation="/SharedResources/SchemaDefinitions/Private/Common/LocalExceptions.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/schemas/CLE-Handlers/SharedResources/SchemaDefinitions/Private/Notification/NotificationParameters.xsd" schemaLocation="/SharedResources/SchemaDefinitions/Private/Notification/NotificationParameters.xsd"/>
+    <pd:name>ExceptionManagement/DataAccess/MSSQL/RetrieveLastSentTime.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx3:NotificationQuery"/>
+    <pd:startX>125</pd:startX>
+    <pd:startY>74</pd:startY>
+    <pd:returnBindings>
+        <pfx3:ResultTimeNotified>
+            <pfx3:TimeNotified>
+                <xsl:value-of select="$Query-Time-Notified/resultSet/Record[1]/timeNotified"/>
+            </pfx3:TimeNotified>
+        </pfx3:ResultTimeNotified>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType ref="pfx3:ResultTimeNotified"/>
+    <pd:endX>450</pd:endX>
+    <pd:endY>73</pd:endY>
+    <pd:errorSchemas>
+        <RecordNotFound ref="pfx2:NotificationRecordNotFound"/>
+    </pd:errorSchemas>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1287552855183</pd:targetNamespace>
+    <pd:activity name="Query Time Notified">
+        <pd:type>com.tibco.plugin.jdbc.JDBCQueryActivity</pd:type>
+        <pd:resourceType>ae.activities.JDBCQueryActivity</pd:resourceType>
+        <pd:x>265</pd:x>
+        <pd:y>74</pd:y>
+        <config>
+            <timeout>%%Database/MIG_Timeout%%</timeout>
+            <commit>false</commit>
+            <maxRows>100</maxRows>
+            <emptyStrAsNil>false</emptyStrAsNil>
+            <jdbcSharedConfig>/SharedResources/Connections/Database/DBServerMSSQL.sharedjdbc</jdbcSharedConfig>
+            <statement>select timeNotified from Notification where applicationid = ? and ExceptionCode = ? </statement>
+            <Prepared_Param_DataType>
+                <parameter>
+                    <parameterName>ApplicationID</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>ExceptionCode</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+            </Prepared_Param_DataType>
+            <oraObjects/>
+            <oraTables/>
+            <QueryOutputCachedSchemaColumns>timeNotified</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>93</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>datetime</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+        </config>
+        <pd:inputBindings>
+            <jdbcQueryActivityInput>
+                <ApplicationID>
+                    <xsl:value-of select="$Start/pfx3:NotificationQuery/pfx3:ApplicationID"/>
+                </ApplicationID>
+                <ExceptionCode>
+                    <xsl:value-of select="$Start/pfx3:NotificationQuery/pfx3:ExceptionCode"/>
+                </ExceptionCode>
+            </jdbcQueryActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Generate Error">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>278</pd:x>
+        <pd:y>199</pd:y>
+        <config>
+            <faultName>RecordNotFound</faultName>
+        </config>
+        <pd:inputBindings>
+            <ns:ActivityInput>
+                <message>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/Connectors/Notifications/Messages/NotificationNotFound"/>
+                </message>
+                <messageCode>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/Connectors/Notifications/Codes/NotificationNotFound"/>
+                </messageCode>
+                <data>
+                    <pfx2:NotificationRecordNotFound>
+                        <pfx2:Message>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/Connectors/Notifications/Messages/NotificationNotFound"/>
+                        </pfx2:Message>
+                        <pfx2:Code>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/Connectors/Notifications/Codes/NotificationNotFound"/>
+                        </pfx2:Code>
+                    </pfx2:NotificationRecordNotFound>
+                </data>
+            </ns:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Query Time Notified</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Query Time Notified</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Query Time Notified</pd:from>
+        <pd:to>Generate Error</pd:to>
+        <pd:xpathDescription>No Record</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>count($Query-Time-Notified/resultSet/Record) = 0</pd:xpath>
+    </pd:transition>
+</pd:ProcessDefinition>

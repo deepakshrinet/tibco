@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ~ Copyright (c) 2001-2007, TIBCO Software Inc. ~ Use, modification, 
+	and distribution subject to terms of license. -->
+<data jsxid="jsxroot" jsxnamespace="jsx3.ide.mapper.Mapper" jsxversion="1.0">
+	<record jsxid="x74831" jsxtext="WSDL (interfaces/charts/ChartConfiguration_wsdl.xml)" jsxopen="1" src="interfaces/charts/ChartConfiguration_wsdl.xml" type="W" path="/jsx1:definitions">
+		<record jsxid="x41204" jsxtext="Service (http://localhost:9950/C...ypeEndpoint1)" jsxopen="1" path="/jsx1:definitions/jsx1:service/jsx1:port/jsx4:address" type="S" soapstyle="document">
+			<record jsxid="x50090" jsxtext="ChartInfoRetrievalOp" jsxopen="1" opname="ChartInfoRetrievalOp" endpoint="http://localhost:9950/Common/GUIServices/intfChartInfoRetrieval-service.serviceagent/portTypeEndpoint1" method="POST" type="P" path="/jsx1:definitions/jsx1:binding/jsx1:operation">
+				<headers jsxid="x13946">
+					<record jsxid="x73671" name="SOAPAction" value="/Common/GUIServices/intfChartInfoRetrieval-service.serviceagent/portTypeEndpoint1/ChartInfoRetrievalOp"/>
+					<record jsxid="x73360" name="Content-Type" value="text/xml"/>
+				</headers>
+				<record jsxid="x66918" jsxtext="Input (request)" type="I" stubsrc="jsx://xml/stubs/soap.xml" stubpath="/SOAP-ENV:Envelope/SOAP-ENV:Body" soapuse="literal" path="/jsx1:definitions/jsx1:message" jsxopen="1">
+					<record jsxid="x56069" jsxtext="ChartInfoRequest" jsxopen="1" type="C" path="//jsx3:schema[@targetNamespace='http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common/Request']//jsx3:element[@name='ChartInfoRequest']" datatype="" tns="http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common/Request">
+						<record jsxid="x57182" jsxtext="UserName" jsxopen="1" type="E" path="//jsx3:schema[@targetNamespace='http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common/Request']//jsx3:element[@name='UserName']" datatype="string" simple="1" tns="http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common/Request">
+							<mappings jsxid="x24566">
+								<record jsxid="jsx_3g" name="Script" value="setValue(this.userName);"/>
+							</mappings>
+						</record>
+					</record>
+				</record>
+				<record jsxid="x42821" jsxtext="Output (response)" type="O" soapuse="literal" path="/jsx1:definitions/jsx1:message[2]" jsxopen="1" jsxselected="1">
+					<record jsxid="x68332" jsxtext="ChartInfo" jsxopen="1" type="C" path="//jsx3:schema[@targetNamespace='http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common/Response']//jsx3:element[@name='ChartInfo']" datatype="" tns="http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common/Response">
+						<record jsxid="x31720" jsxtext="ExceptionPercentageChart" jsxopen="1" type="C" path="//jsx3:schema[@targetNamespace='http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common/Response']//jsx3:element[@name='ExceptionPercentageChart']" datatype="" ref="1" tns="http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common/Response">
+							<record jsxid="x38208" jsxtext="ExceptionCountInfo" jsxopen="1" type="C" path="//jsx3:schema[@targetNamespace='http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common/Response']//jsx3:element[@name='ExceptionCountInfo']" datatype="" ref="1" tns="http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common/Response">
+								<record jsxid="x58482" jsxtext="ExceptionResolveTypeName" jsxopen="1" type="E" path="//jsx3:schema[@targetNamespace='http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common/Response']//jsx3:element[@name='ExceptionResolveTypeName']" datatype="string" ttns="http://www.w3.org/2001/XMLSchema" tns="http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common/Response">
+									
+								</record>
+								<record jsxid="x50401" jsxtext="ExceptionCountValue" jsxopen="1" type="E" path="//jsx3:schema[@targetNamespace='http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common/Response']//jsx3:element[@name='ExceptionCountValue']" datatype="int" ttns="http://www.w3.org/2001/XMLSchema" tns="http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common/Response" jsxSelectMask="CDF Attribute">
+									
+								</record>
+								
+							</record>
+							
+						</record>
+						<record jsxid="x236" jsxtext="LogExceptionCountChart" jsxopen="1" type="C" path="//jsx3:schema[@targetNamespace='http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common/Response']//jsx3:element[@name='LogExceptionCountChart']" datatype="" ref="1" tns="http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common/Response">
+							<record jsxid="x71572" jsxtext="AppInfo" jsxopen="1" type="C" path="//jsx3:schema[@targetNamespace='http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common/Response']//jsx3:element[@name='AppInfo']" datatype="" ref="1" tns="http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common/Response" jsxSelectMask="CDF Record">
+								<record jsxid="x29473" jsxtext="AppID" jsxopen="1" type="E" path="//jsx3:schema[@targetNamespace='http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common/Response']//jsx3:element[@name='AppID']" datatype="string" ttns="http://www.w3.org/2001/XMLSchema" tns="http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common/Response" jsxSelectMask="CDF Attribute">
+									
+								</record>
+								<record jsxid="x60849" jsxtext="AppName" jsxopen="1" type="E" path="//jsx3:schema[@targetNamespace='http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common/Response']//jsx3:element[@name='AppName']" datatype="string" ttns="http://www.w3.org/2001/XMLSchema" tns="http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common/Response" jsxSelectMask="CDF Attribute">
+									
+								</record>
+								<record jsxid="x65819" jsxtext="AppDescription" jsxopen="1" type="E" path="//jsx3:schema[@targetNamespace='http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common/Response']//jsx3:element[@name='AppDescription']" datatype="string" ttns="http://www.w3.org/2001/XMLSchema" tns="http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common/Response" jsxSelectMask="CDF Attribute">
+									
+								</record>
+								<record jsxid="x91954" jsxtext="LogCount" jsxopen="1" type="E" path="//jsx3:schema[@targetNamespace='http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common/Response']//jsx3:element[@name='LogCount']" datatype="int" ttns="http://www.w3.org/2001/XMLSchema" tns="http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common/Response" jsxSelectMask="CDF Attribute">
+									
+								</record>
+								<record jsxid="x41368" jsxtext="ExceptionCount" jsxopen="1" type="E" path="//jsx3:schema[@targetNamespace='http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common/Response']//jsx3:element[@name='ExceptionCount']" datatype="int" ttns="http://www.w3.org/2001/XMLSchema" tns="http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common/Response" jsxSelectMask="CDF Attribute">
+									
+								</record>
+								
+							</record>
+							
+						</record>
+					</record>
+				</record>
+				<record jsxid="x28660" jsxtext="Fault (response variant)" type="F" path="/jsx1:definitions/jsx1:message[3]" jsxopen="1">
+					<record jsxid="x98793" jsxtext="Error" jsxopen="1" type="C" path="//jsx3:schema[@targetNamespace='http://www.tibco.com/CommonLE2/Public/Common']//jsx3:element[@name='Error']" datatype="" tns="http://www.tibco.com/CommonLE2/Public/Common">
+						<record jsxid="x20448" jsxtext="Message" jsxopen="1" type="E" path="//jsx3:schema[@targetNamespace='http://www.tibco.com/CommonLE2/Public/Common']//jsx3:element[@name='Message']" datatype="string" ttns="http://www.w3.org/2001/XMLSchema" tns="http://www.tibco.com/CommonLE2/Public/Common" jsxSelectMask="Script">
+							
+						</record>
+						<record jsxid="x95847" jsxtext="Code" jsxopen="1" type="E" path="//jsx3:schema[@targetNamespace='http://www.tibco.com/CommonLE2/Public/Common']//jsx3:element[@name='Code']" datatype="string" ttns="http://www.w3.org/2001/XMLSchema" tns="http://www.tibco.com/CommonLE2/Public/Common" jsxSelectMask="Script">
+							
+						</record>
+					</record>
+				</record>
+			</record>
+		</record>
+	</record>
+</data>

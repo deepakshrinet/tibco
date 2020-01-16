@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Repository:repository xmlns="http://www.tibco.com/xmlns/aemeta/types/2002" xmlns:Repository="http://www.tibco.com/xmlns/repo/types/2002" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <designer>
+        <lockedProperties>
+            <locked>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Classes/Z_RFC_2170_HRIS_SFI</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Classes/Z_RFC_2170_HRIS_SFI/Z_RFC_2170_HRIS_SFI</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Classes/Z_RFC_2170_HRIS_SFI/Z_RFC_2170_HRIS_SFI/Parameters/IT_PERNR</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Classes/Z_RFC_2170_HRIS_SFI/Z_RFC_2170_HRIS_SFI/Parameters/IT_OUTPUT</resource>
+                <properties>name</properties>
+            </locked>
+        </lockedProperties>
+        <fixedChildren>
+            <fixed>
+                <resource>/Classes</resource>
+                <children>Z_RFC_2170_HRIS_SFI</children>
+            </fixed>
+            <fixed>
+                <resource>/Classes/Z_RFC_2170_HRIS_SFI</resource>
+                <children>Z_RFC_2170_HRIS_SFI</children>
+            </fixed>
+            <fixed>
+                <resource>/Classes/Z_RFC_2170_HRIS_SFI/Z_RFC_2170_HRIS_SFI/Exceptions</resource>
+                <children>EXCEPTION</children>
+            </fixed>
+            <fixed>
+                <resource>/Classes/Z_RFC_2170_HRIS_SFI/Z_RFC_2170_HRIS_SFI/Parameters</resource>
+                <children>IT_OUTPUT,IT_PERNR</children>
+            </fixed>
+        </fixedChildren>
+        <resourceDescriptions/>
+    </designer>
+    <rpcClass name="Z_RFC_2170_HRIS_SFI">
+        <operation>
+            <oneway>false</oneway>
+            <name>Z_RFC_2170_HRIS_SFI</name>
+            <returnType isRef="true">/AESchemas/ae.aeschema#scalar.string</returnType>
+            <raises>
+                <name>EXCEPTION</name>
+                <raisesType isRef="true">/AESchemas/ae/740/basic/structures.aeschema#class.EXCEPTION</raisesType>
+            </raises>
+            <parameter>
+                <direction>inout</direction>
+                <name>IT_OUTPUT</name>
+                <parameterType isRef="true">/AESchemas/ae/740/basic/structures.aeschema#sequence.sequence[HRSFI_S_TRANSFER_DATA]</parameterType>
+                <extendedProperties>
+                    <paramclass>T</paramclass>
+                    <length>9225</length>
+                </extendedProperties>
+            </parameter>
+            <parameter>
+                <direction>inout</direction>
+                <name>IT_PERNR</name>
+                <parameterType isRef="true">/AESchemas/ae/740/basic/structures.aeschema#sequence.sequence[PERNR]</parameterType>
+                <extendedProperties>
+                    <paramclass>T</paramclass>
+                    <length>361</length>
+                </extendedProperties>
+            </parameter>
+        </operation>
+    </rpcClass>
+</Repository:repository>

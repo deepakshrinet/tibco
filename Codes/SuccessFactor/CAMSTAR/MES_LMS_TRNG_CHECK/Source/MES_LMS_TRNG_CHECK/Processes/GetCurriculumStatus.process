@@ -1,0 +1,1021 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:ns="http://www.zimmer.com/Material_Check_Services/Schemas/MaterialLot" xmlns:pfx1="http://www.tibco.com/schemas/LaserILG_WS/Schemas/Schema.xsd" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlPfx="http://www.zimmer.com/Material_Check_Services/service/MaterialLot" xmlns:ns21="http://www.zimmer.com/MANU_GTININFO/Schemas/OutputItemGTIN" xmlns:pfx31="http://www.zimmer.com/MANU_GTININFO/Schemas/InputItemGTIN" xmlns:pfx5="http://www.zimmer.com/MES_LMS_TRNG_CHECK/Schemas/CurriculumStatusCheck" xmlns:pfx4="http://oracle.e1.bssv.JP584101/" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx3="http://xmlns.example.com/1470382648302" xmlns:pfx2="http://xmlns.example.com/1469089133048" xmlns:pfx7="http://www.zimmerbiomet.com/MES_LMS_TRNG_CHECK/wsdl/CurriculumStatusCheck" xmlns:pfx6="http://www.zimmer.com/MES_LMS_TRNG_CHECK/wsdl/CurriculumStatusCheck" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:Zimmer="java://CustomFunctions" xmlns:ns9="http://www.zimmerbiomet.com/MES_LMS_TRNG_CHECK/Schemas/CurriculumStatusCheck" xmlns:ns12="http://www.tibco.com/CommonLE/Client/Schema/ClientInterface.xsd" xmlns:ns5="http://schemas.tibco.com/bw/plugins/jdbc/5.0/jdbcExceptions" xmlns:ns6="http://schemas.tibco.com/bw/pe/plugin/5.0/exceptions" xmlns:ns10="http://schemas.tibco.com/bw/plugins/xml/5.0/RESTJSONExceptions" xmlns:pfx="http://www.zimmer.com/Material_Check_Services/wsdl/MaterialLot" xmlns:ns7="http://schemas.tibco.com/bw/plugins/http/5.0/httpExceptions" xmlns:ns11="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:ns8="http://www.tibco.com/namespaces/tnt/plugins/json" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns1="http://www.tibco.com/pe/EngineTypes" xmlns:ns4="http://schemas.tibco.com/bw/plugins/http/5.0/cio" xmlns:ns3="http://www.zimmer.com/MANU_GTININFO/Schemas/FaultMessage" xmlns:ns0="www.tibco.com/plugin/Sleep" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx21="http://xmlns.example.com/1460398279460" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xsd:import namespace="http://www.zimmerbiomet.com/MES_LMS_TRNG_CHECK/Schemas/CurriculumStatusCheck" schemaLocation="/SharedResources/Schemas/CurriculumStatusCheck.xsd"/>
+    <wsdl:import namespace="http://www.zimmer.com/Material_Check_Services/service/MaterialLot" location="/UnitTesting/MaterialLot.wsdl"/>
+    <wsdl:import namespace="http://oracle.e1.bssv.JP584101/"/>
+    <wsdl:import namespace="http://www.zimmerbiomet.com/MES_LMS_TRNG_CHECK/wsdl/CurriculumStatusCheck" location="/SharedResources/WSDLs/CurriculumStatusCheck.wsdl"/>
+    <pd:name>Processes/GetCurriculumStatus.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType wsMsgRef="pfx7:Input"/>
+    <pd:startX>27</pd:startX>
+    <pd:startY>182</pd:startY>
+    <pd:returnBindings>
+        <pfx7:Output>
+            <Response>
+                <ns9:output>
+                    <ns9:SAPID>
+                        <xsl:value-of select="$Start/pfx7:Input/Request/ns9:Input/ns9:SAPID"/>
+                    </ns9:SAPID>
+                    <ns9:CurriculumID>
+                        <xsl:value-of select="$Start/pfx7:Input/Request/ns9:Input/ns9:CurriculumID"/>
+                    </ns9:CurriculumID>
+                    <xsl:choose>
+                        <xsl:when test="substring-after(substring-before(substring-after($InvokeSFAPI/ns8:RESTOutput/body/asciiContent, '[{&quot;'), '&quot;,'),':&quot;')='Incomplete'">
+                            <ns9:CurriculumStatus>
+                                <xsl:value-of select="'Untrained'"/>
+                            </ns9:CurriculumStatus>
+                        </xsl:when>
+                        <xsl:when test="substring-after(substring-before(substring-after($InvokeSFAPI/ns8:RESTOutput/body/asciiContent, '[{&quot;'), '&quot;,'),':&quot;')='Complete'">
+                            <ns9:CurriculumStatus>
+                                <xsl:value-of select="'Trained'"/>
+                            </ns9:CurriculumStatus>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <ns9:CurriculumStatus>
+                                <xsl:value-of select="''"/>
+                            </ns9:CurriculumStatus>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <xsl:choose>
+                        <xsl:when test="$_error_InvokeSFAPI/ActivityErrors&#xA;or&#xA;contains($_error/ns1:ErrorReport/StackTrace,'Connection refused')">
+                            <ns9:intResponseCode>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ApplicationDetails/MES_LMS_TRNG_CHECK/SuccessFactorAPI/ErrorCodes/Error_300"/>
+                            </ns9:intResponseCode>
+                        </xsl:when>
+                        <xsl:when test="$InvokeSFAPI/ns8:RESTOutput/StatusCode!=200">
+                            <ns9:intResponseCode>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ApplicationDetails/MES_LMS_TRNG_CHECK/SuccessFactorAPI/ErrorCodes/Error_100"/>
+                            </ns9:intResponseCode>
+                        </xsl:when>
+                        <xsl:when test="$_error/ns1:ErrorReport/Msg and $InvokeSFAPI/ns8:RESTOutput/StatusCode=200">
+                            <ns9:intResponseCode>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ApplicationDetails/MES_LMS_TRNG_CHECK/SuccessFactorAPI/ErrorCodes/Error_400"/>
+                            </ns9:intResponseCode>
+                        </xsl:when>
+                    </xsl:choose>
+                    <xsl:choose>
+                        <xsl:when test="$_error_InvokeSFAPI/ActivityErrors/ns10:JSONRestException">
+                            <ns9:intResponseMessage>
+                                <xsl:value-of select="$_error_InvokeSFAPI/ActivityErrors/ns10:JSONRestException/msg"/>
+                            </ns9:intResponseMessage>
+                        </xsl:when>
+                        <xsl:when test="$_error_InvokeSFAPI/ActivityErrors/ns6:ActivityTimedOutException">
+                            <ns9:intResponseMessage>
+                                <xsl:value-of select="'Time Out from SuccessFactor API after retrying for 3 times'"/>
+                            </ns9:intResponseMessage>
+                        </xsl:when>
+                        <xsl:when test="contains($_error/ns1:ErrorReport/StackTrace,'Connection refused')&#xA;or&#xA;($_error/ns1:ErrorReport/Msg and $InvokeSFAPI/ns8:RESTOutput/StatusCode=200)">
+                            <xsl:if test="$_error/ns1:ErrorReport/Msg">
+                                <ns9:intResponseMessage>
+                                    <xsl:value-of select="$_error/ns1:ErrorReport/Msg"/>
+                                </ns9:intResponseMessage>
+                            </xsl:if>
+                        </xsl:when>
+                        <xsl:when test="$InvokeSFAPI/ns8:RESTOutput/StatusCode!=200">
+                            <ns9:intResponseMessage>
+                                <xsl:value-of select="tib:trim(substring-before(substring-after($InvokeSFAPI/ns8:RESTOutput/body/asciiContent, 'ERROR:'), '\n'))"/>
+                            </ns9:intResponseMessage>
+                        </xsl:when>
+                    </xsl:choose>
+                </ns9:output>
+            </Response>
+        </pfx7:Output>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType wsMsgRef="pfx7:Output"/>
+    <pd:endX>1365</pd:endX>
+    <pd:endY>187</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables>
+        <RetryFlag>
+            <xsd:element name="root">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="RetryFlag" type="xsd:string" minOccurs="0"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </RetryFlag>
+    </pd:processVariables>
+    <pd:targetNamespace>http://xmlns.example.com/1470382648505</pd:targetNamespace>
+    <pd:activity name="EndLog">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>1179</pd:x>
+        <pd:y>193</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendLog.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns12:LogRequest>
+                <ns12:Header>
+                    <xsl:if test="$SetCLEHeader/ns12:Header/ns12:ComponentName">
+                        <ns12:ComponentName>
+                            <xsl:value-of select="$SetCLEHeader/ns12:Header/ns12:ComponentName"/>
+                        </ns12:ComponentName>
+                    </xsl:if>
+                    <xsl:if test="$SetCLEHeader/ns12:Header/ns12:Hostname">
+                        <ns12:Hostname>
+                            <xsl:value-of select="$SetCLEHeader/ns12:Header/ns12:Hostname"/>
+                        </ns12:Hostname>
+                    </xsl:if>
+                    <xsl:if test="$SetCLEHeader/ns12:Header/ns12:TransactionDomain">
+                        <ns12:TransactionDomain>
+                            <xsl:value-of select="$SetCLEHeader/ns12:Header/ns12:TransactionDomain"/>
+                        </ns12:TransactionDomain>
+                    </xsl:if>
+                    <xsl:if test="$SetCLEHeader/ns12:Header/ns12:TransactionType">
+                        <ns12:TransactionType>
+                            <xsl:value-of select="$SetCLEHeader/ns12:Header/ns12:TransactionType"/>
+                        </ns12:TransactionType>
+                    </xsl:if>
+                    <xsl:if test="$SetCLEHeader/ns12:Header/ns12:TransactionID">
+                        <ns12:TransactionID>
+                            <xsl:value-of select="$SetCLEHeader/ns12:Header/ns12:TransactionID"/>
+                        </ns12:TransactionID>
+                    </xsl:if>
+                    <xsl:if test="$SetCLEHeader/ns12:Header/ns12:CorrelationID">
+                        <ns12:CorrelationID>
+                            <xsl:value-of select="$SetCLEHeader/ns12:Header/ns12:CorrelationID"/>
+                        </ns12:CorrelationID>
+                    </xsl:if>
+                    <xsl:if test="$SetCLEHeader/ns12:Header/ns12:InterfaceID">
+                        <ns12:InterfaceID>
+                            <xsl:value-of select="$SetCLEHeader/ns12:Header/ns12:InterfaceID"/>
+                        </ns12:InterfaceID>
+                    </xsl:if>
+                    <xsl:choose>
+                        <xsl:when test="$RetryFlag/root/RetryFlag=$_globalVariables/ns2:GlobalVariables/ApplicationDetails/MES_LMS_TRNG_CHECK/SuccessFactorAPI/ReTry/YES_Flag">
+                            <ns12:Message>
+                                <xsl:value-of select="'ERROR'"/>
+                            </ns12:Message>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <ns12:Message>
+                                <xsl:value-of select="'SUCCESS'"/>
+                            </ns12:Message>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <ns12:Transaction>
+                        <xsl:value-of select="concat(&#xA;'CAMSTAR REQUEST:',&quot;&#xD;&#xA;&quot;,tib:render-xml($Start/pfx7:Input/Request/ns9:Input),&quot;&#xD;&#xA;&quot;,&#xA;'SUCCESSFACTOR RESPONSE:',&quot;&#xD;&#xA;&quot;,tib:render-xml($InvokeSFAPI/ns8:RESTOutput/body/asciiContent),&#xA;&quot;&#xD;&#xA;&quot;,&#xA;'CAMSTAR RESPONSE:',&quot;&#xD;&#xA;&quot;,tib:render-xml($Map-Camstar-Response/ns9:output))"/>
+                    </ns12:Transaction>
+                </ns12:Header>
+                <ns12:Category>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ApplicationDetails/MES_LMS_TRNG_CHECK/Category"/>
+                </ns12:Category>
+                <ns12:Status>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/CLE/Status/COMPLETED"/>
+                </ns12:Status>
+                <ns12:Audit>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ApplicationDetails/AuditFlag"/>
+                </ns12:Audit>
+                <ns12:LogLevel>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/CLE/Environment/CommonLE/LOGGING_LEVEL_NUM_DEBUG"/>
+                </ns12:LogLevel>
+            </ns12:LogRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="EndLog-1">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>1365</pd:x>
+        <pd:y>395</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendLog.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns12:LogRequest>
+                <ns12:Header>
+                    <xsl:if test="$SetCLEHeader/ns12:Header/ns12:ComponentName">
+                        <ns12:ComponentName>
+                            <xsl:value-of select="$SetCLEHeader/ns12:Header/ns12:ComponentName"/>
+                        </ns12:ComponentName>
+                    </xsl:if>
+                    <xsl:if test="$SetCLEHeader/ns12:Header/ns12:Hostname">
+                        <ns12:Hostname>
+                            <xsl:value-of select="$SetCLEHeader/ns12:Header/ns12:Hostname"/>
+                        </ns12:Hostname>
+                    </xsl:if>
+                    <xsl:if test="$SetCLEHeader/ns12:Header/ns12:TransactionDomain">
+                        <ns12:TransactionDomain>
+                            <xsl:value-of select="$SetCLEHeader/ns12:Header/ns12:TransactionDomain"/>
+                        </ns12:TransactionDomain>
+                    </xsl:if>
+                    <xsl:if test="$SetCLEHeader/ns12:Header/ns12:TransactionType">
+                        <ns12:TransactionType>
+                            <xsl:value-of select="$SetCLEHeader/ns12:Header/ns12:TransactionType"/>
+                        </ns12:TransactionType>
+                    </xsl:if>
+                    <xsl:if test="$SetCLEHeader/ns12:Header/ns12:TransactionID">
+                        <ns12:TransactionID>
+                            <xsl:value-of select="$SetCLEHeader/ns12:Header/ns12:TransactionID"/>
+                        </ns12:TransactionID>
+                    </xsl:if>
+                    <xsl:if test="$SetCLEHeader/ns12:Header/ns12:CorrelationID">
+                        <ns12:CorrelationID>
+                            <xsl:value-of select="$SetCLEHeader/ns12:Header/ns12:CorrelationID"/>
+                        </ns12:CorrelationID>
+                    </xsl:if>
+                    <xsl:if test="$SetCLEHeader/ns12:Header/ns12:InterfaceID">
+                        <ns12:InterfaceID>
+                            <xsl:value-of select="$SetCLEHeader/ns12:Header/ns12:InterfaceID"/>
+                        </ns12:InterfaceID>
+                    </xsl:if>
+                    <ns12:Message>
+                        <xsl:value-of select="'Error Encountered'"/>
+                    </ns12:Message>
+                    <ns12:Transaction>
+                        <xsl:value-of select="concat(&#xA;'CAMSTAR REQUEST:',&quot;&#xD;&#xA;&quot;,tib:render-xml($Start/pfx7:Input/Request/ns9:Input),&quot;&#xD;&#xA;&quot;,&#xA;' SUCCESSFACTOR RESPONSE:',&quot;&#xD;&#xA;&quot;,tib:render-xml($_error_InvokeSFAPI/ActivityErrors),&#xA;&quot;&#xD;&#xA;&quot;,&#xA;'CAMSTAR RESPONSE::',&quot;&#xD;&#xA;&quot;,tib:render-xml($Map-Camstar-Error-Response/ns9:output))"/>
+                    </ns12:Transaction>
+                </ns12:Header>
+                <ns12:Category>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ApplicationDetails/MES_LMS_TRNG_CHECK/Category"/>
+                </ns12:Category>
+                <ns12:Status>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/CLE/Status/ERROR"/>
+                </ns12:Status>
+                <ns12:Audit>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ApplicationDetails/AuditFlag"/>
+                </ns12:Audit>
+                <ns12:LogLevel>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/CLE/Environment/CommonLE/LOGGING_LEVEL_NUM_DEBUG"/>
+                </ns12:LogLevel>
+            </ns12:LogRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="ExceptionLog">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>962</pd:x>
+        <pd:y>389</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendException.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns12:ExceptionRequest>
+                <ns12:Header>
+                    <ns12:ComponentName>
+                        <xsl:value-of select="$SetCLEHeader/ns12:Header/ns12:ComponentName"/>
+                    </ns12:ComponentName>
+                    <ns12:Hostname>
+                        <xsl:value-of select="$SetCLEHeader/ns12:Header/ns12:Hostname"/>
+                    </ns12:Hostname>
+                    <ns12:TransactionDomain>
+                        <xsl:value-of select="$SetCLEHeader/ns12:Header/ns12:TransactionDomain"/>
+                    </ns12:TransactionDomain>
+                    <ns12:TransactionType>
+                        <xsl:value-of select="$SetCLEHeader/ns12:Header/ns12:TransactionType"/>
+                    </ns12:TransactionType>
+                    <ns12:TransactionID>
+                        <xsl:value-of select="$SetCLEHeader/ns12:Header/ns12:TransactionID"/>
+                    </ns12:TransactionID>
+                    <ns12:CorrelationID>
+                        <xsl:value-of select="$SetCLEHeader/ns12:Header/ns12:CorrelationID"/>
+                    </ns12:CorrelationID>
+                    <ns12:InterfaceID>
+                        <xsl:value-of select="$SetCLEHeader/ns12:Header/ns12:InterfaceID"/>
+                    </ns12:InterfaceID>
+                </ns12:Header>
+                <ns12:ExceptionCode>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/CLE/Environment/ExceptionCode/Technical/TECHNICAL_777"/>
+                </ns12:ExceptionCode>
+                <ns12:StackTrace>
+                    <xsl:value-of select="concat(&quot;Error Message: &quot;, $_error/ns1:ErrorReport/Msg, &quot;  BW MsgCode: &quot;, &#xA;$_error/ns1:ErrorReport/MsgCode, &quot;&#xA;&quot;,&#xA;&quot;Stack Trace: &quot;, $_error/ns1:ErrorReport/StackTrace, &quot;&#xA;&quot;,&#xA;&quot; Process Stack: &quot;, $_error/ns1:ErrorReport/ProcessStack)"/>
+                </ns12:StackTrace>
+            </ns12:ExceptionRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="GetNewAccessToken">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>959</pd:x>
+        <pd:y>284</pd:y>
+        <config>
+            <processName>/Operations/GetNewAccessToken.process</processName>
+        </config>
+        <pd:inputBindings>
+            <xsl:copy-of select="$Start/pfx7:Input/Request/ns9:Input"/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="GetAccessToken">
+        <pd:type>com.tibco.pe.core.GetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.getSharedVariable</pd:resourceType>
+        <pd:x>218</pd:x>
+        <pd:y>181</pd:y>
+        <config>
+            <variableConfig>/SharedResources/Shared Variables/AccessToken.sharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="SetCLEHeader">
+        <pd:type>com.tibco.pe.core.SetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.setSharedVariable</pd:resourceType>
+        <pd:x>114</pd:x>
+        <pd:y>182</pd:y>
+        <config>
+            <variableConfig>/CLE/Interface/SharedVariables/CLEHeader.jobsharedvariable</variableConfig>
+            <showResult>true</showResult>
+        </config>
+        <pd:inputBindings>
+            <ns12:Header>
+                <ns12:ComponentName>
+                    <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns1:ProcessContext/ProcessId)"/>
+                </ns12:ComponentName>
+                <ns12:Hostname>
+                    <xsl:value-of select="BW:getHostName()"/>
+                </ns12:Hostname>
+                <ns12:TransactionDomain>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ApplicationDetails/MES_LMS_TRNG_CHECK/TransactionDomain"/>
+                </ns12:TransactionDomain>
+                <ns12:TransactionType>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ApplicationDetails/MES_LMS_TRNG_CHECK/TransactionType"/>
+                </ns12:TransactionType>
+                <ns12:TransactionID>
+                    <xsl:value-of select="tib:format-dateTime('yyyyMMdd-HHmmss', current-dateTime())"/>
+                </ns12:TransactionID>
+                <ns12:CorrelationID>
+                    <xsl:value-of select="tib:format-date('yyyyMMdd', current-date())"/>
+                </ns12:CorrelationID>
+                <ns12:InterfaceID>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ApplicationDetails/MES_LMS_TRNG_CHECK/InterfaceID"/>
+                </ns12:InterfaceID>
+            </ns12:Header>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="CatchAll">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>822</pd:x>
+        <pd:y>391</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+            <fault>localname=JSONRestException namespace=http://schemas.tibco.com/bw/plugins/xml/5.0/RESTJSONExceptions</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:group name="Group">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>374</pd:x>
+        <pd:y>44</pd:y>
+        <pd:width>448</pd:width>
+        <pd:height>279</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>repeat</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:indexSlot>i</pd:indexSlot>
+            <pd:activityOutputName/>
+            <pd:repeatCondition>$i=$_globalVariables/ns2:GlobalVariables/ApplicationDetails/MES_LMS_TRNG_CHECK/SuccessFactorAPI/ReTry/Max_ReTry  
+or 
+$RetryFlag/root/RetryFlag=$_globalVariables/ns2:GlobalVariables/ApplicationDetails/MES_LMS_TRNG_CHECK/SuccessFactorAPI/ReTry/NO_Flag</pd:repeatCondition>
+            <pd:accumulateOutput>false</pd:accumulateOutput>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>InvokeSFAPI</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Success</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>ReTry</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>InvokeSFAPI</pd:from>
+            <pd:to>Success</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Warn</pd:from>
+            <pd:to>Sleep</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Sleep</pd:from>
+            <pd:to>ReTry</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>TimeOutException</pd:from>
+            <pd:to>Warn</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="InvokeSFAPI">
+            <pd:type>com.tibco.plugin.json.activities.RestActivity</pd:type>
+            <pd:resourceType>ae.activities.RestActivity</pd:resourceType>
+            <pd:x>502</pd:x>
+            <pd:y>127</pd:y>
+            <config>
+                <enableProtocolUI>None</enableProtocolUI>
+                <restMethodUI>%%ApplicationDetails/MES_LMS_TRNG_CHECK/SuccessFactorAPI/Method%%</restMethodUI>
+                <restResponseType>%%ApplicationDetails/MES_LMS_TRNG_CHECK/SuccessFactorAPI/ResponseType%%</restResponseType>
+                <authChoiceUI>OAuth2.0</authChoiceUI>
+                <WADLPaths/>
+                <WADLBaseURL/>
+                <restMethodIDUI/>
+                <OAuth2ParamPosition>%%ApplicationDetails/MES_LMS_TRNG_CHECK/SuccessFactorAPI/AccessTokenPosition%%</OAuth2ParamPosition>
+                <trustAllHostUI>true</trustAllHostUI>
+                <richOutputEnableUI>true</richOutputEnableUI>
+                <restInputReferNode>
+                    <xsd:element name="Parameters">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="Query" minOccurs="0">
+                                    <xsd:complexType>
+                                        <xsd:sequence>
+                                            <xsd:element name="param" type="xsd:string" minOccurs="0"/>
+                                        </xsd:sequence>
+                                    </xsd:complexType>
+                                </xsd:element>
+                                <xsd:element name="Header" minOccurs="0">
+                                    <xsd:complexType>
+                                        <xsd:sequence>
+                                            <xsd:element name="param" type="xsd:string" minOccurs="0"/>
+                                        </xsd:sequence>
+                                    </xsd:complexType>
+                                </xsd:element>
+                                <xsd:element name="Body" minOccurs="0">
+                                    <xsd:complexType>
+                                        <xsd:sequence>
+                                            <xsd:element name="Form" minOccurs="0">
+                                                <xsd:complexType>
+                                                    <xsd:sequence>
+                                                        <xsd:element name="param" type="xsd:string" minOccurs="0"/>
+                                                    </xsd:sequence>
+                                                </xsd:complexType>
+                                            </xsd:element>
+                                            <xsd:element name="Text" minOccurs="0">
+                                                <xsd:complexType>
+                                                    <xsd:sequence>
+                                                        <xsd:element name="type" type="xsd:string" minOccurs="0"/>
+                                                        <xsd:element name="content" type="xsd:string" minOccurs="0"/>
+                                                    </xsd:sequence>
+                                                </xsd:complexType>
+                                            </xsd:element>
+                                            <xsd:element name="Binary" minOccurs="0">
+                                                <xsd:complexType>
+                                                    <xsd:sequence>
+                                                        <xsd:element name="type" type="xsd:string" minOccurs="0"/>
+                                                        <xsd:element name="content" type="xsd:base64Binary" minOccurs="0"/>
+                                                    </xsd:sequence>
+                                                </xsd:complexType>
+                                            </xsd:element>
+                                            <xsd:element name="Multipart" minOccurs="0" maxOccurs="unbounded">
+                                                <xsd:complexType>
+                                                    <xsd:sequence>
+                                                        <xsd:element name="content-disposition" type="xsd:string" minOccurs="0"/>
+                                                        <xsd:element name="name" type="xsd:string" minOccurs="0"/>
+                                                        <xsd:element name="filename" type="xsd:string" minOccurs="0"/>
+                                                        <xsd:element name="content-type" type="xsd:string" minOccurs="0"/>
+                                                        <xsd:element name="content-id" type="xsd:string" minOccurs="0"/>
+                                                        <xsd:element name="content" minOccurs="0">
+                                                            <xsd:complexType>
+                                                                <xsd:choice>
+                                                                    <xsd:element name="binary" type="xsd:base64Binary"/>
+                                                                    <xsd:element name="text" type="xsd:string"/>
+                                                                    <xsd:element name="fileName" type="xsd:string"/>
+                                                                </xsd:choice>
+                                                            </xsd:complexType>
+                                                        </xsd:element>
+                                                    </xsd:sequence>
+                                                </xsd:complexType>
+                                            </xsd:element>
+                                        </xsd:sequence>
+                                    </xsd:complexType>
+                                </xsd:element>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </restInputReferNode>
+                <restOutputReferNode>
+                    <xsd:element name="header">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="Server" type="xsd:string" minOccurs="0"/>
+                                <xsd:element name="Location" type="xsd:string" minOccurs="0"/>
+                                <xsd:element name="Allow" type="xsd:string" minOccurs="0"/>
+                                <xsd:element name="Date" type="xsd:string" minOccurs="0"/>
+                                <xsd:element name="Set-Cookie" type="xsd:string" minOccurs="0"/>
+                                <xsd:element name="Pragma" type="xsd:string" minOccurs="0"/>
+                                <xsd:element name="Content-Type" type="xsd:string" minOccurs="0"/>
+                                <xsd:element name="Content-Length" type="xsd:string" minOccurs="0"/>
+                                <xsd:element name="Content-Encoding" type="xsd:string" minOccurs="0"/>
+                                <xsd:element name="Content-Range" type="xsd:string" minOccurs="0"/>
+                                <xsd:element name="Last-Modifie" type="xsd:string" minOccurs="0"/>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </restOutputReferNode>
+            </config>
+            <pd:inputBindings>
+                <ns8:ActivityInput>
+                    <URI>
+                        <xsl:value-of select="concat($_globalVariables/ns2:GlobalVariables/ApplicationDetails/MES_LMS_TRNG_CHECK/SuccessFactorAPI/URI,'?$filter=csCriteria/targetUserID%20eq%20%27',$Start/pfx7:Input/Request/ns9:Input/ns9:SAPID,'%27%20and%20csCriteria/',$Java-Code/javaCodeActivityOutput/EncodedCurriculumId,'%20eq%20%27')"/>
+                    </URI>
+                    <Timeout>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ApplicationDetails/MES_LMS_TRNG_CHECK/SuccessFactorAPI/TimeOut"/>
+                    </Timeout>
+                    <OAuth2TokenName>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ApplicationDetails/MES_LMS_TRNG_CHECK/SuccessFactorAPI/AccessTokenName"/>
+                    </OAuth2TokenName>
+                    <OAuth2TokenValue>
+                        <xsl:value-of select="concat('Bearer  ',$GetAccessToken/root/Code)"/>
+                    </OAuth2TokenValue>
+                </ns8:ActivityInput>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="Success">
+            <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+            <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+            <pd:x>691</pd:x>
+            <pd:y>122</pd:y>
+            <config>
+                <variableName>RetryFlag</variableName>
+            </config>
+            <pd:inputBindings>
+                <root>
+                    <RetryFlag>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ApplicationDetails/MES_LMS_TRNG_CHECK/SuccessFactorAPI/ReTry/NO_Flag"/>
+                    </RetryFlag>
+                </root>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="Warn">
+            <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+            <pd:resourceType>ae.process.subprocess</pd:resourceType>
+            <pd:x>556</pd:x>
+            <pd:y>242</pd:y>
+            <config>
+                <processName>/CLE/Interface/SendLog.process</processName>
+            </config>
+            <pd:inputBindings>
+                <ns12:LogRequest>
+                    <ns12:Header>
+                        <ns12:Message>
+                            <xsl:value-of select="concat('Activity failed at attempt:',$i, ': Operation will be retried in: ',$_globalVariables/ns2:GlobalVariables/ApplicationDetails/MES_LMS_TRNG_CHECK/SuccessFactorAPI/ReTry/Sleep_Interval div  1000, ' Seconds: Exception Message - ', $_error/ns1:ErrorReport/Msg)"/>
+                        </ns12:Message>
+                    </ns12:Header>
+                    <ns12:Category>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ApplicationDetails/MES_LMS_TRNG_CHECK/SuccessFactorAPI/ReTry/Category"/>
+                    </ns12:Category>
+                    <ns12:Status>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/CLE/Status/IN-PROGRESS"/>
+                    </ns12:Status>
+                    <ns12:Audit>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ApplicationDetails/AuditFlag"/>
+                    </ns12:Audit>
+                    <ns12:LogLevel>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/CLE/Environment/CommonLE/LOGGING_LEVEL_NUM_DEBUG"/>
+                    </ns12:LogLevel>
+                </ns12:LogRequest>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="Sleep">
+            <pd:type>com.tibco.plugin.timer.SleepActivity</pd:type>
+            <pd:resourceType>ae.activities.sleep</pd:resourceType>
+            <pd:x>649</pd:x>
+            <pd:y>241</pd:y>
+            <config/>
+            <pd:inputBindings>
+                <ns0:SleepInputSchema>
+                    <IntervalInMillisec>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ApplicationDetails/MES_LMS_TRNG_CHECK/SuccessFactorAPI/ReTry/Sleep_Interval"/>
+                    </IntervalInMillisec>
+                </ns0:SleepInputSchema>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="ReTry">
+            <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+            <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+            <pd:x>752</pd:x>
+            <pd:y>239</pd:y>
+            <config>
+                <variableName>RetryFlag</variableName>
+            </config>
+            <pd:inputBindings>
+                <root>
+                    <RetryFlag>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ApplicationDetails/MES_LMS_TRNG_CHECK/SuccessFactorAPI/ReTry/YES_Flag"/>
+                    </RetryFlag>
+                </root>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="TimeOutException">
+            <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+            <pd:resourceType>ae.activities.catch</pd:resourceType>
+            <pd:x>450</pd:x>
+            <pd:y>243</pd:y>
+            <pd:handler>true</pd:handler>
+            <config>
+                <fault>localname=ActivityTimedOutException namespace=http://schemas.tibco.com/bw/pe/plugin/5.0/exceptions</fault>
+                <catchAll>false</catchAll>
+            </config>
+            <pd:inputBindings/>
+        </pd:activity>
+    </pd:group>
+    <pd:activity name="SendException">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>941</pd:x>
+        <pd:y>59</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendException.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns12:ExceptionRequest>
+                <ns12:Header>
+                    <ns12:Message>
+                        <xsl:value-of select="'Activity TimedOut Occurred'"/>
+                    </ns12:Message>
+                </ns12:Header>
+                <ns12:ExceptionCode>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/CLE/Environment/ExceptionCode/Technical/TECHNICAL_777"/>
+                </ns12:ExceptionCode>
+                <ns12:StackTrace>
+                    <xsl:value-of select="concat(&quot;Error Message: &quot;, $_error/ns1:ErrorReport/Msg, &quot;  BW MsgCode: &quot;, &#xA;$_error/ns1:ErrorReport/MsgCode, &quot;&#xA;&quot;,&#xA;&quot;Stack Trace: &quot;, $_error/ns1:ErrorReport/StackTrace, &quot;&#xA;&quot;,&#xA;&quot; Process Stack: &quot;, $_error/ns1:ErrorReport/ProcessStack)"/>
+                </ns12:StackTrace>
+            </ns12:ExceptionRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Map Camstar Response">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>1055</pd:x>
+        <pd:y>203</pd:y>
+        <config>
+            <element ref="ns9:output"/>
+        </config>
+        <pd:inputBindings>
+            <ns9:output>
+                <ns9:SAPID>
+                    <xsl:value-of select="$Start/pfx7:Input/Request/ns9:Input/ns9:SAPID"/>
+                </ns9:SAPID>
+                <ns9:CurriculumID>
+                    <xsl:value-of select="$Start/pfx7:Input/Request/ns9:Input/ns9:CurriculumID"/>
+                </ns9:CurriculumID>
+                <xsl:choose>
+                    <xsl:when test="substring-after(substring-before(substring-after($InvokeSFAPI/ns8:RESTOutput/body/asciiContent, '[{&quot;'), '&quot;,'),':&quot;')='Incomplete'">
+                        <ns9:CurriculumStatus>
+                            <xsl:value-of select="'Untrained'"/>
+                        </ns9:CurriculumStatus>
+                    </xsl:when>
+                    <xsl:when test="substring-after(substring-before(substring-after($InvokeSFAPI/ns8:RESTOutput/body/asciiContent, '[{&quot;'), '&quot;,'),':&quot;')='Complete'">
+                        <ns9:CurriculumStatus>
+                            <xsl:value-of select="'Trained'"/>
+                        </ns9:CurriculumStatus>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <ns9:CurriculumStatus>
+                            <xsl:value-of select="''"/>
+                        </ns9:CurriculumStatus>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:choose>
+                    <xsl:when test="$_error_InvokeSFAPI/ActivityErrors&#xA;or&#xA;contains($_error/ns1:ErrorReport/StackTrace,'Connection refused')">
+                        <ns9:intResponseCode>
+                            <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ApplicationDetails/MES_LMS_TRNG_CHECK/SuccessFactorAPI/ErrorCodes/Error_300"/>
+                        </ns9:intResponseCode>
+                    </xsl:when>
+                    <xsl:when test="$InvokeSFAPI/ns8:RESTOutput/StatusCode!=200">
+                        <ns9:intResponseCode>
+                            <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ApplicationDetails/MES_LMS_TRNG_CHECK/SuccessFactorAPI/ErrorCodes/Error_100"/>
+                        </ns9:intResponseCode>
+                    </xsl:when>
+                    <xsl:when test="$_error/ns1:ErrorReport/Msg and $InvokeSFAPI/ns8:RESTOutput/StatusCode=200">
+                        <ns9:intResponseCode>
+                            <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ApplicationDetails/MES_LMS_TRNG_CHECK/SuccessFactorAPI/ErrorCodes/Error_400"/>
+                        </ns9:intResponseCode>
+                    </xsl:when>
+                </xsl:choose>
+                <xsl:choose>
+                    <xsl:when test="$_error_InvokeSFAPI/ActivityErrors/ns10:JSONRestException">
+                        <ns9:intResponseMessage>
+                            <xsl:value-of select="$_error_InvokeSFAPI/ActivityErrors/ns10:JSONRestException/msg"/>
+                        </ns9:intResponseMessage>
+                    </xsl:when>
+                    <xsl:when test="$_error_InvokeSFAPI/ActivityErrors/ns6:ActivityTimedOutException">
+                        <ns9:intResponseMessage>
+                            <xsl:value-of select="'Time Out from SuccessFactor API after retrying for 3 times'"/>
+                        </ns9:intResponseMessage>
+                    </xsl:when>
+                    <xsl:when test="contains($_error/ns1:ErrorReport/StackTrace,'Connection refused')&#xA;or&#xA;($_error/ns1:ErrorReport/Msg and $InvokeSFAPI/ns8:RESTOutput/StatusCode=200)">
+                        <xsl:if test="$_error/ns1:ErrorReport/Msg">
+                            <ns9:intResponseMessage>
+                                <xsl:value-of select="$_error/ns1:ErrorReport/Msg"/>
+                            </ns9:intResponseMessage>
+                        </xsl:if>
+                    </xsl:when>
+                    <xsl:when test="$InvokeSFAPI/ns8:RESTOutput/StatusCode!=200">
+                        <ns9:intResponseMessage>
+                            <xsl:value-of select="tib:trim(substring-before(substring-after($InvokeSFAPI/ns8:RESTOutput/body/asciiContent, 'ERROR:'), '\n'))"/>
+                        </ns9:intResponseMessage>
+                    </xsl:when>
+                </xsl:choose>
+            </ns9:output>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Map Camstar Error Response">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>1149</pd:x>
+        <pd:y>404</pd:y>
+        <config>
+            <element ref="ns9:output"/>
+        </config>
+        <pd:inputBindings>
+            <ns9:output>
+                <ns9:SAPID>
+                    <xsl:value-of select="$Start/pfx7:Input/Request/ns9:Input/ns9:SAPID"/>
+                </ns9:SAPID>
+                <ns9:CurriculumID>
+                    <xsl:value-of select="$Start/pfx7:Input/Request/ns9:Input/ns9:CurriculumID"/>
+                </ns9:CurriculumID>
+                <xsl:choose>
+                    <xsl:when test="substring-after(substring-before(substring-after($InvokeSFAPI/ns8:RESTOutput/body/asciiContent, '[{&quot;'), '&quot;,'),':&quot;')='Incomplete'">
+                        <ns9:CurriculumStatus>
+                            <xsl:value-of select="'Untrained'"/>
+                        </ns9:CurriculumStatus>
+                    </xsl:when>
+                    <xsl:when test="substring-after(substring-before(substring-after($InvokeSFAPI/ns8:RESTOutput/body/asciiContent, '[{&quot;'), '&quot;,'),':&quot;')='Complete'">
+                        <ns9:CurriculumStatus>
+                            <xsl:value-of select="'Trained'"/>
+                        </ns9:CurriculumStatus>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <ns9:CurriculumStatus>
+                            <xsl:value-of select="''"/>
+                        </ns9:CurriculumStatus>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:choose>
+                    <xsl:when test="$_error_InvokeSFAPI/ActivityErrors&#xA;or&#xA;contains($_error/ns1:ErrorReport/StackTrace,'Connection refused')">
+                        <ns9:intResponseCode>
+                            <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ApplicationDetails/MES_LMS_TRNG_CHECK/SuccessFactorAPI/ErrorCodes/Error_300"/>
+                        </ns9:intResponseCode>
+                    </xsl:when>
+                    <xsl:when test="$InvokeSFAPI/ns8:RESTOutput/StatusCode!=200">
+                        <ns9:intResponseCode>
+                            <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ApplicationDetails/MES_LMS_TRNG_CHECK/SuccessFactorAPI/ErrorCodes/Error_100"/>
+                        </ns9:intResponseCode>
+                    </xsl:when>
+                    <xsl:when test="$_error/ns1:ErrorReport/Msg and $InvokeSFAPI/ns8:RESTOutput/StatusCode=200">
+                        <ns9:intResponseCode>
+                            <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ApplicationDetails/MES_LMS_TRNG_CHECK/SuccessFactorAPI/ErrorCodes/Error_400"/>
+                        </ns9:intResponseCode>
+                    </xsl:when>
+                </xsl:choose>
+                <xsl:choose>
+                    <xsl:when test="$_error_InvokeSFAPI/ActivityErrors/ns10:JSONRestException">
+                        <ns9:intResponseMessage>
+                            <xsl:value-of select="$_error_InvokeSFAPI/ActivityErrors/ns10:JSONRestException/msg"/>
+                        </ns9:intResponseMessage>
+                    </xsl:when>
+                    <xsl:when test="$_error_InvokeSFAPI/ActivityErrors/ns6:ActivityTimedOutException">
+                        <ns9:intResponseMessage>
+                            <xsl:value-of select="'Time Out from SuccessFactor API after retrying for 3 times'"/>
+                        </ns9:intResponseMessage>
+                    </xsl:when>
+                    <xsl:when test="contains($_error/ns1:ErrorReport/StackTrace,'Connection refused')&#xA;or&#xA;($_error/ns1:ErrorReport/Msg and $InvokeSFAPI/ns8:RESTOutput/StatusCode=200)">
+                        <xsl:if test="$_error/ns1:ErrorReport/Msg">
+                            <ns9:intResponseMessage>
+                                <xsl:value-of select="$_error/ns1:ErrorReport/Msg"/>
+                            </ns9:intResponseMessage>
+                        </xsl:if>
+                    </xsl:when>
+                    <xsl:when test="$InvokeSFAPI/ns8:RESTOutput/StatusCode!=200">
+                        <ns9:intResponseMessage>
+                            <xsl:value-of select="tib:trim(substring-before(substring-after($InvokeSFAPI/ns8:RESTOutput/body/asciiContent, 'ERROR:'), '\n'))"/>
+                        </ns9:intResponseMessage>
+                    </xsl:when>
+                </xsl:choose>
+            </ns9:output>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Null">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>1346</pd:x>
+        <pd:y>552</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Java Code">
+        <pd:type>com.tibco.plugin.java.JavaActivity</pd:type>
+        <pd:resourceType>ae.javapalette.javaActivity</pd:resourceType>
+        <pd:x>309</pd:x>
+        <pd:y>180</pd:y>
+        <config>
+            <fileName>GetCurriculumStatusJavaCode</fileName>
+            <packageName>Processes.GetCurriculumStatus</packageName>
+            <fullsource>package Processes.GetCurriculumStatus;
+import java.util.*;
+import java.io.*;
+public class GetCurriculumStatusJavaCode{
+/****** START SET/GET METHOD, DO NOT MODIFY *****/
+	protected String CurriculumId = "";
+	protected String EncodedCurriculumId = "";
+	public String getCurriculumId() {
+		return CurriculumId;
+	}
+	public void setCurriculumId(String val) {
+		CurriculumId = val;
+	}
+	public String getEncodedCurriculumId() {
+		return EncodedCurriculumId;
+	}
+	public void setEncodedCurriculumId(String val) {
+		EncodedCurriculumId = val;
+	}
+/****** END SET/GET METHOD, DO NOT MODIFY *****/
+	public GetCurriculumStatusJavaCode() {
+	
+	}
+	public void invoke() throws Exception {
+/* Available Variables: DO NOT MODIFY
+	In  : String CurriculumId
+	Out : String EncodedCurriculumId
+* Available Variables: DO NOT MODIFY *****/
+EncodedCurriculumId=CurriculumId.replace("#", "%23").replace(" ","%20").replace("!", "%21").replace("$","%24").replace("&amp;","%26").replace("'","%27").replace("(","%28").replace(")","%29").replace("*","%2A").replace("+","%2B").replace(",","%2C").replace("-","%2D").replace(".","%2E").replace("/","%2F");
+System.out.println(EncodedCurriculumId);
+}
+}
+</fullsource>
+            <inputData>
+                <row>
+                    <fieldName>CurriculumId</fieldName>
+                    <fieldType>string</fieldType>
+                    <fieldRequired>optional</fieldRequired>
+                </row>
+            </inputData>
+            <outputData>
+                <row>
+                    <fieldName>EncodedCurriculumId</fieldName>
+                    <fieldType>string</fieldType>
+                    <fieldRequired>optional</fieldRequired>
+                </row>
+            </outputData>
+            <javaArchive>/SharedResources/Java/AliasLibrary.aliaslib</javaArchive>
+            <byteCode>
+                <class>
+                    <name>GetCurriculumStatusJavaCode</name>
+                    <byteCode>yv66vgAAADMAaQkAJAA4CQAkADkKACUAOggAOwgAPAgAPQoAPgA/CABACABBCABCCABDCABECABFCABGCABHCABICABJCABKCABLCABMCABNCABOCABPCABQCABRCABSCABTCABUCABVCABWCABXCABYCABZCQBaAFsKAFwAXQcAXgcAXwEADEN1cnJpY3VsdW1JZAEAEkxqYXZhL2xhbmcvU3RyaW5nOwEAE0VuY29kZWRDdXJyaWN1bHVtSWQBAA9nZXRDdXJyaWN1bHVtSWQBABQoKUxqYXZhL2xhbmcvU3RyaW5nOwEABENvZGUBAA9MaW5lTnVtYmVyVGFibGUBAA9zZXRDdXJyaWN1bHVtSWQBABUoTGphdmEvbGFuZy9TdHJpbmc7KVYBABZnZXRFbmNvZGVkQ3VycmljdWx1bUlkAQAWc2V0RW5jb2RlZEN1cnJpY3VsdW1JZAEABjxpbml0PgEAAygpVgEABmludm9rZQEACkV4Y2VwdGlvbnMHAGABAApTb3VyY2VGaWxlAQAgR2V0Q3VycmljdWx1bVN0YXR1c0phdmFDb2RlLmphdmEMACYAJwwAKAAnDAAxADIBAAABAAEjAQADJTIzBwBhDABiAGMBAAEgAQADJTIwAQABIQEAAyUyMQEAASQBAAMlMjQBAAEmAQADJTI2AQABJwEAAyUyNwEAASgBAAMlMjgBAAEpAQADJTI5AQABKgEAAyUyQQEAASsBAAMlMkIBAAEsAQADJTJDAQABLQEAAyUyRAEAAS4BAAMlMkUBAAEvAQADJTJGBwBkDABlAGYHAGcMAGgALgEAOVByb2Nlc3Nlcy9HZXRDdXJyaWN1bHVtU3RhdHVzL0dldEN1cnJpY3VsdW1TdGF0dXNKYXZhQ29kZQEAEGphdmEvbGFuZy9PYmplY3QBABNqYXZhL2xhbmcvRXhjZXB0aW9uAQAQamF2YS9sYW5nL1N0cmluZwEAB3JlcGxhY2UBAEQoTGphdmEvbGFuZy9DaGFyU2VxdWVuY2U7TGphdmEvbGFuZy9DaGFyU2VxdWVuY2U7KUxqYXZhL2xhbmcvU3RyaW5nOwEAEGphdmEvbGFuZy9TeXN0ZW0BAANvdXQBABVMamF2YS9pby9QcmludFN0cmVhbTsBABNqYXZhL2lvL1ByaW50U3RyZWFtAQAHcHJpbnRsbgAhACQAJQAAAAIABAAmACcAAAAEACgAJwAAAAYAAQApACoAAQArAAAAHQABAAEAAAAFKrQAAbAAAAABACwAAAAGAAEAAAAJAAEALQAuAAEAKwAAACIAAgACAAAABiortQABsQAAAAEALAAAAAoAAgAAAAwABQANAAEALwAqAAEAKwAAAB0AAQABAAAABSq0AAKwAAAAAQAsAAAABgABAAAADwABADAALgABACsAAAAiAAIAAgAAAAYqK7UAArEAAAABACwAAAAKAAIAAAASAAUAEwABADEAMgABACsAAAA1AAIAAQAAABEqtwADKhIEtQABKhIEtQACsQAAAAEALAAAABIABAAAABUABAAGAAoABwAQABcAAQAzADIAAgArAAAAlQAEAAEAAAB1Kiq0AAESBRIGtgAHEggSCbYABxIKEgu2AAcSDBINtgAHEg4SD7YABxIQEhG2AAcSEhITtgAHEhQSFbYABxIWEhe2AAcSGBIZtgAHEhoSG7YABxIcEh22AAcSHhIftgAHEiASIbYAB7UAArIAIiq0AAK2ACOxAAAAAQAsAAAADgADAAAAHQBqAB4AdAAfADQAAAAEAAEANQABADYAAAACADc=</byteCode>
+                </class>
+            </byteCode>
+        </config>
+        <pd:inputBindings>
+            <javaCodeActivityInput>
+                <CurriculumId>
+                    <xsl:value-of select="$Start/pfx7:Input/Request/ns9:Input/ns9:CurriculumID"/>
+                </CurriculumId>
+            </javaCodeActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>SetCLEHeader</pd:from>
+        <pd:to>GetAccessToken</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>EndLog</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>ExceptionLog</pd:from>
+        <pd:to>Map Camstar Error Response</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>EndLog-1</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetNewAccessToken</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>CatchAll</pd:from>
+        <pd:to>ExceptionLog</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>Map Camstar Response</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetAccessToken</pd:from>
+        <pd:to>Java Code</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>GetNewAccessToken</pd:to>
+        <pd:xpathDescription>ErrorTokenExpired</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>contains($InvokeSFAPI/ns8:RESTOutput/body/asciiContent, 'The token has expired')</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>SetCLEHeader</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>SendException</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$RetryFlag/root/RetryFlag=$_globalVariables/ns2:GlobalVariables/ApplicationDetails/MES_LMS_TRNG_CHECK/SuccessFactorAPI/ReTry/YES_Flag</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SendException</pd:from>
+        <pd:to>Map Camstar Response</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Map Camstar Response</pd:from>
+        <pd:to>EndLog</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Map Camstar Error Response</pd:from>
+        <pd:to>EndLog-1</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Map Camstar Error Response</pd:from>
+        <pd:to>Null</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>error</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null</pd:from>
+        <pd:to>EndLog-1</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Java Code</pd:from>
+        <pd:to>Group</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

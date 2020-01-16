@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/CommonLE2/namespace/Public/Common/RequestHeader.xsd" xmlns:pfx5="http://www.tibco.com/CommonLE2/namespace/Public/Exception/ExceptionRequest.xsd" xmlns:pfx4="http://www.tibco.com/CommonLE2/namespace/private/Common" xmlns:pfx3="http://www.tibco.com/CommonLE2/Private/Exception" xmlns:pfx2="http://www.tibco.com/pe/DeployedVarsType" xmlns:pfx="http://www.tibco.com/CommonLE2/namespace/Public/Exception">
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/CommonLE2/namespace/Public/Exception/ExceptionRequest.xsd" schemaLocation="/SharedResources/SchemaDefinitions/Public/Exception/ExceptionRequest.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/CommonLE2/Private/Exception" schemaLocation="/SharedResources/SchemaDefinitions/Private/Exception/ExceptionRequestExt.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/CommonLE2/namespace/private/Common" schemaLocation="/SharedResources/SchemaDefinitions/Private/Common/LocalExceptions.xsd"/>
+    <pd:name>ExceptionManagement/Logic/PersistExceptionRequest.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx3:ExceptionRequestExt"/>
+    <pd:startX>26</pd:startX>
+    <pd:startY>94</pd:startY>
+    <pd:returnBindings>
+        <pfx3:ExceptionID>
+            <xsl:value-of select="$Save-Exception-Instance/pfx3:ExceptionID"/>
+        </pfx3:ExceptionID>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType ref="pfx3:ExceptionID"/>
+    <pd:endX>327</pd:endX>
+    <pd:endY>97</pd:endY>
+    <pd:errorSchemas>
+        <IDError ref="pfx4:IDNotFound"/>
+        <DBError ref="pfx4:DBError"/>
+    </pd:errorSchemas>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1284594433290</pd:targetNamespace>
+    <pd:activity name="Save Exception Instance">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>157</pd:x>
+        <pd:y>102</pd:y>
+        <config>
+            <processName>/ExceptionManagement/DataAccess/Oracle/SaveExceptionInstance.process</processName>
+            <processNameXPath>concat("/ExceptionManagement/DataAccess/",  $_globalVariables/pfx2:GlobalVariables/Database/MIG_DatabaseType, "/SaveExceptionInstance.process")</processNameXPath>
+        </config>
+        <pd:inputBindings>
+            <xsl:copy-of select="$Start/pfx3:ExceptionRequestExt"/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Save Exception Instance</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Save Exception Instance</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

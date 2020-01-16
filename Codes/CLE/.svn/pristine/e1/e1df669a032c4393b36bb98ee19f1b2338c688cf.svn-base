@@ -1,0 +1,473 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pfx15="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/UserAuthenticationResponse" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:pfx14="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/UserApplicationPermissionsInfo" xmlns:pfx13="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/UserAuthenticationRequest" xmlns:pfx12="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/PermissionsCDF" xmlns:pfx11="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/UserApplicationPermissionsInfo" xmlns:pfx10="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/RolePermissionInformationRequest" xmlns:pfx5="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Query" xmlns:pfx4="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/UserRolesRequest" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx3="http://www.tibco.com/CommonLE2/namespace/private/Common" xmlns:pfx2="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/UserAuthenticationResponse" xmlns:pfx9="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ApplicationIDList" xmlns:pfx8="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/RolenameQuery" xmlns:pfx7="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Applications" xmlns:pfx6="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/AllRolesRetrievalResponse" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns5="http://www.tibco.com/pe/EngineTypes" xmlns:ns6="http://www.tibco.com/CommonLE/namespace/Common" xmlns:pfx="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/UserAuthenticationRequest" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/UserApplicationIDList" xmlns:ns1="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:ns4="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/UserRolesRequest" xmlns:ns3="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/RolePermissionInformation" xmlns:ns0="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/RolePermissionInformationRequest" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Applications" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/Applications.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ApplicationIDList" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/ApplicationIDList.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/PermissionsCDF" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/SecurityConfiguration/PermissionsCDF.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/UserAuthenticationRequest" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/SecurityConfiguration/UserAuthenticationRequest.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/UserApplicationPermissionsInfo" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/SecurityConfiguration/UserApplicationsPermissionsInfo.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/UserAuthenticationResponse" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/SecurityConfiguration/UserAuthenticationResponse.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/private/Common" schemaLocation="/SharedResources/SchemaDefinitions/Private/Common/LocalExceptions.xsd"/>
+    <pd:name>SecurityManagement/DataAccess/Common/UserAuthentication2007.process</pd:name>
+    <pd:description>Receives username and password as input and authenticates the validity of the user via TIBCO Administrator, retrieves user roles and associated application IDs</pd:description>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx13:UserAuthenticationRequest"/>
+    <pd:startX>43</pd:startX>
+    <pd:startY>67</pd:startY>
+    <pd:returnBindings>
+        <pfx15:UserAuthenticationResponse>
+            <pfx15:AuthenticationResult>
+                <xsl:value-of select="if($SuperUserCheck/isSuperUser=&quot;false&quot;)  then&#xA;$TransformtoCDF/xmlString&#xA;else&#xA;$_globalVariables/ns:GlobalVariables/Security/MIG_AdministratorRoleName"/>
+            </pfx15:AuthenticationResult>
+        </pfx15:UserAuthenticationResponse>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType ref="pfx15:UserAuthenticationResponse"/>
+    <pd:endX>888</pd:endX>
+    <pd:endY>207</pd:endY>
+    <pd:errorSchemas>
+        <AuthorizationError ref="pfx3:AuthorizationError"/>
+        <RoleRetrivealError ref="pfx3:RoleRetrievalError"/>
+        <AdminConnectError ref="pfx3:AdministratorConnectError"/>
+        <AuthenticationError ref="pfx3:AuthenticationError"/>
+    </pd:errorSchemas>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1257283308222</pd:targetNamespace>
+    <pd:group name="Group">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>641</pd:x>
+        <pd:y>9</pd:y>
+        <pd:width>143</pd:width>
+        <pd:height>140</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>inputLoop</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:over>$RetrieveApplicationsWithUserPermissions/ns2:Applications/ns2:Application</pd:over>
+            <pd:iterationElementSlot>currentItem</pd:iterationElementSlot>
+            <pd:indexSlot>i</pd:indexSlot>
+            <pd:outSlot>AllPermissions</pd:outSlot>
+            <pd:activityOutputName>RetrieveACL</pd:activityOutputName>
+            <pd:accumulateOutput>true</pd:accumulateOutput>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>RetrieveACL</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>RetrieveACL</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="RetrieveACL">
+            <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+            <pd:resourceType>ae.process.subprocess</pd:resourceType>
+            <pd:x>717</pd:x>
+            <pd:y>90</pd:y>
+            <config>
+                <processNameXPath>concat("/SecurityManagement/DataAccess/",$_globalVariables/ns:GlobalVariables/Database/MIG_DatabaseType,"/RetrieveACL.process")</processNameXPath>
+                <processName>/SecurityManagement/DataAccess/Oracle/RetrieveACL.process</processName>
+            </config>
+            <pd:inputBindings>
+                <ns0:RolePermissionInformationRequest>
+                    <ns0:RoleNames>
+                        <xsl:for-each select="$UserRolesRetrieval/pfx6:AllRoles/pfx6:Role">
+                            <ns0:RoleName>
+                                <xsl:value-of select="pfx6:rolename"/>
+                            </ns0:RoleName>
+                        </xsl:for-each>
+                    </ns0:RoleNames>
+                    <ns0:AppID>
+                        <xsl:value-of select="$currentItem/ns2:Application/ns2:ApplicationID"/>
+                    </ns0:AppID>
+                </ns0:RolePermissionInformationRequest>
+            </pd:inputBindings>
+        </pd:activity>
+    </pd:group>
+    <pd:activity name="AuthenticateUser">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>179</pd:x>
+        <pd:y>67</pd:y>
+        <config>
+            <processName>/SecurityManagement/Logic/AuthenticateUser.process</processName>
+        </config>
+        <pd:inputBindings>
+            <UserDetails>
+                <username>
+                    <xsl:value-of select="tib:trim($Start/pfx13:UserAuthenticationRequest/pfx13:UserName)"/>
+                </username>
+                <password>
+                    <xsl:value-of select="tib:trim($Start/pfx13:UserAuthenticationRequest/pfx13:Password)"/>
+                </password>
+            </UserDetails>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Authentication Failed">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>241</pd:x>
+        <pd:y>203</pd:y>
+        <config>
+            <faultName>AuthenticationError</faultName>
+        </config>
+        <pd:inputBindings>
+            <ns1:ActivityInput>
+                <message>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Exceptions/Common/Messages/UserAuthenticationError"/>
+                </message>
+                <messageCode>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Exceptions/Common/Codes/UserAuthenticationError"/>
+                </messageCode>
+                <data>
+                    <pfx3:AuthenticationError>
+                        <pfx3:Message>
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Exceptions/Common/Messages/UserAuthenticationError"/>
+                        </pfx3:Message>
+                        <pfx3:Code>
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Exceptions/Common/Codes/UserAuthenticationError"/>
+                        </pfx3:Code>
+                    </pfx3:AuthenticationError>
+                </data>
+            </ns1:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch Applicaiton Record Not Found">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>233</pd:x>
+        <pd:y>314</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=ApplicationRecordsNotFound namespace=http://www.tibco.com/CommonLE2/namespace/private/Common</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Generate Authorization Error">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>425</pd:x>
+        <pd:y>320</pd:y>
+        <config>
+            <faultName>AuthorizationError</faultName>
+        </config>
+        <pd:inputBindings>
+            <ns1:ActivityInput>
+                <message>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Exceptions/Common/Messages/UserAuthorizatoinError"/>
+                </message>
+                <messageCode>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Exceptions/Common/Codes/UserAuthorizationError"/>
+                </messageCode>
+                <data>
+                    <pfx3:AuthorizationError>
+                        <pfx3:Message>
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Exceptions/Common/Messages/UserAuthorizatoinError"/>
+                        </pfx3:Message>
+                        <pfx3:Code>
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Exceptions/Common/Codes/UserAuthorizationError"/>
+                        </pfx3:Code>
+                    </pfx3:AuthorizationError>
+                </data>
+            </ns1:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="GetPermissionsXML">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>886</pd:x>
+        <pd:y>86</pd:y>
+        <config>
+            <element ref="pfx14:Applications"/>
+        </config>
+        <pd:inputBindings>
+            <pfx14:Applications>
+                <xsl:for-each select="$AllPermissions/AccumulatedOutput/ns3:RolePermissionsInfo">
+                    <pfx14:Application>
+                        <pfx14:ApplicationID>
+                            <xsl:value-of select="ns3:appid"/>
+                        </pfx14:ApplicationID>
+                        <xsl:for-each select="ns3:permissions">
+                            <pfx14:Permissions>
+                                <xsl:for-each select="ns3:permission/ns3:permissionID">
+                                    <pfx14:PermissionID>
+                                        <xsl:value-of select="."/>
+                                    </pfx14:PermissionID>
+                                </xsl:for-each>
+                            </pfx14:Permissions>
+                        </xsl:for-each>
+                    </pfx14:Application>
+                </xsl:for-each>
+            </pfx14:Applications>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Render XML">
+        <pd:type>com.tibco.plugin.xml.XMLRendererActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLRendererActivity</pd:resourceType>
+        <pd:x>1036</pd:x>
+        <pd:y>85</pd:y>
+        <config>
+            <renderAsText>text</renderAsText>
+            <validateInput>false</validateInput>
+            <renderDefaultPrefix>false</renderDefaultPrefix>
+            <term ref="pfx14:Applications"/>
+        </config>
+        <pd:inputBindings>
+            <xsl:copy-of select="$GetPermissionsXML/pfx14:Applications"/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="RetrieveApplicationsWithUserPermissions">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>538</pd:x>
+        <pd:y>88</pd:y>
+        <config>
+            <processName>/Administration/DataAccess/ApplicationConfiguration/Oracle/RetrieveApplicationsWithUserPermissions.process</processName>
+            <processNameXPath>concat("/Administration/DataAccess/ApplicationConfiguration/",$_globalVariables/ns:GlobalVariables/Database/MIG_DatabaseType,"/RetrieveApplicationsWithUserPermissions.process")</processNameXPath>
+        </config>
+        <pd:inputBindings>
+            <pfx8:Query>
+                <xsl:for-each select="$UserRolesRetrieval/pfx6:AllRoles/pfx6:Role">
+                    <pfx8:Rolename>
+                        <xsl:value-of select="pfx6:rolename"/>
+                    </pfx8:Rolename>
+                </xsl:for-each>
+            </pfx8:Query>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SuperUserCheck">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>333</pd:x>
+        <pd:y>207</pd:y>
+        <config>
+            <processName>/SecurityManagement/Logic/SuperUserCheck.process</processName>
+        </config>
+        <pd:inputBindings>
+            <xsl:copy-of select="$UserRolesRetrieval/pfx6:AllRoles"/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="TransformtoCDF">
+        <pd:type>com.tibco.plugin.xml.XMLTransformActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLTransformActivity</pd:resourceType>
+        <pd:x>1038</pd:x>
+        <pd:y>207</pd:y>
+        <config>
+            <engine>TibcoXML</engine>
+            <inputStyle>text</inputStyle>
+            <stylesheet>/SharedResources/XSLT/XSLT File.xslt</stylesheet>
+        </config>
+        <pd:inputBindings>
+            <textInput>
+                <xmlString>
+                    <xsl:value-of select="$Render-XML/xmlString"/>
+                </xmlString>
+            </textInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="UserRolesRetrieval">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>331</pd:x>
+        <pd:y>68</pd:y>
+        <config>
+            <processName>/SecurityManagement/DataAccess/Common/UserRolesRetrieval.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns4:UserRolesRequest>
+                <ns4:UserName>
+                    <xsl:value-of select="$Start/pfx13:UserAuthenticationRequest/pfx13:UserName"/>
+                </ns4:UserName>
+            </ns4:UserRolesRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Generate Admin Connection Error">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>64</pd:x>
+        <pd:y>321</pd:y>
+        <config>
+            <faultName>AdminConnectError</faultName>
+        </config>
+        <pd:inputBindings>
+            <ns1:ActivityInput>
+                <message>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Exceptions/Common/Messages/TIBCOAdminConnectionError"/>
+                </message>
+                <messageCode>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Exceptions/Common/Codes/TIBCOAdminConnectionError"/>
+                </messageCode>
+                <data>
+                    <pfx3:AdministratorConnectError>
+                        <pfx3:Message>
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Exceptions/Common/Messages/TIBCOAdminConnectionError"/>
+                        </pfx3:Message>
+                        <pfx3:Code>
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Exceptions/Common/Codes/TIBCOAdminConnectionError"/>
+                        </pfx3:Code>
+                    </pfx3:AdministratorConnectError>
+                </data>
+            </ns1:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Handle Local Exception">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>58</pd:x>
+        <pd:y>187</pd:y>
+        <config>
+            <processName>/Common/Local Exception Handler.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns6:Exception>
+                <ErrorMessage>
+                    <xsl:value-of select="$_error/ns5:ErrorReport/Msg"/>
+                </ErrorMessage>
+                <xsl:if test="$_error/ns5:ErrorReport/MsgCode">
+                    <ErrorCode>
+                        <xsl:value-of select="$_error/ns5:ErrorReport/MsgCode"/>
+                    </ErrorCode>
+                </xsl:if>
+                <ns6:Error>
+                    <xsl:for-each select="$_error/ns5:ErrorReport">
+                        <ns6:ErrorReport>
+                            <StackTrace>
+                                <xsl:value-of select="StackTrace"/>
+                            </StackTrace>
+                            <Msg>
+                                <xsl:value-of select="Msg"/>
+                            </Msg>
+                            <FullClass>
+                                <xsl:value-of select="FullClass"/>
+                            </FullClass>
+                            <Class>
+                                <xsl:value-of select="Class"/>
+                            </Class>
+                            <ProcessStack>
+                                <xsl:value-of select="ProcessStack"/>
+                            </ProcessStack>
+                            <MsgCode>
+                                <xsl:value-of select="MsgCode"/>
+                            </MsgCode>
+                        </ns6:ErrorReport>
+                    </xsl:for-each>
+                </ns6:Error>
+            </ns6:Exception>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>AuthenticateUser</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AuthenticateUser</pd:from>
+        <pd:to>UserRolesRetrieval</pd:to>
+        <pd:xpathDescription>Valid User</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$AuthenticateUser/AuthenticationResult/Result='Authenticated'</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>UserRolesRetrieval</pd:from>
+        <pd:to>SuperUserCheck</pd:to>
+        <pd:xpathDescription/>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AuthenticateUser</pd:from>
+        <pd:to>Authentication Failed</pd:to>
+        <pd:xpathDescription/>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>GetPermissionsXML</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetPermissionsXML</pd:from>
+        <pd:to>Render XML</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>TransformtoCDF</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Render XML</pd:from>
+        <pd:to>TransformtoCDF</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SuperUserCheck</pd:from>
+        <pd:to>RetrieveApplicationsWithUserPermissions</pd:to>
+        <pd:xpathDescription/>
+        <pd:lineType>S-Shaped</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SuperUserCheck</pd:from>
+        <pd:to>End</pd:to>
+        <pd:xpathDescription>SuperUser</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$SuperUserCheck/isSuperUser= "true"</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>RetrieveApplicationsWithUserPermissions</pd:from>
+        <pd:to>Group</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch Applicaiton Record Not Found</pd:from>
+        <pd:to>Generate Authorization Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AuthenticateUser</pd:from>
+        <pd:to>Handle Local Exception</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>error</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Handle Local Exception</pd:from>
+        <pd:to>Generate Admin Connection Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns4="urn:sobject.enterprise.soap.sforce.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx="urn:enterprise.soap.sforce.com">
+    <xsd:import namespace="urn:sobject.enterprise.soap.sforce.com" schemaLocation="/SharedResources/WSDLs/wsdl_sandbox01_6_DEC2016.wsdl"/>
+    <wsdl:import namespace="urn:enterprise.soap.sforce.com" location="/SharedResources/WSDLs/wsdl_sandbox01_6_DEC2016.wsdl"/>
+    <pd:name>UnitTesting/Process Definition.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startX>150</pd:startX>
+    <pd:startY>64</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>469</pd:endX>
+    <pd:endY>57</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1488890084075</pd:targetNamespace>
+    <pd:activity name="TriggerSendUserFileToSF">
+        <pd:type>com.tibco.plugin.jms.JMSQueueSendActivity</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueSendActivity</pd:resourceType>
+        <pd:x>279</pd:x>
+        <pd:y>107</pd:y>
+        <config>
+            <PermittedMessageType>XML Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+                <destination>%%ApplicationDetails/SFDC_SF_USER_SEND/Queue/CompareSFDCSAPHRExtractQueue%%</destination>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/EnterpriseLibrary/SharedResources/Connections/JMS/TIBCO_JMS_Connection.sharedjmscon</ConnectionReference>
+            <InDataxsdString>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="TransactionId" type="xsd:string" minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </InDataxsdString>
+        </config>
+        <pd:inputBindings>
+            <ns1:ActivityInput>
+                <Body>
+                    <root>
+                        <TransactionId>
+                            <xsl:value-of select="tib:format-dateTime('ddMMyyHHmmss', current-dateTime())"/>
+                        </TransactionId>
+                    </root>
+                </Body>
+            </ns1:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Trigger SAPHR Load">
+        <pd:type>com.tibco.plugin.jms.JMSQueueRequestReplyActivity</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueRequestReplyActivity</pd:resourceType>
+        <pd:x>550</pd:x>
+        <pd:y>187</pd:y>
+        <config>
+            <PermittedMessageType>XML Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+                <destination>%%ApplicationDetails/SFDC_SF_USER_SEND/Queue/CompareSFDCSAPHRExtractQueue%%</destination>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/EnterpriseLibrary/SharedResources/Connections/JMS/TIBCO_JMS_Connection.sharedjmscon</ConnectionReference>
+            <InDataxsdString>
+                <xs:element xmlns:xs="http://www.w3.org/2001/XMLSchema" name="Users">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Records">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="ID" type="xsd:string" minOccurs="0"/>
+                                        <xs:element name="FirstName" type="xsd:string" minOccurs="0"/>
+                                        <xs:element name="MiddleName" type="xsd:string" minOccurs="0"/>
+                                        <xs:element name="LastName" type="xsd:string" minOccurs="0"/>
+                                        <xs:element name="Title" type="xsd:string" minOccurs="0"/>
+                                        <xs:element name="Email" type="xsd:string" minOccurs="0"/>
+                                        <xs:element name="Inactive__c" type="xsd:string" minOccurs="0"/>
+                                        <xs:element name="MobilePhone" type="xsd:string" minOccurs="0"/>
+                                        <xs:element name="Phone" type="xsd:string" minOccurs="0"/>
+                                        <xs:element name="Territory_Number__c" type="xsd:string" minOccurs="0"/>
+                                        <xs:element name="Role_Classification__c" type="xsd:string" minOccurs="0"/>
+                                        <xs:element name="Sales_Assoc_ID__c" type="xsd:string" minOccurs="0"/>
+                                        <xs:element name="Sales_Specialty__c" type="xsd:string" minOccurs="0"/>
+                                        <xs:element name="ReportsToId" type="xsd:string" minOccurs="0"/>
+                                        <xs:element name="SAP__c" type="xsd:string" minOccurs="0"/>
+                                        <xs:element name="Class_Description__c" type="xsd:string" minOccurs="0"/>
+                                        <xs:element name="AccountId" type="xsd:string" minOccurs="0"/>
+                                        <xs:element name="AccountName" type="xsd:string" minOccurs="0"/>
+                                        <xs:element name="Record_Edit_Status__c" type="xsd:string" minOccurs="0"/>
+                                        <xs:element name="Employee_Non_Employee__c" type="xsd:string" minOccurs="0"/>
+                                        <xs:element name="Lms_required__c" type="xsd:string" minOccurs="0"/>
+                                        <xs:element name="RecordTypeId" type="xsd:string" minOccurs="0"/>
+                                        <xs:element name="ReportsToEmail" type="xsd:string" minOccurs="0"/>
+                                        <xs:element name="Hire_Date__c" type="xsd:string" minOccurs="0"/>
+                                        <xs:element name="Fax" type="xsd:string" minOccurs="0"/>
+                                        <xs:element name="MAILINGSTREET" type="xsd:string" minOccurs="0"/>
+                                        <xs:element name="MAILINGCITY" type="xsd:string" minOccurs="0"/>
+                                        <xs:element name="MAILINGSTATE" type="xsd:string" minOccurs="0"/>
+                                        <xs:element name="MAILINGPOSTALCODE" type="xsd:string" minOccurs="0"/>
+                                        <xs:element name="MAILINGCOUNTRY" type="xsd:string" minOccurs="0"/>
+                                        <xs:element name="CreatedDate" type="xsd:string" minOccurs="0"/>
+                                        <xs:element name="LastModifiedDate" type="xsd:string" minOccurs="0"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="TransactionId" type="xsd:string" minOccurs="0"/>
+                            <xs:element name="Filename" type="xsd:string" minOccurs="0"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </InDataxsdString>
+            <OutDataxsdString>
+                <xs:element xmlns:xs="http://www.w3.org/2001/XMLSchema" name="root">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="lot" type="xsd:string" minOccurs="0"/>
+                            <xs:element name="status" type="xsd:string" minOccurs="0"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </OutDataxsdString>
+        </config>
+        <pd:coercions>
+            <pd:coercion xpath="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records" type="ns4:Contact"/>
+        </pd:coercions>
+        <pd:inputBindings>
+            <ns1:ActivityInput xmlns:ns1="http://www.tibco.com/namespaces/tnt/plugins/jms">
+                <Body>
+                    <Users>
+                        <Records>
+                            <ID>
+                                <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:Id"/>
+                            </ID>
+                            <xsl:if xmlns:xsl="http://www.w3.org/1999/XSL/Transform" test="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:FirstName">
+                                <FirstName>
+                                    <xsl:value-of select="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:FirstName"/>
+                                </FirstName>
+                            </xsl:if>
+                            <xsl:if xmlns:xsl="http://www.w3.org/1999/XSL/Transform" test="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:MiddleName">
+                                <MiddleName>
+                                    <xsl:value-of select="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:MiddleName"/>
+                                </MiddleName>
+                            </xsl:if>
+                            <xsl:if xmlns:xsl="http://www.w3.org/1999/XSL/Transform" test="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:LastName">
+                                <LastName>
+                                    <xsl:value-of select="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:LastName"/>
+                                </LastName>
+                            </xsl:if>
+                            <xsl:if xmlns:xsl="http://www.w3.org/1999/XSL/Transform" test="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:Title">
+                                <Title>
+                                    <xsl:value-of select="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:Title"/>
+                                </Title>
+                            </xsl:if>
+                            <xsl:if xmlns:xsl="http://www.w3.org/1999/XSL/Transform" test="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:Email">
+                                <Email>
+                                    <xsl:value-of select="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:Email"/>
+                                </Email>
+                            </xsl:if>
+                            <xsl:if xmlns:xsl="http://www.w3.org/1999/XSL/Transform" test="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:Inactive__c">
+                                <Inactive__c>
+                                    <xsl:value-of select="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:Inactive__c"/>
+                                </Inactive__c>
+                            </xsl:if>
+                            <xsl:if xmlns:xsl="http://www.w3.org/1999/XSL/Transform" test="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:MobilePhone">
+                                <MobilePhone>
+                                    <xsl:value-of select="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:MobilePhone"/>
+                                </MobilePhone>
+                            </xsl:if>
+                            <xsl:if xmlns:xsl="http://www.w3.org/1999/XSL/Transform" test="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:Phone">
+                                <Phone>
+                                    <xsl:value-of select="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:Phone"/>
+                                </Phone>
+                            </xsl:if>
+                            <xsl:if xmlns:xsl="http://www.w3.org/1999/XSL/Transform" test="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:Territory_Number__c">
+                                <Territory_Number__c>
+                                    <xsl:value-of select="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:Territory_Number__c"/>
+                                </Territory_Number__c>
+                            </xsl:if>
+                            <xsl:if xmlns:xsl="http://www.w3.org/1999/XSL/Transform" test="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:Role_Classification__c">
+                                <Role_Classification__c>
+                                    <xsl:value-of select="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:Role_Classification__c"/>
+                                </Role_Classification__c>
+                            </xsl:if>
+                            <xsl:if xmlns:xsl="http://www.w3.org/1999/XSL/Transform" test="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:Sales_Assoc_ID__c">
+                                <Sales_Assoc_ID__c>
+                                    <xsl:value-of select="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:Sales_Assoc_ID__c"/>
+                                </Sales_Assoc_ID__c>
+                            </xsl:if>
+                            <xsl:if xmlns:xsl="http://www.w3.org/1999/XSL/Transform" test="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:Sales_Specialty__c">
+                                <Sales_Specialty__c>
+                                    <xsl:value-of select="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:Sales_Specialty__c"/>
+                                </Sales_Specialty__c>
+                            </xsl:if>
+                            <xsl:if xmlns:xsl="http://www.w3.org/1999/XSL/Transform" test="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:ReportsToId">
+                                <ReportsToId>
+                                    <xsl:value-of select="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:ReportsToId"/>
+                                </ReportsToId>
+                            </xsl:if>
+                            <xsl:if xmlns:xsl="http://www.w3.org/1999/XSL/Transform" test="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:SAP__c">
+                                <SAP__c>
+                                    <xsl:value-of select="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:SAP__c"/>
+                                </SAP__c>
+                            </xsl:if>
+                            <xsl:if xmlns:xsl="http://www.w3.org/1999/XSL/Transform" test="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:Account/ns4:Class_Description__c">
+                                <Class_Description__c>
+                                    <xsl:value-of select="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:Account/ns4:Class_Description__c"/>
+                                </Class_Description__c>
+                            </xsl:if>
+                            <xsl:if xmlns:xsl="http://www.w3.org/1999/XSL/Transform" test="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:AccountId">
+                                <AccountId>
+                                    <xsl:value-of select="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:AccountId"/>
+                                </AccountId>
+                            </xsl:if>
+                            <xsl:if xmlns:xsl="http://www.w3.org/1999/XSL/Transform" test="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:Account/ns4:Name">
+                                <AccountName>
+                                    <xsl:value-of select="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:Account/ns4:Name"/>
+                                </AccountName>
+                            </xsl:if>
+                            <xsl:if xmlns:xsl="http://www.w3.org/1999/XSL/Transform" test="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:Record_Edit_Status__c">
+                                <Record_Edit_Status__c>
+                                    <xsl:value-of select="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:Record_Edit_Status__c"/>
+                                </Record_Edit_Status__c>
+                            </xsl:if>
+                            <xsl:if xmlns:xsl="http://www.w3.org/1999/XSL/Transform" test="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:Employee_Non_Employee__c">
+                                <Employee_Non_Employee__c>
+                                    <xsl:value-of select="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:Employee_Non_Employee__c"/>
+                                </Employee_Non_Employee__c>
+                            </xsl:if>
+                            <xsl:if xmlns:xsl="http://www.w3.org/1999/XSL/Transform" test="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:LMS_Required__c">
+                                <Lms_required__c>
+                                    <xsl:value-of select="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:LMS_Required__c"/>
+                                </Lms_required__c>
+                            </xsl:if>
+                            <xsl:if xmlns:xsl="http://www.w3.org/1999/XSL/Transform" test="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:RecordTypeId">
+                                <RecordTypeId>
+                                    <xsl:value-of select="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:RecordTypeId"/>
+                                </RecordTypeId>
+                            </xsl:if>
+                            <xsl:if xmlns:xsl="http://www.w3.org/1999/XSL/Transform" test="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:ReportsTo/ns4:Email">
+                                <ReportsToEmail>
+                                    <xsl:value-of select="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:ReportsTo/ns4:Email"/>
+                                </ReportsToEmail>
+                            </xsl:if>
+                            <xsl:if xmlns:xsl="http://www.w3.org/1999/XSL/Transform" test="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:Hire_Date__c">
+                                <Hire_Date__c>
+                                    <xsl:value-of select="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:Hire_Date__c"/>
+                                </Hire_Date__c>
+                            </xsl:if>
+                            <xsl:if xmlns:xsl="http://www.w3.org/1999/XSL/Transform" test="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:Fax">
+                                <Fax>
+                                    <xsl:value-of select="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:Fax"/>
+                                </Fax>
+                            </xsl:if>
+                            <xsl:if xmlns:xsl="http://www.w3.org/1999/XSL/Transform" test="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:MailingStreet">
+                                <MAILINGSTREET>
+                                    <xsl:value-of select="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:MailingStreet"/>
+                                </MAILINGSTREET>
+                            </xsl:if>
+                            <xsl:if xmlns:xsl="http://www.w3.org/1999/XSL/Transform" test="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:MailingCity">
+                                <MAILINGCITY>
+                                    <xsl:value-of select="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:MailingCity"/>
+                                </MAILINGCITY>
+                            </xsl:if>
+                            <xsl:if xmlns:xsl="http://www.w3.org/1999/XSL/Transform" test="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:MailingState">
+                                <MAILINGSTATE>
+                                    <xsl:value-of select="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:MailingState"/>
+                                </MAILINGSTATE>
+                            </xsl:if>
+                            <xsl:if xmlns:xsl="http://www.w3.org/1999/XSL/Transform" test="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:MailingPostalCode">
+                                <MAILINGPOSTALCODE>
+                                    <xsl:value-of select="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:MailingPostalCode"/>
+                                </MAILINGPOSTALCODE>
+                            </xsl:if>
+                            <xsl:if xmlns:xsl="http://www.w3.org/1999/XSL/Transform" test="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:MailingCountry">
+                                <MAILINGCOUNTRY>
+                                    <xsl:value-of select="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:MailingCountry"/>
+                                </MAILINGCOUNTRY>
+                            </xsl:if>
+                            <xsl:if xmlns:xsl="http://www.w3.org/1999/XSL/Transform" test="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:CreatedDate">
+                                <CreatedDate>
+                                    <xsl:value-of select="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:CreatedDate"/>
+                                </CreatedDate>
+                            </xsl:if>
+                            <xsl:if xmlns:xsl="http://www.w3.org/1999/XSL/Transform" test="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:LastModifiedDate">
+                                <LastModifiedDate>
+                                    <xsl:value-of select="$ExecuteQuery/outputMessage/pfx:queryResponse/pfx:result/pfx:records[ns4:Id=$Record/pfx:records/ns4:Id]/ns4:LastModifiedDate"/>
+                                </LastModifiedDate>
+                            </xsl:if>
+                        </Records>
+                        <xsl:if xmlns:xsl="http://www.w3.org/1999/XSL/Transform" test="$ReceiveEmployees/ns7:ActivityOutput/Body/root/TransactionId">
+                            <TransactionId>
+                                <xsl:value-of select="$ReceiveEmployees/ns7:ActivityOutput/Body/root/TransactionId"/>
+                            </TransactionId>
+                        </xsl:if>
+                        <xsl:if xmlns:xsl="http://www.w3.org/1999/XSL/Transform" test="$ReceiveEmployees/ns7:ActivityOutput/Body/root/Filename">
+                            <Filename>
+                                <xsl:value-of select="$ReceiveEmployees/ns7:ActivityOutput/Body/root/Filename"/>
+                            </Filename>
+                        </xsl:if>
+                    </Users>
+                </Body>
+            </ns1:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>TriggerSendUserFileToSF</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>TriggerSendUserFileToSF</pd:from>
+        <pd:to>Trigger SAPHR Load</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Trigger SAPHR Load</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

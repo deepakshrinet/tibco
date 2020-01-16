@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/EngineTypes" xmlns:pfx12="http://www.tibco.com/CommonLE2/Private/Administration" xmlns:pfx11="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig" xmlns:pfx10="http://www.tibco.com/CommonLE2/namespace/private/Common" xmlns:pfx="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx5="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Severity" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx4="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Category" xmlns:pfx3="http://www.tibco.com/CommonLE/namespace/Custom" xmlns:pfx2="http://xmlns.example.com/unique/default/namespace/1098735544074" xmlns:pfx9="http://schemas.tibco.com/bw/plugins/jdbc/5.0/jdbcExceptions" xmlns:pfx8="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Applications" xmlns:pfx7="http://www.tibco.com/CommonLE2/Public/Common/Dummy" xmlns:pfx6="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Type" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xsd:import namespace="http://www.tibco.com/CommonLE/namespace/Custom" schemaLocation="/Shared Resources/Schema Definitions/Custom/ExceptionCategory.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Category" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/ExceptionCategory.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Severity" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/ExceptionSeverity.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Type" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/ExceptionType.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Applications" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/Applications.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/ExceptionConfig.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/private/Common" schemaLocation="/SharedResources/SchemaDefinitions/Private/Common/LocalExceptions.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/Private/Administration" schemaLocation="/SharedResources/SchemaDefinitions/Private/Administration/QueryUpdate.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/Public/Common/Dummy" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Common/DummyReturnMessage.xsd"/>
+    <pd:name>Administration/DataAccess/ExceptionConfiguration/MSSQL/CreateExceptionConfiguration.process</pd:name>
+    <pd:description>Creates a new exception configuration</pd:description>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx12:ExceptionConfigurationUpdate"/>
+    <pd:startX>29</pd:startX>
+    <pd:startY>85</pd:startY>
+    <pd:returnBindings>
+        <pfx7:Dummy>
+            <pfx7:StatusMessage>
+                <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ReservedIDs/DummyID"/>
+            </pfx7:StatusMessage>
+        </pfx7:Dummy>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endX>398</pd:endX>
+    <pd:endY>85</pd:endY>
+    <pd:errorSchemas>
+        <Schema1 ref="pfx10:ReferencialIntegrityViolation"/>
+        <Schema2 ref="pfx10:InvalidInputParameter"/>
+        <Schema0 ref="pfx10:IDNotUnique"/>
+    </pd:errorSchemas>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1308377710041</pd:targetNamespace>
+    <pd:activity name="Insert ExceptionConfiguration">
+        <pd:type>com.tibco.plugin.jdbc.JDBCUpdateActivity</pd:type>
+        <pd:resourceType>ae.activities.JDBCUpdateActivity</pd:resourceType>
+        <pd:x>194</pd:x>
+        <pd:y>93</pd:y>
+        <config>
+            <timeout>%%Database/MIG_Timeout%%</timeout>
+            <commit>false</commit>
+            <emptyStrAsNil>false</emptyStrAsNil>
+            <jdbcSharedConfig>/SharedResources/Connections/Database/DBServerMSSQL.sharedjdbc</jdbcSharedConfig>
+            <statement>Insert into exceptionconfig (ApplicationID,exceptioncode,categoryid,typeid,severityid,replydestination,rolename,procedureid,description,notificationchnl,emailto,emailcc,exceptionttl,instruction,resolvedelayinterval,eventtype) 
+Values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)</statement>
+            <Prepared_Param_DataType>
+                <parameter>
+                    <parameterName>ApplicationID</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>exceptioncode</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>categoryid</parameterName>
+                    <dataType>DOUBLE</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>typeid</parameterName>
+                    <dataType>DOUBLE</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>severityid</parameterName>
+                    <dataType>DOUBLE</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>replydestination</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>rolename</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>procedureid</parameterName>
+                    <dataType>DOUBLE</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>description</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>notificationchnl</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>emailto</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>emailcc</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>exceptionttl</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>instruction</parameterName>
+                    <dataType>CLOB</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>resolvedelayinterval</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>eventtype</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+            </Prepared_Param_DataType>
+        </config>
+        <pd:inputBindings>
+            <jdbcUpdateActivityInput>
+                <ApplicationID>
+                    <xsl:value-of select="$Start/pfx12:ExceptionConfigurationUpdate/pfx12:ApplicationID"/>
+                </ApplicationID>
+                <exceptioncode>
+                    <xsl:value-of select="$Start/pfx12:ExceptionConfigurationUpdate/pfx12:ExceptionCode"/>
+                </exceptioncode>
+                <categoryid>
+                    <xsl:value-of select="$Start/pfx12:ExceptionConfigurationUpdate/pfx12:CategoryID"/>
+                </categoryid>
+                <typeid>
+                    <xsl:value-of select="$Start/pfx12:ExceptionConfigurationUpdate/pfx12:TypeID"/>
+                </typeid>
+                <severityid>
+                    <xsl:value-of select="$Start/pfx12:ExceptionConfigurationUpdate/pfx12:SeverityID"/>
+                </severityid>
+                <replydestination>
+                    <xsl:choose>
+                        <xsl:when test="exists($Start/pfx12:ExceptionConfigurationUpdate/pfx12:ReplyDestination)">
+                            <xsl:value-of select="$Start/pfx12:ExceptionConfigurationUpdate/pfx12:ReplyDestination"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </replydestination>
+                <rolename>
+                    <xsl:choose>
+                        <xsl:when test="exists($Start/pfx12:ExceptionConfigurationUpdate/pfx12:RoleName)">
+                            <xsl:value-of select="$Start/pfx12:ExceptionConfigurationUpdate/pfx12:RoleName"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </rolename>
+                <procedureid>
+                    <xsl:choose>
+                        <xsl:when test="exists($Start/pfx12:ExceptionConfigurationUpdate/pfx12:ProcedureID)">
+                            <xsl:value-of select="$Start/pfx12:ExceptionConfigurationUpdate/pfx12:ProcedureID"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </procedureid>
+                <description>
+                    <xsl:value-of select="$Start/pfx12:ExceptionConfigurationUpdate/pfx12:Description"/>
+                </description>
+                <notificationchnl>
+                    <xsl:choose>
+                        <xsl:when test="exists($Start/pfx12:ExceptionConfigurationUpdate/pfx12:NotificationChnl)">
+                            <xsl:value-of select="$Start/pfx12:ExceptionConfigurationUpdate/pfx12:NotificationChnl"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </notificationchnl>
+                <emailto>
+                    <xsl:choose>
+                        <xsl:when test="exists($Start/pfx12:ExceptionConfigurationUpdate/pfx12:EmailTo)">
+                            <xsl:value-of select="$Start/pfx12:ExceptionConfigurationUpdate/pfx12:EmailTo"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </emailto>
+                <emailcc>
+                    <xsl:choose>
+                        <xsl:when test="exists($Start/pfx12:ExceptionConfigurationUpdate/pfx12:EmailCC)">
+                            <xsl:value-of select="$Start/pfx12:ExceptionConfigurationUpdate/pfx12:EmailCC"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </emailcc>
+                <exceptionttl>
+                    <xsl:choose>
+                        <xsl:when test="exists($Start/pfx12:ExceptionConfigurationUpdate/pfx12:Exceptionttl)">
+                            <xsl:value-of select="$Start/pfx12:ExceptionConfigurationUpdate/pfx12:Exceptionttl"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </exceptionttl>
+                <instruction>
+                    <xsl:choose>
+                        <xsl:when test="exists($Start/pfx12:ExceptionConfigurationUpdate/pfx12:Instruction)">
+                            <xsl:value-of select="$Start/pfx12:ExceptionConfigurationUpdate/pfx12:Instruction"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </instruction>
+                <resolvedelayinterval>
+                    <xsl:choose>
+                        <xsl:when test="exists($Start/pfx12:ExceptionConfigurationUpdate/pfx12:ResolveDelayInterval)">
+                            <xsl:value-of select="$Start/pfx12:ExceptionConfigurationUpdate/pfx12:ResolveDelayInterval"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </resolvedelayinterval>
+                <eventtype>
+                    <xsl:choose>
+                        <xsl:when test="exists($Start/pfx12:ExceptionConfigurationUpdate/pfx12:EventType)">
+                            <xsl:value-of select="$Start/pfx12:ExceptionConfigurationUpdate/pfx12:EventType"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </eventtype>
+            </jdbcUpdateActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SQL Exception">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>214</pd:x>
+        <pd:y>201</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=JDBCSQLException namespace=http://schemas.tibco.com/bw/plugins/jdbc/5.0/jdbcExceptions</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Generate Error">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>402</pd:x>
+        <pd:y>200</pd:y>
+        <config>
+            <faultName>Schema0</faultName>
+        </config>
+        <pd:inputBindings>
+            <pfx:ActivityInput>
+                <message>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/DB/Messages/DBRecordExists"/>
+                </message>
+                <messageCode>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/DB/Codes/SQLRecordExists"/>
+                </messageCode>
+                <data>
+                    <pfx10:IDNotUnique>
+                        <pfx10:Message>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/DB/Messages/DBRecordExists"/>
+                        </pfx10:Message>
+                        <pfx10:Code>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/DB/Codes/SQLRecordExists"/>
+                        </pfx10:Code>
+                    </pfx10:IDNotUnique>
+                </data>
+            </pfx:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Referential Integrity Error">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>49</pd:x>
+        <pd:y>213</pd:y>
+        <config>
+            <faultName>Schema1</faultName>
+        </config>
+        <pd:inputBindings>
+            <pfx:ActivityInput>
+                <message>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/DB/Messages/DBIntegrityError"/>
+                </message>
+                <messageCode>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/DB/Codes/SQLReferencedIntegrityState"/>
+                </messageCode>
+                <data>
+                    <pfx10:ReferencialIntegrityViolation>
+                        <pfx10:Message>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/DB/Messages/DBIntegrityError"/>
+                        </pfx10:Message>
+                        <pfx10:Code>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/DB/Codes/SQLReferencedIntegrityState"/>
+                        </pfx10:Code>
+                    </pfx10:ReferencialIntegrityViolation>
+                </data>
+            </pfx:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Invalid Input">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>218</pd:x>
+        <pd:y>333</pd:y>
+        <config>
+            <faultName>Schema2</faultName>
+        </config>
+        <pd:inputBindings>
+            <pfx:ActivityInput>
+                <message>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/DB/Messages/InvalidInput"/>
+                </message>
+                <messageCode>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/DB/Codes/InvalidInputSQLState"/>
+                </messageCode>
+                <data>
+                    <pfx10:InvalidInputParameter>
+                        <pfx10:Message>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/DB/Messages/InvalidInput"/>
+                        </pfx10:Message>
+                        <pfx10:Code>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/DB/Codes/InvalidInputSQLState"/>
+                        </pfx10:Code>
+                    </pfx10:InvalidInputParameter>
+                </data>
+            </pfx:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Rethrow">
+        <pd:type>com.tibco.pe.core.RethrowActivity</pd:type>
+        <pd:resourceType>ae.activities.rethrow</pd:resourceType>
+        <pd:x>399</pd:x>
+        <pd:y>333</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Insert ExceptionConfiguration</pd:to>
+        <pd:lineType>Straight</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Insert ExceptionConfiguration</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Straight</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SQL Exception</pd:from>
+        <pd:to>Generate Error</pd:to>
+        <pd:xpathDescription>Code Exists</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$SQL-Exception/pfx9:JDBCSQLException/msgCode = $_globalVariables/ns1:GlobalVariables/Exceptions/DB/Codes/SQLIntegrityError and 
+$SQL-Exception/pfx9:JDBCSQLException/sqlState = $_globalVariables/ns1:GlobalVariables/Exceptions/DB/Codes/SQLIntegrityState and
+$SQL-Exception/pfx9:JDBCSQLException/detailStr!="java.sql.SQLException: [tibcosoftwareinc][Oracle JDBC Driver][Oracle]ORA-02291: integrity constraint (SCOTT.SYS_C003187) violated - parent key not found"</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SQL Exception</pd:from>
+        <pd:to>Referential Integrity Error</pd:to>
+        <pd:xpathDescription>Reference Error</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$SQL-Exception/pfx9:JDBCSQLException/msgCode = $_globalVariables/ns1:GlobalVariables/Exceptions/DB/Codes/SQLIntegrityError and 
+$SQL-Exception/pfx9:JDBCSQLException/detailStr="java.sql.SQLException: [tibcosoftwareinc][Oracle JDBC Driver][Oracle]ORA-02291: integrity constraint (SCOTT.SYS_C003187) violated - parent key not found"</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SQL Exception</pd:from>
+        <pd:to>Invalid Input</pd:to>
+        <pd:xpathDescription>Invalid input</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$SQL-Exception/pfx9:JDBCSQLException/msgCode = $_globalVariables/ns1:GlobalVariables/Exceptions/DB/Codes/SQLIntegrityError and 
+$SQL-Exception/pfx9:JDBCSQLException/sqlState = $_globalVariables/ns1:GlobalVariables/Exceptions/DB/Codes/InvalidInputSQLState</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SQL Exception</pd:from>
+        <pd:to>Rethrow</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

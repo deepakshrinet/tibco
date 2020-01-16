@@ -1,0 +1,24 @@
+
+
+CREATE TABLE TIBCO_APP.STATS_EMS_SERVER 
+(ServerName   VARCHAR2(100) NOT NULL, 
+ConnectionCount           VARCHAR2(50),  
+ConsumerCount             VARCHAR2(50), 
+DurableCount              VARCHAR2(50),
+InboundMsgCount           VARCHAR2(50),
+InboundByteRate           VARCHAR2(50),
+InboundMsgRate            VARCHAR2(50),  
+MsgMemory                 VARCHAR2(50),  
+OutboundMsgCount          VARCHAR2(50),  
+OutboundByteRate          VARCHAR2(50),  
+PendingMsgCount           VARCHAR2(50),  
+PendingMsgSize            VARCHAR2(50),  
+PRODUCERCount             VARCHAR2(50),  
+AsyncDBSize               VARCHAR2(100), 
+SyncDBSize                VARCHAR2(100), 
+OutboundMsgRate           VARCHAR2(50),  
+QueueCount                VARCHAR2(50),  
+TopicCount                VARCHAR2(50),  
+SessionCount              VARCHAR2(50),  
+DATELOGGED        TIMESTAMP(6) 
+);

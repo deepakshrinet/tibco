@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:pfx4="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Exception/ExceptionIDList" xmlns:pfx3="http://www.tibco.com/CommonLE2/namespace/private/Common" xmlns:pfx2="http://www.tibco.com/CommonLE2/Public/Common/Dummy" xmlns:pfx="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Exception/ExceptionResolution">
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Exception/ExceptionResolution" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/ExceptionManagement/ExceptionResolution.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/CommonLE2/namespace/private/Common" schemaLocation="/SharedResources/SchemaDefinitions/Private/Common/LocalExceptions.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Exception/ExceptionIDList" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/ExceptionManagement/ExceptionIDList.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/CommonLE2/Public/Common/Dummy" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Common/DummyReturnMessage.xsd"/>
+    <pd:name>ExceptionManagement/DataAccess/MSSQL/DeleteExceptions.process</pd:name>
+    <pd:description>Deletes the exception instances</pd:description>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx4:ExceptionIDList"/>
+    <pd:startX>150</pd:startX>
+    <pd:startY>64</pd:startY>
+    <pd:returnBindings>
+        <pfx2:Dummy>
+            <pfx2:StatusMessage>
+                <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ReservedIDs/DummyID"/>
+            </pfx2:StatusMessage>
+        </pfx2:Dummy>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType ref="pfx2:Dummy"/>
+    <pd:endX>451</pd:endX>
+    <pd:endY>63</pd:endY>
+    <pd:errorSchemas>
+        <Schema0 ref="pfx3:DBRecordNotFound"/>
+    </pd:errorSchemas>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1287552414637</pd:targetNamespace>
+    <pd:activity name="DeleteExceptions">
+        <pd:type>com.tibco.plugin.jdbc.JDBCUpdateActivity</pd:type>
+        <pd:resourceType>ae.activities.JDBCUpdateActivity</pd:resourceType>
+        <pd:x>307</pd:x>
+        <pd:y>60</pd:y>
+        <config>
+            <timeout>%%Database/MIG_Timeout%%</timeout>
+            <commit>false</commit>
+            <emptyStrAsNil>false</emptyStrAsNil>
+            <jdbcSharedConfig>/SharedResources/Connections/Database/DBServerMSSQL.sharedjdbc</jdbcSharedConfig>
+            <statement>delete from exceptionrec where exceptionid = ? and (status = ? or status=?)</statement>
+            <batchUpdate>true</batchUpdate>
+            <Prepared_Param_DataType>
+                <parameter>
+                    <parameterName>exceptionid</parameterName>
+                    <dataType>NUMERIC</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>exceptionresolvedstatus</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>exceptionrepliedstatus</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+            </Prepared_Param_DataType>
+        </config>
+        <pd:inputBindings>
+            <jdbcUpdateActivityInput>
+                <xsl:for-each select="$Start/pfx4:ExceptionIDList/pfx4:ExceptionIDRecord">
+                    <Record>
+                        <exceptionid>
+                            <xsl:value-of select="pfx4:EXCEPTIONID"/>
+                        </exceptionid>
+                        <exceptionresolvedstatus>
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ExceptionService/ResolutionStatus/Resolved"/>
+                        </exceptionresolvedstatus>
+                        <exceptionrepliedstatus>
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ExceptionService/ResolutionStatus/Replied"/>
+                        </exceptionrepliedstatus>
+                    </Record>
+                </xsl:for-each>
+            </jdbcUpdateActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="No Records Found">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>311</pd:x>
+        <pd:y>197</pd:y>
+        <config>
+            <faultName>Schema0</faultName>
+        </config>
+        <pd:inputBindings>
+            <ns1:ActivityInput>
+                <message>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Exceptions/DB/Messages/DBRecordNotFound"/>
+                </message>
+                <messageCode>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Exceptions/DB/Codes/SQLRecordNotFound"/>
+                </messageCode>
+                <data>
+                    <pfx3:DBRecordNotFound>
+                        <pfx3:Message>
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Exceptions/DB/Messages/DBRecordNotFound"/>
+                        </pfx3:Message>
+                        <pfx3:Code>
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Exceptions/DB/Codes/SQLRecordNotFound"/>
+                        </pfx3:Code>
+                    </pfx3:DBRecordNotFound>
+                </data>
+            </ns1:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>DeleteExceptions</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>DeleteExceptions</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>DeleteExceptions</pd:from>
+        <pd:to>No Records Found</pd:to>
+        <pd:xpathDescription>No Deletes</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$DeleteExceptions/jdbcUpdateActivityOutput/noOfUpdates &lt;= 0</pd:xpath>
+    </pd:transition>
+</pd:ProcessDefinition>

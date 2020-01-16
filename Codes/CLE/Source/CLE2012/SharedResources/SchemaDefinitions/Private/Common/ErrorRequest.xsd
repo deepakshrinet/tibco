@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns="http://www.tibco.com/CommonLE2/Private/Common"
+	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	 targetNamespace="http://www.tibco.com/CommonLE2/Private/Common"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xsd:element name="ErrorRequest">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="RequestType"/>
+				<xsd:element ref="Message"/>
+				<xsd:element ref="xmlRequestString"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="RequestType" type="xsd:string"/>
+	<xsd:element name="xmlRequestString" type="xsd:string"/>
+	<xsd:element name="Message" type="xsd:string"/>
+</xsd:schema>

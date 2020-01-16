@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://xmlns.example.com/unique/default/namespace/1098735544074" xmlns:pfx="http://xmlns.example.com/unique/default/namespace/1097652867820" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns0="http://www.tibco.com/CommonLE/namespace/Custom" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx5="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Applications" xmlns:pfx4="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Query" xmlns:pfx3="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Category" xmlns:pfx2="http://www.tibco.com/pe/DeployedVarsType" xmlns:pfx7="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/RenderConfig" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pfx6="http://www.tibco.com/CommonLE2/Private/Administration">
+    <xsd:import namespace="http://xmlns.example.com/unique/default/namespace/1097652867820" schemaLocation="/Shared Resources/Schema Definitions/Custom/ACL.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Category" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/ExceptionCategory.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/Private/Administration" schemaLocation="/SharedResources/SchemaDefinitions/Private/Administration/QueryUpdate.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/RenderConfig" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/RenderConfig.xsd"/>
+    <pd:name>Utilities/Initialization/Initialize Rendering Configuration.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startX>26</pd:startX>
+    <pd:startY>168</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>724</pd:endX>
+    <pd:endY>176</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1286468393103</pd:targetNamespace>
+    <pd:activity name="Seed Render Configuration">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>237</pd:x>
+        <pd:y>177</pd:y>
+        <config>
+            <element ref="pfx7:RenderConfig"/>
+        </config>
+        <pd:inputBindings>
+            <pfx7:RenderConfig>
+                <pfx7:ApplicationID>
+                    <xsl:value-of select="&quot; &quot;"/>
+                </pfx7:ApplicationID>
+                <pfx7:RenderID>
+                    <xsl:value-of select="&quot;Render&quot;"/>
+                </pfx7:RenderID>
+                <pfx7:XSLT>
+                    <xsl:value-of select="'&lt;?xml version = &quot;1.0&quot; encoding = &quot;UTF-8&quot;?> &lt;xsl:stylesheet xmlns:xsl = &quot;http://www.w3.org/1999/XSL/Transform&quot; version = &quot;1.0&quot;>&#xA;&lt;!--Transform from instances of &quot;PO.xml&quot; to HTML -->&#xA;&lt;xsl:template match = &quot;PurchaseOrder&quot;>&#xA;&lt;html>     &#x9;&#x9;&#x9;&#xA;&lt;body>Process Name:&lt;xsl:text>&lt;/xsl:text>&#xA;&lt;xsl:apply-templates select = &quot;ProcessName&quot;/>     &#x9;&#x9;&#x9;&#x9;&#xA;&lt;br/>  Order Identifier:&lt;xsl:text>&lt;/xsl:text> &#x9;&#x9;&#x9;&#x9;&#xA;&lt;xsl:apply-templates select = &quot;OrderIdentifier&quot;/>&lt;br/>    &#xA;Customer Identifier:&lt;xsl:text>&lt;/xsl:text> &#x9;&#x9;&#x9;&#x9;&#xA;&lt;xsl:apply-templates select = &quot;CustomerIdentifier&quot;/>&lt;br/>    &#xA;Purchase Order Date:&lt;xsl:text>&lt;/xsl:text> &#x9;&#x9;&#x9;&#x9;&#xA;&lt;xsl:apply-templates select = &quot;PurchaseOrderDate&quot;/>&lt;br/>    &#xA;Total:&lt;xsl:text>&lt;/xsl:text> &#x9;&#x9;&#x9;&#x9;&#xA;&lt;xsl:apply-templates select = &quot;Total&quot;/>&lt;br/>    &#xA;Status:&lt;xsl:text>&lt;/xsl:text> &#x9;&#x9;&#x9;&#x9;&#xA;&lt;xsl:apply-templates select = &quot;Status&quot;/>&lt;br/>    &#xA;Location:&lt;xsl:text>&lt;/xsl:text> &#x9;&#x9;&#x9;&#x9;&#xA;&lt;xsl:apply-templates select = &quot;Location&quot;/>&lt;br/>     &#x9;&#x9;&#x9;&#x9;&#xA;&lt;table border = &quot;1&quot; cellspacing = &quot;1&quot; cellpadding = &quot;0&quot;>     &#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&lt;tr> &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&lt;td>            &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&lt;h3>Order Identifier&lt;/h3>        &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&lt;/td>        &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&lt;td>      &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&lt;h3>Line Number&lt;/h3>      &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&lt;/td>         &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&lt;td>      &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&lt;h3>Quantity&lt;/h3>           &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&lt;/td>         &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&lt;td>      &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&lt;h3>Unit Price&lt;/h3>    &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&lt;/td>                 &#x9;   &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&lt;td> &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&lt;h3>Price&lt;/h3>            &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&lt;/td>               &#x9;  &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&lt;td> &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&lt;h3>Shipment Location&lt;/h3>          &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&lt;/td>         &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&lt;td> &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&lt;h3>Over Buy Qty&lt;/h3>        &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&lt;/td>         &#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&lt;/tr> &#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&lt;xsl:apply-templates select = &quot;LineItem&quot;/>     &#x9;&#x9;&#x9;&#x9;&#xA;&lt;/table>     &#x9;&#x9;&#x9;&#xA;&lt;/body> &#x9;&#x9;&#xA;&lt;/html> &#x9;&#xA;&lt;/xsl:template> &#x9;&#xA;&lt;xsl:template match = &quot;LineItem&quot;>     &#x9;&#x9;&#xA;&lt;tr> &#x9;&#x9;&#x9;&#xA;&lt;td>            &#x9;&#x9;&#x9;&#x9;&#xA;&lt;xsl:apply-templates select = &quot;OrderIdentifier&quot;/>         &#x9;&#x9;&#x9;&#xA;&lt;/td>        &#x9;&#x9;&#x9;&#xA;&lt;td>      &#x9;&#x9;&#x9;&#x9;&#xA;&lt;xsl:apply-templates select = &quot;LineNumber&quot;/>         &#x9;&#x9;&#x9;&#xA;&lt;/td>         &#x9;&#x9;&#x9;&#xA;&lt;td>      &#x9;&#x9;&#x9;&#x9;&#xA;&lt;xsl:apply-templates select = &quot;Quantity&quot;/>         &#x9;&#x9;&#x9;&#xA;&lt;/td>         &#x9;&#x9;&#x9;&#xA;&lt;td>      &#x9;&#x9;&#x9;&#x9;&#xA;&lt;xsl:apply-templates select = &quot;UnitPrice&quot;/> &#x9;&#x9;&#x9;&#xA;&lt;/td>                 &#x9;   &#x9;&#x9;&#x9;&#xA;&lt;td> &#x9;&#x9;&#x9;&#x9;&#xA;&lt;xsl:apply-templates select = &quot;price&quot;/>         &#x9;&#x9;&#x9;&#xA;&lt;/td>               &#x9;  &#x9;&#x9;&#x9;&#xA;&lt;td> &#x9;&#x9;&#x9;&#x9;&#xA;&lt;xsl:apply-templates select = &quot;ShipmentLocation&quot;/>         &#x9;&#x9;&#x9;&#xA;&lt;/td>         &#x9;&#x9;&#x9;&#xA;&lt;td> &#x9;&#x9;&#x9;&#x9;&#xA;&lt;xsl:apply-templates select = &quot;OverBuyQty&quot;/>         &#x9;&#x9;&#x9;&#xA;&lt;/td>         &#x9;&#x9;&#xA;&lt;/tr> &#x9;&#xA;&lt;/xsl:template> &#xA;&lt;/xsl:stylesheet>'"/>
+                </pfx7:XSLT>
+            </pfx7:RenderConfig>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Get Application List">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>119</pd:x>
+        <pd:y>175</pd:y>
+        <config>
+            <processName>/Utilities/Initialization/GetApplicationList.process</processName>
+            <processNameXPath/>
+        </config>
+        <pd:inputBindings>
+            <pfx4:Query/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:group name="For each AppID">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>342</pd:x>
+        <pd:y>59</pd:y>
+        <pd:width>315</pd:width>
+        <pd:height>215</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>inputLoop</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:over>$Get-Application-List/pfx5:Applications/pfx5:Application</pd:over>
+            <pd:iterationElementSlot>AppID</pd:iterationElementSlot>
+            <pd:indexSlot>appid</pd:indexSlot>
+            <pd:activityOutputName/>
+            <pd:accumulateOutput>false</pd:accumulateOutput>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>Repeat</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Repeat</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:group name="Repeat">
+            <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+            <pd:resourceType>ae.process.group</pd:resourceType>
+            <pd:x>396</pd:x>
+            <pd:y>93</pd:y>
+            <pd:width>226</pd:width>
+            <pd:height>144</pd:height>
+            <pd:collapsedWidth>57</pd:collapsedWidth>
+            <pd:collapsedHeight>70</pd:collapsedHeight>
+            <pd:joinToggle>inherit</pd:joinToggle>
+            <config>
+                <pd:groupType>repeat</pd:groupType>
+                <pd:serializable>false</pd:serializable>
+                <pd:indexSlot>i</pd:indexSlot>
+                <pd:activityOutputName/>
+                <pd:repeatCondition>$i &gt;5</pd:repeatCondition>
+                <pd:accumulateOutput>false</pd:accumulateOutput>
+            </config>
+            <pd:inputBindings/>
+            <pd:expanded>true</pd:expanded>
+            <pd:transition>
+                <pd:from>start</pd:from>
+                <pd:to>Create Render Configureation</pd:to>
+                <pd:lineType>Straight</pd:lineType>
+                <pd:lineColor>-16777216</pd:lineColor>
+                <pd:conditionType>always</pd:conditionType>
+            </pd:transition>
+            <pd:transition>
+                <pd:from>Create Render Configureation</pd:from>
+                <pd:to>end</pd:to>
+                <pd:lineType>Straight</pd:lineType>
+                <pd:lineColor>-16777216</pd:lineColor>
+                <pd:conditionType>always</pd:conditionType>
+            </pd:transition>
+            <pd:activity name="Create Render Configureation">
+                <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+                <pd:resourceType>ae.process.subprocess</pd:resourceType>
+                <pd:x>512</pd:x>
+                <pd:y>180</pd:y>
+                <config>
+                    <processName>/Administration/DataAccess/RenderConfiguration/Oracle/CreateRenderConfig.process</processName>
+                    <processNameXPath>concat("/Administration/DataAccess/RenderConfiguration/", $_globalVariables/pfx2:GlobalVariables/Database/MIG_DatabaseType, "/CreateRenderConfig.process")</processNameXPath>
+                </config>
+                <pd:inputBindings>
+                    <pfx7:RenderConfig>
+                        <pfx7:ApplicationID>
+                            <xsl:value-of select="$AppID/pfx5:Application/pfx5:ApplicationID"/>
+                        </pfx7:ApplicationID>
+                        <pfx7:RenderID>
+                            <xsl:value-of select="concat($AppID/pfx5:Application/pfx5:ApplicationID, &quot;-&quot;, $Seed-Render-Configuration/pfx7:RenderConfig/pfx7:RenderID, $i)"/>
+                        </pfx7:RenderID>
+                        <xsl:if test="$Seed-Render-Configuration/pfx7:RenderConfig/pfx7:XSLT">
+                            <pfx7:XSLT>
+                                <xsl:value-of select="$Seed-Render-Configuration/pfx7:RenderConfig/pfx7:XSLT"/>
+                            </pfx7:XSLT>
+                        </xsl:if>
+                        <xsl:if test="$Seed-Render-Configuration/pfx7:RenderConfig/pfx7:CSS">
+                            <pfx7:CSS>
+                                <xsl:value-of select="$Seed-Render-Configuration/pfx7:RenderConfig/pfx7:CSS"/>
+                            </pfx7:CSS>
+                        </xsl:if>
+                    </pfx7:RenderConfig>
+                </pd:inputBindings>
+            </pd:activity>
+        </pd:group>
+    </pd:group>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Get Application List</pd:to>
+        <pd:lineType>Straight</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Get Application List</pd:from>
+        <pd:to>Seed Render Configuration</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Seed Render Configuration</pd:from>
+        <pd:to>For each AppID</pd:to>
+        <pd:lineType>Straight</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>For each AppID</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Straight</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

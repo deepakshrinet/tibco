@@ -1,0 +1,114 @@
+// ----------------------------------------------------------------------------------
+// Global Variables --- EAR level
+// ----------------------------------------------------------------------------------
+ApplicationDetails/AuditFlag=false
+ApplicationDetails/Common/FileName=QueuesFile.json
+ApplicationDetails/Common/InterfaceId=RETRIGGER
+ApplicationDetails/Common/JSONSharedLoc=\\tibco-nas\TIB_FILESHARE\DEV\PRODUCTION_UTILITY\INTERFACE_TRIGGER\
+ApplicationDetails/Common/TransactionDomain=UTILITY
+ApplicationDetails/Common/TransactionType=USERREQUEST
+ApplicationDetails/Environment=DEV
+ApplicationDetails/ExceptionCode/TECHNICAL-777=TECHNICAL-777
+ApplicationDetails/HTTP_CONNECTION/Host=localhost
+ApplicationDetails/HTTP_CONNECTION/Port=9065
+ApplicationDetails/HTTP_CONNECTION/UpdateFilePort=9066
+ApplicationDetails/InvokeParam/Method=GET
+ApplicationDetails/InvokeParam/ResourceURI=http://services.zimmer.com/ZimmerAuthentication/ADService.svc/IsAuthenticated/
+ApplicationDetails/InvokeParam/ResponseType=JSON
+CLE/Connections/JMS/CommonLE/MIG_JMSExpiration=0
+CLE/Connections/JMS/CommonLE/MIG_JNDIContextURL=tibjmsnaming://vtibemsdv01.zmr.zimmer.com:7222
+CLE/Connections/JMS/CommonLE/MIG_JNDIPassword=#!RtD3mQ4co4+1WfRL9j5tGfCB86qXw1zb
+CLE/Connections/JMS/CommonLE/MIG_JNDIUser=cleuser
+CLE/Connections/JMS/CommonLE/MIG_Password=#!PwjcJI8IT2HOUhpX0jAmVpjJratP/m5N
+CLE/Connections/JMS/CommonLE/MIG_QueueConnectionFactory=XSP_FW_PRIMARY_CLECore_QCF
+CLE/Connections/JMS/CommonLE/MIG_TopicConnectionFactory=XSP_FW_PRIMARY_CLECore_TCF
+CLE/Connections/JMS/CommonLE/MIG_UserName=cleuser
+CLE/Destinations/Queues/CommonLE/ExceptionQueue=ZBS.INTEGRATION.CLE.EXCEPTION
+CLE/Destinations/Queues/CommonLE/LogLevelReply=ZBS.INTEGRATION.CLE.LOGLEVELREPLY
+CLE/Destinations/Queues/CommonLE/LogQueue=ZBS.INTEGRATION.CLE.LOG
+CLE/Destinations/Topics/CommonLE/LogLevelRequest=ZBS.INTEGRATION.CLE.LOGLEVELREQUEST
+CLE/Environment/CommonLE/ApplicationID=INTERFACERETRIGGER_UTILITY
+CLE/Environment/CommonLE/FilePollingInterval=900000
+CLE/Environment/CommonLE/MIG_ExceptionDir=C:\TIBCLE\SendFailures\Exception\
+CLE/Environment/CommonLE/MIG_LogDir=C:\TIBCLE\SendFailures\Log\
+CLE/Status/COMPLETED=COMPLETED
+CLE/Status/ERROR=ERROR
+CLE/Status/IN-PROGRESS=IN-PROGRESS
+CLE/Status/STARTED=STARTED
+CLE/Tuning/UtilityServices/LoggingAndExceptions/InitialLogLevel=4
+CLE/Tuning/UtilityServices/LoggingAndExceptions/JmsSendRetryDelayMillis=1000
+CLE/Tuning/UtilityServices/LoggingAndExceptions/JmsSendRetryMaxCount=3
+DirTrace=E:\TIBCO\Application_Log
+EnvVariables/PROXY_CONFIGURATION/Host_name=ws-proxy.nam.zimmer.com
+EnvVariables/PROXY_CONFIGURATION/Port_number=8080
+EnvVariables/TIBCO_BC_Connection/DB_DriverType=Oracle Thin
+EnvVariables/TIBCO_BC_Connection/DB_JDBC_URL=jdbc:oracle:thin:@vtibdbdv01.zmr.zimmer.com:1521:TIBDEV
+EnvVariables/TIBCO_BC_Connection/DB_JDBCDriver=oracle.jdbc.OracleDriver
+EnvVariables/TIBCO_BC_Connection/DB_Password=#!hw/VWClYSvmUpaE6hsAy55c5xl8PL+qfWdqk7SGwqp8=
+EnvVariables/TIBCO_BC_Connection/DB_User=TIB_BC_62
+EnvVariables/TIBCO_BC_Connection/JMS_Transport/InstallationName=ZIMBC-DEV
+EnvVariables/TIBCO_BC_Connection/JMS_Transport/InstallationPrefix=ZBS.B2B
+EnvVariables/TIBCO_BC_Connection/JMS_Transport/JMS_Password=#!2Hujy7GYX4o2U5xJm2i65Jrx1yamdmki
+EnvVariables/TIBCO_BC_Connection/JMS_Transport/JMS_Username=TIBBC6
+EnvVariables/TIBCO_BC_Connection/JMS_Transport/JNDIContextFactory=com.tibco.tibjms.naming.TibjmsInitialContextFactory
+EnvVariables/TIBCO_BC_Connection/JMS_Transport/JNDIContextUrl=tibjmsnaming://vtibemsdv01:7222
+EnvVariables/TIBCO_BC_Connection/JMS_Transport/JNDIPassword=#!pXaf8umTRDjAD84j/YXMy/BoqRg1SSBk
+EnvVariables/TIBCO_BC_Connection/JMS_Transport/JNDIUserName=TIBBC6
+EnvVariables/TIBCO_BC_Connection/JMS_Transport/QueueConnectionFactory=ZBS_QueueConnectionFactory
+EnvVariables/TIBCO_BC_Connection/JMS_Transport/TopicConnnectionFactory=ZBS_TopicConnectionFactory
+EnvVariables/TIBCO_JDBC_Connection/JDBC_DRIVER=oracle.jdbc.driver.OracleDriver (thin)
+EnvVariables/TIBCO_JDBC_Connection/JDBCTimeout=300
+EnvVariables/TIBCO_JDBC_Connection/LoggerDBURL=jdbc:oracle:thin:@vtibdbdv01:1521:tibdev
+EnvVariables/TIBCO_JDBC_Connection/LoginTimeout=300
+EnvVariables/TIBCO_JDBC_Connection/MaxConnection=10
+EnvVariables/TIBCO_JDBC_Connection/MAXIMUM_ROWS=500
+EnvVariables/TIBCO_JDBC_Connection/PASSWORD=#!jq16xhcc3TTiP6VnGQkn0O3zNtahw/nz8NYBGVx4S28=
+EnvVariables/TIBCO_JDBC_Connection/Schema=tibco_app
+EnvVariables/TIBCO_JDBC_Connection/USERNAME=tibco_app
+EnvVariables/TIBCO_JMS_Connection/JNDI_PASSWORD=#!sDkkveEpWRoSj9oAiazGJSouzY1KTP5zOIj/4O11SU+iZnlY0ca/OA==
+EnvVariables/TIBCO_JMS_Connection/JNDI_URL=tcp://vtibemsdv01.zmr.zimmer.com:7222
+EnvVariables/TIBCO_JMS_Connection/JNDI_USERNAME=dev_SRMTIBCO
+EnvVariables/TIBCO_JMS_Connection/PASSWORD=#!BTl6x9Hu1zMMru1W71rnqoNnXQlg0YVmvYMe6XZZ8AihtFqGRr9eOw==
+EnvVariables/TIBCO_JMS_Connection/QUEUE_CONNECTION_FACTORY=ZBS_QueueConnectionFactory
+EnvVariables/TIBCO_JMS_Connection/TOPIC_CONNECTION_FACTORY=ZBS_TopicConnectionFactory
+EnvVariables/TIBCO_JMS_Connection/USERNAME=dev_SRMTIBCO
+EnvVariables/TIBCO_MFT_Connection/COMMAND_CENTER/COMMAND_CENTER_PASSWORD=#!v7KqxzReZbdSm+gteJo52RCIWxDBNJP9CL3NWwLSXfI=
+EnvVariables/TIBCO_MFT_Connection/COMMAND_CENTER/COMMAND_CENTER_USER=MFTDEPLOY
+EnvVariables/TIBCO_MFT_Connection/COMMAND_CENTER/MANAGEMENT_QUEUE=ZBS.MFT.Management
+EnvVariables/TIBCO_MFT_Connection/COMMAND_CENTER/TIMEOUT=30
+QUEUE/CentralizedScheduler_Queue=ZBS.TIBCO.CENTRALIZEDSCHEDULER.UPDATEINTERFACESTATUS.ASYNC
+SendEmail/Email_CC=Deepesh.garg@zimmerbiomet.com
+SendEmail/Email_From=Tibco.Alerts@zimmerbiomet.com
+SendEmail/Email_To=itservicedeskdev@zimmerbiomet.com
+SendEmail/SMTP_Server=webmail.zimmer.com
+StoreAndReplayService/OperationRetryCount=3
+StoreAndReplayService/OperationSleepInterval=300
+StoreAndReplayService/OperationTimeOut=300
+StoreAndReplayService/StoreService/QueueName=ZBS.TIBCO.BW.STOREANDREPLAY.STOREMESSAGE.ASYNC
+// ----------------------------------------------------------------------------------
+// InterfaceReTrigger_Utility.par ---  Global Variables --- PAR level
+// ----------------------------------------------------------------------------------
+InterfaceReTrigger_Utility,ApplicationDetails/HTTP_CONNECTION/Host=localhost
+// ----------------------------------------------------------------------------------
+// InterfaceReTrigger_Utility.par --- Process Starter settings --- PAR level
+// ----------------------------------------------------------------------------------
+_TAG,BWProcess,InterfaceReTrigger_Utility,CLE/Interface/Loader/InitializeLogLevel.process,maxJob=0
+_TAG,BWProcess,InterfaceReTrigger_Utility,CLE/Interface/Loader/InitializeLogLevel.process,activation=true
+_TAG,BWProcess,InterfaceReTrigger_Utility,CLE/Interface/Loader/InitializeLogLevel.process,flowLimit=0
+_TAG,BWProcess,InterfaceReTrigger_Utility,Services/Processes/InterfaceTriggerService.process,maxJob=0
+_TAG,BWProcess,InterfaceReTrigger_Utility,Services/Processes/InterfaceTriggerService.process,activation=true
+_TAG,BWProcess,InterfaceReTrigger_Utility,Services/Processes/InterfaceTriggerService.process,flowLimit=0
+_TAG,BWProcess,InterfaceReTrigger_Utility,Services/Processes/UpdateQueueFile.process,maxJob=0
+_TAG,BWProcess,InterfaceReTrigger_Utility,Services/Processes/UpdateQueueFile.process,activation=true
+_TAG,BWProcess,InterfaceReTrigger_Utility,Services/Processes/UpdateQueueFile.process,flowLimit=0
+_TAG,Setting,InterfaceReTrigger_Utility,threadCount=8
+_TAG,Setting,InterfaceReTrigger_Utility,maxLogFileCount=5
+_TAG,Setting,InterfaceReTrigger_Utility,maxLogFileSize=20000
+_TAG,Setting,InterfaceReTrigger_Utility,java/initHeapSize=32
+_TAG,Setting,InterfaceReTrigger_Utility,java/maxHeapSize=256
+_TAG,Setting,InterfaceReTrigger_Utility,java/prepandClassPath=
+_TAG,Setting,InterfaceReTrigger_Utility,java/appendClassPath=
+// ----------------------------------------------------------------------------------
+// Machine #1 --- InterfaceReTrigger_Utility.par --- Service Instance settings --- Service level
+// ----------------------------------------------------------------------------------
+_TAG,Machine,InterfaceReTrigger_Utility,InterfaceReTrigger_Utility,machine=%%InterfaceReTrigger_Utility.par-machine%%

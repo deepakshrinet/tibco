@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:ns2="http://www.tibco.com/CommonLE2/namespace/Public/Common/IDQuery" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:ns="http://www.tibco.com/CommonLE2/Public/Common" xmlns:pfx0="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Category" xmlns:pfx1="http://www.tibco.com/CommonLE2/namespace/private/Common" xmlns:tns="http://www.tibco.com/CommonLE2/namespace/Administration/GUIServices/Category" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx2="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Query" targetNamespace="http://www.tibco.com/CommonLE2/namespace/Administration/GUIServices/Category">
+    <import namespace="http://www.tibco.com/CommonLE2/namespace/private/Common" location="../../../SchemaDefinitions/Private/Common/LocalExceptions.xsd"/>
+    <import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Query" location="../../../SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/ConfigurationQuery.xsd"/>
+    <import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Category" location="../../../SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/ExceptionCategory.xsd"/>
+    <import namespace="http://www.tibco.com/CommonLE2/Public/Common" location="../../../SchemaDefinitions/Public/Common/ErrorMessage.xsd"/>
+    <import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Common/IDQuery" location="../../../SchemaDefinitions/Public/Pluggable/GUI/Common/IDQuery.xsd"/>
+    <message name="ExceptionCategories">
+        <part element="pfx0:ExceptionCategories" name="parameters"/>
+    </message>
+    <message name="Error">
+        <part name="parameters" element="ns:Error"/>
+    </message>
+    <message name="Query">
+        <part element="pfx2:Query" name="parameters"/>
+    </message>
+    <message name="Dummy"/>
+    <portType name="portType">
+        <operation name="UpdateCategoryOp">
+            <input message="tns:ExceptionCategories"/>
+            <output message="tns:Dummy"/>
+            <fault name="fault1" message="tns:Error"/>
+        </operation>
+        <operation name="RetrieveCategoryDetailOp">
+            <input message="tns:Query"/>
+            <output message="tns:ExceptionCategories"/>
+            <fault name="fault1" message="tns:Error"/>
+        </operation>
+        <operation name="DeleteCategoryOp">
+            <input message="tns:Query"/>
+            <output message="tns:Dummy"/>
+            <fault name="fault1" message="tns:Error"/>
+        </operation>
+        <operation name="CreateCategoryOp">
+            <input message="tns:ExceptionCategories"/>
+            <output message="tns:Dummy"/>
+            <fault name="fault1" message="tns:Error"/>
+        </operation>
+        <operation name="RetrieveCategoryListWithSysIDOp">
+            <input message="tns:Query"/>
+            <output message="tns:ExceptionCategories"/>
+            <fault name="fault1" message="tns:Error"/>
+        </operation>
+    </portType>
+</definitions>

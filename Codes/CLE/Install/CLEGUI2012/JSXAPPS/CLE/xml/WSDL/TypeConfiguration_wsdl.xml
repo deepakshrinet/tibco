@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by TIBCO WSDL-->
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.tibco.com/CommonLE2/Administration/GUIServices/TypeServices" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns0="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Query" xmlns:ns1="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Type" xmlns:ns2="http://www.tibco.com/CommonLE2/Public/Common" targetNamespace="http://www.tibco.com/CommonLE2/Administration/GUIServices/TypeServices">
+    <wsdl:types>
+        <xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Type" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Type" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xsd:element name="ExceptionType">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ApplicationID" type="xsd:string"/>
+                        <xsd:element name="TypeName" type="xsd:string"/>
+                        <xsd:element name="Description" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="TypeID" type="xsd:int"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="ExceptionTypes">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="ns1:ExceptionType" minOccurs="0" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+        <xsd:schema xmlns="http://www.tibco.com/CommonLE2/Public/Common" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tibco.com/CommonLE2/Public/Common" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xsd:element name="Code" type="xsd:string"/>
+            <xsd:element name="Error">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="ns2:Message" minOccurs="0"/>
+                        <xsd:element ref="ns2:Code" minOccurs="0"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="Message" type="xsd:string"/>
+        </xsd:schema>
+        <xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Query" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Query" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xsd:element name="Query">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ID" type="xsd:string" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:service name="intfType-service">
+        <wsdl:port name="intfwsUpdateTypeEndpoint1" binding="tns:intfwsUpdateTypeEndpoint1Binding">
+            <soap:address location="http://localhost:9950/Administration/GUIServices/TypeServices/intfType-service.serviceagent/intfwsUpdateTypeEndpoint1"/>
+        </wsdl:port>
+    </wsdl:service>
+    <wsdl:portType name="portType">
+        <wsdl:operation name="RetrieveSpecificTypeOp">
+            <wsdl:input message="tns:Query"/>
+            <wsdl:output message="tns:ExceptionTypes"/>
+            <wsdl:fault name="fault1" message="tns:Error"/>
+        </wsdl:operation>
+        <wsdl:operation name="CreateTypeOp">
+            <wsdl:input message="tns:ExceptionTypes"/>
+            <wsdl:output message="tns:Dummy"/>
+            <wsdl:fault name="fault1" message="tns:Error"/>
+        </wsdl:operation>
+        <wsdl:operation name="UpdateTypeOp">
+            <wsdl:input message="tns:ExceptionTypes"/>
+            <wsdl:output message="tns:Dummy"/>
+            <wsdl:fault name="fault1" message="tns:Error"/>
+        </wsdl:operation>
+        <wsdl:operation name="RetrieveTypeListWithSysIDOp">
+            <wsdl:input message="tns:Query"/>
+            <wsdl:output message="tns:ExceptionTypes"/>
+            <wsdl:fault name="fault1" message="tns:Error"/>
+        </wsdl:operation>
+        <wsdl:operation name="DeleteTypeOp">
+            <wsdl:input message="tns:Query"/>
+            <wsdl:output message="tns:Dummy"/>
+            <wsdl:fault name="fault1" message="tns:Error"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="intfwsUpdateTypeEndpoint1Binding" type="tns:portType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="RetrieveSpecificTypeOp">
+            <soap:operation style="document" soapAction="/Administration/GUIServices/TypeServices/intfUpdateType-service.serviceagent/intfwsUpdateTypeEndpoint1/RetrieveSpecificTypeOp"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:output>
+            <wsdl:fault name="fault1">
+                <soap:fault use="literal" name="fault1"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="CreateTypeOp">
+            <soap:operation style="document" soapAction="/Administration/GUIServices/TypeServices/intfUpdateType-service.serviceagent/intfwsUpdateTypeEndpoint1/CreateTypeOp"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts=""/>
+            </wsdl:output>
+            <wsdl:fault name="fault1">
+                <soap:fault use="literal" name="fault1"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="UpdateTypeOp">
+            <soap:operation style="document" soapAction="/Administration/GUIServices/TypeServices/intfUpdateType-service.serviceagent/intfwsUpdateTypeEndpoint1/UpdateTypeOp"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts=""/>
+            </wsdl:output>
+            <wsdl:fault name="fault1">
+                <soap:fault use="literal" name="fault1"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="RetrieveTypeListWithSysIDOp">
+            <soap:operation style="document" soapAction="/Administration/GUIServices/TypeServices/intfType-service.serviceagent//RetrieveTypeListWithSysIDOp"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:output>
+            <wsdl:fault name="fault1">
+                <soap:fault use="literal" name="fault1"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="DeleteTypeOp">
+            <soap:operation style="document" soapAction="/Administration/GUIServices/TypeServices/intfUpdateType-service.serviceagent/intfwsUpdateTypeEndpoint1/DeleteTypeOp"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts=""/>
+            </wsdl:output>
+            <wsdl:fault name="fault1">
+                <soap:fault use="literal" name="fault1"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:message name="Query">
+        <wsdl:part name="parameters" element="ns0:Query"/>
+    </wsdl:message>
+    <wsdl:message name="ExceptionTypes">
+        <wsdl:part name="parameters" element="ns1:ExceptionTypes"/>
+    </wsdl:message>
+    <wsdl:message name="Error">
+        <wsdl:part name="parameters" element="ns2:Error"/>
+    </wsdl:message>
+    <wsdl:message name="Dummy"/>
+</wsdl:definitions>

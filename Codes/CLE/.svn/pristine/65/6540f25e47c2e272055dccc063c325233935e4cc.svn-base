@@ -1,0 +1,11 @@
+<data jsxnamespace="propsbundle" locales="">
+  <locale>
+    <record jsxid="application_ApplicationID" jsxtext="ID de Aplicación"/>
+    <record jsxid="application_ID" jsxtext="ID de Aplicación"/>
+    <record jsxid="application_Name" jsxtext="Nombre"/>
+    <record jsxid="application_Description" jsxtext="Descripción"/>
+    <record jsxid="application_createNewItemCaption" jsxtext="Crear Nueva Aplicación"/>
+    <record jsxid="application_createApplication" jsxtext="Crear Aplicación"/>
+    <record jsxid="application_createApplicationTip" jsxtext="Crear Aplicación"/>
+  </locale>
+</data>

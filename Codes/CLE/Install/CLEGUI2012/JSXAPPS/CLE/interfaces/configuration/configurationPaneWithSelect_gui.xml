@@ -1,0 +1,73 @@
+<serialization xmlns="urn:tibco.com/v3.0" jsxversion="3.9">
+  <name><![CDATA[Block - 100%]]></name>
+  <icon><![CDATA[images/prototypes/block.gif]]></icon>
+  <description><![CDATA[Simple block, relatively positioned with overflow=scroll.]]></description>
+  <object type="jsx3.gui.Block">
+    <variants jsxoverflow="2"/>
+    <strings jsxname="configurationPane" jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1"/>
+    <object type="jsx3.gui.LayoutGrid">
+      <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+      <strings jsxname="configurationLayout" jsxrows="28,*" jsxwidth="100%" jsxheight="100%"/>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="2"/>
+        <strings jsxname="configurationMenuPane" jsxwidth="100%" jsxheight="100%"/>
+        <object type="jsx3.gui.WindowBar">
+          <variants jsxbartype="1"/>
+          <strings jsxname="toolBar"/>
+          <dynamics jsxbgcolor="neutralBG"/>
+          <object type="jsx3.gui.ToolbarButton">
+            <variants jsxdivider="0" jsxenabled="0"/>
+            <strings jsxname="saveApplicationChangesBtn" jsximage="images/icons/green_check.gif"/>
+            <dynamics jsxtext="config_saveChanges" jsxtip="config_saveChangesTip"/>
+            <events jsxexecute="cle.configuration.application.saveChanges(this);"/>
+          </object>
+          <object type="jsx3.gui.ToolbarButton">
+            <variants jsxdivider="1"/>
+            <strings jsxname="refreshBtn" jsximage="images/icons/refreshDoc.gif"/>
+            <dynamics jsxtext="config_refresh" jsxtip="config_refreshTip"/>
+            <events jsxexecute="cle.configuration.application.refreshList(this);"/>
+          </object>
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="2"/>
+        <strings jsxname="configurationBodyPane" jsxwidth="100%" jsxheight="100%"/>
+        <object type="jsx3.gui.CDF">
+          <variants jsxshare="0" jsxxmlbind="1" jsxoverflow="2"/>
+          <strings jsxname="configurationCDF" jsxwidth="100%" jsxheight="100%" jsxxmlid="applicationList_cdf" jsxcdfid=""/>
+          <object type="jsx3.gui.Splitter">
+            <variants jsxorientation="1" jsxleft="0" jsxtop="0"/>
+            <strings jsxname="configSplitterH" jsxsubcontainer1pct="36,*"/>
+            <dynamics jsxbgcolor="splitterBackground"/>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxname="configurationTopPane" jsxwidth="100%" jsxheight="100%" jsxpadding="8 8 8 8"/>
+              <dynamics jsxborder="@Inset" jsxbgcolor="lightBG"/>
+              <object type="jsx3.gui.Block">
+                <variants jsxoverflow="3" jsxwidth="220" jsxrelativeposition="0" jsxleft="0" jsxtop="3"/>
+                <strings jsxname="applicationIdLabel" jsxheight="100%" jsxtextalign="right" jsxpadding="3 3 0 3" jsxdisplay=""/>
+                <dynamics jsxfontsize="titleFontSize" jsxtext="config_applicationId"/>
+              </object>
+              <object type="jsx3.gui.Select">
+                <variants jsxjsxxmlasync="1" jsxxmlbind="1" jsxshare="0"/>
+                <strings xmlns="urn:tibco.com/v3.0" jsxname="applicationList" jsxwidth="220" jsxheight="24" jsxxmlasync="1" jsxrelativeposition="0" jsxleft="230" jsxtop="3" jsxxmlid="applicationList_cdf"/>
+                <dynamics jsxbgcolor="@Solid Light" jsxfontsize="titleFontSize"/>
+                <events jsxselect="this.getAncestorOfType('jsx3.gui.CDF').setCDFId(strRECORDID);cle.configuration.application.selectApplication(this,strRECORDID)"/>
+              </object>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxname="configurationBottomPane" jsxwidth="100%" jsxheight="100%"/>
+              <dynamics jsxborder="@Inset"/>
+              <object type="jsx3.gui.TabbedPane">
+                <variants jsxselectedindex="0"/>
+                <strings jsxname="configTabbedPane"/>
+                <dynamics jsxbgcolor="@Solid Light"/>
+              </object>
+            </object>
+          </object>
+        </object>
+      </object>
+    </object>
+  </object>
+</serialization>

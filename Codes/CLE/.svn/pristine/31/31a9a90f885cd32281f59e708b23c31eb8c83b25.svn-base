@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/AllRolesRetrievalResponse">
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/AllRolesRetrievalResponse" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/SecurityConfiguration/AllRolesRetrieval.xsd"/>
+    <pd:name>SecurityManagement/Logic/SuperUserCheck.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx:AllRoles"/>
+    <pd:startX>41</pd:startX>
+    <pd:startY>107</pd:startY>
+    <pd:returnBindings>
+        <isSuperUser>
+            <xsl:value-of select="count($Start/pfx:AllRoles/pfx:Role[pfx:rolename = $_globalVariables/ns:GlobalVariables/Security/MIG_AdministratorRoleName]) > 0"/>
+        </isSuperUser>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="isSuperUser" type="xsd:boolean"/>
+    </pd:endType>
+    <pd:endX>242</pd:endX>
+    <pd:endY>110</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables>
+        <Variable0>
+            <xsd:element name="result" type="xsd:string"/>
+        </Variable0>
+    </pd:processVariables>
+    <pd:targetNamespace>http://xmlns.example.com/1257321223735</pd:targetNamespace>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

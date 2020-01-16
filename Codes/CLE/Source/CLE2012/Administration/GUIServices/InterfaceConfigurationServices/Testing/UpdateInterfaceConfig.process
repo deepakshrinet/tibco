@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Common/DeleteQuery" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Query" xmlns:ns3="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/InterfaceConfigDetail" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:pfx4="http://www.tibco.com/CommonLE2/namespace/Administration/GUIServices/InterfaceConfigurationConcrete" xmlns:pfx3="http://xmlns.example.com/1285838027794" xmlns:pfx2="http://xmlns.example.com/1285817150663" xmlns:pfx="http://www.tibco.com/CommonLE2/Administration/GUIServices/InterfaceConfigurationServices">
+    <wsdl:import namespace="http://www.tibco.com/CommonLE2/Administration/GUIServices/InterfaceConfigurationServices" location="/Administration/GUIServices/Testing/InterfaceConfigWSDL.wsdl"/>
+    <wsdl:import namespace="http://www.tibco.com/CommonLE2/namespace/Administration/GUIServices/InterfaceConfigurationConcrete" location="/Administration/GUIServices/InterfaceConfigurationServices/Testing/Intfconfigwsdl.wsdl"/>
+    <pd:name>Administration/GUIServices/InterfaceConfigurationServices/Testing/UpdateInterfaceConfig.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startX>150</pd:startX>
+    <pd:startY>64</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>450</pd:endX>
+    <pd:endY>64</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1285816548439</pd:targetNamespace>
+    <pd:activity name="SOAPRequestReply">
+        <pd:type>com.tibco.plugin.soap.SOAPSendReceiveActivity</pd:type>
+        <pd:resourceType>ae.activities.SOAPSendReceiveUI</pd:resourceType>
+        <pd:x>290</pd:x>
+        <pd:y>65</pd:y>
+        <config>
+            <timeout>0</timeout>
+            <soapAttachmentStyle>SwA</soapAttachmentStyle>
+            <service>pfx4:InterfaceConfigurationService</service>
+            <servicePort>InterfaceConfigurationEndpoint</servicePort>
+            <operation>UpdateInterfaceConfiguration</operation>
+            <soapAction>/Administration/GUIServices/InterfaceConfigurationServices/Service.serviceagent//UpdateInterfaceConfiguration</soapAction>
+            <endpointURL>http://localhost:9950/Administration/GUIServices/InterfaceConfigurationServices/Service.serviceagent/InterfaceConfigurationEndpoint</endpointURL>
+        </config>
+        <pd:inputBindings>
+            <inputMessage>
+                <ns3:InterfaceConfig>
+                    <ns3:ApplicationID>
+                        <xsl:value-of select="&quot;Test&quot;"/>
+                    </ns3:ApplicationID>
+                    <ns3:InterfaceID>
+                        <xsl:value-of select="&quot;iid&quot;"/>
+                    </ns3:InterfaceID>
+                    <ns3:InterfaceName>
+                        <xsl:value-of select="&quot;test&quot;"/>
+                    </ns3:InterfaceName>
+                    <ns3:InterfaceType>
+                        <xsl:value-of select="&quot;Physical&quot;"/>
+                    </ns3:InterfaceType>
+                    <ns3:dbUse>
+                        <xsl:value-of select="1"/>
+                    </ns3:dbUse>
+                    <ns3:TransComplexity>
+                        <xsl:value-of select="&quot;Low&quot;"/>
+                    </ns3:TransComplexity>
+                    <ns3:Owner>
+                        <xsl:value-of select="&quot;ME&quot;"/>
+                    </ns3:Owner>
+                    <ns3:SourceSystem>
+                        <xsl:value-of select="&quot;SAP&quot;"/>
+                    </ns3:SourceSystem>
+                    <ns3:Status>
+                        <xsl:value-of select="&quot;Active&quot;"/>
+                    </ns3:Status>
+                </ns3:InterfaceConfig>
+            </inputMessage>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>SOAPRequestReply</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SOAPRequestReply</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

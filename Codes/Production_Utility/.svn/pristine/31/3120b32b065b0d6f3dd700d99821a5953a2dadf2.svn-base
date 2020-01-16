@@ -1,0 +1,29 @@
+########################################################################
+#       Copyright (c) 2010 TIBCO Software Inc.
+#       All Rights Reserved.
+#       For more information, please contact:
+#       TIBCO Software Inc.
+#       Palo Alto, California, USA
+#
+#       JmsStream Configuration File version B
+########################################################################
+
+password = dev_SRMTIBCO
+java.naming.security.credentials = dev_SRMTIBCO
+jmsclient = TIBCO_EMS
+type = queue
+guiDisplayBuffer = 10000000
+connectionfactory = ZBS_QueueConnectionFactory
+ackmode = AUTO_ACKNOWLEDGE
+resetthreads = true
+java.naming.security.principal = dev_SRMTIBCO
+verbose = false
+senddest = ZBS.EAI.ZUDI.GUDID.STATUS.SM
+fileloop = 1
+java.naming.factory.initial = com.tibco.tibjms.naming.TibjmsInitialContextFactory
+java.naming.provider.url = tibjmsnaming://vtibemsdv01:7222
+file = C:\\Users\\singhr6\\Documents\\Ranjeet\\Projects\\EMS\\JmsStream_2.7.9.1_EXE\\Message.msg
+guiDisplayRefresh = 250
+isSeparateUsrPwd = false
+isListener = false
+user = dev_SRMTIBCO

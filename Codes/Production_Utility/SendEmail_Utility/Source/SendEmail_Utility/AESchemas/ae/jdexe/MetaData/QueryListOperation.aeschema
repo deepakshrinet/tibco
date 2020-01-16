@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Repository:repository xmlns="http://www.tibco.com/xmlns/aemeta/types/2002" xmlns:Repository="http://www.tibco.com/xmlns/repo/types/2002" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <designer>
+        <lockedProperties>
+            <locked>
+                <properties>name</properties>
+            </locked>
+        </lockedProperties>
+        <fixedChildren/>
+        <resourceDescriptions/>
+    </designer>
+    <class name="OperandList">
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>LiteralValue</name>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+    </class>
+    <class name="DataSelection">
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>ClauseType</name>
+            <attributeType isRef="true">/AESchemas/ae/jdexe/MetaData/QueryListOperation.aeschema#sequence.ClauseType_Sequence</attributeType>
+        </attribute>
+    </class>
+    <class name="OperandRange">
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>LiteralFrom</name>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>LiteralTo</name>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+    </class>
+    <class name="ColumnAttributes">
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>ColumnName</name>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>TableName</name>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>Instance</name>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>Alias</name>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+    </class>
+    <class name="DataSequencing">
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>Sort</name>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>ColumnAttributes</name>
+            <attributeType isRef="true">/AESchemas/ae/jdexe/MetaData/QueryListOperation.aeschema#class.ColumnAttributes</attributeType>
+        </attribute>
+    </class>
+    <class name="Operand">
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>LiteralValue</name>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>ColAttr</name>
+            <attributeType isRef="true">/AESchemas/ae/jdexe/MetaData/QueryListOperation.aeschema#class.ColumnAttributes</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>OpRange</name>
+            <attributeType isRef="true">/AESchemas/ae/jdexe/MetaData/QueryListOperation.aeschema#class.OperandRange</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>OpList</name>
+            <attributeType isRef="true">/AESchemas/ae/jdexe/MetaData/QueryListOperation.aeschema#sequence.OperandList_Sequence</attributeType>
+        </attribute>
+    </class>
+    <class name="ClauseType">
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>ClauseName</name>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>OperationType</name>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>ColumnAttributes</name>
+            <attributeType isRef="true">/AESchemas/ae/jdexe/MetaData/QueryListOperation.aeschema#class.ColumnAttributes</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>Operand</name>
+            <attributeType isRef="true">/AESchemas/ae/jdexe/MetaData/QueryListOperation.aeschema#class.Operand</attributeType>
+        </attribute>
+    </class>
+    <sequence name="ClauseType_Sequence">
+        <elementType isRef="true">/AESchemas/ae/jdexe/MetaData/QueryListOperation.aeschema#class.ClauseType</elementType>
+    </sequence>
+    <sequence name="OperandList_Sequence">
+        <elementType isRef="true">/AESchemas/ae/jdexe/MetaData/QueryListOperation.aeschema#class.OperandList</elementType>
+    </sequence>
+</Repository:repository>

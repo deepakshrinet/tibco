@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns5="http://xmlns.tibco.com/encodings/mime" xmlns:ns6="http://www.tibco.com/pe/EngineTypes" xmlns:pfx="http://www.tibco.com/CommonLE2/namespace/Public/Notification" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/namespaces/tnt/plugins/mail" xmlns:ns1="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:ns4="http://xmlns.tibco.com/body" xmlns:ns3="http://www.tibco.com/CommonLE2/namespace/Public/Common/RequestHeader.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx3="http://www.tibco.com/pe/CheckpointSchema" xmlns:pfx2="http://www.tibco.com/CommonLE/namespace/Common">
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Notification" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/Notification/NotificationMessage.xsd"/>
+    <pd:name>Plug-ins/Notification/Communication/NotificationConnector.process</pd:name>
+    <pd:startName>Notification Receiver</pd:startName>
+    <pd:startX>0</pd:startX>
+    <pd:startY>0</pd:startY>
+    <pd:returnBindings/>
+    <pd:starter name="Notification Receiver">
+        <pd:type>com.tibco.plugin.jms.JMSQueueEventSource</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueEventSource</pd:resourceType>
+        <pd:x>90</pd:x>
+        <pd:y>65</pd:y>
+        <config>
+            <PermittedMessageType>Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>23</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+                <destination>%%JMSDestinationNames/MIG_NotificationQueue%%</destination>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/SharedResources/Connections/JMS/JMS Extension.sharedjmscon</ConnectionReference>
+        </config>
+        <pd:inputBindings/>
+    </pd:starter>
+    <pd:endName>End</pd:endName>
+    <pd:endX>428</pd:endX>
+    <pd:endY>250</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1288039730663</pd:targetNamespace>
+    <pd:activity name="Catch All">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>90</pd:x>
+        <pd:y>246</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Handle Local Exception">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>205</pd:x>
+        <pd:y>256</pd:y>
+        <config>
+            <processName>/Common/Local Exception Handler.process</processName>
+        </config>
+        <pd:inputBindings>
+            <pfx2:Exception>
+                <xsl:if test="$_error/ns6:ErrorReport/Msg">
+                    <ErrorMessage>
+                        <xsl:value-of select="$_error/ns6:ErrorReport/Msg"/>
+                    </ErrorMessage>
+                </xsl:if>
+                <xsl:if test="$_error/ns6:ErrorReport/MsgCode">
+                    <ErrorCode>
+                        <xsl:value-of select="$_error/ns6:ErrorReport/MsgCode"/>
+                    </ErrorCode>
+                </xsl:if>
+                <pfx2:Error>
+                    <xsl:for-each select="$_error/ns6:ErrorReport">
+                        <pfx2:ErrorReport>
+                            <StackTrace>
+                                <xsl:value-of select="StackTrace"/>
+                            </StackTrace>
+                            <Msg>
+                                <xsl:value-of select="Msg"/>
+                            </Msg>
+                            <FullClass>
+                                <xsl:value-of select="FullClass"/>
+                            </FullClass>
+                            <Class>
+                                <xsl:value-of select="Class"/>
+                            </Class>
+                            <ProcessStack>
+                                <xsl:value-of select="ProcessStack"/>
+                            </ProcessStack>
+                            <MsgCode>
+                                <xsl:value-of select="MsgCode"/>
+                            </MsgCode>
+                        </pfx2:ErrorReport>
+                    </xsl:for-each>
+                </pfx2:Error>
+            </pfx2:Exception>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Send Notifications">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>416</pd:x>
+        <pd:y>55</pd:y>
+        <config>
+            <processName>/Plug-ins/Notification/Logic/SendNotifications.process</processName>
+        </config>
+        <pd:inputBindings>
+            <xsl:copy-of select="$Parse-XML/pfx:NotificationMessage"/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Confirm-1">
+        <pd:type>com.tibco.pe.core.ConfirmActivity</pd:type>
+        <pd:resourceType>activity.confirm</pd:resourceType>
+        <pd:x>425</pd:x>
+        <pd:y>155</pd:y>
+        <config>
+            <ConfirmEvent>Notification Receiver</ConfirmEvent>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Parse XML">
+        <pd:type>com.tibco.plugin.xml.XMLParseActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLParseActivity</pd:resourceType>
+        <pd:x>219</pd:x>
+        <pd:y>58</pd:y>
+        <config>
+            <inputStyle>text</inputStyle>
+            <xsdVersion>default</xsdVersion>
+            <validateOutput>true</validateOutput>
+            <term ref="pfx:NotificationMessage"/>
+        </config>
+        <pd:inputBindings>
+            <xmlString>
+                <xsl:value-of select="$Notification-Receiver/ns1:ActivityOutput/Body"/>
+            </xmlString>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Confirm">
+        <pd:type>com.tibco.pe.core.ConfirmActivity</pd:type>
+        <pd:resourceType>activity.confirm</pd:resourceType>
+        <pd:x>317</pd:x>
+        <pd:y>249</pd:y>
+        <config>
+            <ConfirmEvent>Notification Receiver</ConfirmEvent>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Catch All</pd:from>
+        <pd:to>Handle Local Exception</pd:to>
+        <pd:lineType>Straight</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Handle Local Exception</pd:from>
+        <pd:to>Confirm</pd:to>
+        <pd:lineType>Straight</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Send Notifications</pd:from>
+        <pd:to>Confirm-1</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse XML</pd:from>
+        <pd:to>Send Notifications</pd:to>
+        <pd:xpathDescription>Has Address</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>(string-length(tib:trim($Parse-XML/pfx:NotificationMessage/EmailTo))&gt;0) and
+($Parse-XML/pfx:NotificationMessage/EmailTo !="None")</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse XML</pd:from>
+        <pd:to>Confirm-1</pd:to>
+        <pd:lineType>Curved</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Notification Receiver</pd:from>
+        <pd:to>Parse XML</pd:to>
+        <pd:lineType>Straight</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Confirm</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Straight</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Confirm-1</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

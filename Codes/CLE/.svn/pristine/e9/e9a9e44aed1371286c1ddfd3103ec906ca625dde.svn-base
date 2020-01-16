@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx="http://www.tibco.com/CommonLE2/Private/Exception">
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/Private/Exception" schemaLocation="/SharedResources/SchemaDefinitions/Private/Exception/Queries.xsd"/>
+    <pd:name>ExceptionManagement/DataAccess/MSSQL/CheckExceptionwithTTL.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx:ExceptionTTLQuery"/>
+    <pd:startX>53</pd:startX>
+    <pd:startY>80</pd:startY>
+    <pd:returnBindings>
+        <Exist>
+            <xsl:value-of select="$Get-Exception-Count/resultSet/Record[1]/COUNT > 0"/>
+        </Exist>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="Exist" type="xsd:boolean"/>
+    </pd:endType>
+    <pd:endX>345</pd:endX>
+    <pd:endY>81</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1296238937735</pd:targetNamespace>
+    <pd:activity name="Get Exception Count">
+        <pd:type>com.tibco.plugin.jdbc.JDBCQueryActivity</pd:type>
+        <pd:resourceType>ae.activities.JDBCQueryActivity</pd:resourceType>
+        <pd:x>198</pd:x>
+        <pd:y>90</pd:y>
+        <config>
+            <timeout>%%Database/MIG_Timeout%%</timeout>
+            <commit>false</commit>
+            <maxRows>100</maxRows>
+            <emptyStrAsNil>false</emptyStrAsNil>
+            <jdbcSharedConfig>/SharedResources/Connections/Database/DBServerMSSQL.sharedjdbc</jdbcSharedConfig>
+            <statement>Select count(*)  from ExceptionRec 
+where ApplicationID =? and ExceptionCode =? and Time_Stamp &gt;?</statement>
+            <Prepared_Param_DataType>
+                <parameter>
+                    <parameterName>ApplicationID</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>ExceptoinCode</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>Time_Stamp</parameterName>
+                    <dataType>TIMESTAMP</dataType>
+                </parameter>
+            </Prepared_Param_DataType>
+            <QueryOutputCachedSchemaColumns>COUNT</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>2</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+        </config>
+        <pd:inputBindings>
+            <jdbcQueryActivityInput>
+                <ApplicationID>
+                    <xsl:value-of select="$Start/pfx:ExceptionTTLQuery/pfx:ApplicationID"/>
+                </ApplicationID>
+                <ExceptoinCode>
+                    <xsl:value-of select="$Start/pfx:ExceptionTTLQuery/pfx:ExceptionCode"/>
+                </ExceptoinCode>
+                <Time_Stamp>
+                    <xsl:value-of select="tib:add-to-dateTime(current-dateTime(), 0, 0, 0, 0, $Start/pfx:ExceptionTTLQuery/pfx:TTL* (-1), 0)"/>
+                </Time_Stamp>
+            </jdbcQueryActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Get Exception Count</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Get Exception Count</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

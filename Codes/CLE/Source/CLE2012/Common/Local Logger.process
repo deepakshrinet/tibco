@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/WriteToLogActivitySchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx5="http://www.tibco.com/pe/DeployedVarsType" xmlns:pfx4="http://www.tibco.com/CommonLE/namespace/Common" xmlns:pfx3="http://www.tibco.com/CommonLE/namespace/Custom" xmlns:pfx2="http://www.tibco.com/pe/EngineTypes" xmlns:pfx="http://www.tibco.com/unique/default/namespace/Exception" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xsd:import namespace="http://www.tibco.com/unique/default/namespace/Exception" schemaLocation="/Shared Resources/Schema Definitions/Common/ExceptionRequest.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE/namespace/Custom" schemaLocation="/Shared Resources/Schema Definitions/Custom/Error.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE/namespace/Common" schemaLocation="/SharedResources/SchemaDefinitions/Private/Common/Error.xsd"/>
+    <pd:name>Common/Local Logger.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="Log">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="Component" type="xsd:string"/>
+                    <xsd:element name="Info" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>26</pd:startX>
+    <pd:startY>95</pd:startY>
+    <pd:returnBindings>
+        <message>
+            <xsl:value-of select="concat(&quot;Component: &quot;, $Start/Log/Component, &quot; ----&quot;,$Start/Log/Info)"/>
+        </message>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="message" type="xsd:string"/>
+    </pd:endType>
+    <pd:endX>297</pd:endX>
+    <pd:endY>95</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1284492863175</pd:targetNamespace>
+    <pd:activity name="Log">
+        <pd:type>com.tibco.pe.core.WriteToLogActivity</pd:type>
+        <pd:resourceType>ae.activities.log</pd:resourceType>
+        <pd:x>161</pd:x>
+        <pd:y>99</pd:y>
+        <config>
+            <role>User</role>
+        </config>
+        <pd:inputBindings>
+            <ns:ActivityInput>
+                <message>
+                    <xsl:value-of select="$Start/Log/Info"/>
+                </message>
+                <msgCode>
+                    <xsl:value-of select="concat(&quot;Component:&quot;, $Start/Log/Component)"/>
+                </msgCode>
+            </ns:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Null">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>157</pd:x>
+        <pd:y>205</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Log</pd:to>
+        <pd:xpathDescription>Debug on</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Log</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Null</pd:to>
+        <pd:xpathDescription>Debug off</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$_globalVariables/pfx5:GlobalVariables/Testing/Debug = 0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

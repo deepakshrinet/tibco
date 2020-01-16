@@ -1,0 +1,11 @@
+<data jsxid="jsxroot" jsxns="urn:tibco.com/v3.0/dynamicproperties/1">
+  <record jsxid="columnLeftBorder" type="jsxcellborder" jsxtext="0px solid ;1px solid #9898a5;1px solid #9898a5;0px solid"></record>
+  <record jsxid="columnRightBorder" type="jsxcellborder" jsxtext="0px solid ;0px solid ;1px solid #9898a5;0px solid"></record>
+  <record jsxid="titleFontSize" type="jsxfontsize" jsxtext="14"></record>
+  <record jsxid="buttonFontSize" type="jsxfontsize" jsxtext="12"></record>
+  <record jsxid="labelFontSize" type="jsxfontsize" jsxtext="12"></record>
+  <record jsxid="matrixCellFontSize" type="jsxcellfontsize" jsxtext="12"></record>
+  <record jsxid="matrixMaskFontSize" type="jsxfontsize" jsxtext="12"></record>
+  <record jsxid="editorHeaderHeight" type="jsxheaderheight" jsxtext="23"></record>
+  <record jsxid="editorNameWidth" type="jsxwidth" jsxtext="160"></record>
+</data>

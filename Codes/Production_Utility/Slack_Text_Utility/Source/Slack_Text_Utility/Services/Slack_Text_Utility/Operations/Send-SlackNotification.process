@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/namespaces/tnt/plugins/json" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx3="http://www.tibco.com/schemas/TEXT-ULTILITY/SharedResources/Schemas/XSD/Schema.xsd" xmlns:pfx2="http://www.zimmer.com/V1_0/TextMsgProfileFile" xmlns:pfx="http://www.zimmer.com/SendEmailSchema_v_1_0.xsd">
+    <xsd:import namespace="http://www.zimmer.com/SendEmailSchema_v_1_0.xsd" schemaLocation="/EnterpriseLibrary/SharedResources/Schemas/XSD/SendEmailSchema.xsd"/>
+    <xsd:import namespace="http://www.zimmer.com/V1_0/TextMsgProfileFile" schemaLocation="/SharedResources/Schemas/XSD/TextMsgProfileFile.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/schemas/TEXT-ULTILITY/SharedResources/Schemas/XSD/Schema.xsd" schemaLocation="/SharedResources/Schemas/XSD/SlackNotification.xsd"/>
+    <pd:name>Services/Slack_Text_Utility/Operations/Send-SlackNotification.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx3:SlackNotification"/>
+    <pd:startX>118</pd:startX>
+    <pd:startY>151</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>637</pd:endX>
+    <pd:endY>151</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1501189137611</pd:targetNamespace>
+    <pd:activity name="Render JSON">
+        <pd:type>com.tibco.plugin.json.activities.JSONRenderActivity</pd:type>
+        <pd:resourceType>ae.activities.JSONRenderActivity</pd:resourceType>
+        <pd:x>274</pd:x>
+        <pd:y>152</pd:y>
+        <config>
+            <SchemaType>xsdType</SchemaType>
+            <BadgerfishCheck>false</BadgerfishCheck>
+            <ActivityInputEditor>
+                <xsd:element name="text" type="xsd:string"/>
+            </ActivityInputEditor>
+        </config>
+        <pd:inputBindings>
+            <ns:ActivityInputClass>
+                <text>
+                    <xsl:value-of select="$Start/pfx3:SlackNotification/pfx3:SpecialNotification"/>
+                </text>
+            </ns:ActivityInputClass>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Send HTTP Request">
+        <pd:type>com.tibco.plugin.http.client.HttpRequestActivity</pd:type>
+        <pd:resourceType>httppalette.httpRequest</pd:resourceType>
+        <pd:x>444</pd:x>
+        <pd:y>151</pd:y>
+        <config>
+            <inputOutputVersion>5.3.0</inputOutputVersion>
+            <newMimeSupport>true</newMimeSupport>
+            <authScheme>NONE</authScheme>
+            <requireBasicAuth>false</requireBasicAuth>
+            <serverhost>%%ApplicationDetails/Slack_Connection/Host%%</serverhost>
+            <proxyConnection>/EnterpriseLibrary/SharedResources/Connections/HTTP/ProxyConfiguration.httpProxy</proxyConnection>
+            <useSsl>true</useSsl>
+            <ns0:ssl xmlns:ns0="http://www.tibco.com/xmlns/aemeta/services/2002">
+                <ns0:strongCipherSuitesOnly>true</ns0:strongCipherSuitesOnly>
+                <ns0:cert isRef="true">/Certs/.folder</ns0:cert>
+            </ns0:ssl>
+            <serverport>%%ApplicationDetails/Slack_Connection/Port%%</serverport>
+            <InputHeaders>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="Accept" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Accept-Charset" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Accept-Encoding" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Content-Type" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Cookie" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Pragma" type="xsd:string" minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </InputHeaders>
+            <OutputHeaders>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="Allow" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Content-Type" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Content-Length" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Content-Encoding" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Date" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Location" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Set-Cookie" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Pragma" type="xsd:string" minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </OutputHeaders>
+        </config>
+        <pd:inputBindings>
+            <RequestActivityInput>
+                <Method>
+                    <xsl:value-of select="&quot;post&quot;"/>
+                </Method>
+                <RequestURI>
+                    <xsl:value-of select="$Start/pfx3:SlackNotification/pfx3:ChannelURI"/>
+                </RequestURI>
+                <PostData>
+                    <xsl:value-of select="$Render-JSON/ns:ActivityOutputClass/jsonString"/>
+                </PostData>
+                <Timeout>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/Slack_Connection/Timeout"/>
+                </Timeout>
+                <Headers>
+                    <Content-Type>
+                        <xsl:value-of select="'application/json'"/>
+                    </Content-Type>
+                </Headers>
+            </RequestActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Render JSON</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Send HTTP Request</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Render JSON</pd:from>
+        <pd:to>Send HTTP Request</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

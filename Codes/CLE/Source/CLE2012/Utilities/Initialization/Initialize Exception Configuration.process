@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://xmlns.example.com/unique/default/namespace/1098735544074" xmlns:ns5="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Severity" xmlns:ns6="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Procedure" xmlns:pfx="http://xmlns.example.com/unique/default/namespace/1097652867820" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns1="http://www.tibco.com/CommonLE/namespace/Custom" xmlns:ns4="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Type" xmlns:ns3="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Category" xmlns:ns0="http://xmlns.example.com/unique/default/namespace/1098907056745" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx3="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Applications" xmlns:pfx2="http://www.tibco.com/CommonLE2/Private/Administration" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xsd:import namespace="http://xmlns.example.com/unique/default/namespace/1097652867820" schemaLocation="/Shared Resources/Schema Definitions/Custom/ACL.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/Private/Administration" schemaLocation="/SharedResources/SchemaDefinitions/Private/Administration/QueryUpdate.xsd"/>
+    <pd:name>Utilities/Initialization/Initialize Exception Configuration.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startX>26</pd:startX>
+    <pd:startY>74</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>741</pd:endX>
+    <pd:endY>347</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1286468390588</pd:targetNamespace>
+    <pd:group name="Loop Apps">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>29</pd:x>
+        <pd:y>163</pd:y>
+        <pd:width>629</pd:width>
+        <pd:height>333</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>inputLoop</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:over>$Get-Application-List/pfx3:Applications/pfx3:Application</pd:over>
+            <pd:iterationElementSlot>Application</pd:iterationElementSlot>
+            <pd:indexSlot>idxApp</pd:indexSlot>
+            <pd:activityOutputName/>
+            <pd:accumulateOutput>false</pd:accumulateOutput>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>Get Category List</pd:to>
+            <pd:lineType>Multiple Bends</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Group</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Multiple Bends</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Get Category List</pd:from>
+            <pd:to>Get Type List</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Get Type List</pd:from>
+            <pd:to>Get Severity List</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Get Severity List</pd:from>
+            <pd:to>Get Procedure List</pd:to>
+            <pd:lineType>Multiple Bends</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Get Procedure List</pd:from>
+            <pd:to>Group</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="Get Category List">
+            <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+            <pd:resourceType>ae.process.subprocess</pd:resourceType>
+            <pd:x>128</pd:x>
+            <pd:y>225</pd:y>
+            <config>
+                <processName>/Administration/DataAccess/Category/Oracle/RetrieveCategoryList.process</processName>
+                <processNameXPath>concat("/Administration/DataAccess/Category/", $_globalVariables/ns2:GlobalVariables/Database/MIG_DatabaseType, "/RetrieveCategoryList.process")</processNameXPath>
+            </config>
+            <pd:inputBindings>
+                <pfx2:ApplicationID>
+                    <xsl:value-of select="$Application/pfx3:Application/pfx3:ApplicationID"/>
+                </pfx2:ApplicationID>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="Get Type List">
+            <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+            <pd:resourceType>ae.process.subprocess</pd:resourceType>
+            <pd:x>241</pd:x>
+            <pd:y>225</pd:y>
+            <config>
+                <processName>/Administration/DataAccess/Type/Oracle/RetrieveTypeList.process</processName>
+                <processNameXPath>concat("/Administration/DataAccess/Type/", $_globalVariables/ns2:GlobalVariables/Database/MIG_DatabaseType, "/RetrieveTypeList.process")</processNameXPath>
+            </config>
+            <pd:inputBindings>
+                <pfx2:ApplicationID>
+                    <xsl:value-of select="$Application/pfx3:Application/pfx3:ApplicationID"/>
+                </pfx2:ApplicationID>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="Get Severity List">
+            <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+            <pd:resourceType>ae.process.subprocess</pd:resourceType>
+            <pd:x>378</pd:x>
+            <pd:y>225</pd:y>
+            <config>
+                <processName>/Administration/DataAccess/Severity/Oracle/RetrieveSeverityList.process</processName>
+                <processNameXPath>concat("/Administration/DataAccess/Severity/", $_globalVariables/ns2:GlobalVariables/Database/MIG_DatabaseType, "/RetrieveSeverityList.process")</processNameXPath>
+            </config>
+            <pd:inputBindings>
+                <pfx2:ApplicationID>
+                    <xsl:value-of select="$Application/pfx3:Application/pfx3:ApplicationID"/>
+                </pfx2:ApplicationID>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="Get Procedure List">
+            <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+            <pd:resourceType>ae.process.subprocess</pd:resourceType>
+            <pd:x>131</pd:x>
+            <pd:y>408</pd:y>
+            <config>
+                <processNameXPath>concat("/Administration/DataAccess/Procedure/", $_globalVariables/ns2:GlobalVariables/Database/MIG_DatabaseType, "/RetrieveProcedureList.process")</processNameXPath>
+                <processName>/Administration/DataAccess/Procedure/Oracle/RetrieveProcedureList.process</processName>
+            </config>
+            <pd:inputBindings>
+                <pfx2:ApplicationID>
+                    <xsl:value-of select="$Application/pfx3:Application/pfx3:ApplicationID"/>
+                </pfx2:ApplicationID>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:group name="Group">
+            <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+            <pd:resourceType>ae.process.group</pd:resourceType>
+            <pd:x>240</pd:x>
+            <pd:y>327</pd:y>
+            <pd:width>204</pd:width>
+            <pd:height>149</pd:height>
+            <pd:collapsedWidth>57</pd:collapsedWidth>
+            <pd:collapsedHeight>70</pd:collapsedHeight>
+            <pd:groupVariables/>
+            <pd:joinToggle>inherit</pd:joinToggle>
+            <config>
+                <pd:groupType>repeat</pd:groupType>
+                <pd:serializable>false</pd:serializable>
+                <pd:indexSlot>i</pd:indexSlot>
+                <pd:activityOutputName/>
+                <pd:repeatCondition>$i&gt;=3</pd:repeatCondition>
+                <pd:accumulateOutput>false</pd:accumulateOutput>
+            </config>
+            <pd:inputBindings/>
+            <pd:expanded>true</pd:expanded>
+            <pd:transition>
+                <pd:from>start</pd:from>
+                <pd:to>Create Configuration</pd:to>
+                <pd:lineType>Default</pd:lineType>
+                <pd:lineColor>-16777216</pd:lineColor>
+                <pd:conditionType>always</pd:conditionType>
+            </pd:transition>
+            <pd:transition>
+                <pd:from>Create Configuration</pd:from>
+                <pd:to>end</pd:to>
+                <pd:lineType>Default</pd:lineType>
+                <pd:lineColor>-16777216</pd:lineColor>
+                <pd:conditionType>always</pd:conditionType>
+            </pd:transition>
+            <pd:activity name="Create Configuration">
+                <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+                <pd:resourceType>ae.process.subprocess</pd:resourceType>
+                <pd:x>333</pd:x>
+                <pd:y>411</pd:y>
+                <config>
+                    <processName>/Administration/DataAccess/ExceptionConfiguration/Oracle/CreateExceptionConfiguration.process</processName>
+                    <processNameXPath>concat("/Administration/DataAccess/ExceptionConfiguration/", $_globalVariables/ns2:GlobalVariables/Database/MIG_DatabaseType, "/CreateExceptionConfiguration.process")</processNameXPath>
+                </config>
+                <pd:inputBindings>
+                    <pfx2:ExceptionConfigurationUpdate>
+                        <pfx2:ApplicationID>
+                            <xsl:value-of select="$Application/pfx3:Application/pfx3:ApplicationID"/>
+                        </pfx2:ApplicationID>
+                        <pfx2:ExceptionCode>
+                            <xsl:value-of select="concat($Application/pfx3:Application/pfx3:ApplicationID, &quot;-EC&quot;, $i)"/>
+                        </pfx2:ExceptionCode>
+                        <pfx2:CategoryID>
+                            <xsl:value-of select="$Get-Category-List/ns3:ExceptionCategories/ns3:ExceptionCategory[$i]/ns3:CategoryID"/>
+                        </pfx2:CategoryID>
+                        <pfx2:TypeID>
+                            <xsl:value-of select="$Get-Type-List/ns4:ExceptionTypes/ns4:ExceptionType[$i]/ns4:TypeID"/>
+                        </pfx2:TypeID>
+                        <pfx2:SeverityID>
+                            <xsl:value-of select="$Get-Severity-List/ns5:ExceptionSeverities/ns5:ExceptionSeverity[$i]/ns5:SeverityID"/>
+                        </pfx2:SeverityID>
+                        <pfx2:ProcedureID>
+                            <xsl:value-of select="$Get-Procedure-List/ns6:ExceptionProcedures/ns6:ExceptionProcedure[$i]/ns6:ProcedureID"/>
+                        </pfx2:ProcedureID>
+                        <pfx2:Description>
+                            <xsl:value-of select="concat($Seed-Exception-Configuraiton/pfx2:ExceptionConfigurationUpdate/pfx2:Description, &quot;for Exception configuration&quot;,  $Application/pfx3:Application/pfx3:ApplicationID, &quot;-EC&quot;, $i)"/>
+                        </pfx2:Description>
+                        <xsl:if test="$Seed-Exception-Configuraiton/pfx2:ExceptionConfigurationUpdate/pfx2:ReplyDestination">
+                            <pfx2:ReplyDestination>
+                                <xsl:value-of select="$Seed-Exception-Configuraiton/pfx2:ExceptionConfigurationUpdate/pfx2:ReplyDestination"/>
+                            </pfx2:ReplyDestination>
+                        </xsl:if>
+                        <pfx2:RoleName>
+                            <xsl:value-of select="$Seed-Exception-Configuraiton/pfx2:ExceptionConfigurationUpdate/pfx2:RoleName"/>
+                        </pfx2:RoleName>
+                        <xsl:if test="$Seed-Exception-Configuraiton/pfx2:ExceptionConfigurationUpdate/pfx2:NotificationChnl">
+                            <pfx2:NotificationChnl>
+                                <xsl:value-of select="$Seed-Exception-Configuraiton/pfx2:ExceptionConfigurationUpdate/pfx2:NotificationChnl"/>
+                            </pfx2:NotificationChnl>
+                        </xsl:if>
+                        <xsl:if test="$Seed-Exception-Configuraiton/pfx2:ExceptionConfigurationUpdate/pfx2:EmailTo">
+                            <pfx2:EmailTo>
+                                <xsl:value-of select="$Seed-Exception-Configuraiton/pfx2:ExceptionConfigurationUpdate/pfx2:EmailTo"/>
+                            </pfx2:EmailTo>
+                        </xsl:if>
+                        <xsl:if test="$Seed-Exception-Configuraiton/pfx2:ExceptionConfigurationUpdate/pfx2:EmailCC">
+                            <pfx2:EmailCC>
+                                <xsl:value-of select="$Seed-Exception-Configuraiton/pfx2:ExceptionConfigurationUpdate/pfx2:EmailCC"/>
+                            </pfx2:EmailCC>
+                        </xsl:if>
+                        <xsl:if test="$Seed-Exception-Configuraiton/pfx2:ExceptionConfigurationUpdate/pfx2:Exceptionttl">
+                            <pfx2:Exceptionttl>
+                                <xsl:value-of select="$Seed-Exception-Configuraiton/pfx2:ExceptionConfigurationUpdate/pfx2:Exceptionttl"/>
+                            </pfx2:Exceptionttl>
+                        </xsl:if>
+                        <xsl:if test="$Seed-Exception-Configuraiton/pfx2:ExceptionConfigurationUpdate/pfx2:Instruction">
+                            <pfx2:Instruction>
+                                <xsl:value-of select="$Seed-Exception-Configuraiton/pfx2:ExceptionConfigurationUpdate/pfx2:Instruction"/>
+                            </pfx2:Instruction>
+                        </xsl:if>
+                    </pfx2:ExceptionConfigurationUpdate>
+                </pd:inputBindings>
+            </pd:activity>
+        </pd:group>
+    </pd:group>
+    <pd:activity name="Get Application List">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>149</pd:x>
+        <pd:y>83</pd:y>
+        <config>
+            <processName>/Utilities/Initialization/GetApplicationList.process</processName>
+            <processNameXPath/>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Seed Exception Configuraiton">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>261</pd:x>
+        <pd:y>84</pd:y>
+        <config>
+            <element ref="pfx2:ExceptionConfigurationUpdate"/>
+        </config>
+        <pd:inputBindings>
+            <pfx2:ExceptionConfigurationUpdate>
+                <pfx2:ApplicationID>
+                    <xsl:value-of select="&quot; &quot;"/>
+                </pfx2:ApplicationID>
+                <pfx2:ExceptionCode>
+                    <xsl:value-of select="&quot;&quot;"/>
+                </pfx2:ExceptionCode>
+                <pfx2:CategoryID>
+                    <xsl:value-of select="0"/>
+                </pfx2:CategoryID>
+                <pfx2:TypeID>
+                    <xsl:value-of select="0"/>
+                </pfx2:TypeID>
+                <pfx2:SeverityID>
+                    <xsl:value-of select="0"/>
+                </pfx2:SeverityID>
+                <pfx2:ProcedureID>
+                    <xsl:value-of select="0"/>
+                </pfx2:ProcedureID>
+                <pfx2:Description>
+                    <xsl:value-of select="&quot;Description &quot;"/>
+                </pfx2:Description>
+                <pfx2:ReplyDestination>
+                    <xsl:value-of select="&quot;CLE2.Reply.Destination.&quot;"/>
+                </pfx2:ReplyDestination>
+                <pfx2:RoleName>
+                    <xsl:value-of select="&quot;Role Name&quot;"/>
+                </pfx2:RoleName>
+                <pfx2:Instruction>
+                    <xsl:value-of select="&quot;manually Resolve&quot;"/>
+                </pfx2:Instruction>
+            </pfx2:ExceptionConfigurationUpdate>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Get Application List</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Get Application List</pd:from>
+        <pd:to>Seed Exception Configuraiton</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Seed Exception Configuraiton</pd:from>
+        <pd:to>Loop Apps</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Loop Apps</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

@@ -1,0 +1,23 @@
+<data jsxnamespace="propsbundle" locales="">
+  <locale>
+    <record jsxid="interface_ApplicationID" jsxtext="IDAplicación"/>
+    <record jsxid="interface_InterfaceID" jsxtext="ID"/>
+    <record jsxid="interface_ID" jsxtext="ID"/>
+    <record jsxid="interface_InterfaceName" jsxtext="Nombre"/>
+    <record jsxid="interface_Name" jsxtext="Nombre"/>
+    <record jsxid="interface_InterfaceType" jsxtext="Tipo"/>
+    <record jsxid="interface_Type" jsxtext="Tipo"/>
+    <record jsxid="interface_dbUse" jsxtext="Usar BD"/>
+    <record jsxid="interface_TransComplexity" jsxtext="Complejidad de Trans"/>
+    <record jsxid="interface_Owner" jsxtext="Dueño"/>
+    <record jsxid="interface_SourceSystem" jsxtext="Sistema Origen"/>
+    <record jsxid="interface_TargetSystem" jsxtext="Sistema Destino"/>
+    <record jsxid="interface_Protocol" jsxtext="Protocolo"/>
+    <record jsxid="interface_Status" jsxtext="Estatus"/>
+    <record jsxid="interface_Description" jsxtext="Descripción"/>
+    <record jsxid="interface_ParentID" jsxtext="ID de Padre"/>
+    <record jsxid="interface_createNewItemCaption" jsxtext="Crear Nueva Interfaz"/>
+    <record jsxid="interface_createInterface" jsxtext="Crear Interfaz"/>
+    <record jsxid="interface_createInterfaceTip" jsxtext="Crear Interfaz"/>
+  </locale>
+</data>

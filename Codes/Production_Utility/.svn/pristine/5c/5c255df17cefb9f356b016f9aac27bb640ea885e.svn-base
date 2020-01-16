@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:ns2="http://www.tibco.com/pe/DeployedVarsType" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:ns1="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/namespaces/tnt/plugins/file" xmlns:ns3="http://www.tibco.com/pe/EngineTypes" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx3="http://www.tibco.com/namespaces/tnt/plugins/file/v2" xmlns:pfx2="http://www.zimmerbiomet.com/xsd/RestartProfile" xmlns:ns12="http://www.tibco.com/CommonLE/Client/Schema/ClientInterface.xsd" xmlns:pfx="http://www.tibco.com/schemas/CentrailzedScheduler/SharedResources/Schema/XSD/Schema.xsd">
+    <xsd:import namespace="http://www.tibco.com/schemas/CentrailzedScheduler/SharedResources/Schema/XSD/Schema.xsd" schemaLocation="/EnterpriseLibrary/SharedResources/Schemas/XSD/ReceiveInterfaceStatusSchema.xsd"/>
+    <xsd:import namespace="http://www.zimmerbiomet.com/xsd/RestartProfile" schemaLocation="/SharedResources/Schemas/XSD/RestartProfile.xsd"/>
+    <pd:name>Services/Processes/Add_MC_App.process</pd:name>
+    <pd:startName>Receive App Request</pd:startName>
+    <pd:startX>0</pd:startX>
+    <pd:startY>0</pd:startY>
+    <pd:returnBindings/>
+    <pd:starter name="Receive App Request">
+        <pd:type>com.tibco.plugin.jms.JMSQueueEventSource</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueEventSource</pd:resourceType>
+        <pd:x>57</pd:x>
+        <pd:y>136</pd:y>
+        <config>
+            <PermittedMessageType>Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+                <destination>%%ApplicationDetails/Queue/AddMCApp%%</destination>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/EnterpriseLibrary/SharedResources/Connections/JMS/TIBCO_JMS_Connection.sharedjmscon</ConnectionReference>
+        </config>
+        <pd:inputBindings/>
+    </pd:starter>
+    <pd:endName>End</pd:endName>
+    <pd:endX>790</pd:endX>
+    <pd:endY>132</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1491181047728</pd:targetNamespace>
+    <pd:activity name="Re Write Property File">
+        <pd:type>com.tibco.plugin.file.FileWriteActivity</pd:type>
+        <pd:resourceType>ae.activities.FileWriteActivity</pd:resourceType>
+        <pd:x>575</pd:x>
+        <pd:y>140</pd:y>
+        <config>
+            <encoding>text</encoding>
+            <compressFile>None</compressFile>
+            <createMissingDirectories>true</createMissingDirectories>
+        </config>
+        <pd:inputBindings>
+            <ns:WriteActivityInputTextClass>
+                <fileName>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ApplicationDetails/InterfaceRestart/PropertyFilePath"/>
+                </fileName>
+                <textContent>
+                    <xsl:value-of select="$Render-Property-File/xmlString"/>
+                </textContent>
+            </ns:WriteActivityInputTextClass>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Read Property File">
+        <pd:type>com.tibco.plugin.file.FileReadActivity</pd:type>
+        <pd:resourceType>ae.activities.FileReadActivity</pd:resourceType>
+        <pd:x>189</pd:x>
+        <pd:y>131</pd:y>
+        <config>
+            <encoding>text</encoding>
+        </config>
+        <pd:inputBindings>
+            <pfx3:ReadActivityInputClass>
+                <fileName>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ApplicationDetails/InterfaceRestart/PropertyFilePath"/>
+                </fileName>
+            </pfx3:ReadActivityInputClass>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Parse Property File">
+        <pd:type>com.tibco.plugin.xml.XMLParseActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLParseActivity</pd:resourceType>
+        <pd:x>355</pd:x>
+        <pd:y>139</pd:y>
+        <config>
+            <inputStyle>text</inputStyle>
+            <xsdVersion>default</xsdVersion>
+            <validateOutput>true</validateOutput>
+            <term ref="pfx2:RestartAppList"/>
+        </config>
+        <pd:inputBindings>
+            <xmlString>
+                <xsl:value-of select="$Read-Property-File/ns:ReadActivityOutputTextClass/fileContent/textContent"/>
+            </xmlString>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Render Property File">
+        <pd:type>com.tibco.plugin.xml.XMLRendererActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLRendererActivity</pd:resourceType>
+        <pd:x>462</pd:x>
+        <pd:y>138</pd:y>
+        <config>
+            <renderAsText>text</renderAsText>
+            <validateInput>false</validateInput>
+            <textEncoding>UTF-8</textEncoding>
+            <renderDefaultPrefix>true</renderDefaultPrefix>
+            <term ref="pfx2:RestartAppList"/>
+        </config>
+        <pd:inputBindings>
+            <pfx2:RestartAppList>
+                <xsl:for-each select="$Parse-Property-File/pfx2:RestartAppList/pfx2:ApplicationName">
+                    <pfx2:ApplicationName>
+                        <xsl:value-of select="."/>
+                    </pfx2:ApplicationName>
+                </xsl:for-each>
+                <pfx2:ApplicationName>
+                    <xsl:value-of select="$Receive-App-Request/ns1:ActivityOutput/Body"/>
+                </pfx2:ApplicationName>
+            </pfx2:RestartAppList>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="CatchUnknownException">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>507</pd:x>
+        <pd:y>230</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="SendCatchUnknownexceptionToCLE">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>659</pd:x>
+        <pd:y>227</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendException.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns12:ExceptionRequest>
+                <ns12:Header>
+                    <ns12:ComponentName>
+                        <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns3:ProcessContext/ProcessId)"/>
+                    </ns12:ComponentName>
+                    <ns12:Hostname>
+                        <xsl:value-of select="BW:getHostName()"/>
+                    </ns12:Hostname>
+                    <ns12:TransactionDomain>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ApplicationDetails/InterfaceRestart/TransactionDomain"/>
+                    </ns12:TransactionDomain>
+                    <ns12:TransactionType>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ApplicationDetails/InterfaceRestart/TransactionType"/>
+                    </ns12:TransactionType>
+                    <ns12:TransactionID>
+                        <xsl:value-of select="tib:format-dateTime('yyyyMMdd-HHmmss', current-dateTime())"/>
+                    </ns12:TransactionID>
+                    <ns12:CorrelationID>
+                        <xsl:value-of select="tib:format-dateTime('yyyyMMdd-HHmmss', current-dateTime())"/>
+                    </ns12:CorrelationID>
+                    <ns12:InterfaceID>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ApplicationDetails/InterfaceRestart/InterfaceId"/>
+                    </ns12:InterfaceID>
+                    <ns12:Message>
+                        <xsl:value-of select="'MC App failed to add in the property file'"/>
+                    </ns12:Message>
+                    <ns12:Transaction>
+                        <xsl:value-of select="$Receive-App-Request/ns1:ActivityOutput/Body"/>
+                    </ns12:Transaction>
+                </ns12:Header>
+                <ns12:ExceptionCode>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ApplicationDetails/ExceptionCodes/TECHNICAL-777"/>
+                </ns12:ExceptionCode>
+                <ns12:StackTrace>
+                    <xsl:value-of select="concat(&quot;Error Message: &quot;, $_error/ns3:ErrorReport/Msg, &quot;  BW MsgCode: &quot;, &#xA;$_error/ns3:ErrorReport/MsgCode, &quot;&#xA;&quot;,&#xA;&quot;Stack Trace: &quot;, $_error/ns3:ErrorReport/StackTrace, &quot;&#xA;&quot;,&#xA;&quot; Process Stack: &quot;, $_error/ns3:ErrorReport/ProcessStack)"/>
+                </ns12:StackTrace>
+            </ns12:ExceptionRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="LogException">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>793</pd:x>
+        <pd:y>226</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendLog.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns12:LogRequest>
+                <ns12:Header>
+                    <ns12:ComponentName>
+                        <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns3:ProcessContext/ProcessId)"/>
+                    </ns12:ComponentName>
+                    <ns12:Hostname>
+                        <xsl:value-of select="BW:getHostName()"/>
+                    </ns12:Hostname>
+                    <ns12:TransactionDomain>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ApplicationDetails/InterfaceRestart/TransactionDomain"/>
+                    </ns12:TransactionDomain>
+                    <ns12:TransactionType>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ApplicationDetails/InterfaceRestart/TransactionType"/>
+                    </ns12:TransactionType>
+                    <ns12:TransactionID>
+                        <xsl:value-of select="tib:format-dateTime('yyyyMMdd-HHmmss', current-dateTime())"/>
+                    </ns12:TransactionID>
+                    <ns12:CorrelationID>
+                        <xsl:value-of select="tib:format-dateTime('yyyyMMdd-HHmmss', current-dateTime())"/>
+                    </ns12:CorrelationID>
+                    <ns12:InterfaceID>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ApplicationDetails/InterfaceRestart/InterfaceId"/>
+                    </ns12:InterfaceID>
+                    <ns12:Message>
+                        <xsl:value-of select="'MC App failed to add in the property file'"/>
+                    </ns12:Message>
+                </ns12:Header>
+                <ns12:Status>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/CLE/Status/ERROR"/>
+                </ns12:Status>
+                <ns12:Audit>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ApplicationDetails/AuditFlag"/>
+                </ns12:Audit>
+                <ns12:LogLevel>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/CLE/Environment/CommonLE/LOGGING_LEVEL_NUM_ERROR"/>
+                </ns12:LogLevel>
+            </ns12:LogRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="EndLog">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>686</pd:x>
+        <pd:y>132</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendLog.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns12:LogRequest>
+                <ns12:Header>
+                    <ns12:ComponentName>
+                        <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns3:ProcessContext/ProcessId)"/>
+                    </ns12:ComponentName>
+                    <ns12:Hostname>
+                        <xsl:value-of select="BW:getHostName()"/>
+                    </ns12:Hostname>
+                    <ns12:TransactionDomain>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ApplicationDetails/InterfaceRestart/TransactionDomain"/>
+                    </ns12:TransactionDomain>
+                    <ns12:TransactionType>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ApplicationDetails/InterfaceRestart/TransactionType"/>
+                    </ns12:TransactionType>
+                    <ns12:TransactionID>
+                        <xsl:value-of select="tib:format-dateTime('yyyyMMdd-HHmmss',current-dateTime())"/>
+                    </ns12:TransactionID>
+                    <ns12:CorrelationID>
+                        <xsl:value-of select="tib:format-dateTime('yyyyMMdd-HHmmss',current-dateTime())"/>
+                    </ns12:CorrelationID>
+                    <ns12:InterfaceID>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ApplicationDetails/InterfaceRestart/InterfaceId"/>
+                    </ns12:InterfaceID>
+                    <ns12:Message>
+                        <xsl:value-of select="'MC App added in the property file'"/>
+                    </ns12:Message>
+                    <ns12:Transaction>
+                        <xsl:value-of select="$Receive-App-Request/ns1:ActivityOutput/Body"/>
+                    </ns12:Transaction>
+                </ns12:Header>
+                <ns12:Status>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/CLE/Status/COMPLETED"/>
+                </ns12:Status>
+                <ns12:Audit>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ApplicationDetails/AuditFlag"/>
+                </ns12:Audit>
+                <ns12:LogLevel>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/CLE/Environment/CommonLE/LOGGING_LEVEL_NUM_INFO"/>
+                </ns12:LogLevel>
+            </ns12:LogRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Null">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>324</pd:x>
+        <pd:y>43</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Receive App Request</pd:from>
+        <pd:to>Read Property File</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Re Write Property File</pd:from>
+        <pd:to>EndLog</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse Property File</pd:from>
+        <pd:to>Render Property File</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Render Property File</pd:from>
+        <pd:to>Re Write Property File</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Read Property File</pd:from>
+        <pd:to>Parse Property File</pd:to>
+        <pd:xpathDescription>Already contains</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>not(contains($Read-Property-File/ns:ReadActivityOutputTextClass/fileContent/textContent, $Receive-App-Request/ns1:ActivityOutput/Body))</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>CatchUnknownException</pd:from>
+        <pd:to>SendCatchUnknownexceptionToCLE</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SendCatchUnknownexceptionToCLE</pd:from>
+        <pd:to>LogException</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>LogException</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>EndLog</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Read Property File</pd:from>
+        <pd:to>Null</pd:to>
+        <pd:lineType>Multiple Bends</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:label>
+        <pd:name>Label</pd:name>
+        <pd:description>This process adds the new interface name in the property file </pd:description>
+        <pd:x>276</pd:x>
+        <pd:y>315</pd:y>
+        <pd:width>407</pd:width>
+        <pd:height>48</pd:height>
+        <pd:fontColor>-16777216</pd:fontColor>
+        <pd:color>-13312</pd:color>
+        <pd:type>solid</pd:type>
+        <pd:thickness>0</pd:thickness>
+        <pd:fade>true</pd:fade>
+    </pd:label>
+</pd:ProcessDefinition>

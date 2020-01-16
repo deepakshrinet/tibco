@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/namespaces/tnt/plugins/file" xmlns:ns1="http://www.tibco.com/pe/EngineTypes" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/CommonLE2/namespace/Public/Exception/ExceptionRequest.xsd" xmlns:ns3="www.tibco.com/plugin/Sleep" xmlns:ns0="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx="http://www.tibco.com/CommonLE2/namespace/Public/Common/RequestHeader.xsd">
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Exception/ExceptionRequest.xsd" schemaLocation="/SharedResources/SchemaDefinitions/Public/Exception/ExceptionRequest.xsd"/>
+    <pd:name>Test/Core Services/Exception Handling/Send Exception Requests with AltKey.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="ExceptionEntries" type="xsd:int"/>
+                    <xsd:element name="Sleep_ms" type="xsd:int"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>27</pd:startX>
+    <pd:startY>77</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>547</pd:endX>
+    <pd:endY>78</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1297436378296</pd:targetNamespace>
+    <pd:activity name="Seed Data">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>135</pd:x>
+        <pd:y>75</pd:y>
+        <config>
+            <element>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="ApplicationIDs" minOccurs="0" maxOccurs="unbounded">
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element name="ApplicationID" type="xsd:string"/>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                            <xsd:element name="ComponentNames" minOccurs="0" maxOccurs="unbounded">
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element name="ComponentName" type="xsd:string"/>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                            <xsd:element name="ExceptionCodes" minOccurs="0" maxOccurs="unbounded">
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element name="ExceptionCode" type="xsd:string"/>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                            <xsd:element name="AltKeys" minOccurs="0" maxOccurs="unbounded">
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element name="AltKeyName" type="xsd:string"/>
+                                        <xsd:element name="AltKeyValue" type="xsd:string" minOccurs="0"/>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </element>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <ApplicationIDs>
+                    <ApplicationID>
+                        <xsl:value-of select="&quot;System&quot;"/>
+                    </ApplicationID>
+                </ApplicationIDs>
+                <ComponentNames>
+                    <ComponentName>
+                        <xsl:value-of select="&quot;COMPONENT1&quot;"/>
+                    </ComponentName>
+                </ComponentNames>
+                <ComponentNames>
+                    <ComponentName>
+                        <xsl:value-of select="&quot;COMPONENT2&quot;"/>
+                    </ComponentName>
+                </ComponentNames>
+                <ExceptionCodes>
+                    <ExceptionCode>
+                        <xsl:value-of select="&quot;CLEUSAGE-ERROR&quot;"/>
+                    </ExceptionCode>
+                </ExceptionCodes>
+                <AltKeys>
+                    <AltKeyName>
+                        <xsl:value-of select="&quot;LASTNAME&quot;"/>
+                    </AltKeyName>
+                    <AltKeyValue>
+                        <xsl:value-of select="&quot;YADAL&quot;"/>
+                    </AltKeyValue>
+                </AltKeys>
+                <AltKeys>
+                    <AltKeyName>
+                        <xsl:value-of select="&quot;LASTNAME&quot;"/>
+                    </AltKeyName>
+                    <AltKeyValue>
+                        <xsl:value-of select="&quot;CHO&quot;"/>
+                    </AltKeyValue>
+                </AltKeys>
+                <AltKeys>
+                    <AltKeyName>
+                        <xsl:value-of select="&quot;LASTNAME&quot;"/>
+                    </AltKeyName>
+                    <AltKeyValue>
+                        <xsl:value-of select="&quot;GOPI&quot;"/>
+                    </AltKeyValue>
+                </AltKeys>
+                <AltKeys>
+                    <AltKeyName>
+                        <xsl:value-of select="&quot;FIRSTNAME&quot;"/>
+                    </AltKeyName>
+                    <AltKeyValue>
+                        <xsl:value-of select="&quot;PON&quot;"/>
+                    </AltKeyValue>
+                </AltKeys>
+                <AltKeys>
+                    <AltKeyName>
+                        <xsl:value-of select="&quot;FIRSTNAME&quot;"/>
+                    </AltKeyName>
+                    <AltKeyValue>
+                        <xsl:value-of select="&quot;SAR&quot;"/>
+                    </AltKeyValue>
+                </AltKeys>
+                <AltKeys>
+                    <AltKeyName>
+                        <xsl:value-of select="&quot;FIRSTNAME&quot;"/>
+                    </AltKeyName>
+                    <AltKeyValue>
+                        <xsl:value-of select="&quot;RAMA&quot;"/>
+                    </AltKeyValue>
+                </AltKeys>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:group name="Group">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>204</pd:x>
+        <pd:y>1</pd:y>
+        <pd:width>270</pd:width>
+        <pd:height>140</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>repeat</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:indexSlot>Index</pd:indexSlot>
+            <pd:activityOutputName/>
+            <pd:repeatCondition>$Index&gt;=$Start/root/ExceptionEntries</pd:repeatCondition>
+            <pd:accumulateOutput>false</pd:accumulateOutput>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>JMS Queue Sender</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Sleep</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>JMS Queue Sender</pd:from>
+            <pd:to>Sleep</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="JMS Queue Sender">
+            <pd:type>com.tibco.plugin.jms.JMSQueueSendActivity</pd:type>
+            <pd:resourceType>ae.activities.JMSQueueSendActivity</pd:resourceType>
+            <pd:x>290</pd:x>
+            <pd:y>80</pd:y>
+            <config>
+                <PermittedMessageType>XML Text</PermittedMessageType>
+                <SessionAttributes>
+                    <transacted>false</transacted>
+                    <acknowledgeMode>1</acknowledgeMode>
+                    <maxSessions>1</maxSessions>
+                    <destination>%%JMSDestinationNames/MIG_ExceptionQueue%%</destination>
+                </SessionAttributes>
+                <ConfigurableHeaders>
+                    <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                    <JMSExpiration>0</JMSExpiration>
+                    <JMSPriority>4</JMSPriority>
+                </ConfigurableHeaders>
+                <ConnectionReference>/SharedResources/Connections/JMS/JMS Exception.sharedjmscon</ConnectionReference>
+                <InDataxsdString ref="ns:ExceptionRequest"/>
+            </config>
+            <pd:inputBindings>
+                <ns0:ActivityInput>
+                    <Body>
+                        <ns:ExceptionRequest>
+                            <pfx:Header>
+                                <pfx:ApplicationID>
+                                    <xsl:value-of select="$Seed-Data/root/ApplicationIDs[(tib:timestamp() mod count($Seed-Data/root/ApplicationIDs))+1]/ApplicationID"/>
+                                </pfx:ApplicationID>
+                                <xsl:if test="$Seed-Data/root/ComponentNames[(tib:timestamp() mod count($Seed-Data/root/ComponentNames))+1]/ComponentName">
+                                    <pfx:ComponentName>
+                                        <xsl:value-of select="$Seed-Data/root/ComponentNames[(tib:timestamp() mod count($Seed-Data/root/ComponentNames))+1]/ComponentName"/>
+                                    </pfx:ComponentName>
+                                </xsl:if>
+                                <pfx:Timestamp>
+                                    <xsl:value-of select="current-dateTime()"/>
+                                </pfx:Timestamp>
+                                <xsl:for-each-group select="$Seed-Data/root/AltKeys" group-by="AltKeyName">
+                                    <pfx:AltKey>
+                                        <pfx:AltKeyName>
+                                            <xsl:value-of select="AltKeyName"/>
+                                        </pfx:AltKeyName>
+                                        <xsl:if test="current-group()[(tib:timestamp() mod count(current-group()))+1]/AltKeyValue">
+                                            <pfx:AltKeyValue>
+                                                <xsl:value-of select="current-group()[(tib:timestamp() mod count(current-group()))+1]/AltKeyValue"/>
+                                            </pfx:AltKeyValue>
+                                        </xsl:if>
+                                    </pfx:AltKey>
+                                </xsl:for-each-group>
+                            </pfx:Header>
+                            <ExceptionCode>
+                                <xsl:value-of select="$Seed-Data/root/ExceptionCodes[(tib:timestamp() mod count($Seed-Data/root/ExceptionCodes))+1]/ExceptionCode"/>
+                            </ExceptionCode>
+                        </ns:ExceptionRequest>
+                    </Body>
+                </ns0:ActivityInput>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="Sleep">
+            <pd:type>com.tibco.plugin.timer.SleepActivity</pd:type>
+            <pd:resourceType>ae.activities.sleep</pd:resourceType>
+            <pd:x>394</pd:x>
+            <pd:y>81</pd:y>
+            <config/>
+            <pd:inputBindings>
+                <ns3:SleepInputSchema>
+                    <IntervalInMillisec>
+                        <xsl:value-of select="$Start/root/Sleep_ms"/>
+                    </IntervalInMillisec>
+                </ns3:SleepInputSchema>
+            </pd:inputBindings>
+        </pd:activity>
+    </pd:group>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Seed Data</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Seed Data</pd:from>
+        <pd:to>Group</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

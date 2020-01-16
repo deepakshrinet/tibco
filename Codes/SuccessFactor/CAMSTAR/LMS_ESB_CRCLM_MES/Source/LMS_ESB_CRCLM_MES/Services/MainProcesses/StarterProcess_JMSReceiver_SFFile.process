@@ -1,0 +1,686 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:ns9="http://www.openapplications.org/oagis/10" xmlns:ns12="http://www.tibco.com/CommonLE/Client/Schema/ClientInterface.xsd" xmlns:ns5="http://www.tibco.com/namespaces/tnt/plugins/file/v2" xmlns:ns6="http://www.zimmer.com/v1_0/RequestBaseType" xmlns:ns10="pfx" xmlns:ns7="http://www.zimmer.com/v1_0/AuditTrackBaseType" xmlns:pfx="http://www.tibco.com/schemas/LMS_ESB_CRCLM_MES/SharedResources/Schemas/XSD/Curriculum.xsd" xmlns:ns8="http://www.zimmer.com/v1_0/ServiceBaseTypes" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/namespaces/tnt/plugins/file" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns4="http://www.tibco.com/pe/WriteToLogActivitySchema" xmlns:ns3="http://www.tibco.com/pe/EngineTypes" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx2="http://www.zimmer.com/v1_0/LMSGroup/SyncPersonel.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xsd:import namespace="http://www.zimmer.com/v1_0/LMSGroup/SyncPersonel.xsd" schemaLocation="/SharedResources/Schemas/XSD/SyncPersonnelCDM.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/schemas/LMS_ESB_CRCLM_MES/SharedResources/Schemas/XSD/Curriculum.xsd" schemaLocation="/UnitTesting/Curriculum.xsd"/>
+    <pd:name>Services/MainProcesses/StarterProcess_JMSReceiver_SFFile.process</pd:name>
+    <pd:startName>JMS_Receiver_SFFIle</pd:startName>
+    <pd:startX>0</pd:startX>
+    <pd:startY>0</pd:startY>
+    <pd:returnBindings/>
+    <pd:starter name="JMS_Receiver_SFFIle">
+        <pd:type>com.tibco.plugin.jms.JMSQueueEventSource</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueEventSource</pd:resourceType>
+        <pd:x>82</pd:x>
+        <pd:y>102</pd:y>
+        <config>
+            <PermittedMessageType>Text</PermittedMessageType>
+            <SessionAttributes>%%Queues/HospitalFile_TriggerQueue%%1%%EnvVariables/TIBCO_JMS_Connection/ExpirationTime%%<acknowledgeMode>1</acknowledgeMode>
+                <destination>%%ApplicationDetails/LMS_ESB_CRCLM_MES/Queues/SFFile_TriggerQueue%%</destination>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/EnterpriseLibrary/SharedResources/Connections/JMS/TIBCO_JMS_Connection.sharedjmscon</ConnectionReference>
+        </config>
+        <pd:inputBindings/>
+    </pd:starter>
+    <pd:endName>End</pd:endName>
+    <pd:endX>1132</pd:endX>
+    <pd:endY>264</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1465824610724</pd:targetNamespace>
+    <pd:group name="Each Record in File">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>637</pd:x>
+        <pd:y>3</pd:y>
+        <pd:width>378</pd:width>
+        <pd:height>190</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>inputLoop</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:over>$Get_SF_File/Root/root</pd:over>
+            <pd:iterationElementSlot>Record</pd:iterationElementSlot>
+            <pd:indexSlot>i</pd:indexSlot>
+            <pd:activityOutputName/>
+            <pd:accumulateOutput>false</pd:accumulateOutput>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>Map CDM</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>PostMSGToESB</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Map CDM</pd:from>
+            <pd:to>PostMSGToESB</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="Map CDM">
+            <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+            <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+            <pd:x>737</pd:x>
+            <pd:y>81</pd:y>
+            <config>
+                <element ref="pfx2:LMSGroup"/>
+            </config>
+            <pd:inputBindings>
+                <pfx2:LMSGroup>
+                    <pfx2:SvcHdr>
+                        <ns6:RequestID>
+                            <xsl:value-of select="concat($Record/root/SAPID,&quot;-&quot;,$Record/root/CURRICULUMID,&quot;-&quot;,concat(tib:format-date('yyyyMMdd', current-date()),'-',tib:format-dateTime('hhmmss', current-dateTime())))"/>
+                        </ns6:RequestID>
+                        <ns6:Sender>
+                            <ns8:ServiceName>
+                                <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/LMS_ESB_CRCLM_MES/INPUT_DATA_CDM/Sender_ServiceName"/>
+                            </ns8:ServiceName>
+                            <ns8:ServiceType>
+                                <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/LMS_ESB_CRCLM_MES/INPUT_DATA_CDM/Sender_ServiceType"/>
+                            </ns8:ServiceType>
+                        </ns6:Sender>
+                        <ns6:Target>
+                            <ns8:ServiceName>
+                                <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/LMS_ESB_CRCLM_MES/INPUT_DATA_CDM/Target_ServiceName"/>
+                            </ns8:ServiceName>
+                            <ns8:ServiceType>
+                                <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/LMS_ESB_CRCLM_MES/INPUT_DATA_CDM/Target_ServiceType"/>
+                            </ns8:ServiceType>
+                        </ns6:Target>
+                        <ns6:clientStartTime>
+                            <xsl:value-of select="current-dateTime()"/>
+                        </ns6:clientStartTime>
+                        <ns6:auditTrack>
+                            <ns7:auditTransID>
+                                <xsl:value-of select="concat($Record/root/SAPID,&quot;-&quot;,$Record/root/CURRICULUMID,&quot;-&quot;,concat(tib:format-date('yyyyMMdd', current-date()),'-',tib:format-dateTime('hhmmss', current-dateTime())))"/>
+                            </ns7:auditTransID>
+                            <ns7:auditCorrelationID>
+                                <xsl:value-of select="$Record/root/CURRICULUMID"/>
+                            </ns7:auditCorrelationID>
+                            <xsl:if test="$Record/root/FileName">
+                                <ns7:FileName>
+                                    <xsl:value-of select="$Record/root/FileName"/>
+                                </ns7:FileName>
+                            </xsl:if>
+                        </ns6:auditTrack>
+                        <ns6:customNVPList>
+                            <ns8:NVPitem>
+                                <ns8:NVPname>
+                                    <xsl:value-of select="&quot;TIMESTAMP&quot;"/>
+                                </ns8:NVPname>
+                                <ns8:NVPvalue>
+                                    <xsl:value-of select="$GetTransactionTime/root/StartTime"/>
+                                </ns8:NVPvalue>
+                            </ns8:NVPitem>
+                        </ns6:customNVPList>
+                    </pfx2:SvcHdr>
+                    <pfx2:SyncPersonnel>
+                        <xsl:attribute name="releaseID">
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/LMS_ESB_CRCLM_MES/OAGIS_CDM/Release"/>
+                        </xsl:attribute>
+                        <xsl:attribute name="versionID">
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/LMS_ESB_CRCLM_MES/OAGIS_CDM/Version"/>
+                        </xsl:attribute>
+                        <xsl:attribute name="systemEnvironmentCode">
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/Environment"/>
+                        </xsl:attribute>
+                        <ns9:ApplicationArea>
+                            <ns9:CreationDateTime>
+                                <xsl:value-of select="current-dateTime()"/>
+                            </ns9:CreationDateTime>
+                            <ns9:ScenarioID>
+                                <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/LMS_ESB_CRCLM_MES/INPUT_DATA_CDM/SCENARIO_ID"/>
+                            </ns9:ScenarioID>
+                        </ns9:ApplicationArea>
+                        <ns9:DataArea>
+                            <ns9:Sync/>
+                            <ns9:Personnel>
+                                <xsl:attribute name="typeCode">
+                                    <xsl:value-of select="&quot;EmployeeCurriculumRecords&quot;"/>
+                                </xsl:attribute>
+                                <ns9:ID>
+                                    <xsl:attribute name="typeCode">
+                                        <xsl:value-of select="'SAPID'"/>
+                                    </xsl:attribute>
+                                    <xsl:choose>
+                                        <xsl:when test="exists(tib:trim($Record/root/SAPID))">
+                                            <xsl:value-of select="tib:trim($Record/root/SAPID)"/>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </ns9:ID>
+                                <ns9:IDSet>
+                                    <ns9:ID>
+                                        <xsl:attribute name="typeCode">
+                                            <xsl:value-of select="&quot;USERID&quot;"/>
+                                        </xsl:attribute>
+                                        <xsl:choose>
+                                            <xsl:when test="exists(tib:trim($Record/root/USERID))">
+                                                <xsl:value-of select="tib:trim($Record/root/USERID)"/>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </ns9:ID>
+                                </ns9:IDSet>
+                                <ns9:PersonName/>
+                                <ns9:Address>
+                                    <ns9:CityName>
+                                        <xsl:choose>
+                                            <xsl:when test="exists(tib:trim($Record/root/PERSONNELAREACODE))">
+                                                <xsl:value-of select="tib:trim($Record/root/PERSONNELAREACODE)"/>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </ns9:CityName>
+                                </ns9:Address>
+                                <ns9:ProfessionalQualification>
+                                    <xsl:attribute name="typeCode">
+                                        <xsl:value-of select="'CURRICULUMDETAILS'"/>
+                                    </xsl:attribute>
+                                    <ns9:ID>
+                                        <xsl:attribute name="typeCode">
+                                            <xsl:value-of select="'CuriculumID'"/>
+                                        </xsl:attribute>
+                                        <xsl:choose>
+                                            <xsl:when test="exists(tib:trim($Record/root/CURRICULUMID))">
+                                                <xsl:value-of select="tib:trim($Record/root/CURRICULUMID)"/>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </ns9:ID>
+                                    <ns9:Description>
+                                        <xsl:attribute name="typeCode">
+                                            <xsl:value-of select="'CurriculumDescription'"/>
+                                        </xsl:attribute>
+                                        <xsl:choose>
+                                            <xsl:when test="exists(tib:trim($Record/root/CURRICULUMTITLE))">
+                                                <xsl:value-of select="tib:trim($Record/root/CURRICULUMTITLE)"/>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </ns9:Description>
+                                    <ns9:Note>
+                                        <xsl:attribute name="status">
+                                            <xsl:value-of select="'CurriculumCompleted'"/>
+                                        </xsl:attribute>
+                                        <xsl:choose>
+                                            <xsl:when test="exists(tib:trim($Record/root/COMPLETED))">
+                                                <xsl:value-of select="tib:trim($Record/root/COMPLETED)"/>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </ns9:Note>
+                                </ns9:ProfessionalQualification>
+                            </ns9:Personnel>
+                        </ns9:DataArea>
+                    </pfx2:SyncPersonnel>
+                </pfx2:LMSGroup>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="PostMSGToESB">
+            <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+            <pd:resourceType>ae.process.subprocess</pd:resourceType>
+            <pd:x>900</pd:x>
+            <pd:y>83</pd:y>
+            <config>
+                <processName>/Services/SubProcesses/PostMSGToESB.process</processName>
+            </config>
+            <pd:inputBindings>
+                <Msg>
+                    <MsgString>
+                        <xsl:value-of select="tib:render-xml($Map-CDM/pfx2:LMSGroup)"/>
+                    </MsgString>
+                    <MsgDestination>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/LMS_ESB_CRCLM_MES/Topic/EMPLOYEERECORDS_SUB"/>
+                    </MsgDestination>
+                    <xsl:if test="$Map-CDM/pfx2:LMSGroup/pfx2:SvcHdr/ns6:auditTrack/ns7:auditTransID">
+                        <CorellationId>
+                            <xsl:value-of select="$Map-CDM/pfx2:LMSGroup/pfx2:SvcHdr/ns6:auditTrack/ns7:auditTransID"/>
+                        </CorellationId>
+                    </xsl:if>
+                    <LogMsg>
+                        <xsl:value-of select="&quot;CURRICULUMRECORDS CDM is sent&quot;"/>
+                    </LogMsg>
+                    <Category>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/LMS_ESB_CRCLM_MES/Category"/>
+                    </Category>
+                    <Status>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/Status/IN-PROGRESS"/>
+                    </Status>
+                    <Plant>
+                        <xsl:value-of select="substring-before($Map-CDM/pfx2:LMSGroup/pfx2:SyncPersonnel/ns9:DataArea/ns9:Personnel[1]/ns9:Address[1]/ns9:CityName,'_')"/>
+                    </Plant>
+                </Msg>
+            </pd:inputBindings>
+        </pd:activity>
+    </pd:group>
+    <pd:activity name="Archive_File">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>827</pd:x>
+        <pd:y>267</pd:y>
+        <config>
+            <processName>/Services/SubProcesses/Archive_File.process</processName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <ArchiveFolder>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/SFFILE/ArchiveDir"/>
+                </ArchiveFolder>
+                <xsl:for-each select="$Get_SF_File/Root/FileNames">
+                    <FileNames>
+                        <xsl:value-of select="."/>
+                    </FileNames>
+                </xsl:for-each>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch Known Exception">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>1352</pd:x>
+        <pd:y>400</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>false</catchAll>
+            <fault>localname=ExceptionRequest namespace=http://www.tibco.com/CommonLE/Client/Schema/ClientInterface.xsd</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Catch UnKnown Exception">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>1352</pd:x>
+        <pd:y>131</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="CheckFileName">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>543</pd:x>
+        <pd:y>272</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="EndLog">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>1009</pd:x>
+        <pd:y>261</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendLog.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns12:LogRequest>
+                <ns12:Header>
+                    <ns12:Message>
+                        <xsl:value-of select="'SuccessFactor File Load: FINISHED'"/>
+                    </ns12:Message>
+                    <ns12:Transaction>
+                        <xsl:value-of select="tib:render-xml($JMS_Receiver_SFFIle/ns:ActivityOutput/Body)"/>
+                    </ns12:Transaction>
+                </ns12:Header>
+                <ns12:TimeDuration>
+                    <xsl:value-of select="tib:timestamp() - $GetTransactionTime/root/StartTime"/>
+                </ns12:TimeDuration>
+                <ns12:Category>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/LMS_ESB_CRCLM_MES/Category"/>
+                </ns12:Category>
+                <ns12:Status>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/Status/COMPLETED"/>
+                </ns12:Status>
+                <ns12:Audit>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/AuditFlag"/>
+                </ns12:Audit>
+                <ns12:LogLevel>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/Environment/CommonLE/LOGGING_LEVEL_NUM_INFO"/>
+                </ns12:LogLevel>
+            </ns12:LogRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Get_SF_File">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>539</pd:x>
+        <pd:y>102</pd:y>
+        <config>
+            <processName>/Services/SubProcesses/Get_SF_File.process</processName>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="GetTransactionTime">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>309</pd:x>
+        <pd:y>102</pd:y>
+        <config>
+            <element>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="TransactionId" type="xsd:string"/>
+                            <xsd:element name="StartTime" type="xsd:string"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </element>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <TransactionId>
+                    <xsl:value-of select="tib:format-dateTime('yyyyMMDD-HHmmss',current-dateTime())"/>
+                </TransactionId>
+                <StartTime>
+                    <xsl:value-of select="tib:timestamp()"/>
+                </StartTime>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="LogException">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>1237</pd:x>
+        <pd:y>261</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendLog.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns12:LogRequest>
+                <ns12:Header>
+                    <xsl:if test="$Get_SF_File/Root/root[1]/FileName">
+                        <ns12:Filename>
+                            <xsl:value-of select="$Get_SF_File/Root/root[1]/FileName"/>
+                        </ns12:Filename>
+                    </xsl:if>
+                    <ns12:Message>
+                        <xsl:value-of select="'Error in processing SF file.'"/>
+                    </ns12:Message>
+                    <ns12:Transaction>
+                        <xsl:value-of select="concat(&#xA;'REQUEST:',&quot;&#xD;&#xA;&quot;,tib:render-xml($Get_SF_File/Root/root[$i]),&quot;&#xD;&#xA;&quot;,&#xA;'RESPONSE:',&quot;&#xD;&#xA;&quot;,tib:render-xml($_error_PostMSGToESB/ns12:ExceptionRequest))"/>
+                    </ns12:Transaction>
+                </ns12:Header>
+                <ns12:TimeDuration>
+                    <xsl:value-of select="tib:timestamp() - $GetTransactionTime/root/StartTime"/>
+                </ns12:TimeDuration>
+                <ns12:Category>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/LMS_ESB_CRCLM_MES/Category"/>
+                </ns12:Category>
+                <ns12:Status>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/Status/ERROR"/>
+                </ns12:Status>
+                <ns12:Audit>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/AuditFlag"/>
+                </ns12:Audit>
+                <ns12:LogLevel>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/Environment/CommonLE/LOGGING_LEVEL_NUM_DEBUG"/>
+                </ns12:LogLevel>
+            </ns12:LogRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="NoFileExist">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>547</pd:x>
+        <pd:y>388</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Send-Catch Known-Exception-ToCLE">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>1353</pd:x>
+        <pd:y>267</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendException.process</processName>
+        </config>
+        <pd:inputBindings>
+            <xsl:copy-of select="$Catch-Known-Exception/ns12:ExceptionRequest"/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SendUnknownExceptionsTOCLE">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>1231</pd:x>
+        <pd:y>125</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendException.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns12:ExceptionRequest>
+                <ns12:Header>
+                    <ns12:ComponentName>
+                        <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns3:ProcessContext/ProcessId)"/>
+                    </ns12:ComponentName>
+                    <ns12:Hostname>
+                        <xsl:value-of select="BW:getHostName()"/>
+                    </ns12:Hostname>
+                    <ns12:TransactionDomain>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/LMS_ESB_CRCLM_MES/TransactionDomain"/>
+                    </ns12:TransactionDomain>
+                    <ns12:TransactionType>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/LMS_ESB_CRCLM_MES/TransactionType"/>
+                    </ns12:TransactionType>
+                    <ns12:TransactionID>
+                        <xsl:value-of select="if($GetTransactionTime/root/TransactionId !='')&#xA; then&#xA;$GetTransactionTime/root/TransactionId&#xA;else&#xA;tib:format-dateTime('yyyyMMDD-HHmmss',current-dateTime())"/>
+                    </ns12:TransactionID>
+                    <ns12:CorrelationID>
+                        <xsl:value-of select="tib:format-date('yyyyMMDD',current-date())"/>
+                    </ns12:CorrelationID>
+                    <ns12:InterfaceID>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/LMS_ESB_CRCLM_MES/InterfaceID"/>
+                    </ns12:InterfaceID>
+                    <ns12:Message>
+                        <xsl:value-of select="'Error in processing SF file.'"/>
+                    </ns12:Message>
+                    <ns12:Transaction>
+                        <xsl:value-of select="concat(&#xA;'REQUEST:',&quot;&#xD;&#xA;&quot;,tib:render-xml($Get_SF_File/Root/root[$i]),&quot;&#xD;&#xA;&quot;,&#xA;'RESPONSE:',&quot;&#xD;&#xA;&quot;,tib:render-xml($_error_PostMSGToESB/ns12:ExceptionRequest))"/>
+                    </ns12:Transaction>
+                </ns12:Header>
+                <ns12:ExceptionCode>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/ExceptionCodes/TECHNICAL-777"/>
+                </ns12:ExceptionCode>
+                <ns12:StackTrace>
+                    <xsl:value-of select="concat(&quot;Exception Code :&quot; ,    $_error/ns3:ErrorReport/MsgCode  , &quot; Exception Message : &quot;   ,  $_error/ns3:ErrorReport/Msg , &quot; Stack Trace : &quot;  , $_error/ns3:ErrorReport/StackTrace )"/>
+                </ns12:StackTrace>
+            </ns12:ExceptionRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SetCLEHeader">
+        <pd:type>com.tibco.pe.core.SetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.setSharedVariable</pd:resourceType>
+        <pd:x>196</pd:x>
+        <pd:y>101</pd:y>
+        <config>
+            <variableConfig>/CLE/Interface/SharedVariables/CLEHeader.jobsharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings>
+            <ns12:Header>
+                <ns12:ComponentName>
+                    <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns3:ProcessContext/ProcessId)"/>
+                </ns12:ComponentName>
+                <ns12:Hostname>
+                    <xsl:value-of select="BW:getHostName()"/>
+                </ns12:Hostname>
+                <ns12:TransactionDomain>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/LMS_ESB_CRCLM_MES/TransactionDomain"/>
+                </ns12:TransactionDomain>
+                <ns12:TransactionType>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/LMS_ESB_CRCLM_MES/TransactionType"/>
+                </ns12:TransactionType>
+                <ns12:TransactionID>
+                    <xsl:value-of select="tib:format-dateTime('yyyyMMdd-HHmmss', current-dateTime())"/>
+                </ns12:TransactionID>
+                <ns12:CorrelationID>
+                    <xsl:value-of select="tib:format-date('yyyyMMdd', current-date())"/>
+                </ns12:CorrelationID>
+                <ns12:InterfaceID>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/LMS_ESB_CRCLM_MES/InterfaceID"/>
+                </ns12:InterfaceID>
+            </ns12:Header>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Catch UnKnown Exception</pd:from>
+        <pd:to>SendUnknownExceptionsTOCLE</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SendUnknownExceptionsTOCLE</pd:from>
+        <pd:to>LogException</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Get_SF_File</pd:from>
+        <pd:to>Each Record in File</pd:to>
+        <pd:xpathDescription>File with Data exist</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>count($Get_SF_File/Root/root)&gt;0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Each Record in File</pd:from>
+        <pd:to>Archive_File</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Get_SF_File</pd:from>
+        <pd:to>CheckFileName</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>CheckFileName</pd:from>
+        <pd:to>Archive_File</pd:to>
+        <pd:xpathDescription>File with no data</pd:xpathDescription>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>exists($Get_SF_File/Root/FileNames)</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SetCLEHeader</pd:from>
+        <pd:to>GetTransactionTime</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Archive_File</pd:from>
+        <pd:to>EndLog</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch Known Exception</pd:from>
+        <pd:to>Send-Catch Known-Exception-ToCLE</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Send-Catch Known-Exception-ToCLE</pd:from>
+        <pd:to>LogException</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>JMS_Receiver_SFFIle</pd:from>
+        <pd:to>SetCLEHeader</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>EndLog</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>NoFileExist</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>CheckFileName</pd:from>
+        <pd:to>NoFileExist</pd:to>
+        <pd:xpathDescription>no file exist</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetTransactionTime</pd:from>
+        <pd:to>Get_SF_File</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>LogException</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:label>
+        <pd:name>Label</pd:name>
+        <pd:description>This Process pick the SF File from TIBCO shared location and after mapping to CDM publish it to Topic. Based on the personnel location ie. EMEA or NAM it will be published to these interfaces for processing in the Camstar.</pd:description>
+        <pd:x>256</pd:x>
+        <pd:y>274</pd:y>
+        <pd:width>390</pd:width>
+        <pd:height>90</pd:height>
+        <pd:fontColor>-65485</pd:fontColor>
+        <pd:color>-1</pd:color>
+        <pd:type>solid</pd:type>
+        <pd:thickness>1</pd:thickness>
+        <pd:fade>true</pd:fade>
+    </pd:label>
+</pd:ProcessDefinition>

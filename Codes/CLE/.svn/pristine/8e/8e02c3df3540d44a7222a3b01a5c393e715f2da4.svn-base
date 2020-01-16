@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:ns2="http://www.tibco.com/CommonLE2/namespace/Public/Exception" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:ns4="http://www.tibco.com/CommonLE2/namespace/Public/Exception/ExceptionRequest.xsd" xmlns:ns="http://www.tibco.com/CommonLE2/Public/Common" xmlns:ns3="http://www.tibco.com/CommonLE2/namespace/LogRequest" xmlns:pfx0="http://www.tibco.com/CommonLE2/namespace/Exception" xmlns:tns="http://www.tibco.com/CommonLE2/Namespace/ExceptionRequest" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tibco.com/CommonLE2/Namespace/ExceptionRequest">
+    <import namespace="http://www.tibco.com/CommonLE2/namespace/LogRequest" location="Handle_Log_Request.wsdl"/>
+    <import namespace="http://www.tibco.com/CommonLE2/Public/Common" location="../../SchemaDefinitions/Public/Common/ErrorMessage.xsd"/>
+    <import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Exception/ExceptionRequest.xsd" location="../../SchemaDefinitions/Public/Exception/ExceptionRequest.xsd"/>
+    <message name="ExceptionRequest">
+        <part name="parameters" element="ns4:ExceptionRequest"/>
+    </message>
+    <message name="Error">
+        <part name="ErrorParam" element="ns:Error"/>
+    </message>
+    <message name="Dummy"/>
+    <portType name="portType">
+        <operation name="Handle_sp_Exception_sp_RequestOp">
+            <input message="tns:ExceptionRequest"/>
+            <output message="tns:Dummy"/>
+            <fault name="fault1" message="tns:Error"/>
+        </operation>
+    </portType>
+</definitions>

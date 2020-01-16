@@ -1,0 +1,23 @@
+<data jsxnamespace="propsbundle" locales="">
+  <locale>
+    <record jsxid="security_tabLabel" jsxtext="Seguridad"/>
+    <record jsxid="security_appId" jsxtext="Id de App"/>
+    <record jsxid="security_role" jsxtext="Rol"/>
+    <record jsxid="security_configurations" jsxtext="Configuraciones"/>
+    <record jsxid="security_viewConfigurations" jsxtext="Ver Configuraciones"/>
+    <record jsxid="security_addConfigurations" jsxtext="Agregar Configuraciones"/>
+    <record jsxid="security_editConfigurations" jsxtext="Editar Configuraciones"/>
+    <record jsxid="security_deleteConfigurations" jsxtext="Eliminar Configuraciones"/>
+    <record jsxid="security_logs" jsxtext="Bitácoras"/>
+    <record jsxid="security_viewLogs" jsxtext="Ver Bitácoras"/>
+    <record jsxid="security_deleteLogs" jsxtext="Eliminar Bitácoras"/>
+    <record jsxid="security_exceptions" jsxtext="Excepciones"/>
+    <record jsxid="security_viewExceptions" jsxtext="Ver Excepciones"/>
+    <record jsxid="security_resolveExceptions" jsxtext="Resolver Excepciones"/>
+    <record jsxid="security_deleteExceptions" jsxtext="Eliminar Excepciones"/>
+    <record jsxid="security_editTransactions" jsxtext="Editar Transacciones"/>
+    <record jsxid="security_refresh" jsxtext="Refrescar"/>
+    <record jsxid="security_refreshMessage" jsxtext="Existen cambios no guardados, ¿desechar cambios y refrescar?"/>
+    <record jsxid="security_update" jsxtext="Actualizar"/>
+  </locale>
+</data>

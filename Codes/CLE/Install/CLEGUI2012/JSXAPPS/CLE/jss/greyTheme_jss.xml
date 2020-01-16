@@ -1,0 +1,19 @@
+<data jsxid="jsxroot" jsxns="urn:tibco.com/v3.0/dynamicproperties/1">
+  <record jsxid="darkBG" type="jsxbgcolor" jsxtext="#9898A5"></record>
+  <record jsxid="mediumBG" type="jsxbgcolor" jsxtext="#A3A5BC"></record>
+  <record jsxid="lightBG" type="jsxbgcolor" jsxtext="#C8C8D5"></record>
+  <record jsxid="neutralBG" type="jsxbgcolor" jsxtext="#F4F4F4"></record>
+  <record jsxid="activeTabColor" type="jsxactivecolor" jsxtext="#C8C8D5"></record>
+  <record jsxid="inactiveTabColor" type="jsxinactivecolor" jsxtext="#A3A5BC"></record>
+  <record jsxid="bannerBackground" type="jsxbgcolor" jsxtext="#0267B9"></record>
+  <record jsxid="titleBackground" type="jsxbgcolor" jsxtext="#666666"></record>
+  <record jsxid="splitterBackground" type="jsxbgcolor" jsxtext="#808080"></record>
+  <record jsxid="windowbarBackground" type="jsxbgcolor" jsxtext="#808080"></record>
+  <record jsxid="matrixHeaderBackground" type="jsxbgcolor" jsxtext="#DCDCDC"></record>
+  <record jsxid="buttonBackground" type="jsxbgcolor" jsxtext="#c8c8c8"></record>
+  <record jsxid="splitterPaneBackground" type="jsxbgcolor" jsxtext="#C8C8D5"></record>
+  <record jsxid="cellLightBG" type="jsxcellbgcolor" jsxtext="#E8E8F5"></record>
+  <record jsxid="cellMediumBG" type="jsxcellbgcolor" jsxtext="#C8C8D5"></record>
+  <record jsxid="cellTreeheadBG" type="jsxcellbgcolor" jsxtext="#E8E8F5"></record>
+  <record jsxid="maskBGColor" type="jsxbgcolor" jsxtext="#F4F4F4"/>
+</data>

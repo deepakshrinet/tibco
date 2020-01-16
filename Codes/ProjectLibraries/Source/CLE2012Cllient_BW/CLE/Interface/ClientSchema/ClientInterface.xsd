@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns="http://www.tibco.com/CommonLE/Client/Schema/ClientInterface.xsd"
+	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	 targetNamespace="http://www.tibco.com/CommonLE/Client/Schema/ClientInterface.xsd"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xsd:complexType name="Header">
+		<xsd:sequence>
+			<xsd:element name="ComponentName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Hostname" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="TransactionDomain" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="TransactionType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="TransactionID" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CorrelationID" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="InterfaceID" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Filename" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Message" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="RenderID" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="DataEncoding" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Transaction" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="AltKey" type="AltKey" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AltKey">
+		<xsd:sequence>
+			<xsd:element name="AltKeyName" type="xsd:string"/>
+			<xsd:element name="AltKeyValue" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="LogRequest">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" type="Header"/>
+				<xsd:element name="TimeDuration" type="xsd:integer" minOccurs="0"/>
+				<xsd:element name="Category" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="Status" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="FileSize" type="xsd:unsignedLong" minOccurs="0"/>
+				<xsd:element name="Audit" type="xsd:boolean"/>
+				<xsd:element name="LogLevel">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:int">
+							<xsd:enumeration value="0"/>
+							<xsd:enumeration value="1"/>
+							<xsd:enumeration value="2"/>
+							<xsd:enumeration value="3"/>
+							<xsd:enumeration value="4"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ExceptionRequest">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" type="Header"/>
+				<xsd:element name="ExceptionCode" type="xsd:string"/>
+				<xsd:element name="StackTrace" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="Custom" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="Timeout" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="ReplyDestination" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="NotificationChannel" type="xsd:string" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Header" type="Header"/>
+</xsd:schema>

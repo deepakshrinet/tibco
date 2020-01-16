@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Repository:repository xmlns:Repository="http://www.tibco.com/xmlns/repo/types/2002">
+    <enterpriseArchive>
+        <sharedArchive name="Shared Archive">
+            <resourceType>shared.archive.resource</resourceType>
+            <authorProperty>chandraj</authorProperty>
+        </sharedArchive>
+        <adapterArchive name="SAPHR_UserR3Adapter">
+            <resourceType>adapter.archive.resource</resourceType>
+            <authorProperty>chandraj</authorProperty>
+            <sdkVersion>7.1.0</sdkVersion>
+            <wantsManualSdkVersionUpdates>true</wantsManualSdkVersionUpdates>
+            <adapterReference>/Adapter/SAPHR_UserR3Adapter.adr3#adapter.SAPAdapter</adapterReference>
+            <softwareTypeProperty>adr3</softwareTypeProperty>
+        </adapterArchive>
+        <versionProperty>1.0.1</versionProperty>
+        <authorProperty>chandraj</authorProperty>
+        <addServiceSettableGvars>true</addServiceSettableGvars>
+        <name>SFDC_SF_USER_SAP_ADAPTER</name>
+        <designer>
+            <lockedProperties>
+                <locked>
+                    <resource>/SAPHR_UserR3Adapter</resource>
+                    <properties>sdkVersion</properties>
+                </locked>
+            </lockedProperties>
+            <fixedChildren/>
+            <resourceDescriptions/>
+        </designer>
+        <fileLocationProperty>C:\EAR\SFDC_SF_USER_SAP_ADAPTER.ear</fileLocationProperty>
+        <description>Upgrading to SAP Adapter version 7.2</description>
+    </enterpriseArchive>
+</Repository:repository>

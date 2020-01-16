@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://www.zimmer.com/SendEmailSchema_v_1_0.xsd"
+	 targetNamespace="http://www.zimmer.com/SendEmailSchema_v_1_0.xsd"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="SendEmail">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="From" minOccurs="0"/>
+				<xs:element ref="To" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="CC" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="BCC" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="ReplyTo" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="Subject" minOccurs="0"/>
+				<xs:element ref="SentDate" minOccurs="0"/>
+				<xs:element ref="BodyElement" minOccurs="0"/>
+				<xs:element ref="Header" minOccurs="0"/>
+				<xs:element ref="MimeElement" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="From" type="xs:string"/>
+	<xs:element name="To" type="xs:string"/>
+	<xs:element name="CC" type="xs:string"/>
+	<xs:element name="BCC" type="xs:string"/>
+	<xs:element name="ReplyTo" type="xs:string"/>
+	<xs:element name="Subject" type="xs:string"/>
+	<xs:element name="SentDate" type="xs:string"/>
+	<xs:element name="BodyElement">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="BodyText" type="xs:string" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Header">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ContentType" type="xs:string" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="MimeElement">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="MimePart" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="MimeHeaders">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="content_Desposition" type="xs:string" minOccurs="0"/>
+										<xs:element name="content_Type" type="xs:string"/>
+										<xs:element name="content_Encoding" type="xs:string" minOccurs="0"/>
+										<xs:element name="content_id" type="xs:string" minOccurs="0"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="Content" type="xs:string"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

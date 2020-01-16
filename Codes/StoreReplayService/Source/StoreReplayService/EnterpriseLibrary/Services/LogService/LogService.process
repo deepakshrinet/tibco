@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/WriteToLogActivitySchema" xmlns:pfx11="http://www.zimmer.com/tibco/schemas/ZBS/XSD/LogService/v1/LogMessageSchema.xsd" xmlns:pfx10="http://www.tibco.com/schemas/Logging_v2/Schemas/XML/ZBS/Schema.xsd" xmlns:pfx="http://www.tibco.com/schemas/Dev/SharedResource/Schemas/Schema.xsd2" xmlns:ns2="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="http://www.tibco.com/pe/EngineTypes" xmlns:ns4="http://schemas.tibco.com/bw/plugins/file/5.0/fileExceptions" xmlns:ns3="http://www.tibco.com/namespaces/tnt/plugins/file/v2" xmlns:ns0="http://www.tibco.com/namespaces/tnt/plugins/file" xmlns:pfx5="http://www.tibco.com/pe/Inspector" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx4="http://www.tibco.com/schemas/StandardTemplate/Schemas/XML/ZBS/Schema.xsd" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx3="http://www.tibco.com/schemas/Dev/SharedResource/Schemas/Schema.xsd" xmlns:pfx2="http://www.tibco.com/pe/DeployedVarsType" xmlns:pfx9="http://www.tibco.com/ns/no_namespace_schema_location/Services/Schemas/XML/ZBS/LoggingData.xsd" xmlns:pfx8="http://www.tibco.com/schemas/ZBS_DEV/Schemas/XML/Schema.xsd" xmlns:pfx7="http://www.tibco.com/schemas/ErrorHandler_1.3/Schemas/XML/ZBS/Schema.xsd" xmlns:pfx6="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema">
+    <xsd:import namespace="http://www.tibco.com/schemas/Dev/SharedResource/Schemas/Schema.xsd2"/>
+    <xsd:import namespace="http://www.tibco.com/schemas/Dev/SharedResource/Schemas/Schema.xsd" schemaLocation="/SharedResource/Schemas/LoggingData.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/schemas/Logging_v2/Schemas/XML/ZBS/Schema.xsd" schemaLocation="/SharedServices/AuditLogger_v2/Schemas/LoggingData.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/schemas/ErrorHandler_1.3/Schemas/XML/ZBS/Schema.xsd" schemaLocation="/SharedResources/Schemas/XSD/LoggingData.xsd"/>
+    <xsd:import namespace="http://www.zimmer.com/tibco/schemas/ZBS/XSD/LogService/v1/LogMessageSchema.xsd" schemaLocation="/EnterpriseLibrary/SharedResources/Schemas/XSD/LogMessageSchema.xsd"/>
+    <pd:name>EnterpriseLibrary/Services/LogService/LogService.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="LogMessage">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="Message" type="xsd:string"/>
+                    <xsd:element name="LogLevel" type="xsd:string"/>
+                    <xsd:element name="ActivityName" type="xsd:string"/>
+                    <xsd:element name="ProcessName" type="xsd:string"/>
+                    <xsd:element name="TransactionInfo" minOccurs="0" maxOccurs="unbounded">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="Name" type="xsd:string"/>
+                                <xsd:element name="Value" type="xsd:string"/>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>60</pd:startX>
+    <pd:startY>63</pd:startY>
+    <pd:returnBindings>
+        <LogServiceOutput>
+            <CreateTimestamp>
+                <xsl:value-of select="current-dateTime()"/>
+            </CreateTimestamp>
+        </LogServiceOutput>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="LogServiceOutput">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="CreateTimestamp" type="xsd:dateTime"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>706</pd:endX>
+    <pd:endY>66</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1309863856440</pd:targetNamespace>
+    <pd:activity name="Catch">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>570</pd:x>
+        <pd:y>367</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Log Exception to Log File">
+        <pd:type>com.tibco.pe.core.WriteToLogActivity</pd:type>
+        <pd:resourceType>ae.activities.log</pd:resourceType>
+        <pd:x>705</pd:x>
+        <pd:y>377</pd:y>
+        <config>
+            <role>ERROR</role>
+        </config>
+        <pd:inputBindings>
+            <ns:ActivityInput>
+                <message>
+                    <xsl:value-of select="concat('Exception: ',tib:render-xml($Catch/exceptiondata),' &#xA;Log Message: ',concat('Message: ',$Start/LogMessage/Message,' || ','ProcessName: ',$Start/LogMessage/ProcessName,' || ','ActivityName: ',$Start/LogMessage/ActivityName,' || ','TransactionInfo: ',translate(tib:concat-sequence-format($Map-Data/root/TransactionInfo/String,&quot;|&quot;), &quot;&#xA;&quot;, &quot;|&quot;)))"/>
+                </message>
+            </ns:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Null">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>356</pd:x>
+        <pd:y>64</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="LoggingCheck">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>156</pd:x>
+        <pd:y>64</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:group name="Group">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>252</pd:x>
+        <pd:y>107</pd:y>
+        <pd:width>217</pd:width>
+        <pd:height>476</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>simpleGroup</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>INFO_LOG</pd:to>
+            <pd:xpathDescription>INFO</pd:xpathDescription>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>xpath</pd:conditionType>
+            <pd:xpath>$Start/LogMessage/LogLevel="INFO"</pd:xpath>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>DEBUG_LOG</pd:to>
+            <pd:xpathDescription>DEBUG</pd:xpathDescription>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>xpath</pd:conditionType>
+            <pd:xpath>$Start/LogMessage/LogLevel="DEBUG"</pd:xpath>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>ERROR_LOG</pd:to>
+            <pd:xpathDescription>ERROR</pd:xpathDescription>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>xpath</pd:conditionType>
+            <pd:xpath>$Start/LogMessage/LogLevel="ERROR"</pd:xpath>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>None</pd:to>
+            <pd:xpathDescription>None</pd:xpathDescription>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>otherwise</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>WARN_LOG</pd:to>
+            <pd:xpathDescription>WARN</pd:xpathDescription>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>xpath</pd:conditionType>
+            <pd:xpath>$Start/LogMessage/LogLevel="WARN"</pd:xpath>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>INFO_LOG</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>ERROR_LOG</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>WARN_LOG</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>None</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>DEBUG_LOG</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="INFO_LOG">
+            <pd:type>com.tibco.pe.core.WriteToLogActivity</pd:type>
+            <pd:resourceType>ae.activities.log</pd:resourceType>
+            <pd:x>355</pd:x>
+            <pd:y>171</pd:y>
+            <config>
+                <role>INFO</role>
+                <suppressHeader>false</suppressHeader>
+            </config>
+            <pd:inputBindings>
+                <ns:ActivityInput>
+                    <message>
+                        <xsl:value-of select="concat('Message: ',$Start/LogMessage/Message,' || ','ProcessName: ',$Start/LogMessage/ProcessName,' || ','ActivityName: ',$Start/LogMessage/ActivityName,' || ','TransactionInfo: ',translate(tib:concat-sequence-format($Map-Data/root/TransactionInfo/String,&quot;|&quot;), &quot;&#xA;&quot;, &quot;|&quot;))"/>
+                    </message>
+                </ns:ActivityInput>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="ERROR_LOG">
+            <pd:type>com.tibco.pe.core.WriteToLogActivity</pd:type>
+            <pd:resourceType>ae.activities.log</pd:resourceType>
+            <pd:x>359</pd:x>
+            <pd:y>331</pd:y>
+            <config>
+                <role>ERROR</role>
+            </config>
+            <pd:inputBindings>
+                <ns:ActivityInput>
+                    <message>
+                        <xsl:value-of select="concat('Message: ',$Start/LogMessage/Message,' || ','ProcessName: ',$Start/LogMessage/ProcessName,' || ','ActivityName: ',$Start/LogMessage/ActivityName,' || ','TransactionInfo: ',translate(tib:concat-sequence-format($Map-Data/root/TransactionInfo/String,&quot;|&quot;), &quot;&#xA;&quot;, &quot;|&quot;))"/>
+                    </message>
+                </ns:ActivityInput>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="WARN_LOG">
+            <pd:type>com.tibco.pe.core.WriteToLogActivity</pd:type>
+            <pd:resourceType>ae.activities.log</pd:resourceType>
+            <pd:x>353</pd:x>
+            <pd:y>258</pd:y>
+            <config>
+                <role>WARN</role>
+            </config>
+            <pd:inputBindings>
+                <ns:ActivityInput>
+                    <message>
+                        <xsl:value-of select="concat('Message: ',$Start/LogMessage/Message,' || ','ProcessName: ',$Start/LogMessage/ProcessName,' || ','ActivityName: ',$Start/LogMessage/ActivityName,' || ','TransactionInfo: ',translate(tib:concat-sequence-format($Map-Data/root/TransactionInfo/String,&quot;|&quot;), &quot;&#xA;&quot;, &quot;|&quot;))"/>
+                    </message>
+                </ns:ActivityInput>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="DEBUG_LOG">
+            <pd:type>com.tibco.pe.core.WriteToLogActivity</pd:type>
+            <pd:resourceType>ae.activities.log</pd:resourceType>
+            <pd:x>360</pd:x>
+            <pd:y>415</pd:y>
+            <config>
+                <role>DEBUG</role>
+            </config>
+            <pd:inputBindings>
+                <ns:ActivityInput>
+                    <message>
+                        <xsl:value-of select="concat('Message: ',$Start/LogMessage/Message,' || ','ProcessName: ',$Start/LogMessage/ProcessName,' || ','ActivityName: ',$Start/LogMessage/ActivityName,' || ','TransactionInfo: ',translate(tib:concat-sequence-format($Map-Data/root/TransactionInfo/String,&quot;|&quot;), &quot;&#xA;&quot;, &quot;|&quot;))"/>
+                    </message>
+                </ns:ActivityInput>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="None">
+            <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+            <pd:resourceType>ae.activities.null</pd:resourceType>
+            <pd:x>366</pd:x>
+            <pd:y>507</pd:y>
+            <config/>
+            <pd:inputBindings/>
+        </pd:activity>
+    </pd:group>
+    <pd:activity name="Map Data">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>158</pd:x>
+        <pd:y>201</pd:y>
+        <config>
+            <element>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="TransactionInfo" minOccurs="0" maxOccurs="unbounded">
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element name="String" type="xsd:string"/>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </element>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <xsl:for-each select="$Start/LogMessage/TransactionInfo">
+                    <TransactionInfo>
+                        <String>
+                            <xsl:value-of select="concat(current()/Name,&quot; : &quot;,current()/Value)"/>
+                        </String>
+                    </TransactionInfo>
+                </xsl:for-each>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Catch</pd:from>
+        <pd:to>Log Exception to Log File</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-52480</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Log Exception to Log File</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-65536</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>LoggingCheck</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>LoggingCheck</pd:from>
+        <pd:to>Null</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>LoggingCheck</pd:from>
+        <pd:to>Map Data</pd:to>
+        <pd:xpathDescription>Require Logging</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>contains(concat($_globalVariables/pfx2:GlobalVariables/Logging/LogLevel,",",substring-after($_globalVariables/pfx2:GlobalVariables/Logging/LogLevelSequence, $_globalVariables/pfx2:GlobalVariables/Logging/LogLevel)), $Start/LogMessage/LogLevel)</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Map Data</pd:from>
+        <pd:to>Group</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

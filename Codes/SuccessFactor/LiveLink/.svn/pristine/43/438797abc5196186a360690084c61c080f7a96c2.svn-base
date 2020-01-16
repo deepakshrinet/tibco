@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://www.zimmerbiomet.com/SF_LiveLink_FileUpload/Schemas/UploadDoc"
+	 targetNamespace="http://www.zimmerbiomet.com/SF_LiveLink_FileUpload/Schemas/UploadDoc"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="UploadDoc" type="UploadDocType"/>
+	<xs:complexType name="UploadDocType">
+		<xs:all>
+			<xs:element name="PARENT_ID" type="xs:int"/>
+			<xs:element name="FILENAME" type="xs:string" minOccurs="0"/>
+			<xs:element name="FILESIZE" type="xs:int" minOccurs="0"/>
+			<xs:element name="FILECONTENTS" type="xs:string" minOccurs="0"/>
+			<xs:element name="FILEPATH" type="xs:string" minOccurs="0"/>
+		</xs:all>
+	</xs:complexType>
+</xs:schema>

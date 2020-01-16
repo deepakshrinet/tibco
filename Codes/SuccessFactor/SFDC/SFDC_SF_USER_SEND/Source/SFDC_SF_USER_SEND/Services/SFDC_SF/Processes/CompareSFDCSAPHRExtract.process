@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns5="http://www.tibco.com/pe/EngineTypes" xmlns:ns6="http://tibco.com/namespaces/tnt/plugins/soap" xmlns:ns7="http://www.tibco.com/CommonLE/Client/Schema/ClientInterface.xsd" xmlns:pfx="urn:enterprise.soap.sforce.com" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/namespaces/tnt/plugins/file/v2" xmlns:ns1="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:ns4="urn:sobject.enterprise.soap.sforce.com" xmlns:ns3="http://www.tibco.com/namespaces/tnt/plugins/file" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx2="http://xmlns.example.com/1321555930384" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xsd:import namespace="urn:sobject.enterprise.soap.sforce.com" schemaLocation="/SharedResources/WSDLs/wsdl_sandbox01_6_DEC2016.wsdl"/>
+    <wsdl:import namespace="urn:enterprise.soap.sforce.com" location="/SharedResources/WSDLs/wsdl_sandbox01_6_DEC2016.wsdl"/>
+    <pd:name>Services/SFDC_SF/Processes/CompareSFDCSAPHRExtract.process</pd:name>
+    <pd:startName>Compare SFDC SAPHR Extract</pd:startName>
+    <pd:startX>0</pd:startX>
+    <pd:startY>0</pd:startY>
+    <pd:returnBindings/>
+    <pd:starter name="Compare SFDC SAPHR Extract">
+        <pd:type>com.tibco.plugin.jms.JMSQueueEventSource</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueEventSource</pd:resourceType>
+        <pd:x>122</pd:x>
+        <pd:y>83</pd:y>
+        <config>
+            <PermittedMessageType>XML Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+                <destination>%%ApplicationDetails/SFDC_SF_USER_SEND/Queue/CompareSFDCSAPHRExtractQueue%%</destination>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/EnterpriseLibrary/SharedResources/Connections/JMS/TIBCO_JMS_Connection.sharedjmscon</ConnectionReference>
+            <OutDataxsdString>
+                <xsd:element name="Users">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="Records" minOccurs="0" maxOccurs="unbounded">
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element name="ID" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="FirstName" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="MiddleName" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="LastName" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Title" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Email" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Inactive__c" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="MobilePhone" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Phone" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Territory_Number__c" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Role_Classification__c" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Sales_Assoc_ID__c" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Sales_Specialty__c" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="ReportsToId" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="SAP__c" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Class_Description__c" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="AccountId" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="AccountName" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Record_Edit_Status__c" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Employee_Non_Employee__c" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Lms_required__c" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="RecordTypeId" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="ReportsToEmail" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Hire_Date__c" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Fax" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="MAILINGSTREET" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="MAILINGCITY" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="MAILINGSTATE" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="MAILINGPOSTALCODE" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="MAILINGCOUNTRY" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="CreatedDate" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="LastModifiedDate" type="xsd:string" minOccurs="0"/>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                            <xsd:element name="TransactionId" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Filename" type="xsd:string" minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </OutDataxsdString>
+        </config>
+        <pd:inputBindings/>
+    </pd:starter>
+    <pd:endName>End</pd:endName>
+    <pd:endX>823</pd:endX>
+    <pd:endY>81</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1488890084075</pd:targetNamespace>
+    <pd:activity name="CatchUnknownException">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>966</pd:x>
+        <pd:y>199</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Null">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>515</pd:x>
+        <pd:y>82</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Parse Data">
+        <pd:type>com.tibco.plugin.parse.ParseActivity</pd:type>
+        <pd:resourceType>ae.activities.ParseActivity</pd:resourceType>
+        <pd:x>388</pd:x>
+        <pd:y>198</pd:y>
+        <config>
+            <InputType>String</InputType>
+            <Encoding>ASCII</Encoding>
+            <ParseSharedConfig>/SharedResources/Schemas/DataFormat/SAPHRDataFormat.sharedparse</ParseSharedConfig>
+            <StrictValidation>true</StrictValidation>
+            <SpecifyStartRecord>true</SpecifyStartRecord>
+            <SkipBlankLines>true</SkipBlankLines>
+        </config>
+        <pd:inputBindings>
+            <Input>
+                <text>
+                    <xsl:value-of select="$ReadSAPHRFile/ns3:ReadActivityOutputTextClass/fileContent/textContent"/>
+                </text>
+                <startRecord>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ApplicationDetails/SAPHRIS/DataStart"/>
+                </startRecord>
+                <noOfRecords>
+                    <xsl:value-of select="-1"/>
+                </noOfRecords>
+            </Input>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="ReadSAPHRFile">
+        <pd:type>com.tibco.plugin.file.FileReadActivity</pd:type>
+        <pd:resourceType>ae.activities.FileReadActivity</pd:resourceType>
+        <pd:x>259</pd:x>
+        <pd:y>199</pd:y>
+        <config>
+            <encoding>text</encoding>
+        </config>
+        <pd:inputBindings>
+            <ns2:ReadActivityInputClass>
+                <fileName>
+                    <xsl:value-of select="concat($_globalVariables/ns:GlobalVariables/ApplicationDetails/FileAdapter/TempFolder,$Compare-SFDC-SAPHR-Extract/ns1:ActivityOutput/Body/Users/Filename)"/>
+                </fileName>
+            </ns2:ReadActivityInputClass>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SendEmployeeRecord">
+        <pd:type>com.tibco.plugin.jms.JMSQueueRequestReplyActivity</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueRequestReplyActivity</pd:resourceType>
+        <pd:x>675</pd:x>
+        <pd:y>197</pd:y>
+        <config>
+            <PermittedMessageType>XML Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+                <destination>%%ApplicationDetails/SFDC_SF_USER_SEND/Queue/WritePerNRFileRequestQueue%%</destination>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/EnterpriseLibrary/SharedResources/Connections/JMS/TIBCO_JMS_Connection.sharedjmscon</ConnectionReference>
+            <InDataxsdString>
+                <xsd:element name="Users">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="Records">
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element name="ID" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="FirstName" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="MiddleName" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="LastName" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Title" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Email" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Inactive__c" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="MobilePhone" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Phone" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Territory_Number__c" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Role_Classification__c" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Sales_Assoc_ID__c" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Sales_Specialty__c" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="ReportsToId" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="SAP__c" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Class_Description__c" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="AccountId" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="AccountName" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Record_Edit_Status__c" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Employee_Non_Employee__c" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Lms_required__c" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="RecordTypeId" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="ReportsToEmail" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Hire_Date__c" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Fax" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="MAILINGSTREET" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="MAILINGCITY" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="MAILINGSTATE" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="MAILINGPOSTALCODE" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="MAILINGCOUNTRY" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="CreatedDate" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="LastModifiedDate" type="xsd:string" minOccurs="0"/>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                            <xsd:element name="Lot" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Transactionid" type="xsd:string" minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </InDataxsdString>
+            <OutDataxsdString>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="lot" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="status" type="xsd:string" minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </OutDataxsdString>
+        </config>
+        <pd:inputBindings>
+            <ns1:ActivityInput>
+                <Body>
+                    <Users>
+                        <xsl:copy-of select="$Compare-SFDC-SAPHR-Extract/ns1:ActivityOutput/Body/Users/Records"/>
+                        <Lot>
+                            <xsl:value-of select="1"/>
+                        </Lot>
+                        <Transactionid>
+                            <xsl:value-of select="$Compare-SFDC-SAPHR-Extract/ns1:ActivityOutput/Body/Users/TransactionId"/>
+                        </Transactionid>
+                    </Users>
+                </Body>
+            </ns1:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SendUnknownExceptions">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>824</pd:x>
+        <pd:y>202</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendException.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns7:ExceptionRequest>
+                <ns7:Header>
+                    <ns7:ComponentName>
+                        <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns5:ProcessContext/ProcessId)"/>
+                    </ns7:ComponentName>
+                    <ns7:Hostname>
+                        <xsl:value-of select="BW:getHostName()"/>
+                    </ns7:Hostname>
+                    <ns7:TransactionDomain>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ApplicationDetails/SFDC_SF_USER_SEND/TransactionDomain"/>
+                    </ns7:TransactionDomain>
+                    <ns7:TransactionType>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ApplicationDetails/SFDC_SF_USER_SEND/TransactionType"/>
+                    </ns7:TransactionType>
+                    <xsl:choose>
+                        <xsl:when test="tib:trim($Compare-SFDC-SAPHR-Extract/ns1:ActivityOutput/JMSHeaders/ns1:JMSCorrelationID)!=''">
+                            <xsl:if test="$Compare-SFDC-SAPHR-Extract/ns1:ActivityOutput/JMSHeaders/ns1:JMSCorrelationID">
+                                <ns7:TransactionID>
+                                    <xsl:value-of select="$Compare-SFDC-SAPHR-Extract/ns1:ActivityOutput/JMSHeaders/ns1:JMSCorrelationID"/>
+                                </ns7:TransactionID>
+                            </xsl:if>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <ns7:TransactionID>
+                                <xsl:value-of select="tib:format-dateTime('ddMMyyHHmmss', current-dateTime())"/>
+                            </ns7:TransactionID>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <ns7:CorrelationID>
+                        <xsl:value-of select="current-date()"/>
+                    </ns7:CorrelationID>
+                    <ns7:InterfaceID>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ApplicationDetails/SFDC_SF_USER_SEND/InterfaceID"/>
+                    </ns7:InterfaceID>
+                    <ns7:Transaction>
+                        <xsl:value-of select="tib:render-xml($CatchUnknownException)"/>
+                    </ns7:Transaction>
+                </ns7:Header>
+                <ns7:ExceptionCode>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ApplicationDetails/ErrorCodes/Technical/TECHNICAL_777"/>
+                </ns7:ExceptionCode>
+                <ns7:StackTrace>
+                    <xsl:value-of select="concat(&quot;Error Message: &quot;, $_error/ns5:ErrorReport/Msg, &quot;&#xA;&quot;, &quot;  BW MsgCode: &quot;, &#xA;$_error/ns5:ErrorReport/MsgCode, &quot;&#xA;&quot;,&#xA;&quot;Stack Trace: &quot;, $_error/ns5:ErrorReport/StackTrace, &quot;&#xA;&quot;,&#xA;&quot; Process Stack: &quot;, $_error/ns5:ErrorReport/ProcessStack)"/>
+                </ns7:StackTrace>
+            </ns7:ExceptionRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="StoreSessionDetails">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>125</pd:x>
+        <pd:y>199</pd:y>
+        <config>
+            <processName>/Services/SFDC_SF/Operations/StoreSessionDetails.process</processName>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="ValidPERNR">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>516</pd:x>
+        <pd:y>199</pd:y>
+        <config>
+            <element>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="PERNR" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </element>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <xsl:for-each select="$Compare-SFDC-SAPHR-Extract/ns1:ActivityOutput/Body/Users/Records/SAP__c[.=$Parse-Data/Output/Rows/User/USERID]">
+                    <PERNR>
+                        <xsl:value-of select="."/>
+                    </PERNR>
+                </xsl:for-each>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Compare SFDC SAPHR Extract</pd:from>
+        <pd:to>StoreSessionDetails</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>StoreSessionDetails</pd:from>
+        <pd:to>ReadSAPHRFile</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>ReadSAPHRFile</pd:from>
+        <pd:to>Parse Data</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse Data</pd:from>
+        <pd:to>ValidPERNR</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>ValidPERNR</pd:from>
+        <pd:to>SendEmployeeRecord</pd:to>
+        <pd:xpathDescription>exist</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>count($ValidPERNR/root/PERNR)&gt;0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SendEmployeeRecord</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Multiple Bends</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>CatchUnknownException</pd:from>
+        <pd:to>SendUnknownExceptions</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SendUnknownExceptions</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>ValidPERNR</pd:from>
+        <pd:to>Null</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:label>
+        <pd:name>Label</pd:name>
+        <pd:description>This process get triggered from MainProcess. It fetches all the PERNRs from SFDC which are modified before Last_N_Days:1 and check those pernrs with SAP HR file. If PERNR exists in SAPHR file it will trigger WriteEmpDataToFile process and send the files to SF.</pd:description>
+        <pd:x>286</pd:x>
+        <pd:y>274</pd:y>
+        <pd:width>520</pd:width>
+        <pd:height>59</pd:height>
+        <pd:fontColor>-16777216</pd:fontColor>
+        <pd:color>-1</pd:color>
+        <pd:type>solid</pd:type>
+        <pd:thickness>0</pd:thickness>
+        <pd:fade>true</pd:fade>
+    </pd:label>
+</pd:ProcessDefinition>

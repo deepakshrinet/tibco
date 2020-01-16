@@ -1,0 +1,47 @@
+<data jsxnamespace="propsbundle" locales="">
+  <locale>
+    <record jsxid="application_ApplicationID" jsxtext="Application ID"/>
+    <record jsxid="application_ID" jsxtext="Application ID"/>
+    <record jsxid="application_Name" jsxtext="Name"/>
+    <record jsxid="application_Description" jsxtext="Description"/>
+    <record jsxid="application_createNewItemCaption" jsxtext="Create New Application"/>
+    <record jsxid="application_createApplication" jsxtext="Create Application"/>
+    <record jsxid="application_createApplicationTip" jsxtext="Create Application"/>
+  </locale>
+  <locale key="pt_BR">
+    <record jsxid="application_ApplicationID" jsxtext="ID da Aplicação"/>
+    <record jsxid="application_ID" jsxtext="ID da Aplicação"/>
+    <record jsxid="application_Name" jsxtext="Nome"/>
+    <record jsxid="application_Description" jsxtext="Descrição"/>
+    <record jsxid="application_createNewItemCaption" jsxtext="Criar Nova Aplicação"/>
+    <record jsxid="application_createApplication" jsxtext="Criar Aplicação"/>
+    <record jsxid="application_createApplicationTip" jsxtext="Criar Aplicação"/>
+  </locale>
+  <locale key="zh_CH">
+    <record jsxid="application_ApplicationID" jsxtext="应用程序ID"/>
+    <record jsxid="application_ID" jsxtext="应用程序ID"/>
+    <record jsxid="application_Name" jsxtext="名字"/>
+    <record jsxid="application_Description" jsxtext="描述"/>
+    <record jsxid="application_createNewItemCaption" jsxtext="创建新应用程序"/>
+    <record jsxid="application_createApplication" jsxtext="创建应用程序"/>
+    <record jsxid="application_createApplicationTip" jsxtext="创建应用程序"/>
+  </locale>
+  <locale key="sv_SV">
+    <record jsxid="application_ApplicationID" jsxtext="ApplikationsID"/>
+    <record jsxid="application_ID" jsxtext="ApplikationsID"/>
+    <record jsxid="application_Name" jsxtext="Namn"/>
+    <record jsxid="application_Description" jsxtext="Beskrivning"/>
+    <record jsxid="application_createNewItemCaption" jsxtext="Skapa Ny Applikation"/>
+    <record jsxid="application_createApplication" jsxtext="Skapa Applikation"/>
+    <record jsxid="application_createApplicationTip" jsxtext="Skapa Applikation"/>
+  </locale>
+  <locale key="es_ES">
+    <record jsxid="application_ApplicationID" jsxtext="ID de Aplicación"/>
+    <record jsxid="application_ID" jsxtext="ID de Aplicación"/>
+    <record jsxid="application_Name" jsxtext="Nombre"/>
+    <record jsxid="application_Description" jsxtext="Descripción"/>
+    <record jsxid="application_createNewItemCaption" jsxtext="Crear Nueva Aplicación"/>
+    <record jsxid="application_createApplication" jsxtext="Crear Aplicación"/>
+    <record jsxid="application_createApplicationTip" jsxtext="Crear Aplicación"/>
+  </locale>
+</data>

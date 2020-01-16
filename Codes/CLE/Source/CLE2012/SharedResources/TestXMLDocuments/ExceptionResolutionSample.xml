@@ -1,0 +1,17 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<ExceptionResolutionRecordList xmlns = "http://www.tibco.com/CommonLE2/namespace/ExceptionManagement/GUIServices">
+	<parameters xmlns = "">
+		<ExceptionResolutionRecordList xmlns = "http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Exception/ExceptionResolution">
+			<ExceptionResolutionRecord>
+				<EXCEPTIONID>1</EXCEPTIONID>
+				<RESOLUTIONDESC>ABC</RESOLUTIONDESC>
+				<STATUS>Unresolved</STATUS>
+			</ExceptionResolutionRecord>
+			<ExceptionResolutionRecord>
+				<EXCEPTIONID>2</EXCEPTIONID>
+				<RESOLUTIONDESC>XYZ</RESOLUTIONDESC>
+				<STATUS>Unresolved</STATUS>
+			</ExceptionResolutionRecord>
+		</ExceptionResolutionRecordList>
+	</parameters>
+</ExceptionResolutionRecordList>

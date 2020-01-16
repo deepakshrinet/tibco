@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BWSharedResource xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx2="http://www.tibco.com/CommonLE2/namespace/Private/Exception" xmlns:pfx="http://www.tibco.com/schemas/CLE-Handlers/SharedResources/SchemaDefinitions/Private/Exception/Schema.xsd">
+    <import namespace="http://www.tibco.com/CommonLE2/namespace/Private/Exception" schemaLocation="/SharedResources/SchemaDefinitions/Private/Exception/ExceptionReplayInfo.xsd"/>
+    <name>ExceptionReplayInfoCache</name>
+    <resourceType>ae.shared.sharedVariable</resourceType>
+    <config xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <persistent>false</persistent>
+        <multi-engine>false</multi-engine>
+        <initialValue>none</initialValue>
+        <xsdString ref="pfx2:ExceptionReplayInfoList"/>
+    </config>
+</BWSharedResource>

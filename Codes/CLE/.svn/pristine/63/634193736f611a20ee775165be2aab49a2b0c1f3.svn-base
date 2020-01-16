@@ -1,0 +1,329 @@
+<serialization xmlns="urn:tibco.com/v3.0" jsxversion="3.9">
+  <name><![CDATA[Block - 100%]]></name>
+  <icon><![CDATA[images/prototypes/block.gif]]></icon>
+  <description><![CDATA[Simple block, relatively positioned with overflow=scroll.]]></description>
+  <onBeforeDeserialize/>
+  <onAfterDeserialize><![CDATA[
+    jsx3.$O(this).extend({
+    getFirstResponder: function() {
+        return tb_ID;
+    },
+    getRecordId: function() {
+        return this.recordId;
+    },
+    setRecordId: function(strRecordId) {
+        this.recordId = strRecordId;
+    },
+    getApplicationId: function() {
+        return this.applicationId;
+    },
+    setApplicationId: function(strApplicationId) {
+    	tb_ApplicationID.setValue(strApplicationId);
+        this.applicationId = strApplicationId;
+    },
+    getInterfaceParentId: function() {
+    	return tb_ParentID;
+    },
+    enableParentId: function(objJSX,strRecordId) {
+    	tb_ParentID.setEnabled(((strRecordId == 'Physical')? jsx3.gui.Form.STATEENABLED : jsx3.gui.Form.STATEDISABLED),true);
+    },
+    markRequiredInputs: function(bRepaint){
+    	jsx3.require("jsx3.gui.Form");
+    	var objInputs = bodyPane.getDescendantsOfType("jsx3.gui.Form",false);
+    	jsx3.$A(objInputs).each(function(input){
+	    	if (input.getRequired()==jsx3.gui.Form.REQUIRED){
+	    		var objLabel = input.getParent().getChild('ifRequired');
+				if (objLabel != null){
+	    			objLabel.setText('*',bRepaint);
+	    		}
+	    	}
+    	});
+    }
+    });
+  ]]></onAfterDeserialize>
+  <object type="jsx3.gui.Block">
+    <variants jsxoverflow="1"/>
+    <strings jsxname="createInterfacePane" jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1"/>
+    <object type="jsx3.gui.LayoutGrid">
+      <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+      <strings jsxname="dialogLayout" jsxrows="28,*" jsxwidth="100%" jsxheight="100%"/>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="2"/>
+        <strings jsxname="menuPane" jsxwidth="100%" jsxheight="100%"/>
+        <dynamics jsxborder="@Outset" jsxbgcolor="neutralBG"/>
+        <object type="jsx3.gui.ToolbarButton">
+          <variants/>
+          <strings jsxname="createInterfaceBtn" jsximage="images/icons/addDoc.gif"/>
+          <dynamics jsxtext="interface_createInterface" jsxtip="interface_createInterfaceTip"/>
+          <events jsxexecute="cle.configuration.interfaceConfig.createNewInterface(this);"/>
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="1"/>
+        <strings jsxname="bodyPane" jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1"/>
+        <dynamics jsxbgcolor="@Solid Light"/>
+        <object type="jsx3.gui.Block">
+          <variants jsxleft="0" jsxtop="0" jsxheight="40" jsxoverflow="2" jsxrelativeposition="1"/>
+          <strings jsxtagname="div" jsxwidth="100%" jsxtext="&amp;#160;"/>
+          <dynamics jsxbgcolor="@Solid Light" jsxpadding="@8Pixel"/>
+          <object type="jsx3.gui.Block">
+            <variants jsxrelativeposition="1" jsxoverflow="2" jsxwidth="160" jsxheight="30"/>
+            <strings jsxname="label"/>
+            <dynamics jsxfontname="@Label1 FN" jsxfontsize="labelFontSize" jsxfontweight="@Label1 FW" jsxtext="interface_ApplicationID"/>
+          </object>
+          <object type="jsx3.gui.Block">
+            <variants jsxrelativeposition="1" jsxoverflow="2" jsxwidth="8" jsxheight="30"/>
+            <strings jsxname="ifRequired" jsxtext="&amp;#160;" jsxcolor="red"/>
+            <dynamics jsxfontname="@Label1 FN" jsxfontsize="labelFontSize" jsxfontweight="@Label1 FW"/>
+          </object>
+          <object type="jsx3.gui.TextBox">
+            <variants jsxheight="18" jsxwidth="200" jsxenabled="0" jsxrequired="1"/>
+            <strings jsxname="tb_ApplicationID" jsxmargin="0 4 0 0" jsxcdfattribute="ApplicationID"/>
+            <dynamics jsxfontname="@Label1 FN" jsxfontsize="labelFontSize"/>
+          </object>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants jsxleft="0" jsxtop="0" jsxheight="40" jsxoverflow="2" jsxrelativeposition="1"/>
+          <strings jsxtagname="div" jsxwidth="100%" jsxtext="&amp;#160;"/>
+          <dynamics jsxbgcolor="@Solid Light" jsxpadding="@8Pixel"/>
+          <object type="jsx3.gui.Block">
+            <variants jsxrelativeposition="1" jsxoverflow="2" jsxwidth="160" jsxheight="30"/>
+            <strings jsxname="label"/>
+            <dynamics jsxfontname="@Label1 FN" jsxfontsize="labelFontSize" jsxfontweight="@Label1 FW" jsxtext="interface_ID"/>
+          </object>
+          <object type="jsx3.gui.Block">
+            <variants jsxrelativeposition="1" jsxoverflow="2" jsxwidth="8" jsxheight="30"/>
+            <strings jsxname="ifRequired" jsxtext="&amp;#160;" jsxcolor="red"/>
+            <dynamics jsxfontname="@Label1 FN" jsxfontsize="labelFontSize" jsxfontweight="@Label1 FW"/>
+          </object>
+          <object type="jsx3.gui.TextBox">
+            <variants jsxheight="18" jsxwidth="200" jsxrequired="1"/>
+            <strings jsxname="tb_ID" jsxmargin="0 4 0 0" jsxcdfattribute="InterfaceID" jsxvalue=""/>
+            <dynamics jsxfontname="@Label1 FN" jsxfontsize="labelFontSize"/>
+          </object>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants jsxleft="0" jsxtop="0" jsxheight="40" jsxoverflow="2" jsxrelativeposition="1"/>
+          <strings jsxtagname="div" jsxwidth="100%" jsxtext="&amp;#160;"/>
+          <dynamics jsxbgcolor="@Solid Light" jsxpadding="@8Pixel"/>
+          <object type="jsx3.gui.Block">
+            <variants jsxrelativeposition="1" jsxoverflow="2" jsxwidth="160" jsxheight="30"/>
+            <strings jsxname="label"/>
+            <dynamics jsxfontname="@Label1 FN" jsxfontsize="labelFontSize" jsxfontweight="@Label1 FW" jsxtext="interface_Name"/>
+          </object>
+          <object type="jsx3.gui.Block">
+            <variants jsxrelativeposition="1" jsxoverflow="2" jsxwidth="8" jsxheight="30"/>
+            <strings jsxname="ifRequired" jsxtext="&amp;#160;" jsxcolor="red"/>
+            <dynamics jsxfontname="@Label1 FN" jsxfontsize="labelFontSize" jsxfontweight="@Label1 FW"/>
+          </object>
+          <object type="jsx3.gui.TextBox">
+            <variants jsxheight="18" jsxwidth="200" jsxrequired="1"/>
+            <strings jsxname="tb_Name" jsxmargin="0 4 0 0" jsxcdfattribute="InterfaceName"/>
+            <dynamics jsxfontname="@Label1 FN" jsxfontsize="labelFontSize"/>
+          </object>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants jsxleft="0" jsxtop="0" jsxheight="40" jsxoverflow="2" jsxrelativeposition="1"/>
+          <strings jsxtagname="div" jsxwidth="100%" jsxtext="&amp;#160;"/>
+          <dynamics jsxbgcolor="@Solid Light" jsxpadding="@8Pixel"/>
+          <object type="jsx3.gui.Block">
+            <variants jsxrelativeposition="1" jsxoverflow="2" jsxwidth="160" jsxheight="30"/>
+            <strings jsxname="label"/>
+            <dynamics jsxfontname="@Label1 FN" jsxfontsize="labelFontSize" jsxfontweight="@Label1 FW" jsxtext="interface_Type"/>
+          </object>
+          <object type="jsx3.gui.Block">
+            <variants jsxrelativeposition="1" jsxoverflow="2" jsxwidth="8" jsxheight="30"/>
+            <strings jsxname="ifRequired" jsxtext="&amp;#160;" jsxcolor="red"/>
+            <dynamics jsxfontname="@Label1 FN" jsxfontsize="labelFontSize" jsxfontweight="@Label1 FW"/>
+          </object>
+          <object type="jsx3.gui.Select">
+            <variants jsxheight="18" jsxwidth="200" jsxrequired="1"/>
+            <strings jsxname="tb_Type" jsxmargin="0 4 0 0" jsxcdfattribute="InterfaceType" jsxxmlurl="interfaces/configuration/interfaceConfig/interfaceTypes_cdf.xml"/>
+            <dynamics jsxfontname="@Label1 FN" jsxfontsize="labelFontSize"/>
+            <events jsxselect="this.getAncestorOfName('createInterfacePane').enableParentId(this, strRECORDID);"/>
+          </object>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants jsxleft="0" jsxtop="0" jsxheight="40" jsxoverflow="2" jsxrelativeposition="1"/>
+          <strings jsxtagname="div" jsxwidth="100%" jsxtext="&amp;#160;"/>
+          <dynamics jsxbgcolor="@Solid Light" jsxpadding="@8Pixel"/>
+          <object type="jsx3.gui.Block">
+            <variants jsxrelativeposition="1" jsxoverflow="2" jsxwidth="160" jsxheight="30"/>
+            <strings jsxname="label"/>
+            <dynamics jsxfontname="@Label1 FN" jsxfontsize="labelFontSize" jsxfontweight="@Label1 FW" jsxtext="interface_ParentID"/>
+          </object>
+          <object type="jsx3.gui.Block">
+            <variants jsxrelativeposition="1" jsxoverflow="2" jsxwidth="8" jsxheight="30"/>
+            <strings jsxname="ifRequired" jsxtext="&amp;#160;" jsxcolor="red"/>
+            <dynamics jsxfontname="@Label1 FN" jsxfontsize="labelFontSize" jsxfontweight="@Label1 FW"/>
+          </object>
+          <object type="jsx3.gui.Select">
+            <variants jsxheight="18" jsxwidth="200" jsxrequired="0" jsxenabled="0" jsxtype="1"/>
+            <strings jsxname="tb_ParentID" jsxmargin="0 4 0 0" jsxcdfattribute="ParentID"/>
+            <dynamics jsxfontname="@Label1 FN" jsxfontsize="labelFontSize"/>
+          </object>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants jsxleft="0" jsxtop="0" jsxheight="40" jsxoverflow="2" jsxrelativeposition="1"/>
+          <strings jsxtagname="div" jsxwidth="100%" jsxtext="&amp;#160;"/>
+          <dynamics jsxbgcolor="@Solid Light" jsxpadding="@8Pixel"/>
+          <object type="jsx3.gui.Block">
+            <variants jsxrelativeposition="1" jsxoverflow="2" jsxwidth="160" jsxheight="30"/>
+            <strings jsxname="label"/>
+            <dynamics jsxfontname="@Label1 FN" jsxfontsize="labelFontSize" jsxfontweight="@Label1 FW" jsxtext="interface_dbUse"/>
+          </object>
+          <object type="jsx3.gui.Block">
+            <variants jsxrelativeposition="1" jsxoverflow="2" jsxwidth="8" jsxheight="30"/>
+            <strings jsxname="ifRequired" jsxtext="&amp;#160;" jsxcolor="red"/>
+            <dynamics jsxfontname="@Label1 FN" jsxfontsize="labelFontSize" jsxfontweight="@Label1 FW"/>
+          </object>
+          <object type="jsx3.gui.CheckBox">
+            <variants jsxheight="18" jsxwidth="200" jsxrequired="0" jsxchecked="0" jsxdefaultchecked="0"/>
+            <strings jsxname="tb_dbUse" jsxmargin="0 4 0 0" jsxcdfattribute="dbUse"/>
+            <dynamics jsxfontname="@Label1 FN" jsxfontsize="labelFontSize"/>
+          </object>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants jsxleft="0" jsxtop="0" jsxheight="40" jsxoverflow="2" jsxrelativeposition="1"/>
+          <strings jsxtagname="div" jsxwidth="100%" jsxtext="&amp;#160;"/>
+          <dynamics jsxbgcolor="@Solid Light" jsxpadding="@8Pixel"/>
+          <object type="jsx3.gui.Block">
+            <variants jsxrelativeposition="1" jsxoverflow="2" jsxwidth="160" jsxheight="30"/>
+            <strings jsxname="label"/>
+            <dynamics jsxfontname="@Label1 FN" jsxfontsize="labelFontSize" jsxfontweight="@Label1 FW" jsxtext="interface_TransComplexity"/>
+          </object>
+          <object type="jsx3.gui.Block">
+            <variants jsxrelativeposition="1" jsxoverflow="2" jsxwidth="8" jsxheight="30"/>
+            <strings jsxname="ifRequired" jsxtext="&amp;#160;" jsxcolor="red"/>
+            <dynamics jsxfontname="@Label1 FN" jsxfontsize="labelFontSize" jsxfontweight="@Label1 FW"/>
+          </object>
+          <object type="jsx3.gui.Select">
+            <variants jsxheight="18" jsxwidth="200" jsxrequired="1"/>
+            <strings jsxname="tb_TransComplexity" jsxmargin="0 4 0 0" jsxcdfattribute="TransComplexity" jsxxmlurl="interfaces/configuration/interfaceConfig/interfaceTransComplexity_cdf.xml"/>
+            <dynamics jsxfontname="@Label1 FN" jsxfontsize="labelFontSize"/>
+          </object>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants jsxleft="0" jsxtop="0" jsxheight="40" jsxoverflow="2" jsxrelativeposition="1"/>
+          <strings jsxtagname="div" jsxwidth="100%" jsxtext="&amp;#160;"/>
+          <dynamics jsxbgcolor="@Solid Light" jsxpadding="@8Pixel"/>
+          <object type="jsx3.gui.Block">
+            <variants jsxrelativeposition="1" jsxoverflow="2" jsxwidth="160" jsxheight="30"/>
+            <strings jsxname="label"/>
+            <dynamics jsxfontname="@Label1 FN" jsxfontsize="labelFontSize" jsxfontweight="@Label1 FW" jsxtext="interface_Owner"/>
+          </object>
+          <object type="jsx3.gui.Block">
+            <variants jsxrelativeposition="1" jsxoverflow="2" jsxwidth="8" jsxheight="30"/>
+            <strings jsxname="ifRequired" jsxtext="&amp;#160;" jsxcolor="red"/>
+            <dynamics jsxfontname="@Label1 FN" jsxfontsize="labelFontSize" jsxfontweight="@Label1 FW"/>
+          </object>
+          <object type="jsx3.gui.TextBox">
+            <variants jsxheight="18" jsxwidth="200" jsxrequired="1"/>
+            <strings jsxname="tb_Owner" jsxmargin="0 4 0 0" jsxcdfattribute="Owner"/>
+            <dynamics jsxfontname="@Label1 FN" jsxfontsize="labelFontSize"/>
+          </object>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants jsxleft="0" jsxtop="0" jsxheight="40" jsxoverflow="2" jsxrelativeposition="1"/>
+          <strings jsxtagname="div" jsxwidth="100%" jsxtext="&amp;#160;"/>
+          <dynamics jsxbgcolor="@Solid Light" jsxpadding="@8Pixel"/>
+          <object type="jsx3.gui.Block">
+            <variants jsxrelativeposition="1" jsxoverflow="2" jsxwidth="160" jsxheight="30"/>
+            <strings jsxname="label"/>
+            <dynamics jsxfontname="@Label1 FN" jsxfontsize="labelFontSize" jsxfontweight="@Label1 FW" jsxtext="interface_SourceSystem"/>
+          </object>
+          <object type="jsx3.gui.Block">
+            <variants jsxrelativeposition="1" jsxoverflow="2" jsxwidth="8" jsxheight="30"/>
+            <strings jsxname="ifRequired" jsxtext="&amp;#160;" jsxcolor="red"/>
+            <dynamics jsxfontname="@Label1 FN" jsxfontsize="labelFontSize" jsxfontweight="@Label1 FW"/>
+          </object>
+          <object type="jsx3.gui.TextBox">
+            <variants jsxheight="18" jsxwidth="200" jsxrequired="1"/>
+            <strings jsxname="tb_SourceSystem" jsxmargin="0 4 0 0" jsxcdfattribute="SourceSystem"/>
+            <dynamics jsxfontname="@Label1 FN" jsxfontsize="labelFontSize"/>
+          </object>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants jsxleft="0" jsxtop="0" jsxheight="40" jsxoverflow="2" jsxrelativeposition="1"/>
+          <strings jsxtagname="div" jsxwidth="100%" jsxtext="&amp;#160;"/>
+          <dynamics jsxbgcolor="@Solid Light" jsxpadding="@8Pixel"/>
+          <object type="jsx3.gui.Block">
+            <variants jsxrelativeposition="1" jsxoverflow="2" jsxwidth="160" jsxheight="30"/>
+            <strings jsxname="label"/>
+            <dynamics jsxfontname="@Label1 FN" jsxfontsize="labelFontSize" jsxfontweight="@Label1 FW" jsxtext="interface_TargetSystem"/>
+          </object>
+          <object type="jsx3.gui.Block">
+            <variants jsxrelativeposition="1" jsxoverflow="2" jsxwidth="8" jsxheight="30"/>
+            <strings jsxname="ifRequired" jsxtext="&amp;#160;" jsxcolor="red"/>
+            <dynamics jsxfontname="@Label1 FN" jsxfontsize="labelFontSize" jsxfontweight="@Label1 FW"/>
+          </object>
+          <object type="jsx3.gui.TextBox">
+            <variants jsxheight="18" jsxwidth="200" jsxrequired="0"/>
+            <strings jsxname="tb_TargetSystem" jsxmargin="0 4 0 0" jsxcdfattribute="TargetSystem"/>
+            <dynamics jsxfontname="@Label1 FN" jsxfontsize="labelFontSize"/>
+          </object>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants jsxleft="0" jsxtop="0" jsxheight="40" jsxoverflow="2" jsxrelativeposition="1"/>
+          <strings jsxtagname="div" jsxwidth="100%" jsxtext="&amp;#160;"/>
+          <dynamics jsxbgcolor="@Solid Light" jsxpadding="@8Pixel"/>
+          <object type="jsx3.gui.Block">
+            <variants jsxrelativeposition="1" jsxoverflow="2" jsxwidth="160" jsxheight="30"/>
+            <strings jsxname="label"/>
+            <dynamics jsxfontname="@Label1 FN" jsxfontsize="labelFontSize" jsxfontweight="@Label1 FW" jsxtext="interface_Protocol"/>
+          </object>
+          <object type="jsx3.gui.Block">
+            <variants jsxrelativeposition="1" jsxoverflow="2" jsxwidth="8" jsxheight="30"/>
+            <strings jsxname="ifRequired" jsxtext="&amp;#160;" jsxcolor="red"/>
+            <dynamics jsxfontname="@Label1 FN" jsxfontsize="labelFontSize" jsxfontweight="@Label1 FW"/>
+          </object>
+          <object type="jsx3.gui.TextBox">
+            <variants jsxheight="18" jsxwidth="200" jsxrequired="0"/>
+            <strings jsxname="tb_Protocol" jsxmargin="0 4 0 0" jsxcdfattribute="Protocol"/>
+            <dynamics jsxfontname="@Label1 FN" jsxfontsize="labelFontSize"/>
+          </object>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants jsxleft="0" jsxtop="0" jsxheight="40" jsxoverflow="2" jsxrelativeposition="1"/>
+          <strings jsxtagname="div" jsxwidth="100%" jsxtext="&amp;#160;"/>
+          <dynamics jsxbgcolor="@Solid Light" jsxpadding="@8Pixel"/>
+          <object type="jsx3.gui.Block">
+            <variants jsxrelativeposition="1" jsxoverflow="2" jsxwidth="160" jsxheight="30"/>
+            <strings jsxname="label"/>
+            <dynamics jsxfontname="@Label1 FN" jsxfontsize="labelFontSize" jsxfontweight="@Label1 FW" jsxtext="interface_Status"/>
+          </object>
+          <object type="jsx3.gui.Block">
+            <variants jsxrelativeposition="1" jsxoverflow="2" jsxwidth="8" jsxheight="30"/>
+            <strings jsxname="ifRequired" jsxtext="&amp;#160;" jsxcolor="red"/>
+            <dynamics jsxfontname="@Label1 FN" jsxfontsize="labelFontSize" jsxfontweight="@Label1 FW"/>
+          </object>
+          <object type="jsx3.gui.Select">
+            <variants jsxheight="18" jsxwidth="200" jsxrequired="1"/>
+            <strings jsxname="tb_Status" jsxmargin="0 4 0 0" jsxcdfattribute="Status" jsxxmlurl="interfaces/configuration/interfaceConfig/interfaceStatus_cdf.xml"/>
+            <dynamics jsxfontname="@Label1 FN" jsxfontsize="labelFontSize"/>
+          </object>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants jsxleft="0" jsxtop="0" jsxheight="74" jsxoverflow="2" jsxrelativeposition="1"/>
+          <strings jsxtagname="div" jsxwidth="100%" jsxtext="&amp;#160;"/>
+          <dynamics jsxbgcolor="@Solid Light" jsxpadding="@8Pixel"/>
+          <object type="jsx3.gui.Block">
+            <variants jsxrelativeposition="1" jsxoverflow="2" jsxwidth="160" jsxheight="30"/>
+            <strings jsxname="label"/>
+            <dynamics jsxfontname="@Label1 FN" jsxfontsize="labelFontSize" jsxfontweight="@Label1 FW" jsxtext="interface_Description"/>
+          </object>
+          <object type="jsx3.gui.Block">
+            <variants jsxrelativeposition="1" jsxoverflow="2" jsxwidth="8" jsxheight="30"/>
+            <strings jsxname="ifRequired" jsxtext="&amp;#160;" jsxcolor="red"/>
+            <dynamics jsxfontname="@Label1 FN" jsxfontsize="labelFontSize" jsxfontweight="@Label1 FW"/>
+          </object>
+          <object type="jsx3.gui.TextBox">
+            <variants jsxheight="72" jsxwidth="200" jsxrequired="0" jsxtype="1"/>
+            <strings jsxname="tb_Description" jsxmargin="0 4 0 0" jsxcdfattribute="Description"/>
+            <dynamics jsxfontname="@Label1 FN" jsxfontsize="labelFontSize"/>
+          </object>
+        </object>
+      </object>
+    </object>
+  </object>
+</serialization>

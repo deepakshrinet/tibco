@@ -1,0 +1,762 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Repository:repository xmlns:Repository="http://www.tibco.com/xmlns/repo/types/2002" xmlns:AESDK="http://www.tibco.com/xmlns/aemeta/adapter/2002" xmlns:AEService="http://www.tibco.com/xmlns/aemeta/services/2002" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <SAPAdapter:adapter xmlns:SAPAdapter="http://www.tibco.com/xmlns/adapter/SAPAdapter/2002" name="SAPAdapter">
+        <AESDK:instanceId>SAPHR_UserR3Adapter</AESDK:instanceId>
+        <AESDK:startup>
+            <AESDK:defaultStartup>active</AESDK:defaultStartup>
+            <AESDK:banner>true</AESDK:banner>
+            <AESDK:hasStdMicroAgent>true</AESDK:hasStdMicroAgent>
+            <AESDK:stdMicroAgentName>COM.TIBCO.ADAPTER.adr3.%%Deployment%%.%%InstanceId%%</AESDK:stdMicroAgentName>
+            <AESDK:stdMicroAgentTimeout>10000</AESDK:stdMicroAgentTimeout>
+            <AESDK:hasClassMicroAgent>%%HawkEnabled%%</AESDK:hasClassMicroAgent>
+            <AESDK:classMicroAgentTimeout>10000</AESDK:classMicroAgentTimeout>
+            <AESDK:classMicroAgentName>COM.TIBCO.adr3.%%Deployment%%.%%InstanceId%%</AESDK:classMicroAgentName>
+            <AESDK:startComponent>
+                <AESDK:state>active</AESDK:state>
+                <AESDK:name>R3HawkDefault</AESDK:name>
+            </AESDK:startComponent>
+            <AESDK:startComponent>
+                <AESDK:state>inactive</AESDK:state>
+                <AESDK:name>R3RVSession</AESDK:name>
+            </AESDK:startComponent>
+            <AESDK:startComponent>
+                <AESDK:state>inactive</AESDK:state>
+                <AESDK:name>RvStopSubscriber</AESDK:name>
+            </AESDK:startComponent>
+            <AESDK:startComponent>
+                <AESDK:state>inactive</AESDK:state>
+                <AESDK:name>r3OutBound-RPCServer</AESDK:name>
+            </AESDK:startComponent>
+            <AESDK:startComponent>
+                <AESDK:state>inactive</AESDK:state>
+                <AESDK:name>idocOutbound-RPCServer</AESDK:name>
+            </AESDK:startComponent>
+            <AESDK:startComponent>
+                <AESDK:state>inactive</AESDK:state>
+                <AESDK:name>RFCServer-RPCServer</AESDK:name>
+            </AESDK:startComponent>
+            <AESDK:startComponent>
+                <AESDK:state>inactive</AESDK:state>
+                <AESDK:name>RFCClient-RPCServer</AESDK:name>
+            </AESDK:startComponent>
+            <AESDK:defaultSession>R3RVSession</AESDK:defaultSession>
+            <AESDK:startComponent>
+                <AESDK:state>inactive</AESDK:state>
+                <AESDK:name>TIDManagerSession</AESDK:name>
+            </AESDK:startComponent>
+            <AESDK:startComponent>
+                <AESDK:state>inactive</AESDK:state>
+                <AESDK:name>TID_RPC_CLIENT</AESDK:name>
+            </AESDK:startComponent>
+            <AESDK:startComponent>
+                <AESDK:state>inactive</AESDK:state>
+                <AESDK:name>INBOUND_TID_RPC_CLIENT</AESDK:name>
+            </AESDK:startComponent>
+            <AESDK:defaultMicroAgentSession>R3HawkDefault</AESDK:defaultMicroAgentSession>
+            <AESDK:startComponent>
+                <AESDK:state>active</AESDK:state>
+                <AESDK:name>DefaultJMSQueueSession</AESDK:name>
+            </AESDK:startComponent>
+            <AESDK:startComponent>
+                <AESDK:state>active</AESDK:state>
+                <AESDK:name>R3JMSTopicSession</AESDK:name>
+            </AESDK:startComponent>
+            <AESDK:startComponent>
+                <AESDK:state>active</AESDK:state>
+                <AESDK:name>JmsStopSubscriber</AESDK:name>
+            </AESDK:startComponent>
+            <AESDK:startComponent>
+                <AESDK:state>inactive</AESDK:state>
+                <AESDK:name>DefaultRVCMQSession</AESDK:name>
+            </AESDK:startComponent>
+            <AESDK:startComponent>
+                <AESDK:state>inactive</AESDK:state>
+                <AESDK:name>r3Inbound-RPCServer</AESDK:name>
+            </AESDK:startComponent>
+            <AESDK:startComponent>
+                <AESDK:state>active</AESDK:state>
+                <AESDK:name>Z_RFC_2170_HRIS_SFIJMSQueueServer</AESDK:name>
+            </AESDK:startComponent>
+        </AESDK:startup>
+        <AESDK:deployment>
+            <AESDK:advisories>
+                <AESDK:advisory>
+                    <AESDK:name>advisory.rv.warn</AESDK:name>
+                    <AESDK:subject>_RV.WARN.&gt;</AESDK:subject>
+                </AESDK:advisory>
+                <AESDK:advisory>
+                    <AESDK:subject>_SDK.ERROR.&gt;</AESDK:subject>
+                    <AESDK:name>advisory.sdk.error</AESDK:name>
+                </AESDK:advisory>
+                <AESDK:advisory>
+                    <AESDK:subject>_SDK.WARN.&gt;</AESDK:subject>
+                    <AESDK:name>advisory.sdk.warn</AESDK:name>
+                </AESDK:advisory>
+                <AESDK:advisory>
+                    <AESDK:subject>_SDK.INFO.&gt;</AESDK:subject>
+                    <AESDK:name>advisory.sdk.info</AESDK:name>
+                </AESDK:advisory>
+            </AESDK:advisories>
+            <AESDK:sessions>
+                <AESDK:messaging>
+                    <AESDK:rvCmqSession isRef="true">#rvCmqSession.DefaultRVCMQSession</AESDK:rvCmqSession>
+                    <AESDK:jmsSession isRef="true">#jmsSession.R3JMSTopicSession</AESDK:jmsSession>
+                    <AESDK:jmsSession isRef="true">#jmsSession.DefaultJMSQueueSession</AESDK:jmsSession>
+                    <AESDK:rvSession isRef="true">#rvSession.TIDManagerSession</AESDK:rvSession>
+                    <AESDK:rvSession isRef="true">#rvSession.R3RVSession</AESDK:rvSession>
+                    <AESDK:rvSession isRef="true">#rvSession.R3HawkDefault</AESDK:rvSession>
+                </AESDK:messaging>
+            </AESDK:sessions>
+            <AESDK:consumers>
+                <AESDK:jmsSubscriber isRef="true">#jmsConsumer.JmsStopSubscriber</AESDK:jmsSubscriber>
+                <AESDK:rvSubscriber isRef="true">#consumer.RvStopSubscriber</AESDK:rvSubscriber>
+            </AESDK:consumers>
+            <AESDK:servers>
+                <AESDK:rvCmqRpcServer isRef="true">#server.r3Inbound-RPCServer</AESDK:rvCmqRpcServer>
+                <AESDK:jmsRpcServer isRef="true">#jmsServer.Z_RFC_2170_HRIS_SFIJMSQueueServer</AESDK:jmsRpcServer>
+                <AESDK:rvRpcServer isRef="true">#server.RFCClient-RPCServer</AESDK:rvRpcServer>
+                <AESDK:rvRpcServer isRef="true">#server.RFCServer-RPCServer</AESDK:rvRpcServer>
+                <AESDK:rvRpcServer isRef="true">#server.idocOutbound-RPCServer</AESDK:rvRpcServer>
+                <AESDK:rvRpcServer isRef="true">#server.r3OutBound-RPCServer</AESDK:rvRpcServer>
+            </AESDK:servers>
+            <AESDK:clients>
+                <AESDK:rvRpcClient isRef="true">#client.INBOUND_TID_RPC_CLIENT</AESDK:rvRpcClient>
+                <AESDK:rvRpcClient isRef="true">#client.TID_RPC_CLIENT</AESDK:rvRpcClient>
+            </AESDK:clients>
+        </AESDK:deployment>
+        <AESDK:timers xsi:nil="true"/>
+        <AESDK:txControls xsi:nil="true"/>
+        <AESDK:reporting>
+            <AESDK:fileSink>
+                <AESDK:fileName>%%DirTrace%%/%%Deployment%%.%%InstanceId%%.log</AESDK:fileName>
+                <AESDK:fileCount>%%ApplicationDetails/LogFile/SAPAdapterFileCount%%</AESDK:fileCount>
+                <AESDK:fileLimit>%%ApplicationDetails/LogFile/SAPAdapterFileLimit%%</AESDK:fileLimit>
+                <AESDK:appendMode>true</AESDK:appendMode>
+                <AESDK:name>fileSink</AESDK:name>
+                <AESDK:role>
+                    <AESDK:name>infoRole</AESDK:name>
+                </AESDK:role>
+                <AESDK:role>
+                    <AESDK:name>errorRole</AESDK:name>
+                </AESDK:role>
+                <AESDK:role>
+                    <AESDK:name>warnRole</AESDK:name>
+                </AESDK:role>
+            </AESDK:fileSink>
+            <AESDK:stdioSink>
+                <AESDK:ioName>stdout</AESDK:ioName>
+                <AESDK:name>stdioSink</AESDK:name>
+                <AESDK:role>
+                    <AESDK:name>infoRole</AESDK:name>
+                </AESDK:role>
+                <AESDK:role>
+                    <AESDK:name>errorRole</AESDK:name>
+                </AESDK:role>
+                <AESDK:role>
+                    <AESDK:name>warnRole</AESDK:name>
+                </AESDK:role>
+            </AESDK:stdioSink>
+        </AESDK:reporting>
+        <AESDK:metadata>
+            <AESDK:loadUrl isRef="true">/AESchemas/ae/SAPAdapter40/classes/#class</AESDK:loadUrl>
+            <AESDK:loadUrl isRef="true">/AESchemas/ae/740/basic/functionModules/#class</AESDK:loadUrl>
+            <AESDK:loadUrl isRef="true">/AESchemas/ae/740/basic/structures/#class</AESDK:loadUrl>
+        </AESDK:metadata>
+        <AESDK:designer>
+            <AESDK:advancedLogging>false</AESDK:advancedLogging>
+            <AESDK:adapterVersion>sdk53</AESDK:adapterVersion>
+            <AESDK:rememberPassword>true</AESDK:rememberPassword>
+            <AESDK:lockedProperties>
+                <AESDK:locked>
+                    <AESDK:resource>/Advanced/Sessions/DefaultRVCMQSession</AESDK:resource>
+                    <AESDK:properties>name</AESDK:properties>
+                </AESDK:locked>
+                <AESDK:locked>
+                    <AESDK:resource>/Advanced/Sessions/DefaultRVCMQSession/r3Inbound-RPCServer</AESDK:resource>
+                    <AESDK:properties>subject,name</AESDK:properties>
+                </AESDK:locked>
+                <AESDK:locked>
+                    <AESDK:resource>/Advanced/Sessions/R3JMSTopicSession</AESDK:resource>
+                    <AESDK:properties>connectionFactoryType,name</AESDK:properties>
+                </AESDK:locked>
+                <AESDK:locked>
+                    <AESDK:resource>/Advanced/Sessions/R3JMSTopicSession/JmsStopSubscriber</AESDK:resource>
+                    <AESDK:properties>description,name,deliveryMode,destination</AESDK:properties>
+                </AESDK:locked>
+                <AESDK:locked>
+                    <AESDK:resource>/Advanced/Sessions/DefaultJMSQueueSession</AESDK:resource>
+                    <AESDK:properties>connectionFactoryType,name</AESDK:properties>
+                </AESDK:locked>
+                <AESDK:locked>
+                    <AESDK:resource>/Advanced/Sessions/DefaultJMSQueueSession/Z_RFC_2170_HRIS_SFIJMSQueueServer</AESDK:resource>
+                    <AESDK:properties>subject,name,deliveryMode,wireFormat,deliveryMode2,destination</AESDK:properties>
+                </AESDK:locked>
+                <AESDK:locked>
+                    <AESDK:resource>/Advanced/Sessions/TIDManagerSession/INBOUND_TID_RPC_CLIENT</AESDK:resource>
+                    <AESDK:properties>name</AESDK:properties>
+                </AESDK:locked>
+                <AESDK:locked>
+                    <AESDK:resource>/Advanced/Sessions/TIDManagerSession/TID_RPC_CLIENT</AESDK:resource>
+                    <AESDK:properties>name</AESDK:properties>
+                </AESDK:locked>
+                <AESDK:locked>
+                    <AESDK:resource>/Advanced/Sessions/R3RVSession</AESDK:resource>
+                    <AESDK:properties>name</AESDK:properties>
+                </AESDK:locked>
+                <AESDK:locked>
+                    <AESDK:resource>/Advanced/Sessions/R3RVSession/RFCClient-RPCServer</AESDK:resource>
+                    <AESDK:properties>subject,description,name,wireFormat,endpoint.RVRPCServer</AESDK:properties>
+                </AESDK:locked>
+                <AESDK:locked>
+                    <AESDK:resource>/Advanced/Sessions/R3RVSession/RFCServer-RPCServer</AESDK:resource>
+                    <AESDK:properties>subject,description,name,wireFormat,endpoint.RVRPCServer</AESDK:properties>
+                </AESDK:locked>
+                <AESDK:locked>
+                    <AESDK:resource>/Advanced/Sessions/R3RVSession/idocOutbound-RPCServer</AESDK:resource>
+                    <AESDK:properties>subject,description,name,wireFormat,endpoint.RVRPCServer</AESDK:properties>
+                </AESDK:locked>
+                <AESDK:locked>
+                    <AESDK:resource>/Advanced/Sessions/R3RVSession/r3OutBound-RPCServer</AESDK:resource>
+                    <AESDK:properties>subject,description,name,wireFormat,endpoint.RVRPCServer</AESDK:properties>
+                </AESDK:locked>
+                <AESDK:locked>
+                    <AESDK:resource>/Advanced/Sessions/R3RVSession/RvStopSubscriber</AESDK:resource>
+                    <AESDK:properties>listenTimeout,subject,description,name,wireFormat,endpoint.RVSubscriber</AESDK:properties>
+                </AESDK:locked>
+                <AESDK:locked>
+                    <AESDK:resource>/Advanced/Sessions/R3HawkDefault</AESDK:resource>
+                    <AESDK:properties>name</AESDK:properties>
+                </AESDK:locked>
+                <AESDK:locked>
+                    <AESDK:resource>/Advanced/Advisories/advisory.sdk.info</AESDK:resource>
+                    <AESDK:properties>subject,name</AESDK:properties>
+                </AESDK:locked>
+                <AESDK:locked>
+                    <AESDK:resource>/Advanced/Advisories/advisory.sdk.warn</AESDK:resource>
+                    <AESDK:properties>subject,name</AESDK:properties>
+                </AESDK:locked>
+                <AESDK:locked>
+                    <AESDK:resource>/Advanced/Advisories/advisory.sdk.error</AESDK:resource>
+                    <AESDK:properties>subject,name</AESDK:properties>
+                </AESDK:locked>
+                <AESDK:locked>
+                    <AESDK:resource>/Advanced/Advisories/advisory.rv.warn</AESDK:resource>
+                    <AESDK:properties>subject,name</AESDK:properties>
+                </AESDK:locked>
+                <AESDK:locked>
+                    <AESDK:resource>/Adapter Services</AESDK:resource>
+                    <AESDK:properties>name</AESDK:properties>
+                </AESDK:locked>
+            </AESDK:lockedProperties>
+            <AESDK:fixedChildren>
+                <AESDK:fixed>
+                    <AESDK:resource>/Advanced/Sessions</AESDK:resource>
+                    <AESDK:children>R3HawkDefault,R3RVSession,DefaultJMSQueueSession,R3JMSTopicSession,DefaultRVCMQSession</AESDK:children>
+                </AESDK:fixed>
+                <AESDK:fixed>
+                    <AESDK:resource>/Advanced/Sessions/DefaultRVCMQSession</AESDK:resource>
+                    <AESDK:children>r3Inbound-RPCServer</AESDK:children>
+                </AESDK:fixed>
+                <AESDK:fixed>
+                    <AESDK:resource>/Advanced/Sessions/R3JMSTopicSession</AESDK:resource>
+                    <AESDK:children>JmsStopSubscriber</AESDK:children>
+                </AESDK:fixed>
+                <AESDK:fixed>
+                    <AESDK:resource>/Advanced/Sessions/DefaultJMSQueueSession</AESDK:resource>
+                    <AESDK:children>Z_RFC_2170_HRIS_SFIJMSQueueServer</AESDK:children>
+                </AESDK:fixed>
+                <AESDK:fixed>
+                    <AESDK:resource>/Advanced/Sessions/DefaultJMSQueueSession/Z_RFC_2170_HRIS_SFIJMSQueueServer</AESDK:resource>
+                    <AESDK:children>Z_RFC_2170_HRIS_SFI</AESDK:children>
+                </AESDK:fixed>
+                <AESDK:fixed>
+                    <AESDK:resource>/Advanced/Sessions/TIDManagerSession</AESDK:resource>
+                    <AESDK:children>TID_RPC_CLIENT,INBOUND_TID_RPC_CLIENT</AESDK:children>
+                </AESDK:fixed>
+                <AESDK:fixed>
+                    <AESDK:resource>/Advanced/Sessions/R3RVSession</AESDK:resource>
+                    <AESDK:children>RvStopSubscriber,r3OutBound-RPCServer,idocOutbound-RPCServer,RFCServer-RPCServer,RFCClient-RPCServer</AESDK:children>
+                </AESDK:fixed>
+                <AESDK:fixed>
+                    <AESDK:resource>/Advanced/Advisories</AESDK:resource>
+                    <AESDK:children>advisory.rv.warn,advisory.sdk.error,advisory.sdk.warn,advisory.sdk.info</AESDK:children>
+                </AESDK:fixed>
+            </AESDK:fixedChildren>
+            <AESDK:resourceDescriptions>
+                <AESDK:node>
+                    <AESDK:resource>/Advanced/Sessions/R3JMSTopicSession/JmsStopSubscriber</AESDK:resource>
+                    <AESDK:description>This is the endpoint which listens on STOP ADAPTER message for JMS Transport</AESDK:description>
+                </AESDK:node>
+                <AESDK:node>
+                    <AESDK:resource>/Advanced/Sessions/R3RVSession/RvStopSubscriber</AESDK:resource>
+                    <AESDK:description>This is the endpoint which listens on STOP ADAPTER message for RV Transport</AESDK:description>
+                </AESDK:node>
+            </AESDK:resourceDescriptions>
+            <AESDK:showExpertSettings>true</AESDK:showExpertSettings>
+            <AESDK:adapterTester>
+                <AESDK:exe>C:\tibco\adapter\adr3\7.1\bin\adr3.exe</AESDK:exe>
+                <AESDK:args>--run --propFile</AESDK:args>
+                <AESDK:workingDir>C:\Users\chandraj\Desktop\test</AESDK:workingDir>
+            </AESDK:adapterTester>
+        </AESDK:designer>
+        <SAPAdapter:appServer>%%ApplicationDetails/SAP/ApplicationServer%%</SAPAdapter:appServer>
+        <SAPAdapter:systemNo>%%ApplicationDetails/SAP/SystemNumber%%</SAPAdapter:systemNo>
+        <SAPAdapter:number>%%ApplicationDetails/SAP/Client%%</SAPAdapter:number>
+        <SAPAdapter:userName>%%ApplicationDetails/SAP/UserName%%</SAPAdapter:userName>
+        <SAPAdapter:password>%%ApplicationDetails/SAP/Password%%</SAPAdapter:password>
+        <SAPAdapter:language>E</SAPAdapter:language>
+        <AESDK:init xmlns:SAPAdapter="http://www.tibco.com/xmlns/adapter/SAPAdapter/2002">
+            <SAPAdapter:invocations xmlns:SAPAdapter="http://www.tibco.com/xmlns/adapter/SAPAdapter/2002">
+                <SAPAdapter:invocation>
+                    <SAPAdapter:componentName isRef="true">#r3Inbound</SAPAdapter:componentName>
+                    <SAPAdapter:interfaceName>RFCClient</SAPAdapter:interfaceName>
+                    <SAPAdapter:function xmlns:SAPAdapter="http://www.tibco.com/xmlns/adapter/SAPAdapter/2002">
+                        <SAPAdapter:name>add</SAPAdapter:name>
+                        <SAPAdapter:attribute>
+                            <SAPAdapter:name>rpcRef</SAPAdapter:name>
+                            <SAPAdapter:value isRef="true">#jmsServer.Z_RFC_2170_HRIS_SFIJMSQueueServer</SAPAdapter:value>
+                        </SAPAdapter:attribute>
+                        <SAPAdapter:attribute>
+                            <SAPAdapter:name>deploymentRef</SAPAdapter:name>
+                            <SAPAdapter:value>default</SAPAdapter:value>
+                        </SAPAdapter:attribute>
+                        <SAPAdapter:attribute>
+                            <SAPAdapter:name>classRef</SAPAdapter:name>
+                            <SAPAdapter:value isRef="true">/AESchemas/ae/740/basic/functionModules.aeschema#rpcClass.Z_RFC_2170_HRIS_SFI</SAPAdapter:value>
+                        </SAPAdapter:attribute>
+                        <SAPAdapter:attribute>
+                            <SAPAdapter:name>name</SAPAdapter:name>
+                            <SAPAdapter:value>Z_RFC_2170_HRIS_SFI</SAPAdapter:value>
+                        </SAPAdapter:attribute>
+                        <SAPAdapter:attribute>
+                            <SAPAdapter:name>serviceName</SAPAdapter:name>
+                            <SAPAdapter:value>Z_RFC_2170_HRIS_SFIServer</SAPAdapter:value>
+                        </SAPAdapter:attribute>
+                    </SAPAdapter:function>
+                </SAPAdapter:invocation>
+            </SAPAdapter:invocations>
+        </AESDK:init>
+        <SAPAdapter:components xmlns:SAPAdapter="http://www.tibco.com/xmlns/adapter/SAPAdapter/2002">
+            <SAPAdapter:component isRef="true">#r3Inbound.r3Inbound</SAPAdapter:component>
+        </SAPAdapter:components>
+        <SAPAdapter:deploymentDescriptions xmlns:SAPAdapter="http://www.tibco.com/xmlns/adapter/SAPAdapter/2002">
+            <SAPAdapter:deploymentDescription isRef="true">#inBoundDeployment.inBoundDeployment</SAPAdapter:deploymentDescription>
+        </SAPAdapter:deploymentDescriptions>
+        <SAPAdapter:connectionManagers xmlns:SAPAdapter="http://www.tibco.com/xmlns/adapter/SAPAdapter/2002">
+            <SAPAdapter:connectionManager isRef="true">/R3Connections.adr3Connections#connectionManager.SAPHR_UserR3AdapterActiveConnections</SAPAdapter:connectionManager>
+        </SAPAdapter:connectionManagers>
+        <AESDK:hawk xmlns:AESDK="http://www.tibco.com/xmlns/aemeta/adapter/2002">
+            <AESDK:microAgentName>SAPAdapterMicroAgent</AESDK:microAgentName>
+            <AESDK:sessionName isRef="true">/Adapter/SAPHR_UserR3Adapter.adr3#rvSession.R3HawkDefault</AESDK:sessionName>
+            <AESDK:method>
+                <AESDK:name>getActivityStatisticsByService</AESDK:name>
+                <AESDK:help>Get Runtime Statistics for an R/3 BAPI/RFC/IDOC</AESDK:help>
+                <AESDK:type>INFO</AESDK:type>
+                <AESDK:index>SerialNo</AESDK:index>
+                <AESDK:outputParameter>
+                    <AESDK:name>SerialNo</AESDK:name>
+                    <AESDK:help>Sequence Number</AESDK:help>
+                    <AESDK:type>Integer</AESDK:type>
+                </AESDK:outputParameter>
+                <AESDK:outputParameter>
+                    <AESDK:name>ServiceName</AESDK:name>
+                    <AESDK:help>Name of the Adapter Service</AESDK:help>
+                    <AESDK:type>string</AESDK:type>
+                </AESDK:outputParameter>
+                <AESDK:outputParameter>
+                    <AESDK:name>ServiceType</AESDK:name>
+                    <AESDK:help>IDoc or RFC/BAPI</AESDK:help>
+                    <AESDK:type>string</AESDK:type>
+                </AESDK:outputParameter>
+                <AESDK:outputParameter>
+                    <AESDK:name>Schema</AESDK:name>
+                    <AESDK:help>Name of IDoc or RFC/BAPI</AESDK:help>
+                    <AESDK:type>string</AESDK:type>
+                </AESDK:outputParameter>
+                <AESDK:outputParameter>
+                    <AESDK:name>NumberTotalMessages</AESDK:name>
+                    <AESDK:help>Total messages processed</AESDK:help>
+                    <AESDK:type>Integer</AESDK:type>
+                </AESDK:outputParameter>
+                <AESDK:outputParameter>
+                    <AESDK:name>NumberSucessMessages</AESDK:name>
+                    <AESDK:help>Total messages processed successfully</AESDK:help>
+                    <AESDK:type>Integer</AESDK:type>
+                </AESDK:outputParameter>
+                <AESDK:outputParameter>
+                    <AESDK:name>NumberErrorMessages</AESDK:name>
+                    <AESDK:help>Total messages processed unsuccessfully</AESDK:help>
+                    <AESDK:type>Integer</AESDK:type>
+                </AESDK:outputParameter>
+            </AESDK:method>
+            <AESDK:method>
+                <AESDK:name>resetActivityStatistics</AESDK:name>
+                <AESDK:help>Reset R/3 RFC/BAPI/IDoc Activity Statistics</AESDK:help>
+                <AESDK:type>ACTION</AESDK:type>
+            </AESDK:method>
+            <AESDK:method>
+                <AESDK:name>refreshExtendedLogging</AESDK:name>
+                <AESDK:help>Refresh Extended logging of the adapter</AESDK:help>
+                <AESDK:type>ACTION</AESDK:type>
+            </AESDK:method>
+            <AESDK:method>
+                <AESDK:name>resumeRemoteTIDManager</AESDK:name>
+                <AESDK:help>Resume connectivity to remote TID Manager</AESDK:help>
+                <AESDK:type>ACTION</AESDK:type>
+            </AESDK:method>
+            <AESDK:method>
+                <AESDK:name>resumeOutboundServices</AESDK:name>
+                <AESDK:help>Restart stopped outbound services</AESDK:help>
+                <AESDK:type>ACTION</AESDK:type>
+            </AESDK:method>
+            <AESDK:method>
+                <AESDK:name>getOutboundThreadData</AESDK:name>
+                <AESDK:help>Get Outbound Thread Data for Adapter</AESDK:help>
+                <AESDK:type>INFO</AESDK:type>
+                <AESDK:index>SerialNo</AESDK:index>
+                <AESDK:outputParameter>
+                    <AESDK:name>SerialNo</AESDK:name>
+                    <AESDK:help>Sequence Number</AESDK:help>
+                    <AESDK:type>Integer</AESDK:type>
+                </AESDK:outputParameter>
+                <AESDK:outputParameter>
+                    <AESDK:name>ServerConnectionPool</AESDK:name>
+                    <AESDK:help>Server Connection Pool</AESDK:help>
+                    <AESDK:type>string</AESDK:type>
+                </AESDK:outputParameter>
+                <AESDK:outputParameter>
+                    <AESDK:name>GatewayHost</AESDK:name>
+                    <AESDK:help>Gateway Host</AESDK:help>
+                    <AESDK:type>string</AESDK:type>
+                </AESDK:outputParameter>
+                <AESDK:outputParameter>
+                    <AESDK:name>GatewayService</AESDK:name>
+                    <AESDK:help>Gateway Service</AESDK:help>
+                    <AESDK:type>string</AESDK:type>
+                </AESDK:outputParameter>
+                <AESDK:outputParameter>
+                    <AESDK:name>ProgramID</AESDK:name>
+                    <AESDK:help>Program ID</AESDK:help>
+                    <AESDK:type>string</AESDK:type>
+                </AESDK:outputParameter>
+                <AESDK:outputParameter>
+                    <AESDK:name>ThreadCount</AESDK:name>
+                    <AESDK:help>Number of threads in pool</AESDK:help>
+                    <AESDK:type>Integer</AESDK:type>
+                </AESDK:outputParameter>
+            </AESDK:method>
+            <AESDK:method>
+                <AESDK:name>setOutboundThreadPool</AESDK:name>
+                <AESDK:help>Set thread count for outbound connection pool</AESDK:help>
+                <AESDK:type>ACTION</AESDK:type>
+                <AESDK:inputParameter>
+                    <AESDK:name>GatewayHost</AESDK:name>
+                    <AESDK:help>Gateway Host</AESDK:help>
+                    <AESDK:type>string</AESDK:type>
+                </AESDK:inputParameter>
+                <AESDK:inputParameter>
+                    <AESDK:name>GatewayService</AESDK:name>
+                    <AESDK:help>Gateway Service</AESDK:help>
+                    <AESDK:type>string</AESDK:type>
+                </AESDK:inputParameter>
+                <AESDK:inputParameter>
+                    <AESDK:name>ProgramID</AESDK:name>
+                    <AESDK:help>Program ID</AESDK:help>
+                    <AESDK:type>string</AESDK:type>
+                </AESDK:inputParameter>
+                <AESDK:inputParameter>
+                    <AESDK:name>ThreadCount</AESDK:name>
+                    <AESDK:help>Number of threads in pool</AESDK:help>
+                    <AESDK:type>integer</AESDK:type>
+                </AESDK:inputParameter>
+            </AESDK:method>
+            <AESDK:method>
+                <AESDK:name>getInboundConnectionData</AESDK:name>
+                <AESDK:help>Get Client Connection Pools data for Adapter</AESDK:help>
+                <AESDK:type>INFO</AESDK:type>
+                <AESDK:index>SerialNo</AESDK:index>
+                <AESDK:outputParameter>
+                    <AESDK:name>SerialNo</AESDK:name>
+                    <AESDK:help>Sequence Number</AESDK:help>
+                    <AESDK:type>Integer</AESDK:type>
+                </AESDK:outputParameter>
+                <AESDK:outputParameter>
+                    <AESDK:name>ClientConnectionPool</AESDK:name>
+                    <AESDK:help>Client Connection Pool</AESDK:help>
+                    <AESDK:type>string</AESDK:type>
+                </AESDK:outputParameter>
+                <AESDK:outputParameter>
+                    <AESDK:name>MaxConnections</AESDK:name>
+                    <AESDK:help>Number of connections in pool</AESDK:help>
+                    <AESDK:type>Integer</AESDK:type>
+                </AESDK:outputParameter>
+            </AESDK:method>
+            <AESDK:method>
+                <AESDK:name>getInboundThreadData</AESDK:name>
+                <AESDK:help>Get Inbound Thread data for Adapter</AESDK:help>
+                <AESDK:type>INFO</AESDK:type>
+                <AESDK:index>SerialNo</AESDK:index>
+                <AESDK:outputParameter>
+                    <AESDK:name>SerialNo</AESDK:name>
+                    <AESDK:help>Sequence Number</AESDK:help>
+                    <AESDK:type>Integer</AESDK:type>
+                </AESDK:outputParameter>
+                <AESDK:outputParameter>
+                    <AESDK:name>ServiceName</AESDK:name>
+                    <AESDK:help>Inbound Adapter Service Name</AESDK:help>
+                    <AESDK:type>string</AESDK:type>
+                </AESDK:outputParameter>
+                <AESDK:outputParameter>
+                    <AESDK:name>ServiceType</AESDK:name>
+                    <AESDK:help>Service Type</AESDK:help>
+                    <AESDK:type>string</AESDK:type>
+                </AESDK:outputParameter>
+                <AESDK:outputParameter>
+                    <AESDK:name>Schema</AESDK:name>
+                    <AESDK:help>Name of RFC, BAPI, or IDoc</AESDK:help>
+                    <AESDK:type>string</AESDK:type>
+                </AESDK:outputParameter>
+                <AESDK:outputParameter>
+                    <AESDK:name>ClientConnReference</AESDK:name>
+                    <AESDK:help>Clent Connection Reference</AESDK:help>
+                    <AESDK:type>string</AESDK:type>
+                </AESDK:outputParameter>
+                <AESDK:outputParameter>
+                    <AESDK:name>SessionReference</AESDK:name>
+                    <AESDK:help>Session Reference</AESDK:help>
+                    <AESDK:type>string</AESDK:type>
+                </AESDK:outputParameter>
+                <AESDK:outputParameter>
+                    <AESDK:name>ThreadCount</AESDK:name>
+                    <AESDK:help>Number of threads in pool</AESDK:help>
+                    <AESDK:type>Integer</AESDK:type>
+                </AESDK:outputParameter>
+            </AESDK:method>
+            <AESDK:method>
+                <AESDK:name>setInboundConnectionPool</AESDK:name>
+                <AESDK:help>Set maximum number of connections for client connection pool</AESDK:help>
+                <AESDK:type>ACTION</AESDK:type>
+                <AESDK:inputParameter>
+                    <AESDK:name>ClientConnectionPoolName</AESDK:name>
+                    <AESDK:help>Client Connection Pool Name</AESDK:help>
+                    <AESDK:type>string</AESDK:type>
+                </AESDK:inputParameter>
+                <AESDK:inputParameter>
+                    <AESDK:name>MaxConnections</AESDK:name>
+                    <AESDK:help>Number of connections in client connection pool</AESDK:help>
+                    <AESDK:type>integer</AESDK:type>
+                </AESDK:inputParameter>
+            </AESDK:method>
+            <AESDK:method>
+                <AESDK:name>setInboundThreadPool</AESDK:name>
+                <AESDK:help>Set thread count for inbound adapter service</AESDK:help>
+                <AESDK:type>ACTION</AESDK:type>
+                <AESDK:inputParameter>
+                    <AESDK:name>ServiceName</AESDK:name>
+                    <AESDK:help>Inbound Adapter Service Name</AESDK:help>
+                    <AESDK:type>string</AESDK:type>
+                </AESDK:inputParameter>
+                <AESDK:inputParameter>
+                    <AESDK:name>ThreadCount</AESDK:name>
+                    <AESDK:help>Number of threads in pool</AESDK:help>
+                    <AESDK:type>integer</AESDK:type>
+                </AESDK:inputParameter>
+            </AESDK:method>
+            <AESDK:method>
+                <AESDK:name>resumeInboundServices</AESDK:name>
+                <AESDK:help>Resume all suspended services for client connection pool</AESDK:help>
+                <AESDK:type>ACTION</AESDK:type>
+                <AESDK:inputParameter>
+                    <AESDK:name>ClientConnectionPoolName</AESDK:name>
+                    <AESDK:help>Client Connection Pool Name</AESDK:help>
+                    <AESDK:type>string</AESDK:type>
+                </AESDK:inputParameter>
+            </AESDK:method>
+            <AESDK:method>
+                <AESDK:name>refreshABAPRepository</AESDK:name>
+                <AESDK:help>Refresh ABAP Repositories</AESDK:help>
+                <AESDK:type>ACTION</AESDK:type>
+            </AESDK:method>
+        </AESDK:hawk>
+        <SAPAdapter:designTime xmlns:SAPAdapter="http://www.tibco.com/xmlns/adapter/SAPAdapter/2002">
+            <SAPAdapter:designTimeParameters>
+                <SAPAdapter:appServer>%%ApplicationDetails/SAP/ApplicationServer%%</SAPAdapter:appServer>
+                <SAPAdapter:systemNo>%%ApplicationDetails/SAP/SystemNumber%%</SAPAdapter:systemNo>
+                <SAPAdapter:client>%%ApplicationDetails/SAP/Client%%</SAPAdapter:client>
+                <SAPAdapter:username>%%ApplicationDetails/SAP/UserName%%</SAPAdapter:username>
+                <SAPAdapter:language>E</SAPAdapter:language>
+                <SAPAdapter:rememberPassword>true</SAPAdapter:rememberPassword>
+                <SAPAdapter:copyToRuntime>false</SAPAdapter:copyToRuntime>
+                <SAPAdapter:password>%%ApplicationDetails/SAP/Password%%</SAPAdapter:password>
+            </SAPAdapter:designTimeParameters>
+        </SAPAdapter:designTime>
+        <SAPAdapter:g11n xmlns:SAPAdapter="http://www.tibco.com/xmlns/adapter/SAPAdapter/2002">
+            <SAPAdapter:encoding>LATIN_1</SAPAdapter:encoding>
+        </SAPAdapter:g11n>
+        <SAPAdapter:custom xmlns:SAPAdapter="http://www.tibco.com/xmlns/adapter/SAPAdapter/2002">
+            <SAPAdapter:name/>
+        </SAPAdapter:custom>
+    </SAPAdapter:adapter>
+    <AEService:rvSession xmlns:AEService="http://www.tibco.com/xmlns/aemeta/services/2002" objectType="session.RV" name="R3HawkDefault">
+        <AEService:daemon>%%TIBHawkDaemon%%</AEService:daemon>
+        <AEService:service>%%TIBHawkService%%</AEService:service>
+        <AEService:network>%%TIBHawkNetwork%%</AEService:network>
+        <AEService:mode>asynchronous</AEService:mode>
+    </AEService:rvSession>
+    <AEService:rvSession xmlns:AEService="http://www.tibco.com/xmlns/aemeta/services/2002" objectType="session.RV" name="R3RVSession">
+        <AEService:daemon>%%ApplicationDetails/SAP/RvDaemon%%</AEService:daemon>
+        <AEService:service>%%ApplicationDetails/SAP/RvService%%</AEService:service>
+        <AEService:network>%%ApplicationDetails/SAP/RvNetwork%%</AEService:network>
+        <AEService:mode>synchronous</AEService:mode>
+    </AEService:rvSession>
+    <AEService:rvSession xmlns:AEService="http://www.tibco.com/xmlns/aemeta/services/2002" objectType="session.RV" name="TIDManagerSession">
+        <AEService:daemon>%%ApplicationDetails/SAP/RvDaemon%%</AEService:daemon>
+        <AEService:service>%%ApplicationDetails/SAP/RvService%%</AEService:service>
+        <AEService:network>%%ApplicationDetails/SAP/RvNetwork%%</AEService:network>
+        <AEService:mode>synchronous</AEService:mode>
+    </AEService:rvSession>
+    <AEService:jmsSession xmlns:AEService="http://www.tibco.com/xmlns/aemeta/services/2002" objectType="session.JMS" name="DefaultJMSQueueSession">
+        <AEService:clientId>%%Domain%%.%%Deployment%%.%%AppName%%.%%InstanceId%%.DefaultJMSQueueSession</AEService:clientId>
+        <AEService:emsServerUserName>%%EnvVariables/TIBCO_JMS_Connection/USERNAME%%</AEService:emsServerUserName>
+        <AEService:emsServerPassword>%%EnvVariables/TIBCO_JMS_Connection/PASSWORD%%</AEService:emsServerPassword>
+        <AEService:connectionFactorySslPassword/>
+        <AEService:connFactoryType>1</AEService:connFactoryType>
+        <AEService:connFactoryName>%%EnvVariables/TIBCO_JMS_Connection/QUEUE_CONNECTION_FACTORY%%</AEService:connFactoryName>
+        <AEService:jndiLookups>true</AEService:jndiLookups>
+        <AEService:providerUrl>%%EnvVariables/TIBCO_JMS_Connection/JNDI_URL%%</AEService:providerUrl>
+        <AEService:providerCtxFactory>com.tibco.tibjms.naming.TibjmsInitialContextFactory</AEService:providerCtxFactory>
+        <AEService:connUsername>%%EnvVariables/TIBCO_JMS_Connection/JNDI_USERNAME%%</AEService:connUsername>
+        <AEService:connPassword>%%EnvVariables/TIBCO_JMS_Connection/JNDI_PASSWORD%%</AEService:connPassword>
+    </AEService:jmsSession>
+    <AEService:jmsSession xmlns:AEService="http://www.tibco.com/xmlns/aemeta/services/2002" objectType="session.JMS" name="R3JMSTopicSession">
+        <AEService:clientId>%%Domain%%.%%Deployment%%.%%AppName%%.%%InstanceId%%.R3JMSTopicSession</AEService:clientId>
+        <AEService:emsServerUserName>%%EnvVariables/TIBCO_JMS_Connection/USERNAME%%</AEService:emsServerUserName>
+        <AEService:emsServerPassword>%%EnvVariables/TIBCO_JMS_Connection/PASSWORD%%</AEService:emsServerPassword>
+        <AEService:connectionFactorySslPassword/>
+        <AEService:connFactoryType>2</AEService:connFactoryType>
+        <AEService:connFactoryName>%%EnvVariables/TIBCO_JMS_Connection/TOPIC_CONNECTION_FACTORY%%</AEService:connFactoryName>
+        <AEService:jndiLookups>true</AEService:jndiLookups>
+        <AEService:providerUrl>%%EnvVariables/TIBCO_JMS_Connection/JNDI_URL%%</AEService:providerUrl>
+        <AEService:providerCtxFactory>com.tibco.tibjms.naming.TibjmsInitialContextFactory</AEService:providerCtxFactory>
+        <AEService:connUsername>%%EnvVariables/TIBCO_JMS_Connection/JNDI_USERNAME%%</AEService:connUsername>
+        <AEService:connPassword>%%EnvVariables/TIBCO_JMS_Connection/JNDI_PASSWORD%%</AEService:connPassword>
+    </AEService:jmsSession>
+    <AEService:rvCmqSession xmlns:AEService="http://www.tibco.com/xmlns/aemeta/services/2002" objectType="session.RVCMQ" name="DefaultRVCMQSession">
+        <AEService:daemon>%%ApplicationDetails/SAP/RvDaemon%%</AEService:daemon>
+        <AEService:service>%%ApplicationDetails/SAP/RvService%%</AEService:service>
+        <AEService:network>%%ApplicationDetails/SAP/RvNetwork%%</AEService:network>
+        <AEService:cmqName>%%Domain%%.%%Deployment%%.%%AppName%%.%%InstanceId%%.CMQ</AEService:cmqName>
+        <AEService:completeTime>0</AEService:completeTime>
+        <AEService:schedulerActivation>3000</AEService:schedulerActivation>
+        <AEService:schedulerHeartbeat>1000</AEService:schedulerHeartbeat>
+        <AEService:schedulerWeight>1</AEService:schedulerWeight>
+        <AEService:listenerTasks>1</AEService:listenerTasks>
+        <AEService:listenerWeight>1</AEService:listenerWeight>
+    </AEService:rvCmqSession>
+    <AEService:consumer xmlns:AEService="http://www.tibco.com/xmlns/aemeta/services/2002" objectType="endpoint.RVSubscriber" name="RvStopSubscriber">
+        <AEService:subject>%%Domain%%.%%Deployment%%.adr3.%%InstanceId%%.exit</AEService:subject>
+        <AEService:wireFormat>aeRvMsg</AEService:wireFormat>
+        <AEService:session isRef="true">#rvSession.R3RVSession</AEService:session>
+    </AEService:consumer>
+    <AEService:server xmlns:AEService="http://www.tibco.com/xmlns/aemeta/services/2002" objectType="endpoint.RVRPCServer" name="r3OutBound-RPCServer">
+        <AEService:subject>r3OutBound.RPCServer.SAPHR_UserR3Adapter</AEService:subject>
+        <AEService:wireFormat>aeRvMsg</AEService:wireFormat>
+        <AEService:session isRef="true">#rvSession.R3RVSession</AEService:session>
+    </AEService:server>
+    <AEService:server xmlns:AEService="http://www.tibco.com/xmlns/aemeta/services/2002" objectType="endpoint.RVRPCServer" name="idocOutbound-RPCServer">
+        <AEService:subject>idocOutbound.RPCServer.SAPHR_UserR3Adapter</AEService:subject>
+        <AEService:wireFormat>aeRvMsg</AEService:wireFormat>
+        <AEService:session isRef="true">#rvSession.R3RVSession</AEService:session>
+    </AEService:server>
+    <AEService:server xmlns:AEService="http://www.tibco.com/xmlns/aemeta/services/2002" objectType="endpoint.RVRPCServer" name="RFCServer-RPCServer">
+        <AEService:subject>RFCServer.RPCServer.SAPHR_UserR3Adapter</AEService:subject>
+        <AEService:wireFormat>aeRvMsg</AEService:wireFormat>
+        <AEService:session isRef="true">#rvSession.R3RVSession</AEService:session>
+    </AEService:server>
+    <AEService:server xmlns:AEService="http://www.tibco.com/xmlns/aemeta/services/2002" objectType="endpoint.RVRPCServer" name="RFCClient-RPCServer">
+        <AEService:subject>RFCClient.RPCServer.SAPHR_UserR3Adapter</AEService:subject>
+        <AEService:wireFormat>aeRvMsg</AEService:wireFormat>
+        <AEService:session isRef="true">#rvSession.R3RVSession</AEService:session>
+    </AEService:server>
+    <AEService:client xmlns:AEService="http://www.tibco.com/xmlns/aemeta/services/2002" objectType="endpoint.RVRPCClient" name="TID_RPC_CLIENT">
+        <AEService:subject>SAP.TIDMANAGER</AEService:subject>
+        <AEService:wireFormat>aeRvMsg</AEService:wireFormat>
+        <AEService:invocationTimeout>5000</AEService:invocationTimeout>
+        <AEService:session isRef="true">#rvSession.TIDManagerSession</AEService:session>
+    </AEService:client>
+    <AEService:client xmlns:AEService="http://www.tibco.com/xmlns/aemeta/services/2002" objectType="endpoint.RVRPCClient" name="INBOUND_TID_RPC_CLIENT">
+        <AEService:subject>SAP.TIDMANAGER.INBOUND</AEService:subject>
+        <AEService:wireFormat>aeRvMsg</AEService:wireFormat>
+        <AEService:invocationTimeout>5000</AEService:invocationTimeout>
+        <AEService:session isRef="true">#rvSession.TIDManagerSession</AEService:session>
+    </AEService:client>
+    <AEService:jmsServer xmlns:AEService="http://www.tibco.com/xmlns/aemeta/services/2002" objectType="endpoint.JMSRPCServer" name="Z_RFC_2170_HRIS_SFIJMSQueueServer">
+        <AEService:wireFormat>aeXml</AEService:wireFormat>
+        <AEService:destination>%%ApplicationDetails/SFDC_SF_USER_SEND/Queue/AdapterRFCQueue%%</AEService:destination>
+        <AEService:deliveryMode>2</AEService:deliveryMode>
+        <AEService:deliveryMode2>2</AEService:deliveryMode2>
+        <AEService:durableName>Z_RFC_2170_HRIS_SFIJMSQueueServer</AEService:durableName>
+        <AEService:messageSelector/>
+        <AEService:session isRef="true">#jmsSession.DefaultJMSQueueSession</AEService:session>
+        <AEService:class isRef="true">/AESchemas/ae/740/basic/functionModules.aeschema#rpcClass.Z_RFC_2170_HRIS_SFI</AEService:class>
+        <AEService:subject>%%Domain%%.%%Deployment%%.adr3.SAPHR_UserR3Adapter.Z_RFC_2170_HRIS_SFIServer</AEService:subject>
+    </AEService:jmsServer>
+    <AEService:jmsConsumer xmlns:AEService="http://www.tibco.com/xmlns/aemeta/services/2002" objectType="endpoint.JMSSubscriber" name="JmsStopSubscriber">
+        <AEService:wireFormat>aeXml</AEService:wireFormat>
+        <AEService:destination>%%Domain%%.%%Deployment%%.adr3.%%InstanceId%%.exit</AEService:destination>
+        <AEService:deliveryMode>1</AEService:deliveryMode>
+        <AEService:deliveryMode2>1</AEService:deliveryMode2>
+        <AEService:autoConfirm>true</AEService:autoConfirm>
+        <AEService:durableName>R3AdapterConfigurationJmsStopSubscriber</AEService:durableName>
+        <AEService:messageSelector/>
+        <AEService:listenTimeout>0</AEService:listenTimeout>
+        <AEService:session isRef="true">#jmsSession.R3JMSTopicSession</AEService:session>
+    </AEService:jmsConsumer>
+    <AEService:server xmlns:AEService="http://www.tibco.com/xmlns/aemeta/services/2002" objectType="endpoint.RVCMQRPCServer" name="r3Inbound-RPCServer">
+        <AEService:subject>r3Inbound.RPCServer.SAPHR_UserR3Adapter</AEService:subject>
+        <AEService:wireFormat>aeRvMsg</AEService:wireFormat>
+        <AEService:session isRef="true">#rvCmqSession.DefaultRVCMQSession</AEService:session>
+    </AEService:server>
+    <SAPAdapter:r3Inbound xmlns:SAPAdapter="http://www.tibco.com/xmlns/adapter/SAPAdapter/2002" name="r3Inbound">
+        <SAPAdapter:name>r3Inbound</SAPAdapter:name>
+        <SAPAdapter:type>Client</SAPAdapter:type>
+        <SAPAdapter:helpString>RFC Client Component</SAPAdapter:helpString>
+        <SAPAdapter:tidManagerRpcRef/>
+        <SAPAdapter:tidFileName>tidFileInbound.tid</SAPAdapter:tidFileName>
+        <SAPAdapter:connectionRef isRef="true">/R3Connections.adr3Connections#connectionManager.SAPHR_UserR3AdapterActiveConnections</SAPAdapter:connectionRef>
+        <SAPAdapter:rpcRef isRef="true">/Adapter/SAPHR_UserR3Adapter.adr3#server.r3Inbound-RPCServer</SAPAdapter:rpcRef>
+        <SAPAdapter:interface xmlns:SAPAdapter="http://www.tibco.com/xmlns/adapter/SAPAdapter/2002">
+            <SAPAdapter:name>RFCClient</SAPAdapter:name>
+            <SAPAdapter:rpcRef isRef="true">/Adapter/SAPHR_UserR3Adapter.adr3#server.RFCClient-RPCServer</SAPAdapter:rpcRef>
+            <SAPAdapter:helpString>Generic RFC Inbound Interface</SAPAdapter:helpString>
+            <SAPAdapter:classRef isRef="true">/AESchemas/ae/SAPAdapter40/classes.aeschema#rpcClass.RFCClient</SAPAdapter:classRef>
+            <SAPAdapter:poolRef isRef="true">/R3Connections.adr3Connections#clientConnectionPool.SAPHR_UserR3AdapterInboundConnection</SAPAdapter:poolRef>
+            <SAPAdapter:deploymentRef isRef="true">#inBoundDeployment.inBoundDeployment</SAPAdapter:deploymentRef>
+        </SAPAdapter:interface>
+    </SAPAdapter:r3Inbound>
+    <SAPAdapter:inBoundDeployment xmlns:SAPAdapter="http://www.tibco.com/xmlns/adapter/SAPAdapter/2002" name="inBoundDeployment">
+        <SAPAdapter:name>inBoundDeployment</SAPAdapter:name>
+        <SAPAdapter:rfc xmlns:SAPAdapter="http://www.tibco.com/xmlns/adapter/SAPAdapter/2002">
+            <SAPAdapter:name>Z_RFC_2170_HRIS_SFI</SAPAdapter:name>
+            <SAPAdapter:serviceName>Z_RFC_2170_HRIS_SFIServer</SAPAdapter:serviceName>
+            <SAPAdapter:commitRequired>false</SAPAdapter:commitRequired>
+            <SAPAdapter:threadCount>1</SAPAdapter:threadCount>
+            <SAPAdapter:commitExpiry>60000</SAPAdapter:commitExpiry>
+            <SAPAdapter:logonRequired>false</SAPAdapter:logonRequired>
+            <SAPAdapter:client>SAPHR_UserR3AdapterInboundConnectionClient0</SAPAdapter:client>
+            <SAPAdapter:poolRef>SAPHR_UserR3AdapterInboundConnection</SAPAdapter:poolRef>
+        </SAPAdapter:rfc>
+    </SAPAdapter:inBoundDeployment>
+    <SAPAdapter:r3OutBound xmlns:SAPAdapter="http://www.tibco.com/xmlns/adapter/SAPAdapter/2002" name="r3OutBound">
+        <SAPAdapter:name>r3OutBound</SAPAdapter:name>
+        <SAPAdapter:type>Server</SAPAdapter:type>
+        <SAPAdapter:tidManagerRpcRef>none</SAPAdapter:tidManagerRpcRef>
+        <SAPAdapter:rpcRef isRef="true">/Adapter/SAPHR_UserR3Adapter.adr3#server.r3OutBound-RPCServer</SAPAdapter:rpcRef>
+        <SAPAdapter:helpString>RFC Server Component</SAPAdapter:helpString>
+        <SAPAdapter:connectionRef isRef="true">/R3Connections.adr3Connections#connectionManager.SAPHR_UserR3AdapterActiveConnections</SAPAdapter:connectionRef>
+        <SAPAdapter:tidStopRetryTimeoutEnabled>false</SAPAdapter:tidStopRetryTimeoutEnabled>
+        <SAPAdapter:tidFileName>tidFile.tid</SAPAdapter:tidFileName>
+        <SAPAdapter:tidRetryCount>3</SAPAdapter:tidRetryCount>
+        <SAPAdapter:tidRetryInterval>30000</SAPAdapter:tidRetryInterval>
+    </SAPAdapter:r3OutBound>
+</Repository:repository>

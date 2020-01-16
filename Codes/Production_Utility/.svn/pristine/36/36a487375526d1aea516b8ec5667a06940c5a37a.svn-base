@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx="http://www.tibco.com/namespaces/tnt/plugins/file/v2" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns="http://www.tibco.com/namespaces/tnt/plugins/file" xmlns:ns12="http://www.tibco.com/CommonLE/Client/Schema/ClientInterface.xsd" xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns2="http://xmlns.tibco.com/encodings/mime" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:ns1="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:ns4="http://www.tibco.com/pe/EngineTypes" xmlns:ns3="http://www.tibco.com/pe/DeployedVarsType">
+    <pd:name>Services/Operations/SendToBCProcess.process</pd:name>
+    <pd:startName>JMS Queue Receiver</pd:startName>
+    <pd:startX>0</pd:startX>
+    <pd:startY>0</pd:startY>
+    <pd:returnBindings/>
+    <pd:starter name="JMS Queue Receiver">
+        <pd:type>com.tibco.plugin.jms.JMSQueueEventSource</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueEventSource</pd:resourceType>
+        <pd:x>97</pd:x>
+        <pd:y>107</pd:y>
+        <config>
+            <PermittedMessageType>Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+                <destination>%%ApplicationDetails/BCSendFileUtiity/Queues/BCSendQueue%%</destination>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/SharedResources/BC/JMS_Connection_QA.sharedjmscon</ConnectionReference>
+        </config>
+        <pd:inputBindings/>
+    </pd:starter>
+    <pd:endName>End</pd:endName>
+    <pd:endX>490</pd:endX>
+    <pd:endY>107</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1419023998965</pd:targetNamespace>
+    <pd:activity name="SendAS2overHTTPS">
+        <pd:type>com.tibco.plugin.http.client.HttpRequestActivity</pd:type>
+        <pd:resourceType>httppalette.httpRequest</pd:resourceType>
+        <pd:x>279</pd:x>
+        <pd:y>108</pd:y>
+        <config>
+            <inputOutputVersion>5.3.0</inputOutputVersion>
+            <newMimeSupport>true</newMimeSupport>
+            <customField/>
+            <useSsl>true</useSsl>
+            <serverhost>%%ApplicationDetails/BCSendFileUtiity/BCData/Host%%</serverhost>
+            <serverport>%%ApplicationDetails/BCSendFileUtiity/BCData/Port%%</serverport>
+            <policies>
+                <incomingAttachmentPolicy>
+                    <writeToFile>true</writeToFile>
+                    <writeToFileDir>c:\temp</writeToFileDir>
+                </incomingAttachmentPolicy>
+            </policies>
+            <authScheme>NONE</authScheme>
+            <ns0:ssl xmlns:ns0="http://www.tibco.com/xmlns/aemeta/services/2002">
+                <ns0:strongCipherSuitesOnly>true</ns0:strongCipherSuitesOnly>
+                <ns0:cert isRef="true">/SharedResources/Certs/.folder</ns0:cert>
+            </ns0:ssl>
+            <InputHeaders>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="Accept" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Accept-Charset" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Accept-Encoding" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Content-Type" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Cookie" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Pragma" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="from" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="FdaSubmissionType" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="FdaCenter" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="AS2-To" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="AS2-From" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="AS2-Version" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="disposition-notification-options" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Content-Disposition" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="disposition-notification-to" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Message-ID" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Mime-Version" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="receipt-delivery-option" type="xsd:string" minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </InputHeaders>
+            <OutputHeaders>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="Allow" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Content-Type" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Content-Length" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Content-Encoding" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Date" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Location" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Set-Cookie" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Pragma" type="xsd:string" minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </OutputHeaders>
+        </config>
+        <pd:inputBindings>
+            <RequestActivityInput>
+                <Method>
+                    <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/ApplicationDetails/BCSendFileUtiity/BCData/Method"/>
+                </Method>
+                <RequestURI>
+                    <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/ApplicationDetails/BCSendFileUtiity/BCData/RequestURI"/>
+                </RequestURI>
+                <PostData>
+                    <xsl:value-of select="$JMS-Queue-Receiver/ns1:ActivityOutput/Body"/>
+                </PostData>
+                <Headers>
+                    <AS2-To>
+                        <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/ApplicationDetails/BCSendFileUtiity/BCData/AS2To"/>
+                    </AS2-To>
+                    <AS2-From>
+                        <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/ApplicationDetails/BCSendFileUtiity/BCData/AS2From"/>
+                    </AS2-From>
+                    <AS2-Version>
+                        <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/ApplicationDetails/BCSendFileUtiity/BCData/version"/>
+                    </AS2-Version>
+                    <Message-ID>
+                        <xsl:value-of select="concat(&quot;&lt;&quot;,$JMS-Queue-Receiver/ns1:ActivityOutput/JMSHeaders/ns1:JMSCorrelationID,&quot;1722414569.1409972460993.JavaMail.tib_admindev@VTIBB2BDV01>&quot;)"/>
+                    </Message-ID>
+                    <Mime-Version>
+                        <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/ApplicationDetails/BCSendFileUtiity/BCData/version"/>
+                    </Mime-Version>
+                </Headers>
+            </RequestActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>263</pd:x>
+        <pd:y>223</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="SendException">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>398</pd:x>
+        <pd:y>221</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendException.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns12:ExceptionRequest>
+                <ns12:Header>
+                    <ns12:ComponentName>
+                        <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns4:ProcessContext/ProcessId)"/>
+                    </ns12:ComponentName>
+                    <ns12:Hostname>
+                        <xsl:value-of select="BW:getHostName()"/>
+                    </ns12:Hostname>
+                    <ns12:TransactionDomain>
+                        <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/ApplicationDetails/BCSendFileUtiity/TransactionDomain"/>
+                    </ns12:TransactionDomain>
+                    <ns12:TransactionType>
+                        <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/ApplicationDetails/BCSendFileUtiity/TransactionType"/>
+                    </ns12:TransactionType>
+                    <ns12:TransactionID>
+                        <xsl:value-of select="tib:format-dateTime('yyyyMMdd_HHmmss', current-dateTime())"/>
+                    </ns12:TransactionID>
+                    <ns12:InterfaceID>
+                        <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/ApplicationDetails/BCSendFileUtiity/InterfaceId"/>
+                    </ns12:InterfaceID>
+                    <ns12:Message>
+                        <xsl:value-of select="$_error/ns4:ErrorReport/FullClass"/>
+                    </ns12:Message>
+                </ns12:Header>
+                <ns12:ExceptionCode>
+                    <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/CLE/Environment/ExceptionCode/Technical/TECHNICAL_777"/>
+                </ns12:ExceptionCode>
+                <ns12:StackTrace>
+                    <xsl:value-of select="concat(&quot;Exception Code :&quot; ,    $_error/ns4:ErrorReport/MsgCode  , &quot; Exception Message : &quot;   ,  $_error/ns4:ErrorReport/Msg , &quot; Stack Trace : &quot;  , $_error/ns4:ErrorReport/StackTrace )"/>
+                </ns12:StackTrace>
+            </ns12:ExceptionRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>JMS Queue Receiver</pd:from>
+        <pd:to>SendAS2overHTTPS</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SendAS2overHTTPS</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch</pd:from>
+        <pd:to>SendException</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SendException</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

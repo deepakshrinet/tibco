@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/CommonLE2/namespace/Public/Common" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns1="http://www.tibco.com/CommonLE2/namespace/Public/Common/RequestHeader.xsd" xmlns:ns="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx4="http://www.tibco.com/CommonLE2/namespace/Public/Exception" xmlns:pfx3="http://www.tibco.com/CommonLE2/namespace/Public/Logging" xmlns:pfx2="http://www.tibco.com/CommonLE2/namespace/Public/Exception/ExceptionRequest.xsd" xmlns:pfx="http://xmlns.example.com/1161987078278">
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Exception/ExceptionRequest.xsd" schemaLocation="/SharedResources/SchemaDefinitions/Public/Exception/ExceptionRequest.xsd"/>
+    <wsdl:import namespace="http://xmlns.example.com/1161987078278" location="/Test/Core Services/Exception Handling/WSDL-ExceptionRequest.wsdl"/>
+    <pd:name>Test/Core Services/Exception Handling/Send Exception Requests with Invalid Rendering ID.process</pd:name>
+    <pd:description>This process shows three different ways to send exception requests to the 
+CommonLE core services</pd:description>
+    <pd:startName>Start</pd:startName>
+    <pd:startX>27</pd:startX>
+    <pd:startY>157</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>506</pd:endX>
+    <pd:endY>153</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1284614541552</pd:targetNamespace>
+    <pd:activity name="Seed Exception data">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>129</pd:x>
+        <pd:y>163</pd:y>
+        <config>
+            <element ref="pfx2:ExceptionRequest"/>
+        </config>
+        <pd:inputBindings>
+            <pfx2:ExceptionRequest>
+                <ns1:Header>
+                    <ns1:ApplicationID>
+                        <xsl:value-of select="&quot;AppID-1&quot;"/>
+                    </ns1:ApplicationID>
+                    <ns1:ComponentName>
+                        <xsl:value-of select="&quot;Component name&quot;"/>
+                    </ns1:ComponentName>
+                    <ns1:Hostname>
+                        <xsl:value-of select="&quot;Host Name&quot;"/>
+                    </ns1:Hostname>
+                    <ns1:Timestamp>
+                        <xsl:value-of select="current-dateTime()"/>
+                    </ns1:Timestamp>
+                    <ns1:TransactionDomain>
+                        <xsl:value-of select="&quot;Transaction Domain&quot;"/>
+                    </ns1:TransactionDomain>
+                    <ns1:TransactionType>
+                        <xsl:value-of select="&quot;Transaction Type&quot;"/>
+                    </ns1:TransactionType>
+                    <ns1:TransactionID>
+                        <xsl:value-of select="&quot;TransID&quot;"/>
+                    </ns1:TransactionID>
+                    <ns1:Message>
+                        <xsl:value-of select="&quot;Error Message&quot;"/>
+                    </ns1:Message>
+                    <ns1:RenderID>
+                        <xsl:value-of select="&quot;abcd&quot;"/>
+                    </ns1:RenderID>
+                </ns1:Header>
+                <ExceptionCode>
+                    <xsl:value-of select="&quot;AppID-1-EC1&quot;"/>
+                </ExceptionCode>
+                <StackTrace>
+                    <xsl:value-of select="&quot;Strack Trace&quot;"/>
+                </StackTrace>
+                <Custom>
+                    <xsl:value-of select="&quot;Custom&quot;"/>
+                </Custom>
+            </pfx2:ExceptionRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="JMS Queue Sender">
+        <pd:type>com.tibco.plugin.jms.JMSQueueSendActivity</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueSendActivity</pd:resourceType>
+        <pd:x>305</pd:x>
+        <pd:y>52</pd:y>
+        <config>
+            <PermittedMessageType>XML Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+                <destination>%%JMSDestinationNames/MIG_ExceptionQueue%%</destination>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/SharedResources/Connections/JMS/JMS Exception.sharedjmscon</ConnectionReference>
+            <InDataxsdString ref="pfx2:ExceptionRequest"/>
+        </config>
+        <pd:inputBindings>
+            <ns:ActivityInput>
+                <Body>
+                    <xsl:copy-of select="$Seed-Exception-data/pfx2:ExceptionRequest"/>
+                </Body>
+            </ns:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SOAPRequestReply">
+        <pd:type>com.tibco.plugin.soap.SOAPSendReceiveActivity</pd:type>
+        <pd:resourceType>ae.activities.SOAPSendReceiveUI</pd:resourceType>
+        <pd:x>300</pd:x>
+        <pd:y>155</pd:y>
+        <config>
+            <timeout>0</timeout>
+            <service>pfx:Handle_Exception_Request-service</service>
+            <servicePort>intfwsHandle_Exception_RequestEndpoint1</servicePort>
+            <operation>Handle_sp_Exception_sp_RequestOp</operation>
+            <soapAction>/ExceptionManagement/Logic/intfHandle_Exception_Request-service.serviceagent/intfwsHandle_Exception_RequestEndpoint1/Handle_sp_Exception_sp_RequestOp</soapAction>
+            <endpointURL>http://pching-t60p:9989/ExceptionManagement/Logic/intfHandle_Exception_Request-service.serviceagent/intfwsHandle_Exception_RequestEndpoint1</endpointURL>
+            <soapAttachmentStyle>SwA</soapAttachmentStyle>
+        </config>
+        <pd:inputBindings>
+            <inputMessage>
+                <xsl:copy-of select="$Seed-Exception-data/pfx2:ExceptionRequest"/>
+            </inputMessage>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch Soap Fault">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>509</pd:x>
+        <pd:y>308</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=Error</fault>
+            <catchAll>false</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Seed Exception data</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Seed Exception data</pd:from>
+        <pd:to>JMS Queue Sender</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Seed Exception data</pd:from>
+        <pd:to>SOAPRequestReply</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>JMS Queue Sender</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SOAPRequestReply</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch Soap Fault</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

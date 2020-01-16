@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Repository:repository xmlns="http://www.tibco.com/xmlns/aemeta/types/2002" xmlns:Repository="http://www.tibco.com/xmlns/repo/types/2002" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <designer>
+        <lockedProperties>
+            <locked>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Sequences/sequence[MBGMCR01-E1BP2017_GM_SERIALNUMBER-4x,999999999]</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Sequences/sequence[MBGMCR01-E1BP2017_GM_ITEM_CREATE-4x,999999999]</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Sequences/sequence[MBGMCR01-E1BP2017_GM_CODE-4x,1]</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Sequences/sequence[MBGMCR01-E1BP2017_GM_HEAD_01-4x,1]</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Classes/MBGMCR01-E1BP2017_GM_SERIALNUMBER-4x</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Classes/MBGMCR01-E1BP2017_GM_SERIALNUMBER-4x/FIELDS</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Classes/MBGMCR01-E1BP2017_GM_ITEM_CREATE-4x</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Classes/MBGMCR01-E1BP2017_GM_ITEM_CREATE-4x/FIELDS</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Classes/MBGMCR01-E1BP2017_GM_CODE-4x</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Classes/MBGMCR01-E1BP2017_GM_CODE-4x/FIELDS</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Classes/MBGMCR01-E1BP2017_GM_HEAD_01-4x</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Classes/MBGMCR01-E1BP2017_GM_HEAD_01-4x/FIELDS</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Classes/MBGMCR01-CHILDREN-4x</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Classes/MBGMCR01-CHILDREN-4x/E1BP2017_GM_SERIALNUMBER</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Classes/MBGMCR01-CHILDREN-4x/E1BP2017_GM_ITEM_CREATE</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Classes/MBGMCR01-CHILDREN-4x/E1BP2017_GM_CODE</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Classes/MBGMCR01-CHILDREN-4x/E1BP2017_GM_HEAD_01</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Classes/MBGMCR01-4x-SEQUENCE</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Classes/MBGMCR01-4x</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Classes/MBGMCR01-4x/CHILDREN</resource>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Classes/MBGMCR01-4x/EDI_DC</resource>
+                <properties>name</properties>
+            </locked>
+        </lockedProperties>
+        <fixedChildren>
+            <fixed>
+                <resource>/Classes</resource>
+                <children>MBGMCR01-4x,MBGMCR01-4x-SEQUENCE,MBGMCR01-CHILDREN-4x,MBGMCR01-E1BP2017_GM_HEAD_01-4x,MBGMCR01-E1BP2017_GM_CODE-4x,MBGMCR01-E1BP2017_GM_ITEM_CREATE-4x,MBGMCR01-E1BP2017_GM_SERIALNUMBER-4x</children>
+            </fixed>
+            <fixed>
+                <resource>/Classes/MBGMCR01-E1BP2017_GM_SERIALNUMBER-4x</resource>
+                <children>FIELDS</children>
+            </fixed>
+            <fixed>
+                <resource>/Classes/MBGMCR01-E1BP2017_GM_ITEM_CREATE-4x</resource>
+                <children>FIELDS</children>
+            </fixed>
+            <fixed>
+                <resource>/Classes/MBGMCR01-E1BP2017_GM_CODE-4x</resource>
+                <children>FIELDS</children>
+            </fixed>
+            <fixed>
+                <resource>/Classes/MBGMCR01-E1BP2017_GM_HEAD_01-4x</resource>
+                <children>FIELDS</children>
+            </fixed>
+            <fixed>
+                <resource>/Classes/MBGMCR01-CHILDREN-4x</resource>
+                <children>E1BP2017_GM_HEAD_01,E1BP2017_GM_CODE,E1BP2017_GM_ITEM_CREATE,E1BP2017_GM_SERIALNUMBER</children>
+            </fixed>
+            <fixed>
+                <resource>/Classes/MBGMCR01-4x</resource>
+                <children>EDI_DC,CHILDREN</children>
+            </fixed>
+        </fixedChildren>
+        <resourceDescriptions/>
+    </designer>
+    <class name="MBGMCR01-4x">
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <attributeType isRef="true">/AESchemas/ae/SAPAdapter40/classes.aeschema#class.EDI_DC40</attributeType>
+            <name>EDI_DC</name>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <attributeType isRef="true">/AESchemas/ae/702/basic/IDOCS.aeschema#class.MBGMCR01-CHILDREN-4x</attributeType>
+            <name>CHILDREN</name>
+        </attribute>
+    </class>
+    <class name="EXCEPTION">
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>CODE</name>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>MESSAGE</name>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>SEVERITY</name>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+    </class>
+    <class name="MBGMCR01-4x-SEQUENCE">
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>MBGMCR01-4x</name>
+            <isKey>false</isKey>
+            <attributeType isRef="true">/AESchemas/ae/702/basic/IDOCS.aeschema#sequence.sequence[MBGMCR01-4x,9999]</attributeType>
+        </attribute>
+    </class>
+    <sequence name="sequence[MBGMCR01-4x,9999]">
+        <maxLength>9999</maxLength>
+        <elementType isRef="true">/AESchemas/ae/702/basic/IDOCS.aeschema#class.MBGMCR01-4x</elementType>
+    </sequence>
+    <class name="MBGMCR01-CHILDREN-4x">
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>E1BP2017_GM_HEAD_01</name>
+            <attributeType isRef="true">/AESchemas/ae/702/basic/IDOCS.aeschema#sequence.sequence[MBGMCR01-E1BP2017_GM_HEAD_01-4x,1]</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>E1BP2017_GM_CODE</name>
+            <attributeType isRef="true">/AESchemas/ae/702/basic/IDOCS.aeschema#sequence.sequence[MBGMCR01-E1BP2017_GM_CODE-4x,1]</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>E1BP2017_GM_ITEM_CREATE</name>
+            <attributeType isRef="true">/AESchemas/ae/702/basic/IDOCS.aeschema#sequence.sequence[MBGMCR01-E1BP2017_GM_ITEM_CREATE-4x,999999999]</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>E1BP2017_GM_SERIALNUMBER</name>
+            <attributeType isRef="true">/AESchemas/ae/702/basic/IDOCS.aeschema#sequence.sequence[MBGMCR01-E1BP2017_GM_SERIALNUMBER-4x,999999999]</attributeType>
+        </attribute>
+    </class>
+    <sequence name="sequence[MBGMCR01-E1BP2017_GM_HEAD_01-4x,1]">
+        <elementType isRef="true">/AESchemas/ae/702/basic/IDOCS.aeschema#class.MBGMCR01-E1BP2017_GM_HEAD_01-4x</elementType>
+        <maxLength>1</maxLength>
+    </sequence>
+    <class name="MBGMCR01-E1BP2017_GM_HEAD_01-4x">
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <attributeType isRef="true">/AESchemas/ae/702/basic/structures.aeschema#class.E1BP2017_GM_HEAD_01-4x</attributeType>
+            <name>FIELDS</name>
+        </attribute>
+    </class>
+    <sequence name="sequence[MBGMCR01-E1BP2017_GM_CODE-4x,1]">
+        <elementType isRef="true">/AESchemas/ae/702/basic/IDOCS.aeschema#class.MBGMCR01-E1BP2017_GM_CODE-4x</elementType>
+        <maxLength>1</maxLength>
+    </sequence>
+    <class name="MBGMCR01-E1BP2017_GM_CODE-4x">
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <attributeType isRef="true">/AESchemas/ae/702/basic/structures.aeschema#class.E1BP2017_GM_CODE-4x</attributeType>
+            <name>FIELDS</name>
+        </attribute>
+    </class>
+    <sequence name="sequence[MBGMCR01-E1BP2017_GM_ITEM_CREATE-4x,999999999]">
+        <elementType isRef="true">/AESchemas/ae/702/basic/IDOCS.aeschema#class.MBGMCR01-E1BP2017_GM_ITEM_CREATE-4x</elementType>
+        <maxLength>999999999</maxLength>
+    </sequence>
+    <class name="MBGMCR01-E1BP2017_GM_ITEM_CREATE-4x">
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <attributeType isRef="true">/AESchemas/ae/702/basic/structures.aeschema#class.E1BP2017_GM_ITEM_CREATE-4x</attributeType>
+            <name>FIELDS</name>
+        </attribute>
+    </class>
+    <sequence name="sequence[MBGMCR01-E1BP2017_GM_SERIALNUMBER-4x,999999999]">
+        <elementType isRef="true">/AESchemas/ae/702/basic/IDOCS.aeschema#class.MBGMCR01-E1BP2017_GM_SERIALNUMBER-4x</elementType>
+        <maxLength>999999999</maxLength>
+    </sequence>
+    <class name="MBGMCR01-E1BP2017_GM_SERIALNUMBER-4x">
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <attributeType isRef="true">/AESchemas/ae/702/basic/structures.aeschema#class.E1BP2017_GM_SERIALNUMBER-4x</attributeType>
+            <name>FIELDS</name>
+        </attribute>
+    </class>
+</Repository:repository>

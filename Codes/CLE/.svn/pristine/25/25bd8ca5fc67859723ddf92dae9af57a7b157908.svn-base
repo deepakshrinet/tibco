@@ -1,0 +1,32 @@
+<serialization xmlns="urn:tibco.com/v3.0" jsxversion="3.9">
+  <name/>
+  <icon/>
+  <description/>
+  <onBeforeDeserialize/>
+  <onAfterDeserialize/>
+  <object type="jsx3.gui.LayoutGrid">
+    <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+    <strings jsxname="transactionLayout" jsxrows="28,*" jsxwidth="100%" jsxheight="100%"/>
+    <object type="jsx3.gui.Block">
+      <variants jsxoverflow="2"/>
+      <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%"/>
+      <dynamics jsxborder="@Outset"/>
+        <object type="jsx3.gui.ToolbarButton">
+          <variants jsxenabled="1"/>
+          <strings jsxname="editTransactionBtn" jsximage="images/icons/editDoc.gif"/>
+          <dynamics jsxtext="exception_editTransaction" jsxtip="exception_editTransactionTip"/>
+          <events jsxexecute="cle.exception.editTransaction(this);"/>
+        </object>
+    </object>
+    <object type="jsx3.gui.Block">
+      <variants jsxoverflow="1"/>
+      <strings jsxname="pane2" jsxwidth="100%" jsxheight="100%"/>
+      <dynamics jsxborder="@Outset"/>
+      <object type="jsx3.gui.BlockX">
+        <variants jsxrelativeposition="0" jsxleft="10" jsxtop="10" jsxwidth="100" jsxheight="100" jsxxmlasync="1" jsxxslasync="1" jsxxmlbind="1"/>
+        <strings jsxname="transactionBlockX"/>
+        <dynamics jsxbgcolor="@Solid Light" jsxpadding="@8Pixel"/>
+      </object>
+    </object>
+  </object>
+</serialization>

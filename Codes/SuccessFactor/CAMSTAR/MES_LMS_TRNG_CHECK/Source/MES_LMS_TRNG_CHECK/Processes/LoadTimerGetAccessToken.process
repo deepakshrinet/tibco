@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <pd:name>Processes/LoadTimerGetAccessToken.process</pd:name>
+    <pd:startName>Timer</pd:startName>
+    <pd:startX>0</pd:startX>
+    <pd:startY>0</pd:startY>
+    <pd:returnBindings>
+        <root/>
+    </pd:returnBindings>
+    <pd:starter name="Timer">
+        <pd:type>com.tibco.plugin.timer.TimerEventSource</pd:type>
+        <pd:resourceType>ae.activities.timer</pd:resourceType>
+        <pd:x>133</pd:x>
+        <pd:y>73</pd:y>
+        <config>
+            <StartTime>%%ApplicationDetails/MES_LMS_TRNG_CHECK/Timer/TriggerStartTIme%%</StartTime>
+            <Frequency>false</Frequency>
+            <TimeInterval>%%ApplicationDetails/MES_LMS_TRNG_CHECK/Timer/TriggerInterval%%</TimeInterval>
+            <FrequencyIndex>Millisecond</FrequencyIndex>
+        </config>
+        <pd:inputBindings/>
+    </pd:starter>
+    <pd:endName>End</pd:endName>
+    <pd:endX>669</pd:endX>
+    <pd:endY>73</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1479993619638</pd:targetNamespace>
+    <pd:activity name="SetAccessToken">
+        <pd:type>com.tibco.pe.core.SetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.setSharedVariable</pd:resourceType>
+        <pd:x>461</pd:x>
+        <pd:y>72</pd:y>
+        <config>
+            <variableConfig>/SharedResources/Shared Variables/AccessToken.sharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <Code>
+                    <xsl:value-of select="substring-after(substring-before($Send-HTTP-Request/RequestActivityOutput/asciiContent, '&quot;,'), '&quot;access_token&quot;:&quot;')"/>
+                </Code>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Send HTTP Request">
+        <pd:type>com.tibco.plugin.http.client.HttpRequestActivity</pd:type>
+        <pd:resourceType>httppalette.httpRequest</pd:resourceType>
+        <pd:x>307</pd:x>
+        <pd:y>72</pd:y>
+        <config>
+            <inputOutputVersion>5.3.0</inputOutputVersion>
+            <newMimeSupport>true</newMimeSupport>
+            <authScheme>NONE</authScheme>
+            <serverhost/>
+            <serverport/>
+            <proxyConnection>/EnterpriseLibrary/SharedResources/Connections/HTTP/ProxyConfiguration.httpProxy</proxyConnection>
+            <useSsl>true</useSsl>
+            <requireBasicAuth>false</requireBasicAuth>
+            <ns0:ssl xmlns:ns0="http://www.tibco.com/xmlns/aemeta/services/2002">
+                <ns0:strongCipherSuitesOnly>true</ns0:strongCipherSuitesOnly>
+                <ns0:cert isRef="true">/SharedResources/Certificates/.folder</ns0:cert>
+            </ns0:ssl>
+            <customField/>
+            <InputHeaders>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="Authorization" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Accept" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Accept-Charset" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Accept-Encoding" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Content-Type" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Cookie" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Pragma" type="xsd:string" minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </InputHeaders>
+            <OutputHeaders>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="Allow" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Content-Type" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Content-Length" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Content-Encoding" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Date" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Location" type="xsd:string" minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </OutputHeaders>
+        </config>
+        <pd:inputBindings>
+            <RequestActivityInput>
+                <Host>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ApplicationDetails/MES_LMS_TRNG_CHECK/AccessToken/host"/>
+                </Host>
+                <Method>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ApplicationDetails/MES_LMS_TRNG_CHECK/AccessToken/Method"/>
+                </Method>
+                <RequestURI>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ApplicationDetails/MES_LMS_TRNG_CHECK/AccessToken/RequestURI"/>
+                </RequestURI>
+                <PostData>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ApplicationDetails/MES_LMS_TRNG_CHECK/AccessToken/PostData"/>
+                </PostData>
+                <Headers>
+                    <Authorization>
+                        <xsl:value-of select="concat('Basic  ',$_globalVariables/ns:GlobalVariables/ApplicationDetails/MES_LMS_TRNG_CHECK/AccessToken/AuthorizationValue)"/>
+                    </Authorization>
+                    <Content-Type>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ApplicationDetails/MES_LMS_TRNG_CHECK/AccessToken/Content-Type"/>
+                    </Content-Type>
+                </Headers>
+            </RequestActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>SetAccessToken</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Timer</pd:from>
+        <pd:to>Send HTTP Request</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Send HTTP Request</pd:from>
+        <pd:to>SetAccessToken</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:label>
+        <pd:name>Label</pd:name>
+        <pd:description>This timer process runs in every 25 min to generate new token before the expiration of old token.</pd:description>
+        <pd:x>434</pd:x>
+        <pd:y>222</pd:y>
+        <pd:width>388</pd:width>
+        <pd:height>48</pd:height>
+        <pd:fontColor>-65536</pd:fontColor>
+        <pd:color>-1</pd:color>
+        <pd:type>solid</pd:type>
+        <pd:thickness>1</pd:thickness>
+        <pd:fade>true</pd:fade>
+    </pd:label>
+</pd:ProcessDefinition>

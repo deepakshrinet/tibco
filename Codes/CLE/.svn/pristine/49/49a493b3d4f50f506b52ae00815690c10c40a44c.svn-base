@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns12="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/RolenameQuery" xmlns:pfx="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/UserAuthenticationRequest" xmlns:ns2="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/UserApplicationIDList" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:ns3="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Query" xmlns:pfx5="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/RolePermissionInformationRequest" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx4="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/AllRolesRetrievalResponse" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx3="http://www.tibco.com/CommonLE2/Public/Common/Dummy" xmlns:pfx2="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/UserAuthenticationResponse" xmlns:pfx9="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/UserRolesRequest" xmlns:pfx8="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Applications" xmlns:pfx7="http://www.tibco.com/CommonLE2/namespace/private/Common" xmlns:pfx6="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/UserRolesRequest">
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/UserAuthenticationRequest" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/SecurityConfiguration/UserAuthenticationRequest.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/UserAuthenticationResponse" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/SecurityConfiguration/UserAuthenticationResponse.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/AllRolesRetrievalResponse" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/SecurityConfiguration/AllRolesRetrieval.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/RolePermissionInformationRequest" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/SecurityConfiguration/RolePermissionsInformationRequest.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Applications" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/Applications.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/UserRolesRequest" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/SecurityConfiguration/UserRolesRequest.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/Public/Common/Dummy" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Common/DummyReturnMessage.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/private/Common" schemaLocation="/SharedResources/SchemaDefinitions/Private/Common/LocalExceptions.xsd"/>
+    <pd:name>SecurityManagement/DataAccess/Common/UserRolesApps.process</pd:name>
+    <pd:description>Retrieves all the applications info associated with all the current user roles</pd:description>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx9:UserRolesRequest"/>
+    <pd:startX>26</pd:startX>
+    <pd:startY>76</pd:startY>
+    <pd:returnBindings>
+        <pfx8:Applications>
+            <xsl:copy-of select="$UserApps/AccumulatedOutput/pfx8:Applications/pfx8:Application"/>
+        </pfx8:Applications>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType ref="pfx8:Applications"/>
+    <pd:endX>689</pd:endX>
+    <pd:endY>80</pd:endY>
+    <pd:errorSchemas>
+        <RoleRetrievalError ref="pfx7:RoleRetrievalError"/>
+        <NoAppFound ref="pfx7:DBRecordNotFound"/>
+    </pd:errorSchemas>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1257283314269</pd:targetNamespace>
+    <pd:activity name="UserRolesRetrieval">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>152</pd:x>
+        <pd:y>76</pd:y>
+        <config>
+            <processName>/SecurityManagement/DataAccess/Common/UserRolesRetrieval.process</processName>
+        </config>
+        <pd:inputBindings>
+            <pfx9:UserRolesRequest>
+                <pfx9:UserName>
+                    <xsl:value-of select="$Start/pfx9:UserRolesRequest/pfx9:UserName"/>
+                </pfx9:UserName>
+            </pfx9:UserRolesRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="RetrieveApplicationsWithUserPermissions">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>290</pd:x>
+        <pd:y>77</pd:y>
+        <config>
+            <processName>/Administration/DataAccess/ApplicationConfiguration/Oracle/RetrieveApplicationsWithUserPermissions.process</processName>
+            <processNameXPath>concat("/Administration/DataAccess/ApplicationConfiguration/",$_globalVariables/ns:GlobalVariables/Database/MIG_DatabaseType,"/RetrieveApplicationsWithUserPermissions.process")</processNameXPath>
+        </config>
+        <pd:inputBindings>
+            <ns12:Query>
+                <xsl:for-each xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="$UserRolesRetrieval/pfx4:AllRoles/pfx4:Role">
+                    <ns12:Rolename>
+                        <xsl:value-of select="pfx4:rolename"/>
+                    </ns12:Rolename>
+                </xsl:for-each>
+            </ns12:Query>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:group name="Group">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>394</pd:x>
+        <pd:y>1</pd:y>
+        <pd:width>168</pd:width>
+        <pd:height>140</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>inputLoop</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:over>$RetrieveApplicationsWithUserPermissions/ns2:Applications/ns2:Application</pd:over>
+            <pd:iterationElementSlot>currentItem</pd:iterationElementSlot>
+            <pd:indexSlot>i</pd:indexSlot>
+            <pd:outSlot>UserApps</pd:outSlot>
+            <pd:activityOutputName>RetrieveSpecificApplicationConfiguration</pd:activityOutputName>
+            <pd:accumulateOutput>true</pd:accumulateOutput>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>RetrieveSpecificApplicationConfiguration</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>RetrieveSpecificApplicationConfiguration</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="RetrieveSpecificApplicationConfiguration">
+            <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+            <pd:resourceType>ae.process.subprocess</pd:resourceType>
+            <pd:x>481</pd:x>
+            <pd:y>78</pd:y>
+            <config>
+                <processNameXPath>concat("/Administration/DataAccess/ApplicationConfiguration/",$_globalVariables/ns:GlobalVariables/Database/MIG_DatabaseType,"/RetrieveSpecificApplicationConfiguration.process")</processNameXPath>
+                <processName>/Administration/DataAccess/ApplicationConfiguration/Oracle/RetrieveSpecificApplicationConfiguration.process</processName>
+            </config>
+            <pd:inputBindings>
+                <ns3:Query>
+                    <ns3:ID>
+                        <xsl:value-of select="$currentItem/ns2:Application/ns2:ApplicationID"/>
+                    </ns3:ID>
+                </ns3:Query>
+            </pd:inputBindings>
+        </pd:activity>
+    </pd:group>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>UserRolesRetrieval</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>UserRolesRetrieval</pd:from>
+        <pd:to>RetrieveApplicationsWithUserPermissions</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>RetrieveApplicationsWithUserPermissions</pd:from>
+        <pd:to>Group</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

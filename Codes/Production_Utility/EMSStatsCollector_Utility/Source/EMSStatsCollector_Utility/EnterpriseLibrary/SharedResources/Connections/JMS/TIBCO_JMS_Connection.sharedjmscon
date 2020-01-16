@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BWSharedResource>
+    <name>TIBCO_JMS_Connection</name>
+    <resourceType>ae.shared.JMSConnectionKey</resourceType>
+    <config>
+        <NamingEnvironment>
+            <UseJNDI>true</UseJNDI>
+            <ProviderURL>%%EnvVariables/TIBCO_JMS_Connection/JNDI_URL%%</ProviderURL>
+            <NamingURL>%%EnvVariables/TIBCO_JMS_Connection/JNDI_URL%%</NamingURL>
+            <NamingInitialContextFactory>com.tibco.tibjms.naming.TibjmsInitialContextFactory</NamingInitialContextFactory>
+            <TopicFactoryName>%%EnvVariables/TIBCO_JMS_Connection/TOPIC_CONNECTION_FACTORY%%</TopicFactoryName>
+            <QueueFactoryName>%%EnvVariables/TIBCO_JMS_Connection/QUEUE_CONNECTION_FACTORY%%</QueueFactoryName>
+            <NamingPrincipal>admin</NamingPrincipal>
+            <NamingCredential>#!uxlz82wBhCS/asGFHzCgmuL777ZP6KH0qIWNJyv1zNM=</NamingCredential>
+        </NamingEnvironment>
+        <ConnectionAttributes>
+            <username>admin</username>
+            <password>#!Z0oCRig/sQdKEGEfReZck0qOva8zRFRpmGyWOzM/8E0=</password>
+            <clientID/>
+            <autoGenClientID>true</autoGenClientID>
+        </ConnectionAttributes>
+        <UseXACF>false</UseXACF>
+        <UseSharedJndiConfig>false</UseSharedJndiConfig>
+        <useSsl>false</useSsl>
+        <ns0:ssl xmlns:ns0="http://www.tibco.com/xmlns/aemeta/services/2002">
+            <ns0:trace>true</ns0:trace>
+            <ns0:debugTrace>true</ns0:debugTrace>
+            <ns0:verifyHostName>true</ns0:verifyHostName>
+            <ns0:strongCipherSuitesOnly>true</ns0:strongCipherSuitesOnly>
+        </ns0:ssl>
+    </config>
+</BWSharedResource>

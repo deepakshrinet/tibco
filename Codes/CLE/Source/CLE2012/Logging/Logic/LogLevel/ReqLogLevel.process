@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pfx16="http://www.tibco.com/CommonLE2011/namespace/Public/CLEExtension/LogLevelReply.xsd" xmlns:pfx15="http://www.tibco.com/CommonLE2/namespace/Public/Logging/LogLevelRequest.xsd" xmlns:ns="http://www.tibco.com/pe/EngineTypes" xmlns:pfx14="http://www.tibco.com/CommonLE2/namespace/Public/CLEExtension/LogLevelRequest.xsd" xmlns:pfx13="http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common" xmlns:pfx12="http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/'GUI/Common" xmlns:pfx11="http://www.tibco.com/CommonLE2/namespace/Public/Common/IDQuery" xmlns:pfx10="http://schemas.tibco.com/bw/plugins/jdbc/5.0/jdbcExceptions" xmlns:pfx5="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Severity" xmlns:pfx4="http://www.tibco.com/CommonLE2/namespace/private/Common" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx3="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Category" xmlns:pfx2="http://xmlns.example.com/unique/default/namespace/1098735544074" xmlns:pfx9="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Query" xmlns:pfx8="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Applications" xmlns:pfx7="http://www.tibco.com/CommonLE2/Public/Common/Dummy" xmlns:pfx6="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Type" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns12="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:pfx="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/CommonLE/namespace/Custom" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xsd:import namespace="http://xmlns.example.com/unique/default/namespace/1098735544074" schemaLocation="/Shared Resources/Schema Definitions/Custom/ExceptionCategory.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Category" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/ExceptionCategory.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Severity" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/ExceptionSeverity.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Type" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/ExceptionType.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Applications" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/Applications.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/private/Common" schemaLocation="/SharedResources/SchemaDefinitions/Private/Common/LocalExceptions.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Query" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/ConfigurationQuery.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Common/IDQuery.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/Public/Common/Dummy" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Common/DummyReturnMessage.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Logging/LogLevelRequest.xsd" schemaLocation="/SharedResources/SchemaDefinitions/Public/Logging/LogLevelReqest.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2011/namespace/Public/CLEExtension/LogLevelReply.xsd" schemaLocation="/SharedResources/SchemaDefinitions/Public/Logging/LogLevelInformation.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/CLEExtension/LogLevelRequest.xsd" schemaLocation="/SharedResources/SchemaDefinitions/Public/Logging/LogLevelRequest.xsd"/>
+    <pd:name>Logging/Logic/LogLevel/ReqLogLevel.process</pd:name>
+    <pd:description>Deletes selected logs</pd:description>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx14:LogLevelRequest"/>
+    <pd:startX>27</pd:startX>
+    <pd:startY>104</pd:startY>
+    <pd:returnBindings>
+        <pfx7:Dummy>
+            <pfx7:StatusMessage>
+                <xsl:value-of select="&quot;Request Sent to Set LogLevel&quot;"/>
+            </pfx7:StatusMessage>
+        </pfx7:Dummy>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType ref="pfx7:Dummy"/>
+    <pd:endX>303</pd:endX>
+    <pd:endY>112</pd:endY>
+    <pd:errorSchemas>
+        <Schema0 ref="pfx4:JMSError"/>
+    </pd:errorSchemas>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1267318990546</pd:targetNamespace>
+    <pd:activity name="JMS Error">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>147</pd:x>
+        <pd:y>232</pd:y>
+        <config>
+            <faultName>Schema0</faultName>
+        </config>
+        <pd:inputBindings>
+            <pfx:ActivityInput>
+                <message>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/Common/Messages/JMSConnectionError"/>
+                </message>
+                <messageCode>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/Common/Codes/JMSConnectionError"/>
+                </messageCode>
+                <data>
+                    <pfx4:JMSError>
+                        <pfx4:Message>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/Common/Messages/JMSConnectionError"/>
+                        </pfx4:Message>
+                        <pfx4:Code>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/Common/Codes/JMSConnectionError"/>
+                        </pfx4:Code>
+                    </pfx4:JMSError>
+                </data>
+            </pfx:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="JMS Topic Publisher">
+        <pd:type>com.tibco.plugin.jms.JMSTopicPublishActivity</pd:type>
+        <pd:resourceType>ae.activities.JMSTopicPublishActivity</pd:resourceType>
+        <pd:x>143</pd:x>
+        <pd:y>115</pd:y>
+        <config>
+            <PermittedMessageType>XML Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+                <destination>%%JMSDestinationNames/MIG_LogLevelRequestTopic%%</destination>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/SharedResources/Connections/JMS/JMS Log.sharedjmscon</ConnectionReference>
+            <InDataxsdString ref="pfx14:LogLevelRequest"/>
+        </config>
+        <pd:inputBindings>
+            <ns12:ActivityInput>
+                <Body>
+                    <xsl:copy-of select="$Start/pfx14:LogLevelRequest"/>
+                </Body>
+            </ns12:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>JMS Topic Publisher</pd:to>
+        <pd:lineType>Straight</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>JMS Topic Publisher</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>JMS Topic Publisher</pd:from>
+        <pd:to>JMS Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>error</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

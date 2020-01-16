@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BWSharedResource xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <name>UserExtDataFormat</name>
+    <resourceType>ae.shared.ParseSharedResource</resourceType>
+    <config xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <FormatType>Delimiter separated</FormatType>
+        <ColumnSeparator>,</ColumnSeparator>
+        <ColSeparatorRule>Treat all characters as entered as a single column separator string</ColSeparatorRule>
+        <LineSeparator>
+</LineSeparator>
+        <FillCharacter>Space</FillCharacter>
+        <LineLength>7</LineLength>
+        <DataFormat>
+            <xsd:element name="User">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="USERID" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="SSN" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="DOB" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="CITIZENSHIP" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="NATIONALITY" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="ETHNICITY" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="MARRIED" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="MINORITY" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="BUSINESS_SEGMENT" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="SERVICE_DATE" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="LEVEL" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="PHOTO" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="FUNCTION" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="PERFORMANCE" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="POTENTIAL" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="OBJECTIVE" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="COMPETENCY" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="TALENT_POOL" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="RISK_OF_LOSS" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="IMPACT_OF_LOSS" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="BENCH_STRENGTH" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="REASON_FOR_LEAVING" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="NEW_TO_POSITION" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="DATE_OF_POSITION" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="KEY_POSITION" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="FUTURE_LEADER" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="MATRIX_MANAGED" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="REGION" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="OPCOM" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="EMPLOYEE_TYPE" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="HCP" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="ON_LEAVE" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="LEAVE_EXPIRATION" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="DOMAIN" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="OPCOM_1" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="SITE" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="USER_SOURCE" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="SALES_SPECIALITY" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="JOB_DESCRIPTION" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="LMS_EMAIL" type="xsd:string" minOccurs="0"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </DataFormat>
+    </config>
+</BWSharedResource>

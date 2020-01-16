@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/EngineTypes" xmlns:pfx12="http://www.tibco.com/CommonLE2/Private/Administration" xmlns:pfx11="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig" xmlns:pfx10="http://www.tibco.com/CommonLE2/namespace/private/Common" xmlns:pfx="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx5="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Severity" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx4="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Category" xmlns:pfx3="http://www.tibco.com/CommonLE/namespace/Custom" xmlns:pfx2="http://xmlns.example.com/unique/default/namespace/1098735544074" xmlns:pfx9="http://schemas.tibco.com/bw/plugins/jdbc/5.0/jdbcExceptions" xmlns:pfx8="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Applications" xmlns:pfx7="http://www.tibco.com/CommonLE2/Public/Common/Dummy" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pfx6="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Type">
+    <xsd:import namespace="http://www.tibco.com/CommonLE/namespace/Custom" schemaLocation="/Shared Resources/Schema Definitions/Custom/ExceptionCategory.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Category" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/ExceptionCategory.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Severity" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/ExceptionSeverity.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Type" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/ExceptionType.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Applications" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/Applications.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/ExceptionConfig.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/private/Common" schemaLocation="/SharedResources/SchemaDefinitions/Private/Common/LocalExceptions.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/Public/Common/Dummy" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Common/DummyReturnMessage.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/Private/Administration" schemaLocation="/SharedResources/SchemaDefinitions/Private/Administration/QueryUpdate.xsd"/>
+    <pd:name>Administration/DataAccess/InterfaceConfiguration/Oracle/CreateInterfaceConfiguration.process</pd:name>
+    <pd:description>Creates a new interface configuration</pd:description>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx12:InterfaceConfiguration"/>
+    <pd:startX>19</pd:startX>
+    <pd:startY>75</pd:startY>
+    <pd:returnBindings>
+        <root>
+            <interfaceInserts>
+                <xsl:value-of select="$Insert-InterfaceConfiguration/jdbcUpdateActivityOutput/noOfUpdates"/>
+            </interfaceInserts>
+            <xsl:if test="$Insert-InterfaceConfiguration-1/jdbcUpdateActivityOutput/noOfUpdates">
+                <targetInserts>
+                    <xsl:value-of select="$Insert-InterfaceConfiguration-1/jdbcUpdateActivityOutput/noOfUpdates"/>
+                </targetInserts>
+            </xsl:if>
+        </root>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="interfaceInserts" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="targetInserts" type="xsd:string" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>327</pd:endX>
+    <pd:endY>75</pd:endY>
+    <pd:errorSchemas>
+        <InvalidInput ref="pfx10:InvalidInputParameter"/>
+        <IDNotUnique ref="pfx10:IDNotUnique"/>
+        <IntegrityError ref="pfx10:ReferencialIntegrityViolation"/>
+    </pd:errorSchemas>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1284736502562</pd:targetNamespace>
+    <pd:activity name="Insert InterfaceConfiguration">
+        <pd:type>com.tibco.plugin.jdbc.JDBCUpdateActivity</pd:type>
+        <pd:resourceType>ae.activities.JDBCUpdateActivity</pd:resourceType>
+        <pd:x>163</pd:x>
+        <pd:y>83</pd:y>
+        <config>
+            <timeout>%%Database/MIG_Timeout%%</timeout>
+            <commit>false</commit>
+            <emptyStrAsNil>false</emptyStrAsNil>
+            <jdbcSharedConfig>/SharedResources/Connections/Database/DBServerOracle.sharedjdbc</jdbcSharedConfig>
+            <statement>Insert into interfaceconfig (ApplicationID,InterfaceID, Interfacename, Interfacetype, Owner, dbUse, TransComplexity, SourceSystem, TargetSystem, 
+Protocol, Status, description, ParentID)
+Values (?,?,?,?,?,?,?,?,?,?,?,?,?)</statement>
+            <Prepared_Param_DataType>
+                <parameter>
+                    <parameterName>ApplicationID</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>InterfaceID</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>Interfacename</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>InterfaceType</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>Owner</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>dbUse</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>TransComplexity</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>SourceSystem</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>TargetSystem</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>Protocol</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>Status</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>Description</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>ParentID</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+            </Prepared_Param_DataType>
+        </config>
+        <pd:inputBindings>
+            <xsl:for-each select="$Start/pfx12:InterfaceConfiguration">
+                <jdbcUpdateActivityInput>
+                    <ApplicationID>
+                        <xsl:value-of select="pfx12:ApplicationID"/>
+                    </ApplicationID>
+                    <InterfaceID>
+                        <xsl:value-of select="pfx12:ID"/>
+                    </InterfaceID>
+                    <Interfacename>
+                        <xsl:value-of select="pfx12:Name"/>
+                    </Interfacename>
+                    <InterfaceType>
+                        <xsl:value-of select="pfx12:Type"/>
+                    </InterfaceType>
+                    <Owner>
+                        <xsl:value-of select="pfx12:Owner"/>
+                    </Owner>
+                    <dbUse>
+                        <xsl:value-of select="if  (string(pfx12:dbUse) = &quot;true&quot;) then &quot;Y&quot; else &quot;N&quot;"/>
+                    </dbUse>
+                    <TransComplexity>
+                        <xsl:value-of select="pfx12:TransComplexity"/>
+                    </TransComplexity>
+                    <SourceSystem>
+                        <xsl:value-of select="pfx12:SourceSystem"/>
+                    </SourceSystem>
+                    <TargetSystem>
+                        <xsl:value-of select="pfx12:TargetSystem"/>
+                    </TargetSystem>
+                    <Protocol>
+                        <xsl:value-of select="pfx12:Protocol"/>
+                    </Protocol>
+                    <Status>
+                        <xsl:value-of select="pfx12:Status"/>
+                    </Status>
+                    <Description>
+                        <xsl:value-of select="pfx12:Description"/>
+                    </Description>
+                    <ParentID>
+                        <xsl:value-of select="pfx12:ParentID"/>
+                    </ParentID>
+                </jdbcUpdateActivityInput>
+            </xsl:for-each>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SQL Exception">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>706</pd:x>
+        <pd:y>65</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=JDBCSQLException namespace=http://schemas.tibco.com/bw/plugins/jdbc/5.0/jdbcExceptions</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Generate Error">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>897</pd:x>
+        <pd:y>65</pd:y>
+        <config>
+            <faultName>IDNotUnique</faultName>
+        </config>
+        <pd:inputBindings>
+            <pfx:ActivityInput>
+                <message>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/DB/Messages/DBRecordExists"/>
+                </message>
+                <messageCode>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/DB/Codes/SQLRecordExists"/>
+                </messageCode>
+                <data>
+                    <pfx10:IDNotUnique>
+                        <pfx10:Message>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/DB/Messages/DBRecordExists"/>
+                        </pfx10:Message>
+                        <pfx10:Code>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/DB/Codes/SQLRecordExists"/>
+                        </pfx10:Code>
+                    </pfx10:IDNotUnique>
+                </data>
+            </pfx:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Referential Integrity Error">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>554</pd:x>
+        <pd:y>73</pd:y>
+        <config>
+            <faultName>IntegrityError</faultName>
+        </config>
+        <pd:inputBindings>
+            <pfx:ActivityInput>
+                <message>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/DB/Messages/DBIntegrityError"/>
+                </message>
+                <messageCode>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/DB/Codes/SQLReferencedIntegrityState"/>
+                </messageCode>
+                <data>
+                    <pfx10:ReferencialIntegrityViolation>
+                        <pfx10:Message>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/DB/Messages/DBIntegrityError"/>
+                        </pfx10:Message>
+                        <pfx10:Code>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/DB/Codes/SQLReferencedIntegrityState"/>
+                        </pfx10:Code>
+                    </pfx10:ReferencialIntegrityViolation>
+                </data>
+            </pfx:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Invalid Input">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>548</pd:x>
+        <pd:y>185</pd:y>
+        <config>
+            <faultName>InvalidInput</faultName>
+        </config>
+        <pd:inputBindings>
+            <pfx:ActivityInput>
+                <message>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/DB/Messages/InvalidInput"/>
+                </message>
+                <messageCode>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/DB/Codes/InvalidInputSQLState"/>
+                </messageCode>
+                <data>
+                    <pfx10:InvalidInputParameter>
+                        <pfx10:Message>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/DB/Messages/InvalidInput"/>
+                        </pfx10:Message>
+                        <pfx10:Code>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/DB/Codes/InvalidInputSQLState"/>
+                        </pfx10:Code>
+                    </pfx10:InvalidInputParameter>
+                </data>
+            </pfx:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Rethrow">
+        <pd:type>com.tibco.pe.core.RethrowActivity</pd:type>
+        <pd:resourceType>ae.activities.rethrow</pd:resourceType>
+        <pd:x>859</pd:x>
+        <pd:y>185</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Insert-InterfaceConfiguration-1">
+        <pd:type>com.tibco.plugin.jdbc.JDBCUpdateActivity</pd:type>
+        <pd:resourceType>ae.activities.JDBCUpdateActivity</pd:resourceType>
+        <pd:x>160</pd:x>
+        <pd:y>215</pd:y>
+        <config>
+            <timeout>%%Database/MIG_Timeout%%</timeout>
+            <commit>false</commit>
+            <emptyStrAsNil>false</emptyStrAsNil>
+            <jdbcSharedConfig>/SharedResources/Connections/Database/DBServerOracle.sharedjdbc</jdbcSharedConfig>
+            <statement>Insert into TargetSystem (ApplicationID,InterfaceID, Name) Values (?,?,?)</statement>
+            <Prepared_Param_DataType>
+                <parameter>
+                    <parameterName>ApplicationID</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>InterfaceID</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>Name</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+            </Prepared_Param_DataType>
+            <batchUpdate>true</batchUpdate>
+        </config>
+        <pd:inputBindings>
+            <jdbcUpdateActivityInput>
+                <xsl:for-each select="tib:tokenize($Start/pfx12:InterfaceConfiguration/pfx12:TargetSystem, &quot;,&quot;)">
+                    <Record>
+                        <ApplicationID>
+                            <xsl:value-of select="$Start/pfx12:InterfaceConfiguration/pfx12:ApplicationID"/>
+                        </ApplicationID>
+                        <InterfaceID>
+                            <xsl:value-of select="$Start/pfx12:InterfaceConfiguration/pfx12:ID"/>
+                        </InterfaceID>
+                        <Name>
+                            <xsl:value-of select="tib:trim(.)"/>
+                        </Name>
+                    </Record>
+                </xsl:for-each>
+            </jdbcUpdateActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Insert InterfaceConfiguration</pd:to>
+        <pd:lineType>Straight</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Insert InterfaceConfiguration</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Straight</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SQL Exception</pd:from>
+        <pd:to>Generate Error</pd:to>
+        <pd:xpathDescription>Interface ID Exists</pd:xpathDescription>
+        <pd:lineType>Straight</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$SQL-Exception/pfx9:JDBCSQLException/msgCode = $_globalVariables/ns1:GlobalVariables/Exceptions/DB/Codes/SQLIntegrityError and 
+$SQL-Exception/pfx9:JDBCSQLException/sqlState = $_globalVariables/ns1:GlobalVariables/Exceptions/DB/Codes/SQLIntegrityState and
+$SQL-Exception/pfx9:JDBCSQLException/detailStr!="java.sql.SQLException: [tibcosoftwareinc][Oracle JDBC Driver][Oracle]ORA-02291: integrity constraint (SCOTT.SYS_C003187) violated - parent key not found"</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SQL Exception</pd:from>
+        <pd:to>Referential Integrity Error</pd:to>
+        <pd:xpathDescription>Reference Error</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$SQL-Exception/pfx9:JDBCSQLException/msgCode = $_globalVariables/ns1:GlobalVariables/Exceptions/DB/Codes/SQLIntegrityError and 
+$SQL-Exception/pfx9:JDBCSQLException/detailStr="java.sql.SQLException: [tibcosoftwareinc][Oracle JDBC Driver][Oracle]ORA-02291: integrity constraint (SCOTT.SYS_C003187) violated - parent key not found"</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SQL Exception</pd:from>
+        <pd:to>Invalid Input</pd:to>
+        <pd:xpathDescription>Invalid input</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$SQL-Exception/pfx9:JDBCSQLException/msgCode = $_globalVariables/ns1:GlobalVariables/Exceptions/DB/Codes/SQLIntegrityError and 
+$SQL-Exception/pfx9:JDBCSQLException/sqlState = $_globalVariables/ns1:GlobalVariables/Exceptions/DB/Codes/InvalidInputSQLState</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SQL Exception</pd:from>
+        <pd:to>Rethrow</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Insert InterfaceConfiguration</pd:from>
+        <pd:to>Insert-InterfaceConfiguration-1</pd:to>
+        <pd:xpathDescription>Has Target Sys</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>string-length($Start/pfx12:InterfaceConfiguration/pfx12:TargetSystem)&gt;0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Insert-InterfaceConfiguration-1</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

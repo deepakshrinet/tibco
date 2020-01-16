@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/EngineTypes" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlPfx="http://www.tibco.com/CommonLE2/namespace/SecurityManagement/GUIServices" xmlns:ns5="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/UserApplicationPermissionsInfo" xmlns:ns12="http://www.tibco.com/CommonLE/namespace/Common" xmlns:ns6="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/UserAuthenticationRequest" xmlns:ns7="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/UserAuthenticationResponse" xmlns:ns8="http://www.tibco.com/pe/DeployedVarsType" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/CommonLE2/namespace/Administration/GUIServices/Category" xmlns:ns1="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:ns4="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ApplicationIDList" xmlns:ns3="http://www.tibco.com/CommonLE2/Public/Common" xmlns:pfx2="http://www.tibco.com/CommonLE2/namespace/private/Common" xmlns:pfx7="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/UserAuthenticationResponse" xmlns:pfx6="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/UserAuthenticationRequest">
+    <wsdl:import namespace="http://www.tibco.com/CommonLE2/namespace/SecurityManagement/GUIServices" location="/SharedResources/WSDL/GUI/SecurityManagement/intfUpdateRoleACL.wsdl"/>
+    <pd:name>SecurityManagement/GUIServices/wsUserAuthentication.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType wsMsgRef="wsdlPfx:UserAuthenticationRequest"/>
+    <pd:startX>122</pd:startX>
+    <pd:startY>42</pd:startY>
+    <pd:returnBindings>
+        <wsdlPfx:UserAuthenticationResponse>
+            <parameters>
+                <ns7:UserAuthenticationResponse>
+                    <ns7:AuthenticationResult>
+                        <xsl:value-of select="$Perform-User-Authentication-and-Authorization/ns7:UserAuthenticationResponse/ns7:AuthenticationResult"/>
+                    </ns7:AuthenticationResult>
+                </ns7:UserAuthenticationResponse>
+            </parameters>
+        </wsdlPfx:UserAuthenticationResponse>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType wsMsgRef="wsdlPfx:UserAuthenticationResponse"/>
+    <pd:endX>447</pd:endX>
+    <pd:endY>45</pd:endY>
+    <pd:errorSchemas>
+        <Fault wsMsgRef="wsdlPfx:Error"/>
+    </pd:errorSchemas>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1284170605484</pd:targetNamespace>
+    <pd:activity name="Catch Admin Connection Error">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>414</pd:x>
+        <pd:y>400</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=AdministratorConnectError namespace=http://www.tibco.com/CommonLE2/namespace/private/Common</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Catch All Errors">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>121</pd:x>
+        <pd:y>159</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Catch Authentication Error">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>120</pd:x>
+        <pd:y>278</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=AuthenticationError namespace=http://www.tibco.com/CommonLE2/namespace/private/Common</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Catch Role RetrieveError">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>120</pd:x>
+        <pd:y>400</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=RoleRetrievalError namespace=http://www.tibco.com/CommonLE2/namespace/private/Common</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Catch Authorization Error">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>400</pd:x>
+        <pd:y>278</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=AuthorizationError namespace=http://www.tibco.com/CommonLE2/namespace/private/Common</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Generate Authentication Error">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>298</pd:x>
+        <pd:y>285</pd:y>
+        <config>
+            <faultName>Fault</faultName>
+        </config>
+        <pd:inputBindings>
+            <ns1:ActivityInput>
+                <xsl:if test="$Catch-Authentication-Error/pfx2:AuthenticationError/pfx2:Message">
+                    <message>
+                        <xsl:value-of select="$Catch-Authentication-Error/pfx2:AuthenticationError/pfx2:Message"/>
+                    </message>
+                </xsl:if>
+                <xsl:if test="$Catch-Authentication-Error/pfx2:AuthenticationError/pfx2:Code">
+                    <messageCode>
+                        <xsl:value-of select="$Catch-Authentication-Error/pfx2:AuthenticationError/pfx2:Code"/>
+                    </messageCode>
+                </xsl:if>
+                <data>
+                    <wsdlPfx:Error>
+                        <Error>
+                            <ns3:Error>
+                                <xsl:if test="$Catch-Authentication-Error/pfx2:AuthenticationError/pfx2:Message">
+                                    <ns3:Message>
+                                        <xsl:value-of select="$Catch-Authentication-Error/pfx2:AuthenticationError/pfx2:Message"/>
+                                    </ns3:Message>
+                                </xsl:if>
+                                <xsl:if test="$Catch-Authentication-Error/pfx2:AuthenticationError/pfx2:Code">
+                                    <ns3:Code>
+                                        <xsl:value-of select="$Catch-Authentication-Error/pfx2:AuthenticationError/pfx2:Code"/>
+                                    </ns3:Code>
+                                </xsl:if>
+                            </ns3:Error>
+                        </Error>
+                    </wsdlPfx:Error>
+                </data>
+            </ns1:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Generate Authorization Error">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>563</pd:x>
+        <pd:y>285</pd:y>
+        <config>
+            <faultName>Fault</faultName>
+        </config>
+        <pd:inputBindings>
+            <ns1:ActivityInput>
+                <message>
+                    <xsl:value-of select="$Catch-Authorization-Error/pfx2:AuthorizationError/pfx2:Message"/>
+                </message>
+                <messageCode>
+                    <xsl:value-of select="$Catch-Authorization-Error/pfx2:AuthorizationError/pfx2:Code"/>
+                </messageCode>
+                <data>
+                    <wsdlPfx:Error>
+                        <Error>
+                            <ns3:Error>
+                                <ns3:Message>
+                                    <xsl:value-of select="$Catch-Authorization-Error/pfx2:AuthorizationError/pfx2:Message"/>
+                                </ns3:Message>
+                                <ns3:Code>
+                                    <xsl:value-of select="$Catch-Authorization-Error/pfx2:AuthorizationError/pfx2:Code"/>
+                                </ns3:Code>
+                            </ns3:Error>
+                        </Error>
+                    </wsdlPfx:Error>
+                </data>
+            </ns1:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Generate Internal Error">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>456</pd:x>
+        <pd:y>167</pd:y>
+        <config>
+            <faultName>Fault</faultName>
+        </config>
+        <pd:inputBindings>
+            <ns1:ActivityInput>
+                <xsl:if test="$_error/ns:ErrorReport/Msg">
+                    <message>
+                        <xsl:value-of select="$_error/ns:ErrorReport/Msg"/>
+                    </message>
+                </xsl:if>
+                <xsl:if test="$_error/ns:ErrorReport/MsgCode">
+                    <messageCode>
+                        <xsl:value-of select="$_error/ns:ErrorReport/MsgCode"/>
+                    </messageCode>
+                </xsl:if>
+                <data>
+                    <wsdlPfx:Error>
+                        <Error>
+                            <ns3:Error>
+                                <xsl:if test="$_error/ns:ErrorReport/Msg">
+                                    <ns3:Message>
+                                        <xsl:value-of select="$_error/ns:ErrorReport/Msg"/>
+                                    </ns3:Message>
+                                </xsl:if>
+                                <xsl:if test="$_error/ns:ErrorReport/MsgCode">
+                                    <ns3:Code>
+                                        <xsl:value-of select="$_error/ns:ErrorReport/MsgCode"/>
+                                    </ns3:Code>
+                                </xsl:if>
+                            </ns3:Error>
+                        </Error>
+                    </wsdlPfx:Error>
+                </data>
+            </ns1:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Generate Role Retrieval Error">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>299</pd:x>
+        <pd:y>399</pd:y>
+        <config>
+            <faultName>Fault</faultName>
+        </config>
+        <pd:inputBindings>
+            <ns1:ActivityInput>
+                <message>
+                    <xsl:value-of select="$Catch-Role-RetrieveError/pfx2:RoleRetrievalError/pfx2:Message"/>
+                </message>
+                <messageCode>
+                    <xsl:value-of select="$Catch-Role-RetrieveError/pfx2:RoleRetrievalError/pfx2:Code"/>
+                </messageCode>
+                <data>
+                    <wsdlPfx:Error>
+                        <Error>
+                            <ns3:Error>
+                                <ns3:Message>
+                                    <xsl:value-of select="$Catch-Role-RetrieveError/pfx2:RoleRetrievalError/pfx2:Message"/>
+                                </ns3:Message>
+                                <ns3:Code>
+                                    <xsl:value-of select="$Catch-Role-RetrieveError/pfx2:RoleRetrievalError/pfx2:Code"/>
+                                </ns3:Code>
+                            </ns3:Error>
+                        </Error>
+                    </wsdlPfx:Error>
+                </data>
+            </ns1:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Generate-Role-Retrieval-Error-1">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>580</pd:x>
+        <pd:y>392</pd:y>
+        <config>
+            <faultName>Fault</faultName>
+        </config>
+        <pd:inputBindings>
+            <ns1:ActivityInput>
+                <message>
+                    <xsl:value-of select="$Catch-Admin-Connection-Error/pfx2:AdministratorConnectError/pfx2:Message"/>
+                </message>
+                <messageCode>
+                    <xsl:value-of select="$Catch-Admin-Connection-Error/pfx2:AdministratorConnectError/pfx2:Code"/>
+                </messageCode>
+                <data>
+                    <wsdlPfx:Error>
+                        <Error>
+                            <ns3:Error>
+                                <ns3:Message>
+                                    <xsl:value-of select="$Catch-Admin-Connection-Error/pfx2:AdministratorConnectError/pfx2:Message"/>
+                                </ns3:Message>
+                                <ns3:Code>
+                                    <xsl:value-of select="$Catch-Admin-Connection-Error/pfx2:AdministratorConnectError/pfx2:Code"/>
+                                </ns3:Code>
+                            </ns3:Error>
+                        </Error>
+                    </wsdlPfx:Error>
+                </data>
+            </ns1:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Local Exception Handler">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>299</pd:x>
+        <pd:y>167</pd:y>
+        <config>
+            <processName>/Common/Local Exception Handler.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns12:Exception>
+                <ErrorMessage>
+                    <xsl:value-of select="$_error/ns:ErrorReport/Msg"/>
+                </ErrorMessage>
+                <ErrorCode>
+                    <xsl:value-of select="$_error/ns:ErrorReport/MsgCode"/>
+                </ErrorCode>
+                <ns12:Error>
+                    <xsl:for-each xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="$_error/ns:ErrorReport">
+                        <ns12:ErrorReport>
+                            <StackTrace>
+                                <xsl:value-of select="StackTrace"/>
+                            </StackTrace>
+                            <Msg>
+                                <xsl:value-of select="Msg"/>
+                            </Msg>
+                            <FullClass>
+                                <xsl:value-of select="FullClass"/>
+                            </FullClass>
+                            <Class>
+                                <xsl:value-of select="Class"/>
+                            </Class>
+                            <ProcessStack>
+                                <xsl:value-of select="ProcessStack"/>
+                            </ProcessStack>
+                            <MsgCode>
+                                <xsl:value-of select="MsgCode"/>
+                            </MsgCode>
+                        </ns12:ErrorReport>
+                    </xsl:for-each>
+                </ns12:Error>
+            </ns12:Exception>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Perform User Authentication and Authorization">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>296</pd:x>
+        <pd:y>58</pd:y>
+        <config>
+            <processName>/SecurityManagement/DataAccess/Common/UserAuthentication2011.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns6:UserAuthenticationRequest>
+                <ns6:UserName>
+                    <xsl:value-of select="$Start/wsdlPfx:UserAuthenticationRequest/parameters/ns6:UserAuthenticationRequest/ns6:UserName"/>
+                </ns6:UserName>
+                <ns6:Password>
+                    <xsl:value-of select="$Start/wsdlPfx:UserAuthenticationRequest/parameters/ns6:UserAuthenticationRequest/ns6:Password"/>
+                </ns6:Password>
+            </ns6:UserAuthenticationRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Perform User Authentication and Authorization</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Perform User Authentication and Authorization</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch Role RetrieveError</pd:from>
+        <pd:to>Generate Role Retrieval Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch All Errors</pd:from>
+        <pd:to>Local Exception Handler</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Local Exception Handler</pd:from>
+        <pd:to>Generate Internal Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch Authentication Error</pd:from>
+        <pd:to>Generate Authentication Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch Authorization Error</pd:from>
+        <pd:to>Generate Authorization Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch Admin Connection Error</pd:from>
+        <pd:to>Generate-Role-Retrieval-Error-1</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

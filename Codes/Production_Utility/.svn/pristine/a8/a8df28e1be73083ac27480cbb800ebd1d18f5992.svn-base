@@ -1,0 +1,45 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>FileName</name>
+			<value>QueuesFile.json</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1473949598454</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>InterfaceId</name>
+			<value>RETRIGGER</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1473429470645</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>JSONSharedLoc</name>
+			<value>\\tibpr-nas\TIB_FILESHARE\DEV\PRODUCTION_UTILITY\INTERFACE_TRIGGER\</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1474596334837</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>TransactionDomain</name>
+			<value>UTILITY</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1473427462207</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>TransactionType</name>
+			<value>USERREQUEST</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1473427462270</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

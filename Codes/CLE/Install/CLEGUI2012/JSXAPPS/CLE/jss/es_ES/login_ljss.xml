@@ -1,0 +1,14 @@
+<data jsxnamespace="propsbundle" locales="">
+  <locale>
+    <record jsxid="login_userId" jsxtext="ID de Usuario:"/>
+    <record jsxid="login_password" jsxtext="Contraseña:"/>
+    <record jsxid="login_buttonLogin" jsxtext="Iniciar Sesión"/>
+    <record jsxid="login_incompleteLogin" jsxtext="Información de Inicio de Sesión Incompleta"/>
+    <record jsxid="login_errorCaption" jsxtext="Error de Inicio de Sesión"/>
+    <record jsxid="login_completeLoginToContinue" jsxtext="Por favor introduzca un ID de usuario y contraseña para continuar."/>
+    <record jsxid="login_timeoutCaption" jsxtext="Tiempo Agotado en Inicio de Sesión"/>
+    <record jsxid="login_timeoutMessage" jsxtext="El servicio no respondió, por favor vuelva a intentarlo más tarde."/>
+    <record jsxid="login_invalidRequestCaption" jsxtext="Petición de Servicio Invalida"/>
+    <record jsxid="login_invalidRequestMessage" jsxtext="El siguiente nodo de mensaje falló la validación: "/>
+  </locale>
+</data>

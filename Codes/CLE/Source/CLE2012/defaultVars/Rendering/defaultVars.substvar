@@ -1,0 +1,37 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>HTMLBody</name>
+			<value>&lt;body></value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874575991</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>HTMLBodyClose</name>
+			<value>&lt;/body></value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874573942</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>HTMLHead</name>
+			<value>&lt;head></value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874572811</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>HTMLHeadClose</name>
+			<value>&lt;/head></value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874570444</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

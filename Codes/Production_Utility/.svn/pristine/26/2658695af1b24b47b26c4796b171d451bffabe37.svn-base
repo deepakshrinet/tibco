@@ -1,0 +1,21 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>LoadPropertyFile</name>
+			<value>ZBS.EAI.LOAD_TEXTMSG_PROPFILE.ASYNC</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1478069868226</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>TextUtilityTrigger</name>
+			<value>ZBS.EAI.TEXT_UTILITY.TRIGGER.ASYNC</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1491389448114</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

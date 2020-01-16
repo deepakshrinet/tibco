@@ -1,0 +1,540 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:ns2="www.tibco.com/plugin/java/JavaMethodActivityInput" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="www.tibco.com/plugin/java/JavaMethodActivityOutput" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx="http://www.tibco.com/ZBS/V1_0/EMSPerfStats" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xsd:import namespace="http://www.tibco.com/ZBS/V1_0/EMSPerfStats" schemaLocation="/Schemas/EMSPerfStats.xsd"/>
+    <pd:name>EMSStatCollector_Utility/Operation/getEmsServerStats.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startX>71</pd:startX>
+    <pd:startY>123</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>778</pd:endX>
+    <pd:endY>125</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables>
+        <ProcessData>
+            <xsd:element name="Date">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="TimeStamp" type="xsd:dateTime" minOccurs="0"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </ProcessData>
+    </pd:processVariables>
+    <pd:targetNamespace>http://xmlns.example.com/1497022602702</pd:targetNamespace>
+    <pd:activity name="getServerStats">
+        <pd:type>com.tibco.plugin.java.JavaMethodActivity</pd:type>
+        <pd:resourceType>ae.activities.JavaMethodActivity</pd:resourceType>
+        <pd:x>295</pd:x>
+        <pd:y>38</pd:y>
+        <config>
+            <ConstructDeclaredClass>false</ConstructDeclaredClass>
+            <CacheConstructedClass>false</CacheConstructedClass>
+            <InvokeCleanupMethod>false</InvokeCleanupMethod>
+            <JavaGlobalInstance>/Connections/Java Global Instance.serviceagent</JavaGlobalInstance>
+            <MethodInfo>
+                <classPath>/Connections/AliasLibrary.aliaslib</classPath>
+                <className>com.zimmer.tibco.ems.StatsCollector</className>
+                <methodName>getServerStats</methodName>
+                <methodReturn>java.lang.String</methodReturn>
+            </MethodInfo>
+        </config>
+        <pd:inputBindings>
+            <ns1:JavaMethodActivityInput xmlns:ns1="www.tibco.com/plugin/java/JavaMethodActivityInput"/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Collect Server Info">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>434</pd:x>
+        <pd:y>129</pd:y>
+        <config>
+            <element ref="pfx:EMSPerfData"/>
+        </config>
+        <pd:inputBindings>
+            <pfx:EMSPerfData>
+                <pfx:Server>
+                    <xsl:if test="tib:tokenize($JavaCode_serverstats/javaCodeActivityOutput/Out_stats,&quot;,&quot;)[2]">
+                        <pfx:ServerName>
+                            <xsl:value-of select="tib:tokenize($JavaCode_serverstats/javaCodeActivityOutput/Out_stats,&quot;,&quot;)[2]"/>
+                        </pfx:ServerName>
+                    </xsl:if>
+                    <pfx:ConnCnt>
+                        <xsl:value-of select="tib:tokenize($JavaCode_serverstats/javaCodeActivityOutput/Out_stats,&quot;,&quot;)[3]"/>
+                    </pfx:ConnCnt>
+                    <pfx:ConsumerCnt>
+                        <xsl:value-of select="tib:tokenize($JavaCode_serverstats/javaCodeActivityOutput/Out_stats,&quot;,&quot;)[4]"/>
+                    </pfx:ConsumerCnt>
+                    <pfx:DurableCnt>
+                        <xsl:value-of select="tib:tokenize($JavaCode_serverstats/javaCodeActivityOutput/Out_stats,&quot;,&quot;)[5]"/>
+                    </pfx:DurableCnt>
+                    <pfx:InboundMsgCount>
+                        <xsl:value-of select="tib:tokenize($JavaCode_serverstats/javaCodeActivityOutput/Out_stats,&quot;,&quot;)[6]"/>
+                    </pfx:InboundMsgCount>
+                    <pfx:InboundByteRate>
+                        <xsl:value-of select="tib:tokenize($JavaCode_serverstats/javaCodeActivityOutput/Out_stats,&quot;,&quot;)[7]"/>
+                    </pfx:InboundByteRate>
+                    <pfx:InboundMsgRate>
+                        <xsl:value-of select="tib:tokenize($JavaCode_serverstats/javaCodeActivityOutput/Out_stats,&quot;,&quot;)[8]"/>
+                    </pfx:InboundMsgRate>
+                    <pfx:MsgMemory>
+                        <xsl:value-of select="tib:tokenize($JavaCode_serverstats/javaCodeActivityOutput/Out_stats,&quot;,&quot;)[9]"/>
+                    </pfx:MsgMemory>
+                    <pfx:OutboundMsgCount>
+                        <xsl:value-of select="tib:tokenize($JavaCode_serverstats/javaCodeActivityOutput/Out_stats,&quot;,&quot;)[10]"/>
+                    </pfx:OutboundMsgCount>
+                    <pfx:OutboundByteRate>
+                        <xsl:value-of select="tib:tokenize($JavaCode_serverstats/javaCodeActivityOutput/Out_stats,&quot;,&quot;)[11]"/>
+                    </pfx:OutboundByteRate>
+                    <pfx:PendingMsgCnt>
+                        <xsl:value-of select="tib:tokenize($JavaCode_serverstats/javaCodeActivityOutput/Out_stats,&quot;,&quot;)[12]"/>
+                    </pfx:PendingMsgCnt>
+                    <pfx:PendingMsgSize>
+                        <xsl:value-of select="tib:tokenize($JavaCode_serverstats/javaCodeActivityOutput/Out_stats,&quot;,&quot;)[13]"/>
+                    </pfx:PendingMsgSize>
+                    <pfx:ProductCnt>
+                        <xsl:value-of select="tib:tokenize($JavaCode_serverstats/javaCodeActivityOutput/Out_stats,&quot;,&quot;)[14]"/>
+                    </pfx:ProductCnt>
+                    <pfx:AsyncDBSize>
+                        <xsl:value-of select="tib:tokenize($JavaCode_serverstats/javaCodeActivityOutput/Out_stats,&quot;,&quot;)[15]"/>
+                    </pfx:AsyncDBSize>
+                    <pfx:SyncDBSize>
+                        <xsl:value-of select="tib:tokenize($JavaCode_serverstats/javaCodeActivityOutput/Out_stats,&quot;,&quot;)[16]"/>
+                    </pfx:SyncDBSize>
+                    <pfx:OutboundMsgRate>
+                        <xsl:value-of select="tib:tokenize($JavaCode_serverstats/javaCodeActivityOutput/Out_stats,&quot;,&quot;)[17]"/>
+                    </pfx:OutboundMsgRate>
+                    <pfx:QueueCount>
+                        <xsl:value-of select="tib:tokenize($JavaCode_serverstats/javaCodeActivityOutput/Out_stats,&quot;,&quot;)[18]"/>
+                    </pfx:QueueCount>
+                    <pfx:TopicCount>
+                        <xsl:value-of select="tib:tokenize($JavaCode_serverstats/javaCodeActivityOutput/Out_stats,&quot;,&quot;)[19]"/>
+                    </pfx:TopicCount>
+                    <pfx:SessionCount>
+                        <xsl:value-of select="tib:tokenize($JavaCode_serverstats/javaCodeActivityOutput/Out_stats,&quot;,&quot;)[20]"/>
+                    </pfx:SessionCount>
+                </pfx:Server>
+            </pfx:EMSPerfData>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="JDBC Update">
+        <pd:type>com.tibco.plugin.jdbc.JDBCUpdateActivity</pd:type>
+        <pd:resourceType>ae.activities.JDBCUpdateActivity</pd:resourceType>
+        <pd:x>566</pd:x>
+        <pd:y>119</pd:y>
+        <config>
+            <timeout>10</timeout>
+            <commit>true</commit>
+            <emptyStrAsNil>true</emptyStrAsNil>
+            <batchUpdate>true</batchUpdate>
+            <statement>Insert into stats_ems_server  values
+(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)</statement>
+            <jdbcSharedConfig>/EnterpriseLibrary/SharedResources/Connections/JDBC/TIBCO_JDBC_Connection.sharedjdbc</jdbcSharedConfig>
+            <Prepared_Param_DataType>
+                <parameter>
+                    <parameterName>ServerName</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>ConnCnt</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>ConsumerCnt</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>DurableCnt</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>InboundMsgCount</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>InboundByteRate</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>InboundMsgRate</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>MsgMemory</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>OUTBOUNDMSGCOUNT</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>OUTBOUNDBYTERATE</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>PENDINGMSGCOUNT</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>PENDINGMSGSIZE</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>PRODUCERCOUNT</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>ASYNCDBSIZE</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>SYNCDBSIZE</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>OUTBOUNDMSGRATE</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>QUEUECOUNT</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>TOPICCOUNT</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>SESSIONCOUNT</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>DATELOGGED</parameterName>
+                    <dataType>TIMESTAMP</dataType>
+                </parameter>
+            </Prepared_Param_DataType>
+        </config>
+        <pd:inputBindings>
+            <jdbcUpdateActivityInput>
+                <Record>
+                    <ServerName>
+                        <xsl:choose>
+                            <xsl:when test="exists($Collect-Server-Info/pfx:EMSPerfData/pfx:Server/pfx:ServerName)">
+                                <xsl:value-of select="$Collect-Server-Info/pfx:EMSPerfData/pfx:Server/pfx:ServerName"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </ServerName>
+                    <ConnCnt>
+                        <xsl:choose>
+                            <xsl:when test="exists($Collect-Server-Info/pfx:EMSPerfData/pfx:Server/pfx:ConnCnt)">
+                                <xsl:value-of select="$Collect-Server-Info/pfx:EMSPerfData/pfx:Server/pfx:ConnCnt"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </ConnCnt>
+                    <ConsumerCnt>
+                        <xsl:choose>
+                            <xsl:when test="exists($Collect-Server-Info/pfx:EMSPerfData/pfx:Server/pfx:ConsumerCnt)">
+                                <xsl:value-of select="$Collect-Server-Info/pfx:EMSPerfData/pfx:Server/pfx:ConsumerCnt"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </ConsumerCnt>
+                    <DurableCnt>
+                        <xsl:choose>
+                            <xsl:when test="exists($Collect-Server-Info/pfx:EMSPerfData/pfx:Server/pfx:DurableCnt)">
+                                <xsl:value-of select="$Collect-Server-Info/pfx:EMSPerfData/pfx:Server/pfx:DurableCnt"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </DurableCnt>
+                    <InboundMsgCount>
+                        <xsl:choose>
+                            <xsl:when test="exists($Collect-Server-Info/pfx:EMSPerfData/pfx:Server/pfx:InboundMsgCount)">
+                                <xsl:value-of select="$Collect-Server-Info/pfx:EMSPerfData/pfx:Server/pfx:InboundMsgCount"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </InboundMsgCount>
+                    <InboundByteRate>
+                        <xsl:choose>
+                            <xsl:when test="exists($Collect-Server-Info/pfx:EMSPerfData/pfx:Server/pfx:InboundByteRate)">
+                                <xsl:value-of select="$Collect-Server-Info/pfx:EMSPerfData/pfx:Server/pfx:InboundByteRate"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </InboundByteRate>
+                    <InboundMsgRate>
+                        <xsl:choose>
+                            <xsl:when test="exists($Collect-Server-Info/pfx:EMSPerfData/pfx:Server/pfx:InboundMsgRate)">
+                                <xsl:value-of select="$Collect-Server-Info/pfx:EMSPerfData/pfx:Server/pfx:InboundMsgRate"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </InboundMsgRate>
+                    <MsgMemory>
+                        <xsl:choose>
+                            <xsl:when test="exists($Collect-Server-Info/pfx:EMSPerfData/pfx:Server/pfx:MsgMemory)">
+                                <xsl:value-of select="$Collect-Server-Info/pfx:EMSPerfData/pfx:Server/pfx:MsgMemory"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </MsgMemory>
+                    <OUTBOUNDMSGCOUNT>
+                        <xsl:choose>
+                            <xsl:when test="exists($Collect-Server-Info/pfx:EMSPerfData/pfx:Server/pfx:OutboundMsgCount)">
+                                <xsl:value-of select="$Collect-Server-Info/pfx:EMSPerfData/pfx:Server/pfx:OutboundMsgCount"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </OUTBOUNDMSGCOUNT>
+                    <OUTBOUNDBYTERATE>
+                        <xsl:choose>
+                            <xsl:when test="exists($Collect-Server-Info/pfx:EMSPerfData/pfx:Server/pfx:OutboundByteRate)">
+                                <xsl:value-of select="$Collect-Server-Info/pfx:EMSPerfData/pfx:Server/pfx:OutboundByteRate"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </OUTBOUNDBYTERATE>
+                    <PENDINGMSGCOUNT>
+                        <xsl:choose>
+                            <xsl:when test="exists($Collect-Server-Info/pfx:EMSPerfData/pfx:Server/pfx:PendingMsgCnt)">
+                                <xsl:value-of select="$Collect-Server-Info/pfx:EMSPerfData/pfx:Server/pfx:PendingMsgCnt"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </PENDINGMSGCOUNT>
+                    <PENDINGMSGSIZE>
+                        <xsl:choose>
+                            <xsl:when test="exists($Collect-Server-Info/pfx:EMSPerfData/pfx:Server/pfx:PendingMsgSize)">
+                                <xsl:value-of select="$Collect-Server-Info/pfx:EMSPerfData/pfx:Server/pfx:PendingMsgSize"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </PENDINGMSGSIZE>
+                    <PRODUCERCOUNT>
+                        <xsl:choose>
+                            <xsl:when test="exists($Collect-Server-Info/pfx:EMSPerfData/pfx:Server/pfx:ProductCnt)">
+                                <xsl:value-of select="$Collect-Server-Info/pfx:EMSPerfData/pfx:Server/pfx:ProductCnt"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </PRODUCERCOUNT>
+                    <ASYNCDBSIZE>
+                        <xsl:choose>
+                            <xsl:when test="exists($Collect-Server-Info/pfx:EMSPerfData/pfx:Server/pfx:AsyncDBSize)">
+                                <xsl:value-of select="$Collect-Server-Info/pfx:EMSPerfData/pfx:Server/pfx:AsyncDBSize"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </ASYNCDBSIZE>
+                    <SYNCDBSIZE>
+                        <xsl:choose>
+                            <xsl:when test="exists($Collect-Server-Info/pfx:EMSPerfData/pfx:Server/pfx:SyncDBSize)">
+                                <xsl:value-of select="$Collect-Server-Info/pfx:EMSPerfData/pfx:Server/pfx:SyncDBSize"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </SYNCDBSIZE>
+                    <OUTBOUNDMSGRATE>
+                        <xsl:choose>
+                            <xsl:when test="exists($Collect-Server-Info/pfx:EMSPerfData/pfx:Server/pfx:OutboundMsgRate)">
+                                <xsl:value-of select="$Collect-Server-Info/pfx:EMSPerfData/pfx:Server/pfx:OutboundMsgRate"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </OUTBOUNDMSGRATE>
+                    <QUEUECOUNT>
+                        <xsl:choose>
+                            <xsl:when test="exists($Collect-Server-Info/pfx:EMSPerfData/pfx:Server/pfx:QueueCount)">
+                                <xsl:value-of select="$Collect-Server-Info/pfx:EMSPerfData/pfx:Server/pfx:QueueCount"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </QUEUECOUNT>
+                    <TOPICCOUNT>
+                        <xsl:choose>
+                            <xsl:when test="exists($Collect-Server-Info/pfx:EMSPerfData/pfx:Server/pfx:TopicCount)">
+                                <xsl:value-of select="$Collect-Server-Info/pfx:EMSPerfData/pfx:Server/pfx:TopicCount"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </TOPICCOUNT>
+                    <SESSIONCOUNT>
+                        <xsl:choose>
+                            <xsl:when test="exists($Collect-Server-Info/pfx:EMSPerfData/pfx:Server/pfx:SessionCount)">
+                                <xsl:value-of select="$Collect-Server-Info/pfx:EMSPerfData/pfx:Server/pfx:SessionCount"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </SESSIONCOUNT>
+                    <DATELOGGED>
+                        <xsl:choose>
+                            <xsl:when test="exists($ProcessData/Date/TimeStamp)">
+                                <xsl:value-of select="$ProcessData/Date/TimeStamp"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </DATELOGGED>
+                </Record>
+            </jdbcUpdateActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Capture TimeStamp">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>181</pd:x>
+        <pd:y>125</pd:y>
+        <config>
+            <variableName>ProcessData</variableName>
+        </config>
+        <pd:inputBindings>
+            <Date>
+                <TimeStamp>
+                    <xsl:value-of select="current-dateTime()"/>
+                </TimeStamp>
+            </Date>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="JavaCode_serverstats">
+        <pd:type>com.tibco.plugin.java.JavaActivity</pd:type>
+        <pd:resourceType>ae.javapalette.javaActivity</pd:resourceType>
+        <pd:x>316</pd:x>
+        <pd:y>238</pd:y>
+        <config>
+            <fileName>getEmsServerStatsJavaCode_serverstats</fileName>
+            <packageName>EMSStatCollector_Utility.Operation.getEmsServerStats</packageName>
+            <fullsource>package EMSStatCollector_Utility.Operation.getEmsServerStats;
+import java.util.*;
+import java.io.*;
+import com.zimmer.tibco.ems.StatsCollector;
+
+public class getEmsServerStatsJavaCode_serverstats{
+/****** START SET/GET METHOD, DO NOT MODIFY *****/
+	protected String Out_stats = "";
+	public String getOut_stats() {
+		return Out_stats;
+	}
+	public void setOut_stats(String val) {
+		Out_stats = val;
+	}
+/****** END SET/GET METHOD, DO NOT MODIFY *****/
+	public getEmsServerStatsJavaCode_serverstats() {
+	}
+	public void invoke() throws Exception {
+/* Available Variables: DO NOT MODIFY
+	Out : String Out_stats
+* Available Variables: DO NOT MODIFY *****/
+StatsCollector sc = new StatsCollector();
+	setOut_stats(sc.getServerStats( ));
+	sc.closeConnection();}
+}
+</fullsource>
+            <outputData>
+                <row>
+                    <fieldName>Out_stats</fieldName>
+                    <fieldType>string</fieldType>
+                    <fieldRequired>optional</fieldRequired>
+                </row>
+            </outputData>
+            <javaArchive>/Connections/AliasLibrary.aliaslib</javaArchive>
+            <byteCode>
+                <class>
+                    <name>getEmsServerStatsJavaCode_serverstats</name>
+                    <byteCode>yv66vgAAADMAJgkACQAaCgAKABsIABwHAB0KAAQAGwoABAAeCgAJAB8KAAQAIAcAIQcAIgEACU91dF9zdGF0cwEAEkxqYXZhL2xhbmcvU3RyaW5nOwEADGdldE91dF9zdGF0cwEAFCgpTGphdmEvbGFuZy9TdHJpbmc7AQAEQ29kZQEAD0xpbmVOdW1iZXJUYWJsZQEADHNldE91dF9zdGF0cwEAFShMamF2YS9sYW5nL1N0cmluZzspVgEABjxpbml0PgEAAygpVgEABmludm9rZQEACkV4Y2VwdGlvbnMHACMBAApTb3VyY2VGaWxlAQAqZ2V0RW1zU2VydmVyU3RhdHNKYXZhQ29kZV9zZXJ2ZXJzdGF0cy5qYXZhDAALAAwMABMAFAEAAAEAI2NvbS96aW1tZXIvdGliY28vZW1zL1N0YXRzQ29sbGVjdG9yDAAkAA4MABEAEgwAJQAUAQBaRU1TU3RhdENvbGxlY3Rvcl9VdGlsaXR5L09wZXJhdGlvbi9nZXRFbXNTZXJ2ZXJTdGF0cy9nZXRFbXNTZXJ2ZXJTdGF0c0phdmFDb2RlX3NlcnZlcnN0YXRzAQAQamF2YS9sYW5nL09iamVjdAEAE2phdmEvbGFuZy9FeGNlcHRpb24BAA5nZXRTZXJ2ZXJTdGF0cwEAD2Nsb3NlQ29ubmVjdGlvbgAhAAkACgAAAAEABAALAAwAAAAEAAEADQAOAAEADwAAAB0AAQABAAAABSq0AAGwAAAAAQAQAAAABgABAAAACgABABEAEgABAA8AAAAiAAIAAgAAAAYqK7UAAbEAAAABABAAAAAKAAIAAAANAAUADgABABMAFAABAA8AAAArAAIAAQAAAAsqtwACKhIDtQABsQAAAAEAEAAAAA4AAwAAABAABAAIAAoAEQABABUAFAACAA8AAAA1AAIAAgAAABW7AARZtwAFTCortgAGtgAHK7YACLEAAAABABAAAAAOAAMAAAAWAAgAFwAQABgAFgAAAAQAAQAXAAEAGAAAAAIAGQ==</byteCode>
+                </class>
+            </byteCode>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Capture TimeStamp</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>getServerStats</pd:from>
+        <pd:to>Collect Server Info</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Collect Server Info</pd:from>
+        <pd:to>JDBC Update</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>JDBC Update</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Capture TimeStamp</pd:from>
+        <pd:to>getServerStats</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>1=2</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Capture TimeStamp</pd:from>
+        <pd:to>JavaCode_serverstats</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>JavaCode_serverstats</pd:from>
+        <pd:to>Collect Server Info</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

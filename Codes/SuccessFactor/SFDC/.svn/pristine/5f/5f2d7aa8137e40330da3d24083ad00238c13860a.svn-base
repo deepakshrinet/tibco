@@ -1,0 +1,37 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>FileAdapterFileCount</name>
+			<value>3</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1488193870146</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>FileAdapterFileLimit</name>
+			<value>30000</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1488193870411</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>SAPAdapterFileCount</name>
+			<value>3</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1488193869897</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>SAPAdapterFileLimit</name>
+			<value>30000</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1488193869616</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

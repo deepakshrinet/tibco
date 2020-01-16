@@ -1,0 +1,29 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>Method</name>
+			<value>GET</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1474018912696</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>ResourceURI</name>
+			<value>http://services.zimmer.com/ZimmerAuthentication/ADService.svc/IsAuthenticated/</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1473426889067</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>ResponseType</name>
+			<value>JSON</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1473426963543</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

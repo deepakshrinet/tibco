@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by TIBCO WSDL-->
+<wsdl:definitions xmlns:ns2="http://www.tibco.com/CommonLE2/Public/Common" xmlns:ns1="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/InterfaceConfigList" xmlns:ns4="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/InterfaceConfigDetailQuery" xmlns:ns3="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/InterfaceConfigDetail" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.tibco.com/CommonLE2/namespace/Administration/GUIServices/InterfaceConfigurationConcrete" xmlns:ns0="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Query" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns5="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Common/DeleteQuery" name="Untitled" targetNamespace="http://www.tibco.com/CommonLE2/namespace/Administration/GUIServices/InterfaceConfigurationConcrete">
+    <wsdl:types>
+        <xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/InterfaceConfigList" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/InterfaceConfigList">
+            <xsd:element name="InterfaceConfigList">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element maxOccurs="unbounded" minOccurs="0" ref="ns1:InterfaceConfigListRecord"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="InterfaceConfigListRecord">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="InterfaceID" type="xsd:string"/>
+                        <xsd:element minOccurs="0" name="InterfaceName" type="xsd:string"/>
+                        <xsd:element minOccurs="0" name="InterfaceType" type="xsd:string"/>
+                        <xsd:element minOccurs="0" name="Owner" type="xsd:string"/>
+                        <xsd:element minOccurs="0" name="SourceSystem" type="xsd:string"/>
+                        <xsd:element minOccurs="0" name="TargetSystem" type="xsd:string"/>
+                        <xsd:element name="Status" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="InterfaceID" type="xsd:string"/>
+            <xsd:element name="InterfaceParentList">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element maxOccurs="unbounded" minOccurs="0" ref="ns1:InterfaceParentRecord"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="InterfaceParentRecord">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="ns1:InterfaceID"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+        <xsd:schema xmlns="http://www.tibco.com/CommonLE2/Public/Common" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.tibco.com/CommonLE2/Public/Common">
+            <xsd:element name="Code" type="xsd:string"/>
+            <xsd:element name="Error">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="0" ref="ns2:Message"/>
+                        <xsd:element minOccurs="0" ref="ns2:Code"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="Message" type="xsd:string"/>
+        </xsd:schema>
+        <xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/InterfaceConfigDetailQuery" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/InterfaceConfigDetailQuery">
+            <xsd:element name="Query">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="AppID" type="xsd:string"/>
+                        <xsd:element name="InterfaceID" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+        <xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Query" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Query">
+            <xsd:element name="Query">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element maxOccurs="unbounded" name="ID" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+        <xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Common/DeleteQuery" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Common/DeleteQuery">
+            <xsd:element name="DeleteQueries">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element maxOccurs="unbounded" minOccurs="0" ref="ns5:Query"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="Query">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ID" type="xsd:string"/>
+                        <xsd:element name="AppID" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+        <xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/InterfaceConfigDetail" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/InterfaceConfigDetail">
+            <xsd:element name="InterfaceConfig">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ApplicationID" type="xsd:string"/>
+                        <xsd:element name="InterfaceID" type="xsd:string"/>
+                        <xsd:element minOccurs="0" name="InterfaceName" type="xsd:string"/>
+                        <xsd:element name="InterfaceType" type="xsd:string"/>
+                        <xsd:element name="dbUse" type="xsd:boolean"/>
+                        <xsd:element name="TransComplexity" type="xsd:string"/>
+                        <xsd:element name="Owner" type="xsd:string"/>
+                        <xsd:element name="SourceSystem" type="xsd:string"/>
+                        <xsd:element minOccurs="0" name="TargetSystem" type="xsd:string"/>
+                        <xsd:element minOccurs="0" name="Protocol" type="xsd:string"/>
+                        <xsd:element name="Status" type="xsd:string"/>
+                        <xsd:element minOccurs="0" name="Description" type="xsd:string"/>
+                        <xsd:element minOccurs="0" name="ParentID" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="InterfaceList">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element maxOccurs="unbounded" minOccurs="0" ref="ns3:InterfaceConfig"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:service name="InterfaceConfigurationService">
+        <wsdl:port binding="tns:InterfaceConfigurationEndpointBinding" name="InterfaceConfigurationEndpoint">
+            <soap:address location="http://localhost:9950/Administration/GUIServices/InterfaceConfigurationServices/Service.serviceagent/InterfaceConfigurationEndpoint"/>
+        </wsdl:port>
+    </wsdl:service>
+    <wsdl:portType name="PortType">
+        <wsdl:operation name="RetrieveInterfaceParentList">
+            <wsdl:input message="tns:Query"/>
+            <wsdl:output message="tns:InterfaceParentList"/>
+            <wsdl:fault message="tns:Error" name="fault1"/>
+        </wsdl:operation>
+        <wsdl:operation name="RetrieveInterfaceConfigurationList">
+            <wsdl:input message="tns:Query"/>
+            <wsdl:output message="tns:InterfaceConfigList"/>
+            <wsdl:fault message="tns:Error" name="fault1"/>
+        </wsdl:operation>
+        <wsdl:operation name="RetrieveInterfaceConfigurationDetail">
+            <wsdl:input message="tns:DetailQuery"/>
+            <wsdl:output message="tns:InterfaceConfigDetail"/>
+            <wsdl:fault message="tns:Error" name="fault1"/>
+        </wsdl:operation>
+        <wsdl:operation name="DeleteInterfaceConfigurations">
+            <wsdl:input message="tns:DeleteList"/>
+            <wsdl:fault message="tns:Error" name="fault1"/>
+        </wsdl:operation>
+        <wsdl:operation name="CreateInterfaceConfiguration">
+            <wsdl:input message="tns:InterfaceConfigDetail"/>
+            <wsdl:fault message="tns:Error" name="fault1"/>
+        </wsdl:operation>
+        <wsdl:operation name="UpdateInterfaceConfiguration">
+            <wsdl:input message="tns:InterfaceConfigDetail"/>
+            <wsdl:fault message="tns:Error" name="fault1"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="InterfaceConfigurationEndpointBinding" type="tns:PortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="RetrieveInterfaceParentList">
+            <soap:operation soapAction="/Administration/GUIServices/InterfaceConfigurationServices/Service.serviceagent//RetrieveInterfaceParentList" style="document"/>
+            <wsdl:input>
+                <soap:body parts="part1" use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body parts="part1" use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="fault1">
+                <soap:fault name="fault1" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="RetrieveInterfaceConfigurationList">
+            <soap:operation soapAction="/Administration/GUIServices/InterfaceConfigurationServices/Service.serviceagent/PortTypeEndpoint1/RetrieveInterfaceConfigurationList" style="document"/>
+            <wsdl:input>
+                <soap:body parts="part1" use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body parts="part1" use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="fault1">
+                <soap:fault name="fault1" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="RetrieveInterfaceConfigurationDetail">
+            <soap:operation soapAction="/Administration/GUIServices/InterfaceConfigurationServices/InterfaceConfigurationService.serviceagent//RetrieveInterfaceConfigurationDetail" style="document"/>
+            <wsdl:input>
+                <soap:body parts="part1" use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body parts="part1" use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="fault1">
+                <soap:fault name="fault1" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="DeleteInterfaceConfigurations">
+            <soap:operation soapAction="/Administration/GUIServices/InterfaceConfigurationServices/Service.serviceagent//DeleteInterfaceConfigurations" style="document"/>
+            <wsdl:input>
+                <soap:body parts="part1" use="literal"/>
+            </wsdl:input>
+            <wsdl:fault name="fault1">
+                <soap:fault name="fault1" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="CreateInterfaceConfiguration">
+            <soap:operation soapAction="/Administration/GUIServices/InterfaceConfigurationServices/Service.serviceagent//CreateInterfaceConfiguration" style="document"/>
+            <wsdl:input>
+                <soap:body parts="part1" use="literal"/>
+            </wsdl:input>
+            <wsdl:fault name="fault1">
+                <soap:fault name="fault1" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="UpdateInterfaceConfiguration">
+            <soap:operation soapAction="/Administration/GUIServices/InterfaceConfigurationServices/Service.serviceagent//UpdateInterfaceConfiguration" style="document"/>
+            <wsdl:input>
+                <soap:body parts="part1" use="literal"/>
+            </wsdl:input>
+            <wsdl:fault name="fault1">
+                <soap:fault name="fault1" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:message name="Query">
+        <wsdl:part element="ns0:Query" name="part1"/>
+    </wsdl:message>
+    <wsdl:message name="InterfaceParentList">
+        <wsdl:part element="ns1:InterfaceParentList" name="part1"/>
+    </wsdl:message>
+    <wsdl:message name="Error">
+        <wsdl:part element="ns2:Error" name="part1"/>
+    </wsdl:message>
+    <wsdl:message name="InterfaceConfigList">
+        <wsdl:part element="ns3:InterfaceList" name="part1"/>
+    </wsdl:message>
+    <wsdl:message name="DetailQuery">
+        <wsdl:part element="ns4:Query" name="part1"/>
+    </wsdl:message>
+    <wsdl:message name="InterfaceConfigDetail">
+        <wsdl:part element="ns3:InterfaceConfig" name="part1"/>
+    </wsdl:message>
+    <wsdl:message name="DeleteList">
+        <wsdl:part element="ns5:DeleteQueries" name="part1"/>
+    </wsdl:message>
+</wsdl:definitions>

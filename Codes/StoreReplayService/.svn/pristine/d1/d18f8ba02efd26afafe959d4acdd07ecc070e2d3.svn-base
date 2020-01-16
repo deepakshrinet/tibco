@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:ns2="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:ns1="http://www.tibco.com/pe/EngineTypes" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns4="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:ns3="http://schemas.tibco.com/bw/plugins/jdbc/5.0/jdbcExceptions" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx3="http://www.zimmer.com/tibco/schemas/ZBS/XSD/ExceptionHandler/v1/ExceptionMessageSchema.xsd" xmlns:pfx2="http://www.tibco.com/pe/WriteToLogActivitySchema" xmlns:ns5="http://www.tibco.com/schemas/ErrorHandler_1.3/Schemas/XML/ZBS/Schema.xsd" xmlns:ns6="http://www.zimmer.com/tibco/schemas/ZBS/XSD/LogService/v1/LogMessageSchema.xsd" xmlns:pfx="http://www.tibco.com/schemas/ZBS_DEV/Schemas/XML/Schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xsd:import namespace="http://www.tibco.com/schemas/ZBS_DEV/Schemas/XML/Schema.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/schemas/ZBS_DEV/Schemas/XML/Schema.xsd" schemaLocation="/SharedServices/ExceptionHandler/Schemas/ExceptionAggregates.xsd"/>
+    <xsd:import namespace="http://www.zimmer.com/tibco/schemas/ZBS/XSD/ExceptionHandler/v1/ExceptionMessageSchema.xsd" schemaLocation="/EnterpriseLibrary/SharedResources/Schemas/XSD/ExceptionMessageSchema.xsd"/>
+    <pd:name>EnterpriseLibrary/Services/ExceptionHandler/ErrorHandler.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx3:ExceptionMessage"/>
+    <pd:startX>60</pd:startX>
+    <pd:startY>153</pd:startY>
+    <pd:returnBindings>
+        <xsl:copy-of select="$Enrich-Exception/pfx3:ExceptionMessage"/>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType ref="pfx3:ExceptionMessage"/>
+    <pd:endX>851</pd:endX>
+    <pd:endY>153</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1310132785530</pd:targetNamespace>
+    <pd:activity name="Start Logger">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>164</pd:x>
+        <pd:y>154</pd:y>
+        <config>
+            <processName>/EnterpriseLibrary/Services/LogService/LogService.process</processName>
+        </config>
+        <pd:inputBindings>
+            <LogMessage>
+                <Message>
+                    <xsl:value-of select="&quot;Start&quot;"/>
+                </Message>
+                <LogLevel>
+                    <xsl:value-of select="$_globalVariables/ns4:GlobalVariables/Logging/LogLevels/INFO"/>
+                </LogLevel>
+                <ActivityName>
+                    <xsl:value-of select="'Start Logger'"/>
+                </ActivityName>
+                <ProcessName>
+                    <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns1:ProcessContext/ProcessId)"/>
+                </ProcessName>
+            </LogMessage>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="End Logger">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>768</pd:x>
+        <pd:y>152</pd:y>
+        <config>
+            <processName>/EnterpriseLibrary/Services/LogService/LogService.process</processName>
+        </config>
+        <pd:inputBindings>
+            <LogMessage>
+                <Message>
+                    <xsl:value-of select="&quot;End&quot;"/>
+                </Message>
+                <LogLevel>
+                    <xsl:value-of select="$_globalVariables/ns4:GlobalVariables/Logging/LogLevels/INFO"/>
+                </LogLevel>
+                <ActivityName>
+                    <xsl:value-of select="'End Logger'"/>
+                </ActivityName>
+                <ProcessName>
+                    <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns1:ProcessContext/ProcessId)"/>
+                </ProcessName>
+            </LogMessage>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Enrich Exception">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>529</pd:x>
+        <pd:y>154</pd:y>
+        <config>
+            <element ref="pfx3:ExceptionMessage"/>
+        </config>
+        <pd:inputBindings>
+            <xsl:choose>
+                <xsl:when test="tib:trim($Get-Exception-Details/pfx3:ExceptionMessage/pfx3:Application) !=''">
+                    <xsl:for-each select="$Get-Exception-Details/pfx3:ExceptionMessage">
+                        <pfx3:ExceptionMessage>
+                            <pfx3:Application>
+                                <xsl:value-of select="pfx3:Application"/>
+                            </pfx3:Application>
+                            <xsl:if test="pfx3:Category">
+                                <pfx3:Category>
+                                    <xsl:value-of select="pfx3:Category"/>
+                                </pfx3:Category>
+                            </xsl:if>
+                            <pfx3:Severity>
+                                <xsl:value-of select="pfx3:Severity"/>
+                            </pfx3:Severity>
+                            <pfx3:ExceptionDescription>
+                                <xsl:value-of select="pfx3:ExceptionDescription"/>
+                            </pfx3:ExceptionDescription>
+                            <xsl:if test="pfx3:ExceptionDetailsText">
+                                <pfx3:ExceptionDetailsText>
+                                    <xsl:value-of select="pfx3:ExceptionDetailsText"/>
+                                </pfx3:ExceptionDetailsText>
+                            </xsl:if>
+                            <pfx3:ExceptionType>
+                                <xsl:value-of select="pfx3:ExceptionType"/>
+                            </pfx3:ExceptionType>
+                            <pfx3:ExceptionCode>
+                                <xsl:value-of select="pfx3:ExceptionCode"/>
+                            </pfx3:ExceptionCode>
+                            <pfx3:PayLoad>
+                                <xsl:value-of select="if(tib:trim(pfx3:PayLoad) !='') then&#xA;pfx3:PayLoad&#xA;else if(tib:trim($Get-Process-Details/ProcessDetails/InputMessage) !='') then&#xA;$Get-Process-Details/ProcessDetails/InputMessage&#xA;else&#xA;$Start/pfx3:ExceptionMessage/pfx3:PayLoad"/>
+                            </pfx3:PayLoad>
+                            <pfx3:ProcessId>
+                                <xsl:value-of select="pfx3:ProcessId"/>
+                            </pfx3:ProcessId>
+                            <pfx3:ProcessName>
+                                <xsl:value-of select="$Get-Process-Details/ProcessDetails/ProcessName"/>
+                            </pfx3:ProcessName>
+                            <pfx3:EngineName>
+                                <xsl:value-of select="pfx3:EngineName"/>
+                            </pfx3:EngineName>
+                            <pfx3:CreateTimestamp>
+                                <xsl:value-of select="pfx3:CreateTimestamp"/>
+                            </pfx3:CreateTimestamp>
+                        </pfx3:ExceptionMessage>
+                    </xsl:for-each>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:for-each select="$Start/pfx3:ExceptionMessage">
+                        <pfx3:ExceptionMessage>
+                            <pfx3:Application>
+                                <xsl:value-of select="pfx3:Application"/>
+                            </pfx3:Application>
+                            <xsl:if test="pfx3:Category">
+                                <pfx3:Category>
+                                    <xsl:value-of select="pfx3:Category"/>
+                                </pfx3:Category>
+                            </xsl:if>
+                            <pfx3:Severity>
+                                <xsl:value-of select="pfx3:Severity"/>
+                            </pfx3:Severity>
+                            <pfx3:ExceptionDescription>
+                                <xsl:value-of select="pfx3:ExceptionDescription"/>
+                            </pfx3:ExceptionDescription>
+                            <xsl:if test="pfx3:ExceptionDetailsText">
+                                <pfx3:ExceptionDetailsText>
+                                    <xsl:value-of select="pfx3:ExceptionDetailsText"/>
+                                </pfx3:ExceptionDetailsText>
+                            </xsl:if>
+                            <pfx3:ExceptionType>
+                                <xsl:value-of select="pfx3:ExceptionType"/>
+                            </pfx3:ExceptionType>
+                            <pfx3:ExceptionCode>
+                                <xsl:value-of select="pfx3:ExceptionCode"/>
+                            </pfx3:ExceptionCode>
+                            <xsl:if test="if(tib:trim(pfx3:PayLoad) !='') then&#xA;pfx3:PayLoad&#xA;else if(tib:trim($Get-Process-Details/ProcessDetails/InputMessage) !='') then&#xA;$Get-Process-Details/ProcessDetails/InputMessage&#xA;else&#xA;$Start/pfx3:ExceptionMessage/pfx3:PayLoad">
+                                <pfx3:PayLoad>
+                                    <xsl:value-of select="if(tib:trim(pfx3:PayLoad) !='') then&#xA;pfx3:PayLoad&#xA;else if(tib:trim($Get-Process-Details/ProcessDetails/InputMessage) !='') then&#xA;$Get-Process-Details/ProcessDetails/InputMessage&#xA;else&#xA;$Start/pfx3:ExceptionMessage/pfx3:PayLoad"/>
+                                </pfx3:PayLoad>
+                            </xsl:if>
+                            <pfx3:ProcessId>
+                                <xsl:value-of select="pfx3:ProcessId"/>
+                            </pfx3:ProcessId>
+                            <pfx3:ProcessName>
+                                <xsl:value-of select="$Get-Process-Details/ProcessDetails/ProcessName"/>
+                            </pfx3:ProcessName>
+                            <pfx3:EngineName>
+                                <xsl:value-of select="pfx3:EngineName"/>
+                            </pfx3:EngineName>
+                            <pfx3:CreateTimestamp>
+                                <xsl:value-of select="pfx3:CreateTimestamp"/>
+                            </pfx3:CreateTimestamp>
+                        </pfx3:ExceptionMessage>
+                    </xsl:for-each>
+                </xsl:otherwise>
+            </xsl:choose>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="CatchAll">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>749</pd:x>
+        <pd:y>334</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Error Logger">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>851</pd:x>
+        <pd:y>334</pd:y>
+        <config>
+            <processName>/EnterpriseLibrary/Services/LogService/LogService.process</processName>
+        </config>
+        <pd:inputBindings>
+            <LogMessage>
+                <Message>
+                    <xsl:value-of select="concat(&quot;Error in Excpetion Handler&quot;,&quot;Error Code :&quot;,$_error/ns1:ErrorReport/MsgCode,&quot;Error Message:&quot;,$_error/ns1:ErrorReport/Msg)"/>
+                </Message>
+                <LogLevel>
+                    <xsl:value-of select="$_globalVariables/ns4:GlobalVariables/Logging/LogLevels/ERROR"/>
+                </LogLevel>
+                <ActivityName>
+                    <xsl:value-of select="'Error Logger'"/>
+                </ActivityName>
+                <ProcessName>
+                    <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns1:ProcessContext/ProcessId)"/>
+                </ProcessName>
+            </LogMessage>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Log Exception">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>532</pd:x>
+        <pd:y>263</pd:y>
+        <config>
+            <processName>/EnterpriseLibrary/Services/LogService/LogService.process</processName>
+        </config>
+        <pd:inputBindings>
+            <LogMessage>
+                <Message>
+                    <xsl:value-of select="concat('Application: ', $Enrich-Exception/pfx3:ExceptionMessage/pfx3:Application,&#xA;'| Category: ',$Enrich-Exception/pfx3:ExceptionMessage/pfx3:Category,&#xA;'| Severity: ',$Enrich-Exception/pfx3:ExceptionMessage/pfx3:Severity,&#xA;'| ExceptionDescription: ',$Enrich-Exception/pfx3:ExceptionMessage/pfx3:ExceptionDescription,&#xA;'| ExceptionDetailsText: ',$Enrich-Exception/pfx3:ExceptionMessage/pfx3:ExceptionDetailsText,&#xA;'| ExceptionType: ',$Enrich-Exception/pfx3:ExceptionMessage/pfx3:ExceptionType,&#xA;'| ExceptionCode: ',$Enrich-Exception/pfx3:ExceptionMessage/pfx3:ExceptionCode,&#xA;'| PayLoad: ',$Enrich-Exception/pfx3:ExceptionMessage/pfx3:PayLoad,&#xA;'| ProcessId: ',$Enrich-Exception/pfx3:ExceptionMessage/pfx3:ProcessId,&#xA;'| ProcessName: ',$Enrich-Exception/pfx3:ExceptionMessage/pfx3:ProcessName,&#xA;'| EngineName: ',$Enrich-Exception/pfx3:ExceptionMessage/pfx3:EngineName,&#xA;'| CreateTimestamp: ',$Enrich-Exception/pfx3:ExceptionMessage/pfx3:CreateTimestamp)"/>
+                </Message>
+                <LogLevel>
+                    <xsl:value-of select="$_globalVariables/ns4:GlobalVariables/Logging/LogLevels/ERROR"/>
+                </LogLevel>
+                <ActivityName>
+                    <xsl:value-of select="'Log Exception'"/>
+                </ActivityName>
+                <ProcessName>
+                    <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns1:ProcessContext/ProcessId)"/>
+                </ProcessName>
+            </LogMessage>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:group name="Group">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>239</pd:x>
+        <pd:y>16</pd:y>
+        <pd:width>151</pd:width>
+        <pd:height>257</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>simpleGroup</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>Get Process Details</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>Get Exception Details</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Get Process Details</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Get Exception Details</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="Get Process Details">
+            <pd:type>com.tibco.pe.core.GetSharedVariableActivity</pd:type>
+            <pd:resourceType>ae.activities.getSharedVariable</pd:resourceType>
+            <pd:x>307</pd:x>
+            <pd:y>87</pd:y>
+            <config>
+                <variableConfig>/EnterpriseLibrary/SharedResources/SharedVariables/ProcessDetails.jobsharedvariable</variableConfig>
+            </config>
+            <pd:inputBindings/>
+        </pd:activity>
+        <pd:activity name="Get Exception Details">
+            <pd:type>com.tibco.pe.core.GetSharedVariableActivity</pd:type>
+            <pd:resourceType>ae.activities.getSharedVariable</pd:resourceType>
+            <pd:x>303</pd:x>
+            <pd:y>189</pd:y>
+            <config>
+                <variableConfig>/EnterpriseLibrary/SharedResources/SharedVariables/ExceptionDetails.jobsharedvariable</variableConfig>
+            </config>
+            <pd:inputBindings/>
+        </pd:activity>
+    </pd:group>
+    <pd:activity name="Null">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>443</pd:x>
+        <pd:y>238</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Send Notifications To Users">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>656</pd:x>
+        <pd:y>274</pd:y>
+        <config>
+            <processName>/EnterpriseLibrary/Services/ExceptionHandler/SendNotificationsToUsers.process</processName>
+        </config>
+        <pd:inputBindings>
+            <xsl:copy-of select="$Enrich-Exception/pfx3:ExceptionMessage"/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Start Logger</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>End Logger</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Enrich Exception</pd:from>
+        <pd:to>Log Exception</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>CatchAll</pd:from>
+        <pd:to>Error Logger</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-65536</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Error Logger</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-65536</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Log Exception</pd:from>
+        <pd:to>Send Notifications To Users</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start Logger</pd:from>
+        <pd:to>Group</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>Enrich Exception</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>Null</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>error</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null</pd:from>
+        <pd:to>Enrich Exception</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Send Notifications To Users</pd:from>
+        <pd:to>End Logger</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/private/Common"
+	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	 targetNamespace="http://www.tibco.com/CommonLE2/namespace/private/Common"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xsd:element name="Message" type="xsd:string"/>
+	<xsd:element name="Code" type="xsd:string"/>
+	<xsd:element name="TooManyRecords">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Message" minOccurs="0"/>
+				<xsd:element ref="Code" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="IDNotUnique">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Message" minOccurs="0"/>
+				<xsd:element ref="Code" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="InvalidInputParameter">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Message" minOccurs="0"/>
+				<xsd:element ref="Code" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="DBError">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Message" minOccurs="0"/>
+				<xsd:element ref="Code" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="JMSError">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Message" minOccurs="0"/>
+				<xsd:element ref="Code" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ExceptionConfigurationNotFound">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Message" minOccurs="0"/>
+				<xsd:element ref="Code" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ApplicationIDNotFound">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Message" minOccurs="0"/>
+				<xsd:element ref="Code" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ExceptionRecordNotFound">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Message" minOccurs="0"/>
+				<xsd:element ref="Code" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="RoleRetrievalError">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Message" minOccurs="0"/>
+				<xsd:element ref="Code" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="AuthenticationError">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Message" minOccurs="0"/>
+				<xsd:element ref="Code" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="RenderIDNotFound">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Message" minOccurs="0"/>
+				<xsd:element ref="Code" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="IDNotFound">
+		<xsd:complexType>
+			<xsd:choice>
+				<xsd:element ref="ApplicationIDNotFound"/>
+				<xsd:element ref="RenderIDNotFound"/>
+				<xsd:element ref="InterfaceIDNotFound"/>
+			</xsd:choice>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ApplicationRecordsNotFound">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Message" minOccurs="0"/>
+				<xsd:element ref="Code" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="AuthorizationError">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Message" minOccurs="0"/>
+				<xsd:element ref="Code" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="AdministratorConnectError">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Message" minOccurs="0"/>
+				<xsd:element ref="Code"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="DBRecordNotFound">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Message" minOccurs="0"/>
+				<xsd:element ref="Code" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ReferencialIntegrityViolation">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Message" minOccurs="0"/>
+				<xsd:element ref="Code" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="SystemIDDeletionError">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Message" minOccurs="0"/>
+				<xsd:element ref="Code" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="NotificationRecordNotFound">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Message" minOccurs="0"/>
+				<xsd:element ref="Code" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="NoUpdate">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Message" minOccurs="0"/>
+				<xsd:element ref="Code" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ReplayInfoNotFound">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Message" minOccurs="0"/>
+				<xsd:element ref="Code" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="MailNotSent">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Message" minOccurs="0"/>
+				<xsd:element ref="Code" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="XMLError">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Message" minOccurs="0"/>
+				<xsd:element ref="Code" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="InterfaceIDNotFound">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Message" minOccurs="0"/>
+				<xsd:element ref="Code" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

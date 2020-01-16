@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Private/Exception"
+	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	 targetNamespace="http://www.tibco.com/CommonLE2/namespace/Private/Exception"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xsd:element name="ExceptionListQuerySQLParameters">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="AppID" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="Component" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="TransID" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="TransactionDomain" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="Date" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="OrderBy" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="Status" type="xsd:string" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

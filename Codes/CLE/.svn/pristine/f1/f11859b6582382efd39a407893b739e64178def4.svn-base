@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:ns="http://www.tibco.com/CommonLE2/Public/Common" xmlns:pfx0="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/RolePermissionInformation" xmlns:pfx1="http://www.tibco.com/CommonLE2/Public/Common/Dummy" xmlns:ns9="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/UserRolesRequest" xmlns:ns5="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Applications" xmlns:ns6="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/RolePermissionInformationRequest" xmlns:ns10="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/UserApplicationPermissionsInfo" xmlns:ns7="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/UserAuthenticationRequest" xmlns:ns8="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/UserAuthenticationResponse" xmlns:ns2="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ApplicationIDList" xmlns:ns4="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/UserApplicationPermissionsInfo" xmlns:ns3="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/UserRolesPerAppPermissionsRequest" xmlns:tns="http://www.tibco.com/CommonLE2/namespace/SecurityManagement/GUIServices" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx5="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/AllRolesRetrievalResponse" xmlns:pfx4="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/UserRolesRequest" xmlns:pfx3="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/RolePermissionInformationRequest" xmlns:pfx2="http://www.tibco.com/CommonLE2/namespace/private/Common" xmlns:pfx7="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/UserAuthenticationResponse" xmlns:pfx6="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/UserAuthenticationRequest" targetNamespace="http://www.tibco.com/CommonLE2/namespace/SecurityManagement/GUIServices">
+    <import location="../../../SchemaDefinitions/Public/Pluggable/GUI/Administration/SecurityConfiguration/RolePermissionsInformation.xsd" namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/RolePermissionInformation"/>
+    <import location="../../../SchemaDefinitions/Public/Pluggable/GUI/Common/DummyReturnMessage.xsd" namespace="http://www.tibco.com/CommonLE2/Public/Common/Dummy"/>
+    <import location="../../../SchemaDefinitions/Private/Common/LocalExceptions.xsd" namespace="http://www.tibco.com/CommonLE2/namespace/private/Common"/>
+    <import location="../../../SchemaDefinitions/Public/Common/ErrorMessage.xsd" namespace="http://www.tibco.com/CommonLE2/Public/Common"/>
+    <import location="../../../SchemaDefinitions/Public/Pluggable/GUI/Administration/SecurityConfiguration/AllRolesRetrieval.xsd" namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/AllRolesRetrievalResponse"/>
+    <import location="../../../SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/ApplicationIDList.xsd" namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ApplicationIDList"/>
+    <import location="../../../SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/Applications.xsd" namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Applications"/>
+    <import location="../../../SchemaDefinitions/Public/Pluggable/GUI/Administration/SecurityConfiguration/RolePermissionsInformationRequest.xsd" namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/RolePermissionInformationRequest"/>
+    <import location="../../../SchemaDefinitions/Public/Pluggable/GUI/Administration/SecurityConfiguration/UserAuthenticationRequest.xsd" namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/UserAuthenticationRequest"/>
+    <import location="../../../SchemaDefinitions/Public/Pluggable/GUI/Administration/SecurityConfiguration/UserAuthenticationResponse.xsd" namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/UserAuthenticationResponse"/>
+    <import location="../../../SchemaDefinitions/Public/Pluggable/GUI/Administration/SecurityConfiguration/UserRolesRequest.xsd" namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/UserRolesRequest"/>
+    <import location="../../../SchemaDefinitions/Public/Pluggable/GUI/Administration/SecurityConfiguration/UserApplicationsPermissionsInfo.xsd" namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/UserApplicationPermissionsInfo"/>
+    <message name="AllRoles">
+        <part element="pfx5:AllRoles" name="parameters"/>
+    </message>
+    <message name="Error">
+        <part element="ns:Error" name="Error"/>
+    </message>
+    <message name="Dummy">    </message>
+    <message name="RolePermissionInformationRequest">
+        <part element="ns6:RolePermissionInformationRequest" name="parameters"/>
+    </message>
+    <message name="RolePermissionInformationRequests">
+        <part element="ns6:RolePermissionInformationRequests" name="parameters"/>
+    </message>
+    <message name="RolePermissionsInfo">
+        <part element="pfx0:RolePermissionsInfo" name="parameters"/>
+    </message>
+    <message name="UserAuthenticationRequest">
+        <part element="ns7:UserAuthenticationRequest" name="parameters"/>
+    </message>
+    <message name="UserAuthenticationResponse">
+        <part element="ns8:UserAuthenticationResponse" name="parameters"/>
+    </message>
+    <message name="UserRolesRequest">
+        <part element="ns9:UserRolesRequest" name="parameters"/>
+    </message>
+    <message name="permissions">
+        <part element="pfx0:permissions" name="parameters"/>
+    </message>
+    <message name="AllUserPermissions">
+        <part element="ns10:Applications" name="part1"/>
+    </message>
+    <message name="Applications">
+        <part element="ns5:Applications" name="part1"/>
+    </message>
+    <portType name="SecurityPortType">
+        <operation name="SetRoleACLOp">
+            <input message="tns:RolePermissionsInfo"/>
+            <output message="tns:Dummy"/>
+            <fault message="tns:Error" name="fault1"/>
+        </operation>
+        <operation name="RetrieveACLOp">
+            <input message="tns:RolePermissionInformationRequest"/>
+            <output message="tns:RolePermissionsInfo"/>
+            <fault message="tns:Error" name="fault1"/>
+        </operation>
+        <operation name="DeleteRoleFromACLTableOp">
+            <input message="tns:RolePermissionInformationRequests"/>
+            <output message="tns:Dummy"/>
+            <fault message="tns:Error" name="fault1"/>
+        </operation>
+        <operation name="UserRolesRetrievalOp">
+            <input message="tns:UserRolesRequest"/>
+            <output message="tns:AllRoles"/>
+            <fault message="tns:Error" name="fault1"/>
+        </operation>
+        <operation name="UserAuthenticationOp">
+            <input message="tns:UserAuthenticationRequest"/>
+            <output message="tns:UserAuthenticationResponse"/>
+            <fault message="tns:Error" name="fault1"/>
+        </operation>
+        <operation name="AvailableRolesRetrievalOp">
+            <input message="tns:Dummy"/>
+            <output message="tns:AllRoles"/>
+            <fault message="tns:Error" name="fault1"/>
+        </operation>
+        <operation name="UserRolesAppsRetrievalOp">
+            <input message="tns:UserRolesRequest"/>
+            <output message="tns:Applications"/>
+            <fault message="tns:Error" name="fault1"/>
+        </operation>
+    </portType>
+</definitions>

@@ -1,0 +1,492 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns1="http://www.tibco.com/namespaces/tnt/plugins/file" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx="http://www.tibco.com/ns/no_namespace_schema_location/SharedResources/Schemas/DataFormat/SFDataFormat.sharedparse">
+    <xsd:import namespace="http://www.tibco.com/ns/no_namespace_schema_location/SharedResources/Schemas/DataFormat/SFDataFormat.sharedparse" schemaLocation="/SharedResources/Schemas/DataFormat/SFDataFormat.sharedparse"/>
+    <pd:name>Services/SFDC_SF/Operations/WriteFileRecords.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx:Rows"/>
+                    <xsd:element name="UserFileName" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="ExtFileName" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="SourceFile" type="xsd:string" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>146</pd:startX>
+    <pd:startY>69</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>784</pd:endX>
+    <pd:endY>66</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1486623228205</pd:targetNamespace>
+    <pd:activity name="WriteUserFile">
+        <pd:type>com.tibco.plugin.file.FileWriteActivity</pd:type>
+        <pd:resourceType>ae.activities.FileWriteActivity</pd:resourceType>
+        <pd:x>399</pd:x>
+        <pd:y>68</pd:y>
+        <config>
+            <encoding>text</encoding>
+            <compressFile>None</compressFile>
+            <append>true</append>
+            <createMissingDirectories>true</createMissingDirectories>
+        </config>
+        <pd:inputBindings>
+            <ns1:WriteActivityInputTextClass>
+                <fileName>
+                    <xsl:value-of select="$Start/root/UserFileName"/>
+                </fileName>
+                <textContent>
+                    <xsl:value-of select="$RenderUserData/Text"/>
+                </textContent>
+            </ns1:WriteActivityInputTextClass>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="WriteUserExtFile">
+        <pd:type>com.tibco.plugin.file.FileWriteActivity</pd:type>
+        <pd:resourceType>ae.activities.FileWriteActivity</pd:resourceType>
+        <pd:x>657</pd:x>
+        <pd:y>65</pd:y>
+        <config>
+            <encoding>text</encoding>
+            <compressFile>None</compressFile>
+            <append>true</append>
+            <createMissingDirectories>true</createMissingDirectories>
+        </config>
+        <pd:inputBindings>
+            <ns1:WriteActivityInputTextClass>
+                <fileName>
+                    <xsl:value-of select="$Start/root/ExtFileName"/>
+                </fileName>
+                <textContent>
+                    <xsl:value-of select="$RenderUserExtData/Text"/>
+                </textContent>
+            </ns1:WriteActivityInputTextClass>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="RenderUserData">
+        <pd:type>com.tibco.plugin.parse.RenderActivity</pd:type>
+        <pd:resourceType>ae.activities.RenderActivity</pd:resourceType>
+        <pd:x>275</pd:x>
+        <pd:y>68</pd:y>
+        <config>
+            <ParseSharedConfig>/SharedResources/Schemas/DataFormat/SFDataFormat.sharedparse</ParseSharedConfig>
+        </config>
+        <pd:inputBindings>
+            <Rows>
+                <xsl:for-each xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="$Start/root/Rows/User">
+                    <User>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/STATUS)!=''&#xA;and&#xA;tib:trim(current()/STATUS)!='&quot;&quot;&quot;'&#xA;and&#xA;tib:trim(current()/STATUS)!='&quot;'">
+                                <STATUS>
+                                    <xsl:value-of select="upper-case(concat('&quot;',STATUS,'&quot;'))"/>
+                                </STATUS>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/USERID)!=''&#xA;and&#xA;tib:trim(current()/USERID)!='&quot;&quot;&quot;'&#xA;and&#xA;tib:trim(current()/USERID)!='&quot;'">
+                                <USERID>
+                                    <xsl:value-of select="concat('&quot;',USERID,'&quot;')"/>
+                                </USERID>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/USERNAME)!=''&#xA;and&#xA;tib:trim(current()/USERNAME)!='&quot;&quot;&quot;'&#xA;and&#xA;tib:trim(current()/USERNAME)!='&quot;'">
+                                <xsl:choose>
+                                    <xsl:when test="upper-case(tib:trim(current()/STATUS))='INACTIVE'">
+                                        <USERNAME>
+                                            <xsl:value-of select="concat('&quot;',USERNAME,'_old','&quot;')"/>
+                                        </USERNAME>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <USERNAME>
+                                            <xsl:value-of select="concat('&quot;',USERNAME,'&quot;')"/>
+                                        </USERNAME>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/FIRSTNAME)!=''&#xA;and&#xA;tib:trim(current()/FIRSTNAME)!='&quot;&quot;&quot;'&#xA;and&#xA;tib:trim(current()/FIRSTNAME)!='&quot;'">
+                                <FIRSTNAME>
+                                    <xsl:value-of select="concat('&quot;',FIRSTNAME,'&quot;')"/>
+                                </FIRSTNAME>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/LASTNAME)!=''&#xA;and&#xA;tib:trim(current()/LASTNAME)!='&quot;&quot;&quot;'&#xA;and&#xA;tib:trim(current()/LASTNAME)!='&quot;'">
+                                <LASTNAME>
+                                    <xsl:value-of select="concat('&quot;',LASTNAME,'&quot;')"/>
+                                </LASTNAME>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/EMAIL)!=''&#xA;and&#xA;tib:trim(current()/EMAIL)!='&quot;&quot;&quot;'&#xA;and&#xA;tib:trim(current()/EMAIL)!='&quot;'">
+                                <EMAIL>
+                                    <xsl:value-of select="concat('&quot;',EMAIL,'&quot;')"/>
+                                </EMAIL>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/MANAGER)!=''&#xA;and&#xA;tib:trim(current()/MANAGER)!='&quot;&quot;&quot;'&#xA;and&#xA;tib:trim(current()/MANAGER)!='&quot;'">
+                                <MANAGER>
+                                    <xsl:value-of select="concat('&quot;',MANAGER,'&quot;')"/>
+                                </MANAGER>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <MANAGER>
+                                    <xsl:value-of select="concat('&quot;',MANAGER,'&quot;')"/>
+                                </MANAGER>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/HR)!=''&#xA;and&#xA;tib:trim(current()/HR)!='&quot;&quot;&quot;'&#xA;and&#xA;tib:trim(current()/HR)!='&quot;'">
+                                <HR>
+                                    <xsl:value-of select="concat('&quot;',HR,'&quot;')"/>
+                                </HR>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/DIVISION)!=''&#xA;and&#xA;tib:trim(current()/DIVISION)!='&quot;&quot;&quot;'&#xA;and&#xA;tib:trim(current()/DIVISION)!='&quot;'">
+                                <DIVISION>
+                                    <xsl:value-of select="concat('&quot;',DIVISION,'&quot;')"/>
+                                </DIVISION>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/DEPARTMENT)!=''&#xA;and&#xA;tib:trim(current()/DEPARTMENT)!='&quot;&quot;&quot;'&#xA;and&#xA;tib:trim(current()/DEPARTMENT)!='&quot;'">
+                                <DEPARTMENT>
+                                    <xsl:value-of select="concat('&quot;',DEPARTMENT,'&quot;')"/>
+                                </DEPARTMENT>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/LOCATION)!=''&#xA;and&#xA;tib:trim(current()/LOCATION)!='&quot;&quot;&quot;'&#xA;and&#xA;tib:trim(current()/LOCATION)!='&quot;'">
+                                <LOCATION>
+                                    <xsl:value-of select="concat('&quot;',LOCATION,'&quot;')"/>
+                                </LOCATION>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/JOBCODE)!=''&#xA;and&#xA;tib:trim(current()/JOBCODE)!='&quot;&quot;&quot;'&#xA;and&#xA;tib:trim(current()/JOBCODE)!='&quot;'">
+                                <JOBCODE>
+                                    <xsl:value-of select="concat('&quot;',JOBCODE,'&quot;')"/>
+                                </JOBCODE>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/TIMEZONE)!=''&#xA;and&#xA;tib:trim(current()/TIMEZONE)!='&quot;&quot;&quot;'&#xA;and&#xA;tib:trim(current()/TIMEZONE)!='&quot;'">
+                                <TIMEZONE>
+                                    <xsl:value-of select="concat('&quot;',TIMEZONE,'&quot;')"/>
+                                </TIMEZONE>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/HIREDATE)!=''&#xA;and&#xA;tib:trim(current()/HIREDATE)!='&quot;&quot;&quot;'&#xA;and&#xA;tib:trim(current()/HIREDATE)!='&quot;'">
+                                <HIREDATE>
+                                    <xsl:value-of select="concat('&quot;',HIREDATE,'&quot;')"/>
+                                </HIREDATE>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/EMPID)!=''&#xA;and&#xA;tib:trim(current()/EMPID)!='&quot;&quot;&quot;'&#xA;and&#xA;tib:trim(current()/EMPID)!='&quot;'">
+                                <EMPID>
+                                    <xsl:value-of select="concat('&quot;',EMPID,'&quot;')"/>
+                                </EMPID>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/BIZ_PHONE)!=''&#xA;and&#xA;tib:trim(current()/BIZ_PHONE)!='&quot;&quot;&quot;'&#xA;and&#xA;tib:trim(current()/BIZ_PHONE)!='&quot;'">
+                                <BIZ_PHONE>
+                                    <xsl:value-of select="concat('&quot;',BIZ_PHONE,'&quot;')"/>
+                                </BIZ_PHONE>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/FAX)!=''&#xA;and&#xA;tib:trim(current()/FAX)!='&quot;&quot;&quot;'&#xA;and&#xA;tib:trim(current()/FAX)!='&quot;'">
+                                <FAX>
+                                    <xsl:value-of select="concat('&quot;',FAX,'&quot;')"/>
+                                </FAX>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/ADDR1)!=''&#xA;and&#xA;tib:trim(current()/ADDR1)!='&quot;&quot;&quot;'&#xA;and&#xA;tib:trim(current()/ADDR1)!='&quot;'">
+                                <ADDR1>
+                                    <xsl:value-of select="concat('&quot;',ADDR1,'&quot;')"/>
+                                </ADDR1>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/ADDR2)!=''&#xA;and&#xA;tib:trim(current()/ADDR2)!='&quot;&quot;&quot;'&#xA;and&#xA;tib:trim(current()/ADDR2)!='&quot;'">
+                                <ADDR2>
+                                    <xsl:value-of select="concat('&quot;',ADDR2,'&quot;')"/>
+                                </ADDR2>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/CITY)!=''&#xA;and&#xA;tib:trim(current()/CITY)!='&quot;&quot;&quot;'&#xA;and&#xA;tib:trim(current()/CITY)!='&quot;'">
+                                <CITY>
+                                    <xsl:value-of select="concat('&quot;',CITY,'&quot;')"/>
+                                </CITY>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/STATE)!=''&#xA;and&#xA;tib:trim(current()/STATE)!='&quot;&quot;&quot;'&#xA;and&#xA;tib:trim(current()/STATE)!='&quot;'">
+                                <STATE>
+                                    <xsl:value-of select="concat('&quot;',STATE,'&quot;')"/>
+                                </STATE>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/ZIP)!=''&#xA;and&#xA;tib:trim(current()/ZIP)!='&quot;&quot;&quot;'&#xA;and&#xA;tib:trim(current()/ZIP)!='&quot;'">
+                                <ZIP>
+                                    <xsl:value-of select="concat('&quot;',ZIP,'&quot;')"/>
+                                </ZIP>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/COUNTRY)!=''&#xA;and&#xA;tib:trim(current()/COUNTRY)!='&quot;&quot;&quot;'&#xA;and&#xA;tib:trim(current()/COUNTRY)!='&quot;'">
+                                <COUNTRY>
+                                    <xsl:value-of select="concat('&quot;',COUNTRY,'&quot;')"/>
+                                </COUNTRY>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/DEFAULT_LOCALE)!=''&#xA;and&#xA;tib:trim(current()/DEFAULT_LOCALE)!='&quot;&quot;&quot;'&#xA;and&#xA;tib:trim(current()/DEFAULT_LOCALE)!='&quot;'">
+                                <DEFAULT_LOCALE>
+                                    <xsl:value-of select="concat('&quot;',DEFAULT_LOCALE,'&quot;')"/>
+                                </DEFAULT_LOCALE>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/LOGIN_METHOD)!=''&#xA;and&#xA;tib:trim(current()/LOGIN_METHOD)!='&quot;&quot;&quot;'&#xA;and&#xA;tib:trim(current()/LOGIN_METHOD)!='&quot;'">
+                                <LOGIN_METHOD>
+                                    <xsl:value-of select="concat('&quot;',LOGIN_METHOD,'&quot;')"/>
+                                </LOGIN_METHOD>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <LOGIN_METHOD>
+                                    <xsl:value-of select="concat('&quot;',LOGIN_METHOD,'&quot;')"/>
+                                </LOGIN_METHOD>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </User>
+                </xsl:for-each>
+            </Rows>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="RenderUserExtData">
+        <pd:type>com.tibco.plugin.parse.RenderActivity</pd:type>
+        <pd:resourceType>ae.activities.RenderActivity</pd:resourceType>
+        <pd:x>528</pd:x>
+        <pd:y>66</pd:y>
+        <config>
+            <ParseSharedConfig>/SharedResources/Schemas/DataFormat/UserExtDataFormat.sharedparse</ParseSharedConfig>
+        </config>
+        <pd:inputBindings>
+            <Rows>
+                <xsl:for-each xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="$Start/root/Rows/User">
+                    <User>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/USERID)!=''&#xA;and&#xA;tib:trim(current()/USERID)!='&quot;&quot;&quot;'&#xA;and&#xA;tib:trim(current()/USERID)!='&quot;'">
+                                <USERID>
+                                    <xsl:value-of select="concat('&quot;',USERID,'&quot;')"/>
+                                </USERID>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/CUSTOM01)!=''&#xA;and&#xA;tib:trim(current()/CUSTOM01)!='&quot;&quot;&quot;'&#xA;and&#xA;tib:trim(current()/CUSTOM01)!='&quot;'">
+                                <REGION>
+                                    <xsl:value-of select="concat('&quot;',CUSTOM01,'&quot;')"/>
+                                </REGION>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/CUSTOM02)!=''&#xA;and&#xA;tib:trim(current()/CUSTOM02)!='&quot;&quot;&quot;'&#xA;and&#xA;tib:trim(current()/CUSTOM02)!='&quot;'">
+                                <OPCOM>
+                                    <xsl:value-of select="concat('&quot;',CUSTOM02,'&quot;')"/>
+                                </OPCOM>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/CUSTOM03)!=''&#xA;and&#xA;tib:trim(current()/CUSTOM03)!='&quot;&quot;&quot;'&#xA;and&#xA;tib:trim(current()/CUSTOM03)!='&quot;'">
+                                <EMPLOYEE_TYPE>
+                                    <xsl:value-of select="concat('&quot;',CUSTOM03,'&quot;')"/>
+                                </EMPLOYEE_TYPE>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/CUSTOM12)!=''&#xA;and&#xA;tib:trim(current()/CUSTOM12)!='&quot;&quot;&quot;'&#xA;and&#xA;tib:trim(current()/CUSTOM12)!='&quot;'">
+                                <HCP>
+                                    <xsl:value-of select="upper-case(concat('&quot;','SFDC_',CUSTOM12,'&quot;'))"/>
+                                </HCP>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="starts-with(../../SourceFile, 'SFDC')">
+                                <ON_LEAVE>
+                                    <xsl:value-of select="concat('&quot;',&quot;ACTIVE&quot;,'&quot;')"/>
+                                </ON_LEAVE>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:choose>
+                                    <xsl:when test="tib:trim(current()/CUSTOM05)!=''&#xA;and&#xA;tib:trim(current()/CUSTOM05)!='&quot;&quot;&quot;'&#xA;and&#xA;tib:trim(current()/CUSTOM05)!='&quot;'">
+                                        <ON_LEAVE>
+                                            <xsl:value-of select="concat('&quot;',CUSTOM05,'&quot;')"/>
+                                        </ON_LEAVE>
+                                    </xsl:when>
+                                    <xsl:otherwise/>
+                                </xsl:choose>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="starts-with(../../SourceFile, 'SFDC')"/>
+                            <xsl:otherwise>
+                                <xsl:choose>
+                                    <xsl:when test="tib:trim(current()/CUSTOM06)!=''&#xA;and&#xA;tib:trim(current()/CUSTOM06)!='&quot;&quot;&quot;'&#xA;and&#xA;tib:trim(current()/CUSTOM06)!='&quot;'">
+                                        <LEAVE_EXPIRATION>
+                                            <xsl:value-of select="concat('&quot;',CUSTOM06,'&quot;')"/>
+                                        </LEAVE_EXPIRATION>
+                                    </xsl:when>
+                                    <xsl:otherwise/>
+                                </xsl:choose>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/CUSTOM07)!=''&#xA;and&#xA;tib:trim(current()/CUSTOM07)!='&quot;&quot;&quot;'&#xA;and&#xA;tib:trim(current()/CUSTOM07)!='&quot;'">
+                                <DOMAIN>
+                                    <xsl:value-of select="concat('&quot;',CUSTOM07,'&quot;')"/>
+                                </DOMAIN>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/CUSTOM08)!=''&#xA;and&#xA;tib:trim(current()/CUSTOM08)!='&quot;&quot;&quot;'&#xA;and&#xA;tib:trim(current()/CUSTOM08)!='&quot;'">
+                                <OPCOM_1>
+                                    <xsl:value-of select="concat('&quot;',CUSTOM08,'&quot;')"/>
+                                </OPCOM_1>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/CUSTOM09)!=''&#xA;and&#xA;tib:trim(current()/CUSTOM09)!='&quot;&quot;&quot;'&#xA;and&#xA;tib:trim(current()/CUSTOM09)!='&quot;'">
+                                <SITE>
+                                    <xsl:value-of select="concat('&quot;',CUSTOM09,'&quot;')"/>
+                                </SITE>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/CUSTOM10)!=''&#xA;and&#xA;tib:trim(current()/CUSTOM10)!='&quot;&quot;&quot;'&#xA;and&#xA;tib:trim(current()/CUSTOM10)!='&quot;'">
+                                <USER_SOURCE>
+                                    <xsl:value-of select="concat('&quot;',CUSTOM10,'&quot;')"/>
+                                </USER_SOURCE>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/CUSTOM11)!=''&#xA;and&#xA;tib:trim(current()/CUSTOM11)!='&quot;&quot;&quot;'&#xA;and&#xA;tib:trim(current()/CUSTOM11)!='&quot;'">
+                                <SALES_SPECIALITY>
+                                    <xsl:value-of select="concat('&quot;',CUSTOM11,'&quot;')"/>
+                                </SALES_SPECIALITY>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/CUSTOM15)!=''&#xA;and&#xA;tib:trim(current()/CUSTOM15)!='&quot;&quot;&quot;'&#xA;and&#xA;tib:trim(current()/CUSTOM15)!='&quot;'">
+                                <JOB_DESCRIPTION>
+                                    <xsl:value-of select="concat('&quot;',tib:trim(current()/CUSTOM15),'&quot;')"/>
+                                </JOB_DESCRIPTION>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="starts-with(../../SourceFile, 'SFDC')">
+                                <LMS_EMAIL>
+                                    <xsl:value-of select="concat('&quot;',EMAIL,'&quot;')"/>
+                                </LMS_EMAIL>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:choose>
+                                    <xsl:when test="tib:trim(current()/CUSTOM13)!=''&#xA;and&#xA;tib:trim(current()/CUSTOM13)!='&quot;&quot;&quot;'&#xA;and&#xA;tib:trim(current()/CUSTOM13)!='&quot;'">
+                                        <LMS_EMAIL>
+                                            <xsl:value-of select="concat('&quot;',CUSTOM13,'&quot;')"/>
+                                        </LMS_EMAIL>
+                                    </xsl:when>
+                                    <xsl:otherwise/>
+                                </xsl:choose>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </User>
+                </xsl:for-each>
+            </Rows>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>RenderUserData</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>RenderUserData</pd:from>
+        <pd:to>WriteUserFile</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>WriteUserFile</pd:from>
+        <pd:to>RenderUserExtData</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>RenderUserExtData</pd:from>
+        <pd:to>WriteUserExtFile</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>WriteUserExtFile</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

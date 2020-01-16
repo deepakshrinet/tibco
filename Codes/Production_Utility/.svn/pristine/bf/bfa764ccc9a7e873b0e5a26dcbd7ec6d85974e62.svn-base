@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://www.tibco.com/schemas/TEXT-ULTILITY/SharedResources/Schemas/XSD/Schema.xsd2"
+	 targetNamespace="http://www.tibco.com/schemas/TEXT-ULTILITY/SharedResources/Schemas/XSD/Schema.xsd2"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="Notification">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="SlackNotifcation" minOccurs="0"/>
+				<xs:element ref="TextNotification" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TextNotification">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="TeamIdentifier" minOccurs="0"/>
+				<xs:element ref="EmailAddress" minOccurs="0"/>
+				<xs:element ref="Subject" minOccurs="0"/>
+				<xs:element ref="body" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="EmailAddress" type="xs:string"/>
+	<xs:element name="Subject" type="xs:string"/>
+	<xs:element name="body" type="xs:string"/>
+	<xs:element name="SlackNotifcation">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="TeamIdentifier" minOccurs="0"/>
+				<xs:element ref="ChannelURI" minOccurs="0"/>
+				<xs:element ref="SpecialNotification" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SpecialNotification" type="xs:string"/>
+	<xs:element name="ChannelURI" type="xs:string"/>
+	<xs:element name="TeamIdentifier" type="xs:string"/>
+</xs:schema>

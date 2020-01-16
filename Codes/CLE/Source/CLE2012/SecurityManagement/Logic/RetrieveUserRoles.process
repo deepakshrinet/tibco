@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <pd:name>SecurityManagement/Logic/RetrieveUserRoles.process</pd:name>
+    <pd:description>Retrieve the role for a specific user.</pd:description>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="RoleRetrievalInput">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="username" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>36</pd:startX>
+    <pd:startY>116</pd:startY>
+    <pd:returnBindings>
+        <UserRolesResult>
+            <UserRoles>
+                <xsl:value-of select="$RetrieveUserRoles/javaCodeActivityOutput/RoleNames"/>
+            </UserRoles>
+        </UserRolesResult>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="UserRolesResult">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="UserRoles" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>338</pd:endX>
+    <pd:endY>116</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1257284184139</pd:targetNamespace>
+    <pd:activity name="RetrieveUserRoles">
+        <pd:type>com.tibco.plugin.java.JavaActivity</pd:type>
+        <pd:resourceType>ae.javapalette.javaActivity</pd:resourceType>
+        <pd:x>178</pd:x>
+        <pd:y>115</pd:y>
+        <config>
+            <fullsource>package SecurityManagement.Logic.RetrieveUserRoles;
+
+import com.tibco.ext.model.authorization.*;
+import com.tibco.ext.model.common.*;
+import com.tibco.ext.utils.*;
+import com.tibco.ext.model.authorization.RoleFactory;
+import com.tibco.ext.model.authorization.UserFactory;
+import java.util.*;
+import java.io.*;
+@SuppressWarnings("unchecked")
+public class RetrieveUserRolesRetrieveUserRoles{
+
+public String AllRoles = new String();
+
+    public static Collection getRolesForUser(AuthenticationSubject authSubject) {
+        RoleFactory factory = RoleFactory.getFactory();
+        Iterator iter = factory.getRoles().iterator();
+        Role role; List rolesForUser = new ArrayList();
+        AuthUtils authUtils = AuthUtils.instance();
+        while (iter.hasNext()) {
+            role = (Role) iter.next();
+            if (authUtils.isMember(role, authSubject)) {
+                rolesForUser.add(role);
+            }
+        }
+        return rolesForUser;
+    }
+
+   /** Search Roles */
+    public static void getRoles() {
+        RoleFactory factory = RoleFactory.getFactory();
+        Collection roles = factory.getRoles();
+        String superUsersRolePath = factory.getPath(factory.getSuperUsersRole());
+        String authenticatedUsersRolePath = factory.getPath(factory.getAuthenticatedUsersRole());
+        String guestsRolePath = factory.getPath(factory.getGuestsRole());
+
+        Iterator iter = roles.iterator();
+        while (iter.hasNext()) {
+            Role role = (Role) iter.next();
+            RoleMembershipConfig membConfig = factory.getRoleMembershipConfig(role);
+            String dispRoleType = null;
+            if (factory.getPath(role).equals(superUsersRolePath)) {
+                dispRoleType = "Super Users";
+            } else if (factory.getPath(role).equals(authenticatedUsersRolePath)) {
+                dispRoleType = "Authenticated Users";
+            } else if (factory.getPath(role).equals(guestsRolePath)) {
+                dispRoleType = "Guests";
+            } else if (membConfig instanceof StandardRoleMembershipConfig) {
+                dispRoleType = "Standard";
+            } else if (membConfig instanceof GroupSyncRoleMembershipConfig) {
+                dispRoleType = "Group Synchronzed";
+            } else if (membConfig instanceof CustomRoleMembershipConfig) {
+                dispRoleType = "Custom - " + ((CustomRoleMembershipConfig) membConfig).getCustomRoleMembershipType();
+            } else {
+                dispRoleType = "Unknown";
+            }
+            //System.out.println("Role: "+role.getName()+ "; type: "+dispRoleType);
+            //AllRoles = AllRoles+"|"+String.valueOf(role.getName());
+        }
+    }
+
+     
+/****** START SET/GET METHOD, DO NOT MODIFY *****/
+	protected String username = "";
+	protected String RoleNames = "";
+	public String getusername() {
+		return username;
+	}
+	public void setusername(String val) {
+		username = val;
+	}
+	public String getRoleNames() {
+		return RoleNames;
+	}
+	public void setRoleNames(String val) {
+		RoleNames = val;
+	}
+/****** END SET/GET METHOD, DO NOT MODIFY *****/
+	public RetrieveUserRolesRetrieveUserRoles() {
+	}
+	public void invoke() throws Exception {
+/* Available Variables: DO NOT MODIFY
+	In  : String username
+	Out : String RoleNames
+* Available Variables: DO NOT MODIFY *****/
+
+
+        Collection rolesForUser = getRolesForUser(new AuthenticationSubject(username, null, true));
+        boolean first = true;
+        Iterator iter = rolesForUser.iterator();
+        Role role;
+        while (iter.hasNext()) {
+            if (first) first = false;
+            else System.out.print(", ");
+            role = (Role) iter.next();
+             RoleNames = RoleNames+"|"+String.valueOf(role.getName());
+}
+   
+}
+}
+</fullsource>
+            <fileName>RetrieveUserRolesRetrieveUserRoles</fileName>
+            <packageName>SecurityManagement.Logic.RetrieveUserRoles</packageName>
+            <inputData>
+                <row>
+                    <fieldName>username</fieldName>
+                    <fieldType>string</fieldType>
+                    <fieldRequired>optional</fieldRequired>
+                </row>
+            </inputData>
+            <outputData>
+                <row>
+                    <fieldName>RoleNames</fieldName>
+                    <fieldType>string</fieldType>
+                    <fieldRequired>required</fieldRequired>
+                </row>
+            </outputData>
+            <byteCode>
+                <class>
+                    <name>RetrieveUserRolesRetrieveUserRoles</name>
+                    <byteCode>yv66vgAAADEAqgoASQBKCgBJAEsLAEwATQcATgoABABPCgBQAFELAFIAUwsAUgBUBwBVCgBQAFYLAFcAWAoASQBZCgBJAFoKAEkAWwoASQBcCgBJAF0KACQAXggAXwgAYAgAYQcAYggAYwcAZAgAZQcAZgcAZwoAGgBPCABoCgAaAGkLABkAagoAGgBrCABsCQAxAG0JADEAbgoAMgBPBwBvCgAkAE8JADEAcAgAcQcAcgoAKABzCgAxAHQJAHUAdggAdwoAeAB5CAB6CwAJAHsKACQAfAcAfQcAfgEACEFsbFJvbGVzAQASTGphdmEvbGFuZy9TdHJpbmc7AQAIdXNlcm5hbWUBAAlSb2xlTmFtZXMBAA9nZXRSb2xlc0ZvclVzZXIBAEMoTGNvbS90aWJjby9leHQvdXRpbHMvQXV0aGVudGljYXRpb25TdWJqZWN0OylMamF2YS91dGlsL0NvbGxlY3Rpb247AQAEQ29kZQEAD0xpbmVOdW1iZXJUYWJsZQEACGdldFJvbGVzAQADKClWAQALZ2V0dXNlcm5hbWUBABQoKUxqYXZhL2xhbmcvU3RyaW5nOwEAC3NldHVzZXJuYW1lAQAVKExqYXZhL2xhbmcvU3RyaW5nOylWAQAMZ2V0Um9sZU5hbWVzAQAMc2V0Um9sZU5hbWVzAQAGPGluaXQ+AQAGaW52b2tlAQAKRXhjZXB0aW9ucwcAfwEAClNvdXJjZUZpbGUBACdSZXRyaWV2ZVVzZXJSb2xlc1JldHJpZXZlVXNlclJvbGVzLmphdmEHAIAMAIEAggwAOwCDBwCEDACFAIYBABNqYXZhL3V0aWwvQXJyYXlMaXN0DABDADwHAIcMAIgAiQcAigwAiwCMDACNAI4BACZjb20vdGliY28vZXh0L21vZGVsL2F1dGhvcml6YXRpb24vUm9sZQwAjwCQBwCRDACSAJMMAJQAlQwAlgCXDACYAJUMAJkAlQwAmgCbDACcAJMBAAtTdXBlciBVc2VycwEAE0F1dGhlbnRpY2F0ZWQgVXNlcnMBAAZHdWVzdHMBAD5jb20vdGliY28vZXh0L21vZGVsL2F1dGhvcml6YXRpb24vU3RhbmRhcmRSb2xlTWVtYmVyc2hpcENvbmZpZwEACFN0YW5kYXJkAQA/Y29tL3RpYmNvL2V4dC9tb2RlbC9hdXRob3JpemF0aW9uL0dyb3VwU3luY1JvbGVNZW1iZXJzaGlwQ29uZmlnAQARR3JvdXAgU3luY2hyb256ZWQBADxjb20vdGliY28vZXh0L21vZGVsL2F1dGhvcml6YXRpb24vQ3VzdG9tUm9sZU1lbWJlcnNoaXBDb25maWcBABdqYXZhL2xhbmcvU3RyaW5nQnVpbGRlcgEACUN1c3RvbSAtIAwAnQCeDACfAD4MAKAAPgEAB1Vua25vd24MADUANAwANgA0AQAQamF2YS9sYW5nL1N0cmluZwwAMwA0AQAAAQApY29tL3RpYmNvL2V4dC91dGlscy9BdXRoZW50aWNhdGlvblN1YmplY3QMAEMAoQwANwA4BwCiDACjAKQBAAIsIAcApQwApgBAAQABfAwApwA+DACoAKkBAE1TZWN1cml0eU1hbmFnZW1lbnQvTG9naWMvUmV0cmlldmVVc2VyUm9sZXMvUmV0cmlldmVVc2VyUm9sZXNSZXRyaWV2ZVVzZXJSb2xlcwEAEGphdmEvbGFuZy9PYmplY3QBABNqYXZhL2xhbmcvRXhjZXB0aW9uAQAtY29tL3RpYmNvL2V4dC9tb2RlbC9hdXRob3JpemF0aW9uL1JvbGVGYWN0b3J5AQAKZ2V0RmFjdG9yeQEAMSgpTGNvbS90aWJjby9leHQvbW9kZWwvYXV0aG9yaXphdGlvbi9Sb2xlRmFjdG9yeTsBABgoKUxqYXZhL3V0aWwvQ29sbGVjdGlvbjsBABRqYXZhL3V0aWwvQ29sbGVjdGlvbgEACGl0ZXJhdG9yAQAWKClMamF2YS91dGlsL0l0ZXJhdG9yOwEAHWNvbS90aWJjby9leHQvdXRpbHMvQXV0aFV0aWxzAQAIaW5zdGFuY2UBACEoKUxjb20vdGliY28vZXh0L3V0aWxzL0F1dGhVdGlsczsBABJqYXZhL3V0aWwvSXRlcmF0b3IBAAdoYXNOZXh0AQADKClaAQAEbmV4dAEAFCgpTGphdmEvbGFuZy9PYmplY3Q7AQAIaXNNZW1iZXIBAFYoTGNvbS90aWJjby9leHQvbW9kZWwvYXV0aG9yaXphdGlvbi9Sb2xlO0xjb20vdGliY28vZXh0L3V0aWxzL0F1dGhlbnRpY2F0aW9uU3ViamVjdDspWgEADmphdmEvdXRpbC9MaXN0AQADYWRkAQAVKExqYXZhL2xhbmcvT2JqZWN0OylaAQARZ2V0U3VwZXJVc2Vyc1JvbGUBACooKUxjb20vdGliY28vZXh0L21vZGVsL2F1dGhvcml6YXRpb24vUm9sZTsBAAdnZXRQYXRoAQA8KExjb20vdGliY28vZXh0L21vZGVsL2F1dGhvcml6YXRpb24vUm9sZTspTGphdmEvbGFuZy9TdHJpbmc7AQAZZ2V0QXV0aGVudGljYXRlZFVzZXJzUm9sZQEADWdldEd1ZXN0c1JvbGUBABdnZXRSb2xlTWVtYmVyc2hpcENvbmZpZwEAYihMY29tL3RpYmNvL2V4dC9tb2RlbC9hdXRob3JpemF0aW9uL1JvbGU7KUxjb20vdGliY28vZXh0L21vZGVsL2F1dGhvcml6YXRpb24vUm9sZU1lbWJlcnNoaXBDb25maWc7AQAGZXF1YWxzAQAGYXBwZW5kAQAtKExqYXZhL2xhbmcvU3RyaW5nOylMamF2YS9sYW5nL1N0cmluZ0J1aWxkZXI7AQAbZ2V0Q3VzdG9tUm9sZU1lbWJlcnNoaXBUeXBlAQAIdG9TdHJpbmcBABgoTGphdmEvbGFuZy9TdHJpbmc7W0NaKVYBABBqYXZhL2xhbmcvU3lzdGVtAQADb3V0AQAVTGphdmEvaW8vUHJpbnRTdHJlYW07AQATamF2YS9pby9QcmludFN0cmVhbQEABXByaW50AQAHZ2V0TmFtZQEAB3ZhbHVlT2YBACYoTGphdmEvbGFuZy9PYmplY3Q7KUxqYXZhL2xhbmcvU3RyaW5nOwAhADEAMgAAAAMAAQAzADQAAAAEADUANAAAAAQANgA0AAAACAAJADcAOAABADkAAACAAAMABgAAAEi4AAFMK7YAArkAAwEATbsABFm3AAU6BLgABjoFLLkABwEAmQAjLLkACAEAwAAJThkFLSq2AAqZ/+YZBC25AAsCAFen/9oZBLAAAAABADoAAAAmAAkAAAAQAAQAEQAOABIAFwATABwAFAAlABUALwAWADkAFwBFABoACQA7ADwAAQA5AAABUgACAAkAAADauAABSyq2AAJMKiq2AAy2AA1NKiq2AA62AA1OKiq2AA+2AA06BCu5AAMBADoFGQW5AAcBAJkApRkFuQAIAQDAAAk6BioZBrYAEDoHAToIKhkGtgANLLYAEZkAChISOginAHcqGQa2AA0ttgARmQAKEhM6CKcAYyoZBrYADRkEtgARmQAKEhQ6CKcAThkHwQAVmQAKEhY6CKcAPxkHwQAXmQAKEhg6CKcAMBkHwQAZmQAkuwAaWbcAGxIctgAdGQfAABm5AB4BALYAHbYAHzoIpwAHEiA6CKf/V7EAAAABADoAAABmABkAAAAfAAQAIAAJACEAEgAiABsAIwAlACUALQAmADcAJwBDACgASwApAE4AKgBbACsAYgAsAG8ALQB2AC4AhAAvAIsAMACTADEAmgAyAKIAMwCpADQAsQA1ANIANwDWADsA2QA8AAEAPQA+AAEAOQAAAB0AAQABAAAABSq0ACGwAAAAAQA6AAAABgABAAAAQwABAD8AQAABADkAAAAiAAIAAgAAAAYqK7UAIbEAAAABADoAAAAKAAIAAABGAAUARwABAEEAPgABADkAAAAdAAEAAQAAAAUqtAAisAAAAAEAOgAAAAYAAQAAAEkAAQBCAEAAAQA5AAAAIgACAAIAAAAGKiu1ACKxAAAAAQA6AAAACgACAAAATAAFAE0AAQBDADwAAQA5AAAARAADAAEAAAAcKrcAIyq7ACRZtwAltQAmKhIntQAhKhIntQAisQAAAAEAOgAAABYABQAAAE8ABAANAA8AQAAVAEEAGwBQAAEARAA8AAIAOQAAAKIABQAFAAAAarsAKFkqtAAhAQS3ACm4ACpMBD0ruQADAQBOLbkABwEAmQBJHJkACAM9pwALsgArEiy2AC0tuQAIAQDAAAk6BCq7ABpZtwAbKrQAIrYAHRIutgAdGQS5AC8BALgAMLYAHbYAH7UAIqf/tLEAAAABADoAAAAmAAkAAABYABEAWQATAFoAGgBcACMAXQAsAF4ANABfAD8AYABpAGMARQAAAAQAAQBGAAEARwAAAAIASA==</byteCode>
+                </class>
+            </byteCode>
+        </config>
+        <pd:inputBindings>
+            <javaCodeActivityInput>
+                <username>
+                    <xsl:value-of select="$Start/RoleRetrievalInput/username"/>
+                </username>
+            </javaCodeActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>RetrieveUserRoles</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>RetrieveUserRoles</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

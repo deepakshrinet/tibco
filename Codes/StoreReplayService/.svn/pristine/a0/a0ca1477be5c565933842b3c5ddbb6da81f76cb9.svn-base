@@ -1,0 +1,31 @@
+CREATE TABLE "TIBCO_APP"."STORE_SERVICE"
+  (
+    "GUID"                   VARCHAR2(36 BYTE),
+    "TRANSACTION_ID"         VARCHAR2(50 BYTE),
+    "ORIG_DEST"              VARCHAR2(100 BYTE),
+    "ORIG_DEST_TYPE"         VARCHAR2(10 BYTE),
+    "REPLAY_DEST"            VARCHAR2(100 BYTE),
+    "REPLAY_DEST_TYPE"       VARCHAR2(50 BYTE),
+    "ERROR_DESC"             VARCHAR2(256 BYTE),
+    "APPL_ID"                VARCHAR2(50 BYTE),
+    "APPL_NAME"              VARCHAR2(50 BYTE),
+    "TARGET_SYSTEM"          VARCHAR2(50 BYTE),
+    "JMS_CONNECTION_FACTORY" VARCHAR2(50 BYTE),
+    "MSG_TIME" TIMESTAMP (6),
+    "MESSAGE" CLOB,
+    "MESSAGE_PROPERTIES" CLOB,
+    "REPLAY_FLAG" VARCHAR2(10 BYTE),
+    "CREATE_TIMESTAMP" TIMESTAMP (6),
+    "UPDATE_TIMESTAMP" TIMESTAMP (6),
+    CONSTRAINT "GUID_PK" PRIMARY KEY ("GUID") USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS TABLESPACE "TIBCOAPPDATA" ENABLE
+  );
+  
+  
+  
+  
+  create table tibco_app.Store_service_dynamic_prop (
+transaction_id varchar(50),
+name varchar(50),
+value varchar(50),
+
+type varchar(50));

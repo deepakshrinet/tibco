@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns="http://www.tibco.com/schemas/CLE-Handlers/SharedResources/SchemaDefinitions/Private/Exception/Schema.xsd" xmlns:pfx="http://www.tibco.com/CommonLE/namespace/Common">
+    <pd:name>ExceptionManagement/Logic/Scheduler.process</pd:name>
+    <pd:startName>Timer</pd:startName>
+    <pd:startX>0</pd:startX>
+    <pd:startY>0</pd:startY>
+    <pd:returnBindings/>
+    <pd:starter name="Timer">
+        <pd:type>com.tibco.plugin.timer.TimerEventSource</pd:type>
+        <pd:resourceType>ae.activities.timer</pd:resourceType>
+        <pd:x>26</pd:x>
+        <pd:y>105</pd:y>
+        <config>
+            <StartTime>1205190635000</StartTime>
+            <Frequency>false</Frequency>
+            <TimeInterval>%%ExceptionService/Scheduler/MIG_PollingInterval%%</TimeInterval>
+            <FrequencyIndex>Millisecond</FrequencyIndex>
+        </config>
+        <pd:inputBindings/>
+    </pd:starter>
+    <pd:endName>End</pd:endName>
+    <pd:endX>277</pd:endX>
+    <pd:endY>105</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1287552625959</pd:targetNamespace>
+    <pd:activity name="Notify Handling Procedure By Schedule">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>159</pd:x>
+        <pd:y>116</pd:y>
+        <config>
+            <processName>/ExceptionManagement/Logic/NotifyHandlingProcedureBySchedule.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns:ExceptionQuery>
+                <ns:Schedule>
+                    <xsl:value-of select="current-dateTime()"/>
+                </ns:Schedule>
+            </ns:ExceptionQuery>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Timer</pd:from>
+        <pd:to>Notify Handling Procedure By Schedule</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Notify Handling Procedure By Schedule</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/WriteToLogActivitySchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx4="http://www.tibco.com/CommonLE/namespace/Common" xmlns:pfx3="http://www.tibco.com/CommonLE/namespace/Custom" xmlns:pfx2="http://www.tibco.com/pe/EngineTypes" xmlns:pfx="http://www.tibco.com/unique/default/namespace/Exception" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xsd:import namespace="http://www.tibco.com/unique/default/namespace/Exception" schemaLocation="/Shared Resources/Schema Definitions/Common/ExceptionRequest.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE/namespace/Custom" schemaLocation="/Shared Resources/Schema Definitions/Custom/Error.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE/namespace/Common" schemaLocation="/SharedResources/SchemaDefinitions/Private/Common/Error.xsd"/>
+    <pd:name>Common/Local Exception Handler.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx4:Exception"/>
+    <pd:startX>26</pd:startX>
+    <pd:startY>95</pd:startY>
+    <pd:returnBindings>
+        <message>
+            <xsl:value-of select="$Start/pfx4:Exception/pfx4:Error/pfx4:ErrorReport/Msg"/>
+        </message>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="message" type="xsd:string"/>
+    </pd:endType>
+    <pd:endX>304</pd:endX>
+    <pd:endY>99</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1284492863175</pd:targetNamespace>
+    <pd:activity name="Log">
+        <pd:type>com.tibco.pe.core.WriteToLogActivity</pd:type>
+        <pd:resourceType>ae.activities.log</pd:resourceType>
+        <pd:x>161</pd:x>
+        <pd:y>99</pd:y>
+        <config>
+            <role>User</role>
+        </config>
+        <pd:inputBindings>
+            <ns:ActivityInput>
+                <message>
+                    <xsl:value-of select="concat(&quot;Stack trace: &quot;, $Start/pfx4:Exception/pfx4:Error/pfx4:ErrorReport/StackTrace, &quot;&#xA;&quot;,  &#xA;&quot;ProcessStack: &quot;, $Start/pfx4:Exception/pfx4:Error/pfx4:ErrorReport/ProcessStack,   &quot;&#xA;&quot;,  &#xA;&quot;Message: &quot;,  $Start/pfx4:Exception/ErrorMessage, &quot;&#xA;&quot;,&#xA; &quot; Data: &quot;, $Start/pfx4:Exception/pfx4:Data)"/>
+                </message>
+                <msgCode>
+                    <xsl:value-of select="concat(&quot;Message Code:&quot;, $Start/pfx4:Exception/pfx4:Error/pfx4:ErrorReport/MsgCode)"/>
+                </msgCode>
+            </ns:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Log</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Log</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://www.zimmer.com/v1_0/RequestBaseType"
+	 xmlns:sbt="http://www.zimmer.com/v1_0/ServiceBaseTypes"
+	 xmlns:aud="http://www.zimmer.com/v1_0/AuditTrackBaseType"
+	 targetNamespace="http://www.zimmer.com/v1_0/RequestBaseType"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:annotation>
+		<xs:documentation>Request Base Type standard Service Request structure for all TIBCO implemented services</xs:documentation>
+		<xs:documentation>
+			RequestID		- Client specified identifier. Does not need to be unique. Client identifiecation of the request or action being processed.
+			Sender			- (Optional) Client provided self-Identification for logging, monitoring, tracking (not for functional use)
+			Target			- (Optional) Client specified desired service name and target version.
+			maxRspTimeMSec	- (Optional) Client expectation is to get an explicit service response after this amount of time (in milliseconds).
+								Client terminates processing if  time exceeds this length, and return an error code.  If field is not populated,
+								value of zero (wait forever) is presumed.
+			clientStartTime		- Client provided date/time value of when the service "started".  To be returned to client / caller on response
+			customNVPList	- List of name/value pair times allowing for schema content extension (additional properties) without changing the schema structure.
+		</xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="http://www.zimmer.com/v1_0/ServiceBaseTypes" schemaLocation="./ServiceBaseTypes.xsd"/>
+	<xs:import namespace="http://www.zimmer.com/v1_0/AuditTrackBaseType" schemaLocation="./AuditTrackBase.xsd"/>
+	<xs:element name="RequestBaseElement" type="RequestBaseType"/>
+	<xs:complexType name="RequestBaseType">
+		<xs:sequence>
+			<xs:element name="RequestID" type="xs:string"/>
+			<xs:element name="Sender" type="sbt:ServiceInfoType" minOccurs="0"/>
+			<xs:element name="Target" type="sbt:ServiceInfoType" minOccurs="0"/>
+			<xs:element name="maxRspTimeMSec" type="xs:integer" minOccurs="0"/>
+			<xs:element name="clientStartTime" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="auditTrack" type="aud:AuditTrackBaseType" minOccurs="0"/>
+			<xs:element ref="replyRoute" minOccurs="0"/>
+			<xs:element name="customNVPList" type="sbt:NVPairList" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="replyRoute">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="routeDestType" type="xs:string" minOccurs="0"/>
+				<xs:element name="routeDestName" type="xs:string" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

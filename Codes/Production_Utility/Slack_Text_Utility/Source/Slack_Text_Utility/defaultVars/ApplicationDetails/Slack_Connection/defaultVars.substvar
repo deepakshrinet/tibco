@@ -1,0 +1,29 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>Host</name>
+			<value>hooks.slack.com</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1507667484733</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>Port</name>
+			<value>443</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1507667484797</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>Timeout</name>
+			<value>180000</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1507667549469</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

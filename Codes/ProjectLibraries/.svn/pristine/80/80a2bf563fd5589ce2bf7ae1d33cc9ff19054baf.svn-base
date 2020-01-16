@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Repository:repository xmlns:Repository="http://www.tibco.com/xmlns/repo/types/2002">
+    <name name="CleClientJMS">
+        <version>13</version>
+        <author>chandraj</author>
+        <fileLocation>C:\Users\chandraj\Desktop\CLEClientProjLib_v2.2.projlib</fileLocation>
+        <resources>/CLE/Interface/Loader/InitializeLogLevel.process,/CLE/Interface/SendException.process,/CLE/Interface/SendLog.process</resources>
+        <description>V2.2
+
+Removed resend Cle log and exception :</description>
+    </name>
+</Repository:repository>

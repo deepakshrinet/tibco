@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:ns5="http://www.tibco.com/schemas/ErrorHandler_1.3/Schemas/XML/ZBS/Schema.xsd" xmlns:pfx="http://www.tibco.com/schemas/ZBS_DEV/Services/Util/ExceptionHandler/Schemas/Schema.xsd" xmlns:ns2="http://www.tibco.com/namespaces/tnt/plugins/mail" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns4="http://www.tibco.com/pe/EngineTypes" xmlns:ns3="http://xmlns.tibco.com/encodings/mime" xmlns:pfx5="http://schemas.tibco.com/bw/plugins/java/5.0/javaExceptions" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx4="http://schemas.tibco.com/bw/plugins/mail/5.0/mailExceptions" xmlns:pfx3="http://xmlns.tibco.com/body" xmlns:pfx2="http://www.tibco.com/schemas/ZBS_DEV/Schemas/XML/Schema.xsd" xmlns:pfx8="http://www.zimmer.com/tibco/schemas/ZBS/XSD/ExceptionHandler/v1/ExceptionMessageSchema.xsd" xmlns:pfx7="http://www.tibco.com/schemas/Exception/ZBS_DEV/Schemas/XML/Schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pfx6="http://www.tibco.com/schemas/SRM-JDE-EQA/SharedServices/ExceptionHandler/Schemas/Schema.xsd">
+    <xsd:import namespace="http://www.tibco.com/schemas/ZBS_DEV/Services/Util/ExceptionHandler/Schemas/Schema.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/schemas/ZBS_DEV/Schemas/XML/Schema.xsd" schemaLocation="/Schemas/XML/ZBS/ExceptionAggregates.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/schemas/Exception/ZBS_DEV/Schemas/XML/Schema.xsd" schemaLocation="/SharedServices/ExceptionHandler_v2/Schemas/ExceptionAggregates.xsd"/>
+    <pd:name>EnterpriseLibrary/Services/ExceptionHandler/SendNotificationsToUsers.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx8:ExceptionMessage"/>
+    <pd:startX>57</pd:startX>
+    <pd:startY>105</pd:startY>
+    <pd:returnBindings>
+        <pfx:MailDetails>
+            <pfx:From>
+                <xsl:value-of select="$FetchIPAddress/resultSet/Record[1]/MAIL_SENDER"/>
+            </pfx:From>
+            <pfx:To>
+                <xsl:value-of select="$FetchIPAddress/resultSet/Record[1]/MAIL_RECEIVER"/>
+            </pfx:To>
+            <pfx:CC>
+                <xsl:value-of select="$FetchIPAddress/resultSet/Record[1]/MAIL_CC"/>
+            </pfx:CC>
+            <pfx:Subject>
+                <xsl:value-of select="&quot;Application Error Report&quot;"/>
+            </pfx:Subject>
+            <pfx:MailContent>
+                <xsl:value-of select="concat(&quot;Dear User&quot;,&quot;&#xD;&quot;,$FetchIPAddress/resultSet/Record[1]/MAIL_CONTENT,&quot;&quot;,&quot;ErrorCode :&quot;,&quot;&quot;,$Start/pfx2:ErrorDetails/pfx2:ErrorCode,&quot;&quot;,&quot;ErrorDescription:&quot;,&quot;&quot;,$Start/pfx2:ErrorDetails/pfx2:Description,&quot;&quot;,&quot;&quot;,&quot;Thanks and Regards&quot;,&quot;&quot;,&quot;TIBCO Team&quot;)"/>
+            </pfx:MailContent>
+        </pfx:MailDetails>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endX>626</pd:endX>
+    <pd:endY>106</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1309967748163</pd:targetNamespace>
+    <pd:activity name="Primary SMTP Server">
+        <pd:type>com.tibco.plugin.mail.MailPubActivity</pd:type>
+        <pd:resourceType>ae.activities.MailActivityResource</pd:resourceType>
+        <pd:x>236</pd:x>
+        <pd:y>112</pd:y>
+        <config>
+            <newMimeSupport>true</newMimeSupport>
+            <inputOutputVersion>5.2.0</inputOutputVersion>
+            <host>%%ExceptionHandler/SMTPServerPrimary/Name%%</host>
+            <nonRFC822>true</nonRFC822>
+            <InputHeaders>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="Content-Type" type="xsd:string" minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </InputHeaders>
+        </config>
+        <pd:inputBindings>
+            <ns2:mailActivityInput>
+                <from>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ExceptionHandler/SMTPServerPrimary/From"/>
+                </from>
+                <to>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ExceptionHandler/SMTPServerPrimary/To"/>
+                </to>
+                <subject>
+                    <xsl:value-of select="concat($_globalVariables/ns1:GlobalVariables/ApplicationDetails/ApplicationName,': Application Exception Report: ', $Start/pfx8:ExceptionMessage/pfx8:ExceptionCode)"/>
+                </subject>
+                <pfx3:bodyElement>
+                    <bodyText>
+                        <xsl:value-of select="tib:render-xml($Start/pfx8:ExceptionMessage,true(),true())"/>
+                    </bodyText>
+                </pfx3:bodyElement>
+                <ns3:mimeEnvelopeElement/>
+            </ns2:mailActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Secondary SMTP Server">
+        <pd:type>com.tibco.plugin.mail.MailPubActivity</pd:type>
+        <pd:resourceType>ae.activities.MailActivityResource</pd:resourceType>
+        <pd:x>410</pd:x>
+        <pd:y>209</pd:y>
+        <config>
+            <newMimeSupport>true</newMimeSupport>
+            <inputOutputVersion>5.2.0</inputOutputVersion>
+            <host>%%ExceptionHandler/SMTPServerSecondary/Name%%</host>
+            <InputHeaders>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="Content-Type" type="xsd:string" minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </InputHeaders>
+        </config>
+        <pd:inputBindings>
+            <ns2:mailActivityInput>
+                <from>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ExceptionHandler/SMTPServerSecondary/From"/>
+                </from>
+                <to>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ExceptionHandler/SMTPServerSecondary/To"/>
+                </to>
+                <subject>
+                    <xsl:value-of select="concat($_globalVariables/ns1:GlobalVariables/ApplicationDetails/ApplicationName,': Application Exception Report: ', $Start/pfx8:ExceptionMessage/pfx8:ExceptionCode)"/>
+                </subject>
+                <pfx3:bodyElement>
+                    <bodyText>
+                        <xsl:value-of select="tib:render-xml($Start/pfx8:ExceptionMessage,true(),true())"/>
+                    </bodyText>
+                </pfx3:bodyElement>
+            </ns2:mailActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="LogService">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>560</pd:x>
+        <pd:y>202</pd:y>
+        <config>
+            <processName>/EnterpriseLibrary/Services/LogService/LogService.process</processName>
+        </config>
+        <pd:inputBindings>
+            <LogMessage>
+                <Message>
+                    <xsl:value-of select="'Exception in sending email notification'"/>
+                </Message>
+                <LogLevel>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Logging/LogLevels/ERROR"/>
+                </LogLevel>
+                <ActivityName>
+                    <xsl:value-of select="'Log Exception'"/>
+                </ActivityName>
+                <ProcessName>
+                    <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns4:ProcessContext/ProcessId)"/>
+                </ProcessName>
+            </LogMessage>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Primary SMTP Server</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Primary SMTP Server</pd:from>
+        <pd:to>Secondary SMTP Server</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>error</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Secondary SMTP Server</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Primary SMTP Server</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Secondary SMTP Server</pd:from>
+        <pd:to>LogService</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>error</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>LogService</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:label>
+        <pd:name>Label</pd:name>
+        <pd:description>Process for sending mail via the primary server which uses the DNS name. In case any error occur while resolving the DNS service. The process will recall the mail server using IP address value fetched from the database.</pd:description>
+        <pd:x>385</pd:x>
+        <pd:y>473</pd:y>
+        <pd:width>579</pd:width>
+        <pd:height>76</pd:height>
+        <pd:fontColor>-13421569</pd:fontColor>
+        <pd:color>-1</pd:color>
+        <pd:type>solid</pd:type>
+        <pd:thickness>0</pd:thickness>
+        <pd:fade>true</pd:fade>
+    </pd:label>
+</pd:ProcessDefinition>

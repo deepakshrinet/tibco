@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx14="http://www.tibco.com/CommonLE2/Private/Administration/DeleteQuery" xmlns:ns="http://www.tibco.com/pe/EngineTypes" xmlns:pfx13="http://www.tibco.com/CommonLE2/Private/Administration" xmlns:pfx12="http://www.tibco.com/CommonLE2/namespace/Public/Common/IDQuery" xmlns:pfx11="http://schemas.tibco.com/bw/plugins/jdbc/5.0/jdbcExceptions" xmlns:pfx10="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Query" xmlns:pfx="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/CommonLE/namespace/Custom" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx5="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Severity" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx4="http://www.tibco.com/CommonLE2/namespace/private/Common" xmlns:pfx3="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Category" xmlns:pfx2="http://xmlns.example.com/unique/default/namespace/1098735544074" xmlns:pfx9="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig" xmlns:pfx8="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Applications" xmlns:pfx7="http://www.tibco.com/CommonLE2/Public/Common/Dummy" xmlns:pfx6="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Type" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xsd:import namespace="http://xmlns.example.com/unique/default/namespace/1098735544074" schemaLocation="/Shared Resources/Schema Definitions/Custom/ExceptionCategory.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Category" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/ExceptionCategory.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Severity" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/ExceptionSeverity.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Type" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/ExceptionType.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Applications" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/Applications.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/ExceptionConfig.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/private/Common" schemaLocation="/SharedResources/SchemaDefinitions/Private/Common/LocalExceptions.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Query" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/ConfigurationQuery.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/Public/Common/Dummy" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Common/DummyReturnMessage.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Common/IDQuery" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Common/IDQuery.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/Private/Administration" schemaLocation="/SharedResources/SchemaDefinitions/Private/Administration/QueryUpdate.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/Private/Administration/DeleteQuery" schemaLocation="/SharedResources/SchemaDefinitions/Private/Administration/DeleteQuery.xsd"/>
+    <pd:name>Administration/DataAccess/InterfaceConfiguration/Oracle/DeleteInterfaceConfiguration.process</pd:name>
+    <pd:description>Deletes an Interface configuration</pd:description>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx14:DeleteQueries"/>
+    <pd:startX>26</pd:startX>
+    <pd:startY>175</pd:startY>
+    <pd:returnBindings>
+        <pfx7:Dummy>
+            <pfx7:StatusMessage>
+                <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ReservedIDs/DummyID"/>
+            </pfx7:StatusMessage>
+        </pfx7:Dummy>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endX>647</pd:endX>
+    <pd:endY>175</pd:endY>
+    <pd:errorSchemas>
+        <Schema1 ref="pfx4:ReferencialIntegrityViolation"/>
+        <Schema0 ref="pfx4:DBRecordNotFound"/>
+    </pd:errorSchemas>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1284740980468</pd:targetNamespace>
+    <pd:activity name="ID in use">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>89</pd:x>
+        <pd:y>365</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=JDBCSQLException namespace=http://schemas.tibco.com/bw/plugins/jdbc/5.0/jdbcExceptions</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Referential Integrity Error">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>274</pd:x>
+        <pd:y>373</pd:y>
+        <config>
+            <faultName>Schema1</faultName>
+        </config>
+        <pd:inputBindings>
+            <pfx:ActivityInput>
+                <message>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/DB/Messages/DBIntegrityError"/>
+                </message>
+                <messageCode>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/DB/Codes/SQLReferencedIntegrityState"/>
+                </messageCode>
+                <data>
+                    <pfx4:ReferencialIntegrityViolation>
+                        <pfx4:Message>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/DB/Messages/DBIntegrityError"/>
+                        </pfx4:Message>
+                        <pfx4:Code>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/DB/Codes/SQLReferencedIntegrityState"/>
+                        </pfx4:Code>
+                    </pfx4:ReferencialIntegrityViolation>
+                </data>
+            </pfx:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:group name="Transaction Group">
+        <pd:type>com.tibco.pe.core.TransactionGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>171</pd:x>
+        <pd:y>44</pd:y>
+        <pd:width>316</pd:width>
+        <pd:height>262</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>transactionGroup</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:transactionType>JDBCTransaction</pd:transactionType>
+            <pd:includeCheckpoint>false</pd:includeCheckpoint>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>Delete Target Systems</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Delete Interface Configuration</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Delete Interface Configuration</pd:from>
+            <pd:to>No Records Found</pd:to>
+            <pd:xpathDescription>No record with ID</pd:xpathDescription>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>xpath</pd:conditionType>
+            <pd:xpath>$Delete-Interface-Configuration/jdbcUpdateActivityOutput/noOfUpdates = 0</pd:xpath>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Delete Target Systems</pd:from>
+            <pd:to>Delete Interface Configuration</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="Delete Interface Configuration">
+            <pd:type>com.tibco.plugin.jdbc.JDBCUpdateActivity</pd:type>
+            <pd:resourceType>ae.activities.JDBCUpdateActivity</pd:resourceType>
+            <pd:x>360</pd:x>
+            <pd:y>103</pd:y>
+            <config>
+                <timeout>%%Database/MIG_Timeout%%</timeout>
+                <commit>false</commit>
+                <emptyStrAsNil>false</emptyStrAsNil>
+                <jdbcSharedConfig>/SharedResources/Connections/Database/DBServerOracle.sharedjdbc</jdbcSharedConfig>
+                <statement>Delete from interfaceconfig Where interfaceID = ? and applicationid=?</statement>
+                <batchUpdate>true</batchUpdate>
+                <Prepared_Param_DataType>
+                    <parameter>
+                        <parameterName>InterfaceID</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>appid</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                </Prepared_Param_DataType>
+            </config>
+            <pd:inputBindings>
+                <jdbcUpdateActivityInput>
+                    <xsl:for-each select="$Start/pfx14:DeleteQueries/pfx14:Query">
+                        <Record>
+                            <InterfaceID>
+                                <xsl:value-of select="pfx14:ID"/>
+                            </InterfaceID>
+                            <appid>
+                                <xsl:value-of select="pfx14:AppID"/>
+                            </appid>
+                        </Record>
+                    </xsl:for-each>
+                </jdbcUpdateActivityInput>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="No Records Found">
+            <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+            <pd:resourceType>ae.activities.throw</pd:resourceType>
+            <pd:x>366</pd:x>
+            <pd:y>235</pd:y>
+            <config>
+                <faultName>Schema0</faultName>
+            </config>
+            <pd:inputBindings>
+                <pfx:ActivityInput>
+                    <message>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/DB/Messages/DBRecordNotFound"/>
+                    </message>
+                    <messageCode>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/DB/Codes/SQLRecordNotFound"/>
+                    </messageCode>
+                    <data>
+                        <pfx4:DBRecordNotFound>
+                            <pfx4:Message>
+                                <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/DB/Messages/DBRecordNotFound"/>
+                            </pfx4:Message>
+                            <pfx4:Code>
+                                <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/DB/Codes/SQLRecordNotFound"/>
+                            </pfx4:Code>
+                        </pfx4:DBRecordNotFound>
+                    </data>
+                </pfx:ActivityInput>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="Delete Target Systems">
+            <pd:type>com.tibco.plugin.jdbc.JDBCUpdateActivity</pd:type>
+            <pd:resourceType>ae.activities.JDBCUpdateActivity</pd:resourceType>
+            <pd:x>253</pd:x>
+            <pd:y>193</pd:y>
+            <config>
+                <timeout>10</timeout>
+                <commit>false</commit>
+                <emptyStrAsNil>false</emptyStrAsNil>
+                <jdbcSharedConfig>/SharedResources/Connections/Database/DBServerOracle.sharedjdbc</jdbcSharedConfig>
+                <statement>delete TargetSystem where applicationid =? and interfaceid =? </statement>
+                <Prepared_Param_DataType>
+                    <parameter>
+                        <parameterName>ApplicationID</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>InterfaceID</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                </Prepared_Param_DataType>
+            </config>
+            <pd:inputBindings>
+                <jdbcUpdateActivityInput>
+                    <ApplicationID>
+                        <xsl:choose>
+                            <xsl:when test="exists($Start/pfx14:DeleteQueries/pfx14:Query[1]/pfx14:AppID)">
+                                <xsl:value-of select="$Start/pfx14:DeleteQueries/pfx14:Query[1]/pfx14:AppID"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </ApplicationID>
+                    <InterfaceID>
+                        <xsl:choose>
+                            <xsl:when test="exists($Start/pfx14:DeleteQueries/pfx14:Query[1]/pfx14:ID)">
+                                <xsl:value-of select="$Start/pfx14:DeleteQueries/pfx14:Query[1]/pfx14:ID"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </InterfaceID>
+                </jdbcUpdateActivityInput>
+            </pd:inputBindings>
+        </pd:activity>
+    </pd:group>
+    <pd:transition>
+        <pd:from>ID in use</pd:from>
+        <pd:to>Referential Integrity Error</pd:to>
+        <pd:xpathDescription>Reference Found</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$ID-in-use/pfx11:JDBCSQLException/msgCode = $_globalVariables/ns1:GlobalVariables/Exceptions/DB/Codes/SQLIntegrityError and 
+$ID-in-use/pfx11:JDBCSQLException/sqlState = $_globalVariables/ns1:GlobalVariables/Exceptions/DB/Codes/SQLReferencedIntegrityState</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Transaction Group</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Transaction Group</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Straight</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

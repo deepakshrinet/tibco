@@ -1,0 +1,20 @@
+#
+# EMS_Config_CLE.script
+#
+#
+# 05/30/2012 - Amul Chapla (TIBCO PSG)
+# EMS objects required for TIBCO CLE Framework
+
+##================================================================================================================================================
+## CLE Factories
+##================================================================================================================================================
+
+create factory XSP_FW_PRIMARY_CLECore_QCF queue url=tcp://achapla-T400:7222,tcp://achapla-T400:7222 connect_attempt_count=3 connect_attempt_delay=2000 connect_attempt_timeout=15000 reconnect_attempt_count=100 reconnect_attempt_delay=5000 reconnect_attempt_timeout=15000
+create factory XSP_FW_PRIMARY_CLECore_TCF topic url=tcp://achapla-T400:7222,tcp://achapla-T400:7222 connect_attempt_count=3 connect_attempt_delay=2000 connect_attempt_timeout=15000 reconnect_attempt_count=100 reconnect_attempt_delay=5000 reconnect_attempt_timeout=15000
+
+create factory XSP_FW_PRIMARY_CLEAdminUI_QCF queue url=tcp://achapla-T400:7222,tcp://achapla-T400:7222 connect_attempt_count=3 connect_attempt_delay=2000 connect_attempt_timeout=15000 reconnect_attempt_count=100 reconnect_attempt_delay=5000 reconnect_attempt_timeout=15000
+create factory XSP_FW_PRIMARY_CLEAdminUI_TCF topic url=tcp://achapla-T400:7222,tcp://achapla-T400:7222 connect_attempt_count=3 connect_attempt_delay=2000 connect_attempt_timeout=15000 reconnect_attempt_count=100 reconnect_attempt_delay=5000 reconnect_attempt_timeout=15000
+
+##================================================================================================================================================
+
+commit

@@ -1,0 +1,16 @@
+<data jsxnamespace="propsbundle" locales="">
+  <locale>
+    <record jsxid="procedure_ApplicationID" jsxtext="ID de Aplicación"/>
+    <record jsxid="procedure_ProcedureID" jsxtext="ID"/>
+    <record jsxid="procedure_ProcedureName" jsxtext="Nombre"/>
+    <record jsxid="procedure_ProcName" jsxtext="Nombre"/>
+    <record jsxid="procedure_Description" jsxtext="Descripción"/>
+    <record jsxid="procedure_Destination" jsxtext="Destino"/>
+    <record jsxid="procedure_destinationCol" jsxtext="Destino"/>
+    <record jsxid="procedure_PhysicalName" jsxtext="Nombre Físico"/>
+    <record jsxid="procedure_physicalNameCol" jsxtext="Nombre Físico"/>
+    <record jsxid="procedure_createNewItemCaption" jsxtext="Crear Nuevo Procedimiento"/>
+    <record jsxid="procedure_createProcedure" jsxtext="Crear Procedimiento"/>
+    <record jsxid="procedure_createProcedureTip" jsxtext="Crear Procedimiento"/>
+  </locale>
+</data>

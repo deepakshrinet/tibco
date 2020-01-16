@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by TIBCO WSDL-->
+<wsdl:definitions xmlns:ns2="http://www.tibco.com/CommonLE2/Public/Common" xmlns:ns1="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Exception/ExceptionList" xmlns:ns4="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Exception/ExceptionIDList" xmlns:ns3="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Exception/ExceptionResolution" xmlns:tns="http://www.tibco.com/CommonLE2/ExceptionManagement/GUIServices" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns0="http://www.tibco.com/schemas/COMMONLENEW/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Common/ListQuery.xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns5="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/ExceptionManagement/ExceptionDetailQuery" xmlns:ns6="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/ExceptionManagement" xmlns:ns7="http://www.tibco.com/CommonLE2/namespace/Public/Common/RequestHeader.xsd" name="Untitled" targetNamespace="http://www.tibco.com/CommonLE2/ExceptionManagement/GUIServices">
+    <wsdl:types>
+        <xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Exception/ExceptionList" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Exception/ExceptionList" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xsd:element name="ExceptionList">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="ns1:ExceptionRecord" minOccurs="0" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="ExceptionRecord">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="EXCEPTIONID" type="xsd:int"/>
+                        <xsd:element name="APPLICATIONID" type="xsd:string"/>
+                        <xsd:element name="CORRELATIONID" type="xsd:string"/>
+                        <xsd:element name="TRANSID" type="xsd:string"/>
+                        <xsd:element name="CATEGORY" type="xsd:string"/>
+                        <xsd:element name="TYPE" type="xsd:string"/>
+                        <xsd:element name="SEVERITY" type="xsd:string"/>
+                        <xsd:element name="COMPONENTNAME" type="xsd:string"/>
+                        <xsd:element name="TRANSACTIONDOMAIN" type="xsd:string"/>
+                        <xsd:element name="TIME_STAMP" type="xsd:string"/>
+                        <xsd:element name="MESSAGE" type="xsd:string"/>
+                        <xsd:element name="STATUS" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+        <xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Exception/ExceptionIDList" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Exception/ExceptionIDList" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xsd:element name="ExceptionIDList">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="ns4:ExceptionIDRecord" minOccurs="0" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="ExceptionIDRecord">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="EXCEPTIONID" type="xsd:int"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+        <xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/Common/RequestHeader.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/Common/RequestHeader.xsd" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xsd:element name="Header">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ApplicationID" type="xsd:string"/>
+                        <xsd:element name="ComponentName" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="Hostname" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="Timestamp" type="xsd:dateTime"/>
+                        <xsd:element name="TransactionDomain" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="TransactionType" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="TransactionID" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="CorrelationID" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="InterfaceID" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="Filename" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="Message" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="RenderID" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="DataEncoding" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="Transaction" type="xsd:string" minOccurs="0"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+        <xsd:schema xmlns="http://www.tibco.com/CommonLE2/Public/Common" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tibco.com/CommonLE2/Public/Common" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xsd:element name="Code" type="xsd:string"/>
+            <xsd:element name="Error">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="ns2:Message" minOccurs="0"/>
+                        <xsd:element ref="ns2:Code" minOccurs="0"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="Message" type="xsd:string"/>
+        </xsd:schema>
+        <xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/ExceptionManagement" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:Common="http://www.tibco.com/CommonLE2/namespace/Public/Common/RequestHeader.xsd" targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/ExceptionManagement" elementFormDefault="unqualified" attributeFormDefault="unqualified">
+            <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Common/RequestHeader.xsd"/>
+            <xsd:element name="ExceptionDetail">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="Common:Header"/>
+                        <xsd:element name="ExceptionInstanceID" type="xsd:string"/>
+                        <xsd:element name="ExceptionCode" type="xsd:string"/>
+                        <xsd:element name="Category" type="xsd:string"/>
+                        <xsd:element name="Type" type="xsd:string"/>
+                        <xsd:element name="Severity" type="xsd:string"/>
+                        <xsd:element name="Timeout" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="ReplyDestination" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="NotificationChannel" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="ResolutionDescription" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="Status" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="TransactionDataAfterResolve" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="Custom" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="ResolveDelayTime" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="EventType" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="Stacktrace" type="xsd:string" minOccurs="0"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+        <xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/ExceptionManagement/ExceptionDetailQuery" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/ExceptionManagement/ExceptionDetailQuery" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xsd:element name="ExceptionDetailQuery">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ExceptionID" type="xsd:integer"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+        <xs:schema xmlns="http://www.tibco.com/schemas/COMMONLENEW/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Common/ListQuery.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tibco.com/schemas/COMMONLENEW/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Common/ListQuery.xsd" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xs:element name="Application">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="ns0:ApplicationID"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ApplicationID" type="xs:string"/>
+            <xs:element name="Applications">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="ns0:Application" minOccurs="0" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Criteria">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="ns0:Criterion" minOccurs="0" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Criterion">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="ns0:FieldName"/>
+                        <xs:element ref="ns0:FromValue" minOccurs="0"/>
+                        <xs:element ref="ns0:ToValue" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="FieldName">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="TransactionID"/>
+                        <xs:enumeration value="ComponentName"/>
+                        <xs:enumeration value="Time_Stamp"/>
+                        <xs:enumeration value="TransactionDomain"/>
+                        <xs:enumeration value="CorrelationID"/>
+                        <xs:enumeration value="FileName"/>
+                        <xs:enumeration value="TransactionType"/>
+                        <xs:enumeration value="Status"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="FromValue" type="xs:string"/>
+            <xs:element name="ListQuery">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="ns0:Applications"/>
+                        <xs:element ref="ns0:Criteria"/>
+                        <xs:element ref="ns0:OrderBy" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="OrderBy">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="TransactionID"/>
+                        <xs:enumeration value="ComponentName"/>
+                        <xs:enumeration value="Time_Stamp"/>
+                        <xs:enumeration value="TransactionDomain"/>
+                        <xs:enumeration value="CorrelationID"/>
+                        <xs:enumeration value="FileName"/>
+                        <xs:enumeration value="TransactionType"/>
+                        <xs:enumeration value="Status"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ToValue" type="xs:string"/>
+        </xs:schema>
+        <xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Exception/ExceptionResolution" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Exception/ExceptionResolution" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xsd:element name="ExceptionResolutionRecord">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ExceptionID" type="xsd:string"/>
+                        <xsd:element name="ResolutionDesc" type="xsd:string"/>
+                        <xsd:element name="Status" type="xsd:string"/>
+                        <xsd:element name="TransactionUpdate" type="xsd:string" minOccurs="0"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="ExceptionResolutionRecordList">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="ns3:ExceptionResolutionRecord" minOccurs="0" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:service name="intfExceptions-service">
+        <wsdl:port name="intfwsResolveExceptionsEndpoint1" binding="tns:intfwsResolveExceptionsEndpoint1Binding">
+            <soap:address location="http://localhost:9950/ExceptionManagement/GUIServices/intfExceptions-service.serviceagent/intfwsResolveExceptionsEndpoint1"/>
+        </wsdl:port>
+    </wsdl:service>
+    <wsdl:portType name="portType">
+        <wsdl:operation name="RetrieveExceptionListOp">
+            <wsdl:input message="tns:ExceptionListQuery"/>
+            <wsdl:output message="tns:ExceptionList"/>
+            <wsdl:fault name="fault1" message="tns:Error"/>
+        </wsdl:operation>
+        <wsdl:operation name="ResolveExceptionsOp">
+            <wsdl:input message="tns:ExceptionResolutionRecordList"/>
+            <wsdl:output message="tns:Dummy"/>
+            <wsdl:fault name="fault1" message="tns:Error"/>
+        </wsdl:operation>
+        <wsdl:operation name="DeleteExceptionsOp">
+            <wsdl:input message="tns:ExceptionIDList"/>
+            <wsdl:output message="tns:Dummy"/>
+            <wsdl:fault name="fault1" message="tns:Error"/>
+        </wsdl:operation>
+        <wsdl:operation name="RetrieveExceptionDetailOp">
+            <wsdl:input message="tns:ExceptionDetailQuery"/>
+            <wsdl:output message="tns:ExceptionDetail"/>
+            <wsdl:fault name="fault1" message="tns:Error"/>
+        </wsdl:operation>
+        <wsdl:operation name="RetrieveExceptionDetailNoRenderingOp">
+            <wsdl:input message="tns:ExceptionDetailQuery"/>
+            <wsdl:output message="tns:ExceptionDetail"/>
+            <wsdl:fault name="fault1" message="tns:Error"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="intfwsResolveExceptionsEndpoint1Binding" type="tns:portType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="RetrieveExceptionListOp">
+            <soap:operation style="document" soapAction="/ExceptionManagement/GUIServices/intfResolveExceptions-service.serviceagent/intfwsResolveExceptionsEndpoint1/RetrieveExceptionListOp"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:output>
+            <wsdl:fault name="fault1">
+                <soap:fault use="literal" name="fault1"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="ResolveExceptionsOp">
+            <soap:operation style="document" soapAction="/ExceptionManagement/GUIServices/intfResolveExceptions-service.serviceagent/intfwsResolveExceptionsEndpoint1/ResolveExceptionsOp"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts=""/>
+            </wsdl:output>
+            <wsdl:fault name="fault1">
+                <soap:fault use="literal" name="fault1"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="DeleteExceptionsOp">
+            <soap:operation style="document" soapAction="/ExceptionManagement/GUIServices/intfExceptions-service.serviceagent//DeleteExceptionsOp"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts=""/>
+            </wsdl:output>
+            <wsdl:fault name="fault1">
+                <soap:fault use="literal" name="fault1"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="RetrieveExceptionDetailOp">
+            <soap:operation style="document" soapAction="/ExceptionManagement/GUIServices/intfResolveExceptions-service.serviceagent/intfwsResolveExceptionsEndpoint1/RetrieveExceptionDetailOp"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:output>
+            <wsdl:fault name="fault1">
+                <soap:fault use="literal" name="fault1"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="RetrieveExceptionDetailNoRenderingOp">
+            <soap:operation style="document" soapAction="/ExceptionManagement/GUIServices/intfExceptions-service.serviceagent//RetrieveExceptionDetailNoRenderingOp"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:output>
+            <wsdl:fault name="fault1">
+                <soap:fault use="literal" name="fault1"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:message name="ExceptionListQuery">
+        <wsdl:part name="parameters" element="ns0:ListQuery"/>
+    </wsdl:message>
+    <wsdl:message name="ExceptionList">
+        <wsdl:part name="parameters" element="ns1:ExceptionList"/>
+    </wsdl:message>
+    <wsdl:message name="Error">
+        <wsdl:part name="parameters" element="ns2:Error"/>
+    </wsdl:message>
+    <wsdl:message name="ExceptionResolutionRecordList">
+        <wsdl:part name="parameters" element="ns3:ExceptionResolutionRecordList"/>
+    </wsdl:message>
+    <wsdl:message name="Dummy"/>
+    <wsdl:message name="ExceptionIDList">
+        <wsdl:part name="part1" element="ns4:ExceptionIDList"/>
+    </wsdl:message>
+    <wsdl:message name="ExceptionDetailQuery">
+        <wsdl:part name="parameters" element="ns5:ExceptionDetailQuery"/>
+    </wsdl:message>
+    <wsdl:message name="ExceptionDetail">
+        <wsdl:part name="parameters" element="ns6:ExceptionDetail"/>
+    </wsdl:message>
+</wsdl:definitions>

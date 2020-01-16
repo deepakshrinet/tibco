@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:ns2="www.tibco.com/plugin/Timer" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:ns1="http://www.tibco.com/pe/WriteToLogActivitySchema" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns3="http://www.tibco.com/pe/EngineTypes" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx3="http://www.zimmer.com/tibco/schemas/ZBS/XSD/StoreReplayService/v1/StoreMessageSchema.xsd" xmlns:pfx2="http://www.zimmer.com/tibco/schemas/ZBS/XSD/ExceptionHandler/v1/ExceptionMessageSchema.xsd" xmlns:pfx="http://www.zimmer.com/schemas/StoreReplayService/StoreAndReplayService/Schemas/Schema.xsd" xmlns:ns11="http://www.tibco.com/namespaces/tnt/plugins/jms">
+    <pd:name>StoreAndReplayService/Processes/StarterProcesses/BatchReplayMessage.process</pd:name>
+    <pd:startName>Timer</pd:startName>
+    <pd:startX>0</pd:startX>
+    <pd:startY>0</pd:startY>
+    <pd:returnBindings/>
+    <pd:starter name="Timer">
+        <pd:type>com.tibco.plugin.timer.TimerEventSource</pd:type>
+        <pd:resourceType>ae.activities.timer</pd:resourceType>
+        <pd:x>56</pd:x>
+        <pd:y>64</pd:y>
+        <config>
+            <StartTime>%%StoreAndReplayService/BatchStartTime%%</StartTime>
+            <Frequency>false</Frequency>
+            <TimeInterval>%%StoreAndReplayService/ReplayTimer%%</TimeInterval>
+            <FrequencyIndex>Millisecond</FrequencyIndex>
+        </config>
+        <pd:inputBindings/>
+    </pd:starter>
+    <pd:endName>End</pd:endName>
+    <pd:endX>959</pd:endX>
+    <pd:endY>63</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1327642432520</pd:targetNamespace>
+    <pd:activity name="ReplayMessageIBP">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>544</pd:x>
+        <pd:y>68</pd:y>
+        <config>
+            <processName>/StoreAndReplayService/Processes/IntegrationBusinessProcesses/ReplayMessageIBP.process</processName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <BatchReplayTimestamp>
+                    <xsl:value-of select="$Timer/ns2:TimerOutputSchema/Now"/>
+                </BatchReplayTimestamp>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>966</pd:x>
+        <pd:y>404</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="ErrorHandler">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>961</pd:x>
+        <pd:y>274</pd:y>
+        <config>
+            <processName>/EnterpriseLibrary/Services/ExceptionHandler/ErrorHandler.process</processName>
+        </config>
+        <pd:inputBindings>
+            <pfx2:ExceptionMessage>
+                <pfx2:Application>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ApplicationDetails/ApplicationName"/>
+                </pfx2:Application>
+                <pfx2:Severity>
+                    <xsl:value-of select="1"/>
+                </pfx2:Severity>
+                <pfx2:ExceptionDescription>
+                    <xsl:value-of select="$_error/ns3:ErrorReport/Msg"/>
+                </pfx2:ExceptionDescription>
+                <pfx2:ExceptionType>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ExceptionHandler/ExceptionType/Technical"/>
+                </pfx2:ExceptionType>
+                <pfx2:ExceptionCode>
+                    <xsl:value-of select="$_error/ns3:ErrorReport/MsgCode"/>
+                </pfx2:ExceptionCode>
+                <pfx2:ProcessId>
+                    <xsl:value-of select="$_processContext/ns3:ProcessContext/ProcessId"/>
+                </pfx2:ProcessId>
+                <pfx2:ProcessName>
+                    <xsl:value-of select="$Set-Process-Details/ProcessDetails/ProcessName"/>
+                </pfx2:ProcessName>
+                <pfx2:EngineName>
+                    <xsl:value-of select="$_processContext/ns3:ProcessContext/EngineName"/>
+                </pfx2:EngineName>
+                <pfx2:CreateTimestamp>
+                    <xsl:value-of select="current-dateTime()"/>
+                </pfx2:CreateTimestamp>
+            </pfx2:ExceptionMessage>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Start Logger">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>295</pd:x>
+        <pd:y>65</pd:y>
+        <config>
+            <processName>/EnterpriseLibrary/Services/LogService/LogService.process</processName>
+        </config>
+        <pd:inputBindings>
+            <LogMessage>
+                <Message>
+                    <xsl:value-of select="concat('Batch started at - Date:',$Timer/ns2:TimerOutputSchema/Date,' Time:',$Timer/ns2:TimerOutputSchema/Time)"/>
+                </Message>
+                <LogLevel>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Logging/LogLevels/INFO"/>
+                </LogLevel>
+                <ActivityName>
+                    <xsl:value-of select="'Start Logger'"/>
+                </ActivityName>
+                <ProcessName>
+                    <xsl:value-of select="$Set-Process-Details/ProcessDetails/ProcessName"/>
+                </ProcessName>
+                <TransactionInfo>
+                    <Name>
+                        <xsl:value-of select="'BatchReplayTimestamp'"/>
+                    </Name>
+                    <Value>
+                        <xsl:value-of select="$Timer/ns2:TimerOutputSchema/Now"/>
+                    </Value>
+                </TransactionInfo>
+            </LogMessage>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="End Logger">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>727</pd:x>
+        <pd:y>214</pd:y>
+        <config>
+            <processName>/EnterpriseLibrary/Services/LogService/LogService.process</processName>
+        </config>
+        <pd:inputBindings>
+            <LogMessage>
+                <Message>
+                    <xsl:value-of select="'End'"/>
+                </Message>
+                <LogLevel>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Logging/LogLevels/INFO"/>
+                </LogLevel>
+                <ActivityName>
+                    <xsl:value-of select="'End Logger'"/>
+                </ActivityName>
+                <ProcessName>
+                    <xsl:value-of select="$Set-Process-Details/ProcessDetails/ProcessName"/>
+                </ProcessName>
+                <TransactionInfo>
+                    <Name>
+                        <xsl:value-of select="'BatchReplayTimestamp'"/>
+                    </Name>
+                    <Value>
+                        <xsl:value-of select="$Timer/ns2:TimerOutputSchema/Now"/>
+                    </Value>
+                </TransactionInfo>
+            </LogMessage>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Set Process Details">
+        <pd:type>com.tibco.pe.core.SetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.setSharedVariable</pd:resourceType>
+        <pd:x>183</pd:x>
+        <pd:y>71</pd:y>
+        <config>
+            <variableConfig>/EnterpriseLibrary/SharedResources/SharedVariables/ProcessDetails.jobsharedvariable</variableConfig>
+            <showResult>true</showResult>
+        </config>
+        <pd:inputBindings>
+            <ProcessDetails>
+                <ProcessName>
+                    <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns3:ProcessContext/ProcessId)"/>
+                </ProcessName>
+            </ProcessDetails>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SetBatchReplayFlag-N">
+        <pd:type>com.tibco.pe.core.SetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.setSharedVariable</pd:resourceType>
+        <pd:x>408</pd:x>
+        <pd:y>66</pd:y>
+        <config>
+            <variableConfig>/StoreAndReplayService/SharedResources/SharedVariables/BatchReplay.sharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings>
+            <Flag>
+                <ProcessFlag>
+                    <xsl:value-of select="'N'"/>
+                </ProcessFlag>
+            </Flag>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SetBatchReplaytoY">
+        <pd:type>com.tibco.pe.core.SetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.setSharedVariable</pd:resourceType>
+        <pd:x>719</pd:x>
+        <pd:y>67</pd:y>
+        <config>
+            <variableConfig>/StoreAndReplayService/SharedResources/SharedVariables/BatchReplay.sharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings>
+            <Flag>
+                <ProcessFlag>
+                    <xsl:value-of select="'Y'"/>
+                </ProcessFlag>
+            </Flag>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:group name="Group">
+        <pd:type>com.tibco.pe.core.CriticalSectionGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>199</pd:x>
+        <pd:y>139</pd:y>
+        <pd:width>186</pd:width>
+        <pd:height>140</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>criticalSection</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:scope>single</pd:scope>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>GetBatchReplayFlag</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>GetBatchReplayFlag</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="GetBatchReplayFlag">
+            <pd:type>com.tibco.pe.core.GetSharedVariableActivity</pd:type>
+            <pd:resourceType>ae.activities.getSharedVariable</pd:resourceType>
+            <pd:x>303</pd:x>
+            <pd:y>203</pd:y>
+            <config>
+                <variableConfig>/StoreAndReplayService/SharedResources/SharedVariables/BatchReplay.sharedvariable</variableConfig>
+            </config>
+            <pd:inputBindings/>
+        </pd:activity>
+    </pd:group>
+    <pd:activity name="SetBatchReplayFlag-Y">
+        <pd:type>com.tibco.pe.core.SetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.setSharedVariable</pd:resourceType>
+        <pd:x>957</pd:x>
+        <pd:y>164</pd:y>
+        <config>
+            <variableConfig>/StoreAndReplayService/SharedResources/SharedVariables/BatchReplay.sharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings>
+            <Flag>
+                <ProcessFlag>
+                    <xsl:value-of select="'Y'"/>
+                </ProcessFlag>
+            </Flag>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Timer</pd:from>
+        <pd:to>Set Process Details</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch</pd:from>
+        <pd:to>ErrorHandler</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-52480</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>ErrorHandler</pd:from>
+        <pd:to>SetBatchReplayFlag-Y</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-65536</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>End Logger</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Set Process Details</pd:from>
+        <pd:to>Start Logger</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SetBatchReplaytoY</pd:from>
+        <pd:to>End Logger</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>ReplayMessageIBP</pd:from>
+        <pd:to>SetBatchReplaytoY</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SetBatchReplayFlag-N</pd:from>
+        <pd:to>ReplayMessageIBP</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start Logger</pd:from>
+        <pd:to>Group</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>SetBatchReplayFlag-N</pd:to>
+        <pd:xpathDescription>If Variable='Y'</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$GetBatchReplayFlag/Flag/ProcessFlag = 'Y'</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>End Logger</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SetBatchReplayFlag-Y</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-65536</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

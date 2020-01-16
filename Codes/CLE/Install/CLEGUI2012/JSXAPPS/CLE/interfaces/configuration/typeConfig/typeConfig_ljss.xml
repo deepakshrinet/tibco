@@ -1,0 +1,47 @@
+<data jsxnamespace="propsbundle" locales="">
+  <locale>
+    <record jsxid="typeConfig_ApplicationID" jsxtext="Application ID"/>
+    <record jsxid="typeConfig_TypeID" jsxtext="ID"/>
+    <record jsxid="typeConfig_TypeName" jsxtext="Name"/>
+    <record jsxid="typeConfig_Description" jsxtext="Description"/>
+    <record jsxid="typeConfig_createNewItemCaption" jsxtext="Create New Type"/>
+    <record jsxid="typeConfig_createType" jsxtext="Create Type"/>
+    <record jsxid="typeConfig_createTypeTip" jsxtext="Create Type"/>
+  </locale>
+  <locale key="pt_BR">
+    <record jsxid="typeConfig_ApplicationID" jsxtext="ID da Aplicação"/>
+    <record jsxid="typeConfig_TypeID" jsxtext="ID"/>
+    <record jsxid="typeConfig_TypeName" jsxtext="Nome"/>
+    <record jsxid="typeConfig_Description" jsxtext="Descrição"/>
+    <record jsxid="typeConfig_createNewItemCaption" jsxtext="Criar Novo Tipo"/>
+    <record jsxid="typeConfig_createType" jsxtext="Criar Tipo"/>
+    <record jsxid="typeConfig_createTypeTip" jsxtext="Criar Tipo"/>
+  </locale>
+  <locale key="es_ES">
+    <record jsxid="typeConfig_ApplicationID" jsxtext="ID de Aplicación"/>
+    <record jsxid="typeConfig_TypeID" jsxtext="ID"/>
+    <record jsxid="typeConfig_TypeName" jsxtext="Nombre"/>
+    <record jsxid="typeConfig_Description" jsxtext="Descripción"/>
+    <record jsxid="typeConfig_createNewItemCaption" jsxtext="Crear Nuevo Tipo"/>
+    <record jsxid="typeConfig_createType" jsxtext="Crear Tipo"/>
+    <record jsxid="typeConfig_createTypeTip" jsxtext="Crear Tipo"/>
+  </locale>
+  <locale key="sv_SV">
+    <record jsxid="typeConfig_ApplicationID" jsxtext="ApplikationsID"/>
+    <record jsxid="typeConfig_TypeID" jsxtext="ID"/>
+    <record jsxid="typeConfig_TypeName" jsxtext="Namn"/>
+    <record jsxid="typeConfig_Description" jsxtext="Beskrivning"/>
+    <record jsxid="typeConfig_createNewItemCaption" jsxtext="Skapa Ny Typ"/>
+    <record jsxid="typeConfig_createType" jsxtext="Skapa Typ"/>
+    <record jsxid="typeConfig_createTypeTip" jsxtext="Skapa Typ"/>
+  </locale>
+  <locale key="zh_CH">
+    <record jsxid="typeConfig_ApplicationID" jsxtext="应用程序ID"/>
+    <record jsxid="typeConfig_TypeID" jsxtext="ID"/>
+    <record jsxid="typeConfig_TypeName" jsxtext="名字"/>
+    <record jsxid="typeConfig_Description" jsxtext="描述"/>
+    <record jsxid="typeConfig_createNewItemCaption" jsxtext="创建新类型"/>
+    <record jsxid="typeConfig_createType" jsxtext="创建类型"/>
+    <record jsxid="typeConfig_createTypeTip" jsxtext="创建类型"/>
+  </locale>
+</data>

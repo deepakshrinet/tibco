@@ -1,0 +1,549 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="http://www.tibco.com/namespaces/tnt/plugins/file" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <pd:name>Services/SFDC_SF/Operations/ReadSAPHrFile.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="UserFileName" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="ExtFileName" type="xsd:string" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>150</pd:startX>
+    <pd:startY>64</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>815</pd:endX>
+    <pd:endY>68</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1486622794083</pd:targetNamespace>
+    <pd:activity name="WriteUserFile-Header">
+        <pd:type>com.tibco.plugin.file.FileWriteActivity</pd:type>
+        <pd:resourceType>ae.activities.FileWriteActivity</pd:resourceType>
+        <pd:x>405</pd:x>
+        <pd:y>66</pd:y>
+        <config>
+            <encoding>text</encoding>
+            <compressFile>None</compressFile>
+            <append>false</append>
+            <createMissingDirectories>true</createMissingDirectories>
+        </config>
+        <pd:inputBindings>
+            <ns1:WriteActivityInputTextClass>
+                <fileName>
+                    <xsl:value-of select="$Start/root/UserFileName"/>
+                </fileName>
+                <textContent>
+                    <xsl:value-of select="$RenderHeaderData/Text"/>
+                </textContent>
+            </ns1:WriteActivityInputTextClass>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="WriteUserExtFile-Header">
+        <pd:type>com.tibco.plugin.file.FileWriteActivity</pd:type>
+        <pd:resourceType>ae.activities.FileWriteActivity</pd:resourceType>
+        <pd:x>682</pd:x>
+        <pd:y>66</pd:y>
+        <config>
+            <encoding>text</encoding>
+            <compressFile>None</compressFile>
+            <append>false</append>
+            <createMissingDirectories>true</createMissingDirectories>
+        </config>
+        <pd:inputBindings>
+            <ns1:WriteActivityInputTextClass>
+                <fileName>
+                    <xsl:value-of select="$Start/root/ExtFileName"/>
+                </fileName>
+                <textContent>
+                    <xsl:value-of select="$RenderUserExtData-Header/Text"/>
+                </textContent>
+            </ns1:WriteActivityInputTextClass>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="RenderHeaderData">
+        <pd:type>com.tibco.plugin.parse.RenderActivity</pd:type>
+        <pd:resourceType>ae.activities.RenderActivity</pd:resourceType>
+        <pd:x>275</pd:x>
+        <pd:y>64</pd:y>
+        <config>
+            <ParseSharedConfig>/SharedResources/Schemas/DataFormat/SFDataFormat.sharedparse</ParseSharedConfig>
+        </config>
+        <pd:inputBindings>
+            <Rows>
+                <User>
+                    <STATUS>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'STATUS'"/>
+                    </STATUS>
+                    <USERID>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'USERID'"/>
+                    </USERID>
+                    <USERNAME>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'USERNAME'"/>
+                    </USERNAME>
+                    <FIRSTNAME>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'FIRSTNAME'"/>
+                    </FIRSTNAME>
+                    <LASTNAME>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'LASTNAME'"/>
+                    </LASTNAME>
+                    <MI>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'MI'"/>
+                    </MI>
+                    <GENDER>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'GENDER'"/>
+                    </GENDER>
+                    <EMAIL>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'EMAIL'"/>
+                    </EMAIL>
+                    <MANAGER>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'MANAGER'"/>
+                    </MANAGER>
+                    <HR>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'HR'"/>
+                    </HR>
+                    <DIVISION>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'DIVISION'"/>
+                    </DIVISION>
+                    <DEPARTMENT>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'DEPARTMENT'"/>
+                    </DEPARTMENT>
+                    <LOCATION>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'LOCATION'"/>
+                    </LOCATION>
+                    <JOBCODE>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'JOBCODE'"/>
+                    </JOBCODE>
+                    <TIMEZONE>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'TIMEZONE'"/>
+                    </TIMEZONE>
+                    <HIREDATE>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'HIREDATE'"/>
+                    </HIREDATE>
+                    <EMPID>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'EMPID'"/>
+                    </EMPID>
+                    <TITLE>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'TITLE'"/>
+                    </TITLE>
+                    <BIZ_PHONE>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'BIZ_PHONE'"/>
+                    </BIZ_PHONE>
+                    <FAX>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'FAX'"/>
+                    </FAX>
+                    <ADDR1>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'ADDR1'"/>
+                    </ADDR1>
+                    <ADDR2>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'ADDR2'"/>
+                    </ADDR2>
+                    <CITY>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'CITY'"/>
+                    </CITY>
+                    <STATE>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'STATE'"/>
+                    </STATE>
+                    <ZIP>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'ZIP'"/>
+                    </ZIP>
+                    <COUNTRY>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'COUNTRY'"/>
+                    </COUNTRY>
+                    <REVIEW_FREQ>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'REVIEW_FREQ'"/>
+                    </REVIEW_FREQ>
+                    <LAST_REVIEW_DATE>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'LAST_REVIEW_DATE'"/>
+                    </LAST_REVIEW_DATE>
+                    <CUSTOM01>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'CUSTOM01'"/>
+                    </CUSTOM01>
+                    <CUSTOM02>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'CUSTOM02'"/>
+                    </CUSTOM02>
+                    <CUSTOM03>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'CUSTOM03'"/>
+                    </CUSTOM03>
+                    <CUSTOM04>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'CUSTOM04'"/>
+                    </CUSTOM04>
+                    <CUSTOM05>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'CUSTOM05'"/>
+                    </CUSTOM05>
+                    <CUSTOM06>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'CUSTOM06'"/>
+                    </CUSTOM06>
+                    <CUSTOM07>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'CUSTOM07'"/>
+                    </CUSTOM07>
+                    <CUSTOM08>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'CUSTOM08'"/>
+                    </CUSTOM08>
+                    <CUSTOM09>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'CUSTOM09'"/>
+                    </CUSTOM09>
+                    <CUSTOM10>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'CUSTOM10'"/>
+                    </CUSTOM10>
+                    <CUSTOM11>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'CUSTOM11'"/>
+                    </CUSTOM11>
+                    <CUSTOM12>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'CUSTOM12'"/>
+                    </CUSTOM12>
+                    <CUSTOM13>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'CUSTOM13'"/>
+                    </CUSTOM13>
+                    <CUSTOM14>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'CUSTOM14'"/>
+                    </CUSTOM14>
+                    <CUSTOM15>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'CUSTOM15'"/>
+                    </CUSTOM15>
+                    <MATRIX_MANAGER>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'MATRIX_MANAGER'"/>
+                    </MATRIX_MANAGER>
+                    <DEFAULT_LOCALE>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'DEFAULT_LOCALE'"/>
+                    </DEFAULT_LOCALE>
+                    <PROXY>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'PROXY'"/>
+                    </PROXY>
+                    <CUSTOM_MANAGER>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'CUSTOM_MANAGER'"/>
+                    </CUSTOM_MANAGER>
+                    <SECOND_MANAGER>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'SECOND_MANAGER'"/>
+                    </SECOND_MANAGER>
+                    <LOGIN_METHOD>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'LOGIN_METHOD'"/>
+                    </LOGIN_METHOD>
+                </User>
+                <User>
+                    <STATUS>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'STATUS'"/>
+                    </STATUS>
+                    <USERID>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'USERID'"/>
+                    </USERID>
+                    <USERNAME>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'User Name'"/>
+                    </USERNAME>
+                    <FIRSTNAME>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'First Name'"/>
+                    </FIRSTNAME>
+                    <LASTNAME>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'Last Name'"/>
+                    </LASTNAME>
+                    <MI>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'Middle Name'"/>
+                    </MI>
+                    <GENDER>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'Gender'"/>
+                    </GENDER>
+                    <EMAIL>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'Email'"/>
+                    </EMAIL>
+                    <MANAGER>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'Manager'"/>
+                    </MANAGER>
+                    <HR>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'Human Resource'"/>
+                    </HR>
+                    <DIVISION>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'Division'"/>
+                    </DIVISION>
+                    <DEPARTMENT>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'Cost Center'"/>
+                    </DEPARTMENT>
+                    <LOCATION>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'Personnel Area'"/>
+                    </LOCATION>
+                    <JOBCODE>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'Job Code'"/>
+                    </JOBCODE>
+                    <TIMEZONE>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'Time Zone'"/>
+                    </TIMEZONE>
+                    <HIREDATE>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'Hire Date'"/>
+                    </HIREDATE>
+                    <EMPID>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'Central Person'"/>
+                    </EMPID>
+                    <TITLE>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'Position Code'"/>
+                    </TITLE>
+                    <BIZ_PHONE>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'Business Phone'"/>
+                    </BIZ_PHONE>
+                    <FAX>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'Business Fax'"/>
+                    </FAX>
+                    <ADDR1>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'Address 1'"/>
+                    </ADDR1>
+                    <ADDR2>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'Address 2'"/>
+                    </ADDR2>
+                    <CITY>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'City'"/>
+                    </CITY>
+                    <STATE>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'State'"/>
+                    </STATE>
+                    <ZIP>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'ZIP'"/>
+                    </ZIP>
+                    <COUNTRY>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'Country'"/>
+                    </COUNTRY>
+                    <REVIEW_FREQ>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'Review Frequency'"/>
+                    </REVIEW_FREQ>
+                    <LAST_REVIEW_DATE>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'Last Review Date'"/>
+                    </LAST_REVIEW_DATE>
+                    <CUSTOM01>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'Customizable Field 01'"/>
+                    </CUSTOM01>
+                    <CUSTOM02>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'Customizable Field 02'"/>
+                    </CUSTOM02>
+                    <CUSTOM03>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'Customizable Field 03'"/>
+                    </CUSTOM03>
+                    <CUSTOM04>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'Customizable Field 04'"/>
+                    </CUSTOM04>
+                    <CUSTOM05>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'Customizable Field 05'"/>
+                    </CUSTOM05>
+                    <CUSTOM06>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'Customizable Field 06'"/>
+                    </CUSTOM06>
+                    <CUSTOM07>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'Customizable Field 07'"/>
+                    </CUSTOM07>
+                    <CUSTOM08>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'Customizable Field 08'"/>
+                    </CUSTOM08>
+                    <CUSTOM09>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'Customizable Field 09'"/>
+                    </CUSTOM09>
+                    <CUSTOM10>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'Customizable Field 10'"/>
+                    </CUSTOM10>
+                    <CUSTOM11>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'Customizable Field 11'"/>
+                    </CUSTOM11>
+                    <CUSTOM12>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'Customizable Field 12'"/>
+                    </CUSTOM12>
+                    <CUSTOM13>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'Customizable Field 13'"/>
+                    </CUSTOM13>
+                    <CUSTOM14>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'Customizable Field 14'"/>
+                    </CUSTOM14>
+                    <CUSTOM15>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'Customizable Field 15'"/>
+                    </CUSTOM15>
+                    <MATRIX_MANAGER>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'Matrix Manager'"/>
+                    </MATRIX_MANAGER>
+                    <DEFAULT_LOCALE>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'Default Locale'"/>
+                    </DEFAULT_LOCALE>
+                    <PROXY>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'Proxy'"/>
+                    </PROXY>
+                    <CUSTOM_MANAGER>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'Custom Manager'"/>
+                    </CUSTOM_MANAGER>
+                    <SECOND_MANAGER>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'Second Manager'"/>
+                    </SECOND_MANAGER>
+                    <LOGIN_METHOD>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'Login Method'"/>
+                    </LOGIN_METHOD>
+                </User>
+            </Rows>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="RenderUserExtData-Header">
+        <pd:type>com.tibco.plugin.parse.RenderActivity</pd:type>
+        <pd:resourceType>ae.activities.RenderActivity</pd:resourceType>
+        <pd:x>548</pd:x>
+        <pd:y>66</pd:y>
+        <config>
+            <ParseSharedConfig>/SharedResources/Schemas/DataFormat/UserExtDataFormat.sharedparse</ParseSharedConfig>
+        </config>
+        <pd:inputBindings>
+            <Rows>
+                <User>
+                    <USERID>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'^USERID'"/>
+                    </USERID>
+                    <SSN>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'SSN'"/>
+                    </SSN>
+                    <DOB>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'dateOfBirth'"/>
+                    </DOB>
+                    <CITIZENSHIP>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'citizenship'"/>
+                    </CITIZENSHIP>
+                    <NATIONALITY>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'nationality'"/>
+                    </NATIONALITY>
+                    <ETHNICITY>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'ethnicity'"/>
+                    </ETHNICITY>
+                    <MARRIED>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'married'"/>
+                    </MARRIED>
+                    <MINORITY>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'minority'"/>
+                    </MINORITY>
+                    <BUSINESS_SEGMENT>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'businessSegment'"/>
+                    </BUSINESS_SEGMENT>
+                    <SERVICE_DATE>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'serviceDate'"/>
+                    </SERVICE_DATE>
+                    <LEVEL>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'level'"/>
+                    </LEVEL>
+                    <PHOTO>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'photo'"/>
+                    </PHOTO>
+                    <FUNCTION>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'function'"/>
+                    </FUNCTION>
+                    <PERFORMANCE>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'performance'"/>
+                    </PERFORMANCE>
+                    <POTENTIAL>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'potential'"/>
+                    </POTENTIAL>
+                    <OBJECTIVE>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'objective'"/>
+                    </OBJECTIVE>
+                    <COMPETENCY>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'competency'"/>
+                    </COMPETENCY>
+                    <TALENT_POOL>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'talentPool'"/>
+                    </TALENT_POOL>
+                    <RISK_OF_LOSS>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'riskOfLoss'"/>
+                    </RISK_OF_LOSS>
+                    <IMPACT_OF_LOSS>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'impactOfLoss'"/>
+                    </IMPACT_OF_LOSS>
+                    <BENCH_STRENGTH>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'benchStrength'"/>
+                    </BENCH_STRENGTH>
+                    <REASON_FOR_LEAVING>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'reasonForLeaving'"/>
+                    </REASON_FOR_LEAVING>
+                    <NEW_TO_POSITION>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'newToPosition'"/>
+                    </NEW_TO_POSITION>
+                    <DATE_OF_POSITION>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'dateOfPosition'"/>
+                    </DATE_OF_POSITION>
+                    <KEY_POSITION>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'keyPosition'"/>
+                    </KEY_POSITION>
+                    <FUTURE_LEADER>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'futureLeader'"/>
+                    </FUTURE_LEADER>
+                    <MATRIX_MANAGED>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'matrixManaged'"/>
+                    </MATRIX_MANAGED>
+                    <REGION>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'REGION'"/>
+                    </REGION>
+                    <OPCOM>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'OPCOM'"/>
+                    </OPCOM>
+                    <EMPLOYEE_TYPE>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'EMPLOYEE_TYPE'"/>
+                    </EMPLOYEE_TYPE>
+                    <HCP>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'HCP'"/>
+                    </HCP>
+                    <ON_LEAVE>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'ON_LEAVE'"/>
+                    </ON_LEAVE>
+                    <LEAVE_EXPIRATION>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'LEAVE_EXPIRATION'"/>
+                    </LEAVE_EXPIRATION>
+                    <DOMAIN>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'DOMAIN'"/>
+                    </DOMAIN>
+                    <OPCOM_1>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'OPCOM_1'"/>
+                    </OPCOM_1>
+                    <SITE>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'SITE'"/>
+                    </SITE>
+                    <USER_SOURCE>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'USER_SOURCE'"/>
+                    </USER_SOURCE>
+                    <SALES_SPECIALITY>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'SALES_SPECIALITY'"/>
+                    </SALES_SPECIALITY>
+                    <JOB_DESCRIPTION>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'JOB_DESCRIPTION'"/>
+                    </JOB_DESCRIPTION>
+                    <LMS_EMAIL>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'LMS_EMAIL'"/>
+                    </LMS_EMAIL>
+                </User>
+            </Rows>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>RenderHeaderData</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>RenderHeaderData</pd:from>
+        <pd:to>WriteUserFile-Header</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>WriteUserFile-Header</pd:from>
+        <pd:to>RenderUserExtData-Header</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>RenderUserExtData-Header</pd:from>
+        <pd:to>WriteUserExtFile-Header</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>WriteUserExtFile-Header</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

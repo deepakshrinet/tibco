@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Repository:repository xmlns:Repository="http://www.tibco.com/xmlns/repo/types/2002">
+    <enterpriseArchive>
+        <sharedArchive name="Shared Archive">
+            <resourceType>shared.archive.resource</resourceType>
+            <authorProperty>gangwars</authorProperty>
+        </sharedArchive>
+        <processArchive name="BCFileSendUtility">
+            <resourceType>process.archive.resource</resourceType>
+            <authorProperty>gangwars</authorProperty>
+            <processProperty>/Services/Processes/Timer_Process.process,/Services/Operations/SendToBCProcess.process,/Services/Operations/BC_ReadFile.process,/CLE/Interface/Loader/InitializeLogLevel.process</processProperty>
+        </processArchive>
+        <versionProperty>1.0.0</versionProperty>
+        <authorProperty>gangwars</authorProperty>
+        <addServiceSettableGvars>true</addServiceSettableGvars>
+        <name>BCFileSendUtility</name>
+        <designer/>
+        <fileLocationProperty>C:\Development\EAR\BCFileSendUtility.ear</fileLocationProperty>
+    </enterpriseArchive>
+</Repository:repository>

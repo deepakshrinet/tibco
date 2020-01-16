@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BWSharedResource>
+    <name>JDBC Connection</name>
+    <resourceType>ae.shared.JDBCSharedResource</resourceType>
+    <config>
+        <driver>oracle.jdbc.driver.OracleDriver (thin)</driver>
+        <maxConnections>10</maxConnections>
+        <loginTimeout>0</loginTimeout>
+        <connectionType>JDBC</connectionType>
+        <UseSharedJndiConfig>false</UseSharedJndiConfig>
+        <location>jdbc:oracle:thin:@sbd-tibdb-pd.zmr.zimmer.com:1521:tibnprd</location>
+        <user>chandraj</user>
+        <password>#!gW3ADM2SND7I+wzRAov7T0WX0A4kZwq+</password>
+    </config>
+</BWSharedResource>

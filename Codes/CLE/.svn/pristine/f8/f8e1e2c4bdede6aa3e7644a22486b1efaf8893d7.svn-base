@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlPfx="http://www.tibco.com/CommonLE2/namespace/Logging/GUIServices" xmlns:ns5="http://www.tibco.com/schemas/COMMONLENEW/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Common/ListQuery.xsd" xmlns:pfx="http://www.tibco.com/CommonLE/namespace/Common" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://xmlns.example.com/unique/default/namespace/1163206731086" xmlns:ns1="http://www.tibco.com/pe/EngineTypes" xmlns:ns4="http://www.tibco.com/CommonLE2/Public/Common" xmlns:ns3="http://www.tibco.com/pe/DeployedVarsType" xmlns:pfx4="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogList" xmlns:pfx3="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogListQuery" xmlns:pfx2="http://www.tibco.com/CommonLE2/namespace/private/Common">
+    <wsdl:import namespace="http://www.tibco.com/CommonLE2/namespace/Logging/GUIServices" location="/SharedResources/WSDL/GUI/Log/intfRetrieve_Log.wsdl"/>
+    <pd:name>Logging/GUIServices/wsRetrieve_Log_List.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType wsMsgRef="wsdlPfx:LogListQuery"/>
+    <pd:startX>51</pd:startX>
+    <pd:startY>56</pd:startY>
+    <pd:returnBindings>
+        <wsdlPfx:LogList>
+            <parameters>
+                <xsl:choose>
+                    <xsl:when test="count($Retrieve-Log-List/pfx4:LogList/pfx4:LogRecord)> 0">
+                        <pfx4:LogList>
+                            <xsl:copy-of select="$Retrieve-Log-List/pfx4:LogList/pfx4:LogRecord"/>
+                        </pfx4:LogList>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <pfx4:LogList/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </parameters>
+        </wsdlPfx:LogList>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType wsMsgRef="wsdlPfx:LogList"/>
+    <pd:endX>465</pd:endX>
+    <pd:endY>52</pd:endY>
+    <pd:errorSchemas>
+        <Schema0 wsMsgRef="wsdlPfx:Error"/>
+    </pd:errorSchemas>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1284170609953</pd:targetNamespace>
+    <pd:activity name="Retrieve Log List">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>284</pd:x>
+        <pd:y>55</pd:y>
+        <config>
+            <processName>/Logging/DataAccess/Oracle/RetrieveLogList.process</processName>
+            <processNameXPath>concat('/Logging/DataAccess/',$_globalVariables/ns3:GlobalVariables/Database/MIG_DatabaseType,'/RetrieveLogList.process')</processNameXPath>
+        </config>
+        <pd:inputBindings>
+            <xsl:copy-of select="$Start/wsdlPfx:LogListQuery/parameters/ns5:ListQuery"/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch All Errors">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>66</pd:x>
+        <pd:y>225</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Local Exception Handler">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>249</pd:x>
+        <pd:y>233</pd:y>
+        <config>
+            <processName>/Common/Local Exception Handler.process</processName>
+        </config>
+        <pd:inputBindings>
+            <pfx:Exception>
+                <ErrorMessage>
+                    <xsl:value-of select="$_error/ns1:ErrorReport/Msg"/>
+                </ErrorMessage>
+                <xsl:if test="$_error/ns1:ErrorReport/MsgCode">
+                    <ErrorCode>
+                        <xsl:value-of select="$_error/ns1:ErrorReport/MsgCode"/>
+                    </ErrorCode>
+                </xsl:if>
+                <pfx:Error>
+                    <xsl:for-each select="$_error/ns1:ErrorReport">
+                        <pfx:ErrorReport>
+                            <StackTrace>
+                                <xsl:value-of select="StackTrace"/>
+                            </StackTrace>
+                            <Msg>
+                                <xsl:value-of select="Msg"/>
+                            </Msg>
+                            <FullClass>
+                                <xsl:value-of select="FullClass"/>
+                            </FullClass>
+                            <Class>
+                                <xsl:value-of select="Class"/>
+                            </Class>
+                            <ProcessStack>
+                                <xsl:value-of select="ProcessStack"/>
+                            </ProcessStack>
+                            <MsgCode>
+                                <xsl:value-of select="MsgCode"/>
+                            </MsgCode>
+                        </pfx:ErrorReport>
+                    </xsl:for-each>
+                </pfx:Error>
+            </pfx:Exception>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Generate Internal Error">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>411</pd:x>
+        <pd:y>235</pd:y>
+        <config>
+            <faultName>Schema0</faultName>
+        </config>
+        <pd:inputBindings>
+            <ns:ActivityInput>
+                <message>
+                    <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/Exceptions/Common/Messages/InternalError"/>
+                </message>
+                <messageCode>
+                    <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/Exceptions/Common/Codes/InternalError"/>
+                </messageCode>
+                <data>
+                    <wsdlPfx:Error>
+                        <parameters>
+                            <ns4:Error>
+                                <ns4:Message>
+                                    <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/Exceptions/Common/Messages/InternalError"/>
+                                </ns4:Message>
+                                <ns4:Code>
+                                    <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/Exceptions/Common/Codes/InternalError"/>
+                                </ns4:Code>
+                            </ns4:Error>
+                        </parameters>
+                    </wsdlPfx:Error>
+                </data>
+            </ns:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Retrieve Record Count">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>179</pd:x>
+        <pd:y>111</pd:y>
+        <config>
+            <processName>/Logging/DataAccess/Oracle/RetrieveRecordCount.process</processName>
+            <processNameXPath>concat("/Logging/DataAccess/",$_globalVariables/ns3:GlobalVariables/Database/MIG_DatabaseType,"/RetrieveRecordCount.process")</processNameXPath>
+        </config>
+        <pd:inputBindings>
+            <xsl:copy-of select="$Start/wsdlPfx:LogListQuery/parameters/ns5:ListQuery"/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Retrieve Log List</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Retrieve Log List</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch All Errors</pd:from>
+        <pd:to>Local Exception Handler</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Local Exception Handler</pd:from>
+        <pd:to>Generate Internal Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Retrieve Record Count</pd:from>
+        <pd:to>Retrieve Log List</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Retrieve Record Count</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

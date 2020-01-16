@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:ns="http://www.tibco.com/CommonLE2/Public/Common" xmlns:pfx0="http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common/Request" xmlns:tns="http://www.tibco.com/CommonLE2/namespace/private/Common/Chart" xmlns:pfx1="http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common/Response" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx2="http://www.tibco.com/CommonLE2/namespace/private/Common" targetNamespace="http://www.tibco.com/CommonLE2/namespace/private/Common/Chart">
+    <import namespace="http://www.tibco.com/CommonLE2/namespace/private/Common" location="../../../SchemaDefinitions/Private/Common/LocalExceptions.xsd"/>
+    <import namespace="http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common/Response" location="../../../SchemaDefinitions/Public/Pluggable/GUI/Common/ChartInfoResponse.xsd"/>
+    <import namespace="http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common/Request" location="../../../SchemaDefinitions/Public/Pluggable/GUI/Common/ChartInfoRequest.xsd"/>
+    <import namespace="http://www.tibco.com/CommonLE2/Public/Common" location="../../../SchemaDefinitions/Public/Common/ErrorMessage.xsd"/>
+    <message name="ChartInfo">
+        <part element="pfx1:ChartInfo" name="parameters"/>
+    </message>
+    <message name="ChartInfoRequest">
+        <part element="pfx0:ChartInfoRequest" name="parameters"/>
+    </message>
+    <message name="ErrorMessage">
+        <part name="parameters" element="ns:Error"/>
+    </message>
+    <portType name="portType">
+        <operation name="ChartInfoRetrievalOp">
+            <input message="tns:ChartInfoRequest"/>
+            <output message="tns:ChartInfo"/>
+            <fault message="tns:ErrorMessage" name="fault1"/>
+        </operation>
+    </portType>
+</definitions>

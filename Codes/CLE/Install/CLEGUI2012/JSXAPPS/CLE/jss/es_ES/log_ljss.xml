@@ -1,0 +1,51 @@
+<data jsxnamespace="propsbundle" locales="">
+  <locale>
+    <record jsxid="log_tabLabel" jsxtext="Bitácoras"/>
+    <record jsxid="log_searchLogs" jsxtext="Buscar Bitácoras"/>
+    <record jsxid="log_detail" jsxtext="Detalle"/>
+    <record jsxid="log_details" jsxtext="Detalles"/>
+    <record jsxid="log_header" jsxtext="Encabezado"/>
+    <record jsxid="log_transaction" jsxtext="Transacción"/>
+    <record jsxid="log_deleteSelectedLogs" jsxtext="Eliminar Bitácoras Seleccionadas"/>
+    <record jsxid="log_manageColumns" jsxtext="Administrar Columnas"/>
+    <record jsxid="log_manageColumnsCaption" jsxtext="Administrar Columnas para Lista de Bitácora"/>
+    <record jsxid="log_idCol" jsxtext="ID" ref="LOGID"/>
+    <record jsxid="log_logIdCol" jsxtext="ID" ref="LOGID"/>
+    <record jsxid="log_applicationIdCol" jsxtext="ID de Aplicación" ref="APPLICATIONID"/>
+    <record jsxid="log_componentNameCol" jsxtext="Nombre de Componente" ref="COMPONENTNAME"/>
+    <record jsxid="log_transactionDomainCol" jsxtext="Dominio de Transacción" ref="TRANSACTIONDOMAIN"/>
+    <record jsxid="log_timestampCol" jsxtext="Fecha y Hora" ref="TIME_STAMP"/>
+    <record jsxid="log_transactionIdCol" jsxtext="ID de Transacción" ref="TRANSACTIONID"/>
+    <record jsxid="log_correlationIdCol" jsxtext="ID de Correlación" ref="CORRELATIONID"/>
+    <record jsxid="log_messageCol" jsxtext="Mensaje" ref="LOGMESSAGES"/>
+    <record jsxid="log_logMessagesCol" jsxtext="Mensaje" ref="LOGMESSAGES"/>
+    <record jsxid="log_statusCol" jsxtext="Status" ref="STATUS"/>
+    <record jsxid="log_clearValue" jsxtext="Limpiar/Reiniciar Valor"/>
+    <record jsxid="log_correlateExceptions" jsxtext="Correlacionar Excepciones"/>
+    <record jsxid="log_include" jsxtext="Incluir"/>
+    <record jsxid="log_rebuildApplicationList" jsxtext="Reconstruir Lista de Aplicación"/>
+    <record jsxid="log_noRecordsFoundUsingCriteria" jsxtext="No se encontraron registros utilizando criterios."/>
+    <record jsxid="log_listScrollInfo" jsxtext="- viendo mensajes de bitácora {0} al {1} de {2} -"/>
+    <record jsxid="log_deleteMessage" jsxtext="Las bitácoras seleccionadas serán eliminadas permanentemente, ¿continuar con la eliminación?"/>
+    <record jsxid="log_attrLogID" jsxtext="ID de Bitácora"/>
+    <record jsxid="log_attrTimeDuration" jsxtext="Tiempo de Duración"/>
+    <record jsxid="log_attrCategory" jsxtext="Categoría"/>
+    <record jsxid="log_attrStatus" jsxtext="Estatus"/>
+    <record jsxid="log_attrSize" jsxtext="Tamaño"/>
+    <record jsxid="log_attrApplicationID" jsxtext="ID de Aplicación"/>
+    <record jsxid="log_attrComponentName" jsxtext="Nombre de Componente"/>
+    <record jsxid="log_attrHostname" jsxtext="Hostname"/>
+    <record jsxid="log_attrTimestamp" jsxtext="Fecha y Hora"/>
+    <record jsxid="log_attrTransactionDomain" jsxtext="Dominio de Transacción"/>
+    <record jsxid="log_attrTransactionType" jsxtext="Tipo de Transacción"/>
+    <record jsxid="log_attrTransactionID" jsxtext="ID de Transacción"/>
+    <record jsxid="log_attrCorrelationID" jsxtext="ID de Correlación"/>
+    <record jsxid="log_attrInterfaceID" jsxtext="ID de Interfaz"/>
+    <record jsxid="log_attrFilename" jsxtext="Nombre de Archivo"/>
+    <record jsxid="log_attrMessage" jsxtext="Mensaje"/>
+    <record jsxid="log_attrRenderID" jsxtext="ID de Conversión"/>
+    <record jsxid="log_attrDataEncoding" jsxtext="Codificación de Datos"/>
+    <record jsxid="log_flipDetailsOrientation" jsxtext="Voltear Orientación de Detalles"/>
+    <record jsxid="log_flipDetailsOrientationTip" jsxtext="Modificar Orientación de Vista de Detalles"/>
+  </locale>
+</data>

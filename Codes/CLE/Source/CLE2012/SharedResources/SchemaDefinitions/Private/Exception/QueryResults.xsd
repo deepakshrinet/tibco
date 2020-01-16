@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns="http://www.tibco.com/CommonLE2/Private/Exception"
+	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	 targetNamespace="http://www.tibco.com/CommonLE2/Private/Exception"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+
+</xsd:schema>

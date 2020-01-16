@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serviceResource xmlns:wsdl="http://www.tibco.com/CommonLE2/namespace/Logging/LogLevel/GUIServices">
+    <ns0:import xmlns:ns0="http://schemas.xmlsoap.org/wsdl/" namespace="http://www.tibco.com/CommonLE2/namespace/Logging/LogLevel/GUIServices" location="/SharedResources/WSDL/GUI/Log/IntfLogLevelParameters.wsdl"/>
+    <config>
+        <wsdl namespace="http://xmlns.example.com/1299251129297" embedWsdlComponents="true" embedSchemaComponents="true" embedJndiProperties="false"/>
+        <class>com.tibco.bw.service.serviceAgent.ServiceServiceAgent</class>
+        <implType>bw</implType>
+        <groups>
+            <row isDefault="true" groupName="Default"/>
+        </groups>
+        <serviceChange>Tue Aug 09 21:23:16 PDT 2011</serviceChange>
+        <name>Configure_LogLevel_Settings</name>
+        <interfaceImpl>
+            <tab>
+                <tabName>portType</tabName>
+                <tabType>bw</tabType>
+                <config>
+                    <wsdlDetail location="/SharedResources/WSDL/GUI/Log/IntfLogLevelParameters.wsdl" portType="portType" ns="http://www.tibco.com/CommonLE2/namespace/Logging/LogLevel/GUIServices"/>
+                    <detail>
+                        <tab>
+                            <tabName>service.definition.impl.tab.label</tabName>
+                            <tabType>impl</tabType>
+                            <config>
+                                <operations>
+                                    <row opName="GetLogLevelOp" opImpl="/Logging/GUIServices/LogLevel/wsRetrieve_LogLevel_Detail.process"/>
+                                    <row opName="SetLogLevelOp" opImpl="/Logging/GUIServices/LogLevel/wsSetLogLevel.process"/>
+                                </operations>
+                            </config>
+                        </tab>
+                        <tab>
+                            <tabName>service.definition.ep.tab.label</tabName>
+                            <tabType>ep</tabType>
+                            <config>
+                                <epBindings>
+                                    <row epName="portTypeEndpoint1" epType="soap">
+                                        <config>
+                                            <epDetail>
+                                                <tab>
+                                                    <tabName>soap.service.transport.ui.transport.tab.label</tabName>
+                                                    <tabType>transport</tabType>
+                                                    <config>
+                                                        <sharedChannel>/SharedResources/Connections/SOAP/HTTP Log.sharedhttp</sharedChannel>
+                                                        <transport>
+                                                            <config>
+                                                                <useBasicAuthentication>false</useBasicAuthentication>
+                                                                <httpURI>/Logging/GUIServices/LogLevel/Configure_LogLevel_Settings.serviceagent/portTypeEndpoint1</httpURI>
+                                                            </config>
+                                                        </transport>
+                                                    </config>
+                                                </tab>
+                                                <tab>
+                                                    <tabName>soap.service.transport.ui.details.tab.label</tabName>
+                                                    <tabType>details</tabType>
+                                                    <config>
+                                                        <operationStyle>document</operationStyle>
+                                                        <soapVersion>SOAP 1.1</soapVersion>
+                                                        <soap>
+                                                            <operation name="GetLogLevelOp">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Logging/GUIServices/Configure_LogLevel_Settings.serviceagent/portTypeEndpoint1/GetLogLevelOp</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="SetLogLevelOp">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Logging/GUIServices/Configure_LogLevel_Settings.serviceagent/portTypeEndpoint1/SetLogLevelOp</soapAction>
+                                                                        <soapUse>literal</soapUse>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                        </soap>
+                                                    </config>
+                                                </tab>
+                                            </epDetail>
+                                        </config>
+                                    </row>
+                                </epBindings>
+                            </config>
+                        </tab>
+                    </detail>
+                </config>
+            </tab>
+        </interfaceImpl>
+        <resourceType>service.definition</resourceType>
+    </config>
+</serviceResource>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:ns2="http://www.tibco.com/CommonLE/Client/Schema/ClientInterface.xsd" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns1="http://www.tibco.com/pe/EngineTypes" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx="http://www.tibco.com/schemas/InvoiceListCDM">
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/schemas/InvoiceListCDM" schemaLocation="/Examples/Invoice.xsd"/>
+    <pd:name>Examples/SendLogExample.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx:InvoiceListRequest"/>
+    <pd:startX>27</pd:startX>
+    <pd:startY>35</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>580</pd:endX>
+    <pd:endY>35</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1321306728896</pd:targetNamespace>
+    <pd:activity name="Entry Log">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>278</pd:x>
+        <pd:y>40</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendLog.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns2:LogRequest>
+                <ns2:Header>
+                    <xsl:if test="$Start/pfx:InvoiceListRequest/pfx:BillingDocumentDetailRequest/pfx:DocumentNumber">
+                        <ns2:TransactionID>
+                            <xsl:value-of select="$Start/pfx:InvoiceListRequest/pfx:BillingDocumentDetailRequest/pfx:DocumentNumber"/>
+                        </ns2:TransactionID>
+                    </xsl:if>
+                    <xsl:if test="$Start/pfx:InvoiceListRequest/pfx:BillingDocumentDetailRequest/pfx:DocumentNumber">
+                        <ns2:CorrelationID>
+                            <xsl:value-of select="$Start/pfx:InvoiceListRequest/pfx:BillingDocumentDetailRequest/pfx:DocumentNumber"/>
+                        </ns2:CorrelationID>
+                    </xsl:if>
+                    <ns2:Message>
+                        <xsl:value-of select="&quot;Received Invoice request&quot;"/>
+                    </ns2:Message>
+                    <ns2:Transaction>
+                        <xsl:value-of select="tib:render-xml($Start/pfx:InvoiceListRequest, false(), false())"/>
+                    </ns2:Transaction>
+                </ns2:Header>
+                <ns2:Status>
+                    <xsl:value-of select="&quot;Starting&quot;"/>
+                </ns2:Status>
+                <ns2:Audit>
+                    <xsl:value-of select="true()"/>
+                </ns2:Audit>
+                <ns2:LogLevel>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/CLE/Environment/CommonLE/LOGGING_LEVEL_NUM_ERROR"/>
+                </ns2:LogLevel>
+            </ns2:LogRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Transaction Processing">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>420</pd:x>
+        <pd:y>43</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Set CLEHeader">
+        <pd:type>com.tibco.pe.core.SetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.setSharedVariable</pd:resourceType>
+        <pd:x>145</pd:x>
+        <pd:y>40</pd:y>
+        <config>
+            <variableConfig>/CLE/Interface/SharedVariables/CLEHeader.jobsharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings>
+            <ns2:Header>
+                <ns2:ComponentName>
+                    <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns1:ProcessContext/ProcessId)"/>
+                </ns2:ComponentName>
+                <ns2:Hostname>
+                    <xsl:value-of select="BW:getHostName()"/>
+                </ns2:Hostname>
+                <ns2:TransactionDomain>
+                    <xsl:value-of select="&quot;HR&quot;"/>
+                </ns2:TransactionDomain>
+                <ns2:TransactionType>
+                    <xsl:value-of select="&quot;NewHire&quot;"/>
+                </ns2:TransactionType>
+                <ns2:TransactionID>
+                    <xsl:value-of select="&quot;NewHireTranID123&quot;"/>
+                </ns2:TransactionID>
+                <ns2:CorrelationID>
+                    <xsl:value-of select="&quot;NewHireCorrID123&quot;"/>
+                </ns2:CorrelationID>
+                <ns2:InterfaceID>
+                    <xsl:value-of select="&quot;NewHire12&quot;"/>
+                </ns2:InterfaceID>
+            </ns2:Header>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Set CLEHeader</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Entry Log</pd:from>
+        <pd:to>Transaction Processing</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Transaction Processing</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Set CLEHeader</pd:from>
+        <pd:to>Entry Log</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

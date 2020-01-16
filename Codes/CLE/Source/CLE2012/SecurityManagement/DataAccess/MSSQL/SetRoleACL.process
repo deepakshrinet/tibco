@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:pfx="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/UserAuthenticationRequest" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:pfx5="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/RolePermissionInformationRequest" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx4="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/AllRolesRetrievalResponse" xmlns:pfx3="http://www.tibco.com/CommonLE2/Public/Common/Dummy" xmlns:pfx2="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/UserAuthenticationResponse" xmlns:pfx9="http://schemas.tibco.com/bw/plugins/jdbc/5.0/jdbcExceptions" xmlns:pfx8="http://www.tibco.com/CommonLE2/namespace/private/Common" xmlns:pfx7="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/RolePermissionInformation" xmlns:pfx6="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/RolePermissionInformationResponse">
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/UserAuthenticationRequest" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/SecurityConfiguration/UserAuthenticationRequest.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/UserAuthenticationResponse" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/SecurityConfiguration/UserAuthenticationResponse.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/AllRolesRetrievalResponse" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/SecurityConfiguration/AllRolesRetrieval.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/RolePermissionInformationRequest" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/SecurityConfiguration/RolePermissionsInformationRequest.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/RolePermissionInformation" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/SecurityConfiguration/RolePermissionsInformation.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/private/Common" schemaLocation="/SharedResources/SchemaDefinitions/Private/Common/LocalExceptions.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/Public/Common/Dummy" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Common/DummyReturnMessage.xsd"/>
+    <pd:name>SecurityManagement/DataAccess/MSSQL/SetRoleACL.process</pd:name>
+    <pd:description>Sets the permissions for a role for a specific application</pd:description>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx7:RolePermissionsInfo"/>
+    <pd:startX>64</pd:startX>
+    <pd:startY>61</pd:startY>
+    <pd:returnBindings>
+        <pfx3:Dummy>
+            <pfx3:StatusMessage>
+                <xsl:value-of select="&quot;ABC&quot;"/>
+            </pfx3:StatusMessage>
+        </pfx3:Dummy>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endX>559</pd:endX>
+    <pd:endY>60</pd:endY>
+    <pd:errorSchemas>
+        <Schema0 ref="pfx8:ApplicationIDNotFound"/>
+    </pd:errorSchemas>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1310497305909</pd:targetNamespace>
+    <pd:activity name="Set Permissions">
+        <pd:type>com.tibco.plugin.jdbc.JDBCUpdateActivity</pd:type>
+        <pd:resourceType>ae.activities.JDBCUpdateActivity</pd:resourceType>
+        <pd:x>393</pd:x>
+        <pd:y>60</pd:y>
+        <config>
+            <timeout>%%Database/MIG_Timeout%%</timeout>
+            <commit>false</commit>
+            <emptyStrAsNil>false</emptyStrAsNil>
+            <statement>insert into accesscontrol values(?,?,?)</statement>
+            <Prepared_Param_DataType>
+                <parameter>
+                    <parameterName>applicationid</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>rolename</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>privilege</parameterName>
+                    <dataType>CLOB</dataType>
+                </parameter>
+            </Prepared_Param_DataType>
+            <jdbcSharedConfig>/SharedResources/Connections/Database/DBServerMSSQL.sharedjdbc</jdbcSharedConfig>
+        </config>
+        <pd:inputBindings>
+            <jdbcUpdateActivityInput>
+                <applicationid>
+                    <xsl:value-of select="$Start/pfx7:RolePermissionsInfo/pfx7:appid"/>
+                </applicationid>
+                <rolename>
+                    <xsl:value-of select="$Start/pfx7:RolePermissionsInfo/pfx7:rolename"/>
+                </rolename>
+                <privilege>
+                    <xsl:value-of select="$Render-Permissions-XML/xmlString"/>
+                </privilege>
+            </jdbcUpdateActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SQL Exception">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>72</pd:x>
+        <pd:y>171</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=JDBCSQLException namespace=http://schemas.tibco.com/bw/plugins/jdbc/5.0/jdbcExceptions</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Generate Error">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>276</pd:x>
+        <pd:y>172</pd:y>
+        <config>
+            <faultName>Schema0</faultName>
+        </config>
+        <pd:inputBindings>
+            <ns1:ActivityInput>
+                <message>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Exceptions/Common/Messages/ApplicationIDNotFound"/>
+                </message>
+                <messageCode>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Exceptions/Common/Codes/ApplicationIDNotFound"/>
+                </messageCode>
+                <data>
+                    <pfx8:ApplicationIDNotFound>
+                        <pfx8:Message>
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Exceptions/Common/Messages/ApplicationIDNotFound"/>
+                        </pfx8:Message>
+                        <pfx8:Code>
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Exceptions/Common/Codes/ApplicationIDNotFound"/>
+                        </pfx8:Code>
+                    </pfx8:ApplicationIDNotFound>
+                </data>
+            </ns1:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Render Permissions XML">
+        <pd:type>com.tibco.plugin.xml.XMLRendererActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLRendererActivity</pd:resourceType>
+        <pd:x>216</pd:x>
+        <pd:y>68</pd:y>
+        <config>
+            <renderAsText>text</renderAsText>
+            <validateInput>false</validateInput>
+            <renderDefaultPrefix>true</renderDefaultPrefix>
+            <term ref="pfx7:permissions"/>
+        </config>
+        <pd:inputBindings>
+            <xsl:for-each select="$Start/pfx7:RolePermissionsInfo/pfx7:permissions">
+                <pfx7:permissions>
+                    <xsl:for-each select="pfx7:permission">
+                        <pfx7:permission>
+                            <pfx7:permissionID>
+                                <xsl:value-of select="pfx7:permissionID"/>
+                            </pfx7:permissionID>
+                        </pfx7:permission>
+                    </xsl:for-each>
+                </pfx7:permissions>
+            </xsl:for-each>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Rethrow">
+        <pd:type>com.tibco.pe.core.RethrowActivity</pd:type>
+        <pd:resourceType>ae.activities.rethrow</pd:resourceType>
+        <pd:x>76</pd:x>
+        <pd:y>266</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Set Permissions</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SQL Exception</pd:from>
+        <pd:to>Generate Error</pd:to>
+        <pd:xpathDescription>AppID does exist</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$SQL-Exception/pfx9:JDBCSQLException/msgCode = $_globalVariables/ns:GlobalVariables/Exceptions/DB/Codes/SQLIntegrityError and 
+$SQL-Exception/pfx9:JDBCSQLException/sqlState = $_globalVariables/ns:GlobalVariables/Exceptions/DB/Codes/SQLIntegrityState</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Render Permissions XML</pd:from>
+        <pd:to>Set Permissions</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Render Permissions XML</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SQL Exception</pd:from>
+        <pd:to>Rethrow</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

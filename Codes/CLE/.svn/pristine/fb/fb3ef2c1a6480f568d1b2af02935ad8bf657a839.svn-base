@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns1="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/AllRolesRetrievalResponse" xmlns:ns="http://www.tibco.com/CommonLE/namespace/Custom" xmlns:ns0="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/RolePermissionInformation" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx3="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Applications" xmlns:pfx2="http://www.tibco.com/pe/DeployedVarsType" xmlns:pfx="http://xmlns.example.com/unique/default/namespace/1097652867820" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xsd:import namespace="http://xmlns.example.com/unique/default/namespace/1097652867820" schemaLocation="/Shared Resources/Schema Definitions/Custom/ACL.xsd"/>
+    <pd:name>Utilities/Initialization/Initialize ACLs.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startX>26</pd:startX>
+    <pd:startY>126</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>651</pd:endX>
+    <pd:endY>130</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1286466764634</pd:targetNamespace>
+    <pd:activity name="Retrieve Roles">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>139</pd:x>
+        <pd:y>125</pd:y>
+        <config>
+            <processName>/SecurityManagement/DataAccess/Common/AvailableRolesRetrieval.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns:ACL>
+                <ns:ApplicationID>
+                    <xsl:value-of select="&quot;ETMS&quot;"/>
+                </ns:ApplicationID>
+                <ns:RoleID>
+                    <xsl:value-of select="$Query-Users-or-Roles/Output/Roles[Name=&quot;admin&quot;]/Id"/>
+                </ns:RoleID>
+                <ns:Privilege>
+                    <ns:Name>
+                        <xsl:value-of select="&quot;View&quot;"/>
+                    </ns:Name>
+                    <ns:isAllowed>
+                        <xsl:value-of select="true()"/>
+                    </ns:isAllowed>
+                </ns:Privilege>
+                <ns:Privilege>
+                    <ns:Name>
+                        <xsl:value-of select="&quot;Purge&quot;"/>
+                    </ns:Name>
+                    <ns:isAllowed>
+                        <xsl:value-of select="true()"/>
+                    </ns:isAllowed>
+                </ns:Privilege>
+            </ns:ACL>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Retrieve Applications">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>260</pd:x>
+        <pd:y>133</pd:y>
+        <config>
+            <processName>/Administration/DataAccess/ApplicationConfiguration/Oracle/RetrieveApplicationConfigurationList.process</processName>
+            <processNameXPath>concat("/Administration/DataAccess/ApplicationConfiguration/", $_globalVariables/pfx2:GlobalVariables/Database/MIG_DatabaseType, "\RetrieveApplicationConfigurationList.process")</processNameXPath>
+        </config>
+        <pd:inputBindings>
+            <ns:ACL>
+                <ns:ApplicationID>
+                    <xsl:value-of select="&quot;SAP_ETL_POC&quot;"/>
+                </ns:ApplicationID>
+                <ns:RoleID>
+                    <xsl:value-of select="$Query-Users-or-Roles/Output/Roles[Name=&quot;admin&quot;]/Id"/>
+                </ns:RoleID>
+                <ns:Privilege>
+                    <ns:Name>
+                        <xsl:value-of select="&quot;View&quot;"/>
+                    </ns:Name>
+                    <ns:isAllowed>
+                        <xsl:value-of select="true()"/>
+                    </ns:isAllowed>
+                </ns:Privilege>
+                <ns:Privilege>
+                    <ns:Name>
+                        <xsl:value-of select="&quot;Purge&quot;"/>
+                    </ns:Name>
+                    <ns:isAllowed>
+                        <xsl:value-of select="false()"/>
+                    </ns:isAllowed>
+                </ns:Privilege>
+                <ns:Privilege>
+                    <ns:Name>
+                        <xsl:value-of select="&quot;Administrate&quot;"/>
+                    </ns:Name>
+                    <ns:isAllowed>
+                        <xsl:value-of select="true()"/>
+                    </ns:isAllowed>
+                </ns:Privilege>
+            </ns:ACL>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:group name="Group">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>360</pd:x>
+        <pd:y>58</pd:y>
+        <pd:width>189</pd:width>
+        <pd:height>122</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>inputLoop</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:over>$Retrieve-Applications/pfx3:Applications/pfx3:Application</pd:over>
+            <pd:iterationElementSlot>Application</pd:iterationElementSlot>
+            <pd:indexSlot>appIndex</pd:indexSlot>
+            <pd:activityOutputName/>
+            <pd:accumulateOutput>false</pd:accumulateOutput>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>Set ACL</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Set ACL</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="Set ACL">
+            <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+            <pd:resourceType>ae.process.subprocess</pd:resourceType>
+            <pd:x>447</pd:x>
+            <pd:y>126</pd:y>
+            <config>
+                <processName>/SecurityManagement/DataAccess/Oracle/SetRoleACL.process</processName>
+                <processNameXPath>concat("/SecurityManagement/DataAccess/", $_globalVariables/pfx2:GlobalVariables/Database/MIG_DatabaseType, "/SetRoleACL.process")</processNameXPath>
+            </config>
+            <pd:inputBindings>
+                <ns0:RolePermissionsInfo>
+                    <ns0:rolename>
+                        <xsl:value-of select="$Retrieve-Roles/ns1:AllRoles/ns1:Role[1]/ns1:rolename"/>
+                    </ns0:rolename>
+                    <ns0:appid>
+                        <xsl:value-of select="$Application/pfx3:Application/pfx3:ApplicationID"/>
+                    </ns0:appid>
+                    <ns0:permissions>
+                        <ns0:permission>
+                            <ns0:permissionID>
+                                <xsl:value-of select="&quot;1&quot;"/>
+                            </ns0:permissionID>
+                        </ns0:permission>
+                        <ns0:permission>
+                            <ns0:permissionID>
+                                <xsl:value-of select="&quot;2&quot;"/>
+                            </ns0:permissionID>
+                        </ns0:permission>
+                        <ns0:permission>
+                            <ns0:permissionID>
+                                <xsl:value-of select="&quot;3&quot;"/>
+                            </ns0:permissionID>
+                        </ns0:permission>
+                        <ns0:permission>
+                            <ns0:permissionID>
+                                <xsl:value-of select="&quot;4&quot;"/>
+                            </ns0:permissionID>
+                        </ns0:permission>
+                        <ns0:permission>
+                            <ns0:permissionID>
+                                <xsl:value-of select="&quot;5&quot;"/>
+                            </ns0:permissionID>
+                        </ns0:permission>
+                        <ns0:permission>
+                            <ns0:permissionID>
+                                <xsl:value-of select="&quot;6&quot;"/>
+                            </ns0:permissionID>
+                        </ns0:permission>
+                        <ns0:permission>
+                            <ns0:permissionID>
+                                <xsl:value-of select="&quot;7&quot;"/>
+                            </ns0:permissionID>
+                        </ns0:permission>
+                        <ns0:permission>
+                            <ns0:permissionID>
+                                <xsl:value-of select="&quot;8&quot;"/>
+                            </ns0:permissionID>
+                        </ns0:permission>
+                        <ns0:permission>
+                            <ns0:permissionID>
+                                <xsl:value-of select="&quot;9&quot;"/>
+                            </ns0:permissionID>
+                        </ns0:permission>
+                    </ns0:permissions>
+                </ns0:RolePermissionsInfo>
+            </pd:inputBindings>
+        </pd:activity>
+    </pd:group>
+    <pd:transition>
+        <pd:from>Retrieve Roles</pd:from>
+        <pd:to>Retrieve Applications</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Retrieve Roles</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Retrieve Applications</pd:from>
+        <pd:to>Group</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

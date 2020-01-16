@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx2="http://www.tibco.com/pe/DeployedVarsType" xmlns:pfx="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Applications">
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Applications" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/Applications.xsd"/>
+    <pd:name>Utilities/Initialization/GetApplicationList.process</pd:name>
+    <pd:description>Filter Application List to exclude "System" AppID</pd:description>
+    <pd:startName>Start</pd:startName>
+    <pd:startX>26</pd:startX>
+    <pd:startY>65</pd:startY>
+    <pd:returnBindings>
+        <pfx:Applications>
+            <xsl:for-each select="$Get-Application-List/pfx:Applications/pfx:Application[pfx:ApplicationID !=&quot;System&quot;]">
+                <pfx:Application>
+                    <pfx:ApplicationID>
+                        <xsl:value-of select="pfx:ApplicationID"/>
+                    </pfx:ApplicationID>
+                    <pfx:Name>
+                        <xsl:value-of select="pfx:Name"/>
+                    </pfx:Name>
+                    <pfx:Description>
+                        <xsl:value-of select="pfx:Description"/>
+                    </pfx:Description>
+                </pfx:Application>
+            </xsl:for-each>
+        </pfx:Applications>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType ref="pfx:Applications"/>
+    <pd:endX>287</pd:endX>
+    <pd:endY>65</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1286468483681</pd:targetNamespace>
+    <pd:activity name="Get Application List">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>138</pd:x>
+        <pd:y>71</pd:y>
+        <config>
+            <processName>/Administration/DataAccess/ApplicationConfiguration/Oracle/RetrieveApplicationConfigurationList.process</processName>
+            <processNameXPath>concat("/Administration/DataAccess/ApplicationConfiguration/", $_globalVariables/pfx2:GlobalVariables/Database/MIG_DatabaseType, "/RetrieveApplicationConfigurationList.process")</processNameXPath>
+        </config>
+        <pd:inputBindings>
+            <ns1:Query xmlns:ns1="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Query"/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Get Application List</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Get Application List</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns1="http://www.tibco.com/pe/EngineTypes" xmlns:ns="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:ns0="http://www.zimmer.com/tibco/schemas/ZBS/XSD/ExceptionHandler/v1/ExceptionMessageSchema.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx3="http://www.tibco.com/pe/DeployedVarsType" xmlns:pfx2="http://www.zimmer.com/tibco/schemas/ZBS/XSD/StoreReplayService/v1/StoreMessageSchema.xsd" xmlns:pfx="http://www.zimmer.com/schemas/StoreReplayService/StoreAndReplayService/Schemas/Schema.xsd" xmlns:ns02="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema">
+    <xsd:import namespace="http://www.zimmer.com/schemas/StoreReplayService/StoreAndReplayService/Schemas/Schema.xsd" schemaLocation="/EnterpriseLibrary/SharedResources/Schemas/XSD/StoreAndReplaySchema.xsd"/>
+    <xsd:import namespace="http://www.zimmer.com/tibco/schemas/ZBS/XSD/StoreReplayService/v1/StoreMessageSchema.xsd" schemaLocation="/EnterpriseLibrary/SharedResources/Schemas/XSD/StoreMessageSchema.xsd"/>
+    <pd:name>EnterpriseLibrary/Services/StoreAndReplayService/StoreMessage.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx2:StoreMessage"/>
+    <pd:startX>125</pd:startX>
+    <pd:startY>67</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>761</pd:endX>
+    <pd:endY>176</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables>
+        <RetryFlag>
+            <xsd:element name="root">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="RetryFlag" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </RetryFlag>
+    </pd:processVariables>
+    <pd:targetNamespace>http://xmlns.example.com/1328046105503</pd:targetNamespace>
+    <pd:group name="Group">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>209</pd:x>
+        <pd:y>2</pd:y>
+        <pd:width>465</pd:width>
+        <pd:height>332</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>repeat</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:indexSlot>i</pd:indexSlot>
+            <pd:activityOutputName/>
+            <pd:repeatCondition>$i &gt;$_globalVariables/pfx3:GlobalVariables/StoreAndReplayService/StoreService/OperationRetryCount or 
+$RetryFlag/root/RetryFlag = 'N'</pd:repeatCondition>
+            <pd:accumulateOutput>false</pd:accumulateOutput>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>JMS Queue Sender</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>JMS Queue Sender</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>JMS Session Create Exception</pd:from>
+            <pd:to>Set Retry Flag to Y</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-65536</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>JMS Send Exception</pd:from>
+            <pd:to>Set Retry Flag to Y</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-65536</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Set Retry Flag to Y</pd:from>
+            <pd:to>Set Exception Details</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-65536</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Set Exception Details</pd:from>
+            <pd:to>Generate Error</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-52480</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="JMS Queue Sender">
+            <pd:type>com.tibco.plugin.jms.JMSQueueSendActivity</pd:type>
+            <pd:resourceType>ae.activities.JMSQueueSendActivity</pd:resourceType>
+            <pd:x>417</pd:x>
+            <pd:y>73</pd:y>
+            <config>
+                <PermittedMessageType>Text</PermittedMessageType>
+                <SessionAttributes>
+                    <transacted>false</transacted>
+                    <acknowledgeMode>1</acknowledgeMode>
+                    <maxSessions>1</maxSessions>
+                    <destination>%%StoreAndReplayService/StoreService/QueueName%%</destination>
+                </SessionAttributes>
+                <ConfigurableHeaders>
+                    <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                    <JMSExpiration>0</JMSExpiration>
+                    <JMSPriority>4</JMSPriority>
+                </ConfigurableHeaders>
+                <ConnectionReference>/EnterpriseLibrary/SharedResources/Connections/JMS/TIBCO_JMS_Connection.sharedjmscon</ConnectionReference>
+            </config>
+            <pd:inputBindings>
+                <ns:ActivityInput>
+                    <Body>
+                        <xsl:value-of select="tib:render-xml($Start/pfx2:StoreMessage)"/>
+                    </Body>
+                </ns:ActivityInput>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="JMS Session Create Exception">
+            <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+            <pd:resourceType>ae.activities.catch</pd:resourceType>
+            <pd:x>295</pd:x>
+            <pd:y>176</pd:y>
+            <pd:handler>true</pd:handler>
+            <config>
+                <fault>localname=JMSSessionCreateException namespace=http://schemas.tibco.com/bw/plugins/jms/5.0/jmsExceptions</fault>
+            </config>
+            <pd:inputBindings/>
+        </pd:activity>
+        <pd:activity name="JMS Send Exception">
+            <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+            <pd:resourceType>ae.activities.catch</pd:resourceType>
+            <pd:x>295</pd:x>
+            <pd:y>245</pd:y>
+            <pd:handler>true</pd:handler>
+            <config>
+                <fault>localname=JMSSendException namespace=http://schemas.tibco.com/bw/plugins/jms/5.0/jmsExceptions</fault>
+            </config>
+            <pd:inputBindings/>
+        </pd:activity>
+        <pd:activity name="Set Exception Details">
+            <pd:type>com.tibco.pe.core.SetSharedVariableActivity</pd:type>
+            <pd:resourceType>ae.activities.setSharedVariable</pd:resourceType>
+            <pd:x>508</pd:x>
+            <pd:y>207</pd:y>
+            <config>
+                <variableConfig>/EnterpriseLibrary/SharedResources/SharedVariables/ExceptionDetails.jobsharedvariable</variableConfig>
+            </config>
+            <pd:inputBindings>
+                <ns0:ExceptionMessage>
+                    <ns0:Application>
+                        <xsl:value-of select="$_globalVariables/pfx3:GlobalVariables/ApplicationDetails/ApplicationName"/>
+                    </ns0:Application>
+                    <ns0:Severity>
+                        <xsl:value-of select="1"/>
+                    </ns0:Severity>
+                    <ns0:ExceptionDescription>
+                        <xsl:value-of select="$_error/ns1:ErrorReport/Msg"/>
+                    </ns0:ExceptionDescription>
+                    <ns0:ExceptionDetailsText>
+                        <xsl:value-of select="tib:render-xml($_error/ns1:ErrorReport)"/>
+                    </ns0:ExceptionDetailsText>
+                    <ns0:ExceptionType>
+                        <xsl:value-of select="$_globalVariables/pfx3:GlobalVariables/ExceptionHandler/ExceptionType/Technical"/>
+                    </ns0:ExceptionType>
+                    <ns0:ExceptionCode>
+                        <xsl:value-of select="$_error/ns1:ErrorReport/MsgCode"/>
+                    </ns0:ExceptionCode>
+                    <ns0:ProcessId>
+                        <xsl:value-of select="$_processContext/ns1:ProcessContext/ProcessId"/>
+                    </ns0:ProcessId>
+                    <ns0:ProcessName>
+                        <xsl:value-of select="$_processContext/ns1:ProcessContext/ProjectName"/>
+                    </ns0:ProcessName>
+                    <ns0:EngineName>
+                        <xsl:value-of select="$_processContext/ns1:ProcessContext/EngineName"/>
+                    </ns0:EngineName>
+                    <ns0:CreateTimestamp>
+                        <xsl:value-of select="current-dateTime()"/>
+                    </ns0:CreateTimestamp>
+                </ns0:ExceptionMessage>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="Set Retry Flag to Y">
+            <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+            <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+            <pd:x>412</pd:x>
+            <pd:y>206</pd:y>
+            <config>
+                <variableName>RetryFlag</variableName>
+            </config>
+            <pd:inputBindings>
+                <root>
+                    <RetryFlag>
+                        <xsl:value-of select="'Y'"/>
+                    </RetryFlag>
+                </root>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="Generate Error">
+            <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+            <pd:resourceType>ae.activities.throw</pd:resourceType>
+            <pd:x>605</pd:x>
+            <pd:y>197</pd:y>
+            <config>
+                <faultName/>
+            </config>
+            <pd:inputBindings>
+                <ns02:ActivityInput/>
+            </pd:inputBindings>
+        </pd:activity>
+    </pd:group>
+    <pd:activity name="Set Retry Flag to N">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>128</pd:x>
+        <pd:y>184</pd:y>
+        <config>
+            <variableName>RetryFlag</variableName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <RetryFlag>
+                    <xsl:value-of select="'N'"/>
+                </RetryFlag>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Set Retry Flag to N</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Set Retry Flag to N</pd:from>
+        <pd:to>Group</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

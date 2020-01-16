@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/schemas/CLE-Handlers/SharedResources/SchemaDefinitions/Private/Notification/NotificationParameters.xsd" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns1="http://www.tibco.com/CommonLE2/namespace/Public/Common/RequestHeader.xsd" xmlns:ns="http://www.tibco.com/namespaces/tnt/plugins/mail" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx4="http://www.tibco.com/pe/DeployedVarsType" xmlns:pfx3="http://www.tibco.com/CommonLE2/namespace/Private/Logging" xmlns:pfx2="http://www.tibco.com/CommonLE2/namespace/Public/Notification" xmlns:pfx="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema">
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Notification" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/Notification/NotificationMessage.xsd"/>
+    <pd:name>ExceptionManagement/Logic/SendNotificationAgent.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx2:NotificationMessage"/>
+    <pd:startX>153</pd:startX>
+    <pd:startY>76</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>635</pd:endX>
+    <pd:endY>268</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1287550398421</pd:targetNamespace>
+    <pd:activity name="Retrieve Last Time Sent">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>313</pd:x>
+        <pd:y>86</pd:y>
+        <config>
+            <processName>/ExceptionManagement/Logic/RetrieveLastSentNotificationTime.process</processName>
+            <processNameXPath/>
+        </config>
+        <pd:inputBindings>
+            <ns2:NotificationQuery>
+                <ns2:ApplicationID>
+                    <xsl:value-of select="$Start/pfx2:NotificationMessage/pfx2:ExceptionDetail/ns1:Header/ns1:ApplicationID"/>
+                </ns2:ApplicationID>
+                <ns2:ExceptionCode>
+                    <xsl:value-of select="$Start/pfx2:NotificationMessage/pfx2:ExceptionDetail/ExceptionCode"/>
+                </ns2:ExceptionCode>
+            </ns2:NotificationQuery>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Send Notifications">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>485</pd:x>
+        <pd:y>77</pd:y>
+        <config>
+            <processName>/ExceptionManagement/Logic/SendNotification.process</processName>
+            <processNameXPath/>
+        </config>
+        <pd:inputBindings>
+            <xsl:copy-of select="$Start/pfx2:NotificationMessage"/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Update Notification Time">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>632</pd:x>
+        <pd:y>84</pd:y>
+        <config>
+            <processName>/ExceptionManagement/DataAccess/Oracle/UpdateNotificationTime.process</processName>
+            <processNameXPath>concat("/ExceptionManagement/DataAccess/",$_globalVariables/pfx4:GlobalVariables/Database/MIG_DatabaseType,"/UpdateNotificationTime.process")</processNameXPath>
+        </config>
+        <pd:inputBindings>
+            <ns2:NotificationUpdate>
+                <ns2:ApplicationID>
+                    <xsl:value-of select="$Start/pfx2:NotificationMessage/pfx2:ExceptionDetail/ns1:Header/ns1:ApplicationID"/>
+                </ns2:ApplicationID>
+                <ns2:ExceptionCode>
+                    <xsl:value-of select="$Start/pfx2:NotificationMessage/pfx2:ExceptionDetail/ExceptionCode"/>
+                </ns2:ExceptionCode>
+                <ns2:TimeNotified>
+                    <xsl:value-of select="current-dateTime()"/>
+                </ns2:TimeNotified>
+            </ns2:NotificationUpdate>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch Notification Record Not Found">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>164</pd:x>
+        <pd:y>349</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=NotificationRecordNotFound namespace=http://www.tibco.com/CommonLE2/namespace/private/Common</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Send Notification2">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>307</pd:x>
+        <pd:y>340</pd:y>
+        <config>
+            <processName>/ExceptionManagement/Logic/SendNotification.process</processName>
+            <processNameXPath/>
+        </config>
+        <pd:inputBindings>
+            <xsl:copy-of select="$Start/pfx2:NotificationMessage"/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Insert Notification Time">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>438</pd:x>
+        <pd:y>342</pd:y>
+        <config>
+            <processName>/ExceptionManagement/DataAccess/Oracle/InsertNotificationTime.process</processName>
+            <processNameXPath>concat("/ExceptionManagement/DataAccess/",$_globalVariables/pfx4:GlobalVariables/Database/MIG_DatabaseType,"/InsertNotificationTime.process")</processNameXPath>
+        </config>
+        <pd:inputBindings>
+            <ns2:NotificationUpdate>
+                <ns2:ApplicationID>
+                    <xsl:value-of select="$Start/pfx2:NotificationMessage/pfx2:ExceptionDetail/ns1:Header/ns1:ApplicationID"/>
+                </ns2:ApplicationID>
+                <ns2:ExceptionCode>
+                    <xsl:value-of select="$Start/pfx2:NotificationMessage/pfx2:ExceptionDetail/ExceptionCode"/>
+                </ns2:ExceptionCode>
+                <ns2:TimeNotified>
+                    <xsl:value-of select="current-dateTime()"/>
+                </ns2:TimeNotified>
+            </ns2:NotificationUpdate>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch No Update">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>292</pd:x>
+        <pd:y>421</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=NoUpdate namespace=http://www.tibco.com/CommonLE2/namespace/private/Common</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Insert Notification Time1">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>435</pd:x>
+        <pd:y>428</pd:y>
+        <config>
+            <processName>/ExceptionManagement/DataAccess/Oracle/InsertNotificationTime.process</processName>
+            <processNameXPath>concat("/ExceptionManagement/DataAccess/",$_globalVariables/pfx4:GlobalVariables/Database/MIG_DatabaseType,"/InsertNotificationTime.process")</processNameXPath>
+        </config>
+        <pd:inputBindings>
+            <ns2:NotificationUpdate>
+                <ns2:ApplicationID>
+                    <xsl:value-of select="$Start/pfx2:NotificationMessage/pfx2:ExceptionDetail/ns1:Header/ns1:ApplicationID"/>
+                </ns2:ApplicationID>
+                <ns2:ExceptionCode>
+                    <xsl:value-of select="$Start/pfx2:NotificationMessage/pfx2:ExceptionDetail/ExceptionCode"/>
+                </ns2:ExceptionCode>
+                <ns2:TimeNotified>
+                    <xsl:value-of select="current-dateTime()"/>
+                </ns2:TimeNotified>
+            </ns2:NotificationUpdate>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Send Notifications1">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>316</pd:x>
+        <pd:y>198</pd:y>
+        <config>
+            <processName>/ExceptionManagement/Logic/SendNotification.process</processName>
+            <processNameXPath/>
+        </config>
+        <pd:inputBindings>
+            <xsl:copy-of select="$Start/pfx2:NotificationMessage"/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:description>If the current time is greater than the last sent time + the timeout value then send notification</pd:description>
+        <pd:from>Retrieve Last Time Sent</pd:from>
+        <pd:to>Send Notifications</pd:to>
+        <pd:xpathDescription>Send</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>tib:compare-dateTime(tib:add-to-dateTime(
+$Retrieve-Last-Time-Sent/ns2:ResultTimeNotified/ns2:TimeNotified, 0, 0, 0, 0, $Start/pfx2:NotificationMessage/pfx2:ExceptionDetail/Timeout, 0), 
+current-dateTime()) = -1</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Send Notifications</pd:from>
+        <pd:to>Update Notification Time</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Retrieve Last Time Sent</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>S-Shaped</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Update Notification Time</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Retrieve Last Time Sent</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch Notification Record Not Found</pd:from>
+        <pd:to>Send Notification2</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Send Notification2</pd:from>
+        <pd:to>Insert Notification Time</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Insert Notification Time</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Straight</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch No Update</pd:from>
+        <pd:to>Insert Notification Time1</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Insert Notification Time1</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>S-Shaped</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Send Notifications1</pd:to>
+        <pd:xpathDescription>No time limit</pd:xpathDescription>
+        <pd:lineType>Curved</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>number($Start/pfx2:NotificationMessage/pfx2:ExceptionDetail/Timeout)=0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Send Notifications1</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Curved</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

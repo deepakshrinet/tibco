@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:ns2="http://schemas.tibco.com/bw/plugins/file/5.0/fileExceptions" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns4="http://www.tibco.com/pe/WriteToLogActivitySchema" xmlns:ns="http://www.tibco.com/namespaces/tnt/plugins/file" xmlns:ns3="http://www.tibco.com/pe/EngineTypes" xmlns:ns0="http://www.tibco.com/namespaces/tnt/plugins/file/v2" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:ns12="http://www.tibco.com/CommonLE/Client/Schema/ClientInterface.xsd">
+    <pd:name>Services/SubProcesses/Get_SF_File.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startX>148</pd:startX>
+    <pd:startY>78</pd:startY>
+    <pd:returnBindings>
+        <Root>
+            <xsl:for-each select="$SFData/AccumulatedOutput/Root/FileData">
+                <root>
+                    <xsl:if test="SAPID">
+                        <SAPID>
+                            <xsl:value-of select="SAPID"/>
+                        </SAPID>
+                    </xsl:if>
+                    <xsl:if test="USERID">
+                        <USERID>
+                            <xsl:value-of select="USERID"/>
+                        </USERID>
+                    </xsl:if>
+                    <xsl:if test="PERSONNELAREACODE">
+                        <PERSONNELAREACODE>
+                            <xsl:value-of select="PERSONNELAREACODE"/>
+                        </PERSONNELAREACODE>
+                    </xsl:if>
+                    <xsl:if test="CURRICULUMID">
+                        <CURRICULUMID>
+                            <xsl:value-of select="CURRICULUMID"/>
+                        </CURRICULUMID>
+                    </xsl:if>
+                    <xsl:if test="CURRICULUMTITLE">
+                        <CURRICULUMTITLE>
+                            <xsl:value-of select="CURRICULUMTITLE"/>
+                        </CURRICULUMTITLE>
+                    </xsl:if>
+                    <xsl:if test="COMPLETED">
+                        <COMPLETED>
+                            <xsl:value-of select="COMPLETED"/>
+                        </COMPLETED>
+                    </xsl:if>
+                    <xsl:if test="FileName">
+                        <FileName>
+                            <xsl:value-of select="FileName"/>
+                        </FileName>
+                    </xsl:if>
+                </root>
+            </xsl:for-each>
+            <xsl:for-each select="$Get-FileNames-In-AscendingOrder/Files/fileinfo/FullName">
+                <FileNames>
+                    <xsl:value-of select="."/>
+                </FileNames>
+            </xsl:for-each>
+        </Root>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="Root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="root" minOccurs="0" maxOccurs="unbounded">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="SAPID" type="xsd:string" minOccurs="0"/>
+                                <xsd:element name="USERID" type="xsd:string" minOccurs="0"/>
+                                <xsd:element name="PERSONNELAREACODE" type="xsd:string" minOccurs="0"/>
+                                <xsd:element name="CURRICULUMID" type="xsd:string" minOccurs="0"/>
+                                <xsd:element name="CURRICULUMTITLE" type="xsd:string" minOccurs="0"/>
+                                <xsd:element name="COMPLETED" type="xsd:string" minOccurs="0"/>
+                                <xsd:element name="FileName" type="xsd:string" minOccurs="0"/>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="FileNames" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>774</pd:endX>
+    <pd:endY>249</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1480512307035</pd:targetNamespace>
+    <pd:group name="Group">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>561</pd:x>
+        <pd:y>2</pd:y>
+        <pd:width>440</pd:width>
+        <pd:height>141</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>inputLoop</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:over>$Get-FileNames-In-AscendingOrder/Files/fileinfo/FullName</pd:over>
+            <pd:iterationElementSlot>filenames</pd:iterationElementSlot>
+            <pd:indexSlot>i</pd:indexSlot>
+            <pd:outSlot>SFData</pd:outSlot>
+            <pd:activityOutputName>FileData</pd:activityOutputName>
+            <pd:accumulateOutput>true</pd:accumulateOutput>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>Read File</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>FileData</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Read File</pd:from>
+            <pd:to>ParseFile</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>ParseFile</pd:from>
+            <pd:to>FileData</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="ParseFile">
+            <pd:type>com.tibco.plugin.parse.ParseActivity</pd:type>
+            <pd:resourceType>ae.activities.ParseActivity</pd:resourceType>
+            <pd:x>771</pd:x>
+            <pd:y>67</pd:y>
+            <config>
+                <InputType>String</InputType>
+                <Encoding>ASCII</Encoding>
+                <ParseSharedConfig>/SharedResources/DataFormat/CurriculumDataFormat.sharedparse</ParseSharedConfig>
+                <SkipBlankLines>true</SkipBlankLines>
+                <SpecifyStartRecord>true</SpecifyStartRecord>
+                <StrictValidation>true</StrictValidation>
+            </config>
+            <pd:inputBindings>
+                <Input>
+                    <text>
+                        <xsl:value-of select="$Read-File/ns:ReadActivityOutputTextClass/fileContent/textContent"/>
+                    </text>
+                    <startRecord>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/SFFILE/StartRecord"/>
+                    </startRecord>
+                    <noOfRecords>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/SFFILE/NoOfRecords"/>
+                    </noOfRecords>
+                </Input>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="Read File">
+            <pd:type>com.tibco.plugin.file.FileReadActivity</pd:type>
+            <pd:resourceType>ae.activities.FileReadActivity</pd:resourceType>
+            <pd:x>645</pd:x>
+            <pd:y>66</pd:y>
+            <config>
+                <encoding>text</encoding>
+            </config>
+            <pd:inputBindings>
+                <ns0:ReadActivityInputClass>
+                    <fileName>
+                        <xsl:value-of select="$filenames/FullName"/>
+                    </fileName>
+                </ns0:ReadActivityInputClass>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="FileData">
+            <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+            <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+            <pd:x>892</pd:x>
+            <pd:y>78</pd:y>
+            <config>
+                <element>
+                    <xsd:element name="Root">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="FileData" minOccurs="0" maxOccurs="unbounded">
+                                    <xsd:complexType>
+                                        <xsd:sequence>
+                                            <xsd:element name="SAPID" type="xsd:string" minOccurs="0"/>
+                                            <xsd:element name="USERID" type="xsd:string" minOccurs="0"/>
+                                            <xsd:element name="PERSONNELAREACODE" type="xsd:string" minOccurs="0"/>
+                                            <xsd:element name="CURRICULUMID" type="xsd:string" minOccurs="0"/>
+                                            <xsd:element name="CURRICULUMTITLE" type="xsd:string" minOccurs="0"/>
+                                            <xsd:element name="COMPLETED" type="xsd:string" minOccurs="0"/>
+                                            <xsd:element name="FileName" type="xsd:string" minOccurs="0"/>
+                                        </xsd:sequence>
+                                    </xsd:complexType>
+                                </xsd:element>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </element>
+            </config>
+            <pd:inputBindings>
+                <Root>
+                    <xsl:for-each select="$ParseFile/Output/Rows/root">
+                        <FileData>
+                            <xsl:if test="SAPID">
+                                <SAPID>
+                                    <xsl:value-of select="SAPID"/>
+                                </SAPID>
+                            </xsl:if>
+                            <xsl:if test="USERID">
+                                <USERID>
+                                    <xsl:value-of select="USERID"/>
+                                </USERID>
+                            </xsl:if>
+                            <xsl:if test="PERSONNELAREACODE">
+                                <PERSONNELAREACODE>
+                                    <xsl:value-of select="PERSONNELAREACODE"/>
+                                </PERSONNELAREACODE>
+                            </xsl:if>
+                            <xsl:if test="CURRICULUMID">
+                                <CURRICULUMID>
+                                    <xsl:value-of select="CURRICULUMID"/>
+                                </CURRICULUMID>
+                            </xsl:if>
+                            <xsl:if test="CURRICULUMTITLE">
+                                <CURRICULUMTITLE>
+                                    <xsl:value-of select="CURRICULUMTITLE"/>
+                                </CURRICULUMTITLE>
+                            </xsl:if>
+                            <xsl:if test="COMPLETED">
+                                <COMPLETED>
+                                    <xsl:value-of select="COMPLETED"/>
+                                </COMPLETED>
+                            </xsl:if>
+                            <FileName>
+                                <xsl:value-of select="$Read-File/ns:ReadActivityOutputTextClass/fileInfo/fileName"/>
+                            </FileName>
+                        </FileData>
+                    </xsl:for-each>
+                </Root>
+            </pd:inputBindings>
+        </pd:activity>
+    </pd:group>
+    <pd:activity name="Get FileNames In AscendingOrder">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>435</pd:x>
+        <pd:y>84</pd:y>
+        <config>
+            <element>
+                <xsd:element name="Files">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="fileinfo" minOccurs="0" maxOccurs="unbounded">
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element name="FullName" type="xsd:string"/>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </element>
+        </config>
+        <pd:inputBindings>
+            <Files>
+                <xsl:for-each-group select="$List-Files/ns:ListFilesActivityOutput/files/fileInfo" group-by="lastModified">
+                    <xsl:sort select="lastModified"/>
+                    <xsl:for-each select="current-group()">
+                        <fileinfo>
+                            <FullName>
+                                <xsl:value-of select="fullName"/>
+                            </FullName>
+                        </fileinfo>
+                    </xsl:for-each>
+                </xsl:for-each-group>
+            </Files>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="List Files">
+        <pd:type>com.tibco.plugin.file.ListFilesActivity</pd:type>
+        <pd:resourceType>ae.activities.ListFilesActivity</pd:resourceType>
+        <pd:x>305</pd:x>
+        <pd:y>77</pd:y>
+        <config>
+            <mode>only-files</mode>
+        </config>
+        <pd:inputBindings>
+            <ns:ListFilesActivityConfig>
+                <fileName>
+                    <xsl:value-of select="concat($_globalVariables/ns1:GlobalVariables/ApplicationDetails/SFFILE/InputFileDir,$_globalVariables/ns1:GlobalVariables/ApplicationDetails/SFFILE/InputFileName,'*',$_globalVariables/ns1:GlobalVariables/ApplicationDetails/SFFILE/InputFileNameExt)"/>
+                </fileName>
+            </ns:ListFilesActivityConfig>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="No File Exist">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>308</pd:x>
+        <pd:y>250</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Log">
+        <pd:type>com.tibco.pe.core.WriteToLogActivity</pd:type>
+        <pd:resourceType>ae.activities.log</pd:resourceType>
+        <pd:x>508</pd:x>
+        <pd:y>250</pd:y>
+        <config>
+            <role>User</role>
+        </config>
+        <pd:inputBindings>
+            <ns4:ActivityInput>
+                <message>
+                    <xsl:value-of select="&quot;No Files exist in source folder&quot;"/>
+                </message>
+            </ns4:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>List Files</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>List Files</pd:from>
+        <pd:to>Get FileNames In AscendingOrder</pd:to>
+        <pd:xpathDescription>FileExist</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>exists($List-Files/ns:ListFilesActivityOutput/files/fileInfo)</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>No File Exist</pd:from>
+        <pd:to>Log</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Get FileNames In AscendingOrder</pd:from>
+        <pd:to>Group</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>List Files</pd:from>
+        <pd:to>No File Exist</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Log</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

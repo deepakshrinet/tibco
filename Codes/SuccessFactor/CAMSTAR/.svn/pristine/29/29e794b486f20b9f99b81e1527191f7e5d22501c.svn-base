@@ -1,0 +1,156 @@
+// ----------------------------------------------------------------------------------
+// Global Variables --- EAR level
+// ----------------------------------------------------------------------------------
+ApplicationDetails/AuditFlag=false
+
+ApplicationDetails/Environment=TEST
+ApplicationDetails/MES_LMS_TRNG_CHECK/AccessToken/AuthorizationValue=emltbWVyOjhkNTllZTQwNDQ3MzYzMmZlNGI5ODQ2OTFkMDM1NWM3MDBiNzAyMjg2Y2JmODk3NmNhN2YwNzU1MmNmZjk2NTc=
+ApplicationDetails/MES_LMS_TRNG_CHECK/AccessToken/Content-Type=application/json
+ApplicationDetails/MES_LMS_TRNG_CHECK/AccessToken/host=zimmer-stage.plateau.com
+ApplicationDetails/MES_LMS_TRNG_CHECK/AccessToken/Method=POST
+ApplicationDetails/MES_LMS_TRNG_CHECK/AccessToken/PostData={ "grant_type":"client_credentials", "scope":{ "userId":"CSIntegration", "companyId":"zimmer-sbx", "userType":"admin", "resourceType":"learning_public_api" } } 
+ApplicationDetails/MES_LMS_TRNG_CHECK/AccessToken/RequestURI=/learning/oauth-api/rest/v1/token
+ApplicationDetails/MES_LMS_TRNG_CHECK/Category=CurriculumStatus
+ApplicationDetails/MES_LMS_TRNG_CHECK/HTTPConnection/Host=qazimmerintegration.zimmer.com
+ApplicationDetails/MES_LMS_TRNG_CHECK/HTTPConnection/PingPort=8016
+ApplicationDetails/MES_LMS_TRNG_CHECK/HTTPConnection/Port=8015
+ApplicationDetails/MES_LMS_TRNG_CHECK/InterfaceID=CurriculumCheckService
+ApplicationDetails/MES_LMS_TRNG_CHECK/SuccessFactorAPI/AccessTokenName=Authorization
+ApplicationDetails/MES_LMS_TRNG_CHECK/SuccessFactorAPI/AccessTokenPosition=Header
+ApplicationDetails/MES_LMS_TRNG_CHECK/SuccessFactorAPI/ErrorCodes/Error_100=100
+ApplicationDetails/MES_LMS_TRNG_CHECK/SuccessFactorAPI/ErrorCodes/Error_300=300
+ApplicationDetails/MES_LMS_TRNG_CHECK/SuccessFactorAPI/ErrorCodes/Error_400=400
+ApplicationDetails/MES_LMS_TRNG_CHECK/SuccessFactorAPI/Method=GET
+ApplicationDetails/MES_LMS_TRNG_CHECK/SuccessFactorAPI/ResponseType=Default
+ApplicationDetails/MES_LMS_TRNG_CHECK/SuccessFactorAPI/ReTry/Category=WARN
+ApplicationDetails/MES_LMS_TRNG_CHECK/SuccessFactorAPI/ReTry/Max_ReTry=3
+ApplicationDetails/MES_LMS_TRNG_CHECK/SuccessFactorAPI/ReTry/NO_Flag=N
+ApplicationDetails/MES_LMS_TRNG_CHECK/SuccessFactorAPI/ReTry/Sleep_Interval=60000
+ApplicationDetails/MES_LMS_TRNG_CHECK/SuccessFactorAPI/ReTry/YES_Flag=Y
+ApplicationDetails/MES_LMS_TRNG_CHECK/SuccessFactorAPI/TimeOut=300000
+ApplicationDetails/MES_LMS_TRNG_CHECK/SuccessFactorAPI/URI=https://zimmer-stage.plateau.com/learning/odatav4/curriculum/v1/CurriculumStatuses
+ApplicationDetails/MES_LMS_TRNG_CHECK/Timer/TriggerInterval=1500000
+ApplicationDetails/MES_LMS_TRNG_CHECK/Timer/TriggerStartTIme=2013 Apr 01 03:00:00 UTC
+ApplicationDetails/MES_LMS_TRNG_CHECK/TransactionDomain=MANUFACTURING
+ApplicationDetails/MES_LMS_TRNG_CHECK/TransactionType=CurriculumStatusCheck
+BW_GLOBAL_TRUSTED_CA_STORE=file:///E:\MES\Certificates
+CLE/Connections/JMS/CommonLE/MIG_JMSExpiration=0
+CLE/Connections/JMS/CommonLE/MIG_JNDIContextURL=tibjmsnaming://vtibemsjqa.zmr.zimmer.com:7222
+CLE/Connections/JMS/CommonLE/MIG_JNDIPassword=<<>>
+CLE/Connections/JMS/CommonLE/MIG_JNDIUser=cleuser
+CLE/Connections/JMS/CommonLE/MIG_Password=<<>>
+CLE/Connections/JMS/CommonLE/MIG_QueueConnectionFactory=XSP_FW_PRIMARY_CLECore_QCF
+CLE/Connections/JMS/CommonLE/MIG_TopicConnectionFactory=XSP_FW_PRIMARY_CLECore_TCF
+CLE/Connections/JMS/CommonLE/MIG_UserName=cleuser
+CLE/Destinations/Queues/CommonLE/ExceptionQueue=ZBS.INTEGRATION.CLE.EXCEPTION
+CLE/Destinations/Queues/CommonLE/LogLevelReply=ZBS.INTEGRATION.CLE.LOGLEVELREPLY
+CLE/Destinations/Queues/CommonLE/LogQueue=ZBS.INTEGRATION.CLE.LOG
+CLE/Destinations/Topics/CommonLE/LogLevelRequest=ZBS.INTEGRATION.CLE.LOGLEVELREQUEST
+CLE/Environment/CommonLE/ApplicationID=SuccessFactor
+CLE/Environment/CommonLE/FilePollingInterval=900000
+CLE/Environment/CommonLE/MIG_ExceptionDir=E:\TIBCLE\SendFailures\Exception\
+CLE/Environment/CommonLE/MIG_LogDir=E:\TIBCLE\SendFailures\Log\
+CLE/Environment/ExceptionCode/Functional/FUNCTIONAL_101=FUNCTIONAL-101
+CLE/Environment/ExceptionCode/Technical/TECHNICAL_777=TECHNICAL-777
+CLE/Environment/Log_Audit_Flag=false
+CLE/Status/COMPLETED=COMPLETED
+CLE/Status/ERROR=ERROR
+CLE/Status/IN-PROGRESS=IN-PROGRESS
+CLE/Status/STARTED=STARTED
+CLE/Tuning/UtilityServices/LoggingAndExceptions/InitialLogLevel=4
+CLE/Tuning/UtilityServices/LoggingAndExceptions/JmsSendRetryDelayMillis=1000
+CLE/Tuning/UtilityServices/LoggingAndExceptions/JmsSendRetryMaxCount=3
+DirLedger=.
+DirTrace=E:\TIBCO\Application_Log
+EnvVariables/PROXY_CONFIGURATION/Host_name=ws-proxy.nam.zimmer.com
+EnvVariables/PROXY_CONFIGURATION/Port_number=8080
+EnvVariables/TIBCO_BC_Connection/DB_DriverType=Oracle Thin
+EnvVariables/TIBCO_BC_Connection/DB_JDBC_URL=jdbc:oracle:thin:@vtibdbqa.zmr.zimmer.com:1521:TIBQA
+EnvVariables/TIBCO_BC_Connection/DB_JDBCDriver=oracle.jdbc.OracleDriver
+EnvVariables/TIBCO_BC_Connection/DB_Password=<<>>
+EnvVariables/TIBCO_BC_Connection/DB_User=TIB_BC_62
+EnvVariables/TIBCO_BC_Connection/JMS_Transport/InstallationName=ZIMBC-QA
+EnvVariables/TIBCO_BC_Connection/JMS_Transport/InstallationPrefix=ZBS.B2B
+EnvVariables/TIBCO_BC_Connection/JMS_Transport/JMS_Password=<<>>
+EnvVariables/TIBCO_BC_Connection/JMS_Transport/JMS_Username=TIB_BC6
+EnvVariables/TIBCO_BC_Connection/JMS_Transport/JNDIContextFactory=com.tibco.tibjms.naming.TibjmsInitialContextFactory
+EnvVariables/TIBCO_BC_Connection/JMS_Transport/JNDIContextUrl=tibjmsnaming://vtibemsjqa.zmr.zimmer.com:7222
+EnvVariables/TIBCO_BC_Connection/JMS_Transport/JNDIPassword=<<>>
+EnvVariables/TIBCO_BC_Connection/JMS_Transport/JNDIUserName=TIB_BC6
+EnvVariables/TIBCO_BC_Connection/JMS_Transport/QueueConnectionFactory=ZBS_QueueConnectionFactory
+EnvVariables/TIBCO_BC_Connection/JMS_Transport/TopicConnnectionFactory=ZBS_TopicConnectionFactory
+EnvVariables/TIBCO_JDBC_Connection/JDBC_DRIVER=oracle.jdbc.driver.OracleDriver (thin)
+EnvVariables/TIBCO_JDBC_Connection/JDBCTimeout=300
+EnvVariables/TIBCO_JDBC_Connection/LoggerDBURL=jdbc:oracle:thin:@vtibdbqa.zmr.zimmer.com:1521:TIBQA
+EnvVariables/TIBCO_JDBC_Connection/LoginTimeout=300
+EnvVariables/TIBCO_JDBC_Connection/MaxConnection=10
+EnvVariables/TIBCO_JDBC_Connection/MAXIMUM_ROWS=0
+EnvVariables/TIBCO_JDBC_Connection/PASSWORD=<<>>
+EnvVariables/TIBCO_JDBC_Connection/Schema=tibco_app
+EnvVariables/TIBCO_JDBC_Connection/USERNAME=tibco_app
+EnvVariables/TIBCO_JMS_Connection/JNDI_PASSWORD=<<>>
+EnvVariables/TIBCO_JMS_Connection/JNDI_URL=tcp://vtibemsjqa.zmr.zimmer.com:7222
+EnvVariables/TIBCO_JMS_Connection/JNDI_USERNAME=successfactor
+EnvVariables/TIBCO_JMS_Connection/PASSWORD=<<>>
+EnvVariables/TIBCO_JMS_Connection/QUEUE_CONNECTION_FACTORY=ZBS_QueueConnectionFactory
+EnvVariables/TIBCO_JMS_Connection/TOPIC_CONNECTION_FACTORY=ZBS_TopicConnectionFactory
+EnvVariables/TIBCO_JMS_Connection/USERNAME=<<>>
+EnvVariables/TIBCO_MFT_Connection/COMMAND_CENTER/COMMAND_CENTER_PASSWORD=<<>>
+EnvVariables/TIBCO_MFT_Connection/COMMAND_CENTER/COMMAND_CENTER_USER=MFTDEPLOY
+EnvVariables/TIBCO_MFT_Connection/COMMAND_CENTER/MANAGEMENT_QUEUE=ZBS.MFT.Management
+EnvVariables/TIBCO_MFT_Connection/COMMAND_CENTER/TIMEOUT=30
+HawkEnabled=true
+QUEUE/CentralizedScheduler_Queue=ZBS.TIBCO.CENTRALIZEDSCHEDULER.UPDATEINTERFACESTATUS.ASYNC
+SendEmail/Email_CC=MG-ZIM-WAR-COMMON-TIB-SUP-QA@zimmerbiomet.com
+SendEmail/Email_From=MG-ZIM-WAR-COMMON-TIB-SUP-QA@zimmerbiomet.com
+SendEmail/Email_To=MG-ZIM-WAR-COMMON-TIB-SUP-QA@zimmerbiomet.com
+SendEmail/SendEmail_Queue=ZB.TIBCO.COMMON.SENDEMAIL.UTILITY.ASYN
+SendEmail/SMTP_Server=webmail.zimmer.com
+StoreAndReplayService/OperationRetryCount=3
+StoreAndReplayService/OperationSleepInterval=300
+StoreAndReplayService/OperationTimeOut=300
+StoreAndReplayService/StoreService/QueueName=ZBS.TIBCO.BW.STOREANDREPLAY.STOREMESSAGE.ASYNC
+TIBHawkDaemon=tcp:7474
+TIBHawkNetwork=
+TIBHawkService=7474
+// ----------------------------------------------------------------------------------
+// MES_LMS_TRNG_CHECK.par ---  Global Variables --- PAR level
+// ----------------------------------------------------------------------------------
+MES_LMS_TRNG_CHECK,ApplicationDetails/MES_LMS_TRNG_CHECK/HTTPConnection/Host=localhost
+// ----------------------------------------------------------------------------------
+// MES_LMS_TRNG_CHECK.par --- Process Starter settings --- PAR level
+// ----------------------------------------------------------------------------------
+_TAG,BWProcess,MES_LMS_TRNG_CHECK,Processes/RetrieveWSDL.process,maxJob=0
+_TAG,BWProcess,MES_LMS_TRNG_CHECK,Processes/RetrieveWSDL.process,activation=true
+_TAG,BWProcess,MES_LMS_TRNG_CHECK,Processes/RetrieveWSDL.process,flowLimit=0
+_TAG,BWProcess,MES_LMS_TRNG_CHECK,Processes/OnStartupGetAccessToken.process,maxJob=0
+_TAG,BWProcess,MES_LMS_TRNG_CHECK,Processes/OnStartupGetAccessToken.process,activation=true
+_TAG,BWProcess,MES_LMS_TRNG_CHECK,Processes/OnStartupGetAccessToken.process,flowLimit=0
+_TAG,BWProcess,MES_LMS_TRNG_CHECK,CLE/Interface/Loader/InitializeLogLevel.process,maxJob=0
+_TAG,BWProcess,MES_LMS_TRNG_CHECK,CLE/Interface/Loader/InitializeLogLevel.process,activation=true
+_TAG,BWProcess,MES_LMS_TRNG_CHECK,CLE/Interface/Loader/InitializeLogLevel.process,flowLimit=0
+_TAG,BWProcess,MES_LMS_TRNG_CHECK,Services/CurriculumCheckService.serviceagent,maxJob=0
+_TAG,BWProcess,MES_LMS_TRNG_CHECK,Services/CurriculumCheckService.serviceagent,activation=true
+_TAG,BWProcess,MES_LMS_TRNG_CHECK,Services/CurriculumCheckService.serviceagent,flowLimit=0
+_TAG,BWProcess,MES_LMS_TRNG_CHECK,Processes/PingTest.process,maxJob=0
+_TAG,BWProcess,MES_LMS_TRNG_CHECK,Processes/PingTest.process,activation=true
+_TAG,BWProcess,MES_LMS_TRNG_CHECK,Processes/PingTest.process,flowLimit=0
+_TAG,BWProcess,MES_LMS_TRNG_CHECK,Processes/LoadTimerGetAccessToken.process,maxJob=0
+_TAG,BWProcess,MES_LMS_TRNG_CHECK,Processes/LoadTimerGetAccessToken.process,activation=true
+_TAG,BWProcess,MES_LMS_TRNG_CHECK,Processes/LoadTimerGetAccessToken.process,flowLimit=0
+_TAG,Setting,MES_LMS_TRNG_CHECK,threadCount=8
+_TAG,Setting,MES_LMS_TRNG_CHECK,maxLogFileCount=5
+_TAG,Setting,MES_LMS_TRNG_CHECK,maxLogFileSize=20000
+_TAG,Setting,MES_LMS_TRNG_CHECK,java/initHeapSize=32
+_TAG,Setting,MES_LMS_TRNG_CHECK,java/maxHeapSize=256
+_TAG,Setting,MES_LMS_TRNG_CHECK,java/prepandClassPath=
+_TAG,Setting,MES_LMS_TRNG_CHECK,java/appendClassPath=
+// ----------------------------------------------------------------------------------
+// Machine #1 --- MES_LMS_TRNG_CHECK.par --- Service Instance settings --- Service level
+// ----------------------------------------------------------------------------------
+_TAG,Machine,MES_LMS_TRNG_CHECK,MES_LMS_TRNG_CHECK,machine=VTIBAPPQA03
+// ----------------------------------------------------------------------------------
+// Machine #2 --- MES_LMS_TRNG_CHECK.par --- Service Instance settings --- Service level
+// ----------------------------------------------------------------------------------
+_TAG,Machine,MES_LMS_TRNG_CHECK,MES_LMS_TRNG_CHECK-2,machine=VTIBAPPQA04
+

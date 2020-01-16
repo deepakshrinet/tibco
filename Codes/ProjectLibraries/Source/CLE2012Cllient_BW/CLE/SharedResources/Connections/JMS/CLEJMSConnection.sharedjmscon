@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BWSharedResource>
+    <name>CLEJMSConnection</name>
+    <resourceType>ae.shared.JMSConnectionKey</resourceType>
+    <config>
+        <NamingEnvironment>
+            <UseJNDI>true</UseJNDI>
+            <ProviderURL>tcp://localhost:7222</ProviderURL>
+            <NamingURL>%%CLE/Connections/JMS/CommonLE/MIG_JNDIContextURL%%</NamingURL>
+            <NamingInitialContextFactory>com.tibco.tibjms.naming.TibjmsInitialContextFactory</NamingInitialContextFactory>
+            <TopicFactoryName>%%CLE/Connections/JMS/CommonLE/MIG_TopicConnectionFactory%%</TopicFactoryName>
+            <QueueFactoryName>%%CLE/Connections/JMS/CommonLE/MIG_QueueConnectionFactory%%</QueueFactoryName>
+            <NamingPrincipal>%%CLE/Connections/JMS/CommonLE/MIG_JNDIUser%%</NamingPrincipal>
+            <NamingCredential>%%CLE/Connections/JMS/CommonLE/MIG_JNDIPassword%%</NamingCredential>
+        </NamingEnvironment>
+        <ConnectionAttributes>
+            <username>%%CLE/Connections/JMS/CommonLE/MIG_UserName%%</username>
+            <password>%%CLE/Connections/JMS/CommonLE/MIG_Password%%</password>
+            <clientID/>
+            <autoGenClientID>true</autoGenClientID>
+        </ConnectionAttributes>
+        <UseXACF>false</UseXACF>
+    </config>
+</BWSharedResource>

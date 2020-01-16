@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serviceResource xmlns:wsdl="http://www.tibco.com/CommonLE2/namespace/Administration/GUIServices/InterfaceConfiguration">
+    <ns0:import xmlns:ns0="http://schemas.xmlsoap.org/wsdl/" namespace="http://www.tibco.com/CommonLE2/namespace/Administration/GUIServices/InterfaceConfiguration" location="/SharedResources/WSDL/GUI/Administration/intfInterfaceConfiguration.wsdl"/>
+    <config>
+        <class>com.tibco.bw.service.serviceAgent.ServiceServiceAgent</class>
+        <implType>bw</implType>
+        <groups>
+            <row isDefault="true" groupName="Default"/>
+        </groups>
+        <serviceChange>Fri Oct 01 16:40:55 PDT 2010</serviceChange>
+        <name>InterfaceConfigurationService</name>
+        <resourceType>service.definition</resourceType>
+        <wsdl namespace="http://www.tibco.com/CommonLE2/namespace/Administration/GUIServices/InterfaceConfigurationConcrete" embedWsdlComponents="true" embedSchemaComponents="true" embedJndiProperties="false"/>
+        <interfaceImpl>
+            <tab>
+                <tabName>PortType</tabName>
+                <tabType>bw</tabType>
+                <config>
+                    <wsdlDetail location="/SharedResources/WSDL/GUI/Administration/intfInterfaceConfiguration.wsdl" portType="PortType" ns="http://www.tibco.com/CommonLE2/namespace/Administration/GUIServices/InterfaceConfiguration"/>
+                    <detail>
+                        <tab>
+                            <tabName>service.definition.impl.tab.label</tabName>
+                            <tabType>impl</tabType>
+                            <config>
+                                <operations>
+                                    <row opName="RetrieveInterfaceConfigurationList" opImpl="/Administration/GUIServices/InterfaceConfigurationServices/wsRetrieveInterfaceConfigList.process"/>
+                                    <row opName="DeleteInterfaceConfigurations" opImpl="/Administration/GUIServices/InterfaceConfigurationServices/wsDeleteInterfaceConfiguration.process"/>
+                                    <row opName="RetrieveInterfaceParentList" opImpl="/Administration/GUIServices/InterfaceConfigurationServices/wsRetrieveParentInterfaceList.process"/>
+                                    <row opName="CreateInterfaceConfiguration" opImpl="/Administration/GUIServices/InterfaceConfigurationServices/wsCreateInterfaceConfiguration.process"/>
+                                    <row opName="UpdateInterfaceConfiguration" opImpl="/Administration/GUIServices/InterfaceConfigurationServices/wsUpdateInterfaceConfiguration.process"/>
+                                    <row opName="RetrieveInterfaceConfigurationDetail" opImpl="/Administration/GUIServices/InterfaceConfigurationServices/wsRetrieveInterfaceConfigurationDetail.process"/>
+                                </operations>
+                            </config>
+                        </tab>
+                        <tab>
+                            <tabName>service.definition.ep.tab.label</tabName>
+                            <tabType>ep</tabType>
+                            <config>
+                                <epBindings>
+                                    <row epName="InterfaceConfigurationEndpoint" epType="soap">
+                                        <config>
+                                            <epDetail>
+                                                <tab>
+                                                    <tabName>soap.service.transport.ui.transport.tab.label</tabName>
+                                                    <tabType>transport</tabType>
+                                                    <config>
+                                                        <sharedChannel>/SharedResources/Connections/SOAP/HTTP GUIServicesAdministration.sharedhttp</sharedChannel>
+                                                        <transport>
+                                                            <config>
+                                                                <useBasicAuthentication>false</useBasicAuthentication>
+                                                                <httpURI>/Administration/GUIServices/InterfaceConfigurationServices/Service.serviceagent/InterfaceConfigurationEndpoint</httpURI>
+                                                            </config>
+                                                        </transport>
+                                                    </config>
+                                                </tab>
+                                                <tab>
+                                                    <tabName>soap.service.transport.ui.details.tab.label</tabName>
+                                                    <tabType>details</tabType>
+                                                    <config>
+                                                        <operationStyle>document</operationStyle>
+                                                        <soapVersion>SOAP 1.1</soapVersion>
+                                                        <soap>
+                                                            <operation name="RetrieveInterfaceConfigurationList">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Administration/GUIServices/InterfaceConfigurationServices/Service.serviceagent/PortTypeEndpoint1/RetrieveInterfaceConfigurationList</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="DeleteInterfaceConfigurations">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Administration/GUIServices/InterfaceConfigurationServices/Service.serviceagent//DeleteInterfaceConfigurations</soapAction>
+                                                                        <soapUse>literal</soapUse>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="RetrieveInterfaceParentList">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Administration/GUIServices/InterfaceConfigurationServices/Service.serviceagent//RetrieveInterfaceParentList</soapAction>
+                                                                        <soapUse>literal</soapUse>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="CreateInterfaceConfiguration">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Administration/GUIServices/InterfaceConfigurationServices/Service.serviceagent//CreateInterfaceConfiguration</soapAction>
+                                                                        <soapUse>literal</soapUse>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="UpdateInterfaceConfiguration">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Administration/GUIServices/InterfaceConfigurationServices/Service.serviceagent//UpdateInterfaceConfiguration</soapAction>
+                                                                        <soapUse>literal</soapUse>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="RetrieveInterfaceConfigurationDetail">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Administration/GUIServices/InterfaceConfigurationServices/InterfaceConfigurationService.serviceagent//RetrieveInterfaceConfigurationDetail</soapAction>
+                                                                        <soapUse>literal</soapUse>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                        </soap>
+                                                    </config>
+                                                </tab>
+                                            </epDetail>
+                                        </config>
+                                    </row>
+                                </epBindings>
+                            </config>
+                        </tab>
+                    </detail>
+                </config>
+            </tab>
+        </interfaceImpl>
+    </config>
+</serviceResource>

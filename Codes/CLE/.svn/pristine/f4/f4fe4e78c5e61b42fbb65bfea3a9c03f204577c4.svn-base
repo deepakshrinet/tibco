@@ -1,0 +1,73 @@
+<serialization xmlns="urn:tibco.com/v3.0" jsxversion="3.9">
+  <name><![CDATA[Dialog]]></name>
+  <icon><![CDATA[images/prototypes/dialog.gif]]></icon>
+  <description><![CDATA[Dialog box.  (Set Modal property for a modal dialog).]]></description>
+  <object type="jsx3.gui.Dialog">
+    <variants jsxwidth="400" jsxheight="480" jsxwindowstate="1" jsxzindex="5000" jsxleft="13" jsxtop="17"/>
+    <strings jsxname="dialog"/>
+    <dynamics jsxbgcolor="@Solid Medium"/>
+    <object type="jsx3.gui.WindowBar">
+      <variants/>
+      <strings jsxname="windowBar"/>
+      <dynamics jsxtext="exception_manageColumnsCaption" jsxbgcolor="mediumBG"/>
+      <object type="jsx3.gui.Button">
+        <variants jsxindex="0" jsxheight="18"/>
+        <strings jsxname="cancelButton" jsxmargin="4 4 0 4"/>
+        <dynamics jsxbgcolor="buttonBackground" jsxtext="m_cancel" jsxtip="m_cancelTip"/>
+        <events jsxexecute="this.getAncestorOfType('jsx3.gui.Dialog').doCancelButton(this);"/>
+      </object>
+      <object type="jsx3.gui.Button">
+        <variants jsxindex="0" jsxheight="18"/>
+        <strings jsxname="applyButton" jsxmargin="4 4 0 4"/>
+        <dynamics jsxtext="m_apply" jsxbgcolor="buttonBackground" jsxtip="m_applyTip"/>
+        <events jsxexecute="this.getAncestorOfType('jsx3.gui.Dialog').doApplyButton(this);"/>
+      </object>
+      <object type="jsx3.gui.Button">
+        <variants jsxindex="0" jsxheight="18"/>
+        <strings jsxname="closeButton" jsxmargin="4 4 0 4"/>
+        <dynamics jsxtext="m_close" jsxbgcolor="buttonBackground" jsxtip="m_closeTip"/>
+        <events jsxexecute="this.getAncestorOfType('jsx3.gui.Dialog').doCloseButton(this);"/>
+      </object>
+    </object>
+    <object type="jsx3.gui.Block">
+      <variants jsxoverflow="1" jsxloadtype="1"/>
+      <strings jsxname="block" jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1"/>
+      <dynamics jsxbgcolor="@Solid Light"/>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="2"/>
+        <strings jsxname="configuredColumnsPane" jsxwidth="100%" jsxheight="100%"/>
+        <dynamics jsxborder="@Outset"/>
+        <object type="jsx3.gui.Matrix">
+          <variants jsxheaderheight="0" jsxjsxxmlasync="1" jsxxmlbind="1" jsxpagingmodel="1" jsxdrag="0" jsxdrop="0" jsxselectionmodel="1"/>
+          <strings xmlns="urn:tibco.com/v3.0" jsxname="exceptionConfiguredColumnsMatrix" jsxrenderingmodel="deep" jsxxmlid="exceptionConfiguredColumns_cdf"/>
+          <dynamics jsxbgcolor="@Solid Light"/>
+          <object type="jsx3.gui.Matrix.Column">
+            <variants/>
+            <strings jsxname="checkboxColumn" jsxwidth="100" jsxpath="jsxdisplay" jsxcelltextalign="center" jsxpadding="3" jsxcellpadding="1" jsxvaluetemplate="@empty"/>
+            <dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="@Solid Disabled" jsxtext="m_show" jsxcellborder="columnLeftBorder"/>
+            <object type="jsx3.gui.CheckBox">
+              <variants jsxchecked="0" jsxenabled="1" jsxdefaultchecked="0"/>
+              <strings jsxname="checkboxMask" jsxtext=""/>
+            </object>
+          </object>
+          <object type="jsx3.gui.Matrix.Column">
+            <variants/>
+            <strings jsxname="numberInputColumn" jsxwidth="100" jsxvaluetemplate="@empty" jsxpadding="2" jsxcellpadding="2" jsxpath="jsxwidth" jsxformathandler="@number"/>
+            <dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="@Solid Disabled" jsxtext="m_width" jsxcellborder="columnLeftBorder"/>
+            <object type="jsx3.gui.NumberInput">
+              <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0"/>
+              <strings jsxname="numberInput" jsxdisplay="none"/>
+              <dynamics jsxformat="@Number" jsxfontsize="matrixMaskFontSize"/>
+              <events jsxkeydown="1;"/>
+            </object>
+          </object>
+          <object type="jsx3.gui.Matrix.Column">
+            <variants/>
+            <strings xmlns="urn:tibco.com/v3.0" jsxname="columnName" jsxwidth="*" jsxcellpadding="2" jsxpath="jsxtext"/>
+            <dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="@Solid Disabled" jsxtext="m_name" jsxcellborder="columnRightBorder"/>
+          </object>
+        </object>
+      </object>
+    </object>
+  </object>
+</serialization>

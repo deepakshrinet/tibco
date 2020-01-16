@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/private/Common"
+	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	 targetNamespace="http://www.tibco.com/CommonLE2/namespace/private/Common"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xsd:element name="Query">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="ApplicationID"/>
+				<xsd:element ref="RenderID"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ApplicationID" type="xsd:string"/>
+	<xsd:element name="RenderID" type="xsd:string"/>
+	<xsd:element name="RenderingImp">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Css"/>
+				<xsd:element ref="XSLTSyleSheet"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Css" type="xsd:string"/>
+	<xsd:element name="XSLTSyleSheet" type="xsd:string"/>
+	<xsd:simpleType name="adf">
+		<xsd:restriction base="xsd:string"/>
+	</xsd:simpleType>
+</xsd:schema>

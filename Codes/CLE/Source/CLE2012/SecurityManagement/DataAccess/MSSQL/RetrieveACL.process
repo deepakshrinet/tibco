@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:pfx="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/UserAuthenticationRequest" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/CommonLE2/namespace/private/Common" xmlns:ns1="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:pfx5="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/RolePermissionInformationRequest" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx4="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/AllRolesRetrievalResponse" xmlns:pfx3="http://www.tibco.com/CommonLE2/Public/Common/Dummy" xmlns:pfx2="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/UserAuthenticationResponse" xmlns:pfx8="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/RolePermissionInformationRequest" xmlns:pfx7="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/RolePermissionInformation" xmlns:pfx6="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/RolePermissionInformationResponse">
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/UserAuthenticationRequest" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/SecurityConfiguration/UserAuthenticationRequest.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/UserAuthenticationResponse" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/SecurityConfiguration/UserAuthenticationResponse.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/AllRolesRetrievalResponse" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/SecurityConfiguration/AllRolesRetrieval.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/private/Common" schemaLocation="/SharedResources/SchemaDefinitions/Private/Common/LocalExceptions.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/RolePermissionInformation" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/SecurityConfiguration/RolePermissionsInformation.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/RolePermissionInformationRequest" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/SecurityConfiguration/RolePermissionsInformationRequest.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/Public/Common/Dummy" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Common/DummyReturnMessage.xsd"/>
+    <pd:name>SecurityManagement/DataAccess/MSSQL/RetrieveACL.process</pd:name>
+    <pd:description>Retrieves the permissions for a role</pd:description>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx8:RolePermissionInformationRequest"/>
+    <pd:startX>26</pd:startX>
+    <pd:startY>141</pd:startY>
+    <pd:returnBindings>
+        <pfx7:RolePermissionsInfo>
+            <pfx7:rolename>
+                <xsl:value-of select="$Variable1/names"/>
+            </pfx7:rolename>
+            <pfx7:appid>
+                <xsl:value-of select="$Start/pfx8:RolePermissionInformationRequest/pfx8:AppID"/>
+            </pfx7:appid>
+            <pfx7:permissions>
+                <xsl:for-each-group select="$Parse-Role-Permissions-XML/pfx7:permissions/pfx7:permission" group-by="pfx7:permissionID">
+                    <pfx7:permission>
+                        <pfx7:permissionID>
+                            <xsl:value-of select="current-group()[1]/pfx7:permissionID"/>
+                        </pfx7:permissionID>
+                    </pfx7:permission>
+                </xsl:for-each-group>
+            </pfx7:permissions>
+        </pfx7:RolePermissionsInfo>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType ref="pfx7:RolePermissionsInfo"/>
+    <pd:endX>729</pd:endX>
+    <pd:endY>142</pd:endY>
+    <pd:errorSchemas>
+        <AuthorizationError ref="ns2:AuthorizationError"/>
+    </pd:errorSchemas>
+    <pd:processVariables>
+        <Variable1>
+            <xsd:element name="names" type="xsd:string"/>
+        </Variable1>
+        <Variable0>
+            <xsd:element name="root" type="xsd:string"/>
+        </Variable0>
+    </pd:processVariables>
+    <pd:targetNamespace>http://xmlns.example.com/1310497106998</pd:targetNamespace>
+    <pd:activity name="Parse Role Permissions XML">
+        <pd:type>com.tibco.plugin.xml.XMLParseActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLParseActivity</pd:resourceType>
+        <pd:x>629</pd:x>
+        <pd:y>148</pd:y>
+        <config>
+            <inputStyle>text</inputStyle>
+            <xsdVersion>default</xsdVersion>
+            <validateOutput>true</validateOutput>
+            <term ref="pfx7:permissions"/>
+        </config>
+        <pd:inputBindings>
+            <xmlString>
+                <xsl:value-of select="concat('&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?> &lt;permissions xmlns=&quot;http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/RolePermissionInformation&quot;>',$Variable0/root,&quot;&lt;/permissions>&quot;)"/>
+            </xmlString>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:group name="Loop Roles">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>94</pd:x>
+        <pd:y>33</pd:y>
+        <pd:width>441</pd:width>
+        <pd:height>198</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>inputLoop</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:over>$Start/pfx8:RolePermissionInformationRequest/pfx8:RoleNames/pfx8:RoleName</pd:over>
+            <pd:iterationElementSlot>currentItem</pd:iterationElementSlot>
+            <pd:indexSlot>i</pd:indexSlot>
+            <pd:outSlot>privileges</pd:outSlot>
+            <pd:activityOutputName>Retrieve User Priviledges</pd:activityOutputName>
+            <pd:accumulateOutput>true</pd:accumulateOutput>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>Retrieve User Priviledges</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Concat Role Name</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Retrieve User Priviledges</pd:from>
+            <pd:to>PermissionStrings</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>PermissionStrings</pd:from>
+            <pd:to>Concat Role Name</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="Retrieve User Priviledges">
+            <pd:type>com.tibco.plugin.jdbc.JDBCQueryActivity</pd:type>
+            <pd:resourceType>ae.activities.JDBCQueryActivity</pd:resourceType>
+            <pd:x>198</pd:x>
+            <pd:y>148</pd:y>
+            <config>
+                <timeout>%%Database/MIG_Timeout%%</timeout>
+                <commit>false</commit>
+                <maxRows>100</maxRows>
+                <emptyStrAsNil>false</emptyStrAsNil>
+                <jdbcSharedConfig>/SharedResources/Connections/Database/DBServerMSSQL.sharedjdbc</jdbcSharedConfig>
+                <statement>select privilege from accesscontrol where applicationid = ? and rolename = ?</statement>
+                <Prepared_Param_DataType>
+                    <parameter>
+                        <parameterName>AppID</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>RoleName</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                </Prepared_Param_DataType>
+                <oraObjects/>
+                <oraTables/>
+                <QueryOutputCachedSchemaColumns>privilege</QueryOutputCachedSchemaColumns>
+                <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+                <QueryOutputCachedSchemaDataTypesName>varchar</QueryOutputCachedSchemaDataTypesName>
+                <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            </config>
+            <pd:inputBindings>
+                <jdbcQueryActivityInput>
+                    <AppID>
+                        <xsl:value-of select="$Start/pfx8:RolePermissionInformationRequest/pfx8:AppID"/>
+                    </AppID>
+                    <RoleName>
+                        <xsl:value-of select="$currentItem/pfx8:RoleName"/>
+                    </RoleName>
+                </jdbcQueryActivityInput>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="PermissionStrings">
+            <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+            <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+            <pd:x>321</pd:x>
+            <pd:y>139</pd:y>
+            <config>
+                <variableName>Variable0</variableName>
+            </config>
+            <pd:inputBindings>
+                <root>
+                    <xsl:value-of select="concat($Variable0,substring-after(substring-before($Retrieve-User-Priviledges/resultSet/Record[1]/privilege,&quot;&lt;/permissions>&quot;),' xmlns=&quot;http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/RolePermissionInformation&quot;>'))"/>
+                </root>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="Concat Role Name">
+            <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+            <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+            <pd:x>453</pd:x>
+            <pd:y>139</pd:y>
+            <config>
+                <variableName>Variable1</variableName>
+            </config>
+            <pd:inputBindings>
+                <names>
+                    <xsl:value-of select="if(string-length($Variable1)=0) then concat($Variable1,$currentItem/pfx8:RoleName) else concat($Variable1,$currentItem/pfx8:RoleName,',')"/>
+                </names>
+            </pd:inputBindings>
+        </pd:activity>
+    </pd:group>
+    <pd:transition>
+        <pd:from>Parse Role Permissions XML</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Loop Roles</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Loop Roles</pd:from>
+        <pd:to>Parse Role Permissions XML</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/EngineTypes" xmlns:pfx="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx5="http://www.tibco.com/CommonLE2/namespace/private/Common" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx4="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Category" xmlns:pfx3="http://www.tibco.com/CommonLE/namespace/Custom" xmlns:pfx2="http://xmlns.example.com/unique/default/namespace/1098735544074" xmlns:pfx9="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/RenderConfig" xmlns:pfx8="http://www.tibco.com/CommonLE2/Public/Common/Dummy" xmlns:pfx7="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Type" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pfx6="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Severity">
+    <xsd:import namespace="http://www.tibco.com/CommonLE/namespace/Custom" schemaLocation="/Shared Resources/Schema Definitions/Custom/ExceptionCategory.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Category" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/ExceptionCategory.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/private/Common" schemaLocation="/SharedResources/SchemaDefinitions/Private/Common/LocalExceptions.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Severity" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/ExceptionSeverity.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Type" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/ExceptionType.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/RenderConfig" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/RenderConfig.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/Public/Common/Dummy" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Common/DummyReturnMessage.xsd"/>
+    <pd:name>Administration/DataAccess/RenderConfiguration/Oracle/UpdateRenderConfig.process</pd:name>
+    <pd:description>Updates the render config</pd:description>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx9:RenderConfig"/>
+    <pd:startX>26</pd:startX>
+    <pd:startY>101</pd:startY>
+    <pd:returnBindings>
+        <pfx8:Dummy/>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endX>332</pd:endX>
+    <pd:endY>102</pd:endY>
+    <pd:errorSchemas>
+        <Schema0 ref="pfx5:DBRecordNotFound"/>
+    </pd:errorSchemas>
+    <pd:processVariables/>
+    <pd:activity name="UpdateRenderConfig">
+        <pd:type>com.tibco.plugin.jdbc.JDBCUpdateActivity</pd:type>
+        <pd:resourceType>ae.activities.JDBCUpdateActivity</pd:resourceType>
+        <pd:x>168</pd:x>
+        <pd:y>101</pd:y>
+        <config>
+            <timeout>%%Database/MIG_Timeout%%</timeout>
+            <commit>false</commit>
+            <emptyStrAsNil>false</emptyStrAsNil>
+            <jdbcSharedConfig>/SharedResources/Connections/Database/DBServerOracle.sharedjdbc</jdbcSharedConfig>
+            <statement>Update transactionrenderconfig set xslt =?, css =?
+Where RENDERID = ?</statement>
+            <Prepared_Param_DataType>
+                <parameter>
+                    <parameterName>xslt</parameterName>
+                    <dataType>CLOB</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>css</parameterName>
+                    <dataType>CLOB</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>RenderID</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+            </Prepared_Param_DataType>
+        </config>
+        <pd:inputBindings>
+            <jdbcUpdateActivityInput>
+                <xslt>
+                    <xsl:choose>
+                        <xsl:when test="exists($Start/pfx9:RenderConfig/pfx9:XSLT)">
+                            <xsl:value-of select="$Start/pfx9:RenderConfig/pfx9:XSLT"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xslt>
+                <css>
+                    <xsl:choose>
+                        <xsl:when test="exists($Start/pfx9:RenderConfig/pfx9:CSS)">
+                            <xsl:value-of select="$Start/pfx9:RenderConfig/pfx9:CSS"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </css>
+                <RenderID>
+                    <xsl:value-of select="$Start/pfx9:RenderConfig/pfx9:RenderID"/>
+                </RenderID>
+            </jdbcUpdateActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="No Records Found">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>188</pd:x>
+        <pd:y>241</pd:y>
+        <config>
+            <faultName>Schema0</faultName>
+        </config>
+        <pd:inputBindings>
+            <pfx:ActivityInput>
+                <message>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/DB/Messages/DBRecordNotFound"/>
+                </message>
+                <messageCode>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/DB/Codes/SQLRecordNotFound"/>
+                </messageCode>
+                <data>
+                    <pfx5:DBRecordNotFound>
+                        <pfx5:Message>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/DB/Messages/DBRecordNotFound"/>
+                        </pfx5:Message>
+                        <pfx5:Code>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/DB/Codes/SQLRecordNotFound"/>
+                        </pfx5:Code>
+                    </pfx5:DBRecordNotFound>
+                </data>
+            </pfx:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>UpdateRenderConfig</pd:to>
+        <pd:lineType>Straight</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>UpdateRenderConfig</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Straight</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>UpdateRenderConfig</pd:from>
+        <pd:to>No Records Found</pd:to>
+        <pd:xpathDescription>No Updates</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$UpdateRenderConfig/jdbcUpdateActivityOutput/noOfUpdates = 0</pd:xpath>
+    </pd:transition>
+</pd:ProcessDefinition>

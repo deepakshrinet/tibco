@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BWSharedResource>
+    <name>JMS Reply</name>
+    <resourceType>ae.shared.JMSConnectionKey</resourceType>
+    <config>
+        <NamingEnvironment>
+            <UseJNDI>true</UseJNDI>
+            <ProviderURL>tcp://localhost:7222</ProviderURL>
+            <NamingURL>%%JMSServer/Application/MIG_JNDIContextURL%%</NamingURL>
+            <NamingInitialContextFactory>com.tibco.tibjms.naming.TibjmsInitialContextFactory</NamingInitialContextFactory>
+            <TopicFactoryName>%%JMSServer/MIG_TopicConnectionFactory%%</TopicFactoryName>
+            <QueueFactoryName>%%JMSServer/MIG_QueueConnectionFactory%%</QueueFactoryName>
+            <NamingPrincipal>%%JMSServer/Application/MIG_JNDIUser%%</NamingPrincipal>
+            <NamingCredential>%%JMSServer/Application/MIG_Password%%</NamingCredential>
+        </NamingEnvironment>
+        <ConnectionAttributes>
+            <username>%%JMSServer/Application/MIG_UserName%%</username>
+            <password>%%JMSServer/Application/MIG_Password%%</password>
+            <clientID>%%JMSServer/MIG_ClientIDExceptionReploy%%</clientID>
+            <autoGenClientID>true</autoGenClientID>
+        </ConnectionAttributes>
+        <useSsl>false</useSsl>
+        <ns0:ssl xmlns:ns0="http://www.tibco.com/xmlns/aemeta/services/2002"/>
+    </config>
+</BWSharedResource>

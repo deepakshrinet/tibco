@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx="http://www.tibco.com/schemas/MessageSender_Utility/Schema.xsd">
+    <xsd:import namespace="http://www.tibco.com/schemas/MessageSender_Utility/Schema.xsd" schemaLocation="/DoNotUse/Schema.xsd"/>
+    <pd:name>DoNotUse/Process Definition.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startX>150</pd:startX>
+    <pd:startY>64</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>623</pd:endX>
+    <pd:endY>74</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1472609467045</pd:targetNamespace>
+    <pd:activity name="Render XML">
+        <pd:type>com.tibco.plugin.xml.XMLRendererActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLRendererActivity</pd:resourceType>
+        <pd:x>271</pd:x>
+        <pd:y>49</pd:y>
+        <config>
+            <renderAsText>text</renderAsText>
+            <validateInput>true</validateInput>
+            <textEncoding>UTF-8</textEncoding>
+            <renderDefaultPrefix>true</renderDefaultPrefix>
+            <term ref="pfx:root"/>
+        </config>
+        <pd:inputBindings>
+            <pfx:root>
+                <pfx:xml>
+                    <xsl:value-of select="'&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&lt;ns0:MT_RP_Doc_Recheck xmlns:ns0=&quot;urn:zb.com:GTS_RP_Doc_Recheck&quot;>&lt;WH_Doc_Num>E01&lt;/WH_Doc_Num>&lt;Request_ID>DCSA06932720160524101930&lt;/Request_ID>&lt;Recheck_Flag>X&lt;/Recheck_Flag>&lt;Record>&lt;Doc_Num>02-509057-001-E01&lt;/Doc_Num>&lt;Items>&lt;Item_Num>001&lt;/Item_Num>&lt;/Items>&lt;/Record>&lt;Record>&lt;Doc_Num>02-509057-002-E01&lt;/Doc_Num>&lt;Items>&lt;Item_Num>002&lt;/Item_Num>&lt;/Items>&lt;/Record>&lt;Record>&lt;Doc_Num>02-509057-003-E01&lt;/Doc_Num>&lt;Items>&lt;Item_Num>003&lt;/Item_Num>&lt;/Items>&lt;/Record>&lt;Record>&lt;Doc_Num>02-509057-004-E01&lt;/Doc_Num>&lt;Items>&lt;Item_Num>004&lt;/Item_Num>&lt;/Items>&lt;/Record>&lt;Record>&lt;Doc_Num>02-509057-005-E01&lt;/Doc_Num>&lt;Items>&lt;Item_Num>005&lt;/Item_Num>&lt;/Items>&lt;/Record>&lt;/ns0:MT_RP_Doc_Recheck>'"/>
+                </pfx:xml>
+                <pfx:xml>
+                    <xsl:value-of select="'&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&lt;ns0:MT_RP_Doc_Recheck xmlns:ns0=&quot;urn:zb.com:GTS_RP_Doc_Recheck&quot;>&lt;WH_Doc_Num>E01&lt;/WH_Doc_Num>&lt;Request_ID>DCSA06932720160524101930&lt;/Request_ID>&lt;Recheck_Flag>X&lt;/Recheck_Flag>&lt;Record>&lt;Doc_Num>02-509057-001-E01&lt;/Doc_Num>&lt;Items>&lt;Item_Num>001&lt;/Item_Num>&lt;/Items>&lt;/Record>&lt;Record>&lt;Doc_Num>02-509057-002-E01&lt;/Doc_Num>&lt;Items>&lt;Item_Num>002&lt;/Item_Num>&lt;/Items>&lt;/Record>&lt;Record>&lt;Doc_Num>02-509057-003-E01&lt;/Doc_Num>&lt;Items>&lt;Item_Num>003&lt;/Item_Num>&lt;/Items>&lt;/Record>&lt;Record>&lt;Doc_Num>02-509057-004-E01&lt;/Doc_Num>&lt;Items>&lt;Item_Num>004&lt;/Item_Num>&lt;/Items>&lt;/Record>&lt;Record>&lt;Doc_Num>02-509057-005-E01&lt;/Doc_Num>&lt;Items>&lt;Item_Num>005&lt;/Item_Num>&lt;/Items>&lt;/Record>&lt;/ns0:MT_RP_Doc_Recheck>'"/>
+                </pfx:xml>
+                <pfx:xml>
+                    <xsl:value-of select="'&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&lt;ns0:MT_RP_Doc_Recheck xmlns:ns0=&quot;urn:zb.com:GTS_RP_Doc_Recheck&quot;>&lt;WH_Doc_Num>E01&lt;/WH_Doc_Num>&lt;Request_ID>DCSA06932720160524101930&lt;/Request_ID>&lt;Recheck_Flag>X&lt;/Recheck_Flag>&lt;Record>&lt;Doc_Num>02-509057-001-E01&lt;/Doc_Num>&lt;Items>&lt;Item_Num>001&lt;/Item_Num>&lt;/Items>&lt;/Record>&lt;Record>&lt;Doc_Num>02-509057-002-E01&lt;/Doc_Num>&lt;Items>&lt;Item_Num>002&lt;/Item_Num>&lt;/Items>&lt;/Record>&lt;Record>&lt;Doc_Num>02-509057-003-E01&lt;/Doc_Num>&lt;Items>&lt;Item_Num>003&lt;/Item_Num>&lt;/Items>&lt;/Record>&lt;Record>&lt;Doc_Num>02-509057-004-E01&lt;/Doc_Num>&lt;Items>&lt;Item_Num>004&lt;/Item_Num>&lt;/Items>&lt;/Record>&lt;Record>&lt;Doc_Num>02-509057-005-E01&lt;/Doc_Num>&lt;Items>&lt;Item_Num>005&lt;/Item_Num>&lt;/Items>&lt;/Record>&lt;/ns0:MT_RP_Doc_Recheck>'"/>
+                </pfx:xml>
+            </pfx:root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Render XML</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Render XML</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

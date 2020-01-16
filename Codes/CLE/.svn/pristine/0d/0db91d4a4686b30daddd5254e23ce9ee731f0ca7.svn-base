@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/EngineTypes" xmlns:pfx12="http://www.tibco.com/CommonLE2/Private/Administration" xmlns:pfx11="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig" xmlns:pfx10="http://www.tibco.com/CommonLE2/namespace/private/Common" xmlns:pfx="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx5="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Severity" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx4="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Category" xmlns:pfx3="http://www.tibco.com/CommonLE/namespace/Custom" xmlns:pfx2="http://xmlns.example.com/unique/default/namespace/1098735544074" xmlns:pfx9="http://schemas.tibco.com/bw/plugins/jdbc/5.0/jdbcExceptions" xmlns:pfx8="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Applications" xmlns:pfx7="http://www.tibco.com/CommonLE2/Public/Common/Dummy" xmlns:pfx6="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Type" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xsd:import namespace="http://www.tibco.com/CommonLE/namespace/Custom" schemaLocation="/Shared Resources/Schema Definitions/Custom/ExceptionCategory.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Category" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/ExceptionCategory.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Severity" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/ExceptionSeverity.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Type" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/ExceptionType.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Applications" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/Applications.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/ExceptionConfig.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/Private/Administration" schemaLocation="/SharedResources/SchemaDefinitions/Private/Administration/QueryUpdate.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/Public/Common/Dummy" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Common/DummyReturnMessage.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/private/Common" schemaLocation="/SharedResources/SchemaDefinitions/Private/Common/LocalExceptions.xsd"/>
+    <pd:name>Administration/Logic/ExceptionConfiguration/CreateExceptionConfiguration.process</pd:name>
+    <pd:description>Creates a new exception configuration</pd:description>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx12:ExceptionConfigurationUpdate"/>
+    <pd:startX>29</pd:startX>
+    <pd:startY>85</pd:startY>
+    <pd:returnBindings>
+        <pfx7:Dummy>
+            <pfx7:StatusMessage>
+                <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ReservedIDs/DummyID"/>
+            </pfx7:StatusMessage>
+        </pfx7:Dummy>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endX>533</pd:endX>
+    <pd:endY>89</pd:endY>
+    <pd:errorSchemas>
+        <Schema1 ref="pfx10:ReferencialIntegrityViolation"/>
+        <Schema2 ref="pfx10:InvalidInputParameter"/>
+        <Schema0 ref="pfx10:IDNotUnique"/>
+    </pd:errorSchemas>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1284749212135</pd:targetNamespace>
+    <pd:activity name="CreateExceptionConfiguration">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>266</pd:x>
+        <pd:y>85</pd:y>
+        <config>
+            <processName>/Administration/DataAccess/ExceptionConfiguration/Oracle/CreateExceptionConfiguration.process</processName>
+            <processNameXPath>concat("/Administration/DataAccess/ExceptionConfiguration/",$_globalVariables/ns1:GlobalVariables/Database/MIG_DatabaseType,"/CreateExceptionConfiguration.process")</processNameXPath>
+        </config>
+        <pd:inputBindings>
+            <xsl:for-each select="$Start/pfx12:ExceptionConfigurationUpdate">
+                <pfx12:ExceptionConfigurationUpdate>
+                    <pfx12:ApplicationID>
+                        <xsl:value-of select="pfx12:ApplicationID"/>
+                    </pfx12:ApplicationID>
+                    <pfx12:ExceptionCode>
+                        <xsl:value-of select="pfx12:ExceptionCode"/>
+                    </pfx12:ExceptionCode>
+                    <pfx12:CategoryID>
+                        <xsl:value-of select="pfx12:CategoryID"/>
+                    </pfx12:CategoryID>
+                    <pfx12:TypeID>
+                        <xsl:value-of select="pfx12:TypeID"/>
+                    </pfx12:TypeID>
+                    <pfx12:SeverityID>
+                        <xsl:value-of select="pfx12:SeverityID"/>
+                    </pfx12:SeverityID>
+                    <xsl:if test="pfx12:ProcedureID">
+                        <pfx12:ProcedureID>
+                            <xsl:value-of select="pfx12:ProcedureID"/>
+                        </pfx12:ProcedureID>
+                    </xsl:if>
+                    <pfx12:Description>
+                        <xsl:value-of select="pfx12:Description"/>
+                    </pfx12:Description>
+                    <xsl:if test="pfx12:ReplyDestination">
+                        <pfx12:ReplyDestination>
+                            <xsl:value-of select="pfx12:ReplyDestination"/>
+                        </pfx12:ReplyDestination>
+                    </xsl:if>
+                    <xsl:if test="pfx12:RoleName">
+                        <pfx12:RoleName>
+                            <xsl:value-of select="pfx12:RoleName"/>
+                        </pfx12:RoleName>
+                    </xsl:if>
+                    <xsl:if test="pfx12:NotificationChnl">
+                        <pfx12:NotificationChnl>
+                            <xsl:value-of select="pfx12:NotificationChnl"/>
+                        </pfx12:NotificationChnl>
+                    </xsl:if>
+                    <xsl:if test="pfx12:EmailTo">
+                        <pfx12:EmailTo>
+                            <xsl:value-of select="pfx12:EmailTo"/>
+                        </pfx12:EmailTo>
+                    </xsl:if>
+                    <xsl:if test="pfx12:EmailCC">
+                        <pfx12:EmailCC>
+                            <xsl:value-of select="pfx12:EmailCC"/>
+                        </pfx12:EmailCC>
+                    </xsl:if>
+                    <xsl:if test="pfx12:Exceptionttl">
+                        <pfx12:Exceptionttl>
+                            <xsl:value-of select="pfx12:Exceptionttl"/>
+                        </pfx12:Exceptionttl>
+                    </xsl:if>
+                    <xsl:if test="pfx12:Instruction">
+                        <pfx12:Instruction>
+                            <xsl:value-of select="pfx12:Instruction"/>
+                        </pfx12:Instruction>
+                    </xsl:if>
+                    <xsl:if test="pfx12:EventType">
+                        <pfx12:EventType>
+                            <xsl:value-of select="pfx12:EventType"/>
+                        </pfx12:EventType>
+                    </xsl:if>
+                    <xsl:if test="pfx12:ResolveDelayInterval">
+                        <pfx12:ResolveDelayInterval>
+                            <xsl:value-of select="pfx12:ResolveDelayInterval"/>
+                        </pfx12:ResolveDelayInterval>
+                    </xsl:if>
+                </pfx12:ExceptionConfigurationUpdate>
+            </xsl:for-each>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>CreateExceptionConfiguration</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>CreateExceptionConfiguration</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

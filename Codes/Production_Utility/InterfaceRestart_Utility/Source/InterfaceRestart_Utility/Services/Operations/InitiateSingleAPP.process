@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:Zimmer="java://CustomFunctions" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions">
+    <pd:name>Services/Operations/InitiateSingleAPP.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="OperationType" type="xsd:string"/>
+                    <xsd:element name="Correlationid" type="xsd:string" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>162</pd:startX>
+    <pd:startY>87</pd:startY>
+    <pd:returnBindings>
+        <root>
+            <xsl:choose>
+                <xsl:when test="$StartServices/root/CreateIncident='Y'">
+                    <CreateIncident>
+                        <xsl:value-of select="'Y'"/>
+                    </CreateIncident>
+                </xsl:when>
+                <xsl:when test="$StopServices/root/CreateIncident='Y'">
+                    <CreateIncident>
+                        <xsl:value-of select="'Y'"/>
+                    </CreateIncident>
+                </xsl:when>
+                <xsl:otherwise>
+                    <CreateIncident>
+                        <xsl:value-of select="'N'"/>
+                    </CreateIncident>
+                </xsl:otherwise>
+            </xsl:choose>
+        </root>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="CreateIncident" type="xsd:string" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>677</pd:endX>
+    <pd:endY>83</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1489879486533</pd:targetNamespace>
+    <pd:activity name="StartServices">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>452</pd:x>
+        <pd:y>84</pd:y>
+        <config>
+            <processName>/Services/Operations/StartServices.process</processName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <ApplicationName>
+                    <xsl:value-of select="if(contains(substring-before(substring-after($Start/root/OperationType,'application='),'&amp;username'),'.par')) then tib:substring-before-last(substring-before(substring-after($Start/root/OperationType,'application='),'&amp;username'), '/') else substring-before(substring-after($Start/root/OperationType,'application='),'&amp;username')"/>
+                </ApplicationName>
+                <xsl:if test="$Get-Admin-Password/javaCodeActivityOutput/output">
+                    <AdminPassword>
+                        <xsl:value-of select="$Get-Admin-Password/javaCodeActivityOutput/output"/>
+                    </AdminPassword>
+                </xsl:if>
+                <xsl:if test="$Start/root/Correlationid">
+                    <Correlationid>
+                        <xsl:value-of select="$Start/root/Correlationid"/>
+                    </Correlationid>
+                </xsl:if>
+                <PARName>
+                    <xsl:value-of select="if(contains(substring-before(substring-after($Start/root/OperationType,'application='),'&amp;username'),'.par')) then tib:substring-after-last(substring-before(substring-after($Start/root/OperationType,'application='),'&amp;username'), '/') else 1"/>
+                </PARName>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="StopServices">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>455</pd:x>
+        <pd:y>178</pd:y>
+        <config>
+            <processName>/Services/Operations/StopServices.process</processName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <ApplicationName>
+                    <xsl:value-of select="if(contains(substring-before(substring-after($Start/root/OperationType,'application='),'&amp;username'),'.par')) then tib:substring-before-last(substring-before(substring-after($Start/root/OperationType,'application='),'&amp;username'), '/') else substring-before(substring-after($Start/root/OperationType,'application='),'&amp;username')"/>
+                </ApplicationName>
+                <AdminPassword>
+                    <xsl:value-of select="$Get-Admin-Password/javaCodeActivityOutput/output"/>
+                </AdminPassword>
+                <xsl:if test="$Start/root/Correlationid">
+                    <Correlationid>
+                        <xsl:value-of select="$Start/root/Correlationid"/>
+                    </Correlationid>
+                </xsl:if>
+                <PARName>
+                    <xsl:value-of select="if(contains(substring-before(substring-after($Start/root/OperationType,'application='),'&amp;username'),'.par')) then tib:substring-after-last(substring-before(substring-after($Start/root/OperationType,'application='),'&amp;username'), '/') else 1"/>
+                </PARName>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Null">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>457</pd:x>
+        <pd:y>281</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Get Admin Password">
+        <pd:type>com.tibco.plugin.java.JavaActivity</pd:type>
+        <pd:resourceType>ae.javapalette.javaActivity</pd:resourceType>
+        <pd:x>287</pd:x>
+        <pd:y>86</pd:y>
+        <config>
+            <fullsource>package Services.Operations.InitiateSingleAPP;
+import java.util.*;
+import java.io.*;
+import com.tibco.pe.plugin.PluginProperties;
+public class InitiateSingleAPPGetAdminPassword{
+/****** START SET/GET METHOD, DO NOT MODIFY *****/
+	protected String input = "";
+	protected String output = "";
+	public String getinput() {
+		return input;
+	}
+	public void setinput(String val) {
+		input = val;
+	}
+	public String getoutput() {
+		return output;
+	}
+	public void setoutput(String val) {
+		output = val;
+	}
+/****** END SET/GET METHOD, DO NOT MODIFY *****/
+	public InitiateSingleAPPGetAdminPassword() {
+	}
+	public void invoke() throws Exception {
+/* Available Variables: DO NOT MODIFY
+	In  : String input
+	Out : String output
+* Available Variables: DO NOT MODIFY *****/
+
+
+
+output=PluginProperties.getProperty(input);
+}
+}
+</fullsource>
+            <fileName>InitiateSingleAPPGetAdminPassword</fileName>
+            <packageName>Services.Operations.InitiateSingleAPP</packageName>
+            <inputData>
+                <row>
+                    <fieldName>input</fieldName>
+                    <fieldType>string</fieldType>
+                    <fieldRequired>optional</fieldRequired>
+                </row>
+            </inputData>
+            <outputData>
+                <row>
+                    <fieldName>output</fieldName>
+                    <fieldType>string</fieldType>
+                    <fieldRequired>optional</fieldRequired>
+                </row>
+            </outputData>
+            <byteCode>
+                <class>
+                    <name>InitiateSingleAPPGetAdminPassword</name>
+                    <byteCode>yv66vgAAADMAJgkABgAaCQAGABsKAAcAHAgAHQoAHgAfBwAgBwAhAQAFaW5wdXQBABJMamF2YS9sYW5nL1N0cmluZzsBAAZvdXRwdXQBAAhnZXRpbnB1dAEAFCgpTGphdmEvbGFuZy9TdHJpbmc7AQAEQ29kZQEAD0xpbmVOdW1iZXJUYWJsZQEACHNldGlucHV0AQAVKExqYXZhL2xhbmcvU3RyaW5nOylWAQAJZ2V0b3V0cHV0AQAJc2V0b3V0cHV0AQAGPGluaXQ+AQADKClWAQAGaW52b2tlAQAKRXhjZXB0aW9ucwcAIgEAClNvdXJjZUZpbGUBACZJbml0aWF0ZVNpbmdsZUFQUEdldEFkbWluUGFzc3dvcmQuamF2YQwACAAJDAAKAAkMABMAFAEAAAcAIwwAJAAlAQBHU2VydmljZXMvT3BlcmF0aW9ucy9Jbml0aWF0ZVNpbmdsZUFQUC9Jbml0aWF0ZVNpbmdsZUFQUEdldEFkbWluUGFzc3dvcmQBABBqYXZhL2xhbmcvT2JqZWN0AQATamF2YS9sYW5nL0V4Y2VwdGlvbgEAJGNvbS90aWJjby9wZS9wbHVnaW4vUGx1Z2luUHJvcGVydGllcwEAC2dldFByb3BlcnR5AQAmKExqYXZhL2xhbmcvU3RyaW5nOylMamF2YS9sYW5nL1N0cmluZzsAIQAGAAcAAAACAAQACAAJAAAABAAKAAkAAAAGAAEACwAMAAEADQAAAB0AAQABAAAABSq0AAGwAAAAAQAOAAAABgABAAAACgABAA8AEAABAA0AAAAiAAIAAgAAAAYqK7UAAbEAAAABAA4AAAAKAAIAAAANAAUADgABABEADAABAA0AAAAdAAEAAQAAAAUqtAACsAAAAAEADgAAAAYAAQAAABAAAQASABAAAQANAAAAIgACAAIAAAAGKiu1AAKxAAAAAQAOAAAACgACAAAAEwAFABQAAQATABQAAQANAAAANQACAAEAAAARKrcAAyoSBLUAASoSBLUAArEAAAABAA4AAAASAAQAAAAWAAQABwAKAAgAEAAXAAEAFQAUAAIADQAAACgAAgABAAAADCoqtAABuAAFtQACsQAAAAEADgAAAAoAAgAAACAACwAhABYAAAAEAAEAFwABABgAAAACABk=</byteCode>
+                </class>
+            </byteCode>
+        </config>
+        <pd:inputBindings>
+            <javaCodeActivityInput>
+                <input>
+                    <xsl:value-of select="&quot;tibco.clientVar.ApplicationDetails/InterfaceRestart/AdminPassword&quot;"/>
+                </input>
+            </javaCodeActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>StartServices</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Get Admin Password</pd:to>
+        <pd:xpathDescription/>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>StopServices</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Get Admin Password</pd:from>
+        <pd:to>StopServices</pd:to>
+        <pd:xpathDescription>Stop</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>contains($Start/root/OperationType,'Stop+Service=Stop')</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Get Admin Password</pd:from>
+        <pd:to>StartServices</pd:to>
+        <pd:xpathDescription>Start</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>contains($Start/root/OperationType,'Start+Service=Start')</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Get Admin Password</pd:from>
+        <pd:to>Null</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:label>
+        <pd:name>Label</pd:name>
+        <pd:description>This process gets the operation name start/stop and app name in start activity ,it then calls the subprocess (start or stop) based on the values received.</pd:description>
+        <pd:x>472</pd:x>
+        <pd:y>350</pd:y>
+        <pd:width>528</pd:width>
+        <pd:height>63</pd:height>
+        <pd:fontColor>-16777216</pd:fontColor>
+        <pd:color>-13312</pd:color>
+        <pd:type>solid</pd:type>
+        <pd:thickness>0</pd:thickness>
+        <pd:fade>true</pd:fade>
+    </pd:label>
+</pd:ProcessDefinition>

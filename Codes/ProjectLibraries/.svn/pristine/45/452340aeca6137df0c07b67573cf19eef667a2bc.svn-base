@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://www.zimmer.com/tibco/schemas/ZBS/XSD/StoreReplayService/v1/ReplayMessageSchema.xsd"
+	 targetNamespace="http://www.zimmer.com/tibco/schemas/ZBS/XSD/StoreReplayService/v1/ReplayMessageSchema.xsd"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="ReplayMessage">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Target_System"/>
+				<xs:element ref="Appl_Name"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Target_System" type="xs:string"/>
+	<xs:element name="Appl_Name" type="xs:string"/>
+</xs:schema>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BWSharedResource>
+    <name>MFT Shared Connection</name>
+    <resourceType>mft.activities.MFTSharedConnectionResource</resourceType>
+    <config>
+        <jndiContextURL>%%EnvVariables/TIBCO_JMS_Connection/JNDI_URL%%</jndiContextURL>
+        <jndiContextFactory>com.tibco.tibjms.naming.TibjmsInitialContextFactory</jndiContextFactory>
+        <jndiUserName/>
+        <jndiPassword/>
+        <topicConnFactory>%%EnvVariables/TIBCO_JMS_Connection/TOPIC_CONNECTION_FACTORY%%</topicConnFactory>
+        <queueConnFactory>%%EnvVariables/TIBCO_JMS_Connection/QUEUE_CONNECTION_FACTORY%%</queueConnFactory>
+        <jmsUserName>%%EnvVariables/TIBCO_JMS_Connection/USERNAME%%</jmsUserName>
+        <jmsPassword>%%EnvVariables/TIBCO_JMS_Connection/PASSWORD%%</jmsPassword>
+        <ccManageQueueName>%%EnvVariables/TIBCO_MFT_Connection/COMMAND_CENTER/MANAGEMENT_QUEUE%%</ccManageQueueName>
+        <managementTimeout>%%EnvVariables/TIBCO_MFT_Connection/COMMAND_CENTER/TIMEOUT%%</managementTimeout>
+        <autoGenClientID>true</autoGenClientID>
+        <ccUserID>%%EnvVariables/TIBCO_MFT_Connection/COMMAND_CENTER/COMMAND_CENTER_USER%%</ccUserID>
+        <ccPassword>%%EnvVariables/TIBCO_MFT_Connection/COMMAND_CENTER/COMMAND_CENTER_PASSWORD%%</ccPassword>
+    </config>
+</BWSharedResource>

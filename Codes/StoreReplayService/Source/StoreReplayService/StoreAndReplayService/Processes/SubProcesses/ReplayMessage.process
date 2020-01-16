@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:ns2="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:ns4="http://www.zimmer.com/tibco/schemas/ZBS/XSD/ExceptionHandler/v1/ExceptionMessageSchema.xsd" xmlns:ns3="http://www.tibco.com/pe/EngineTypes" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx2="http://www.zimmer.com/tibco/schemas/ZBS/XSD/StoreReplayService/v1/StoreMessageSchema.xsd" xmlns:ns5="www.tibco.com/plugin/Sleep" xmlns:pfx="http://www.zimmer.com/schemas/StoreReplayService/StoreAndReplayService/Schemas/Schema.xsd">
+    <xsd:import namespace="http://www.zimmer.com/schemas/StoreReplayService/StoreAndReplayService/Schemas/Schema.xsd"/>
+    <xsd:import namespace="http://www.zimmer.com/tibco/schemas/ZBS/XSD/StoreReplayService/v1/StoreMessageSchema.xsd" schemaLocation="/EnterpriseLibrary/SharedResources/Schemas/XSD/StoreMessageSchema.xsd"/>
+    <pd:name>StoreAndReplayService/Processes/SubProcesses/ReplayMessage.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx2:StoreMessage"/>
+    <pd:startX>70</pd:startX>
+    <pd:startY>81</pd:startY>
+    <pd:returnBindings>
+        <root>
+            <MessageId>
+                <xsl:value-of select="$JMS-Queue-Sender/ns:aEmptyOutputClass/ns:MessageID"/>
+            </MessageId>
+        </root>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endX>531</pd:endX>
+    <pd:endY>85</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1327645099125</pd:targetNamespace>
+    <pd:activity name="JMS Queue Sender">
+        <pd:type>com.tibco.plugin.jms.JMSQueueSendActivity</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueSendActivity</pd:resourceType>
+        <pd:x>371</pd:x>
+        <pd:y>83</pd:y>
+        <config>
+            <PermittedMessageType>Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+                <destination/>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/EnterpriseLibrary/SharedResources/Connections/JMS/TIBCO_JMS_Connection.sharedjmscon</ConnectionReference>
+        </config>
+        <pd:inputBindings>
+            <ns:ActivityInput>
+                <destinationQueue>
+                    <xsl:value-of select="$Map-Destination/root/Destination"/>
+                </destinationQueue>
+                <JMSType>
+                    <xsl:value-of select="&quot;REPLAYED&quot;"/>
+                </JMSType>
+                <Body>
+                    <xsl:value-of select="if(tib:trim($Start/pfx2:StoreMessage/pfx2:ReplayDestination)!='') then&#xA;tib:render-xml($Start/pfx2:StoreMessage)&#xA;else&#xA;$Start/pfx2:StoreMessage/pfx2:Message"/>
+                </Body>
+                <DynamicProperties>
+                    <xsl:for-each select="$Start/pfx2:StoreMessage/pfx2:Dynamic_property">
+                        <property>
+                            <name>
+                                <xsl:value-of select="pfx2:name"/>
+                            </name>
+                            <value>
+                                <xsl:value-of select="pfx2:value"/>
+                            </value>
+                            <xsl:if test="pfx2:type">
+                                <type>
+                                    <xsl:value-of select="pfx2:type"/>
+                                </type>
+                            </xsl:if>
+                        </property>
+                    </xsl:for-each>
+                </DynamicProperties>
+            </ns:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="JMS Topic Publisher">
+        <pd:type>com.tibco.plugin.jms.JMSTopicPublishActivity</pd:type>
+        <pd:resourceType>ae.activities.JMSTopicPublishActivity</pd:resourceType>
+        <pd:x>378</pd:x>
+        <pd:y>173</pd:y>
+        <config>
+            <PermittedMessageType>Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/EnterpriseLibrary/SharedResources/Connections/JMS/TIBCO_JMS_Connection.sharedjmscon</ConnectionReference>
+        </config>
+        <pd:inputBindings>
+            <ns:ActivityInput>
+                <destinationTopic>
+                    <xsl:value-of select="$Map-Destination/root/Destination"/>
+                </destinationTopic>
+                <JMSType>
+                    <xsl:value-of select="&quot;REPLAYED&quot;"/>
+                </JMSType>
+                <Body>
+                    <xsl:value-of select="if(tib:trim($Start/pfx2:StoreMessage/pfx2:ReplayDestination)!='') then&#xA;tib:render-xml($Start/pfx2:StoreMessage)&#xA;else&#xA;$Start/pfx2:StoreMessage/pfx2:Message"/>
+                </Body>
+                <DynamicProperties>
+                    <xsl:for-each select="$Start/pfx2:StoreMessage/pfx2:Dynamic_property">
+                        <property>
+                            <name>
+                                <xsl:value-of select="pfx2:name"/>
+                            </name>
+                            <value>
+                                <xsl:value-of select="pfx2:value"/>
+                            </value>
+                            <xsl:if test="pfx2:type">
+                                <type>
+                                    <xsl:value-of select="pfx2:type"/>
+                                </type>
+                            </xsl:if>
+                        </property>
+                    </xsl:for-each>
+                </DynamicProperties>
+            </ns:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Map Destination">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>191</pd:x>
+        <pd:y>82</pd:y>
+        <config>
+            <element>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="Destination" type="xsd:string"/>
+                            <xsd:element name="Type" type="xsd:string"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </element>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <Destination>
+                    <xsl:value-of select="if(tib:trim($Start/pfx2:StoreMessage/pfx2:ReplayDestination) !='') then&#xA;$Start/pfx2:StoreMessage/pfx2:ReplayDestination else&#xA;$Start/pfx2:StoreMessage/pfx2:OriginalDestination"/>
+                </Destination>
+                <Type>
+                    <xsl:value-of select="if(exists($Start/pfx2:StoreMessage/pfx2:ReplayDestination/@destinationType)and tib:trim($Start/pfx2:StoreMessage/pfx2:ReplayDestination/@destinationType) !='') then&#xA;tib:trim($Start/pfx2:StoreMessage/pfx2:ReplayDestination/@destinationType) else&#xA;if(exists($Start/pfx2:StoreMessage/pfx2:OriginalDestination/@destinationType)and tib:trim($Start/pfx2:StoreMessage/pfx2:OriginalDestination/@destinationType)!='')then&#xA;tib:trim($Start/pfx2:StoreMessage/pfx2:OriginalDestination/@destinationType)&#xA;else&#xA;'QUEUE'"/>
+                </Type>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Generate Error">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>367</pd:x>
+        <pd:y>250</pd:y>
+        <config>
+            <faultName/>
+        </config>
+        <pd:inputBindings>
+            <ns2:ActivityInput/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Set Exception Details">
+        <pd:type>com.tibco.pe.core.SetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.setSharedVariable</pd:resourceType>
+        <pd:x>188</pd:x>
+        <pd:y>259</pd:y>
+        <config>
+            <variableConfig>/EnterpriseLibrary/SharedResources/SharedVariables/ExceptionDetails.jobsharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings>
+            <ns4:ExceptionMessage>
+                <ns4:Application>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/ApplicationName"/>
+                </ns4:Application>
+                <ns4:Severity>
+                    <xsl:value-of select="1"/>
+                </ns4:Severity>
+                <ns4:ExceptionDescription>
+                    <xsl:value-of select="if (tib:trim($Map-Destination/root/Destination) = '') then&#xA;'Destination is not specified'&#xA;else &#xA;concat('Destination type is not supported',$Map-Destination/root/Type)"/>
+                </ns4:ExceptionDescription>
+                <ns4:ExceptionType>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ExceptionHandler/ExceptionType/Functional"/>
+                </ns4:ExceptionType>
+                <ns4:ExceptionCode>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ExceptionHandler/ExceptionCode"/>
+                </ns4:ExceptionCode>
+                <ns4:ProcessId>
+                    <xsl:value-of select="$_processContext/ns3:ProcessContext/ProcessId"/>
+                </ns4:ProcessId>
+                <ns4:ProcessName>
+                    <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns3:ProcessContext/ProcessId)"/>
+                </ns4:ProcessName>
+                <ns4:EngineName>
+                    <xsl:value-of select="$_processContext/ns3:ProcessContext/EngineName"/>
+                </ns4:EngineName>
+                <ns4:CreateTimestamp>
+                    <xsl:value-of select="current-dateTime()"/>
+                </ns4:CreateTimestamp>
+            </ns4:ExceptionMessage>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Map Destination</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>JMS Queue Sender</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Map Destination</pd:from>
+        <pd:to>JMS Queue Sender</pd:to>
+        <pd:xpathDescription>Queue</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>upper-case($Map-Destination/root/Type) = 'QUEUE' and tib:trim($Map-Destination/root/Destination) !=''</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Map Destination</pd:from>
+        <pd:to>JMS Topic Publisher</pd:to>
+        <pd:xpathDescription>Topic</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>upper-case($Map-Destination/root/Type) = 'TOPIC' and tib:trim($Map-Destination/root/Destination) !=''</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>JMS Topic Publisher</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Map Destination</pd:from>
+        <pd:to>Set Exception Details</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-65536</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Set Exception Details</pd:from>
+        <pd:to>Generate Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-65536</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

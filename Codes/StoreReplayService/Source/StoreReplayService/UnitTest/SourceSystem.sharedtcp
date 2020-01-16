@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BWSharedResource>
+    <name>SourceSystem</name>
+    <resourceType>ae.shared.TCPSharedconnection</resourceType>
+    <config>
+        <enableDNSLookup>true</enableDNSLookup>
+        <Host>INZ11034.nam.zimmer.com</Host>
+        <Port>9001</Port>
+    </config>
+</BWSharedResource>

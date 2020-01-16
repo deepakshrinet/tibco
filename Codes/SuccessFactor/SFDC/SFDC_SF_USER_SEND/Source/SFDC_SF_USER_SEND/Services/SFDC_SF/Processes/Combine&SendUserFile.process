@@ -1,0 +1,682 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/namespaces/tnt/plugins/file" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns1="www.tibco.com/plugin/Timer" xmlns:ns4="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns3="http://www.tibco.com/pe/EngineTypes" xmlns:ns0="http://www.tibco.com/namespaces/tnt/plugins/file/v2" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:ns12="http://www.tibco.com/CommonLE/Client/Schema/ClientInterface.xsd">
+    <pd:name>Services/SFDC_SF/Processes/Combine&amp;SendUserFile.process</pd:name>
+    <pd:startName>ReceiveSuccessFactorFile</pd:startName>
+    <pd:startX>0</pd:startX>
+    <pd:startY>0</pd:startY>
+    <pd:returnBindings>
+        <root/>
+    </pd:returnBindings>
+    <pd:starter name="ReceiveSuccessFactorFile">
+        <pd:type>com.tibco.plugin.jms.JMSQueueEventSource</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueEventSource</pd:resourceType>
+        <pd:x>84</pd:x>
+        <pd:y>150</pd:y>
+        <config>
+            <PermittedMessageType>Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>23</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+                <destination>%%ApplicationDetails/SFDC_SF_USER_SEND/Queue/TriggerSendFileQueue%%</destination>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/EnterpriseLibrary/SharedResources/Connections/JMS/TIBCO_JMS_Connection.sharedjmscon</ConnectionReference>
+        </config>
+        <pd:inputBindings/>
+    </pd:starter>
+    <pd:endName>End</pd:endName>
+    <pd:endX>870</pd:endX>
+    <pd:endY>152</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables>
+        <UTC-Time/>
+    </pd:processVariables>
+    <pd:targetNamespace>http://xmlns.example.com/1479993619638</pd:targetNamespace>
+    <pd:group name="Group">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>299</pd:x>
+        <pd:y>341</pd:y>
+        <pd:width>412</pd:width>
+        <pd:height>151</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>inputLoop</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:over>$MapFileNames/root/fileinfo</pd:over>
+            <pd:iterationElementSlot/>
+            <pd:indexSlot>i</pd:indexSlot>
+            <pd:activityOutputName/>
+            <pd:accumulateOutput>false</pd:accumulateOutput>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>Read File</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>WriteFileRecords</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Read File</pd:from>
+            <pd:to>Parse Data</pd:to>
+            <pd:xpathDescription/>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Parse Data</pd:from>
+            <pd:to>WriteFileRecords</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="Read File">
+            <pd:type>com.tibco.plugin.file.FileReadActivity</pd:type>
+            <pd:resourceType>ae.activities.FileReadActivity</pd:resourceType>
+            <pd:x>374</pd:x>
+            <pd:y>423</pd:y>
+            <config>
+                <encoding>text</encoding>
+            </config>
+            <pd:inputBindings>
+                <ns0:ReadActivityInputClass>
+                    <fileName>
+                        <xsl:value-of select="$MapFileNames/root/fileinfo[$i]/FullName"/>
+                    </fileName>
+                </ns0:ReadActivityInputClass>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="Parse Data">
+            <pd:type>com.tibco.plugin.parse.ParseActivity</pd:type>
+            <pd:resourceType>ae.activities.ParseActivity</pd:resourceType>
+            <pd:x>486</pd:x>
+            <pd:y>423</pd:y>
+            <config>
+                <InputType>String</InputType>
+                <Encoding>ASCII</Encoding>
+                <ParseSharedConfig>/SharedResources/Schemas/DataFormat/SFDataFormat.sharedparse</ParseSharedConfig>
+                <SpecifyStartRecord>true</SpecifyStartRecord>
+                <SkipBlankLines>false</SkipBlankLines>
+            </config>
+            <pd:inputBindings>
+                <Input>
+                    <text>
+                        <xsl:value-of select="$Read-File/ns2:ReadActivityOutputTextClass/fileContent/textContent"/>
+                    </text>
+                    <startRecord>
+                        <xsl:value-of select="1"/>
+                    </startRecord>
+                    <noOfRecords>
+                        <xsl:value-of select="-1"/>
+                    </noOfRecords>
+                </Input>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="WriteFileRecords">
+            <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+            <pd:resourceType>ae.process.subprocess</pd:resourceType>
+            <pd:x>611</pd:x>
+            <pd:y>425</pd:y>
+            <config>
+                <processName>/Services/SFDC_SF/Operations/WriteFileRecords.process</processName>
+            </config>
+            <pd:inputBindings>
+                <root>
+                    <Rows>
+                        <xsl:copy-of select="$Parse-Data/Output/Rows/User"/>
+                    </Rows>
+                    <xsl:if test="$MapFileNames/root/UserFileName">
+                        <UserFileName>
+                            <xsl:value-of select="$MapFileNames/root/UserFileName"/>
+                        </UserFileName>
+                    </xsl:if>
+                    <xsl:if test="$MapFileNames/root/UserExtFileName">
+                        <ExtFileName>
+                            <xsl:value-of select="$MapFileNames/root/UserExtFileName"/>
+                        </ExtFileName>
+                    </xsl:if>
+                    <SourceFile>
+                        <xsl:value-of select="$Read-File/ns2:ReadActivityOutputTextClass/fileInfo/fileName"/>
+                    </SourceFile>
+                </root>
+            </pd:inputBindings>
+        </pd:activity>
+    </pd:group>
+    <pd:group name="Group (1)">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>675</pd:x>
+        <pd:y>194</pd:y>
+        <pd:width>169</pd:width>
+        <pd:height>130</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>inputLoop</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:over>$MapFileNames/root/fileinfo</pd:over>
+            <pd:iterationElementSlot>FileArchive</pd:iterationElementSlot>
+            <pd:indexSlot>r</pd:indexSlot>
+            <pd:activityOutputName/>
+            <pd:accumulateOutput>false</pd:accumulateOutput>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>ArchiveSFDCFiles</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>ArchiveSFDCFiles</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="ArchiveSFDCFiles">
+            <pd:type>com.tibco.plugin.file.FileRenameActivity</pd:type>
+            <pd:resourceType>ae.activities.FileRenameActivity</pd:resourceType>
+            <pd:x>767</pd:x>
+            <pd:y>266</pd:y>
+            <config>
+                <overwrite>true</overwrite>
+                <createMissingDirectories>true</createMissingDirectories>
+            </config>
+            <pd:inputBindings>
+                <ns2:RenameActivityConfig>
+                    <fromFileName>
+                        <xsl:value-of select="$FileArchive/fileinfo/FullName"/>
+                    </fromFileName>
+                    <toFileName>
+                        <xsl:value-of select="concat($_globalVariables/ns:GlobalVariables/ApplicationDetails/SFDC_SF_USER_SEND/File/ArchiveFileLocation,$FileArchive/fileinfo/FileName)"/>
+                    </toFileName>
+                </ns2:RenameActivityConfig>
+            </pd:inputBindings>
+        </pd:activity>
+    </pd:group>
+    <pd:activity name="CatchUnknownException">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>1052</pd:x>
+        <pd:y>163</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Confirm">
+        <pd:type>com.tibco.pe.core.ConfirmActivity</pd:type>
+        <pd:resourceType>activity.confirm</pd:resourceType>
+        <pd:x>462</pd:x>
+        <pd:y>153</pd:y>
+        <config>
+            <ConfirmEvent>ReceiveSuccessFactorFile</ConfirmEvent>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Confirm-1">
+        <pd:type>com.tibco.pe.core.ConfirmActivity</pd:type>
+        <pd:resourceType>activity.confirm</pd:resourceType>
+        <pd:x>871</pd:x>
+        <pd:y>330</pd:y>
+        <config>
+            <ConfirmEvent>ReceiveSuccessFactorFile</ConfirmEvent>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="ListSFDCFiles">
+        <pd:type>com.tibco.plugin.file.ListFilesActivity</pd:type>
+        <pd:resourceType>ae.activities.ListFilesActivity</pd:resourceType>
+        <pd:x>341</pd:x>
+        <pd:y>154</pd:y>
+        <config>
+            <mode>only-files</mode>
+        </config>
+        <pd:inputBindings>
+            <ns2:ListFilesActivityConfig>
+                <fileName>
+                    <xsl:value-of select="concat($_globalVariables/ns:GlobalVariables/ApplicationDetails/SFDC_SF_USER_SEND/File/FileLocation,&quot;SFDC*.csv&quot;)"/>
+                </fileName>
+            </ns2:ListFilesActivityConfig>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="MapFileNames">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>208</pd:x>
+        <pd:y>429</pd:y>
+        <config>
+            <element>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="UserFileName" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="UserExtFileName" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="fileinfo" minOccurs="0" maxOccurs="unbounded">
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element name="FullName" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="FileName" type="xsd:string" minOccurs="0"/>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </element>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <UserFileName>
+                    <xsl:value-of select="concat($_globalVariables/ns:GlobalVariables/ApplicationDetails/SFDC_SF_USER_SEND/File/FileLocation,$_globalVariables/ns:GlobalVariables/ApplicationDetails/SuccesFactor/coreFilename)"/>
+                </UserFileName>
+                <UserExtFileName>
+                    <xsl:value-of select="concat($_globalVariables/ns:GlobalVariables/ApplicationDetails/SFDC_SF_USER_SEND/File/FileLocation,$_globalVariables/ns:GlobalVariables/ApplicationDetails/SuccesFactor/extendedFilename)"/>
+                </UserExtFileName>
+                <xsl:copy-of select="$SortNoPERNRFileByModifyDate/Files/fileinfo"/>
+                <xsl:copy-of select="$SortPERNRFileByModifyDate/Files/fileinfo"/>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SendLog">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>748</pd:x>
+        <pd:y>151</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendLog.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns12:LogRequest>
+                <ns12:Header>
+                    <ns12:Message>
+                        <xsl:value-of select="'USER FILE CREATED FOR SUCCESSFACTOR'"/>
+                    </ns12:Message>
+                    <ns12:Transaction>
+                        <xsl:value-of select="tib:render-xml($ListSFDCFiles/ns2:ListFilesActivityOutput/files)"/>
+                    </ns12:Transaction>
+                </ns12:Header>
+                <ns12:Status>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/CLE/Status/COMPLETED"/>
+                </ns12:Status>
+                <ns12:Audit>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ApplicationDetails/AuditFlag"/>
+                </ns12:Audit>
+                <ns12:LogLevel>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/CLE/Environment/CommonLE/LOGGING_LEVEL_NUM_INFO"/>
+                </ns12:LogLevel>
+            </ns12:LogRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SendUnknownExceptions">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>1056</pd:x>
+        <pd:y>331</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendException.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns12:ExceptionRequest>
+                <ns12:Header>
+                    <ns12:ComponentName>
+                        <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns3:ProcessContext/ProcessId)"/>
+                    </ns12:ComponentName>
+                    <ns12:Hostname>
+                        <xsl:value-of select="BW:getHostName()"/>
+                    </ns12:Hostname>
+                    <ns12:TransactionDomain>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ApplicationDetails/SFDC_SF_USER_SEND/TransactionDomain"/>
+                    </ns12:TransactionDomain>
+                    <ns12:TransactionType>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ApplicationDetails/SFDC_SF_USER_SEND/TransactionType"/>
+                    </ns12:TransactionType>
+                    <xsl:choose xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                        <xsl:when test="exists($SetCLEHeader/ns12:Header/ns12:TransactionID) and tib:trim($SetCLEHeader/ns12:Header/ns12:TransactionID)!=''">
+                            <ns12:TransactionID>
+                                <xsl:value-of select="$SetCLEHeader/ns12:Header/ns12:TransactionID"/>
+                            </ns12:TransactionID>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <ns12:TransactionID>
+                                <xsl:value-of select="tib:format-dateTime('ddMMyyHHmmss', current-dateTime())"/>
+                            </ns12:TransactionID>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <ns12:CorrelationID>
+                        <xsl:value-of select="current-date()"/>
+                    </ns12:CorrelationID>
+                    <ns12:InterfaceID>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ApplicationDetails/SFDC_SF_USER_SEND/InterfaceID"/>
+                    </ns12:InterfaceID>
+                    <ns12:Message>
+                        <xsl:value-of select="'ERROR SENDING USER-DATA'"/>
+                    </ns12:Message>
+                    <ns12:Transaction>
+                        <xsl:value-of select="tib:render-xml($CatchUnknownException)"/>
+                    </ns12:Transaction>
+                </ns12:Header>
+                <ns12:ExceptionCode>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ApplicationDetails/ErrorCodes/Technical/TECHNICAL_777"/>
+                </ns12:ExceptionCode>
+                <ns12:StackTrace>
+                    <xsl:value-of select="concat(&quot;Error Message: &quot;, $_error/ns3:ErrorReport/Msg, &quot;&#xA;&quot;, &quot;  BW MsgCode: &quot;, &#xA;$_error/ns3:ErrorReport/MsgCode, &quot;&#xA;&quot;,&#xA;&quot;Stack Trace: &quot;, $_error/ns3:ErrorReport/StackTrace, &quot;&#xA;&quot;,&#xA;&quot; Process Stack: &quot;, $_error/ns3:ErrorReport/ProcessStack)"/>
+                </ns12:StackTrace>
+            </ns12:ExceptionRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SetCLEHeader">
+        <pd:type>com.tibco.pe.core.SetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.setSharedVariable</pd:resourceType>
+        <pd:x>205</pd:x>
+        <pd:y>151</pd:y>
+        <config>
+            <variableConfig>/CLE/Interface/SharedVariables/CLEHeader.jobsharedvariable</variableConfig>
+            <showResult>true</showResult>
+        </config>
+        <pd:inputBindings>
+            <ns12:Header>
+                <ns12:ComponentName>
+                    <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns3:ProcessContext/ProcessId)"/>
+                </ns12:ComponentName>
+                <ns12:Hostname>
+                    <xsl:value-of select="BW:getHostName()"/>
+                </ns12:Hostname>
+                <ns12:TransactionDomain>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ApplicationDetails/SFDC_SF_USER_SEND/TransactionDomain"/>
+                </ns12:TransactionDomain>
+                <ns12:TransactionType>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ApplicationDetails/SFDC_SF_USER_SEND/TransactionType"/>
+                </ns12:TransactionType>
+                <ns12:TransactionID>
+                    <xsl:value-of select="$ReceiveSuccessFactorFile/ns4:ActivityOutput/Body"/>
+                </ns12:TransactionID>
+                <ns12:CorrelationID>
+                    <xsl:value-of select="current-date()"/>
+                </ns12:CorrelationID>
+                <ns12:InterfaceID>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ApplicationDetails/SFDC_SF_USER_SEND/InterfaceID"/>
+                </ns12:InterfaceID>
+            </ns12:Header>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SortNoPERNRFileByModifyDate">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>344</pd:x>
+        <pd:y>283</pd:y>
+        <config>
+            <element>
+                <xsd:element name="Files">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="fileinfo" minOccurs="0" maxOccurs="unbounded">
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element name="FullName" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="FileName" type="xsd:string" minOccurs="0"/>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </element>
+        </config>
+        <pd:inputBindings>
+            <Files>
+                <xsl:for-each-group select="$ListSFDCFiles/ns2:ListFilesActivityOutput/files/fileInfo[starts-with(fileName, 'SFDC_NO_PERNR')]" group-by="lastModified">
+                    <xsl:sort select="lastModified"/>
+                    <xsl:for-each select="current-group()">
+                        <fileinfo>
+                            <FullName>
+                                <xsl:value-of select="fullName"/>
+                            </FullName>
+                            <FileName>
+                                <xsl:value-of select="fileName"/>
+                            </FileName>
+                        </fileinfo>
+                    </xsl:for-each>
+                </xsl:for-each-group>
+            </Files>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SortPERNRFileByModifyDate">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>206</pd:x>
+        <pd:y>286</pd:y>
+        <config>
+            <element>
+                <xsd:element name="Files">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="fileinfo" minOccurs="0" maxOccurs="unbounded">
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element name="FullName" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="FileName" type="xsd:string" minOccurs="0"/>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </element>
+        </config>
+        <pd:inputBindings>
+            <Files>
+                <xsl:for-each-group select="$ListSFDCFiles/ns2:ListFilesActivityOutput/files/fileInfo[starts-with(fileName, 'SFDC_PERNR')]" group-by="lastModified">
+                    <xsl:sort select="lastModified"/>
+                    <xsl:for-each select="current-group()">
+                        <fileinfo>
+                            <FullName>
+                                <xsl:value-of select="fullName"/>
+                            </FullName>
+                            <FileName>
+                                <xsl:value-of select="fileName"/>
+                            </FileName>
+                        </fileinfo>
+                    </xsl:for-each>
+                </xsl:for-each-group>
+            </Files>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="MoveCoreFiletoMFTLocation">
+        <pd:type>com.tibco.plugin.file.FileRenameActivity</pd:type>
+        <pd:resourceType>ae.activities.FileRenameActivity</pd:resourceType>
+        <pd:x>595</pd:x>
+        <pd:y>266</pd:y>
+        <config>
+            <overwrite>true</overwrite>
+            <createMissingDirectories>true</createMissingDirectories>
+        </config>
+        <pd:inputBindings>
+            <ns2:RenameActivityConfig>
+                <fromFileName>
+                    <xsl:value-of select="$MapFileNames/root/UserFileName"/>
+                </fromFileName>
+                <toFileName>
+                    <xsl:value-of select="concat($_globalVariables/ns:GlobalVariables/ApplicationDetails/SFDC_SF_USER_SEND/File/SF_FileLocation,$_globalVariables/ns:GlobalVariables/ApplicationDetails/SuccesFactor/coreFilename)"/>
+                </toFileName>
+            </ns2:RenameActivityConfig>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="MoveExtendedFiletoMFTLocation">
+        <pd:type>com.tibco.plugin.file.FileRenameActivity</pd:type>
+        <pd:resourceType>ae.activities.FileRenameActivity</pd:resourceType>
+        <pd:x>465</pd:x>
+        <pd:y>268</pd:y>
+        <config>
+            <overwrite>true</overwrite>
+            <createMissingDirectories>true</createMissingDirectories>
+        </config>
+        <pd:inputBindings>
+            <ns2:RenameActivityConfig>
+                <fromFileName>
+                    <xsl:value-of select="$MapFileNames/root/UserExtFileName"/>
+                </fromFileName>
+                <toFileName>
+                    <xsl:value-of select="concat($_globalVariables/ns:GlobalVariables/ApplicationDetails/SFDC_SF_USER_SEND/File/SF_FileLocation,$_globalVariables/ns:GlobalVariables/ApplicationDetails/SuccesFactor/extendedFilename)"/>
+                </toFileName>
+            </ns2:RenameActivityConfig>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>SortNoPERNRFileByModifyDate</pd:from>
+        <pd:to>SortPERNRFileByModifyDate</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>ReceiveSuccessFactorFile</pd:from>
+        <pd:to>SetCLEHeader</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>ListSFDCFiles</pd:from>
+        <pd:to>Confirm</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Confirm</pd:from>
+        <pd:to>SendLog</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SetCLEHeader</pd:from>
+        <pd:to>ListSFDCFiles</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>CatchUnknownException</pd:from>
+        <pd:to>SendUnknownExceptions</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SendUnknownExceptions</pd:from>
+        <pd:to>Confirm-1</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Confirm-1</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SendLog</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>Group (1)</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SortPERNRFileByModifyDate</pd:from>
+        <pd:to>MapFileNames</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>ListSFDCFiles</pd:from>
+        <pd:to>SortNoPERNRFileByModifyDate</pd:to>
+        <pd:xpathDescription>File Exists</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>count($ListSFDCFiles/ns2:ListFilesActivityOutput/files/fileInfo)&gt;=1</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>MapFileNames</pd:from>
+        <pd:to>Group</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group (1)</pd:from>
+        <pd:to>MoveCoreFiletoMFTLocation</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>MoveCoreFiletoMFTLocation</pd:from>
+        <pd:to>MoveExtendedFiletoMFTLocation</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>MoveExtendedFiletoMFTLocation</pd:from>
+        <pd:to>Confirm</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:label>
+        <pd:name>Label (2)</pd:name>
+        <pd:description>Process is triggered from GetEmployeesSFDC
+Process adds the records in the following order
+1. InDirectEmployee-SFDC
+2. Direct Employee-SFDC
+The file already contains SAPHR Data
+
+Process moves the final file to MFT location</pd:description>
+        <pd:x>456</pd:x>
+        <pd:y>62</pd:y>
+        <pd:width>407</pd:width>
+        <pd:height>122</pd:height>
+        <pd:fontColor>-16777216</pd:fontColor>
+        <pd:color>-1</pd:color>
+        <pd:type>solid</pd:type>
+        <pd:thickness>0</pd:thickness>
+        <pd:fade>true</pd:fade>
+    </pd:label>
+</pd:ProcessDefinition>

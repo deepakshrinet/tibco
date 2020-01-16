@@ -1,0 +1,29 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>EmailNotSent</name>
+			<value>Could not send email</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874577102</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>NoRecordUpdated</name>
+			<value>Notification time not updated</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874571322</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>NotificationNotFound</name>
+			<value>Can not find notification record</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874574060</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BWSharedResource>
+    <name>Java Global Instance</name>
+    <resourceType>ae.shared.JavaGlobalServiceAgent</resourceType>
+    <config>
+        <InvokeCleanupMethod>false</InvokeCleanupMethod>
+        <class>com.tibco.plugin.java.JavaGlobalServiceAgent</class>
+        <CleanupMethod/>
+        <ConstructorParameters/>
+        <ConstructorInfo>
+            <classLocation>c:/temp/emsperf.jar</classLocation>
+            <classPath>/Connections/AliasLibrary.aliaslib</classPath>
+            <className>com.zimmer.tibco.ems.StatsCollector</className>
+            <isConstructor>true</isConstructor>
+        </ConstructorInfo>
+    </config>
+</BWSharedResource>

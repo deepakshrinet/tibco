@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Repository:repository xmlns:Repository="http://www.tibco.com/xmlns/repo/types/2002">
+    <folder resourceType="ae.designerfolder" name="EnterpriseLibrary" propLocks="" allowUserToChangeIcon="false" sortContents="false" acceptsResources="true" allowDuplicates="false">
+        <description>Version 1.7, Dipakkumar Kachhadiya, Added custom functions
+Version 1.6, Dipakkumar Kachhadiya, Changed logging format from XML to string
+Version 1.5, Dipakkumar Kachhadiya, Updated Exception Hamdler to send complete message in email</description>
+        <fixedChildren/>
+    </folder>
+</Repository:repository>

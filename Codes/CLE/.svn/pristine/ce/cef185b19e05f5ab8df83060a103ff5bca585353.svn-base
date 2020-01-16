@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <pd:name>Common/DataAccess/Oracle/LogCountPerAppForChart.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="ApplicationInfo">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="AppDesc" type="xsd:string"/>
+                    <xsd:element name="AppName" type="xsd:string"/>
+                    <xsd:element name="AppID" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>150</pd:startX>
+    <pd:startY>64</pd:startY>
+    <pd:returnBindings>
+        <ApplicationInfoAndCount>
+            <AppID>
+                <xsl:value-of select="$Start/ApplicationInfo/AppID"/>
+            </AppID>
+            <Count>
+                <xsl:value-of select="$RetrieveLogCountForApp/resultSet/Record[1]/COUNT"/>
+            </Count>
+            <AppName>
+                <xsl:value-of select="$Start/ApplicationInfo/AppName"/>
+            </AppName>
+            <AppDesc>
+                <xsl:value-of select="$Start/ApplicationInfo/AppDesc"/>
+            </AppDesc>
+        </ApplicationInfoAndCount>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="ApplicationInfoAndCount">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="AppID" type="xsd:string"/>
+                    <xsd:element name="Count" type="xsd:string"/>
+                    <xsd:element name="AppName" type="xsd:string"/>
+                    <xsd:element name="AppDesc" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>450</pd:endX>
+    <pd:endY>64</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1316556243511</pd:targetNamespace>
+    <pd:activity name="RetrieveLogCountForApp">
+        <pd:type>com.tibco.plugin.jdbc.JDBCQueryActivity</pd:type>
+        <pd:resourceType>ae.activities.JDBCQueryActivity</pd:resourceType>
+        <pd:x>299</pd:x>
+        <pd:y>62</pd:y>
+        <config>
+            <timeout>%%Database/MIG_Timeout%%</timeout>
+            <commit>false</commit>
+            <maxRows>%%Database/MIG_MAXROWS%%</maxRows>
+            <emptyStrAsNil>false</emptyStrAsNil>
+            <statement>select count(*) from LOG  where applicationid = ? </statement>
+            <Prepared_Param_DataType>
+                <parameter>
+                    <parameterName>appid</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+            </Prepared_Param_DataType>
+            <jdbcSharedConfig>/SharedResources/Connections/Database/DBServerOracle.sharedjdbc</jdbcSharedConfig>
+            <wizardData/>
+            <QueryOutputCachedSchemaColumns>COUNT</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>2</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+        </config>
+        <pd:inputBindings>
+            <jdbcQueryActivityInput>
+                <appid>
+                    <xsl:value-of select="$Start/ApplicationInfo/AppID"/>
+                </appid>
+            </jdbcQueryActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>RetrieveLogCountForApp</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>RetrieveLogCountForApp</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

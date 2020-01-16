@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:ns2="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Common/DeleteQuery" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Query" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:pfx4="http://www.tibco.com/CommonLE2/namespace/Administration/GUIServices/InterfaceConfigurationConcrete" xmlns:pfx3="http://xmlns.example.com/1285838027794" xmlns:pfx2="http://xmlns.example.com/1285817150663" xmlns:pfx="http://www.tibco.com/CommonLE2/Administration/GUIServices/InterfaceConfigurationServices">
+    <wsdl:import namespace="http://www.tibco.com/CommonLE2/Administration/GUIServices/InterfaceConfigurationServices" location="/Administration/GUIServices/Testing/InterfaceConfigWSDL.wsdl"/>
+    <wsdl:import namespace="http://www.tibco.com/CommonLE2/namespace/Administration/GUIServices/InterfaceConfigurationConcrete" location="/Administration/GUIServices/InterfaceConfigurationServices/Testing/Intfconfigwsdl.wsdl"/>
+    <pd:name>Administration/GUIServices/InterfaceConfigurationServices/Testing/DeleteInterfaceConfig.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startX>150</pd:startX>
+    <pd:startY>64</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>450</pd:endX>
+    <pd:endY>64</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1285816548433</pd:targetNamespace>
+    <pd:activity name="SOAPRequestReply">
+        <pd:type>com.tibco.plugin.soap.SOAPSendReceiveActivity</pd:type>
+        <pd:resourceType>ae.activities.SOAPSendReceiveUI</pd:resourceType>
+        <pd:x>290</pd:x>
+        <pd:y>65</pd:y>
+        <config>
+            <timeout>0</timeout>
+            <soapAttachmentStyle>SwA</soapAttachmentStyle>
+            <service>pfx4:InterfaceConfigurationService</service>
+            <servicePort>InterfaceConfigurationEndpoint</servicePort>
+            <operation>DeleteInterfaceConfigurations</operation>
+            <soapAction>/Administration/GUIServices/InterfaceConfigurationServices/Service.serviceagent//DeleteInterfaceConfigurations</soapAction>
+            <endpointURL>http://localhost:9950/Administration/GUIServices/InterfaceConfigurationServices/Service.serviceagent/InterfaceConfigurationEndpoint</endpointURL>
+        </config>
+        <pd:inputBindings>
+            <inputMessage>
+                <ns2:DeleteQueries>
+                    <ns2:Query>
+                        <ns2:ID>
+                            <xsl:value-of select="&quot;iid&quot;"/>
+                        </ns2:ID>
+                        <ns2:AppID>
+                            <xsl:value-of select="&quot;Test&quot;"/>
+                        </ns2:AppID>
+                    </ns2:Query>
+                </ns2:DeleteQueries>
+            </inputMessage>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>SOAPRequestReply</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SOAPRequestReply</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

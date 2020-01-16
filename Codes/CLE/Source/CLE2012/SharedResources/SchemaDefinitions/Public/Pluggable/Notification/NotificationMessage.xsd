@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/Notification"
+	 xmlns:Common="http://www.tibco.com/CommonLE2/namespace/Public/Common/RequestHeader.xsd"
+	 xmlns:local="http://www.tibco.com/CommonLE2/namespace/Public/Notification"
+	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	 targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/Notification"
+	 elementFormDefault="unqualified"
+	 attributeFormDefault="unqualified">
+	<xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Common/RequestHeader.xsd" schemaLocation="../../Common/RequestHeader.xsd"/>
+	<xsd:element name="NotificationMessage">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="local:ExceptionDetail"/>
+				<xsd:element name="RoleName" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="EmailTo" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="EmailCC" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="NotificationChannel" type="xsd:string"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ExceptionDetail">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Common:Header"/>
+				<xsd:element name="ExceptionInstanceID" type="xsd:positiveInteger"/>
+				<xsd:element name="ExceptionCode" type="xsd:string"/>
+				<xsd:element name="Category" type="xsd:string"/>
+				<xsd:element name="Type" type="xsd:string"/>
+				<xsd:element name="Severity" type="xsd:string"/>
+				<xsd:element name="Timeout" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="Status" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="Custom" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="ResolveDelayTime" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="EventType" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="Stacktrace" type="xsd:string" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

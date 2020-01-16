@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://www.tibco.com/schemas/CommonLE/Plug-ins/Notification/Resources/Schemas/SystemsInfo.xsd"
+	 targetNamespace="http://www.tibco.com/schemas/CommonLE/Plug-ins/Notification/Resources/Schemas/SystemsInfo.xsd"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="SystemsInfo">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ApplicationID" type="xs:string"/>
+				<xs:element name="InterfaceID" type="xs:string"/>
+				<xs:element name="SourceSystem" type="xs:string" minOccurs="0"/>
+				<xs:element name="TargetSystem" type="xs:string" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SystemInfoList">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="SystemsInfo" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

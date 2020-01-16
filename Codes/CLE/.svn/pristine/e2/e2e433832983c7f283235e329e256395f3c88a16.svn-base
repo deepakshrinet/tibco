@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://www.tibco.com/schemas/CLE/SharedResources/SchemaDefinitions/Public/Pluggable/Workflow/Schema.xsd"
+	 targetNamespace="http://www.tibco.com/schemas/CLE/SharedResources/SchemaDefinitions/Public/Pluggable/Workflow/Schema.xsd"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="ProcedureCompletion">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ExceptionInstanceID" type="xs:string"/>
+				<xs:element name="Resolution" type="xs:string"/>
+				<xs:element name="Status" type="StatusCode"/>
+				<xs:element name="TransactionUpdate" type="xs:string" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="StatusCode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Resolved"/>
+			<xs:enumeration value="Error"/>
+                            <xs:enumeration value="Suppressed"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

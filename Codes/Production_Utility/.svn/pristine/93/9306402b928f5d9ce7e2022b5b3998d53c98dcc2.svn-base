@@ -1,0 +1,39 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>Host</name>
+			<value>webmail.zimmer.com:110</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1478072575569</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>Password</name>
+			<value>#!DWDicdisbM8Wa/nOGXwdnSgudiMNH7sJS2i4x5GRzgU=</value>
+			<description></description>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>Password</type>
+			<constraint></constraint>
+			<modTime>1478072632322</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>PollingInterval</name>
+			<value>60</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1496778325324</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>UserName</name>
+			<value>nam\tibcotexts</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1478072588392</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

@@ -1,0 +1,38 @@
+<serialization xmlns="urn:tibco.com/v3.0" jsxversion="3.9">
+  <name/>
+  <icon/>
+  <description/>
+  <onBeforeDeserialize/>
+  <onAfterDeserialize/>
+  <object type="jsx3.gui.LayoutGrid">
+    <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+    <strings jsxname="chartsLayout" jsxrows="28,*" jsxwidth="100%" jsxheight="100%"/>
+    <object type="jsx3.gui.Block">
+      <variants jsxoverflow="2"/>
+      <strings jsxname="chartsToolbarPane" jsxwidth="100%" jsxheight="100%"/>
+      <dynamics jsxborder="@Outset"/>
+      <object type="jsx3.gui.WindowBar">
+        <variants jsxbartype="1"/>
+        <strings jsxname="toolBar"/>
+        <dynamics jsxbgcolor="mediumBG"/>
+        <object type="jsx3.gui.ToolbarButton">
+          <variants/>
+          <strings jsxname="getChartsToolBarBtn" jsximage="images/icons/columnSeries.gif"/>
+          <dynamics jsxtext="chart_showCharts"/>
+          <events jsxexecute="cle.charts.getCharts(this);"/>
+        </object>
+        <object type="jsx3.gui.ToolbarButton">
+          <variants jsxenabled="0"/>
+          <strings jsxname="removeChildrenToolBarBtn" jsximage="images/icons/removeDoc.gif"/>
+          <events jsxexecute="cle.charts.removeCharts(this);"/>
+          <dynamics jsxtext="chart_removeCharts"/>
+        </object>
+      </object>
+    </object>
+    <object type="jsx3.gui.Block">
+      <variants jsxoverflow="1"/>
+      <strings jsxname="chartsPane" jsxwidth="100%" jsxheight="100%"/>
+      <dynamics jsxborder="@Outset"/>
+    </object>
+  </object>
+</serialization>

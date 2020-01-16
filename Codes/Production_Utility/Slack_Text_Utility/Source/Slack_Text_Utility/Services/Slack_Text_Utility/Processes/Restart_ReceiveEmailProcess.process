@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:ns2="www.tibco.com/plugin/Sleep" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns="http://www.tibco.com/pe/EngineTypes" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:ns12="http://www.tibco.com/CommonLE/Client/Schema/ClientInterface.xsd">
+    <pd:name>Services/Slack_Text_Utility/Processes/Restart_ReceiveEmailProcess.process</pd:name>
+    <pd:startName>ReceiveEmail_RestartTimer</pd:startName>
+    <pd:startX>0</pd:startX>
+    <pd:startY>0</pd:startY>
+    <pd:returnBindings/>
+    <pd:starter name="ReceiveEmail_RestartTimer">
+        <pd:type>com.tibco.plugin.timer.TimerEventSource</pd:type>
+        <pd:resourceType>ae.activities.timer</pd:resourceType>
+        <pd:x>122</pd:x>
+        <pd:y>143</pd:y>
+        <config>
+            <StartTime>%%ApplicationDetails/InterfaceTrigger/StartTime%%</StartTime>
+            <Frequency>false</Frequency>
+            <TimeInterval>%%ApplicationDetails/InterfaceTrigger/Interval%%</TimeInterval>
+            <FrequencyIndex>Millisecond</FrequencyIndex>
+        </config>
+        <pd:inputBindings/>
+    </pd:starter>
+    <pd:endName>End</pd:endName>
+    <pd:endX>929</pd:endX>
+    <pd:endY>143</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1507216267139</pd:targetNamespace>
+    <pd:activity name="Catch">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>589</pd:x>
+        <pd:y>260</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="JavaCode_PwdDecryption">
+        <pd:type>com.tibco.plugin.java.JavaActivity</pd:type>
+        <pd:resourceType>ae.javapalette.javaActivity</pd:resourceType>
+        <pd:x>287</pd:x>
+        <pd:y>143</pd:y>
+        <config>
+            <fileName>Restart_ReceiveEmailProcessJavaCode_PwdDecryption</fileName>
+            <packageName>Services.Slack_Text_Utility.Processes.Restart_ReceiveEmailProcess</packageName>
+            <fullsource>package Services.Slack_Text_Utility.Processes.Restart_ReceiveEmailProcess;
+import java.util.*;
+import java.io.*;
+import com.tibco.pe.plugin.PluginProperties;
+public class Restart_ReceiveEmailProcessJavaCode_PwdDecryption{
+/****** START SET/GET METHOD, DO NOT MODIFY *****/
+	protected String EncryptedPwd = "";
+	protected String DecryptedPwd = "";
+	public String getEncryptedPwd() {
+		return EncryptedPwd;
+	}
+	public void setEncryptedPwd(String val) {
+		EncryptedPwd = val;
+	}
+	public String getDecryptedPwd() {
+		return DecryptedPwd;
+	}
+	public void setDecryptedPwd(String val) {
+		DecryptedPwd = val;
+	}
+/****** END SET/GET METHOD, DO NOT MODIFY *****/
+	public Restart_ReceiveEmailProcessJavaCode_PwdDecryption() {
+	}
+	public void invoke() throws Exception {
+/* Available Variables: DO NOT MODIFY
+	In  : String EncryptedPwd
+	Out : String DecryptedPwd
+* Available Variables: DO NOT MODIFY *****/
+
+DecryptedPwd=PluginProperties.getProperty(EncryptedPwd);
+}
+}
+</fullsource>
+            <inputData>
+                <row>
+                    <fieldName>EncryptedPwd</fieldName>
+                    <fieldType>string</fieldType>
+                    <fieldRequired>optional</fieldRequired>
+                </row>
+            </inputData>
+            <outputData>
+                <row>
+                    <fieldName>DecryptedPwd</fieldName>
+                    <fieldType>string</fieldType>
+                    <fieldRequired>optional</fieldRequired>
+                </row>
+            </outputData>
+            <byteCode>
+                <class>
+                    <name>Restart_ReceiveEmailProcessJavaCode_PwdDecryption</name>
+                    <byteCode>yv66vgAAADMAJgkABgAaCQAGABsKAAcAHAgAHQoAHgAfBwAgBwAhAQAMRW5jcnlwdGVkUHdkAQASTGphdmEvbGFuZy9TdHJpbmc7AQAMRGVjcnlwdGVkUHdkAQAPZ2V0RW5jcnlwdGVkUHdkAQAUKClMamF2YS9sYW5nL1N0cmluZzsBAARDb2RlAQAPTGluZU51bWJlclRhYmxlAQAPc2V0RW5jcnlwdGVkUHdkAQAVKExqYXZhL2xhbmcvU3RyaW5nOylWAQAPZ2V0RGVjcnlwdGVkUHdkAQAPc2V0RGVjcnlwdGVkUHdkAQAGPGluaXQ+AQADKClWAQAGaW52b2tlAQAKRXhjZXB0aW9ucwcAIgEAClNvdXJjZUZpbGUBADZSZXN0YXJ0X1JlY2VpdmVFbWFpbFByb2Nlc3NKYXZhQ29kZV9Qd2REZWNyeXB0aW9uLmphdmEMAAgACQwACgAJDAATABQBAAAHACMMACQAJQEAc1NlcnZpY2VzL1NsYWNrX1RleHRfVXRpbGl0eS9Qcm9jZXNzZXMvUmVzdGFydF9SZWNlaXZlRW1haWxQcm9jZXNzL1Jlc3RhcnRfUmVjZWl2ZUVtYWlsUHJvY2Vzc0phdmFDb2RlX1B3ZERlY3J5cHRpb24BABBqYXZhL2xhbmcvT2JqZWN0AQATamF2YS9sYW5nL0V4Y2VwdGlvbgEAJGNvbS90aWJjby9wZS9wbHVnaW4vUGx1Z2luUHJvcGVydGllcwEAC2dldFByb3BlcnR5AQAmKExqYXZhL2xhbmcvU3RyaW5nOylMamF2YS9sYW5nL1N0cmluZzsAIQAGAAcAAAACAAQACAAJAAAABAAKAAkAAAAGAAEACwAMAAEADQAAAB0AAQABAAAABSq0AAGwAAAAAQAOAAAABgABAAAACgABAA8AEAABAA0AAAAiAAIAAgAAAAYqK7UAAbEAAAABAA4AAAAKAAIAAAANAAUADgABABEADAABAA0AAAAdAAEAAQAAAAUqtAACsAAAAAEADgAAAAYAAQAAABAAAQASABAAAQANAAAAIgACAAIAAAAGKiu1AAKxAAAAAQAOAAAACgACAAAAEwAFABQAAQATABQAAQANAAAANQACAAEAAAARKrcAAyoSBLUAASoSBLUAArEAAAABAA4AAAASAAQAAAAWAAQABwAKAAgAEAAXAAEAFQAUAAIADQAAACgAAgABAAAADCoqtAABuAAFtQACsQAAAAEADgAAAAoAAgAAAB4ACwAfABYAAAAEAAEAFwABABgAAAACABk=</byteCode>
+                </class>
+            </byteCode>
+        </config>
+        <pd:inputBindings>
+            <javaCodeActivityInput>
+                <EncryptedPwd>
+                    <xsl:value-of select="&quot;tibco.clientVar.ApplicationDetails/InterfaceTrigger/Password&quot;"/>
+                </EncryptedPwd>
+            </javaCodeActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Send HTTP Request">
+        <pd:type>com.tibco.plugin.http.client.HttpRequestActivity</pd:type>
+        <pd:resourceType>httppalette.httpRequest</pd:resourceType>
+        <pd:x>445</pd:x>
+        <pd:y>143</pd:y>
+        <config>
+            <inputOutputVersion>5.3.0</inputOutputVersion>
+            <newMimeSupport>true</newMimeSupport>
+            <authScheme>NONE</authScheme>
+            <serverhost>%%ApplicationDetails/InterfaceTrigger/Http_Host%%</serverhost>
+            <serverport>%%ApplicationDetails/InterfaceTrigger/Http_Port%%</serverport>
+            <InputHeaders>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="Accept" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Accept-Charset" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Accept-Encoding" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Content-Type" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Cookie" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Pragma" type="xsd:string" minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </InputHeaders>
+            <OutputHeaders>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="Allow" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Content-Type" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Content-Length" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Content-Encoding" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Date" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Location" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Set-Cookie" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Pragma" type="xsd:string" minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </OutputHeaders>
+        </config>
+        <pd:inputBindings>
+            <RequestActivityInput>
+                <Method>
+                    <xsl:value-of select="&quot;POST&quot;"/>
+                </Method>
+                <PostData>
+                    <xsl:value-of select="concat('application=',$_globalVariables/ns1:GlobalVariables/ApplicationDetails/InterfaceTrigger/InterfaceName,&quot;&amp;username=&quot;,$_globalVariables/ns1:GlobalVariables/ApplicationDetails/InterfaceTrigger/UserName,&#xA;&quot;&amp;password=&quot;,$JavaCode_PwdDecryption/javaCodeActivityOutput/DecryptedPwd,&quot;&amp;Incident=&quot;,$_globalVariables/ns1:GlobalVariables/ApplicationDetails/InterfaceTrigger/IncidentRequired,&quot;&amp;Stop+Service=Stop'&quot;)"/>
+                </PostData>
+            </RequestActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Send-HTTP-Request-1">
+        <pd:type>com.tibco.plugin.http.client.HttpRequestActivity</pd:type>
+        <pd:resourceType>httppalette.httpRequest</pd:resourceType>
+        <pd:x>721</pd:x>
+        <pd:y>143</pd:y>
+        <config>
+            <inputOutputVersion>5.3.0</inputOutputVersion>
+            <newMimeSupport>true</newMimeSupport>
+            <authScheme>NONE</authScheme>
+            <serverhost>%%ApplicationDetails/InterfaceTrigger/Http_Host%%</serverhost>
+            <serverport>%%ApplicationDetails/InterfaceTrigger/Http_Port%%</serverport>
+            <InputHeaders>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="Accept" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Accept-Charset" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Accept-Encoding" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Content-Type" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Cookie" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Pragma" type="xsd:string" minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </InputHeaders>
+            <OutputHeaders>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="Allow" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Content-Type" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Content-Length" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Content-Encoding" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Date" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Location" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Set-Cookie" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Pragma" type="xsd:string" minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </OutputHeaders>
+        </config>
+        <pd:inputBindings>
+            <RequestActivityInput>
+                <Method>
+                    <xsl:value-of select="&quot;POST&quot;"/>
+                </Method>
+                <PostData>
+                    <xsl:value-of select="concat('application=',$_globalVariables/ns1:GlobalVariables/ApplicationDetails/InterfaceTrigger/InterfaceName,&quot;&amp;username=&quot;,$_globalVariables/ns1:GlobalVariables/ApplicationDetails/InterfaceTrigger/UserName,&#xA;&quot;&amp;password=&quot;,$JavaCode_PwdDecryption/javaCodeActivityOutput/DecryptedPwd,&quot;&amp;Incident=&quot;,$_globalVariables/ns1:GlobalVariables/ApplicationDetails/InterfaceTrigger/IncidentRequired,&quot;&amp;Start+Service=Start'&quot;)"/>
+                </PostData>
+            </RequestActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SendCatchAllExceptionToCLE">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>790</pd:x>
+        <pd:y>256</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendException.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns12:ExceptionRequest>
+                <ns12:Header>
+                    <ns12:ComponentName>
+                        <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns:ProcessContext/ProcessId)"/>
+                    </ns12:ComponentName>
+                    <ns12:Hostname>
+                        <xsl:value-of select="BW:getHostName()"/>
+                    </ns12:Hostname>
+                    <ns12:TransactionDomain>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/CLE/TransactionDomain"/>
+                    </ns12:TransactionDomain>
+                    <ns12:TransactionType>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/CLE/TransactionType"/>
+                    </ns12:TransactionType>
+                    <ns12:TransactionID>
+                        <xsl:value-of select="tib:format-dateTime('yyyyMMdd-HHmmss', current-dateTime())"/>
+                    </ns12:TransactionID>
+                    <ns12:CorrelationID>
+                        <xsl:value-of select="tib:format-date('yyyyMMdd', current-date())"/>
+                    </ns12:CorrelationID>
+                    <ns12:InterfaceID>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/CLE/InterfaceId"/>
+                    </ns12:InterfaceID>
+                    <ns12:Message>
+                        <xsl:value-of select="&quot;Exception occured in restart of Slack Text Utility Process&quot;"/>
+                    </ns12:Message>
+                </ns12:Header>
+                <ns12:ExceptionCode>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/CLE/TECHNICAL-777"/>
+                </ns12:ExceptionCode>
+                <ns12:StackTrace>
+                    <xsl:value-of select="concat( &quot;Error Msg:&quot;, $_error/ns:ErrorReport/Msg, &quot;Msg Code:&quot;,$_error/ns:ErrorReport/MsgCode,&quot;Stack Trace:&quot;,$_error/ns:ErrorReport/StackTrace,&quot;Process Stack:&quot;,$_error/ns:ErrorReport/ProcessStack)"/>
+                </ns12:StackTrace>
+            </ns12:ExceptionRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Sleep">
+        <pd:type>com.tibco.plugin.timer.SleepActivity</pd:type>
+        <pd:resourceType>ae.activities.sleep</pd:resourceType>
+        <pd:x>598</pd:x>
+        <pd:y>143</pd:y>
+        <config/>
+        <pd:inputBindings>
+            <ns2:SleepInputSchema>
+                <IntervalInMillisec>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/InterfaceTrigger/SleepTime"/>
+                </IntervalInMillisec>
+            </ns2:SleepInputSchema>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>ReceiveEmail_RestartTimer</pd:from>
+        <pd:to>JavaCode_PwdDecryption</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Send HTTP Request</pd:from>
+        <pd:to>Sleep</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Sleep</pd:from>
+        <pd:to>Send-HTTP-Request-1</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Send-HTTP-Request-1</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch</pd:from>
+        <pd:to>SendCatchAllExceptionToCLE</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SendCatchAllExceptionToCLE</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>JavaCode_PwdDecryption</pd:from>
+        <pd:to>Send HTTP Request</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

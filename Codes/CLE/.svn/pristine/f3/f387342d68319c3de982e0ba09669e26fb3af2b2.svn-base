@@ -1,0 +1,28 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<log:LogRequest xmlns:log = "http://www.tibco.com/CommonLE2/namespace/Public/Logging/LogRequest.xsd" xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation = "http://www.tibco.com/CommonLE2/namespace/Public/Logging file:///C:/CLE/SharedResources/SchemaDefinitions/Public/Logging/LogRequest.xsd http://www.tibco.com/CommonLE2/namespace/Public/Logging/LogRequest.xsd file:///C:/CLE/SharedResources/SchemaDefinitions/Public/Logging/LogRequest.xsd http://www.tibco.com/CommonLE2/namespace/Log file:///C:/CLE/SharedResources/SchemaDefinitions/Public/Logging/LogRequest.xsd">
+	<Common:Header xmlns:Common = "http://www.tibco.com/CommonLE2/namespace/Common">
+		<Common:ApplicationID>4</Common:ApplicationID>
+		<Common:ComponentName>BW</Common:ComponentName>
+		<Common:Hostname>LOCALHOST</Common:Hostname>
+		<Common:Timestamp>2006-10-23</Common:Timestamp>
+		<Common:TransactionDomain>Business</Common:TransactionDomain>
+		<Common:TransactionType>Nillable</Common:TransactionType>
+		<Common:TransactionID>2</Common:TransactionID>
+	</Common:Header>
+	<TimeDuration>100</TimeDuration>
+	<Category>Business</Category>
+	<log:Messages>
+		<Name>APP2 Most Recent</Name>
+		<Value>TESTING Most Recent</Value>
+	</log:Messages>
+	<log:Messages>
+		<Name>APP2 LAAAAAAH</Name>
+		<Value>TESTING LAAAAAAAAH MOST RECENT</Value>
+	</log:Messages>
+	<Status>Current</Status>
+	<TransactionBefore>None</TransactionBefore>
+	<TransactionAfter>None</TransactionAfter>
+	<DataEncoding>UTF</DataEncoding>
+	<CorrelationID>2</CorrelationID>
+	<RenderID>2</RenderID>
+</log:LogRequest>

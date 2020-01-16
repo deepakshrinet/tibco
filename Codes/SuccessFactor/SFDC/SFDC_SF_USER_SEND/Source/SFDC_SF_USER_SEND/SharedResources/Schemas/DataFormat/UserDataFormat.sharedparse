@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BWSharedResource xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <name>UserDataFormat</name>
+    <resourceType>ae.shared.ParseSharedResource</resourceType>
+    <config xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <FormatType>Delimiter separated</FormatType>
+        <ColumnSeparator>,</ColumnSeparator>
+        <ColSeparatorRule>Treat all characters as entered as a single column separator string</ColSeparatorRule>
+        <LineSeparator>
+</LineSeparator>
+        <FillCharacter>Space</FillCharacter>
+        <LineLength>4</LineLength>
+        <DataFormat>
+            <xsd:element name="User">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="STATUS" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="USERID" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="USERNAME" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="FIRSTNAME" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="LASTNAME" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="MI" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="GENDER" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="EMAIL" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="MANAGER" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="HR" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="DIVISION" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="DEPARTMENT" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="LOCATION" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="JOBCODE" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="TIMEZONE" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="HIREDATE" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="EMPID" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="TITLE" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="BIZ_PHONE" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="FAX" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="ADDR1" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="ADDR2" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="CITY" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="STATE" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="ZIP" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="COUNTRY" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="DEFAULT_LOCALE" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="LOGIN_METHOD" type="xsd:string" minOccurs="0"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </DataFormat>
+    </config>
+</BWSharedResource>

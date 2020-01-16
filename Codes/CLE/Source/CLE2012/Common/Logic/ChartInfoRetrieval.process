@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx14="http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common/Response" xmlns:ns="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:pfx13="http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common/Request" xmlns:pfx12="http://www.tibco.com/ns/no_namespace_schema_location/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Common/ChartInfoResponse.xsd" xmlns:pfx11="http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common" xmlns:pfx10="http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/'GUI/Common" xmlns:pfx="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/UserRolesRequest" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns0="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Query" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx5="http://www.tibco.com/CommonLE2/namespace/private/Common" xmlns:pfx4="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Applications" xmlns:pfx3="http://www.tibco.com/pe/DeployedVarsType" xmlns:pfx2="http://www.tibco.com/CommonLE2/Public/Common" xmlns:pfx9="http://www.tibco.com/CommonLE2/Public/Pluggable/GUI/Common" xmlns:pfx8="http://www.tibco.com/CommonLE2/Public/Common/ChartInfoResponse" xmlns:pfx7="http://www.tibco.com/CommonLE2/Public/Common/ChartInfoRequest" xmlns:pfx6="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/AllRolesRetrievalResponse">
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/UserRolesRequest" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/SecurityConfiguration/UserRolesRequest.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/private/Common" schemaLocation="/SharedResources/SchemaDefinitions/Private/Common/LocalExceptions.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common/Request" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Common/ChartInfoRequest.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common/Response" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Common/ChartInfoResponse.xsd"/>
+    <pd:name>Common/Logic/ChartInfoRetrieval.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx13:ChartInfoRequest"/>
+    <pd:startX>27</pd:startX>
+    <pd:startY>174</pd:startY>
+    <pd:returnBindings>
+        <pfx14:ChartInfo>
+            <pfx14:ExceptionPercentageChart>
+                <pfx14:ExceptionCountInfo>
+                    <pfx14:ExceptionResolveTypeName>
+                        <xsl:value-of select="&quot;Unresolved&quot;"/>
+                    </pfx14:ExceptionResolveTypeName>
+                    <pfx14:ExceptionCountValue>
+                        <xsl:value-of select="round($TotalExceptionCount/TotalExceptions)"/>
+                    </pfx14:ExceptionCountValue>
+                </pfx14:ExceptionCountInfo>
+                <pfx14:ExceptionCountInfo>
+                    <pfx14:ExceptionResolveTypeName>
+                        <xsl:value-of select="$_globalVariables/pfx3:GlobalVariables/ExceptionService/ResolutionStatus/Resolved"/>
+                    </pfx14:ExceptionResolveTypeName>
+                    <pfx14:ExceptionCountValue>
+                        <xsl:value-of select="round($ResolvedExceptionCount/ResolvedExceptions)"/>
+                    </pfx14:ExceptionCountValue>
+                </pfx14:ExceptionCountInfo>
+            </pfx14:ExceptionPercentageChart>
+            <pfx14:LogExceptionCountChart>
+                <xsl:for-each select="$AccumilatedExceptionChartOutput/AccumulatedOutput/ApplicationInfoAndCount">
+                    <pfx14:AppInfo>
+                        <pfx14:AppID>
+                            <xsl:value-of select="AppID"/>
+                        </pfx14:AppID>
+                        <pfx14:AppName>
+                            <xsl:value-of select="AppName"/>
+                        </pfx14:AppName>
+                        <pfx14:AppDescription>
+                            <xsl:value-of select="AppDesc"/>
+                        </pfx14:AppDescription>
+                        <pfx14:LogCount>
+                            <xsl:value-of select="LogCount"/>
+                        </pfx14:LogCount>
+                        <pfx14:ExceptionCount>
+                            <xsl:value-of select="ExceptionCount"/>
+                        </pfx14:ExceptionCount>
+                    </pfx14:AppInfo>
+                </xsl:for-each>
+            </pfx14:LogExceptionCountChart>
+        </pfx14:ChartInfo>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType ref="pfx14:ChartInfo"/>
+    <pd:endX>1086</pd:endX>
+    <pd:endY>156</pd:endY>
+    <pd:errorSchemas>
+        <RoleRetrievalError ref="pfx5:RoleRetrievalError"/>
+        <NoAppFound ref="pfx5:DBRecordNotFound"/>
+    </pd:errorSchemas>
+    <pd:processVariables>
+        <ResolvedExceptionCount>
+            <xsd:element name="ResolvedExceptions" type="xsd:int"/>
+        </ResolvedExceptionCount>
+        <TotalExceptionCount>
+            <xsd:element name="TotalExceptions" type="xsd:int"/>
+        </TotalExceptionCount>
+    </pd:processVariables>
+    <pd:targetNamespace>http://xmlns.example.com/1288192190468</pd:targetNamespace>
+    <pd:group name="AppendExceptionCounts">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>598</pd:x>
+        <pd:y>76</pd:y>
+        <pd:width>415</pd:width>
+        <pd:height>164</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>inputLoop</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:over>$AccumilatedLogChartOutput/AccumulatedOutput/ApplicationInfoAndCount</pd:over>
+            <pd:iterationElementSlot>currentitem</pd:iterationElementSlot>
+            <pd:indexSlot>j</pd:indexSlot>
+            <pd:outSlot>AccumilatedExceptionChartOutput</pd:outSlot>
+            <pd:activityOutputName>ExceptionCountPerAppForChart</pd:activityOutputName>
+            <pd:accumulateOutput>true</pd:accumulateOutput>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>ExceptionCountPerAppForChart</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>TotalUnresolvedExceptionsCount</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>ExceptionCountPerAppForChart</pd:from>
+            <pd:to>TotalResolvedCount</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>TotalResolvedCount</pd:from>
+            <pd:to>TotalUnresolvedExceptionsCount</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="ExceptionCountPerAppForChart">
+            <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+            <pd:resourceType>ae.process.subprocess</pd:resourceType>
+            <pd:x>676</pd:x>
+            <pd:y>164</pd:y>
+            <config>
+                <processName>/Common/DataAccess/Oracle/LogAndExceptionCountPerAppForChart.process</processName>
+                <processNameXPath>concat("/Common/DataAccess/",$_globalVariables/pfx3:GlobalVariables/Database/MIG_DatabaseType,"/LogAndExceptionCountPerAppForChart.process")</processNameXPath>
+            </config>
+            <pd:inputBindings>
+                <ApplicationInfo>
+                    <AppDesc>
+                        <xsl:value-of select="$currentitem/ApplicationInfoAndCount/AppDesc"/>
+                    </AppDesc>
+                    <AppName>
+                        <xsl:value-of select="$currentitem/ApplicationInfoAndCount/AppName"/>
+                    </AppName>
+                    <AppID>
+                        <xsl:value-of select="$currentitem/ApplicationInfoAndCount/AppID"/>
+                    </AppID>
+                    <LogCount>
+                        <xsl:value-of select="$currentitem/ApplicationInfoAndCount/Count"/>
+                    </LogCount>
+                </ApplicationInfo>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="TotalResolvedCount">
+            <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+            <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+            <pd:x>802</pd:x>
+            <pd:y>147</pd:y>
+            <config>
+                <variableName>ResolvedExceptionCount</variableName>
+            </config>
+            <pd:inputBindings>
+                <ResolvedExceptions>
+                    <xsl:value-of select="$ResolvedExceptionCount/ResolvedExceptions + $ExceptionCountPerAppForChart/ApplicationInfoAndCount/ResolvedExceptionCount"/>
+                </ResolvedExceptions>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="TotalUnresolvedExceptionsCount">
+            <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+            <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+            <pd:x>936</pd:x>
+            <pd:y>148</pd:y>
+            <config>
+                <variableName>TotalExceptionCount</variableName>
+            </config>
+            <pd:inputBindings>
+                <TotalExceptions>
+                    <xsl:value-of select="$TotalExceptionCount/TotalExceptions + $ExceptionCountPerAppForChart/ApplicationInfoAndCount/UnresolvedExceptionCount"/>
+                </TotalExceptions>
+            </pd:inputBindings>
+        </pd:activity>
+    </pd:group>
+    <pd:group name="CheckForSuperUser">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>115</pd:x>
+        <pd:y>39</pd:y>
+        <pd:width>195</pd:width>
+        <pd:height>249</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>ifThenElse</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>UserRolesApps</pd:to>
+            <pd:xpathDescription>NotSU</pd:xpathDescription>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>xpath</pd:conditionType>
+            <pd:xpath>$Start/pfx13:ChartInfoRequest/pfx13:UserName !=$_globalVariables/pfx3:GlobalVariables/Security/MIG_AdministratorRoleName</pd:xpath>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>RetrieveApplicationConfigurationList</pd:to>
+            <pd:xpathDescription>Superuser</pd:xpathDescription>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>xpath</pd:conditionType>
+            <pd:xpath>$Start/pfx13:ChartInfoRequest/pfx13:UserName=$_globalVariables/pfx3:GlobalVariables/Security/MIG_AdministratorRoleName</pd:xpath>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>RetrieveApplicationConfigurationList</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>UserRolesApps</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="UserRolesApps">
+            <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+            <pd:resourceType>ae.process.subprocess</pd:resourceType>
+            <pd:x>206</pd:x>
+            <pd:y>107</pd:y>
+            <config>
+                <processName>/SecurityManagement/DataAccess/Common/UserRolesApps.process</processName>
+            </config>
+            <pd:inputBindings>
+                <pfx:UserRolesRequest>
+                    <pfx:UserName>
+                        <xsl:value-of select="$Start/pfx13:ChartInfoRequest/pfx13:UserName"/>
+                    </pfx:UserName>
+                </pfx:UserRolesRequest>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="RetrieveApplicationConfigurationList">
+            <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+            <pd:resourceType>ae.process.subprocess</pd:resourceType>
+            <pd:x>208</pd:x>
+            <pd:y>216</pd:y>
+            <config>
+                <processName>/Administration/DataAccess/ApplicationConfiguration/Oracle/RetrieveApplicationConfigurationList.process</processName>
+                <processNameXPath>concat("/Administration/DataAccess/ApplicationConfiguration/", $_globalVariables/pfx3:GlobalVariables/Database/MIG_DatabaseType, "/RetrieveApplicationConfigurationList.process")</processNameXPath>
+            </config>
+            <pd:inputBindings>
+                <ns0:Query>
+                    <ns0:ID>
+                        <xsl:value-of select="&quot;A&quot;"/>
+                    </ns0:ID>
+                </ns0:Query>
+            </pd:inputBindings>
+        </pd:activity>
+    </pd:group>
+    <pd:group name="GetLogCounts">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>338</pd:x>
+        <pd:y>83</pd:y>
+        <pd:width>184</pd:width>
+        <pd:height>140</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>inputLoop</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:over>if($UserRolesApps)then
+$UserRolesApps/pfx4:Applications/pfx4:Application
+else
+$RetrieveApplicationConfigurationList/pfx4:Applications/pfx4:Application</pd:over>
+            <pd:iterationElementSlot>curentItem</pd:iterationElementSlot>
+            <pd:indexSlot>i</pd:indexSlot>
+            <pd:outSlot>AccumilatedLogChartOutput</pd:outSlot>
+            <pd:activityOutputName>LogCountPerAppForChart</pd:activityOutputName>
+            <pd:accumulateOutput>true</pd:accumulateOutput>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>LogCountPerAppForChart</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>LogCountPerAppForChart</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="LogCountPerAppForChart">
+            <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+            <pd:resourceType>ae.process.subprocess</pd:resourceType>
+            <pd:x>425</pd:x>
+            <pd:y>161</pd:y>
+            <config>
+                <processName>/Common/DataAccess/Oracle/LogCountPerAppForChart.process</processName>
+                <processNameXPath>concat("/Common/DataAccess/",$_globalVariables/pfx3:GlobalVariables/Database/MIG_DatabaseType,"/LogCountPerAppForChart.process")</processNameXPath>
+            </config>
+            <pd:inputBindings>
+                <ApplicationInfo>
+                    <AppDesc>
+                        <xsl:value-of select="$curentItem/pfx4:Application/pfx4:Description"/>
+                    </AppDesc>
+                    <AppName>
+                        <xsl:value-of select="$curentItem/pfx4:Application/pfx4:Name"/>
+                    </AppName>
+                    <AppID>
+                        <xsl:value-of select="$curentItem/pfx4:Application/pfx4:ApplicationID"/>
+                    </AppID>
+                </ApplicationInfo>
+            </pd:inputBindings>
+        </pd:activity>
+    </pd:group>
+    <pd:activity name="SetInitialResolvedCount">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>518</pd:x>
+        <pd:y>304</pd:y>
+        <config>
+            <variableName>ResolvedExceptionCount</variableName>
+        </config>
+        <pd:inputBindings>
+            <ResolvedExceptions>
+                <xsl:value-of select="0"/>
+            </ResolvedExceptions>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="TotalInitialExceptionsCount">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>665</pd:x>
+        <pd:y>301</pd:y>
+        <config>
+            <variableName>TotalExceptionCount</variableName>
+        </config>
+        <pd:inputBindings>
+            <TotalExceptions>
+                <xsl:value-of select="0"/>
+            </TotalExceptions>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>GetLogCounts</pd:from>
+        <pd:to>SetInitialResolvedCount</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>CheckForSuperUser</pd:from>
+        <pd:to>GetLogCounts</pd:to>
+        <pd:xpathDescription/>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>CheckForSuperUser</pd:to>
+        <pd:xpathDescription/>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AppendExceptionCounts</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SetInitialResolvedCount</pd:from>
+        <pd:to>TotalInitialExceptionsCount</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>TotalInitialExceptionsCount</pd:from>
+        <pd:to>AppendExceptionCounts</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

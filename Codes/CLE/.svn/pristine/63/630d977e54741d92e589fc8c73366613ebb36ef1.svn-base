@@ -1,0 +1,140 @@
+// ----------------------------------------------------------------------------------
+// Global Variables --- EAR level
+// ----------------------------------------------------------------------------------
+Database/MIG_DatabaseType=Oracle
+Database/MIG_DBDriver=oracle.jdbc.driver.OracleDriver (thin)
+Database/MIG_DBURL=jdbc:oracle:thin:@xsp-tibdb-dev1.pac.zimmer.com:1521:tibdev
+Database/MIG_MaxConnection=10
+Database/MIG_MAXROWS=2000
+Database/MIG_Password=#!miiubFCwSTsqjepjWnHXhi/stPpcH6l1ZokVqn/ZONM=
+Database/MIG_Timeout=120
+Database/MIG_User=CLE
+DirLedger=.
+DirTrace=.
+ExceptionService/Scheduler/MIG_PollingInterval=600000
+HawkEnabled=false
+JMSDestinationNames/MIG_EventHandler=ZBS.INTEGRATION.CLE.EVENTHANDLER
+JMSDestinationNames/MIG_ExceptionCache=ZBS.INTEGRATION.CLE.EXCEPTIONCACHE
+JMSDestinationNames/MIG_ExceptionQueue=ZBS.INTEGRATION.CLE.EXCEPTION
+JMSDestinationNames/MIG_InterfaceCache=ZBS.INTEGRATION.CLE.INTERFACECACHE
+JMSDestinationNames/MIG_LogLevelReplyQueue=ZBS.INTEGRATION.CLE.LOGLEVELREPLY
+JMSDestinationNames/MIG_LogLevelRequestTopic=ZBS.INTEGRATION.CLE.LOGLEVELREQUEST
+JMSDestinationNames/MIG_LogQueue=ZBS.INTEGRATION.CLE.LOG
+JMSDestinationNames/MIG_NotificationQueue=ZBS.INTEGRATION.CLE.NOTIFICATION
+JMSDestinationNames/MIG_ResolutionQueue=ZBS.INTEGRATION.CLE.RESOLUTION
+JMSDestinationNames/MIG_WorkflowRequestQueue=ZBS.INTEGRATION.CLE.WFREQUEST
+JMSServer/Application/MIG_ClientID=CLEAdministrator
+JMSServer/Application/MIG_JMSExpiration=100
+JMSServer/Application/MIG_JNDIContextURL=tibjmsnaming://xsp-tibemsj-dv1.pac.zimmer.com:7222
+JMSServer/Application/MIG_JNDIPassword=#!VaZ0nvlJCijPjQn+6qqMyjZXAy6YOTl/
+JMSServer/Application/MIG_JNDIUser=cleuser
+JMSServer/Application/MIG_Password=#!7VF+zqHlBv7JYdDvAtZowBcYNvq9HjnN
+JMSServer/Application/MIG_QueueConnectionFactory=XSP_FW_PRIMARY_CLEAdminUI_QCF
+JMSServer/Application/MIG_TopicConnectionFactory=XSP_FW_PRIMARY_CLEAdminUI_TCF
+JMSServer/Application/MIG_UserName=cleuser
+JMSServer/MIG_ClientID=CLEAdministrator
+JMSServer/MIG_ClientIDException=CLEException
+JMSServer/MIG_ClientIDExceptionReploy=CLEExceptionReply
+JMSServer/MIG_ClientIDLog=CLELog
+JMSServer/MIG_JMSExpiration=100
+JMSServer/MIG_JNDIContextURL=tibjmsnaming://xsp-tibemsj-dv1.pac.zimmer.com:7222
+JMSServer/MIG_JNDIPassword=#!QARcYteVgce2TSg32bbmnV4dAY8HLde+
+JMSServer/MIG_JNDIUser=cleuser
+JMSServer/MIG_Password=#!ehnE0j/bxRWll8mMmdlgw9iNT0917lb7
+JMSServer/MIG_QueueConnectionFactory=XSP_FW_PRIMARY_CLEAdminUI_QCF
+JMSServer/MIG_TopicConnectionFactory=XSP_FW_PRIMARY_CLEAdminUI_TCF
+JMSServer/MIG_UserName=cleuser
+Notification/Email/MIG_From=tibco.alerts@zimmer.com
+Notification/Email/MIG_Host=pac-msg-htr1.pac.zimmer.com
+Notification/Email/MIG_SubjectPrefix=Exception::
+RVSubjectNames/ExceptionRequestSubject=cle2.exception
+RVSubjectNames/LogRequestSubject=cle2.log
+RVTransport/MIG_ExceptionCM_Name_=ExceptionCM
+RVTransport/MIG_ExceptionLedger_Filename=E:\temp\ExceptionLedger
+RVTransport/MIG_LogCM_Name=LogCM
+RVTransport/MIG_LogLedger_File=E:\temp\LogLedger
+RVTransport/RemoteRvDaemon=
+RVTransport/RvaHost=localhost
+RVTransport/RvaPort=7500
+RVTransport/RvDaemon=tcp:7500
+RVTransport/RvNetwork=
+RVTransport/RvService=7500
+Security/MIG_AdministratorRoleName=CLEAdmin
+SOAPServer/CoreServices/MIG_ExceptionHost=localhost
+SOAPServer/CoreServices/MIG_ExceptionPort=19989
+SOAPServer/CoreServices/MIG_LogReqHost=localhost
+SOAPServer/CoreServices/MIG_LogReqPort=19901
+SOAPServer/GUIServices/MIG_AdministrationHost=localhost
+SOAPServer/GUIServices/MIG_AdministrationPort=19950
+SOAPServer/GUIServices/MIG_ExceptionRuntimeHost=localhost
+SOAPServer/GUIServices/MIG_ExceptionRuntimePort=19951
+SOAPServer/GUIServices/MIG_LogLevelRuntimeHost=localhost
+SOAPServer/GUIServices/MIG_LogLevelRuntimePort=19953
+SOAPServer/GUIServices/MIG_LogRuntimeHost=localhost
+SOAPServer/GUIServices/MIG_LogRuntimePort=19952
+Testing/Debug=1
+Testing/ExceptionRptCounter=10000
+Testing/LogRptCounter=10000
+Testing/StartExceptionTestTimer=2005 JAN 01 13:49:41 CST
+TIBHawkDaemon=tcp:7474
+TIBHawkNetwork=
+TIBHawkService=7474
+Utilities/ConfigMigrationFileName=CLEMigrate.xml
+// ----------------------------------------------------------------------------------
+// CLEAdminAndUI.par ---  Global Variables --- PAR level
+// ----------------------------------------------------------------------------------
+CLEAdminAndUI,HawkEnabled=false
+// ----------------------------------------------------------------------------------
+// CLEAdminAndUI.par --- Process Starter settings --- PAR level
+// ----------------------------------------------------------------------------------
+_TAG,BWProcess,CLEAdminAndUI,Common/GUIServices/intfChartInfoRetrieval-service.serviceagent,maxJob=0
+_TAG,BWProcess,CLEAdminAndUI,Common/GUIServices/intfChartInfoRetrieval-service.serviceagent,activation=true
+_TAG,BWProcess,CLEAdminAndUI,Common/GUIServices/intfChartInfoRetrieval-service.serviceagent,flowLimit=0
+_TAG,BWProcess,CLEAdminAndUI,Administration/GUIServices/InterfaceConfigurationServices/InterfaceConfigurationService.serviceagent,maxJob=0
+_TAG,BWProcess,CLEAdminAndUI,Administration/GUIServices/InterfaceConfigurationServices/InterfaceConfigurationService.serviceagent,activation=true
+_TAG,BWProcess,CLEAdminAndUI,Administration/GUIServices/InterfaceConfigurationServices/InterfaceConfigurationService.serviceagent,flowLimit=0
+_TAG,BWProcess,CLEAdminAndUI,Administration/GUIServices/RenderServices/intfRenderConfig-service.serviceagent,maxJob=0
+_TAG,BWProcess,CLEAdminAndUI,Administration/GUIServices/RenderServices/intfRenderConfig-service.serviceagent,activation=true
+_TAG,BWProcess,CLEAdminAndUI,Administration/GUIServices/RenderServices/intfRenderConfig-service.serviceagent,flowLimit=0
+_TAG,BWProcess,CLEAdminAndUI,Administration/GUIServices/ProcedureServices/intfProcedure-service.serviceagent,maxJob=0
+_TAG,BWProcess,CLEAdminAndUI,Administration/GUIServices/ProcedureServices/intfProcedure-service.serviceagent,activation=true
+_TAG,BWProcess,CLEAdminAndUI,Administration/GUIServices/ProcedureServices/intfProcedure-service.serviceagent,flowLimit=0
+_TAG,BWProcess,CLEAdminAndUI,Administration/GUIServices/ApplicationServices/intfUpdate_ApplicationConfiguration-service.serviceagent,maxJob=0
+_TAG,BWProcess,CLEAdminAndUI,Administration/GUIServices/ApplicationServices/intfUpdate_ApplicationConfiguration-service.serviceagent,activation=true
+_TAG,BWProcess,CLEAdminAndUI,Administration/GUIServices/ApplicationServices/intfUpdate_ApplicationConfiguration-service.serviceagent,flowLimit=0
+_TAG,BWProcess,CLEAdminAndUI,Logging/GUIServices/Retrieve_Log_service.serviceagent,maxJob=0
+_TAG,BWProcess,CLEAdminAndUI,Logging/GUIServices/Retrieve_Log_service.serviceagent,activation=true
+_TAG,BWProcess,CLEAdminAndUI,Logging/GUIServices/Retrieve_Log_service.serviceagent,flowLimit=0
+_TAG,BWProcess,CLEAdminAndUI,Administration/GUIServices/CategoryServices/intfCategory-service.serviceagent,maxJob=0
+_TAG,BWProcess,CLEAdminAndUI,Administration/GUIServices/CategoryServices/intfCategory-service.serviceagent,activation=true
+_TAG,BWProcess,CLEAdminAndUI,Administration/GUIServices/CategoryServices/intfCategory-service.serviceagent,flowLimit=0
+_TAG,BWProcess,CLEAdminAndUI,ExceptionManagement/GUIServices/intfExceptions-service.serviceagent,maxJob=0
+_TAG,BWProcess,CLEAdminAndUI,ExceptionManagement/GUIServices/intfExceptions-service.serviceagent,activation=true
+_TAG,BWProcess,CLEAdminAndUI,ExceptionManagement/GUIServices/intfExceptions-service.serviceagent,flowLimit=0
+_TAG,BWProcess,CLEAdminAndUI,Administration/GUIServices/ExceptionConfigurationServices/intfExceptionConfiguration-service.serviceagent,maxJob=0
+_TAG,BWProcess,CLEAdminAndUI,Administration/GUIServices/ExceptionConfigurationServices/intfExceptionConfiguration-service.serviceagent,activation=true
+_TAG,BWProcess,CLEAdminAndUI,Administration/GUIServices/ExceptionConfigurationServices/intfExceptionConfiguration-service.serviceagent,flowLimit=0
+_TAG,BWProcess,CLEAdminAndUI,Administration/GUIServices/SeverityServices/intfSeverity-service.serviceagent,maxJob=0
+_TAG,BWProcess,CLEAdminAndUI,Administration/GUIServices/SeverityServices/intfSeverity-service.serviceagent,activation=true
+_TAG,BWProcess,CLEAdminAndUI,Administration/GUIServices/SeverityServices/intfSeverity-service.serviceagent,flowLimit=0
+_TAG,BWProcess,CLEAdminAndUI,SecurityManagement/GUIServices/intfACL-service.serviceagent,maxJob=0
+_TAG,BWProcess,CLEAdminAndUI,SecurityManagement/GUIServices/intfACL-service.serviceagent,activation=true
+_TAG,BWProcess,CLEAdminAndUI,SecurityManagement/GUIServices/intfACL-service.serviceagent,flowLimit=0
+_TAG,BWProcess,CLEAdminAndUI,Administration/GUIServices/TypeServices/intfType-service.serviceagent,maxJob=0
+_TAG,BWProcess,CLEAdminAndUI,Administration/GUIServices/TypeServices/intfType-service.serviceagent,activation=true
+_TAG,BWProcess,CLEAdminAndUI,Administration/GUIServices/TypeServices/intfType-service.serviceagent,flowLimit=0
+_TAG,Setting,CLEAdminAndUI,threadCount=8
+_TAG,Setting,CLEAdminAndUI,maxLogFileCount=5
+_TAG,Setting,CLEAdminAndUI,maxLogFileSize=20000
+_TAG,Setting,CLEAdminAndUI,java/initHeapSize=32
+_TAG,Setting,CLEAdminAndUI,java/maxHeapSize=512
+_TAG,Setting,CLEAdminAndUI,java/prepandClassPath=
+_TAG,Setting,CLEAdminAndUI,java/appendClassPath=
+// ----------------------------------------------------------------------------------
+// Machine #1 --- CLEAdminAndUI.par --- Service Instance settings --- Service level
+// ----------------------------------------------------------------------------------
+_TAG,Machine,CLEAdminAndUI,CLEAdminAndUI-1,machine=%%CLEAdminAndUI.par-machine%%
+// ----------------------------------------------------------------------------------
+// Machine #2 --- CLEAdminAndUI.par --- Service Instance settings --- Service level
+// ----------------------------------------------------------------------------------
+_TAG,Machine,CLEAdminAndUI,CLEAdminAndUI-2,machine=%%CLEAdminAndUI.par-1-machine%%

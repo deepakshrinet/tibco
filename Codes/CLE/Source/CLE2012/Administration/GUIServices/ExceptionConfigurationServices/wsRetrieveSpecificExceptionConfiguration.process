@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/EngineTypes" xmlns:pfx0="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Query" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlPfx="http://www.tibco.com/CommonLE2/namespace/Administration/GUIServices/ExceptionConfiguration" xmlns:ns5="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfigDetailQuery" xmlns:ns12="http://www.tibco.com/CommonLE/namespace/Common" xmlns:ns6="http://www.tibco.com/CommonLE2/Private/Administration" xmlns:ns7="www.tibco.com/plugin/Sleep" xmlns:pfx="http://www.tibco.com/pe/DeployedVarsType" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/CommonLE2/namespace/Administration/GUIServices/Applications/1175798793750" xmlns:ns1="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:ns4="http://www.tibco.com/CommonLE2/Private/Exception" xmlns:ns3="http://www.tibco.com/CommonLE2/Public/Common" xmlns:pfx5="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfigDetail" xmlns:pfx2="http://www.tibco.com/CommonLE2/namespace/private/Common">
+    <wsdl:import namespace="http://www.tibco.com/CommonLE2/namespace/Administration/GUIServices/ExceptionConfiguration" location="/SharedResources/WSDL/GUI/Administration/intfRetrieveSpecificExceptionConfigurationList.wsdl"/>
+    <pd:name>Administration/GUIServices/ExceptionConfigurationServices/wsRetrieveSpecificExceptionConfiguration.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType wsMsgRef="wsdlPfx:ExceptionConfigDetailQuery"/>
+    <pd:startX>19</pd:startX>
+    <pd:startY>45</pd:startY>
+    <pd:returnBindings>
+        <wsdlPfx:ExceptionConfigDetail>
+            <parameters>
+                <xsl:for-each select="$Retrieve-Exception-Configuration/ns6:ExceptionConfigurationResult">
+                    <pfx5:ExceptionConfigDetail>
+                        <pfx5:ApplicationID>
+                            <xsl:value-of select="ns6:ApplicationID"/>
+                        </pfx5:ApplicationID>
+                        <pfx5:ExceptionCode>
+                            <xsl:value-of select="ns6:ExceptionCode"/>
+                        </pfx5:ExceptionCode>
+                        <pfx5:CategoryName>
+                            <xsl:value-of select="ns6:CategoryName"/>
+                        </pfx5:CategoryName>
+                        <pfx5:TypeName>
+                            <xsl:value-of select="ns6:TypeName"/>
+                        </pfx5:TypeName>
+                        <pfx5:SeverityName>
+                            <xsl:value-of select="ns6:SeverityName"/>
+                        </pfx5:SeverityName>
+                        <pfx5:ProcedureName>
+                            <xsl:value-of select="ns6:ProcedureName"/>
+                        </pfx5:ProcedureName>
+                        <pfx5:Description>
+                            <xsl:value-of select="ns6:Description"/>
+                        </pfx5:Description>
+                        <pfx5:ReplyDestination>
+                            <xsl:value-of select="ns6:ReplyDestination"/>
+                        </pfx5:ReplyDestination>
+                        <pfx5:RoleName>
+                            <xsl:value-of select="ns6:RoleName"/>
+                        </pfx5:RoleName>
+                        <pfx5:NotificationChnl>
+                            <xsl:value-of select="ns6:NotificationChannel"/>
+                        </pfx5:NotificationChnl>
+                        <pfx5:EmailTo>
+                            <xsl:value-of select="ns6:EmailTo"/>
+                        </pfx5:EmailTo>
+                        <pfx5:EmailCC>
+                            <xsl:value-of select="ns6:EmailCC"/>
+                        </pfx5:EmailCC>
+                        <pfx5:Exceptionttl>
+                            <xsl:value-of select="ns6:ExceptionTTL"/>
+                        </pfx5:Exceptionttl>
+                        <pfx5:Instruction>
+                            <xsl:value-of select="ns6:Instruction"/>
+                        </pfx5:Instruction>
+                        <xsl:if test="ns6:EventType">
+                            <pfx5:EventType>
+                                <xsl:value-of select="ns6:EventType"/>
+                            </pfx5:EventType>
+                        </xsl:if>
+                        <xsl:if test="ns6:ResolveDelayInterval">
+                            <pfx5:ResolveDelayInterval>
+                                <xsl:value-of select="ns6:ResolveDelayInterval"/>
+                            </pfx5:ResolveDelayInterval>
+                        </xsl:if>
+                    </pfx5:ExceptionConfigDetail>
+                </xsl:for-each>
+            </parameters>
+        </wsdlPfx:ExceptionConfigDetail>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType wsMsgRef="wsdlPfx:ExceptionConfigDetail"/>
+    <pd:endX>437</pd:endX>
+    <pd:endY>45</pd:endY>
+    <pd:errorSchemas>
+        <Schema1 wsMsgRef="wsdlPfx:Error"/>
+    </pd:errorSchemas>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1285879590018</pd:targetNamespace>
+    <pd:activity name="Retrieve Exception Configuration">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>258</pd:x>
+        <pd:y>53</pd:y>
+        <config>
+            <processName>/Administration/DataAccess/ExceptionConfiguration/Oracle/RetrieveSpecificExceptionConfiguration.process</processName>
+            <processNameXPath>concat("/Administration/DataAccess/ExceptionConfiguration/",$_globalVariables/pfx:GlobalVariables/Database/MIG_DatabaseType,"/RetrieveSpecificExceptionConfiguration.process")</processNameXPath>
+        </config>
+        <pd:inputBindings>
+            <ns4:ExceptionConfigurationQuery>
+                <ns4:ApplicationID>
+                    <xsl:value-of select="$Start/wsdlPfx:ExceptionConfigDetailQuery/part1/ns5:Query/ns5:AppID"/>
+                </ns4:ApplicationID>
+                <ns4:ExceptionCode>
+                    <xsl:value-of select="$Start/wsdlPfx:ExceptionConfigDetailQuery/part1/ns5:Query/ns5:ExceptionCode"/>
+                </ns4:ExceptionCode>
+            </ns4:ExceptionConfigurationQuery>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch Exception Config Not Found">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>147</pd:x>
+        <pd:y>151</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=ExceptionConfigurationNotFound namespace=http://www.tibco.com/CommonLE2/namespace/private/Common</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Generate Record Not Found Fault">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>349</pd:x>
+        <pd:y>154</pd:y>
+        <config>
+            <faultName>Schema1</faultName>
+        </config>
+        <pd:inputBindings>
+            <ns1:ActivityInput>
+                <message>
+                    <xsl:value-of select="$Catch-Exception-Config-Not-Found/pfx2:ExceptionConfigurationNotFound/pfx2:Message"/>
+                </message>
+                <messageCode>
+                    <xsl:value-of select="$Catch-Exception-Config-Not-Found/pfx2:ExceptionConfigurationNotFound/pfx2:Code"/>
+                </messageCode>
+                <data>
+                    <wsdlPfx:Error>
+                        <parameters>
+                            <ns3:Error>
+                                <ns3:Message>
+                                    <xsl:value-of select="$Catch-Exception-Config-Not-Found/pfx2:ExceptionConfigurationNotFound/pfx2:Message"/>
+                                </ns3:Message>
+                                <ns3:Code>
+                                    <xsl:value-of select="$Catch-Exception-Config-Not-Found/pfx2:ExceptionConfigurationNotFound/pfx2:Code"/>
+                                </ns3:Code>
+                            </ns3:Error>
+                        </parameters>
+                    </wsdlPfx:Error>
+                </data>
+            </ns1:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch All">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>130</pd:x>
+        <pd:y>260</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Generate Internal Error">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>399</pd:x>
+        <pd:y>268</pd:y>
+        <config>
+            <faultName>Schema1</faultName>
+        </config>
+        <pd:inputBindings>
+            <ns1:ActivityInput>
+                <xsl:if test="$_error/ns:ErrorReport/Msg">
+                    <message>
+                        <xsl:value-of select="$_error/ns:ErrorReport/Msg"/>
+                    </message>
+                </xsl:if>
+                <xsl:if test="$_error/ns:ErrorReport/MsgCode">
+                    <messageCode>
+                        <xsl:value-of select="$_error/ns:ErrorReport/MsgCode"/>
+                    </messageCode>
+                </xsl:if>
+                <data>
+                    <wsdlPfx:Error>
+                        <parameters>
+                            <ns3:Error>
+                                <xsl:if test="$_error/ns:ErrorReport/Msg">
+                                    <ns3:Message>
+                                        <xsl:value-of select="$_error/ns:ErrorReport/Msg"/>
+                                    </ns3:Message>
+                                </xsl:if>
+                                <xsl:if test="$_error/ns:ErrorReport/MsgCode">
+                                    <ns3:Code>
+                                        <xsl:value-of select="$_error/ns:ErrorReport/MsgCode"/>
+                                    </ns3:Code>
+                                </xsl:if>
+                            </ns3:Error>
+                        </parameters>
+                    </wsdlPfx:Error>
+                </data>
+            </ns1:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Local Exception Handler">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>261</pd:x>
+        <pd:y>268</pd:y>
+        <config>
+            <processName>/Common/Local Exception Handler.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns12:Exception>
+                <ErrorMessage>
+                    <xsl:value-of select="$_error/ns:ErrorReport/Msg"/>
+                </ErrorMessage>
+                <ErrorCode>
+                    <xsl:value-of select="$_error/ns:ErrorReport/MsgCode"/>
+                </ErrorCode>
+                <ns12:Error>
+                    <xsl:for-each xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="$_error/ns:ErrorReport">
+                        <ns12:ErrorReport>
+                            <StackTrace>
+                                <xsl:value-of select="StackTrace"/>
+                            </StackTrace>
+                            <Msg>
+                                <xsl:value-of select="Msg"/>
+                            </Msg>
+                            <FullClass>
+                                <xsl:value-of select="FullClass"/>
+                            </FullClass>
+                            <Class>
+                                <xsl:value-of select="Class"/>
+                            </Class>
+                            <ProcessStack>
+                                <xsl:value-of select="ProcessStack"/>
+                            </ProcessStack>
+                            <MsgCode>
+                                <xsl:value-of select="MsgCode"/>
+                            </MsgCode>
+                        </ns12:ErrorReport>
+                    </xsl:for-each>
+                </ns12:Error>
+            </ns12:Exception>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Sleep">
+        <pd:type>com.tibco.plugin.timer.SleepActivity</pd:type>
+        <pd:resourceType>ae.activities.sleep</pd:resourceType>
+        <pd:x>111</pd:x>
+        <pd:y>45</pd:y>
+        <config/>
+        <pd:inputBindings>
+            <ns7:SleepInputSchema>
+                <IntervalInMillisec>
+                    <xsl:value-of select="500"/>
+                </IntervalInMillisec>
+            </ns7:SleepInputSchema>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Sleep</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Retrieve Exception Configuration</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch Exception Config Not Found</pd:from>
+        <pd:to>Generate Record Not Found Fault</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch All</pd:from>
+        <pd:to>Local Exception Handler</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Local Exception Handler</pd:from>
+        <pd:to>Generate Internal Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:description>Avoid race condition on the GUI side. Infomation about Type, Category, Severity and Procedures need to be retrieved first</pd:description>
+        <pd:from>Sleep</pd:from>
+        <pd:to>Retrieve Exception Configuration</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

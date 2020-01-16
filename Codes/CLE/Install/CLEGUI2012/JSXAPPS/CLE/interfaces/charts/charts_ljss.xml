@@ -1,0 +1,14 @@
+<data jsxnamespace="propsbundle" locales="">
+  <locale>
+    <record jsxid="chart_tabLabel" jsxtext="Charts"/>
+    <record jsxid="chart_tabTip" jsxtext="Charts"/>
+    <record jsxid="chart_totalLogsByApplication_caption" jsxtext="Total Logs By Application"/>
+    <record jsxid="chart_totalExceptionsByApplication_caption" jsxtext="Total Exceptions By Application"/>
+    <record jsxid="chart_exceptionDistribution_caption" jsxtext="Exception Distribution"/>
+    <record jsxid="chart_showCharts" jsxtext="Show Charts"/>
+    <record jsxid="chart_removeCharts" jsxtext="Remove Charts"/>
+    <record jsxid="chart_zoom" jsxtext="Zoom"/>
+    <record jsxid="chart_serviceUnavailable_caption" jsxtext="Service Unavailable"/>
+    <record jsxid="chart_serviceUnavailable_message" jsxtext="The chart service is unavailable, please try again later."/>
+  </locale>
+</data>

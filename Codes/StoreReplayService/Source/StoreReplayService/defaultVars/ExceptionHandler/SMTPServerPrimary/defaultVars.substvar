@@ -1,0 +1,29 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>From</name>
+			<value>TIBCOAdmin.Dev@zimmer.com</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1439401370504</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>Name</name>
+			<value>pac-msg-htr1.pac.zimmer.com</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1439401370887</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>To</name>
+			<value>TIBCOAdmin.Dev@zimmer.com</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1439401371122</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

@@ -1,0 +1,31 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>OperationRetryCount</name>
+			<value>3</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>Integer</type>
+			<modTime>1337720893406</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>OperationSleepInterval</name>
+			<value>300</value>
+			<description>Seconds</description>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>Integer</type>
+			<modTime>1338326609671</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>OperationTimeOut</name>
+			<value>300</value>
+			<description>Seconds</description>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>Integer</type>
+			<modTime>1338326609750</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/schemas/COMMONLENEW/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Common/ListQuery.xsd" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogListQuery" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:pfx2="http://www.tibco.com/CommonLE2/namespace/Public/Logging" xmlns:pfx="http://www.tibco.com/CommonLE2/Logging/GUIServices">
+    <wsdl:import namespace="http://www.tibco.com/CommonLE2/Logging/GUIServices" location="/Logging/GUIServices/Testing/LogServiceConcrete.wsdl"/>
+    <pd:name>Logging/GUIServices/Testing/GetLlogList.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startX>19</pd:startX>
+    <pd:startY>85</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>297</pd:endX>
+    <pd:endY>85</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1285862160819</pd:targetNamespace>
+    <pd:activity name="SOAPRequestReply">
+        <pd:type>com.tibco.plugin.soap.SOAPSendReceiveActivity</pd:type>
+        <pd:resourceType>ae.activities.SOAPSendReceiveUI</pd:resourceType>
+        <pd:x>140</pd:x>
+        <pd:y>85</pd:y>
+        <config>
+            <timeout>0</timeout>
+            <soapAttachmentStyle>SwA</soapAttachmentStyle>
+            <service>pfx:Retrieve_Log_service</service>
+            <servicePort>intfwsRetrieve_Log_DetailEndpoint2</servicePort>
+            <operation>Retrieve_sp_Log_sp_ListOp</operation>
+            <soapAction>/Logging/GUIServices/intfRetrieve_Log_Detail-service.serviceagent/intfwsRetrieve_Log_DetailEndpoint2/Retrieve_sp_Log_sp_ListOp</soapAction>
+            <endpointURL>http://localhost:9950/Logging/GUIServices/Retrieve_Log_service.serviceagent/intfwsRetrieve_Log_DetailEndpoint2</endpointURL>
+        </config>
+        <pd:inputBindings>
+            <inputMessage>
+                <ns2:ListQuery>
+                    <ns2:Applications>
+                        <ns2:Application>
+                            <ns2:ApplicationID>
+                                <xsl:value-of select="&quot;AppID-1&quot;"/>
+                            </ns2:ApplicationID>
+                        </ns2:Application>
+                    </ns2:Applications>
+                    <ns2:Criteria>
+                        <ns2:Criterion>
+                            <ns2:FieldName>
+                                <xsl:value-of select="&quot;FileName&quot;"/>
+                            </ns2:FieldName>
+                            <ns2:FromValue>
+                                <xsl:value-of select="&quot;A&quot;"/>
+                            </ns2:FromValue>
+                            <ns2:ToValue>
+                                <xsl:value-of select="&quot;Z&quot;"/>
+                            </ns2:ToValue>
+                        </ns2:Criterion>
+                    </ns2:Criteria>
+                </ns2:ListQuery>
+            </inputMessage>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>SOAPRequestReply</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SOAPRequestReply</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

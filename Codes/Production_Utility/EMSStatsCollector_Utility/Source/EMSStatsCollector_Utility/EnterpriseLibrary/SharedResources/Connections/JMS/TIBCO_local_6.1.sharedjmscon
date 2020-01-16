@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BWSharedResource>
+    <name>TIBCO_local_6.1</name>
+    <resourceType>ae.shared.JMSConnectionKey</resourceType>
+    <config>
+        <NamingEnvironment>
+            <UseJNDI>true</UseJNDI>
+            <ProviderURL>tcp://localhost:7222</ProviderURL>
+            <NamingURL>tibjmsnaming://localhost:7222</NamingURL>
+            <NamingInitialContextFactory>com.tibco.tibjms.naming.TibjmsInitialContextFactory</NamingInitialContextFactory>
+            <TopicFactoryName>TopicConnectionFactory</TopicFactoryName>
+            <QueueFactoryName>QueueConnectionFactory</QueueFactoryName>
+            <NamingPrincipal>admin</NamingPrincipal>
+            <NamingCredential>#!m7+5p9UM+iOTWRteku2zMF8WgImf4ALO</NamingCredential>
+        </NamingEnvironment>
+        <ConnectionAttributes>
+            <username>admin</username>
+            <password>#!kQkMxP90pmDNhWZecFzscAWSzEE9Pbeu</password>
+            <clientID/>
+            <autoGenClientID>true</autoGenClientID>
+        </ConnectionAttributes>
+        <UseXACF>true</UseXACF>
+    </config>
+</BWSharedResource>

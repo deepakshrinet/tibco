@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by TIBCO WSDL-->
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.tibco.com/CommonLE2/Administration/GUIServices/ExceptionConfigurationServices" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns0="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Query" xmlns:ns1="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfigList" xmlns:ns2="http://www.tibco.com/CommonLE2/Public/Common" xmlns:ns3="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig" xmlns:ns4="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfigDetailQuery" xmlns:ns5="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfigDetail" xmlns:ns6="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Common/DeleteQuery" name="Untitled" targetNamespace="http://www.tibco.com/CommonLE2/Administration/GUIServices/ExceptionConfigurationServices">
+    <wsdl:types>
+        <xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfigDetail" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfigDetail" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xsd:element name="ExceptionConfigDetail">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ApplicationID" type="xsd:string"/>
+                        <xsd:element name="ExceptionCode" type="xsd:string"/>
+                        <xsd:element name="CategoryName" type="xsd:string"/>
+                        <xsd:element name="TypeName" type="xsd:string"/>
+                        <xsd:element name="SeverityName" type="xsd:string"/>
+                        <xsd:element name="ProcedureName" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="Description" type="xsd:string"/>
+                        <xsd:element name="ReplyDestination" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="RoleName" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="NotificationChnl" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="EmailTo" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="EmailCC" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="Exceptionttl" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="Instruction" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="EventType" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="ResolveDelayInterval" type="xsd:integer" minOccurs="0"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+        <xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Query" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Query" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xsd:element name="Query">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ID" type="xsd:string" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+        <xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xsd:element name="ExceptionConfig">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ApplicationID" type="xsd:string"/>
+                        <xsd:element name="ExceptionCode" type="xsd:string"/>
+                        <xsd:element name="CategoryID" type="xsd:integer"/>
+                        <xsd:element name="TypeID" type="xsd:integer"/>
+                        <xsd:element name="SeverityID" type="xsd:integer"/>
+                        <xsd:element name="ProcedureID" type="xsd:integer" minOccurs="0"/>
+                        <xsd:element name="Description" type="xsd:string"/>
+                        <xsd:element name="ReplyDestination" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="RoleName" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="NotificationChnl" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="EmailTo" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="EmailCC" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="Exceptionttl" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="Instruction" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="EventType" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="ResolveDelayInterval" type="xsd:integer" minOccurs="0"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="ExceptionConfigs">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="ns3:ExceptionConfig" minOccurs="0" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+        <xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Common/DeleteQuery" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Common/DeleteQuery" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xsd:element name="DeleteQueries">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="ns6:Query" minOccurs="0" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="Query">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ID" type="xsd:string"/>
+                        <xsd:element name="AppID" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+        <xsd:schema xmlns="http://www.tibco.com/CommonLE2/Public/Common" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tibco.com/CommonLE2/Public/Common" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xsd:element name="Code" type="xsd:string"/>
+            <xsd:element name="Error">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="ns2:Message" minOccurs="0"/>
+                        <xsd:element ref="ns2:Code" minOccurs="0"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="Message" type="xsd:string"/>
+        </xsd:schema>
+        <xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfigDetailQuery" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfigDetailQuery" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xsd:element name="Query">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="AppID" type="xsd:string"/>
+                        <xsd:element name="ExceptionCode" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+        <xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfigList" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfigList" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xsd:element name="ExceptionConfigList">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="ns1:ExceptionConfigListRecord" minOccurs="0" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="ExceptionConfigListRecord">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ApplicationID" type="xsd:string"/>
+                        <xsd:element name="ExceptionCode" type="xsd:string"/>
+                        <xsd:element name="ProcedureName" type="xsd:string"/>
+                        <xsd:element name="NotificationChannel" type="xsd:string"/>
+                        <xsd:element name="Exceptionttl" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:service name="intfExceptionConfiguration-service">
+        <wsdl:port name="intfwsRetrieveSpecificExceptionConfigurationListEndpoint0" binding="tns:intfwsRetrieveSpecificExceptionConfigurationListEndpoint0Binding">
+            <soap:address location="http://localhost:9950/Administration/GUIServices/ExceptionConfigurationServices/intfExceptionConfiguration-service.serviceagent/intfwsRetrieveSpecificExceptionConfigurationListEndpoint0"/>
+        </wsdl:port>
+    </wsdl:service>
+    <wsdl:portType name="portType">
+        <wsdl:operation name="RetrieveSpecificExceptionConfigurationListOp">
+            <wsdl:input message="tns:Query"/>
+            <wsdl:output message="tns:ExceptionConfigList"/>
+            <wsdl:fault name="fault1" message="tns:Error"/>
+        </wsdl:operation>
+        <wsdl:operation name="UpdateExceptionConfigurationOp">
+            <wsdl:input message="tns:ExceptionConfigs"/>
+            <wsdl:output message="tns:Dummy"/>
+            <wsdl:fault name="fault1" message="tns:Error"/>
+        </wsdl:operation>
+        <wsdl:operation name="RetrieveSpecificExceptionConfigurationOp">
+            <wsdl:input message="tns:ExceptionConfigDetailQuery"/>
+            <wsdl:output message="tns:ExceptionConfigDetail"/>
+            <wsdl:fault name="fault1" message="tns:Error"/>
+        </wsdl:operation>
+        <wsdl:operation name="CreateExceptionConfigurationOp">
+            <wsdl:input message="tns:ExceptionConfigs"/>
+            <wsdl:output message="tns:Dummy"/>
+            <wsdl:fault name="fault1" message="tns:Error"/>
+        </wsdl:operation>
+        <wsdl:operation name="DeleteExceptionConfigurationOp">
+            <wsdl:input message="tns:DeleteQuery"/>
+            <wsdl:output message="tns:Dummy"/>
+            <wsdl:fault name="fault1" message="tns:Error"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="intfwsRetrieveSpecificExceptionConfigurationListEndpoint0Binding" type="tns:portType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="RetrieveSpecificExceptionConfigurationListOp">
+            <soap:operation style="document" soapAction="/Administration/GUIServices/ExceptionConfigurationServices/intfRetrieveSpecificExceptionConfigurationList-service.serviceagent/intfwsRetrieveSpecificExceptionConfigurationListEndpoint0/RetrieveSpecificExceptionConfigurationListOp"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:output>
+            <wsdl:fault name="fault1">
+                <soap:fault use="literal" name="fault1"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="UpdateExceptionConfigurationOp">
+            <soap:operation style="document" soapAction="/Administration/GUIServices/ExceptionConfigurationServices/intfRetrieveSpecificExceptionConfigurationList-service.serviceagent/intfwsRetrieveSpecificExceptionConfigurationListEndpoint0/UpdateExceptionConfigurationOp"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts=""/>
+            </wsdl:output>
+            <wsdl:fault name="fault1">
+                <soap:fault use="literal" name="fault1"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="RetrieveSpecificExceptionConfigurationOp">
+            <soap:operation style="document" soapAction="/Administration/GUIServices/ExceptionConfigurationServices/intfRetrieveSpecificExceptionConfigurationList-service.serviceagent/intfwsRetrieveSpecificExceptionConfigurationListEndpoint0/RetrieveSpecificExceptionConfigurationOp"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:output>
+            <wsdl:fault name="fault1">
+                <soap:fault use="literal" name="fault1"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="CreateExceptionConfigurationOp">
+            <soap:operation style="document" soapAction="/Administration/GUIServices/ExceptionConfigurationServices/intfRetrieveSpecificExceptionConfigurationList-service.serviceagent/intfwsRetrieveSpecificExceptionConfigurationListEndpoint0/CreateExceptionConfigurationOp"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts=""/>
+            </wsdl:output>
+            <wsdl:fault name="fault1">
+                <soap:fault use="literal" name="fault1"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="DeleteExceptionConfigurationOp">
+            <soap:operation style="document" soapAction="/Administration/GUIServices/ExceptionConfigurationServices/intfRetrieveSpecificExceptionConfigurationList-service.serviceagent/intfwsRetrieveSpecificExceptionConfigurationListEndpoint0/DeleteExceptionConfigurationOp"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts=""/>
+            </wsdl:output>
+            <wsdl:fault name="fault1">
+                <soap:fault use="literal" name="fault1"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:message name="Query">
+        <wsdl:part name="parameters" element="ns0:Query"/>
+    </wsdl:message>
+    <wsdl:message name="ExceptionConfigList">
+        <wsdl:part name="parameters" element="ns1:ExceptionConfigList"/>
+    </wsdl:message>
+    <wsdl:message name="Error">
+        <wsdl:part name="parameters" element="ns2:Error"/>
+    </wsdl:message>
+    <wsdl:message name="ExceptionConfigs">
+        <wsdl:part name="parameters" element="ns3:ExceptionConfigs"/>
+    </wsdl:message>
+    <wsdl:message name="Dummy"/>
+    <wsdl:message name="ExceptionConfigDetailQuery">
+        <wsdl:part name="part1" element="ns4:Query"/>
+    </wsdl:message>
+    <wsdl:message name="ExceptionConfigDetail">
+        <wsdl:part name="parameters" element="ns5:ExceptionConfigDetail"/>
+    </wsdl:message>
+    <wsdl:message name="DeleteQuery">
+        <wsdl:part name="part1" element="ns6:DeleteQueries"/>
+    </wsdl:message>
+</wsdl:definitions>

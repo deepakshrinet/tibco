@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns0:java-xpath xmlns:ns0="http://www.tibco.com/bw/javaxpath/2003">
+    <ns0:suggestedPrefix>StringReplace</ns0:suggestedPrefix>
+    <ns0:loadedFromLocation>C:\Zimmer\Code\QAGVFileCreationTool\Resources\Java\CustomFunctions.class</ns0:loadedFromLocation>
+    <ns0:bytecode>yv66vgAAADMAFQoABAANCgAOAA8HABAHABEBAAY8aW5pdD4BAAMoKVYBAARDb2RlAQAPTGluZU51bWJlclRhYmxlAQANc3RyaW5nUmVwbGFjZQEASihMamF2YS9sYW5nL1N0cmluZztMamF2YS9sYW5nL1N0cmluZztMamF2YS9sYW5nL1N0cmluZzspTGphdmEvbGFuZy9TdHJpbmc7AQAKU291cmNlRmlsZQEAFEN1c3RvbUZ1bmN0aW9ucy5qYXZhDAAFAAYHABIMABMAFAEAD0N1c3RvbUZ1bmN0aW9ucwEAEGphdmEvbGFuZy9PYmplY3QBABBqYXZhL2xhbmcvU3RyaW5nAQAKcmVwbGFjZUFsbAEAOChMamF2YS9sYW5nL1N0cmluZztMamF2YS9sYW5nL1N0cmluZzspTGphdmEvbGFuZy9TdHJpbmc7ACEAAwAEAAAAAAACAAEABQAGAAEABwAAAB0AAQABAAAABSq3AAGxAAAAAQAIAAAABgABAAAAAwAJAAkACgABAAcAAAAtAAMABQAAAA0qTiorLLYAAjoEGQSwAAAAAQAIAAAADgADAAAABQACAAYACgAHAAEACwAAAAIADA==</ns0:bytecode>
+</ns0:java-xpath>

@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:ns2="http://www.tibco.com/pe/DeployedVarsType" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="http://www.tibco.com/namespaces/tnt/plugins/file" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/namespaces/tnt/plugins/file/v2" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:StringReplace="java://CustomFunctions">
+    <pd:name>Services/Operations/Prod/GV_File_Creation_Process.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="PropertyFileName" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="Is_BC_REST" type="xsd:string" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>27</pd:startX>
+    <pd:startY>35</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>870</pd:endX>
+    <pd:endY>35</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1470991531292</pd:targetNamespace>
+    <pd:activity name="Read Prod Reference File">
+        <pd:type>com.tibco.plugin.file.FileReadActivity</pd:type>
+        <pd:resourceType>ae.activities.FileReadActivity</pd:resourceType>
+        <pd:x>151</pd:x>
+        <pd:y>43</pd:y>
+        <config>
+            <encoding>text</encoding>
+        </config>
+        <pd:inputBindings>
+            <ns:ReadActivityInputClass>
+                <fileName>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PROD-GV-ReferenceFile"/>
+                </fileName>
+            </ns:ReadActivityInputClass>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Parse PROD file">
+        <pd:type>com.tibco.plugin.parse.ParseActivity</pd:type>
+        <pd:resourceType>ae.activities.ParseActivity</pd:resourceType>
+        <pd:x>288</pd:x>
+        <pd:y>35</pd:y>
+        <config>
+            <InputType>String</InputType>
+            <Encoding>ASCII</Encoding>
+            <ParseSharedConfig>/Resources/Data Format.sharedparse</ParseSharedConfig>
+            <SkipBlankLines>false</SkipBlankLines>
+        </config>
+        <pd:inputBindings>
+            <Input>
+                <text>
+                    <xsl:value-of select="$Read-Prod-Reference-File/ns1:ReadActivityOutputTextClass/fileContent/textContent"/>
+                </text>
+                <noOfRecords>
+                    <xsl:value-of select="-1"/>
+                </noOfRecords>
+            </Input>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Read-QAFile">
+        <pd:type>com.tibco.plugin.file.FileReadActivity</pd:type>
+        <pd:resourceType>ae.activities.FileReadActivity</pd:resourceType>
+        <pd:x>381</pd:x>
+        <pd:y>35</pd:y>
+        <config>
+            <encoding>text</encoding>
+        </config>
+        <pd:inputBindings>
+            <ns:ReadActivityInputClass>
+                <fileName>
+                    <xsl:value-of select="concat($_globalVariables/ns2:GlobalVariables/QA-GV-ArtifactFileLocation,$Start/root/PropertyFileName,'_GVs_TEST.txt')"/>
+                </fileName>
+            </ns:ReadActivityInputClass>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Parse-QAFile">
+        <pd:type>com.tibco.plugin.parse.ParseActivity</pd:type>
+        <pd:resourceType>ae.activities.ParseActivity</pd:resourceType>
+        <pd:x>482</pd:x>
+        <pd:y>35</pd:y>
+        <config>
+            <InputType>String</InputType>
+            <Encoding>ASCII</Encoding>
+            <ParseSharedConfig>/Resources/Data Format.sharedparse</ParseSharedConfig>
+            <SkipBlankLines>false</SkipBlankLines>
+        </config>
+        <pd:inputBindings>
+            <Input>
+                <text>
+                    <xsl:value-of select="$Read-QAFile/ns1:ReadActivityOutputTextClass/fileContent/textContent"/>
+                </text>
+                <noOfRecords>
+                    <xsl:value-of select="-1"/>
+                </noOfRecords>
+            </Input>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Map Data">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>583</pd:x>
+        <pd:y>35</pd:y>
+        <config>
+            <element>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="param" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </element>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <xsl:for-each select="$Parse-QAFile/Output/Rows/root/param">
+                    <xsl:variable name="v" select="current()"/>
+                    <xsl:choose>
+                        <xsl:when test="contains(tib:trim(current()),'=') and &#xA;contains(tib:concat-sequence-format(for $var in $Parse-PROD-file/Output/Rows/root return if(tib:trim(substring-before(tib:trim($var/param),'='))=tib:trim(substring-before(tib:trim($v),'='))) then 1 else 0,','),'1')">
+                            <param>
+                                <xsl:value-of select="$Parse-PROD-file/Output/Rows/root[tib:trim(substring-before(param,'='))=tib:trim(substring-before($v, '='))]/param"/>
+                            </param>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <param>
+                                <xsl:value-of select="if(not(contains(current(),'-1,machine')) and contains(current(),',machine') and upper-case($Start/root/Is_BC_REST)='N')&#xA;then StringReplace:stringReplace(current(), tib:substring-after-last(current(), '='), 'SBD-TIBAPP-PD1') &#xA;else&#xA;if(not(contains(current(),'-1,machine')) and contains(current(),',machine') and  upper-case($Start/root/Is_BC_REST)='Y')&#xA;then StringReplace:stringReplace(current(), tib:substring-after-last(current(), '='), 'SBD-TIBAPP-PD10') &#xA;else&#xA;if(contains(current(),'-1,machine') and upper-case($Start/root/Is_BC_REST)='N')&#xA;then&#xA;StringReplace:stringReplace(current(), tib:substring-after-last(current(), '='), 'SBD-TIBAPP-PD2') &#xA;else&#xA;if(contains(current(),'-1,machine') and upper-case($Start/root/Is_BC_REST)='Y')&#xA;then&#xA;StringReplace:stringReplace(current(), tib:substring-after-last(current(), '='), 'SBD-TIBAPP-PD11') &#xA;else&#xA;current()"/>
+                            </param>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:for-each>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Write File">
+        <pd:type>com.tibco.plugin.file.FileWriteActivity</pd:type>
+        <pd:resourceType>ae.activities.FileWriteActivity</pd:resourceType>
+        <pd:x>792</pd:x>
+        <pd:y>35</pd:y>
+        <config>
+            <encoding>text</encoding>
+            <compressFile>None</compressFile>
+            <createMissingDirectories>true</createMissingDirectories>
+        </config>
+        <pd:inputBindings>
+            <ns1:WriteActivityInputTextClass>
+                <fileName>
+                    <xsl:value-of select="concat($_globalVariables/ns2:GlobalVariables/PROD-GV-ArtifactFileLocation,tib:substring-before-last($Read-QAFile/ns1:ReadActivityOutputTextClass/fileInfo/fileName, 'TEST'),'PROD.txt')"/>
+                </fileName>
+                <textContent>
+                    <xsl:value-of select="$Render-Data/Text"/>
+                </textContent>
+            </ns1:WriteActivityInputTextClass>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Render Data">
+        <pd:type>com.tibco.plugin.parse.RenderActivity</pd:type>
+        <pd:resourceType>ae.activities.RenderActivity</pd:resourceType>
+        <pd:x>695</pd:x>
+        <pd:y>35</pd:y>
+        <config>
+            <ParseSharedConfig>/Resources/Data Format.sharedparse</ParseSharedConfig>
+        </config>
+        <pd:inputBindings>
+            <Rows>
+                <xsl:for-each select="$Map-Data/root/param">
+                    <root>
+                        <param>
+                            <xsl:value-of select="if(contains(.,'ApplicationDetails/Environment'))&#xA;then&#xA;concat(&quot;&#xA;&quot;,.)&#xA;else ."/>
+                        </param>
+                    </root>
+                </xsl:for-each>
+            </Rows>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Read-QAFile</pd:from>
+        <pd:to>Parse-QAFile</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Map Data</pd:from>
+        <pd:to>Render Data</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Render Data</pd:from>
+        <pd:to>Write File</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse-QAFile</pd:from>
+        <pd:to>Map Data</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Read Prod Reference File</pd:from>
+        <pd:to>Parse PROD file</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse PROD file</pd:from>
+        <pd:to>Read-QAFile</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Read Prod Reference File</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Write File</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

@@ -1,0 +1,11 @@
+<data jsxnamespace="propsbundle" locales="">
+  <locale>
+    <record jsxid="severity_ApplicationID" jsxtext="ID de Aplicación"/>
+    <record jsxid="severity_SeverityID" jsxtext="ID"/>
+    <record jsxid="severity_SeverityName" jsxtext="Nombre"/>
+    <record jsxid="severity_Description" jsxtext="Descripción"/>
+    <record jsxid="severity_createNewItemCaption" jsxtext="Crear Nueva Severidad"/>
+    <record jsxid="severity_createSeverity" jsxtext="Crear Severidad"/>
+    <record jsxid="severity_createSeverityTip" jsxtext="Crear Severidad"/>
+  </locale>
+</data>

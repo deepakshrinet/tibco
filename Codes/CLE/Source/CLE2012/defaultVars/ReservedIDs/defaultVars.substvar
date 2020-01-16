@@ -1,0 +1,37 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>CLEUsageError</name>
+			<value>CLEUSAGE-ERROR</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874572522</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>DummyID</name>
+			<value>Success</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874575288</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>ReservedApplicationID</name>
+			<value>System</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874574986</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>RetrieveEverything</name>
+			<value>All</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874573413</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:ns2="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/InterfaceConfigList" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:ns4="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/InterfaceConfigDetail" xmlns:ns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Query" xmlns:ns3="http://www.tibco.com/CommonLE2/Public/Common" xmlns:tns="http://www.tibco.com/CommonLE2/namespace/Administration/GUIServices/InterfaceConfiguration" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns9="http://www.tibco.com/schemas/COMMONLE2011/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Common/Schema.xsd" xmlns:ns5="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/InterfaceConfigDetailQuery" xmlns:ns6="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Common/DeleteQuery" xmlns:ns7="http://www.tibco.com/CommonLE2/namespace/public/Common/StatusResponse" xmlns:ns8="http://www.tibco.com/CommonLE2/Public/Common/Dummy" targetNamespace="http://www.tibco.com/CommonLE2/namespace/Administration/GUIServices/InterfaceConfiguration">
+    <import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Query" location="../../../SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/ConfigurationQuery.xsd"/>
+    <import namespace="http://www.tibco.com/CommonLE2/Public/Common" location="../../../SchemaDefinitions/Public/Common/ErrorMessage.xsd"/>
+    <import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/InterfaceConfigDetailQuery" location="../../../SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/InterfaceConfigDetailQuery.xsd"/>
+    <import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Common/DeleteQuery" location="../../../SchemaDefinitions/Public/Pluggable/GUI/Common/DeleteQuery.xsd"/>
+    <import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/InterfaceConfigList" location="../../../SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/InterfaceConfigList.xsd"/>
+    <import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/InterfaceConfigDetail" location="../../../SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/InterfaceConfigDetail.xsd"/>
+    <import namespace="http://www.tibco.com/CommonLE2/Public/Common/Dummy" location="../../../SchemaDefinitions/Public/Pluggable/GUI/Common/DummyReturnMessage.xsd"/>
+    <import namespace="http://www.tibco.com/schemas/COMMONLE2011/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Common/Schema.xsd" location="../../../SchemaDefinitions/Public/Pluggable/GUI/Common/StatusMessage.xsd"/>
+    <import namespace="http://www.tibco.com/CommonLE2/namespace/public/Common/StatusResponse" location="../Common/commonResponse.wsdl"/>
+    <message name="Query">
+        <part name="part1" element="ns:Query"/>
+    </message>
+    <message name="InterfaceConfigList">
+        <part name="part1" element="ns4:InterfaceList"/>
+    </message>
+    <message name="Error">
+        <part name="part1" element="ns3:Error"/>
+    </message>
+    <message name="InterfaceConfigDetail">
+        <part name="part1" element="ns4:InterfaceConfig"/>
+    </message>
+    <message name="DetailQuery">
+        <part name="part1" element="ns5:Query"/>
+    </message>
+    <message name="DeleteList">
+        <part name="part1" element="ns6:DeleteQueries"/>
+    </message>
+    <message name="InterfaceParentList">
+        <part name="part1" element="ns2:InterfaceParentList"/>
+    </message>
+    <message name="Response">
+        <part name="response" element="ns9:StatusMessage"/>
+    </message>
+    <portType name="PortType">
+        <operation name="RetrieveInterfaceConfigurationList">
+            <input message="tns:Query"/>
+            <output message="tns:InterfaceConfigList"/>
+            <fault name="fault1" message="tns:Error"/>
+        </operation>
+        <operation name="DeleteInterfaceConfigurations">
+            <input message="tns:DeleteList"/>
+            <output message="ns7:Reply"/>
+            <fault name="fault1" message="tns:Error"/>
+        </operation>
+        <operation name="RetrieveInterfaceParentList">
+            <input message="tns:Query"/>
+            <output message="tns:InterfaceParentList"/>
+            <fault name="fault1" message="tns:Error"/>
+        </operation>
+        <operation name="CreateInterfaceConfiguration">
+            <input message="tns:InterfaceConfigDetail"/>
+            <output message="ns7:Reply"/>
+            <fault name="fault1" message="tns:Error"/>
+        </operation>
+        <operation name="UpdateInterfaceConfiguration">
+            <input message="tns:InterfaceConfigDetail"/>
+            <output message="ns7:Reply"/>
+            <fault name="fault1" message="tns:Error"/>
+        </operation>
+        <operation name="RetrieveInterfaceConfigurationDetail">
+            <input message="tns:DetailQuery"/>
+            <output message="tns:InterfaceConfigDetail"/>
+            <fault name="fault1" message="tns:Error"/>
+        </operation>
+    </portType>
+</definitions>

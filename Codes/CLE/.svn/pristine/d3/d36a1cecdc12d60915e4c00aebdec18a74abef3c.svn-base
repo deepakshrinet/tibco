@@ -1,0 +1,32 @@
+<data jsxid="jsxroot">
+  <record jsxid="userPreferences" jsxtext="{m_preferences}" jsximg="images/icons/role.gif">
+    <record jsxid="languagePreference" jsxtext="{m_languages}">
+    	<record jsxid="englishGroup" jsxtext="{m_english}">
+	      <record jsxid="en_US" jsxtext="{m_english_us}" jsxexecute="cle.localization.doLoadLocalizeResource(this,strRECORDID);" jsximg="images/flags/usa_sm.gif"/>
+	      <record jsxid="en_UK" jsxtext="{m_english_uk}" jsxexecute="cle.localization.doLoadLocalizeResource(this,strRECORDID);" jsximg="images/flags/uk_sm.gif"/>
+    	</record>
+    	<record jsxid="chineseGroup" jsxtext="{m_chinese}">
+	      <record jsxid="zh_CH" jsxtext="{m_chinese_traditional}" jsxexecute="cle.localization.doLoadLocalizeResource(this,strRECORDID);" jsximg="images/flags/china.gif"/>
+    	</record>
+    	<record jsxid="spanishGroup" jsxtext="{m_spanish}">
+	      <record jsxid="es_ES" jsxtext="{m_spanish}" jsxexecute="cle.localization.doLoadLocalizeResource(this,strRECORDID);" jsximg="images/flags/spain_sm.gif"/>
+	      <!--  <record jsxid="es_MX" jsxtext="{m_spanish_mx}" jsxexecute="cle.localization.doLoadLocalizeResource(this,strRECORDID);" jsximg="images/flags/spain_sm.gif"/>  -->
+    	</record>
+      <record jsxid="sv_SV" jsxtext="{m_swedish}" jsxexecute="cle.localization.doLoadLocalizeResource(this,strRECORDID);" jsximg="images/flags/swe.gif"/>
+    	<record jsxid="portugueseGroup" jsxtext="{m_portuguese}">
+	<!-- 
+	      <record jsxid="pt_PT" jsxtext="{m_portuguese}" jsxexecute="cle.localization.doLoadLocalizeResource(this,strRECORDID);" jsximg="images/flags/por.gif"/>
+	-->
+	      <record jsxid="pt_BR" jsxtext="{m_portuguese_brazil}" jsxexecute="cle.localization.doLoadLocalizeResource(this,strRECORDID);" jsximg="images/flags/bra.gif"/>
+    	</record>
+	<!-- 
+      <record jsxid="it_IT" jsxtext="{m_italian}" jsxexecute="cle.localization.doLoadLocalizeResource(this,strRECORDID);" jsximg="images/flags/italian_sm.gif"/>
+      <record jsxid="fr_FR" jsxtext="{m_french}" jsxexecute="cle.localization.doLoadLocalizeResource(this,strRECORDID);" jsximg="images/flags/fra.gif"/>
+	-->
+     </record>
+    <record jsxid="themePreference" jsxtext="{m_themes}">
+       <record jsxid="blueTheme" jsxtext="{m_blueTheme}" jsxexecute="cle.settings.loadTheme('blueTheme_jss_xml',true);"/>
+       <record jsxid="greyTheme" jsxtext="{m_greyTheme}" jsxexecute="cle.settings.loadTheme('greyTheme_jss_xml',true);"/>
+    </record>
+  </record>
+</data>

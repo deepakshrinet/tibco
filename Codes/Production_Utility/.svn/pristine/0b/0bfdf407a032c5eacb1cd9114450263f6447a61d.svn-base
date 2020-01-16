@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://www.tibco.com/ZBS/V1_0/EMSPerfStats"
+	 targetNamespace="http://www.tibco.com/ZBS/V1_0/EMSPerfStats"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="EMSPerfData">
+		<xs:complexType>
+			<xs:choice>
+				<xs:element name="Queue" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="QueueSet" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="QName" type="xs:string"/>
+										<xs:element name="QConsumerCnt" type="xs:string"/>
+										<xs:element name="QPendingCnt" type="xs:string"/>
+										<xs:element name="QPendingSize" type="xs:string"/>
+										<xs:element name="QReceiverCnt" type="xs:string"/>
+										<xs:element name="QInbooundTotalMsg" type="xs:string"/>
+										<xs:element name="QOutboundTotalMsg" type="xs:string"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Server" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="ServerName" type="xs:string" minOccurs="0"/>
+							<xs:element name="ConnCnt" type="xs:string" minOccurs="0"/>
+							<xs:element name="ConsumerCnt" type="xs:string" minOccurs="0"/>
+							<xs:element name="DurableCnt" type="xs:string" minOccurs="0"/>
+							<xs:element name="InboundMsgCount" type="xs:string" minOccurs="0"/>
+							<xs:element name="InboundByteRate" type="xs:string" minOccurs="0"/>
+							<xs:element name="InboundMsgRate" type="xs:string" minOccurs="0"/>
+							<xs:element name="MsgMemory" type="xs:string" minOccurs="0"/>
+							<xs:element name="OutboundMsgCount" type="xs:string" minOccurs="0"/>
+							<xs:element name="OutboundByteRate" type="xs:string" minOccurs="0"/>
+							<xs:element name="PendingMsgCnt" type="xs:string" minOccurs="0"/>
+							<xs:element name="PendingMsgSize" type="xs:string" minOccurs="0"/>
+							<xs:element name="ProductCnt" type="xs:string" minOccurs="0"/>
+							<xs:element name="AsyncDBSize" type="xs:string" minOccurs="0"/>
+							<xs:element name="SyncDBSize" type="xs:string" minOccurs="0"/>
+							<xs:element name="OutboundMsgRate" type="xs:string" minOccurs="0"/>
+							<xs:element name="QueueCount" type="xs:string" minOccurs="0"/>
+							<xs:element name="TopicCount" type="xs:string" minOccurs="0"/>
+							<xs:element name="SessionCount" type="xs:string" minOccurs="0"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Topic" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="TopicSet" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="TName" type="xs:string"/>
+										<xs:element name="TConsumerCnt" type="xs:string"/>
+										<xs:element name="TPendingCnt" type="xs:string"/>
+										<xs:element name="TPendingSize" type="xs:string"/>
+										<xs:element name="TSubscriberCnt" type="xs:string"/>
+										<xs:element name="TInbooundTotalMsg" type="xs:string"/>
+										<xs:element name="TOutboundTotalMsg" type="xs:string"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

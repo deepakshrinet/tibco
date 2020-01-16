@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/namespaces/tnt/plugins/file" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx2="http://www.zimmer.com/V1_0/TextMsgProfileFile" xmlns:pfx="http://www.zimmer.com/V1_0/MonitoringProfileFile">
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.zimmer.com/V1_0/MonitoringProfileFile" schemaLocation="/SharedResources/Schemas/XSD/MonitoringProfileFile.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.zimmer.com/V1_0/TextMsgProfileFile" schemaLocation="/SharedResources/Schemas/XSD/TextMsgProfileFile.xsd"/>
+    <pd:name>UnitTesting/Process Definition (1).process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startX>150</pd:startX>
+    <pd:startY>64</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>462</pd:endX>
+    <pd:endY>72</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1442895368288</pd:targetNamespace>
+    <pd:activity name="JDBC Update">
+        <pd:type>com.tibco.plugin.jdbc.JDBCUpdateActivity</pd:type>
+        <pd:resourceType>ae.activities.JDBCUpdateActivity</pd:resourceType>
+        <pd:x>300</pd:x>
+        <pd:y>35</pd:y>
+        <config>
+            <timeout>10</timeout>
+            <commit>false</commit>
+            <emptyStrAsNil>false</emptyStrAsNil>
+            <jdbcSharedConfig>/EnterpriseLibrary/SharedResources/Connections/JDBC/TIBCO_JDBC_Connection.sharedjdbc</jdbcSharedConfig>
+            <statement>insert into tibco_app.interface_run_report (applicationid,interfaceid,time_stamp)values('ABC','ABC',sysdate)</statement>
+        </config>
+        <pd:inputBindings>
+            <jdbcUpdateActivityInput/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SetVariable">
+        <pd:type>com.tibco.pe.core.SetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.setSharedVariable</pd:resourceType>
+        <pd:x>404</pd:x>
+        <pd:y>155</pd:y>
+        <config>
+            <variableConfig>/SharedResources/SharedVariables/TextMsg.sharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings>
+            <xsl:copy-of select="$Map-Data/pfx2:Profiles"/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Map Data">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>232</pd:x>
+        <pd:y>157</pd:y>
+        <config>
+            <element ref="pfx2:Profiles"/>
+        </config>
+        <pd:inputBindings>
+            <pfx2:Profiles>
+                <pfx2:Team>
+                    <pfx2:TeamName>
+                        <xsl:value-of select="'TIBCO'"/>
+                    </pfx2:TeamName>
+                    <pfx2:ContactDetail>
+                        <pfx2:Name>
+                            <xsl:value-of select="'jahnavi'"/>
+                        </pfx2:Name>
+                        <pfx2:Email>
+                            <xsl:value-of select="'jahnavi.chandra@zimmer.com'"/>
+                        </pfx2:Email>
+                    </pfx2:ContactDetail>
+                    <pfx2:ContactDetail>
+                        <pfx2:Name>
+                            <xsl:value-of select="'jahnavi'"/>
+                        </pfx2:Name>
+                        <pfx2:Email>
+                            <xsl:value-of select="'jahnavi.chandra@zimer.com'"/>
+                        </pfx2:Email>
+                    </pfx2:ContactDetail>
+                </pfx2:Team>
+                <pfx2:Team>
+                    <pfx2:TeamName>
+                        <xsl:value-of select="'SAPPI'"/>
+                    </pfx2:TeamName>
+                    <pfx2:ContactDetail>
+                        <pfx2:Name>
+                            <xsl:value-of select="'jahnavi'"/>
+                        </pfx2:Name>
+                        <pfx2:Email>
+                            <xsl:value-of select="'jahnavi.chandra@zimmer.com'"/>
+                        </pfx2:Email>
+                    </pfx2:ContactDetail>
+                </pfx2:Team>
+            </pfx2:Profiles>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Write File">
+        <pd:type>com.tibco.plugin.file.FileWriteActivity</pd:type>
+        <pd:resourceType>ae.activities.FileWriteActivity</pd:resourceType>
+        <pd:x>301</pd:x>
+        <pd:y>248</pd:y>
+        <config>
+            <encoding>text</encoding>
+            <compressFile>None</compressFile>
+            <createMissingDirectories>true</createMissingDirectories>
+        </config>
+        <pd:inputBindings>
+            <ns:WriteActivityInputTextClass>
+                <fileName>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/LoadProfile/ProfileFileLocation"/>
+                </fileName>
+                <textContent>
+                    <xsl:value-of select="tib:render-xml($Map-Data/pfx2:Profiles)"/>
+                </textContent>
+            </ns:WriteActivityInputTextClass>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>JDBC Update</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>1=0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>JDBC Update</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Map Data</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SetVariable</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Map Data</pd:from>
+        <pd:to>SetVariable</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Write File</pd:from>
+        <pd:to>SetVariable</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Map Data</pd:from>
+        <pd:to>Write File</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>1=0</pd:xpath>
+    </pd:transition>
+</pd:ProcessDefinition>

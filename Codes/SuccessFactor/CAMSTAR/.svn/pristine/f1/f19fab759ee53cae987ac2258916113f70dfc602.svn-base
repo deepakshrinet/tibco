@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Repository:repository xmlns:Repository="http://www.tibco.com/xmlns/repo/types/2002">
+    <enterpriseArchive>
+        <sharedArchive name="Shared Archive">
+            <resourceType>shared.archive.resource</resourceType>
+            <authorProperty>singhalr</authorProperty>
+            <sharedResources>/SharedResources/WSDL/xsd1.xsd,/SharedResources/WSDL/xsd3.xsd,/SharedResources/WSDL/xsd0.xsd,/SharedResources/WSDL/xsd4.xsd,/SharedResources/WSDL/xsd2.xsd</sharedResources>
+            <sharedFiles/>
+            <sharedJarFiles/>
+        </sharedArchive>
+        <processArchive name="ESB_MES_CRCLM_EMEA">
+            <resourceType>process.archive.resource</resourceType>
+            <authorProperty>singhalr</authorProperty>
+            <processProperty>/Services/Camstar_LSOEmpCurrRec/Processes/Camstar_LSOEmpCurrRec_Gateway.process,/CLE/Interface/Loader/InitializeLogLevel.process</processProperty>
+        </processArchive>
+        <versionProperty>1.0.0</versionProperty>
+        <authorProperty>singhalr</authorProperty>
+        <addServiceSettableGvars>true</addServiceSettableGvars>
+        <name>ESB_MES_CRCLM_EMEA</name>
+        <designer>
+            <lockedProperties/>
+            <fixedChildren/>
+            <resourceDescriptions/>
+        </designer>
+        <fileLocationProperty>C:\Users\singhalr\Desktop\SF\ESB_MES_CRCLM_EMEA.ear</fileLocationProperty>
+        <description/>
+    </enterpriseArchive>
+</Repository:repository>

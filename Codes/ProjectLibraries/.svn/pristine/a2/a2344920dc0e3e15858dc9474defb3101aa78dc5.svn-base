@@ -1,0 +1,22 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<InvoiceListRequest xmlns = "http://www.tibco.com/schemas/InvoiceListCDM" xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation = "http://www.tibco.com/schemas/InvoiceListCDM Example/Invoice.xsd">
+	<BillingDocumentDetailRequest>
+		<DocumentNumber>123456</DocumentNumber>
+		<ERPSource>SAP</ERPSource>
+	</BillingDocumentDetailRequest>
+	<BillingDocumentListRequest>
+		<DocumentType>Invoice</DocumentType>
+		<ReceivedDateFrom>2011-10-10</ReceivedDateFrom>
+		<ReceivedDateTo>2011-12-12</ReceivedDateTo>
+		<DocumentNumber>1221211</DocumentNumber>
+		<Status>Paid</Status>
+		<PaymentType>Cash</PaymentType>
+		<PONumber>12345</PONumber>
+		<ERPSource>SAP</ERPSource>
+		<CustomerList>
+			<Customer>
+				<PartnerFunction>ShipTo</PartnerFunction>
+			</Customer>
+		</CustomerList>
+	</BillingDocumentListRequest>
+</InvoiceListRequest>

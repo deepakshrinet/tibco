@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/CLEExtension/LogLevelControl.xsd"
+	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	 targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/CLEExtension/LogLevelControl.xsd"
+	 elementFormDefault="unqualified"
+	 attributeFormDefault="unqualified">
+	<xsd:element name="LogLevelRequest">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="EngineName" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="Operation" type="xsd:string"/>
+				<xsd:element name="LogLevel" minOccurs="0">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:enumeration value="AUDIT"/>
+							<xsd:enumeration value="INFO"/>
+							<xsd:enumeration value="DEBUG"/>
+							<xsd:enumeration value="WARN"/>
+							<xsd:enumeration value="ERROR"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="LogLevelResponse">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="EngineName" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="LogLevel" minOccurs="0">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:enumeration value="AUDIT"/>
+							<xsd:enumeration value="ERROR"/>
+							<xsd:enumeration value="INFO"/>
+							<xsd:enumeration value="WARN"/>
+							<xsd:enumeration value="DEBUG"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="Message" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="LastUpdateTime" type="xsd:string" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="LogLevelState">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="LogLevel" minOccurs="0">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:int">
+							<xsd:enumeration value="0"/>
+							<xsd:enumeration value="1"/>
+							<xsd:enumeration value="2"/>
+							<xsd:enumeration value="3"/>
+							<xsd:enumeration value="4"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="Message" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="LastUpdateTime" type="xsd:string" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

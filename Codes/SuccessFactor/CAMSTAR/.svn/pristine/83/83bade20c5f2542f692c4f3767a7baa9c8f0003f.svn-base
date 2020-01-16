@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:ns2="http://www.zimmer.com/MES_LMS_TRNG_CHECK/Schemas/CurriculumStatusCheck" xmlns:ns="http://www.zimmer.com/Material_Check_Services/Schemas/MaterialLot" xmlns:ns3="http://www.zimmerbiomet.com/MES_LMS_TRNG_CHECK/Schemas/CurriculumStatusCheck" xmlns:tns="http://www.zimmerbiomet.com/MES_LMS_TRNG_CHECK/wsdl/CurriculumStatusCheck" name="CurriculumStatusCheck" targetNamespace="http://www.zimmerbiomet.com/MES_LMS_TRNG_CHECK/wsdl/CurriculumStatusCheck">
+    <import namespace="http://www.zimmerbiomet.com/MES_LMS_TRNG_CHECK/Schemas/CurriculumStatusCheck" location="../Schemas/CurriculumStatusCheck.xsd"/>
+    <message name="Input">
+        <part name="Request" element="ns3:Input"/>
+    </message>
+    <message name="Output">
+        <part name="Response" element="ns3:output"/>
+    </message>
+    <portType name="CurriculumStatusCheck">
+        <operation name="getCurriculumStatus">
+            <input message="tns:Input"/>
+            <output message="tns:Output"/>
+        </operation>
+    </portType>
+</definitions>

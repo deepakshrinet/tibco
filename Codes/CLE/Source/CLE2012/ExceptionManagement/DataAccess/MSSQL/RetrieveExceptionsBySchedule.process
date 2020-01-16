@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:ns2="http://www.tibco.com/CommonLE2/Private/Common" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/CommonLE2/namespace/Public/Common/RequestHeader.xsd" xmlns:ns3="http://www.tibco.com/CommonLE2/namespace/Private/Common/RequestHeader.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx3="http://www.tibco.com/CommonLE2/Private/Exception" xmlns:pfx2="http://www.tibco.com/CommonLE2/namespace/Private/Exception" xmlns:pfx="http://www.tibco.com/schemas/CLE-Handlers/SharedResources/SchemaDefinitions/Private/Exception/Schema.xsd">
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Private/Exception" schemaLocation="/SharedResources/SchemaDefinitions/Private/Exception/ExceptionParameters.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/Private/Exception" schemaLocation="/SharedResources/SchemaDefinitions/Private/Exception/ExceptionDetail.xsd"/>
+    <pd:name>ExceptionManagement/DataAccess/MSSQL/RetrieveExceptionsBySchedule.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx2:ExceptionQuery"/>
+    <pd:startX>156</pd:startX>
+    <pd:startY>70</pd:startY>
+    <pd:returnBindings>
+        <pfx3:ExceptionDetails>
+            <xsl:for-each select="$Retrieve-Exceptions/resultSet/Record">
+                <pfx3:ExceptionDetail>
+                    <ns3:Header>
+                        <ns3:ApplicationID>
+                            <xsl:value-of select="APPLICATIONID"/>
+                        </ns3:ApplicationID>
+                        <xsl:if test="COMPONENTNAME">
+                            <ns3:ComponentName>
+                                <xsl:value-of select="COMPONENTNAME"/>
+                            </ns3:ComponentName>
+                        </xsl:if>
+                        <xsl:if test="HOSTNAME">
+                            <ns3:Hostname>
+                                <xsl:value-of select="HOSTNAME"/>
+                            </ns3:Hostname>
+                        </xsl:if>
+                        <ns3:Timestamp>
+                            <xsl:value-of select="TIME_STAMP"/>
+                        </ns3:Timestamp>
+                        <xsl:if test="TRANSACTIONDOMAIN">
+                            <ns3:TransactionDomain>
+                                <xsl:value-of select="TRANSACTIONDOMAIN"/>
+                            </ns3:TransactionDomain>
+                        </xsl:if>
+                        <xsl:if test="TRANSACTIONTYPE">
+                            <ns3:TransactionType>
+                                <xsl:value-of select="TRANSACTIONTYPE"/>
+                            </ns3:TransactionType>
+                        </xsl:if>
+                        <xsl:if test="TRANSACTIONID">
+                            <ns3:TransactionID>
+                                <xsl:value-of select="TRANSACTIONID"/>
+                            </ns3:TransactionID>
+                        </xsl:if>
+                        <xsl:if test="CORRELATIONID">
+                            <ns3:CorrelationID>
+                                <xsl:value-of select="CORRELATIONID"/>
+                            </ns3:CorrelationID>
+                        </xsl:if>
+                        <xsl:if test="INTERFACEID">
+                            <ns3:InterfaceID>
+                                <xsl:value-of select="INTERFACEID"/>
+                            </ns3:InterfaceID>
+                        </xsl:if>
+                        <xsl:if test="FILENAME">
+                            <ns3:Filename>
+                                <xsl:value-of select="FILENAME"/>
+                            </ns3:Filename>
+                        </xsl:if>
+                        <xsl:if test="MESSAGE">
+                            <ns3:Message>
+                                <xsl:value-of select="MESSAGE"/>
+                            </ns3:Message>
+                        </xsl:if>
+                        <xsl:if test="RENDERID">
+                            <ns3:RenderID>
+                                <xsl:value-of select="RENDERID"/>
+                            </ns3:RenderID>
+                        </xsl:if>
+                        <xsl:if test="DATAENCODING">
+                            <ns3:DataEncoding>
+                                <xsl:value-of select="DATAENCODING"/>
+                            </ns3:DataEncoding>
+                        </xsl:if>
+                        <xsl:if test="TRANSACTIONDATA">
+                            <ns3:Transaction>
+                                <xsl:value-of select="TRANSACTIONDATA"/>
+                            </ns3:Transaction>
+                        </xsl:if>
+                    </ns3:Header>
+                    <ExceptionInstanceID>
+                        <xsl:value-of select="EXCEPTIONID"/>
+                    </ExceptionInstanceID>
+                    <ExceptionCode>
+                        <xsl:value-of select="EXCEPTIONCODE"/>
+                    </ExceptionCode>
+                    <Category>
+                        <xsl:value-of select="CATEGORY"/>
+                    </Category>
+                    <Type>
+                        <xsl:value-of select="TYPE"/>
+                    </Type>
+                    <Severity>
+                        <xsl:value-of select="SEVERITY"/>
+                    </Severity>
+                    <ReplyDestination>
+                        <xsl:value-of select="REPLYDESTINATION"/>
+                    </ReplyDestination>
+                    <xsl:if test="NOTIFICATIONCHNL">
+                        <NotificationChannel>
+                            <xsl:value-of select="NOTIFICATIONCHNL"/>
+                        </NotificationChannel>
+                    </xsl:if>
+                    <ResolutionDescription>
+                        <xsl:value-of select="RESOLUTIONDESCRIPTION"/>
+                    </ResolutionDescription>
+                    <Status>
+                        <xsl:value-of select="STATUS"/>
+                    </Status>
+                    <xsl:if test="TRANSACTIONDATAAFTER">
+                        <TransactionDataAfterResolve>
+                            <xsl:value-of select="TRANSACTIONDATAAFTER"/>
+                        </TransactionDataAfterResolve>
+                    </xsl:if>
+                    <Custom>
+                        <xsl:value-of select="CUSTOM"/>
+                    </Custom>
+                    <ResolveDelayTime>
+                        <xsl:value-of select="RESOLVEDELAYTIME"/>
+                    </ResolveDelayTime>
+                    <xsl:if test="EVENTTYPE">
+                        <EventType>
+                            <xsl:value-of select="EVENTTYPE"/>
+                        </EventType>
+                    </xsl:if>
+                </pfx3:ExceptionDetail>
+            </xsl:for-each>
+        </pfx3:ExceptionDetails>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType ref="pfx3:ExceptionDetails"/>
+    <pd:endX>450</pd:endX>
+    <pd:endY>69</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1287552856792</pd:targetNamespace>
+    <pd:activity name="Retrieve Exceptions">
+        <pd:type>com.tibco.plugin.jdbc.JDBCQueryActivity</pd:type>
+        <pd:resourceType>ae.activities.JDBCQueryActivity</pd:resourceType>
+        <pd:x>288</pd:x>
+        <pd:y>77</pd:y>
+        <config>
+            <timeout>%%Database/MIG_Timeout%%</timeout>
+            <commit>false</commit>
+            <maxRows>0</maxRows>
+            <emptyStrAsNil>false</emptyStrAsNil>
+            <jdbcSharedConfig>/SharedResources/Connections/Database/DBServerMSSQL.sharedjdbc</jdbcSharedConfig>
+            <statement>select * from exceptiondetailview where resolvedelaytime &lt;? and status=?</statement>
+            <processInSubsets>false</processInSubsets>
+            <Prepared_Param_DataType>
+                <parameter>
+                    <parameterName>Replaytime</parameterName>
+                    <dataType>TIMESTAMP</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>ScheduledStatus</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+            </Prepared_Param_DataType>
+            <oraObjects/>
+            <oraTables/>
+            <QueryOutputCachedSchemaColumns>EXCEPTIONID</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>-5</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>number</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>APPLICATIONID</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>COMPONENTNAME</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>HOSTNAME</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>TRANSACTIONDOMAIN</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>TRANSACTIONID</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>TRANSACTIONTYPE</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>TIME_STAMP</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>93</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>timestamp</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>STATUS</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>EXCEPTIONCODE</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>MESSAGE</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>TRANSACTIONDATA</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>2005</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>clob</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>CATEGORY</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>TYPE</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>SEVERITY</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>NOTIFICATIONCHNL</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>REPLYDESTINATION</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>STACKTRACE</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>2005</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>clob</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>RESOLUTIONDESCRIPTION</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>DATAENCODING</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>RENDERID</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>TRANSACTIONDATAAFTER</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>2005</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>clob</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>CORRELATIONID</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>CUSTOM</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>FILENAME</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>INTERFACEID</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>RESOLVEDELAYTIME</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>93</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>timestamp</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>EVENTTYPE</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+        </config>
+        <pd:inputBindings>
+            <jdbcQueryActivityInput>
+                <Replaytime>
+                    <xsl:value-of select="$Start/pfx2:ExceptionQuery/pfx2:Schedule"/>
+                </Replaytime>
+                <ScheduledStatus>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ExceptionService/ResolutionStatus/Scheduled"/>
+                </ScheduledStatus>
+            </jdbcQueryActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Retrieve Exceptions</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Retrieve Exceptions</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

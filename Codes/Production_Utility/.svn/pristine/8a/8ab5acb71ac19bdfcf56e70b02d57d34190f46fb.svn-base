@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Repository:repository xmlns:Repository="http://www.tibco.com/xmlns/repo/types/2002">
+    <enterpriseArchive>
+        <sharedArchive name="Shared Archive">
+            <resourceType>shared.archive.resource</resourceType>
+            <authorProperty>khuranak</authorProperty>
+        </sharedArchive>
+        <processArchive name="DeltaOutbound_Retrigger">
+            <resourceType>process.archive.resource</resourceType>
+            <authorProperty>khuranak</authorProperty>
+            <processProperty>/CLE/Interface/Loader/InitializeLogLevel.process,/Services/Get_MFLID_856_Process.process,/Services/Get_MFLID_940_Process.process,/Services/Get_MFLID_947_Process.process,/Services/Resend_856_Transaction_Process.process,/Services/Resend_940_Transaction_Process.process,/Services/Resend_947_Transaction_Process.process</processProperty>
+        </processArchive>
+        <versionProperty>1.0.0</versionProperty>
+        <authorProperty>chandraj</authorProperty>
+        <addServiceSettableGvars>true</addServiceSettableGvars>
+        <name>DeltaOutbound_Retrigger</name>
+        <designer>
+            <lockedProperties/>
+            <fixedChildren/>
+            <resourceDescriptions/>
+        </designer>
+        <fileLocationProperty>C:\Work\Interface\Production_Utility\DeltaOutbound_Retrigger\Install\DEV\DeltaOutbound_Retrigger.ear</fileLocationProperty>
+    </enterpriseArchive>
+</Repository:repository>

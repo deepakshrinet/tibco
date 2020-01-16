@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns14="www.tibco.com/plugin/Sleep" xmlns:ns="http://www.tibco.com/CommonLE/Client/Schema/ClientInterface.xsd" xmlns:ns12="http://www.tibco.com/namespaces/tnt/plugins/file" xmlns:ns13="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:pfx="http://www.tibco.com/schemas/IW_PROFITABILITY_ELEMENTS_PROS/SharedResources/Schema/Schema.xsd" xmlns:ns2="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns3="http://www.tibco.com/pe/EngineTypes" xmlns:ns0="http://www.tibco.com/bw/xslt/custom-functions" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx3="http://www.tibco.com/schemas/CentrailzedScheduler/SharedResources/Schema/XSD/Schema.xsd" xmlns:pfx2="http://www.tibco.com/schemas/TIB_IW _TO_PROS_JMS/SharedResources/Schema/Schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xsd:import namespace="http://www.tibco.com/schemas/IW_PROFITABILITY_ELEMENTS_PROS/SharedResources/Schema/Schema.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/schemas/TIB_IW _TO_PROS_JMS/SharedResources/Schema/Schema.xsd" schemaLocation="/SharedResources/Schema/CS.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/schemas/CentrailzedScheduler/SharedResources/Schema/XSD/Schema.xsd" schemaLocation="/EnterpriseLibrary/SharedResources/Schemas/XSD/ReceiveInterfaceStatusSchema.xsd"/>
+    <pd:name>EnterpriseLibrary/Services/CentralizedScheduler_Implementation/CentralizedScheduler_SendStatus.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx3:ReceiveInterfaceStatus"/>
+    <pd:startX>27</pd:startX>
+    <pd:startY>43</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>809</pd:endX>
+    <pd:endY>46</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables>
+        <RetryFlag>
+            <xsd:element name="root">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="RetryFlag" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </RetryFlag>
+    </pd:processVariables>
+    <pd:targetNamespace>http://xmlns.example.com/1384346654000</pd:targetNamespace>
+    <pd:activity name="StartLog">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>30</pd:x>
+        <pd:y>173</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendLog.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns:LogRequest>
+                <ns:Header/>
+                <ns:Status>
+                    <xsl:value-of select="&quot;Send Interface Status Notificaton To Centralized Scheduler &quot;"/>
+                </ns:Status>
+                <ns:Audit>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/AuditFlag"/>
+                </ns:Audit>
+                <ns:LogLevel>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/Environment/CommonLE/LOGGING_LEVEL_NUM_INFO"/>
+                </ns:LogLevel>
+            </ns:LogRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="EndLog">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>808</pd:x>
+        <pd:y>178</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendLog.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns:LogRequest>
+                <ns:Header/>
+                <ns:Status>
+                    <xsl:value-of select="&quot;Successfully sent Status information To Centralized Scheduler&quot;"/>
+                </ns:Status>
+                <ns:Audit>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/AuditFlag"/>
+                </ns:Audit>
+                <ns:LogLevel>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/Environment/CommonLE/LOGGING_LEVEL_NUM_INFO"/>
+                </ns:LogLevel>
+            </ns:LogRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:group name="Group">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>227</pd:x>
+        <pd:y>1</pd:y>
+        <pd:width>458</pd:width>
+        <pd:height>324</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>repeat</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:indexSlot>i</pd:indexSlot>
+            <pd:activityOutputName/>
+            <pd:repeatCondition>$i &gt;$_globalVariables/ns1:GlobalVariables/StoreAndReplayService/OperationRetryCount or 
+$RetryFlag/root/RetryFlag = 'N'</pd:repeatCondition>
+            <pd:accumulateOutput>false</pd:accumulateOutput>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>CentralizedScheduler_SendStatus</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Set Retry Flag to N</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Sleep</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-65536</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>JMS Session Create Exception</pd:from>
+            <pd:to>Set Retry Flag to Y</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-65536</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>JMS Send Exception</pd:from>
+            <pd:to>Set Retry Flag to Y</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-65536</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Set Retry Flag to Y</pd:from>
+            <pd:to>Log Warn</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-65536</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>CentralizedScheduler_SendStatus</pd:from>
+            <pd:to>Set Retry Flag to N</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Log Warn</pd:from>
+            <pd:to>Sleep</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-65536</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="CentralizedScheduler_SendStatus">
+            <pd:type>com.tibco.plugin.jms.JMSQueueSendActivity</pd:type>
+            <pd:resourceType>ae.activities.JMSQueueSendActivity</pd:resourceType>
+            <pd:x>420</pd:x>
+            <pd:y>67</pd:y>
+            <config>
+                <PermittedMessageType>XML Text</PermittedMessageType>
+                <SessionAttributes>
+                    <transacted>false</transacted>
+                    <acknowledgeMode>1</acknowledgeMode>
+                    <maxSessions>1</maxSessions>
+                    <destination>%%QUEUE/CentralizedScheduler_Queue%%</destination>
+                </SessionAttributes>
+                <ConfigurableHeaders>
+                    <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                    <JMSExpiration>0</JMSExpiration>
+                    <JMSPriority>4</JMSPriority>
+                </ConfigurableHeaders>
+                <ConnectionReference>/EnterpriseLibrary/SharedResources/Connections/JMS/TIBCO_JMS_Connection.sharedjmscon</ConnectionReference>
+                <ApplicationProperties/>
+                <InDataxsdString ref="pfx3:ReceiveInterfaceStatus"/>
+            </config>
+            <pd:inputBindings>
+                <ns2:ActivityInput>
+                    <Body>
+                        <pfx3:ReceiveInterfaceStatus>
+                            <xsl:if test="$Start/pfx3:ReceiveInterfaceStatus/pfx3:InterfaceID">
+                                <pfx3:InterfaceID>
+                                    <xsl:value-of select="$Start/pfx3:ReceiveInterfaceStatus/pfx3:InterfaceID"/>
+                                </pfx3:InterfaceID>
+                            </xsl:if>
+                            <xsl:if test="$Start/pfx3:ReceiveInterfaceStatus/pfx3:Status">
+                                <pfx3:Status>
+                                    <xsl:value-of select="$Start/pfx3:ReceiveInterfaceStatus/pfx3:Status"/>
+                                </pfx3:Status>
+                            </xsl:if>
+                            <pfx3:CreateDateTime>
+                                <xsl:value-of select="$Fetch-Date/resultSet/Record[1]/TO_CHARSYSDATEDD-MON-YYHH.MM.SSAM"/>
+                            </pfx3:CreateDateTime>
+                        </pfx3:ReceiveInterfaceStatus>
+                    </Body>
+                </ns2:ActivityInput>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="JMS Session Create Exception">
+            <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+            <pd:resourceType>ae.activities.catch</pd:resourceType>
+            <pd:x>316</pd:x>
+            <pd:y>177</pd:y>
+            <pd:handler>true</pd:handler>
+            <config>
+                <fault>localname=JMSSessionCreateException namespace=http://schemas.tibco.com/bw/plugins/jms/5.0/jmsExceptions</fault>
+            </config>
+            <pd:inputBindings/>
+        </pd:activity>
+        <pd:activity name="JMS Send Exception">
+            <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+            <pd:resourceType>ae.activities.catch</pd:resourceType>
+            <pd:x>311</pd:x>
+            <pd:y>249</pd:y>
+            <pd:handler>true</pd:handler>
+            <config>
+                <fault>localname=JMSSendException namespace=http://schemas.tibco.com/bw/plugins/jms/5.0/jmsExceptions</fault>
+            </config>
+            <pd:inputBindings/>
+        </pd:activity>
+        <pd:activity name="Set Retry Flag to Y">
+            <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+            <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+            <pd:x>446</pd:x>
+            <pd:y>214</pd:y>
+            <config>
+                <variableName>RetryFlag</variableName>
+            </config>
+            <pd:inputBindings>
+                <root>
+                    <RetryFlag>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'Y'"/>
+                    </RetryFlag>
+                </root>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="Set Retry Flag to N">
+            <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+            <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+            <pd:x>556</pd:x>
+            <pd:y>76</pd:y>
+            <config>
+                <variableName>RetryFlag</variableName>
+            </config>
+            <pd:inputBindings>
+                <root>
+                    <RetryFlag>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'N'"/>
+                    </RetryFlag>
+                </root>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="Log Warn">
+            <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+            <pd:resourceType>ae.process.subprocess</pd:resourceType>
+            <pd:x>531</pd:x>
+            <pd:y>206</pd:y>
+            <config>
+                <processName>/CLE/Interface/SendLog.process</processName>
+            </config>
+            <pd:inputBindings>
+                <ns:LogRequest>
+                    <ns:Header>
+                        <ns:Message>
+                            <xsl:value-of select="ns0:render-xml($_error/ns3:ErrorReport)"/>
+                        </ns:Message>
+                    </ns:Header>
+                    <ns:Status>
+                        <xsl:value-of select="concat('Activity failed at attempt:',$i, ': Operation will be retried in: ',$_globalVariables/ns1:GlobalVariables/StoreAndReplayService/OperationSleepInterval, ' Seconds: Exception Message - ', $_error/ns3:ErrorReport/Msg)"/>
+                    </ns:Status>
+                    <ns:Audit>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/AuditFlag"/>
+                    </ns:Audit>
+                    <ns:LogLevel>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/Environment/CommonLE/LOGGING_LEVEL_NUM_DEBUG"/>
+                    </ns:LogLevel>
+                </ns:LogRequest>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="Sleep">
+            <pd:type>com.tibco.plugin.timer.SleepActivity</pd:type>
+            <pd:resourceType>ae.activities.sleep</pd:resourceType>
+            <pd:x>617</pd:x>
+            <pd:y>210</pd:y>
+            <config/>
+            <pd:inputBindings>
+                <ns14:SleepInputSchema>
+                    <IntervalInMillisec>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/StoreAndReplayService/OperationSleepInterval *1000"/>
+                    </IntervalInMillisec>
+                </ns14:SleepInputSchema>
+            </pd:inputBindings>
+        </pd:activity>
+    </pd:group>
+    <pd:activity name="Fetch Date">
+        <pd:type>com.tibco.plugin.jdbc.JDBCQueryActivity</pd:type>
+        <pd:resourceType>ae.activities.JDBCQueryActivity</pd:resourceType>
+        <pd:x>153</pd:x>
+        <pd:y>175</pd:y>
+        <config>
+            <timeout>%%EnvVariables/TIBCO_JDBC_Connection/LoginTimeout%%</timeout>
+            <commit>false</commit>
+            <maxRows>%%EnvVariables/TIBCO_JDBC_Connection/MAXIMUM_ROWS%%</maxRows>
+            <emptyStrAsNil>false</emptyStrAsNil>
+            <jdbcSharedConfig>/EnterpriseLibrary/SharedResources/Connections/JDBC/TIBCO_JDBC_Connection.sharedjdbc</jdbcSharedConfig>
+            <statement> SELECT to_char(SYSDATE,'DD-MON-YY HH.MM.SS AM')  FROM DUAL</statement>
+            <QueryOutputCachedSchemaColumns>TO_CHARSYSDATEDD-MON-YYHH.MM.SSAM</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>VARCHAR2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <oraObjects/>
+            <oraTables/>
+        </config>
+        <pd:inputBindings>
+            <jdbcQueryActivityInput/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>StartLog</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>EndLog</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>StartLog</pd:from>
+        <pd:to>Fetch Date</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>EndLog</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Fetch Date</pd:from>
+        <pd:to>Group</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

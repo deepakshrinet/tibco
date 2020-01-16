@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:ns2="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="http://www.tibco.com/CommonLE/Client/Schema/ClientInterface.xsd" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/EngineTypes" xmlns:ns3="http://www.tibco.com/pe/DeployedVarsType" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions">
+    <pd:name>CLESamples/SampleInterface/StarterProcessSample1.process</pd:name>
+    <pd:startName>JMS QReceiver</pd:startName>
+    <pd:startX>0</pd:startX>
+    <pd:startY>0</pd:startY>
+    <pd:returnBindings/>
+    <pd:starter name="JMS QReceiver">
+        <pd:type>com.tibco.plugin.jms.JMSQueueEventSource</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueEventSource</pd:resourceType>
+        <pd:x>54</pd:x>
+        <pd:y>62</pd:y>
+        <config>
+            <PermittedMessageType>Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+                <destination>queue.sample</destination>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/LocalEMS Connection.sharedjmscon</ConnectionReference>
+        </config>
+        <pd:inputBindings/>
+    </pd:starter>
+    <pd:endName>End</pd:endName>
+    <pd:endX>845</pd:endX>
+    <pd:endY>65</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1339602063187</pd:targetNamespace>
+    <pd:activity name="Subprocess">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>605</pd:x>
+        <pd:y>61</pd:y>
+        <config>
+            <processName>/CLESamples/SampleInterface/Subprocess2-RaiseException.process</processName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <param>
+                    <xsl:value-of select="$JMS-QReceiver/ns2:ActivityOutput/Body"/>
+                </param>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="CatchKnownExceptions">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>249</pd:x>
+        <pd:y>188</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=ExceptionRequest namespace=http://www.tibco.com/CommonLE/Client/Schema/ClientInterface.xsd</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Send Knwon Exceptions ToCLE">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>395</pd:x>
+        <pd:y>197</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendException.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns1:ExceptionRequest>
+                <ns1:Header>
+                    <ns1:TransactionID>
+                        <xsl:value-of select="&quot;MyID123&quot;"/>
+                    </ns1:TransactionID>
+                    <ns1:CorrelationID>
+                        <xsl:value-of select="$_processContext/ns:ProcessContext/ProcessId"/>
+                    </ns1:CorrelationID>
+                    <ns1:Message>
+                        <xsl:value-of select="$CatchKnownExceptions/ns1:ExceptionRequest/ns1:Header/ns1:Message"/>
+                    </ns1:Message>
+                    <ns1:DataEncoding>
+                        <xsl:value-of select="&quot;STRING&quot;"/>
+                    </ns1:DataEncoding>
+                    <xsl:if test="$CatchKnownExceptions/ns1:ExceptionRequest/ns1:Header/ns1:Transaction">
+                        <ns1:Transaction>
+                            <xsl:value-of select="$CatchKnownExceptions/ns1:ExceptionRequest/ns1:Header/ns1:Transaction"/>
+                        </ns1:Transaction>
+                    </xsl:if>
+                </ns1:Header>
+                <ns1:ExceptionCode>
+                    <xsl:value-of select="$CatchKnownExceptions/ns1:ExceptionRequest/ns1:ExceptionCode"/>
+                </ns1:ExceptionCode>
+                <ns1:StackTrace>
+                    <xsl:value-of select="$CatchKnownExceptions/ns1:ExceptionRequest/ns1:StackTrace"/>
+                </ns1:StackTrace>
+            </ns1:ExceptionRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="CatchAll">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>242</pd:x>
+        <pd:y>281</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Send CatchAll Exception ToCLE">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>409</pd:x>
+        <pd:y>290</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendException.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns1:ExceptionRequest>
+                <ns1:Header>
+                    <ns1:CorrelationID>
+                        <xsl:value-of select="$_processContext/ns:ProcessContext/ProcessId"/>
+                    </ns1:CorrelationID>
+                    <ns1:Message>
+                        <xsl:value-of select="$_error/ns:ErrorReport/Msg"/>
+                    </ns1:Message>
+                    <ns1:DataEncoding>
+                        <xsl:value-of select="&quot;STRING&quot;"/>
+                    </ns1:DataEncoding>
+                </ns1:Header>
+                <ns1:ExceptionCode>
+                    <xsl:value-of select="&quot;TECHNICAL-777&quot;"/>
+                </ns1:ExceptionCode>
+                <ns1:StackTrace>
+                    <xsl:value-of select="concat(&quot;Error Message: &quot;, $_error/ns:ErrorReport/Msg, &quot;  BW MsgCode: &quot;, &#xA;$_error/ns:ErrorReport/MsgCode, &quot;&#xA;&quot;,&#xA;&quot;Stack Trace: &quot;, $_error/ns:ErrorReport/StackTrace, &quot;&#xA;&quot;,&#xA;&quot; Process Stack: &quot;, $_error/ns:ErrorReport/ProcessStack)"/>
+                </ns1:StackTrace>
+            </ns1:ExceptionRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="JMS Queue Sender">
+        <pd:type>com.tibco.plugin.jms.JMSQueueSendActivity</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueSendActivity</pd:resourceType>
+        <pd:x>480</pd:x>
+        <pd:y>63</pd:y>
+        <config>
+            <PermittedMessageType>Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+                <destination>This.Queue.DoesNotExist</destination>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/CLE/SharedResources/Connections/JMS/CLEJMSConnection.sharedjmscon</ConnectionReference>
+        </config>
+        <pd:inputBindings>
+            <ns2:ActivityInput>
+                <Body>
+                    <xsl:value-of select="&quot;aaa&quot;"/>
+                </Body>
+            </ns2:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SetCLEHeader">
+        <pd:type>com.tibco.pe.core.SetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.setSharedVariable</pd:resourceType>
+        <pd:x>158</pd:x>
+        <pd:y>62</pd:y>
+        <config>
+            <variableConfig>/CLE/Interface/SharedVariables/CLEHeader.jobsharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings>
+            <ns1:Header>
+                <ns1:ComponentName>
+                    <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns:ProcessContext/ProcessId)"/>
+                </ns1:ComponentName>
+                <ns1:Hostname>
+                    <xsl:value-of select="BW:getHostName()"/>
+                </ns1:Hostname>
+                <ns1:TransactionDomain>
+                    <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/Application/CLE/Interface1/TransactionDomain"/>
+                </ns1:TransactionDomain>
+                <ns1:TransactionType>
+                    <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/Application/CLE/Interface1/TransactionType"/>
+                </ns1:TransactionType>
+                <ns1:InterfaceID>
+                    <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/Application/CLE/Interface1/InterfaceID"/>
+                </ns1:InterfaceID>
+            </ns1:Header>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="StartLog">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>365</pd:x>
+        <pd:y>63</pd:y>
+        <config>
+            <processName>/CLESamples/TestProcesses/SendLog.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns1:LogRequest>
+                <ns1:Header>
+                    <ns1:TransactionID>
+                        <xsl:value-of select="&quot;TranID12&quot;"/>
+                    </ns1:TransactionID>
+                    <ns1:CorrelationID>
+                        <xsl:value-of select="$_processContext/ns:ProcessContext/ProcessId"/>
+                    </ns1:CorrelationID>
+                </ns1:Header>
+                <ns1:Status>
+                    <xsl:value-of select="&quot;TransactionReceived from DCS&quot;"/>
+                </ns1:Status>
+                <ns1:Audit>
+                    <xsl:value-of select="false()"/>
+                </ns1:Audit>
+                <ns1:LogLevel>
+                    <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/CLE/Environment/CommonLE/LOGGING_LEVEL_NUM_AUDIT"/>
+                </ns1:LogLevel>
+            </ns1:LogRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Capture StartTime">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>263</pd:x>
+        <pd:y>64</pd:y>
+        <config>
+            <element>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="StartTime" type="xsd:string"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </element>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <StartTime>
+                    <xsl:value-of select="tib:timestamp()"/>
+                </StartTime>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="EndLog">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>730</pd:x>
+        <pd:y>63</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendLog.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns1:LogRequest>
+                <ns1:Header>
+                    <ns1:CorrelationID>
+                        <xsl:value-of select="$_processContext/ns:ProcessContext/ProcessId"/>
+                    </ns1:CorrelationID>
+                </ns1:Header>
+                <ns1:TimeDuration>
+                    <xsl:value-of select="tib:timestamp() - $Capture-StartTime/root/StartTime"/>
+                </ns1:TimeDuration>
+                <ns1:Audit>
+                    <xsl:value-of select="false()"/>
+                </ns1:Audit>
+                <ns1:LogLevel>
+                    <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/CLE/Environment/CommonLE/LOGGING_LEVEL_NUM_AUDIT"/>
+                </ns1:LogLevel>
+            </ns1:LogRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>JMS QReceiver</pd:from>
+        <pd:to>SetCLEHeader</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Subprocess</pd:from>
+        <pd:to>EndLog</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>CatchKnownExceptions</pd:from>
+        <pd:to>Send Knwon Exceptions ToCLE</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Send Knwon Exceptions ToCLE</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>CatchAll</pd:from>
+        <pd:to>Send CatchAll Exception ToCLE</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Send CatchAll Exception ToCLE</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>JMS Queue Sender</pd:from>
+        <pd:to>Subprocess</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SetCLEHeader</pd:from>
+        <pd:to>Capture StartTime</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>StartLog</pd:from>
+        <pd:to>JMS Queue Sender</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Capture StartTime</pd:from>
+        <pd:to>StartLog</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>EndLog</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

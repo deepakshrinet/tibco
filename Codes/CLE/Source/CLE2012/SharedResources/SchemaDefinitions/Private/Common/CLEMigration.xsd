@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://www.tibco.com/CommonLE2/Private/Common"
+	 targetNamespace="http://www.tibco.com/CommonLE2/Private/Common"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="CLEMigration">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Applications"/>
+				<xs:element ref="Categories" minOccurs="0"/>
+				<xs:element ref="Types" minOccurs="0"/>
+				<xs:element ref="Severities" minOccurs="0"/>
+				<xs:element ref="Procedures" minOccurs="0"/>
+				<xs:element ref="ExceptionConfigs" minOccurs="0"/>
+				<xs:element ref="RenderConfigs" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Applications">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Application" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Categories">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Category" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Types">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Type" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Severities">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Severity" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Procedures">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Procedure" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ExceptionConfigs">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ExceptionConfig" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="RenderConfigs">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="RenderConfig" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Application">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ApplicationID"/>
+				<xs:element ref="Name" minOccurs="0"/>
+				<xs:element ref="Description" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Category">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ID"/>
+				<xs:element ref="ApplicationID"/>
+				<xs:element ref="Name" minOccurs="0"/>
+				<xs:element ref="Description" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Type">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ID"/>
+				<xs:element ref="ApplicationID"/>
+				<xs:element ref="Name" minOccurs="0"/>
+				<xs:element ref="Description" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Severity">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ID"/>
+				<xs:element ref="ApplicationID"/>
+				<xs:element ref="Name" minOccurs="0"/>
+				<xs:element ref="Description" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Procedure">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ID"/>
+				<xs:element ref="ApplicationID"/>
+				<xs:element ref="Name" minOccurs="0"/>
+				<xs:element ref="Description" minOccurs="0"/>
+				<xs:element name="Destination" type="xs:string" minOccurs="0"/>
+				<xs:element name="PhysicalName" type="xs:string" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ExceptionConfig">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ApplicationID"/>
+				<xs:element name="ExceptionCode" type="xs:string"/>
+				<xs:element ref="Description" minOccurs="0"/>
+				<xs:element name="CategoryID" type="xs:string"/>
+				<xs:element name="TypeID" type="xs:string"/>
+				<xs:element name="SeverityID" type="xs:string"/>
+				<xs:element name="ProcedureID" type="xs:string"/>
+				<xs:element name="NotificationChnl" type="xs:string"/>
+				<xs:element name="Rolename" type="xs:string"/>
+				<xs:element name="ReplyDestination" type="xs:string"/>
+				<xs:element name="EmailTo" type="xs:string"/>
+				<xs:element name="EmailCC" type="xs:string"/>
+				<xs:element name="ExceptionTtl" type="xs:string"/>
+				<xs:element name="Instruction" type="xs:string"/>
+				<xs:element name="ResolveDelayInterval" type="xs:string"/>
+				<xs:element name="EventType" type="xs:string"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="RenderConfig">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ApplicationID"/>
+				<xs:element name="RenderID" type="xs:string"/>
+				<xs:element name="XSLT" type="xs:string" minOccurs="0"/>
+				<xs:element name="CSS" type="xs:string" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ID" type="xs:string"/>
+	<xs:element name="ApplicationID" type="xs:string"/>
+	<xs:element name="Name" type="xs:string"/>
+	<xs:element name="Description" type="xs:string"/>
+</xs:schema>

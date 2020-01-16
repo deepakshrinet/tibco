@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="http://www.tibco.com/CommonLE2/namespace/Public/Common/RequestHeader.xsd" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/WriteToLogActivitySchema" xmlns:pfx="http://www.tibco.com/CommonLE2/namespace/Public/Exception/ExceptionRequest.xsd">
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/CommonLE2/namespace/Public/Exception/ExceptionRequest.xsd" schemaLocation="/SharedResources/SchemaDefinitions/Public/Exception/ExceptionRequest.xsd"/>
+    <pd:name>ExceptionManagement/Logic/PayLoadValidation_forException.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx:ExceptionRequest"/>
+    <pd:startX>77</pd:startX>
+    <pd:startY>84</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>553</pd:endX>
+    <pd:endY>83</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1344351783566</pd:targetNamespace>
+    <pd:activity name="Identify-InValid-Data">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>226</pd:x>
+        <pd:y>85</pd:y>
+        <config>
+            <element ref="pfx:ExceptionRequest"/>
+        </config>
+        <pd:inputBindings>
+            <pfx:ExceptionRequest>
+                <ns1:Header>
+                    <ns1:ApplicationID>
+                        <xsl:value-of select="if (string-length($Start/pfx:ExceptionRequest/ns1:Header/ns1:ApplicationID)>50) then $Start/pfx:ExceptionRequest/ns1:Header/ns1:ApplicationID else &quot;&quot;"/>
+                    </ns1:ApplicationID>
+                    <ns1:ComponentName>
+                        <xsl:value-of select="if (string-length($Start/pfx:ExceptionRequest/ns1:Header/ns1:ComponentName)>250) then $Start/pfx:ExceptionRequest/ns1:Header/ns1:ComponentName else &quot;&quot;"/>
+                    </ns1:ComponentName>
+                    <ns1:Hostname>
+                        <xsl:value-of select="if (string-length($Start/pfx:ExceptionRequest/ns1:Header/ns1:Hostname)>50) then $Start/pfx:ExceptionRequest/ns1:Header/ns1:Hostname else &quot;&quot;"/>
+                    </ns1:Hostname>
+                    <ns1:Timestamp>
+                        <xsl:value-of select="$Start/pfx:ExceptionRequest/ns1:Header/ns1:Timestamp"/>
+                    </ns1:Timestamp>
+                    <ns1:TransactionDomain>
+                        <xsl:value-of select="if (string-length($Start/pfx:ExceptionRequest/ns1:Header/ns1:TransactionDomain)>50) then $Start/pfx:ExceptionRequest/ns1:Header/ns1:TransactionDomain else &quot;&quot;"/>
+                    </ns1:TransactionDomain>
+                    <ns1:TransactionType>
+                        <xsl:value-of select="if (string-length($Start/pfx:ExceptionRequest/ns1:Header/ns1:TransactionType)>50) then $Start/pfx:ExceptionRequest/ns1:Header/ns1:TransactionType else &quot;&quot;"/>
+                    </ns1:TransactionType>
+                    <ns1:TransactionID>
+                        <xsl:value-of select="if (string-length($Start/pfx:ExceptionRequest/ns1:Header/ns1:TransactionID)>50) then $Start/pfx:ExceptionRequest/ns1:Header/ns1:TransactionID else &quot;&quot;"/>
+                    </ns1:TransactionID>
+                    <ns1:CorrelationID>
+                        <xsl:value-of select="if (string-length($Start/pfx:ExceptionRequest/ns1:Header/ns1:CorrelationID)>25) then $Start/pfx:ExceptionRequest/ns1:Header/ns1:CorrelationID else &quot;&quot;"/>
+                    </ns1:CorrelationID>
+                    <ns1:InterfaceID>
+                        <xsl:value-of select="if (string-length($Start/pfx:ExceptionRequest/ns1:Header/ns1:InterfaceID)>50) then $Start/pfx:ExceptionRequest/ns1:Header/ns1:InterfaceID else &quot;&quot;"/>
+                    </ns1:InterfaceID>
+                    <ns1:Filename>
+                        <xsl:value-of select="if (string-length($Start/pfx:ExceptionRequest/ns1:Header/ns1:Filename)>100) then $Start/pfx:ExceptionRequest/ns1:Header/ns1:Filename else &quot;&quot;"/>
+                    </ns1:Filename>
+                    <ns1:Message>
+                        <xsl:value-of select="if (string-length($Start/pfx:ExceptionRequest/ns1:Header/ns1:Message)>1500) then $Start/pfx:ExceptionRequest/ns1:Header/ns1:Message else &quot;&quot;"/>
+                    </ns1:Message>
+                    <ns1:RenderID>
+                        <xsl:value-of select="if (string-length($Start/pfx:ExceptionRequest/ns1:Header/ns1:RenderID)>50) then $Start/pfx:ExceptionRequest/ns1:Header/ns1:RenderID else &quot;&quot;"/>
+                    </ns1:RenderID>
+                    <ns1:DataEncoding>
+                        <xsl:value-of select="if (string-length($Start/pfx:ExceptionRequest/ns1:Header/ns1:DataEncoding)>10) then $Start/pfx:ExceptionRequest/ns1:Header/ns1:DataEncoding else &quot;&quot;"/>
+                    </ns1:DataEncoding>
+                    <xsl:if test="$Start/pfx:ExceptionRequest/ns1:Header/ns1:Transaction">
+                        <ns1:Transaction>
+                            <xsl:value-of select="$Start/pfx:ExceptionRequest/ns1:Header/ns1:Transaction"/>
+                        </ns1:Transaction>
+                    </xsl:if>
+                    <xsl:for-each select="$Start/pfx:ExceptionRequest/ns1:Header/ns1:AltKey">
+                        <ns1:AltKey>
+                            <ns1:AltKeyName>
+                                <xsl:value-of select="if (string-length(current()/ns1:AltKeyName)>255) then current()/ns1:AltKeyName else &quot;&quot;"/>
+                            </ns1:AltKeyName>
+                            <ns1:AltKeyValue>
+                                <xsl:value-of select="if (string-length(current()/ns1:AltKeyValue)>255) then current()/ns1:AltKeyValue else &quot;&quot;"/>
+                            </ns1:AltKeyValue>
+                        </ns1:AltKey>
+                    </xsl:for-each>
+                </ns1:Header>
+                <ExceptionCode>
+                    <xsl:value-of select="if (string-length($Start/pfx:ExceptionRequest/ExceptionCode)>50) then $Start/pfx:ExceptionRequest/ExceptionCode else &quot;&quot;"/>
+                </ExceptionCode>
+                <xsl:if test="$Start/pfx:ExceptionRequest/StackTrace">
+                    <StackTrace>
+                        <xsl:value-of select="$Start/pfx:ExceptionRequest/StackTrace"/>
+                    </StackTrace>
+                </xsl:if>
+                <Custom>
+                    <xsl:value-of select="if (string-length($Start/pfx:ExceptionRequest/Custom)>255) then $Start/pfx:ExceptionRequest/Custom else &quot;&quot;"/>
+                </Custom>
+                <xsl:if test="$Start/pfx:ExceptionRequest/Timeout">
+                    <Timeout>
+                        <xsl:value-of select="$Start/pfx:ExceptionRequest/Timeout"/>
+                    </Timeout>
+                </xsl:if>
+                <xsl:if test="$Start/pfx:ExceptionRequest/ReplyDestination">
+                    <ReplyDestination>
+                        <xsl:value-of select="$Start/pfx:ExceptionRequest/ReplyDestination"/>
+                    </ReplyDestination>
+                </xsl:if>
+                <xsl:if test="$Start/pfx:ExceptionRequest/NotificationChannel">
+                    <NotificationChannel>
+                        <xsl:value-of select="$Start/pfx:ExceptionRequest/NotificationChannel"/>
+                    </NotificationChannel>
+                </xsl:if>
+            </pfx:ExceptionRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Log">
+        <pd:type>com.tibco.pe.core.WriteToLogActivity</pd:type>
+        <pd:resourceType>ae.activities.log</pd:resourceType>
+        <pd:x>390</pd:x>
+        <pd:y>85</pd:y>
+        <config>
+            <role>User</role>
+        </config>
+        <pd:inputBindings>
+            <ns:ActivityInput>
+                <message>
+                    <xsl:value-of select="concat(&quot; Following Fields are more than permitted length allowed : &quot;, &#xA;if (string-length($Identify-InValid-Data/pfx:ExceptionRequest/ns1:Header/ns1:ApplicationID)>0) then concat(&quot; ApplicationID : &quot;,$Identify-InValid-Data/pfx:ExceptionRequest/ns1:Header/ns1:ApplicationID) else &quot;&quot;,&#xA;if (string-length($Identify-InValid-Data/pfx:ExceptionRequest/ns1:Header/ns1:ComponentName)>0) then concat(&quot; ComponentName : &quot;,$Identify-InValid-Data/pfx:ExceptionRequest/ns1:Header/ns1:ComponentName) else &quot;&quot;,&#xA;if (string-length($Identify-InValid-Data/pfx:ExceptionRequest/ns1:Header/ns1:Hostname)>0) then concat(&quot; HostName : &quot;,$Identify-InValid-Data/pfx:ExceptionRequest/ns1:Header/ns1:Hostname) else &quot;&quot;,&#xA;if (string-length($Identify-InValid-Data/pfx:ExceptionRequest/ns1:Header/ns1:TransactionDomain)>0) then concat(&quot; TransactionDomain : &quot;,$Identify-InValid-Data/pfx:ExceptionRequest/ns1:Header/ns1:TransactionDomain) else &quot;&quot;,&#xA;if (string-length($Identify-InValid-Data/pfx:ExceptionRequest/ns1:Header/ns1:TransactionType)>0) then concat(&quot; TransactionType : &quot;,$Identify-InValid-Data/pfx:ExceptionRequest/ns1:Header/ns1:TransactionType) else &quot;&quot;,&#xA;if (string-length($Identify-InValid-Data/pfx:ExceptionRequest/ns1:Header/ns1:TransactionID)>0) then concat(&quot; TransactionID : &quot;,$Identify-InValid-Data/pfx:ExceptionRequest/ns1:Header/ns1:TransactionID) else &quot;&quot;,&#xA;if (string-length($Identify-InValid-Data/pfx:ExceptionRequest/ns1:Header/ns1:CorrelationID)>0) then concat(&quot; CorretaltionID : &quot;,$Identify-InValid-Data/pfx:ExceptionRequest/ns1:Header/ns1:CorrelationID) else &quot;&quot;,&#xA;if (string-length($Identify-InValid-Data/pfx:ExceptionRequest/ns1:Header/ns1:InterfaceID)>0) then concat(&quot; InterfaceID : &quot;,$Identify-InValid-Data/pfx:ExceptionRequest/ns1:Header/ns1:InterfaceID) else &quot;&quot;,&#xA;if (string-length($Identify-InValid-Data/pfx:ExceptionRequest/ns1:Header/ns1:Filename)>0) then concat(&quot; FileName : &quot;,$Identify-InValid-Data/pfx:ExceptionRequest/ns1:Header/ns1:Filename) else &quot;&quot;,&#xA;if (string-length($Identify-InValid-Data/pfx:ExceptionRequest/ns1:Header/ns1:Message)>0) then concat(&quot; Message : &quot;,$Identify-InValid-Data/pfx:ExceptionRequest/ns1:Header/ns1:Message) else &quot;&quot;,&#xA;if (string-length($Identify-InValid-Data/pfx:ExceptionRequest/ns1:Header/ns1:RenderID)>0) then concat(&quot; RenderID : &quot;,$Identify-InValid-Data/pfx:ExceptionRequest/ns1:Header/ns1:RenderID) else &quot;&quot;,&#xA;if (string-length($Identify-InValid-Data/pfx:ExceptionRequest/ns1:Header/ns1:DataEncoding)>0) then concat(&quot; DataEncoding : &quot;,$Identify-InValid-Data/pfx:ExceptionRequest/ns1:Header/ns1:DataEncoding) else &quot;&quot;,&#xA;if (string-length($Identify-InValid-Data/pfx:ExceptionRequest/ExceptionCode)>0) then concat(&quot; ExceptionCode : &quot;,$Identify-InValid-Data/pfx:ExceptionRequest/ExceptionCode) else &quot;&quot;,&#xA;if (string-length($Identify-InValid-Data/pfx:ExceptionRequest/Custom)>0) then concat(&quot; Custom : &quot;,$Identify-InValid-Data/pfx:ExceptionRequest/Custom) else &quot;&quot;&#xA;)"/>
+                </message>
+            </ns:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Identify-InValid-Data</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Identify-InValid-Data</pd:from>
+        <pd:to>Log</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Log</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

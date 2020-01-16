@@ -1,0 +1,1363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:pfx="http://www.zimmer.com/schemas/StoreReplayService/StoreAndReplayService/Schemas/Schema.xsd" xmlns:ns02="www.tibco.com/plugin/Sleep" xmlns:ns2="http://www.tibco.com/pe/EngineTypes" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:ns0="http://www.zimmer.com/tibco/schemas/ZBS/XSD/ExceptionHandler/v1/ExceptionMessageSchema.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx2="http://www.zimmer.com/tibco/schemas/ZBS/XSD/StoreReplayService/v1/StoreMessageSchema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xsd:import namespace="http://www.zimmer.com/schemas/StoreReplayService/StoreAndReplayService/Schemas/Schema.xsd"/>
+    <xsd:import namespace="http://www.zimmer.com/tibco/schemas/ZBS/XSD/StoreReplayService/v1/StoreMessageSchema.xsd" schemaLocation="/EnterpriseLibrary/SharedResources/Schemas/XSD/StoreMessageSchema.xsd"/>
+    <pd:name>StoreAndReplayService/Processes/IntegrationBusinessProcesses/StoreMessageIBP.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="group">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx2:StoreMessage"/>
+                    <xsd:element name="jms_message_id" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>37</pd:startX>
+    <pd:startY>35</pd:startY>
+    <pd:returnBindings>
+        <OutputResponse>
+            <xsl:choose>
+                <xsl:when test="string-length($Insert-Record-1/jdbcUpdateActivityOutput/noOfUpdates)!='0'">
+                    <OutputMessage>
+                        <xsl:value-of select="concat('Records Inserted Successfully','*',$Insert-Record-1/jdbcUpdateActivityOutput/noOfUpdates)"/>
+                    </OutputMessage>
+                </xsl:when>
+                <xsl:otherwise>
+                    <OutputMessage>
+                        <xsl:value-of select="'Records Updated Successfully'"/>
+                    </OutputMessage>
+                </xsl:otherwise>
+            </xsl:choose>
+        </OutputResponse>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="OutputResponse">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="OutputMessage" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>1471</pd:endX>
+    <pd:endY>606</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables>
+        <RetryFlag>
+            <xsd:element name="root">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="RetryFlag" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </RetryFlag>
+    </pd:processVariables>
+    <pd:targetNamespace>http://xmlns.example.com/1327643392411</pd:targetNamespace>
+    <pd:activity name="Start Logger">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>43</pd:x>
+        <pd:y>284</pd:y>
+        <config>
+            <processName>/EnterpriseLibrary/Services/LogService/LogService.process</processName>
+        </config>
+        <pd:inputBindings>
+            <LogMessage>
+                <Message>
+                    <xsl:value-of select="'Started'"/>
+                </Message>
+                <LogLevel>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Logging/LogLevels/INFO"/>
+                </LogLevel>
+                <ActivityName>
+                    <xsl:value-of select="'Start Logger'"/>
+                </ActivityName>
+                <ProcessName>
+                    <xsl:value-of select="$Set-Process-Details/ProcessDetails/ProcessName"/>
+                </ProcessName>
+                <TransactionInfo>
+                    <Name>
+                        <xsl:value-of select="'TransactionID'"/>
+                    </Name>
+                    <Value>
+                        <xsl:value-of select="$Start/group/pfx2:StoreMessage/pfx2:TransactionID"/>
+                    </Value>
+                </TransactionInfo>
+                <TransactionInfo>
+                    <Name>
+                        <xsl:value-of select="'ApplicationName'"/>
+                    </Name>
+                    <Value>
+                        <xsl:value-of select="$Start/group/pfx2:StoreMessage/pfx2:ApplicationName"/>
+                    </Value>
+                </TransactionInfo>
+                <TransactionInfo>
+                    <Name>
+                        <xsl:value-of select="'JMSMessageId'"/>
+                    </Name>
+                    <Value>
+                        <xsl:value-of select="$Start/group/jms_message_id"/>
+                    </Value>
+                </TransactionInfo>
+            </LogMessage>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Set Process Details">
+        <pd:type>com.tibco.pe.core.SetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.setSharedVariable</pd:resourceType>
+        <pd:x>41</pd:x>
+        <pd:y>162</pd:y>
+        <config>
+            <variableConfig>/EnterpriseLibrary/SharedResources/SharedVariables/ProcessDetails.jobsharedvariable</variableConfig>
+            <showResult>true</showResult>
+        </config>
+        <pd:inputBindings>
+            <ProcessDetails>
+                <ProcessName>
+                    <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns2:ProcessContext/ProcessId)"/>
+                </ProcessName>
+            </ProcessDetails>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="End Logger">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>1367</pd:x>
+        <pd:y>609</pd:y>
+        <config>
+            <processName>/EnterpriseLibrary/Services/LogService/LogService.process</processName>
+        </config>
+        <pd:inputBindings>
+            <LogMessage>
+                <Message>
+                    <xsl:value-of select="'End'"/>
+                </Message>
+                <LogLevel>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Logging/LogLevels/INFO"/>
+                </LogLevel>
+                <ActivityName>
+                    <xsl:value-of select="'End Logger'"/>
+                </ActivityName>
+                <ProcessName>
+                    <xsl:value-of select="$Set-Process-Details/ProcessDetails/ProcessName"/>
+                </ProcessName>
+                <TransactionInfo>
+                    <Name>
+                        <xsl:value-of select="'JMSMessageID'"/>
+                    </Name>
+                    <Value>
+                        <xsl:value-of select="$Start/group/jms_message_id"/>
+                    </Value>
+                </TransactionInfo>
+            </LogMessage>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:group name="Group">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>291</pd:x>
+        <pd:y>120</pd:y>
+        <pd:width>557</pd:width>
+        <pd:height>309</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>errorLoop</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:indexSlot>i</pd:indexSlot>
+            <pd:errorCondition>$i&gt; $_globalVariables/ns:GlobalVariables/StoreAndReplayService/JDBCRetryCount 
+or
+$RetryFlag/root/RetryFlag = 'N'</pd:errorCondition>
+            <pd:suspendAfterErrorRetry>false</pd:suspendAfterErrorRetry>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>Get Record</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Set Retry Flag to N 2</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>JDBC Timeout Exception</pd:from>
+            <pd:to>Sleep</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-65536</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Login Timeout Exception</pd:from>
+            <pd:to>Sleep</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-65536</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Sleep</pd:from>
+            <pd:to>Set Retry Flag to Y</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-65536</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Set Retry Flag to Y</pd:from>
+            <pd:to>Set Exception Details</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-65536</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Set Exception Details</pd:from>
+            <pd:to>Generate Error</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-65536</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Get Record</pd:from>
+            <pd:to>Set Retry Flag to N 2</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="Get Record">
+            <pd:type>com.tibco.plugin.jdbc.JDBCQueryActivity</pd:type>
+            <pd:resourceType>ae.activities.JDBCQueryActivity</pd:resourceType>
+            <pd:x>471</pd:x>
+            <pd:y>184</pd:y>
+            <config>
+                <timeout>%%EnvVariables/TIBCO_JDBC_Connection/OperationTimeOut%%</timeout>
+                <commit>false</commit>
+                <maxRows>%%StoreAndReplayService/JDBCCheckMaxRows%%</maxRows>
+                <emptyStrAsNil>false</emptyStrAsNil>
+                <jdbcSharedConfig>/StoreAndReplayService/SharedResources/Connections/JDBC/TIBCO_JDBC_Connection.sharedjdbc</jdbcSharedConfig>
+                <statement>select transaction_id from store_service where transaction_id=? and appl_name=? and target_system=?</statement>
+                <Prepared_Param_DataType>
+                    <parameter>
+                        <parameterName>transaction_id</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>appl_name</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>target_system</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                </Prepared_Param_DataType>
+                <QueryOutputCachedSchemaColumns>TRANSACTION_ID</QueryOutputCachedSchemaColumns>
+                <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+                <QueryOutputCachedSchemaDataTypesName>VARCHAR2</QueryOutputCachedSchemaDataTypesName>
+                <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+                <oraObjects/>
+                <oraTables/>
+            </config>
+            <pd:inputBindings>
+                <jdbcQueryActivityInput>
+                    <transaction_id>
+                        <xsl:choose>
+                            <xsl:when test="exists($Start/group/pfx2:StoreMessage/pfx2:TransactionID)">
+                                <xsl:value-of select="$Start/group/pfx2:StoreMessage/pfx2:TransactionID"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </transaction_id>
+                    <appl_name>
+                        <xsl:choose>
+                            <xsl:when test="exists($Start/group/pfx2:StoreMessage/pfx2:ApplicationName)">
+                                <xsl:value-of select="$Start/group/pfx2:StoreMessage/pfx2:ApplicationName"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </appl_name>
+                    <target_system>
+                        <xsl:choose>
+                            <xsl:when test="exists($Start/group/pfx2:StoreMessage/pfx2:TargetSystem)">
+                                <xsl:value-of select="$Start/group/pfx2:StoreMessage/pfx2:TargetSystem"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </target_system>
+                </jdbcQueryActivityInput>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="JDBC Timeout Exception">
+            <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+            <pd:resourceType>ae.activities.catch</pd:resourceType>
+            <pd:x>359</pd:x>
+            <pd:y>284</pd:y>
+            <pd:handler>true</pd:handler>
+            <config>
+                <fault>localname=JDBCTimedOutException namespace=http://schemas.tibco.com/bw/plugins/jdbc/5.0/jdbcExceptions</fault>
+            </config>
+            <pd:inputBindings/>
+        </pd:activity>
+        <pd:activity name="Login Timeout Exception">
+            <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+            <pd:resourceType>ae.activities.catch</pd:resourceType>
+            <pd:x>377</pd:x>
+            <pd:y>366</pd:y>
+            <pd:handler>true</pd:handler>
+            <config>
+                <fault>localname=LoginTimedOutException namespace=http://schemas.tibco.com/bw/plugins/jdbc/5.0/jdbcExceptions</fault>
+            </config>
+            <pd:inputBindings/>
+        </pd:activity>
+        <pd:activity name="Sleep">
+            <pd:type>com.tibco.plugin.timer.SleepActivity</pd:type>
+            <pd:resourceType>ae.activities.sleep</pd:resourceType>
+            <pd:x>462</pd:x>
+            <pd:y>294</pd:y>
+            <config/>
+            <pd:inputBindings>
+                <ns02:SleepInputSchema>
+                    <IntervalInMillisec>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/StoreAndReplayService/JDBCRetryInterval * 1000"/>
+                    </IntervalInMillisec>
+                </ns02:SleepInputSchema>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="Set Retry Flag to Y">
+            <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+            <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+            <pd:x>553</pd:x>
+            <pd:y>302</pd:y>
+            <config>
+                <variableName>RetryFlag</variableName>
+            </config>
+            <pd:inputBindings>
+                <root>
+                    <RetryFlag>
+                        <xsl:value-of select="'Y'"/>
+                    </RetryFlag>
+                </root>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="Generate Error">
+            <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+            <pd:resourceType>ae.activities.throw</pd:resourceType>
+            <pd:x>759</pd:x>
+            <pd:y>295</pd:y>
+            <config>
+                <faultName/>
+            </config>
+            <pd:inputBindings>
+                <ns1:ActivityInput/>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="Set Exception Details">
+            <pd:type>com.tibco.pe.core.SetSharedVariableActivity</pd:type>
+            <pd:resourceType>ae.activities.setSharedVariable</pd:resourceType>
+            <pd:x>652</pd:x>
+            <pd:y>304</pd:y>
+            <config>
+                <variableConfig>/EnterpriseLibrary/SharedResources/SharedVariables/ExceptionDetails.jobsharedvariable</variableConfig>
+            </config>
+            <pd:inputBindings>
+                <ns0:ExceptionMessage>
+                    <ns0:Application>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ApplicationDetails/ApplicationName"/>
+                    </ns0:Application>
+                    <ns0:Severity>
+                        <xsl:value-of select="1"/>
+                    </ns0:Severity>
+                    <ns0:ExceptionDescription>
+                        <xsl:value-of select="$_error/ns2:ErrorReport/Msg"/>
+                    </ns0:ExceptionDescription>
+                    <ns0:ExceptionDetailsText>
+                        <xsl:value-of select="tib:render-xml($_error/ns2:ErrorReport)"/>
+                    </ns0:ExceptionDetailsText>
+                    <ns0:ExceptionType>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ExceptionHandler/ExceptionType/Technical"/>
+                    </ns0:ExceptionType>
+                    <ns0:ExceptionCode>
+                        <xsl:value-of select="$_error/ns2:ErrorReport/MsgCode"/>
+                    </ns0:ExceptionCode>
+                    <ns0:ProcessId>
+                        <xsl:value-of select="$_processContext/ns2:ProcessContext/ProcessId"/>
+                    </ns0:ProcessId>
+                    <ns0:ProcessName>
+                        <xsl:value-of select="$Set-Process-Details/ProcessDetails/ProcessName"/>
+                    </ns0:ProcessName>
+                    <ns0:EngineName>
+                        <xsl:value-of select="$_processContext/ns2:ProcessContext/EngineName"/>
+                    </ns0:EngineName>
+                    <ns0:CreateTimestamp>
+                        <xsl:value-of select="current-dateTime()"/>
+                    </ns0:CreateTimestamp>
+                </ns0:ExceptionMessage>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="Set Retry Flag to N 2">
+            <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+            <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+            <pd:x>617</pd:x>
+            <pd:y>194</pd:y>
+            <config>
+                <variableName>RetryFlag</variableName>
+            </config>
+            <pd:inputBindings>
+                <root>
+                    <RetryFlag>
+                        <xsl:value-of select="'N'"/>
+                    </RetryFlag>
+                </root>
+            </pd:inputBindings>
+        </pd:activity>
+    </pd:group>
+    <pd:activity name="Set Retry Flag to N">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>52</pd:x>
+        <pd:y>447</pd:y>
+        <config>
+            <variableName>RetryFlag</variableName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <RetryFlag>
+                    <xsl:value-of select="'N'"/>
+                </RetryFlag>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:group name="Group (1)">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>1076</pd:x>
+        <pd:y>112</pd:y>
+        <pd:width>577</pd:width>
+        <pd:height>325</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>errorLoop</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:indexSlot>j</pd:indexSlot>
+            <pd:errorCondition>$j &gt; $_globalVariables/ns:GlobalVariables/StoreAndReplayService/JDBCRetryCount 
+or
+$RetryFlag/root/RetryFlag = 'N'</pd:errorCondition>
+            <pd:suspendAfterErrorRetry>false</pd:suspendAfterErrorRetry>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>Insert-Record-1</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Set-Retry-Flag-to-N-2-1</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>JDBC-Timeout-Exception-1</pd:from>
+            <pd:to>Sleep-1</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-65536</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Login-Timeout-Exception-1</pd:from>
+            <pd:to>Sleep-1</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-65536</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Sleep-1</pd:from>
+            <pd:to>Set-Retry-Flag-to-Y-1</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-65536</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Set-Retry-Flag-to-Y-1</pd:from>
+            <pd:to>Set-Exception-Details-1</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-65536</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Set-Exception-Details-1</pd:from>
+            <pd:to>Generate-Error-1</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-65536</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Insert-Record-1</pd:from>
+            <pd:to>insert_dynamic_prop</pd:to>
+            <pd:xpathDescription>dy_prop</pd:xpathDescription>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>xpath</pd:conditionType>
+            <pd:xpath>count($Start/group/pfx2:StoreMessage/pfx2:Dynamic_property)&gt;0</pd:xpath>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>insert_dynamic_prop</pd:from>
+            <pd:to>Set-Retry-Flag-to-N-2-1</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Insert-Record-1</pd:from>
+            <pd:to>Set-Retry-Flag-to-N-2-1</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>otherwise</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="Insert-Record-1">
+            <pd:type>com.tibco.plugin.jdbc.JDBCUpdateActivity</pd:type>
+            <pd:resourceType>ae.activities.JDBCUpdateActivity</pd:resourceType>
+            <pd:x>1177</pd:x>
+            <pd:y>173</pd:y>
+            <config>
+                <timeout>%%EnvVariables/TIBCO_JDBC_Connection/OperationTimeOut%%</timeout>
+                <commit>false</commit>
+                <emptyStrAsNil>false</emptyStrAsNil>
+                <jdbcSharedConfig>/StoreAndReplayService/SharedResources/Connections/JDBC/TIBCO_JDBC_Connection.sharedjdbc</jdbcSharedConfig>
+                <statement>insert into store_service (GUID,TRANSACTION_ID,ORIG_DEST,ORIG_DEST_TYPE,REPLAY_DEST,REPLAY_DEST_TYPE,ERROR_DESC,APPL_ID,APPL_NAME,TARGET_SYSTEM,JMS_CONNECTION_FACTORY,MSG_TIME,MESSAGE,MESSAGE_PROPERTIES,REPLAY_FLAG,CREATE_TIMESTAMP,UPDATE_TIMESTAMP) 
+values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)</statement>
+                <Prepared_Param_DataType>
+                    <parameter>
+                        <parameterName>GUID</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>TransactionID</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>OriginalDestination</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>OrigDestinationType</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>ReplayDestination</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>ReplayDestType</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>ErrorDesc</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>ApplicationId</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>Applicationname</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>TargetSystem</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>JMSConnectionfactory</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>MsgTime</parameterName>
+                        <dataType>TIMESTAMP</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>Message</parameterName>
+                        <dataType>CLOB</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>MessageProperties</parameterName>
+                        <dataType>CLOB</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>ReplayFlag</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>CreateTime</parameterName>
+                        <dataType>TIMESTAMP</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>UpdateTime</parameterName>
+                        <dataType>TIMESTAMP</dataType>
+                    </parameter>
+                </Prepared_Param_DataType>
+            </config>
+            <pd:inputBindings>
+                <jdbcUpdateActivityInput>
+                    <xsl:choose xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                        <xsl:when test="tib:trim($Start/group/pfx2:StoreMessage/pfx2:GUID) !=''">
+                            <GUID>
+                                <xsl:choose>
+                                    <xsl:when test="exists($Start/group/pfx2:StoreMessage/pfx2:GUID)">
+                                        <xsl:value-of select="$Start/group/pfx2:StoreMessage/pfx2:GUID"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </GUID>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <GUID>
+                                <xsl:value-of select="$Start/group/jms_message_id"/>
+                            </GUID>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <TransactionID>
+                        <xsl:choose>
+                            <xsl:when test="exists($Start/group/pfx2:StoreMessage/pfx2:TransactionID)">
+                                <xsl:value-of select="$Start/group/pfx2:StoreMessage/pfx2:TransactionID"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </TransactionID>
+                    <OriginalDestination>
+                        <xsl:value-of select="$Start/group/pfx2:StoreMessage/pfx2:OriginalDestination"/>
+                    </OriginalDestination>
+                    <OrigDestinationType>
+                        <xsl:choose>
+                            <xsl:when test="exists($Start/group/pfx2:StoreMessage/pfx2:OriginalDestination/@destinationType)">
+                                <xsl:value-of select="$Start/group/pfx2:StoreMessage/pfx2:OriginalDestination/@destinationType"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </OrigDestinationType>
+                    <ReplayDestination>
+                        <xsl:choose>
+                            <xsl:when test="exists($Start/group/pfx2:StoreMessage/pfx2:ReplayDestination)">
+                                <xsl:value-of select="$Start/group/pfx2:StoreMessage/pfx2:ReplayDestination"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </ReplayDestination>
+                    <ReplayDestType>
+                        <xsl:choose>
+                            <xsl:when test="exists($Start/group/pfx2:StoreMessage/pfx2:ReplayDestination/@destinationType)">
+                                <xsl:value-of select="$Start/group/pfx2:StoreMessage/pfx2:ReplayDestination/@destinationType"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </ReplayDestType>
+                    <ErrorDesc>
+                        <xsl:value-of select="$Start/group/pfx2:StoreMessage/pfx2:Reason"/>
+                    </ErrorDesc>
+                    <ApplicationId>
+                        <xsl:choose>
+                            <xsl:when test="exists($Start/group/pfx2:StoreMessage/pfx2:ApplicaitonID)">
+                                <xsl:value-of select="$Start/group/pfx2:StoreMessage/pfx2:ApplicaitonID"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </ApplicationId>
+                    <Applicationname>
+                        <xsl:choose>
+                            <xsl:when test="exists($Start/group/pfx2:StoreMessage/pfx2:ApplicationName)">
+                                <xsl:value-of select="$Start/group/pfx2:StoreMessage/pfx2:ApplicationName"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </Applicationname>
+                    <TargetSystem>
+                        <xsl:choose>
+                            <xsl:when test="exists($Start/group/pfx2:StoreMessage/pfx2:TargetSystem)">
+                                <xsl:value-of select="$Start/group/pfx2:StoreMessage/pfx2:TargetSystem"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </TargetSystem>
+                    <JMSConnectionfactory>
+                        <xsl:choose>
+                            <xsl:when test="exists($Start/group/pfx2:StoreMessage/pfx2:JMSConnectionFactory)">
+                                <xsl:value-of select="$Start/group/pfx2:StoreMessage/pfx2:JMSConnectionFactory"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </JMSConnectionfactory>
+                    <MsgTime>
+                        <xsl:choose>
+                            <xsl:when test="exists($Start/group/pfx2:StoreMessage/pfx2:MessageTime)">
+                                <xsl:value-of select="$Start/group/pfx2:StoreMessage/pfx2:MessageTime"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </MsgTime>
+                    <Message>
+                        <xsl:value-of select="$Start/group/pfx2:StoreMessage/pfx2:Message"/>
+                    </Message>
+                    <MessageProperties>
+                        <xsl:value-of select="$Start/group/pfx2:StoreMessage/pfx2:Message"/>
+                    </MessageProperties>
+                    <ReplayFlag>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/StoreAndReplayService/ReplayFlags/SystemError"/>
+                    </ReplayFlag>
+                    <CreateTime>
+                        <xsl:value-of select="current-dateTime()"/>
+                    </CreateTime>
+                    <UpdateTime xsi:nil="true"/>
+                </jdbcUpdateActivityInput>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="JDBC-Timeout-Exception-1">
+            <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+            <pd:resourceType>ae.activities.catch</pd:resourceType>
+            <pd:x>1187</pd:x>
+            <pd:y>254</pd:y>
+            <pd:handler>true</pd:handler>
+            <config>
+                <fault>localname=JDBCTimedOutException namespace=http://schemas.tibco.com/bw/plugins/jdbc/5.0/jdbcExceptions</fault>
+            </config>
+            <pd:inputBindings/>
+        </pd:activity>
+        <pd:activity name="Login-Timeout-Exception-1">
+            <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+            <pd:resourceType>ae.activities.catch</pd:resourceType>
+            <pd:x>1189</pd:x>
+            <pd:y>353</pd:y>
+            <pd:handler>true</pd:handler>
+            <config>
+                <fault>localname=LoginTimedOutException namespace=http://schemas.tibco.com/bw/plugins/jdbc/5.0/jdbcExceptions</fault>
+            </config>
+            <pd:inputBindings/>
+        </pd:activity>
+        <pd:activity name="Sleep-1">
+            <pd:type>com.tibco.plugin.timer.SleepActivity</pd:type>
+            <pd:resourceType>ae.activities.sleep</pd:resourceType>
+            <pd:x>1292</pd:x>
+            <pd:y>301</pd:y>
+            <config/>
+            <pd:inputBindings>
+                <ns02:SleepInputSchema>
+                    <IntervalInMillisec>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/StoreAndReplayService/JDBCRetryInterval * 1000"/>
+                    </IntervalInMillisec>
+                </ns02:SleepInputSchema>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="Set-Retry-Flag-to-Y-1">
+            <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+            <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+            <pd:x>1383</pd:x>
+            <pd:y>309</pd:y>
+            <config>
+                <variableName>RetryFlag</variableName>
+            </config>
+            <pd:inputBindings>
+                <root>
+                    <RetryFlag>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'Y'"/>
+                    </RetryFlag>
+                </root>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="Generate-Error-1">
+            <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+            <pd:resourceType>ae.activities.throw</pd:resourceType>
+            <pd:x>1584</pd:x>
+            <pd:y>299</pd:y>
+            <config>
+                <faultName/>
+            </config>
+            <pd:inputBindings>
+                <ns1:ActivityInput/>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="Set-Exception-Details-1">
+            <pd:type>com.tibco.pe.core.SetSharedVariableActivity</pd:type>
+            <pd:resourceType>ae.activities.setSharedVariable</pd:resourceType>
+            <pd:x>1507</pd:x>
+            <pd:y>346</pd:y>
+            <config>
+                <variableConfig>/EnterpriseLibrary/SharedResources/SharedVariables/ExceptionDetails.jobsharedvariable</variableConfig>
+            </config>
+            <pd:inputBindings>
+                <ns0:ExceptionMessage>
+                    <ns0:Application>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ApplicationDetails/ApplicationName"/>
+                    </ns0:Application>
+                    <ns0:Severity>
+                        <xsl:value-of select="1"/>
+                    </ns0:Severity>
+                    <ns0:ExceptionDescription>
+                        <xsl:value-of select="$_error/ns2:ErrorReport/Msg"/>
+                    </ns0:ExceptionDescription>
+                    <ns0:ExceptionDetailsText>
+                        <xsl:value-of select="tib:render-xml($_error/ns2:ErrorReport)"/>
+                    </ns0:ExceptionDetailsText>
+                    <ns0:ExceptionType>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ExceptionHandler/ExceptionType/Technical"/>
+                    </ns0:ExceptionType>
+                    <ns0:ExceptionCode>
+                        <xsl:value-of select="$_error/ns2:ErrorReport/MsgCode"/>
+                    </ns0:ExceptionCode>
+                    <ns0:ProcessId>
+                        <xsl:value-of select="$_processContext/ns2:ProcessContext/ProcessId"/>
+                    </ns0:ProcessId>
+                    <ns0:ProcessName>
+                        <xsl:value-of select="$Set-Process-Details/ProcessDetails/ProcessName"/>
+                    </ns0:ProcessName>
+                    <ns0:EngineName>
+                        <xsl:value-of select="$_processContext/ns2:ProcessContext/EngineName"/>
+                    </ns0:EngineName>
+                    <ns0:CreateTimestamp>
+                        <xsl:value-of select="current-dateTime()"/>
+                    </ns0:CreateTimestamp>
+                </ns0:ExceptionMessage>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="Set-Retry-Flag-to-N-2-1">
+            <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+            <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+            <pd:x>1528</pd:x>
+            <pd:y>176</pd:y>
+            <config>
+                <variableName>RetryFlag</variableName>
+            </config>
+            <pd:inputBindings>
+                <root>
+                    <RetryFlag>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'N'"/>
+                    </RetryFlag>
+                </root>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="insert_dynamic_prop">
+            <pd:type>com.tibco.plugin.jdbc.JDBCUpdateActivity</pd:type>
+            <pd:resourceType>ae.activities.JDBCUpdateActivity</pd:resourceType>
+            <pd:x>1373</pd:x>
+            <pd:y>242</pd:y>
+            <config>
+                <timeout>%%EnvVariables/TIBCO_JDBC_Connection/OperationTimeOut%%</timeout>
+                <commit>false</commit>
+                <emptyStrAsNil>true</emptyStrAsNil>
+                <jdbcSharedConfig>/StoreAndReplayService/SharedResources/Connections/JDBC/TIBCO_JDBC_Connection.sharedjdbc</jdbcSharedConfig>
+                <statement>insert into Store_service_dynamic_prop (name,value,type,transaction_id) values (?,?,?,?)</statement>
+                <batchUpdate>true</batchUpdate>
+                <Prepared_Param_DataType>
+                    <parameter>
+                        <parameterName>name</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>value</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>type</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>transaction_id</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                </Prepared_Param_DataType>
+            </config>
+            <pd:inputBindings>
+                <jdbcUpdateActivityInput>
+                    <xsl:for-each select="$Start/group/pfx2:StoreMessage/pfx2:Dynamic_property">
+                        <Record>
+                            <name>
+                                <xsl:value-of select="pfx2:name"/>
+                            </name>
+                            <value>
+                                <xsl:value-of select="pfx2:value"/>
+                            </value>
+                            <type>
+                                <xsl:value-of select="pfx2:type"/>
+                            </type>
+                            <transaction_id>
+                                <xsl:choose>
+                                    <xsl:when test="exists(../pfx2:TransactionID)">
+                                        <xsl:value-of select="../pfx2:TransactionID"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </transaction_id>
+                        </Record>
+                    </xsl:for-each>
+                </jdbcUpdateActivityInput>
+            </pd:inputBindings>
+        </pd:activity>
+    </pd:group>
+    <pd:group name="Group (2)">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>291</pd:x>
+        <pd:y>464</pd:y>
+        <pd:width>577</pd:width>
+        <pd:height>443</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>errorLoop</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:indexSlot>k</pd:indexSlot>
+            <pd:errorCondition>$k &gt; $_globalVariables/ns:GlobalVariables/StoreAndReplayService/JDBCRetryCount 
+or
+$RetryFlag/root/RetryFlag = 'N'</pd:errorCondition>
+            <pd:suspendAfterErrorRetry>false</pd:suspendAfterErrorRetry>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>Update-Record-2</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Set-Retry-Flag-to-N-2-2</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>JDBC-Timeout-Exception-2</pd:from>
+            <pd:to>Sleep-2</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-65536</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Login-Timeout-Exception-2</pd:from>
+            <pd:to>Sleep-2</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-65536</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Sleep-2</pd:from>
+            <pd:to>Set-Retry-Flag-to-Y-2</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-65536</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Set-Retry-Flag-to-Y-2</pd:from>
+            <pd:to>Set-Exception-Details-2</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-65536</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Set-Exception-Details-2</pd:from>
+            <pd:to>Generate-Error-2</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-65536</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Update-Record-2</pd:from>
+            <pd:to>update_dynamic_prop</pd:to>
+            <pd:xpathDescription>dyn_prop</pd:xpathDescription>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>xpath</pd:conditionType>
+            <pd:xpath>count($Start/group/pfx2:StoreMessage/pfx2:Dynamic_property)&gt;0</pd:xpath>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>update_dynamic_prop</pd:from>
+            <pd:to>Set-Retry-Flag-to-N-2-2</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Update-Record-2</pd:from>
+            <pd:to>Set-Retry-Flag-to-N-2-2</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>otherwise</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="Update-Record-2">
+            <pd:type>com.tibco.plugin.jdbc.JDBCUpdateActivity</pd:type>
+            <pd:resourceType>ae.activities.JDBCUpdateActivity</pd:resourceType>
+            <pd:x>389</pd:x>
+            <pd:y>527</pd:y>
+            <config>
+                <timeout>%%EnvVariables/TIBCO_JDBC_Connection/OperationTimeOut%%</timeout>
+                <commit>false</commit>
+                <emptyStrAsNil>false</emptyStrAsNil>
+                <jdbcSharedConfig>/StoreAndReplayService/SharedResources/Connections/JDBC/TIBCO_JDBC_Connection.sharedjdbc</jdbcSharedConfig>
+                <statement>Update store_service set Replay_Flag=?, Error_desc=?, update_timestamp=? where Transaction_id=? and Appl_name=?
+and Target_System=?</statement>
+                <Prepared_Param_DataType>
+                    <parameter>
+                        <parameterName>Replay_Flag</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>Error_desc</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>Update_timestamp</parameterName>
+                        <dataType>TIMESTAMP</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>Transaction_id</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>Appl_name</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>Target_System</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                </Prepared_Param_DataType>
+            </config>
+            <pd:inputBindings>
+                <jdbcUpdateActivityInput>
+                    <Replay_Flag>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/StoreAndReplayService/ReplayFlags/SystemError"/>
+                    </Replay_Flag>
+                    <Error_desc>
+                        <xsl:value-of select="$Start/group/pfx2:StoreMessage/pfx2:Reason"/>
+                    </Error_desc>
+                    <Update_timestamp>
+                        <xsl:value-of select="current-dateTime()"/>
+                    </Update_timestamp>
+                    <Transaction_id>
+                        <xsl:choose>
+                            <xsl:when test="exists($Start/group/pfx2:StoreMessage/pfx2:TransactionID)">
+                                <xsl:value-of select="$Start/group/pfx2:StoreMessage/pfx2:TransactionID"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </Transaction_id>
+                    <Appl_name>
+                        <xsl:choose>
+                            <xsl:when test="exists($Start/group/pfx2:StoreMessage/pfx2:ApplicationName)">
+                                <xsl:value-of select="$Start/group/pfx2:StoreMessage/pfx2:ApplicationName"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </Appl_name>
+                    <Target_System>
+                        <xsl:choose>
+                            <xsl:when test="exists($Start/group/pfx2:StoreMessage/pfx2:TargetSystem)">
+                                <xsl:value-of select="$Start/group/pfx2:StoreMessage/pfx2:TargetSystem"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </Target_System>
+                </jdbcUpdateActivityInput>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="JDBC-Timeout-Exception-2">
+            <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+            <pd:resourceType>ae.activities.catch</pd:resourceType>
+            <pd:x>363</pd:x>
+            <pd:y>734</pd:y>
+            <pd:handler>true</pd:handler>
+            <config>
+                <fault>localname=JDBCTimedOutException namespace=http://schemas.tibco.com/bw/plugins/jdbc/5.0/jdbcExceptions</fault>
+            </config>
+            <pd:inputBindings/>
+        </pd:activity>
+        <pd:activity name="Login-Timeout-Exception-2">
+            <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+            <pd:resourceType>ae.activities.catch</pd:resourceType>
+            <pd:x>424</pd:x>
+            <pd:y>807</pd:y>
+            <pd:handler>true</pd:handler>
+            <config>
+                <fault>localname=LoginTimedOutException namespace=http://schemas.tibco.com/bw/plugins/jdbc/5.0/jdbcExceptions</fault>
+            </config>
+            <pd:inputBindings/>
+        </pd:activity>
+        <pd:activity name="Sleep-2">
+            <pd:type>com.tibco.plugin.timer.SleepActivity</pd:type>
+            <pd:resourceType>ae.activities.sleep</pd:resourceType>
+            <pd:x>476</pd:x>
+            <pd:y>732</pd:y>
+            <config/>
+            <pd:inputBindings>
+                <ns02:SleepInputSchema>
+                    <IntervalInMillisec>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/StoreAndReplayService/JDBCRetryInterval * 1000"/>
+                    </IntervalInMillisec>
+                </ns02:SleepInputSchema>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="Set-Retry-Flag-to-Y-2">
+            <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+            <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+            <pd:x>567</pd:x>
+            <pd:y>740</pd:y>
+            <config>
+                <variableName>RetryFlag</variableName>
+            </config>
+            <pd:inputBindings>
+                <root>
+                    <RetryFlag>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'Y'"/>
+                    </RetryFlag>
+                </root>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="Generate-Error-2">
+            <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+            <pd:resourceType>ae.activities.throw</pd:resourceType>
+            <pd:x>773</pd:x>
+            <pd:y>733</pd:y>
+            <config>
+                <faultName/>
+            </config>
+            <pd:inputBindings>
+                <ns1:ActivityInput/>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="Set-Exception-Details-2">
+            <pd:type>com.tibco.pe.core.SetSharedVariableActivity</pd:type>
+            <pd:resourceType>ae.activities.setSharedVariable</pd:resourceType>
+            <pd:x>666</pd:x>
+            <pd:y>742</pd:y>
+            <config>
+                <variableConfig>/EnterpriseLibrary/SharedResources/SharedVariables/ExceptionDetails.jobsharedvariable</variableConfig>
+            </config>
+            <pd:inputBindings>
+                <ns0:ExceptionMessage>
+                    <ns0:Application>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ApplicationDetails/ApplicationName"/>
+                    </ns0:Application>
+                    <ns0:Severity>
+                        <xsl:value-of select="1"/>
+                    </ns0:Severity>
+                    <ns0:ExceptionDescription>
+                        <xsl:value-of select="$_error/ns2:ErrorReport/Msg"/>
+                    </ns0:ExceptionDescription>
+                    <ns0:ExceptionDetailsText>
+                        <xsl:value-of select="tib:render-xml($_error/ns2:ErrorReport)"/>
+                    </ns0:ExceptionDetailsText>
+                    <ns0:ExceptionType>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ExceptionHandler/ExceptionType/Technical"/>
+                    </ns0:ExceptionType>
+                    <ns0:ExceptionCode>
+                        <xsl:value-of select="$_error/ns2:ErrorReport/MsgCode"/>
+                    </ns0:ExceptionCode>
+                    <ns0:ProcessId>
+                        <xsl:value-of select="$_processContext/ns2:ProcessContext/ProcessId"/>
+                    </ns0:ProcessId>
+                    <ns0:ProcessName>
+                        <xsl:value-of select="$Set-Process-Details/ProcessDetails/ProcessName"/>
+                    </ns0:ProcessName>
+                    <ns0:EngineName>
+                        <xsl:value-of select="$_processContext/ns2:ProcessContext/EngineName"/>
+                    </ns0:EngineName>
+                    <ns0:CreateTimestamp>
+                        <xsl:value-of select="current-dateTime()"/>
+                    </ns0:CreateTimestamp>
+                </ns0:ExceptionMessage>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="Set-Retry-Flag-to-N-2-2">
+            <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+            <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+            <pd:x>755</pd:x>
+            <pd:y>530</pd:y>
+            <config>
+                <variableName>RetryFlag</variableName>
+            </config>
+            <pd:inputBindings>
+                <root>
+                    <RetryFlag>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'N'"/>
+                    </RetryFlag>
+                </root>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="update_dynamic_prop">
+            <pd:type>com.tibco.plugin.jdbc.JDBCUpdateActivity</pd:type>
+            <pd:resourceType>ae.activities.JDBCUpdateActivity</pd:resourceType>
+            <pd:x>571</pd:x>
+            <pd:y>658</pd:y>
+            <config>
+                <timeout>%%EnvVariables/TIBCO_JDBC_Connection/OperationTimeOut%%</timeout>
+                <commit>false</commit>
+                <emptyStrAsNil>true</emptyStrAsNil>
+                <jdbcSharedConfig>/StoreAndReplayService/SharedResources/Connections/JDBC/TIBCO_JDBC_Connection.sharedjdbc</jdbcSharedConfig>
+                <statement>Update Store_service_dynamic_prop set name=?, value=?, type=? where Transaction_id=?</statement>
+                <batchUpdate>true</batchUpdate>
+                <Prepared_Param_DataType>
+                    <parameter>
+                        <parameterName>name</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>value</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>type</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>transaction_id</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                </Prepared_Param_DataType>
+            </config>
+            <pd:inputBindings>
+                <jdbcUpdateActivityInput>
+                    <xsl:for-each select="$Start/group/pfx2:StoreMessage/pfx2:Dynamic_property">
+                        <Record>
+                            <name>
+                                <xsl:value-of select="pfx2:name"/>
+                            </name>
+                            <value>
+                                <xsl:value-of select="pfx2:value"/>
+                            </value>
+                            <type>
+                                <xsl:value-of select="pfx2:type"/>
+                            </type>
+                            <transaction_id>
+                                <xsl:choose>
+                                    <xsl:when test="exists(../pfx2:TransactionID)">
+                                        <xsl:value-of select="../pfx2:TransactionID"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </transaction_id>
+                        </Record>
+                    </xsl:for-each>
+                </jdbcUpdateActivityInput>
+            </pd:inputBindings>
+        </pd:activity>
+    </pd:group>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Set Process Details</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Set Process Details</pd:from>
+        <pd:to>Start Logger</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>End Logger</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start Logger</pd:from>
+        <pd:to>Set Retry Flag to N</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Set Retry Flag to N</pd:from>
+        <pd:to>Group</pd:to>
+        <pd:lineType>Multiple Bends</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group (1)</pd:from>
+        <pd:to>End Logger</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group (2)</pd:from>
+        <pd:to>End Logger</pd:to>
+        <pd:lineType>Multiple Bends</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>Group (1)</pd:to>
+        <pd:xpathDescription>No Records</pd:xpathDescription>
+        <pd:lineType>Multiple Bends</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>count($Get-Record/resultSet/Record)&lt;'1'</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>Group (2)</pd:to>
+        <pd:lineType>Multiple Bends</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

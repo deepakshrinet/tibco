@@ -1,0 +1,12 @@
+<data jsxnamespace="propsbundle" locales="">
+  <locale>
+    <record jsxid="m_faultCaption" jsxtext="Problema de servicio"/>
+    <record jsxid="CMN-01" jsxtext="Ocurrió un Error Interno, por favor contacte a su administrador"/>
+    <record jsxid="CMN-08" jsxtext="El usuario no puede ser autenticado"/>
+    <record jsxid="CMN-10" jsxtext="No hay Información de Autorización Disponible"/>
+    <record jsxid="LOG-01" jsxtext="Registros de bitácora no encontrados para los criterios de búsqueda."/>
+    <record jsxid="BW-JDBC-100014" jsxtext="Error de Base de Datos, faltan criterios de expresión."/>
+    <record jsxid="BWENGINE-100031" jsxtext="Datos de salida inválidos."/>
+    <record jsxid="no value" jsxtext="No se encontraron registros."/>
+  </locale>
+</data>

@@ -1,0 +1,52 @@
+﻿<data jsxnamespace="propsbundle" locales="">
+  <locale key="zh_CH">
+    <record jsxid="exceptionConfig_dialogCaption" jsxtext="Create Exception Code Configuration"/>
+    <!-- form lookups -->
+    <record jsxid="exceptionConfig_type" jsxtext="Type"/>
+    <record jsxid="exceptionConfig_category" jsxtext="Category"/>
+    <record jsxid="exceptionConfig_severity" jsxtext="Severity"/>
+    <record jsxid="exceptionConfig_procedure" jsxtext="Procedure"/>
+    <record jsxid="exceptionConfig_description" jsxtext="Description"/>
+    <record jsxid="exceptionConfig_roleName" jsxtext="Role Name"/>
+    <record jsxid="exceptionConfig_replyDestination" jsxtext="Reply Destination"/>
+    <record jsxid="exceptionConfig_notificationChannel" jsxtext="Notification Channel"/>
+    <record jsxid="exceptionConfig_technicalEmail" jsxtext="Technical eMail"/>
+    <record jsxid="exceptionConfig_businessEmail" jsxtext="Business eMail"/>
+    <record jsxid="exceptionConfig_notificationFreq" jsxtext="Notification Freq"/>
+    <record jsxid="exceptionConfig_notificationFrequency" jsxtext="Notification Frequency"/>
+    <record jsxid="exceptionConfig_resolutionDelay" jsxtext="Resolution Delay"/>
+    <record jsxid="exceptionConfig_eventType" jsxtext="Event Type"/>
+    <record jsxid="exceptionConfig_instruction" jsxtext="Instruction"/>
+  <!-- table lookups -->
+    <record jsxid="exceptionConfig_ApplicationID" jsxtext="应用程序ID"/>
+    <record jsxid="exceptionConfig_ID" jsxtext="步骤ID"/>
+    <record jsxid="exceptionConfig_Name" jsxtext="名字"/>
+    <record jsxid="exceptionConfig_ExceptionCode" jsxtext="例外码"/>
+    <record jsxid="exceptionConfig_ProcedureID" jsxtext="步骤ID"/>
+    <record jsxid="exceptionConfig_ProcedureName" jsxtext="步骤名字"/>
+    <record jsxid="exceptionConfig_NotificationChannel" jsxtext="提醒通道"/>
+    <record jsxid="exceptionConfig_NotificationChannelCol" jsxtext="提醒通道"/>
+    <record jsxid="exceptionConfig_Exceptionttl" jsxtext="例外TTL"/>
+    <record jsxid="exceptionConfig_ExceptionttlCol" jsxtext="例外TTL"/>
+	<record jsxid="exceptionConfig_CategoryID" jsxtext="类别ID"/>
+	<record jsxid="exceptionConfig_CategoryName" jsxtext="类别名字"/>
+	<record jsxid="exceptionConfig_TypeName" jsxtext="类型名字"/>
+	<record jsxid="exceptionConfig_SeverityID" jsxtext="严重度ID"/>
+	<record jsxid="exceptionConfig_SeverityName" jsxtext="严重度名字"/>
+	<record jsxid="exceptionConfig_Description" jsxtext="描述"/>
+	<record jsxid="exceptionConfig_ReplyDestination" jsxtext="回复目的地"/>
+	<record jsxid="exceptionConfig_RoleName" jsxtext="角色名字"/>
+	<record jsxid="exceptionConfig_NotificationChnl" jsxtext="提醒通道"/>
+	<record jsxid="exceptionConfig_EmailTo" jsxtext="邮件发送"/>
+	<record jsxid="exceptionConfig_EmailCC" jsxtext="邮件抄送"/>
+	<record jsxid="exceptionConfig_Exceptionttl" jsxtext="例外TTL"/>
+	<record jsxid="exceptionConfig_Instruction" jsxtext="指示"/>
+	<record jsxid="exceptionConfig_EventType" jsxtext="事件类型"/>
+	<record jsxid="exceptionConfig_ResolveDelayInterval" jsxtext="处理延迟间隔"/>
+    <record jsxid="exceptionConfig_createNewItemCaption" jsxtext="创建新例外码"/>
+    <record jsxid="exceptionConfig_createExceptionCode" jsxtext="创建例外码"/>
+    <record jsxid="exceptionConfig_createExceptionCodeTip" jsxtext="创建例外码"/>
+    <record jsxid="exceptionConfig_createExceptionRequiredFieldsFailedValidation" jsxtext="以下的区域确认失败: "/>
+    
+  </locale>
+</data>

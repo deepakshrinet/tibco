@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/Workflow/ExceptionReply"
+	 xmlns:Common="http://www.tibco.com/CommonLE2/namespace/Public/Common/RequestHeader.xsd"
+	 xmlns:ErrorMessage="http://www.tibco.com/CommonLE2/Public/Common"
+	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	 targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/Workflow/ExceptionReply"
+	 elementFormDefault="unqualified"
+	 attributeFormDefault="unqualified">
+	<xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Common/RequestHeader.xsd" schemaLocation="../../Common/RequestHeader.xsd"/>
+	<xsd:import namespace="http://www.tibco.com/CommonLE2/Public/Common" schemaLocation="../../Common/ErrorMessage.xsd"/>
+	<xsd:element name="ExceptionDetail">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Common:Header"/>
+				<xsd:element name="ExceptionInstanceID" type="xsd:string"/>
+				<xsd:element name="ExceptionCode" type="xsd:string"/>
+				<xsd:element name="Category" type="xsd:string"/>
+				<xsd:element name="Type" type="xsd:string"/>
+				<xsd:element name="Severity" type="xsd:string"/>
+				<xsd:element name="Stacktrace" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="Timeout" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="ReplyDestination" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="NotificationChannel" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="ResolutionDescription" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="Status" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="Custom" type="xsd:string" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ExceptionReply">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="ExceptionDetail" minOccurs="0"/>
+				<xsd:element ref="ErrorMessage:Error" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

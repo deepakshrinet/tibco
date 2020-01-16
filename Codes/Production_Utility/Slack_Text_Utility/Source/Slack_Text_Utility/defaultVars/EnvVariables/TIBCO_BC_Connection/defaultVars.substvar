@@ -1,0 +1,45 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>DB_DriverType</name>
+			<value>Oracle Thin</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1501304346295</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>DB_JDBCDriver</name>
+			<value>oracle.jdbc.OracleDriver</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1501304347318</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>DB_JDBC_URL</name>
+			<value>jdbc:oracle:thin:@vtibdbdv01.zmr.zimmer.com:1521:TIBDEV</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1501304347645</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>DB_Password</name>
+			<value>#!ENzo/ptQTddrN269SfbbM5ZIXCXx6CKyb/djDfPKCho=</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>Password</type>
+			<modTime>1501304346580</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>DB_User</name>
+			<value>TIB_BC_62</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1501304347288</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

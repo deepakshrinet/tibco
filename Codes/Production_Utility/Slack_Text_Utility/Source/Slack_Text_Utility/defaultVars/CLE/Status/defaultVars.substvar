@@ -1,0 +1,37 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>COMPLETED</name>
+			<value>COMPLETED</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1501304347153</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>ERROR</name>
+			<value>ERROR</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1501304347165</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>IN-PROGRESS</name>
+			<value>IN-PROGRESS</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1501304346463</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>STARTED</name>
+			<value>STARTED</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1501304347443</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

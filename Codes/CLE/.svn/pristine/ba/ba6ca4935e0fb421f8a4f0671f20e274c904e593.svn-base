@@ -1,0 +1,77 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>AppIDNotExist</name>
+			<value>Application does not exist</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874573460</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>DBFieldTooLong</name>
+			<value>Data Size Too Large</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874574159</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>DBIntegrityError</name>
+			<value>Component is being referenced</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874574106</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>DBRecordExists</name>
+			<value>Record already exists</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874574255</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>DBRecordNotFound</name>
+			<value>Records not found</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874571794</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>DatabaseError</name>
+			<value>Database Error</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874570574</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>InvalidInput</name>
+			<value>Exceptionttl has to be numeric</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874575393</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>NoUserApps</name>
+			<value>No Applications associated with user roles</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874572769</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>SecurityNotExist</name>
+			<value>The Selected Security Configuration does not exist</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874572153</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

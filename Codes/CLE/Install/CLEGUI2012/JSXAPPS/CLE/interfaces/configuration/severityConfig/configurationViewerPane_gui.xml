@@ -1,0 +1,92 @@
+<serialization xmlns="urn:tibco.com/v3.0" jsxversion="3.9">
+  <onAfterDeserialize><![CDATA[
+    jsx3.$O(this).extend({
+    getEditButton: function() {
+        return editSeverityBtn;
+    },
+    getDeleteButton: function() {
+        return deleteSeverityBtn;
+    },
+    getSeverityId: function() {
+        return this._severityId;
+    },
+    setSeverityId: function(strId) {
+        this._severityId = strId;
+    },
+    getApplicationId: function() {
+        return this._applicationId;
+    },
+    setApplicationId: function(strId) {
+        this._applicationId = strId;
+    }
+    });
+  ]]></onAfterDeserialize>
+  <object type="jsx3.gui.Block">
+    <variants jsxoverflow="2"/>
+    <strings jsxname="configurationViewerPane" jsxwidth="100%" jsxheight="100%"/>
+    <dynamics jsxborder="@Inset" jsxbgcolor="@Solid Light"/>
+    <object type="jsx3.gui.LayoutGrid">
+      <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+      <strings jsxname="configurationEditorLayout" jsxrows="28,*" jsxwidth="100%" jsxheight="100%"/>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="2"/>
+        <strings jsxname="configurationEditorActions" jsxwidth="100%" jsxheight="100%"/>
+        <dynamics jsxborder="@Outset"/>
+        <object type="jsx3.gui.ToolbarButton">
+          <variants jsxdivider="1" jsxenabled="0"/>
+          <strings jsxname="editSeverityBtn" jsximage="images/icons/editDoc.gif"/>
+          <dynamics jsxtext="config_editConfigurationItem" jsxtip="config_editConfigurationItemTip"/>
+          <events jsxexecute="cle.configuration.severity.editConfiguration(this);"/>
+        </object>
+        <object type="jsx3.gui.ToolbarButton">
+          <variants jsxdivider="1" jsxenabled="0"/>
+          <strings jsxname="deleteSeverityBtn" jsximage="images/icons/removeDoc.gif"/>
+          <dynamics jsxtext="config_deleteConfigurationItem" jsxtip="config_deleteConfigurationItemTip"/>
+          <events jsxexecute="cle.configuration.severity.deleteConfiguration(this);"/>
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="1"/>
+        <strings jsxname="configurationEditorDetails" jsxwidth="100%" jsxheight="100%"/>
+        <dynamics jsxborder="@Outset"/>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="2"/>
+          <strings jsxname="configurationDetailsPane" jsxwidth="100%" jsxheight="100%"/>
+          <object type="jsx3.gui.Matrix">
+            <variants jsxpagingmodel="4" jsxselectionmodel="0" jsxxmlasync="1" jsxxmlbind="1" jsxrowheight="22" jsxsuppresshscroll="0" jsxsuppressvscroll="0" jsxscalewidth="0" jsxrendernavigators="1" jsxdrag="0" jsxdrop="0" jsxshare="0" jsxresize="1" jsxsort="0"/>
+            <strings jsxname="configurationEditorMatrix" jsxbodyborder="1px solid ;1px solid #9898a5;0px solid #9898a5;0px solid" jsxheaderborder="0px solid ;1px solid #9898a5;1px solid #9898a5;0px solid" jsxxmlid="configurationEditor_cdf" jsxrenderingmodel="hierarchical" jsxrenderingcontext="" jsxicon="jsx:///images/spc.gif"/>
+            <dynamics jsxheaderheight="editorHeaderHeight"/>
+            <events jsxbeforeedit="cle.utils.onBeforeEdit(this, objCOLUMN, strRECORDID);" jsxaftercommit="cle.configuration.makeDirty(this,strRECORDID,strVALUE);"/>
+            <xslparameters jsx_rowbg1="#FFFFFF" jsx_rowbg2="#ffffff" jsx_no_empty_indent="1" jsx_indent="0" jsx_treehead_bgcolor="#f3f3f3"/>
+            <object type="jsx3.gui.Matrix.Column">
+              <variants jsxresize="1" jsxsort="1"/>
+              <strings jsxresize="0" jsxname="descriptionCol" jsxpadding="3 3 3 3" jsxpath="jsxtext" jsxcelltextalign="left" jsxtextalign="left" jsxborder="0px solid ;1px solid #9898a5;1px solid #9898a5;0px solid" jsxcellpadding="3" jsxcellborder="0px solid ;0px solid ;1px solid #9898a5;0px solid"/>
+              <dynamics jsxbg="@Bevel TopDown" jsxtext="m_name" jsxcellfontsize="matrixCellFontSize" jsxcellbgcolor="cellMediumBG" jsxbgcolor="mediumBG" jsxwidth="editorNameWidth"/>
+            </object>
+            <object type="jsx3.gui.Matrix.Column">
+              <variants jsxwrap="0" jsxwidth="160" jsxresize="1" jsxsort="1"/>
+              <strings jsxname="dataCol" jsxpadding="3 3 3 3" jsxpath="jsxvalue" jsxtextalign="left" jsxborder="0px solid ;0px solid ;1px solid #9898a5;0px solid" jsxcellborder="0px solid ;0px solid ;1px solid #9898a5;0px solid" jsxcellpadding="3 3 3 3" jsxcelltextalign="left" jsxformathandler="cle.utils.formatCell"/>
+              <dynamics jsxbg="@Bevel TopDown" jsxbgcolor="mediumBG" jsxtext="m_value" jsxcellfontsize="matrixCellFontSize"/>
+              <object type="jsx3.gui.TextBox">
+                <variants jsxrelativeposition="0" jsxleft="120" jsxtop="161" jsxheight="20" jsxzindex="10"/>
+                <strings jsxname="textboxMask" jsxdisplay="none" jsxwidth="100%" jsxvalue=""/>
+                <dynamics jsxfontsize="matrixMaskFontSize"/>
+                <events jsxkeydown="1;"/>
+              </object>
+              <object type="jsx3.gui.Select">
+                <variants jsxrelativeposition="0" jsxleft="120" jsxtop="138" jsxwidth="160" jsxheight="20" jsxzindex="10"/>
+                <strings jsxname="selectMask" jsxdisplay="none" jsxvalue=""/>
+                <dynamics jsxfontsize="matrixMaskFontSize"/>
+              </object>
+              <object type="jsx3.gui.DatePicker">
+                <variants jsxrelativeposition="0" jsxleft="120" jsxtop="184" jsxwidth="162" jsxheight="20" jsxzindex="10" jsxdateformat="2"/>
+                <strings jsxname="datePickerMask" jsxdisplay="none" jsxformat="yyyy-MM-dd"/>
+                <dynamics jsxfontsize="matrixMaskFontSize"/>
+              </object>
+            </object>
+          </object>
+        </object>
+      </object>
+    </object>
+  </object>
+</serialization>

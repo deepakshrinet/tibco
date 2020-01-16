@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://www.tibco.com/schemas/EMSStatsCollector_Utility/Schemas/QueueSchema.xsd"
+	 targetNamespace="http://www.tibco.com/schemas/EMSStatsCollector_Utility/Schemas/QueueSchema.xsd"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace"/>
+	<xs:element name="QueueList">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="QueueName" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

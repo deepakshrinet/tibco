@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:ns03="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/EngineTypes" xmlns:ns5="http://www.realmed.com/CommonLE/namespace/Public/Common/RequestHeader.xsd" xmlns:ns6="http://www.macys.com/CommonLE/namespace/Public/Common/RequestHeader.xsd" xmlns:ns7="http://www.tibco.com/Customer/CommonLE/namespace/Public/Common/CustomerRequestHeader.xsd" xmlns:pfx="http://www.tibco.com/CommonLE2/namespace/Public/Exception/ExceptionRequest.xsd" xmlns:ns02="www.tibco.com/plugin/Sleep" xmlns:ns2="http://www.tibco.com/namespaces/tnt/plugins/file" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:ns4="http://www.tibco.com/CommonLE2/namespace/Public/Common/RequestHeader.xsd" xmlns:ns3="http://www.nscorp.com/CommonLE/namespace/Public/Common/RequestHeader.xsd" xmlns:ns0="http://www.tibco.com/pe/WriteToLogActivitySchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx5="http://www.realmed.com/CommonLE/namespace/Public/Exception/ExceptionRequest.xsd" xmlns:pfx4="http://www.nscorp.com/CommonLE/namespace/Public/Exception/ExceptionRequest.xsd" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx3="http://www.tibco.com/CommonLE2/namespace/Public/ExceptionRequestError.xsd" xmlns:pfx2="http://www.tibco.com/pe/DeployedVarsType" xmlns:pfx8="http://www.tibco.com/CommonLE/Client/Schema/ClientInterface.xsd" xmlns:pfx7="http://www.tibco.com/Customer/CommonLE/namespace/Public/Exception/CustomerExceptionRequest.xsd" xmlns:pfx6="http://www.macys.com/CommonLE/namespace/Public/Exception/ExceptionRequest.xsd">
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/ExceptionRequestError.xsd" schemaLocation="/SharedResources/SchemaDefinitions/CLE2007/ExceptionRequestError.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/Customer/CommonLE/namespace/Public/Exception/CustomerExceptionRequest.xsd" schemaLocation="/SharedResources/Schemas/CLE2007/Exception/CustomerExceptionRequest.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Exception/ExceptionRequest.xsd" schemaLocation="/SharedResources/Schemas/Public/Exception/ExceptionRequest.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Common/RequestHeader.xsd" schemaLocation="/SharedResources/Schemas/Public/Common/RequestHeader.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE/Client/Schema/ClientInterface.xsd" schemaLocation="/CLE/Interface/ClientSchema/ClientInterface.xsd"/>
+    <pd:name>CLE/Interface/SendException.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx8:ExceptionRequest"/>
+    <pd:startX>27</pd:startX>
+    <pd:startY>46</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>488</pd:endX>
+    <pd:endY>47</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1232144198015</pd:targetNamespace>
+    <pd:activity name="Publish to CLE">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>339</pd:x>
+        <pd:y>47</pd:y>
+        <config>
+            <processName>/CLE/Interface/JMS/SendExceptionHelper.process</processName>
+            <spawn>true</spawn>
+        </config>
+        <pd:inputBindings>
+            <pfx:ExceptionRequest>
+                <xsl:copy-of select="$MergeHeader/ns4:Header"/>
+                <ExceptionCode>
+                    <xsl:value-of select="$Start/pfx8:ExceptionRequest/pfx8:ExceptionCode"/>
+                </ExceptionCode>
+                <xsl:if test="$Start/pfx8:ExceptionRequest/pfx8:StackTrace">
+                    <StackTrace>
+                        <xsl:value-of select="$Start/pfx8:ExceptionRequest/pfx8:StackTrace"/>
+                    </StackTrace>
+                </xsl:if>
+                <xsl:if test="$Start/pfx8:ExceptionRequest/pfx8:Custom">
+                    <Custom>
+                        <xsl:value-of select="$Start/pfx8:ExceptionRequest/pfx8:Custom"/>
+                    </Custom>
+                </xsl:if>
+                <xsl:if test="$Start/pfx8:ExceptionRequest/pfx8:Timeout">
+                    <Timeout>
+                        <xsl:value-of select="$Start/pfx8:ExceptionRequest/pfx8:Timeout"/>
+                    </Timeout>
+                </xsl:if>
+                <xsl:if test="$Start/pfx8:ExceptionRequest/pfx8:ReplyDestination">
+                    <ReplyDestination>
+                        <xsl:value-of select="$Start/pfx8:ExceptionRequest/pfx8:ReplyDestination"/>
+                    </ReplyDestination>
+                </xsl:if>
+                <xsl:if test="$Start/pfx8:ExceptionRequest/pfx8:NotificationChannel">
+                    <NotificationChannel>
+                        <xsl:value-of select="$Start/pfx8:ExceptionRequest/pfx8:NotificationChannel"/>
+                    </NotificationChannel>
+                </xsl:if>
+            </pfx:ExceptionRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="MergeHeader">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>180</pd:x>
+        <pd:y>48</pd:y>
+        <config>
+            <processName>/CLE/Interface/Helper/MergeHeader.process</processName>
+        </config>
+        <pd:inputBindings>
+            <xsl:copy-of select="$Start/pfx8:ExceptionRequest/pfx8:Header"/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Publish to CLE</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>MergeHeader</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>MergeHeader</pd:from>
+        <pd:to>Publish to CLE</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

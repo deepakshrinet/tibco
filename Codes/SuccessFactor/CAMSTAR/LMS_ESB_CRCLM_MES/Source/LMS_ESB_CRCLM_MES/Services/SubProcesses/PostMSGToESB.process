@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:ns2="http://www.tibco.com/pe/EngineTypes" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:ns0="www.tibco.com/plugin/Sleep" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx4="http://www.tibco.com/CommonLE/Client/Schema/ClientInterface.xsd" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx3="http://schemas.tibco.com/bw/plugins/jms/5.0/jmsExceptions" xmlns:pfx2="http://www.tibco.com/CommonLE2/namespace/Public/Exception/ExceptionRequest.xsd" xmlns:pfx="http://www.zimmer.com/v1_0/ProductionOrder.xsd" xmlns:ns02="http://www.tibco.com/namespaces/tnt/plugins/jms">
+    <xsd:import namespace="http://www.zimmer.com/v1_0/ProductionOrder.xsd" schemaLocation="/SharedResources/Schemas/XSD/SyncWorkOrder/ProductionOrder.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Exception/ExceptionRequest.xsd" schemaLocation="/CLE/SharedResources/Schemas/Public/Exception/ExceptionRequest.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE/Client/Schema/ClientInterface.xsd" schemaLocation="/CLE/Interface/ClientSchema/ClientInterface.xsd"/>
+    <pd:name>Services/SubProcesses/PostMSGToESB.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="Msg">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="MsgString" type="xsd:string"/>
+                    <xsd:element name="MsgDestination" type="xsd:string"/>
+                    <xsd:element name="CorellationId" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="LogMsg" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="Category" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="Status" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="RenderID" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="Plant" type="xsd:string" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>93</pd:startX>
+    <pd:startY>201</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>705</pd:endX>
+    <pd:endY>204</pd:endY>
+    <pd:errorSchemas>
+        <CLEException ref="pfx4:ExceptionRequest"/>
+    </pd:errorSchemas>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1396969579587</pd:targetNamespace>
+    <pd:group name="Group">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>183</pd:x>
+        <pd:y>29</pd:y>
+        <pd:width>281</pd:width>
+        <pd:height>329</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>errorLoop</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:indexSlot>err</pd:indexSlot>
+            <pd:errorCondition>$err&lt;=3</pd:errorCondition>
+            <pd:suspendAfterErrorRetry>false</pd:suspendAfterErrorRetry>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>JMS Topic Publisher</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Null</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16776961</pd:lineColor>
+            <pd:conditionType>otherwise</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>JMS Topic Publisher</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Sleep</pd:from>
+            <pd:to>Generate Error</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-65536</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Null</pd:from>
+            <pd:to>Sleep</pd:to>
+            <pd:xpathDescription>Session Failed</pd:xpathDescription>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-65536</pd:lineColor>
+            <pd:conditionType>xpath</pd:conditionType>
+            <pd:xpath>exists($_error_JMS-Topic-Publisher/ActivityErrors/pfx3:JMSSendException) or
+exists($_error_JMS-Topic-Publisher/ActivityErrors/pfx3:JMSSessionCreateException)</pd:xpath>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>JMS Topic Publisher</pd:from>
+            <pd:to>Null</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-13421569</pd:lineColor>
+            <pd:conditionType>error</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="Null">
+            <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+            <pd:resourceType>ae.activities.null</pd:resourceType>
+            <pd:x>267</pd:x>
+            <pd:y>194</pd:y>
+            <config/>
+            <pd:inputBindings/>
+        </pd:activity>
+        <pd:activity name="Sleep">
+            <pd:type>com.tibco.plugin.timer.SleepActivity</pd:type>
+            <pd:resourceType>ae.activities.sleep</pd:resourceType>
+            <pd:x>429</pd:x>
+            <pd:y>281</pd:y>
+            <config/>
+            <pd:inputBindings>
+                <ns0:SleepInputSchema>
+                    <IntervalInMillisec>
+                        <xsl:value-of select="3000"/>
+                    </IntervalInMillisec>
+                </ns0:SleepInputSchema>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="Generate Error">
+            <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+            <pd:resourceType>ae.activities.throw</pd:resourceType>
+            <pd:x>251</pd:x>
+            <pd:y>281</pd:y>
+            <config>
+                <faultName>CLEException</faultName>
+            </config>
+            <pd:inputBindings>
+                <ns:ActivityInput>
+                    <data>
+                        <pfx4:ExceptionRequest>
+                            <pfx4:Header>
+                                <pfx4:Message>
+                                    <xsl:value-of select="&quot;Failed To send CDM &quot;"/>
+                                </pfx4:Message>
+                                <pfx4:Transaction>
+                                    <xsl:value-of select="$Start/Msg/MsgString"/>
+                                </pfx4:Transaction>
+                            </pfx4:Header>
+                            <pfx4:ExceptionCode>
+                                <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/ExceptionCodes/TECHNICAL-777"/>
+                            </pfx4:ExceptionCode>
+                            <pfx4:StackTrace>
+                                <xsl:value-of select="tib:render-xml($_error/ns2:ErrorReport)"/>
+                            </pfx4:StackTrace>
+                        </pfx4:ExceptionRequest>
+                    </data>
+                </ns:ActivityInput>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="JMS Topic Publisher">
+            <pd:type>com.tibco.plugin.jms.JMSTopicPublishActivity</pd:type>
+            <pd:resourceType>ae.activities.JMSTopicPublishActivity</pd:resourceType>
+            <pd:x>354</pd:x>
+            <pd:y>108</pd:y>
+            <config>
+                <PermittedMessageType>Text</PermittedMessageType>
+                <SessionAttributes>
+                    <transacted>false</transacted>
+                    <acknowledgeMode>1</acknowledgeMode>
+                    <maxSessions>1</maxSessions>
+                </SessionAttributes>
+                <ConfigurableHeaders>
+                    <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                    <JMSExpiration>0</JMSExpiration>
+                    <JMSPriority>4</JMSPriority>
+                </ConfigurableHeaders>
+                <ConnectionReference>/EnterpriseLibrary/SharedResources/Connections/JMS/TIBCO_JMS_Connection.sharedjmscon</ConnectionReference>
+                <ApplicationProperties>/SharedResources/Connections/JMS/BranchPlant.sharedjmsapp</ApplicationProperties>
+            </config>
+            <pd:inputBindings>
+                <ns02:ActivityInput>
+                    <destinationTopic>
+                        <xsl:value-of select="$Start/Msg/MsgDestination"/>
+                    </destinationTopic>
+                    <xsl:if test="$Start/Msg/CorellationId">
+                        <JMSCorrelationID>
+                            <xsl:value-of select="$Start/Msg/CorellationId"/>
+                        </JMSCorrelationID>
+                    </xsl:if>
+                    <xsl:if test="tib:trim($Start/Msg/Plant)">
+                        <OtherProperties>
+                            <xsl:if test="$Start/Msg/Plant">
+                                <PLANT>
+                                    <xsl:value-of select="$Start/Msg/Plant"/>
+                                </PLANT>
+                            </xsl:if>
+                        </OtherProperties>
+                    </xsl:if>
+                    <Body>
+                        <xsl:value-of select="$Start/Msg/MsgString"/>
+                    </Body>
+                </ns02:ActivityInput>
+            </pd:inputBindings>
+        </pd:activity>
+    </pd:group>
+    <pd:activity name="Generate-Error-1">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>512</pd:x>
+        <pd:y>392</pd:y>
+        <config>
+            <faultName>CLEException</faultName>
+        </config>
+        <pd:inputBindings>
+            <ns:ActivityInput>
+                <data>
+                    <pfx4:ExceptionRequest>
+                        <pfx4:Header>
+                            <pfx4:TransactionID>
+                                <xsl:value-of select="''"/>
+                            </pfx4:TransactionID>
+                            <pfx4:Message>
+                                <xsl:value-of select="&quot;Failed To send CDM &quot;"/>
+                            </pfx4:Message>
+                            <pfx4:Transaction>
+                                <xsl:value-of select="$Start/Msg/MsgString"/>
+                            </pfx4:Transaction>
+                        </pfx4:Header>
+                        <pfx4:ExceptionCode>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/ExceptionCodes/TECHNICAL-777"/>
+                        </pfx4:ExceptionCode>
+                        <pfx4:StackTrace>
+                            <xsl:value-of select="tib:render-xml($_error/ns2:ErrorReport)"/>
+                        </pfx4:StackTrace>
+                    </pfx4:ExceptionRequest>
+                </data>
+            </ns:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Generate-Error-1-1">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>318</pd:x>
+        <pd:y>439</pd:y>
+        <config>
+            <faultName>CLEException</faultName>
+        </config>
+        <pd:inputBindings>
+            <ns:ActivityInput>
+                <data>
+                    <xsl:copy-of select="$_error_Generate-Error/pfx4:ExceptionRequest"/>
+                </data>
+            </ns:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>Generate-Error-1</pd:to>
+        <pd:xpathDescription>InValidData</pd:xpathDescription>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-65536</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>exists($_error_JMS-Topic-Publisher/ActivityErrors/pfx3:JMSInvalidInputException) or
+exists($_error_JMS-Topic-Publisher/ActivityErrors/pfx3:JMSMessageCreateException)</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>Generate-Error-1-1</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-3407872</pd:lineColor>
+        <pd:conditionType>error</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Group</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

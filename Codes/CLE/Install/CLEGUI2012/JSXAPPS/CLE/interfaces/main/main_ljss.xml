@@ -1,0 +1,27 @@
+<data jsxnamespace="propsbundle" locales="">
+  <locale>
+    <record jsxid="main_loggedInAs" jsxtext="logged in as:"/>
+    <record jsxid="main_logout" jsxtext="Logout"/>
+    <record jsxid="main_logoutTip" jsxtext="ends the session and displays login page"/>
+  </locale>
+  <locale key="pt_BR">
+    <record jsxid="main_loggedInAs" jsxtext="autenticado como:"/>
+    <record jsxid="main_logout" jsxtext="Encerrar sessão"/>
+    <record jsxid="main_logoutTip" jsxtext="encerra a sessão e exibe a página de login"/>
+  </locale>
+  <locale key="es_ES">
+    <record jsxid="main_loggedInAs" jsxtext="Sesión iniciada como:"/>
+    <record jsxid="main_logout" jsxtext="Salir"/>
+    <record jsxid="main_logoutTip" jsxtext="termina la sesión y despliega la página de inicio de sesión"/>
+  </locale>
+  <locale key="sv_SV">
+    <record jsxid="main_loggedInAs" jsxtext="inloggad som:"/>
+    <record jsxid="main_logout" jsxtext="Utloggning"/>
+    <record jsxid="main_logoutTip" jsxtext="avslutar sessionen och visar inloggningssidan"/>
+  </locale>
+  <locale key="zh_CH">
+    <record jsxid="main_loggedInAs" jsxtext="登录为:"/>
+    <record jsxid="main_logout" jsxtext="退出"/>
+    <record jsxid="main_logoutTip" jsxtext="结束会话和展示登录页面"/>
+  </locale>
+</data>

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <pd:name>Common/DataAccess/Oracle/LogAndExceptionCountPerAppForChart.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="ApplicationInfo">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="AppDesc" type="xsd:string"/>
+                    <xsd:element name="AppName" type="xsd:string"/>
+                    <xsd:element name="AppID" type="xsd:string"/>
+                    <xsd:element name="LogCount" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>150</pd:startX>
+    <pd:startY>64</pd:startY>
+    <pd:returnBindings>
+        <ApplicationInfoAndCount>
+            <AppID>
+                <xsl:value-of select="$Start/ApplicationInfo/AppID"/>
+            </AppID>
+            <LogCount>
+                <xsl:value-of select="$Start/ApplicationInfo/LogCount"/>
+            </LogCount>
+            <ExceptionCount>
+                <xsl:value-of select="round($RetrieveExceptionCountForApp/resultSet/Record[1]/COUNT)"/>
+            </ExceptionCount>
+            <AppName>
+                <xsl:value-of select="$Start/ApplicationInfo/AppName"/>
+            </AppName>
+            <AppDesc>
+                <xsl:value-of select="$Start/ApplicationInfo/AppDesc"/>
+            </AppDesc>
+            <ResolvedExceptionCount>
+                <xsl:value-of select="round($RetrieveExceptionResolvedCountForApp/resultSet/Record[1]/COUNT)"/>
+            </ResolvedExceptionCount>
+            <UnresolvedExceptionCount>
+                <xsl:value-of select="round($RetrieveExceptionCountForApp/resultSet/Record[1]/COUNT - $RetrieveExceptionResolvedCountForApp/resultSet/Record[1]/COUNT)"/>
+            </UnresolvedExceptionCount>
+        </ApplicationInfoAndCount>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="ApplicationInfoAndCount">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="AppID" type="xsd:string"/>
+                    <xsd:element name="LogCount" type="xsd:int"/>
+                    <xsd:element name="ExceptionCount" type="xsd:int"/>
+                    <xsd:element name="AppName" type="xsd:string"/>
+                    <xsd:element name="AppDesc" type="xsd:string"/>
+                    <xsd:element name="ResolvedExceptionCount" type="xsd:int"/>
+                    <xsd:element name="UnresolvedExceptionCount" type="xsd:int"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>631</pd:endX>
+    <pd:endY>63</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1288192179734</pd:targetNamespace>
+    <pd:activity name="RetrieveExceptionCountForApp">
+        <pd:type>com.tibco.plugin.jdbc.JDBCQueryActivity</pd:type>
+        <pd:resourceType>ae.activities.JDBCQueryActivity</pd:resourceType>
+        <pd:x>300</pd:x>
+        <pd:y>62</pd:y>
+        <config>
+            <timeout>%%Database/MIG_Timeout%%</timeout>
+            <commit>false</commit>
+            <maxRows>100</maxRows>
+            <emptyStrAsNil>false</emptyStrAsNil>
+            <statement>select count(*) from exceptionrec  where applicationid = ? </statement>
+            <Prepared_Param_DataType>
+                <parameter>
+                    <parameterName>appid</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+            </Prepared_Param_DataType>
+            <jdbcSharedConfig>/SharedResources/Connections/Database/DBServerOracle.sharedjdbc</jdbcSharedConfig>
+            <wizardData/>
+            <QueryOutputCachedSchemaColumns>COUNT</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>2</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+        </config>
+        <pd:inputBindings>
+            <jdbcQueryActivityInput>
+                <appid>
+                    <xsl:value-of select="$Start/ApplicationInfo/AppID"/>
+                </appid>
+            </jdbcQueryActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="RetrieveExceptionResolvedCountForApp">
+        <pd:type>com.tibco.plugin.jdbc.JDBCQueryActivity</pd:type>
+        <pd:resourceType>ae.activities.JDBCQueryActivity</pd:resourceType>
+        <pd:x>467</pd:x>
+        <pd:y>65</pd:y>
+        <config>
+            <timeout>%%Database/MIG_Timeout%%</timeout>
+            <commit>false</commit>
+            <maxRows>100</maxRows>
+            <emptyStrAsNil>false</emptyStrAsNil>
+            <statement>select count(*) from exceptionrec  where applicationid = ? and (status = ? or status = ?)</statement>
+            <jdbcSharedConfig>/SharedResources/Connections/Database/DBServerOracle.sharedjdbc</jdbcSharedConfig>
+            <wizardData/>
+            <Prepared_Param_DataType>
+                <parameter>
+                    <parameterName>appid</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>status</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>status1</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+            </Prepared_Param_DataType>
+            <oraObjects/>
+            <oraTables/>
+            <QueryOutputCachedSchemaColumns>COUNT</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>2</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>number</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+        </config>
+        <pd:inputBindings>
+            <jdbcQueryActivityInput>
+                <appid>
+                    <xsl:value-of select="$Start/ApplicationInfo/AppID"/>
+                </appid>
+                <status>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ExceptionService/ResolutionStatus/Resolved"/>
+                </status>
+                <status1>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ExceptionService/ResolutionStatus/Replied"/>
+                </status1>
+            </jdbcQueryActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>RetrieveExceptionCountForApp</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>RetrieveExceptionCountForApp</pd:from>
+        <pd:to>RetrieveExceptionResolvedCountForApp</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>RetrieveExceptionResolvedCountForApp</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

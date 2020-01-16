@@ -1,0 +1,47 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>BatchSize</name>
+			<value>200</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1486105439194</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>EndPointURL</name>
+			<value>https://test.salesforce.com/services/Soap/c/38.0/0DFW0000000010v</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1481189751063</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>PASSWORD</name>
+			<value>#!nYtfdWs86IhsWK5rcVvvYxxph0K6Plnj</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>Password</type>
+			<constraint></constraint>
+			<modTime>1447185125337</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>Timeout</name>
+			<value>300</value>
+			<description>Sec</description>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>Integer</type>
+			<modTime>1365519644803</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>USER_ID</name>
+			<value>tibco.integration@zimmer.com.sandbox01</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1447184978668</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

@@ -1,0 +1,79 @@
+<serialization xmlns="urn:tibco.com/v3.0" jsxversion="3.9">
+  <name><![CDATA[Block - 100%]]></name>
+  <icon><![CDATA[images/prototypes/block.gif]]></icon>
+  <description><![CDATA[Simple block, relatively positioned with overflow=scroll.]]></description>
+  <object type="jsx3.gui.Block">
+    <variants jsxoverflow="2"/>
+    <strings jsxname="configurationPane" jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1"/>
+    <object type="jsx3.gui.LayoutGrid">
+      <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+      <strings jsxname="configurationLayout" jsxrows="28,*" jsxwidth="100%" jsxheight="100%"/>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="2"/>
+        <strings jsxname="configurationMenuPane" jsxwidth="100%" jsxheight="100%"/>
+        <dynamics jsxborder="@Outset"/>
+        <object type="jsx3.gui.Menu">
+          <variants jsxxmlasync="1" jsxshare="1"/>
+          <strings jsxname="configurationContextMenu" jsxtip="menu" jsxtext="contextMenu" jsxxmlurl="interfaces/configuration/configurationNewItemMenu_cdf.xml" jsxxmlid="configurationMenu_cdf_xml" jsxdisplay="none"/>
+        </object>
+        <object type="jsx3.gui.WindowBar">
+          <variants jsxbartype="1"/>
+          <strings jsxname="toolBar"/>
+          <dynamics jsxbgcolor="neutralBG"/>
+          <object type="jsx3.gui.Menu">
+            <variants jsxxmlasync="1" jsxshare="1"/>
+            <strings jsxname="newItemMenu" jsxxmlid="configurationMenu_cdf_xml" jsxxmlurl="interfaces/configuration/configurationNewItemMenu_cdf.xml"/>
+            <dynamics jsxtext="config_menuNewItem" jsxtip="config_menuNewItemTip"/>
+          </object>
+          <object type="jsx3.gui.Menu">
+            <variants jsxxmlasync="1"/>
+            <strings jsxname="viewMenu" jsxtip="menu" jsxxmlurl="interfaces/configuration/configurationViewMenu_cdf.xml"/>
+            <dynamics jsxtext="config_menuView"/>
+          </object>
+          <object type="jsx3.gui.ToolbarButton">
+            <variants jsxdivider="1"/>
+            <strings jsxname="refreshConfigListBtn" jsximage="images/icons/refreshDoc.gif"/>
+            <dynamics jsxtext="config_refresh" jsxtip="config_refreshTip"/>
+            <events jsxexecute="cle.configuration.application.refreshList(this);"/>
+          </object>
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="2"/>
+        <strings jsxname="configurationBodyPane" jsxwidth="100%" jsxheight="100%"/>
+        <dynamics jsxborder="@Outset"/>
+        <object type="jsx3.gui.CDF">
+          <variants jsxshare="0" jsxxmlbind="1" jsxoverflow="2"/>
+          <strings jsxname="configurationCDF" jsxwidth="100%" jsxheight="100%" jsxxmlid="applicationList_cdf" jsxcdfid=""/>
+          <object type="jsx3.gui.Splitter">
+            <variants jsxleft="0" jsxtop="0"/>
+            <strings jsxname="splitterV" jsxsubcontainer1pct="300,*"/>
+            <dynamics jsxbgcolor="splitterPaneBackground"/>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2" jsxwidth="300"/>
+              <strings jsxname="configurationList" jsxheight="100%"/>
+              <dynamics jsxborder="@Inset" jsxbgcolor="@Solid Light"/>
+              <object type="jsx3.gui.Matrix">
+                <variants jsxheaderheight="0" jsxjsxxmlasync="1" jsxxmlbind="1" jsxrendernavigators="1" jsxshare="1"/>
+                <strings xmlns="urn:tibco.com/v3.0" jsxname="configTreeMatrix" jsxrenderingmodel="hierarchical" jsxpagingmodel="4" jsxdrag="0" jsxdrop="0" jsxselectionmodel="2" jsxxmlid="configTreeMatrix_cdf" jsxsortpath="jsxtext" jsxsorttype="text" jsxsortdirection="ascending" jsxmenu="configurationContextMenu"/>
+                <dynamics jsxbgcolor="@Solid Light"/>
+                <events jsxtoggle="cle.configuration.toggleTreeItem(this,strRECORDID,bOPEN,objEVENT);" jsxselect="cle.configuration.selectTreeItem(this,strRECORDID,objEVENT);" jsxexecute="cle.configuration.executeTreeItem(this,strRECORDID,objEVENT);"/>
+                <xslparameters jsx_rowbg1="#FFFFFF" jsx_rowbg2="#FFFFFF"/>
+                <object type="jsx3.gui.Matrix.Column">
+                  <variants jsxwidth="300"/>
+                  <strings xmlns="urn:tibco.com/v3.0" jsxname="mc1" jsxcellpadding="2" jsxpath="jsxtext"/>
+                  <dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="@Solid Light"/>
+                </object>
+              </object>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="1"/>
+              <strings jsxname="configurationEditor" jsxwidth="100%" jsxheight="100%"/>
+              <dynamics jsxbgcolor="@Solid Light" jsxborder="@Inset"/>
+            </object>
+          </object>
+        </object>
+      </object>
+    </object>
+  </object>
+</serialization>

@@ -1,0 +1,33 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<ns0:Applications xmlns:ns0 = "http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/UserApplicationPermissionsInfo" xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation = "http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/UserApplicationPermissionsInfo ../SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/SecurityConfiguration/UserApplicationsPermissionsInfo.xsd">
+	<ns0:Application>
+		<ns0:ApplicationID>1102</ns0:ApplicationID>
+		<ns0:Permissions>
+			<ns0:PermissionID>10</ns0:PermissionID>
+			<ns0:PermissionID>13</ns0:PermissionID>
+			<ns0:PermissionID>14</ns0:PermissionID>
+		</ns0:Permissions>
+	</ns0:Application>
+	<ns0:Application>
+		<ns0:ApplicationID>1103</ns0:ApplicationID>
+		<ns0:Permissions>
+			<ns0:PermissionID>10</ns0:PermissionID>
+			<ns0:PermissionID>13</ns0:PermissionID>
+			<ns0:PermissionID>14</ns0:PermissionID>
+			<ns0:PermissionID>1</ns0:PermissionID>
+			<ns0:PermissionID>2</ns0:PermissionID>
+			<ns0:PermissionID>3</ns0:PermissionID>
+		</ns0:Permissions>
+	</ns0:Application>
+	<ns0:Application>
+		<ns0:ApplicationID>1103</ns0:ApplicationID>
+		<ns0:Permissions>
+			<ns0:PermissionID>10</ns0:PermissionID>
+			<ns0:PermissionID>13</ns0:PermissionID>
+			<ns0:PermissionID>14</ns0:PermissionID>
+			<ns0:PermissionID>1</ns0:PermissionID>
+			<ns0:PermissionID>2</ns0:PermissionID>
+			<ns0:PermissionID>3</ns0:PermissionID>
+		</ns0:Permissions>
+	</ns0:Application>
+</ns0:Applications>

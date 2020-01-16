@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Private/Exception"
+	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	 targetNamespace="http://www.tibco.com/CommonLE2/namespace/Private/Exception"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xsd:element name="ExceptionResolution">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="ExceptionID" type="xsd:positiveInteger"/>
+				<xsd:element name="Resolution" type="xsd:string"/>
+				<xsd:element name="Status" type="xsd:string"/>
+				<xsd:element name="TransactionUpdate" type="xsd:string" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ExceptionResolutionRecords">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="ExceptionResolution" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

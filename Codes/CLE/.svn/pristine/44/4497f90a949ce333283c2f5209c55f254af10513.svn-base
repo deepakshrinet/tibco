@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by TIBCO WSDL-->
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.tibco.com/CommonLE2/namespace/Administration/GUIServices/RenderConfigs" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns0="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/RenderConfig" xmlns:ns1="http://www.tibco.com/CommonLE2/Public/Common" xmlns:ns2="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/RenderConfigDelete" xmlns:ns3="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Query" targetNamespace="http://www.tibco.com/CommonLE2/namespace/Administration/GUIServices/RenderConfigs">
+    <wsdl:types>
+        <xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Query" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Query" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xsd:element name="Query">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ID" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+        <xsd:schema xmlns="http://www.tibco.com/CommonLE2/Public/Common" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tibco.com/CommonLE2/Public/Common" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xsd:element name="Code" type="xsd:string"/>
+            <xsd:element name="Error">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="ns1:Message" minOccurs="0"/>
+                        <xsd:element ref="ns1:Code" minOccurs="0"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="Message" type="xsd:string"/>
+        </xsd:schema>
+        <xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/RenderConfigDelete" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/RenderConfigDelete" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xsd:element name="DeleteQueries">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="ns2:Query" minOccurs="0" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="Query">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ID" type="xsd:string"/>
+                        <xsd:element name="AppID" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+        <xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/RenderConfig" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/RenderConfig" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xsd:element name="RenderConfig">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ApplicationID" type="xsd:string"/>
+                        <xsd:element name="RenderID" type="xsd:string"/>
+                        <xsd:element name="XSLT" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="CSS" type="xsd:string" minOccurs="0"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="RenderConfigs">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="ns0:RenderConfig" minOccurs="0" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:service name="intfRenderConfig-service">
+        <wsdl:port name="RenderConfigEndpoint" binding="tns:RenderConfigEndpointBinding">
+            <soap:address location="http://localhost:15000/Administration/GUIServices/RenderServices/intfRenderConfig-service.serviceagent/intfwsRenderConfigEndpoint"/>
+        </wsdl:port>
+    </wsdl:service>
+    <wsdl:portType name="portType">
+        <wsdl:operation name="UpdateRenderConfigOp">
+            <wsdl:input message="tns:RenderConfigs"/>
+            <wsdl:output message="tns:Dummy"/>
+            <wsdl:fault name="fault1" message="tns:Error"/>
+        </wsdl:operation>
+        <wsdl:operation name="CreateRenderConfigOp">
+            <wsdl:input message="tns:RenderConfigs"/>
+            <wsdl:output message="tns:Dummy"/>
+            <wsdl:fault name="fault1" message="tns:Error"/>
+        </wsdl:operation>
+        <wsdl:operation name="DeleteRenderConfigOp">
+            <wsdl:input message="tns:DeleteQueries"/>
+            <wsdl:output message="tns:Dummy"/>
+            <wsdl:fault name="fault1" message="tns:Error"/>
+        </wsdl:operation>
+        <wsdl:operation name="RetrieveAppSpecificRenderConfigOp">
+            <wsdl:input message="tns:Query"/>
+            <wsdl:output message="tns:RenderConfigs"/>
+            <wsdl:fault name="fault1" message="tns:Error"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="RenderConfigEndpointBinding" type="tns:portType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="UpdateRenderConfigOp">
+            <soap:operation style="document" soapAction="/Administration/GUIServices/RenderServices/intfRenderConfig-service.serviceagent/portTypeEndpoint1/UpdateRenderConfigOp"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts=""/>
+            </wsdl:output>
+            <wsdl:fault name="fault1">
+                <soap:fault use="literal" name="fault1"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="CreateRenderConfigOp">
+            <soap:operation style="document" soapAction="/Administration/GUIServices/RenderServices/intfRenderConfig-service.serviceagent/portTypeEndpoint1/CreateRenderConfigOp"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts=""/>
+            </wsdl:output>
+            <wsdl:fault name="fault1">
+                <soap:fault use="literal" name="fault1"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="DeleteRenderConfigOp">
+            <soap:operation style="document" soapAction="/Administration/GUIServices/RenderServices/intfRenderConfig-service.serviceagent/portTypeEndpoint1/DeleteRenderConfigOp"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts=""/>
+            </wsdl:output>
+            <wsdl:fault name="fault1">
+                <soap:fault use="literal" name="fault1"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="RetrieveAppSpecificRenderConfigOp">
+            <soap:operation style="document" soapAction="/Administration/GUIServices/RenderServices/intfRenderConfig-service.serviceagent/portTypeEndpoint1/RetrieveAppSpecificRenderConfigOp"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:output>
+            <wsdl:fault name="fault1">
+                <soap:fault use="literal" name="fault1"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:message name="RenderConfigs">
+        <wsdl:part name="parameters" element="ns0:RenderConfigs"/>
+    </wsdl:message>
+    <wsdl:message name="Dummy"/>
+    <wsdl:message name="Error">
+        <wsdl:part name="parameters" element="ns1:Error"/>
+    </wsdl:message>
+    <wsdl:message name="DeleteQueries">
+        <wsdl:part name="part1" element="ns2:DeleteQueries"/>
+    </wsdl:message>
+    <wsdl:message name="Query">
+        <wsdl:part name="parameters" element="ns3:Query"/>
+    </wsdl:message>
+</wsdl:definitions>

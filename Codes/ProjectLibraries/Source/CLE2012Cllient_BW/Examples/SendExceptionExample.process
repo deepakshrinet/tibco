@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/CommonLE/Client/Schema/ClientInterface.xsd" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns1="http://www.tibco.com/pe/EngineTypes" xmlns:ns="http://www.tibco.com/namespaces/tnt/plugins/file/v2" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx="http://www.tibco.com/schemas/InvoiceListCDM">
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/schemas/InvoiceListCDM" schemaLocation="/Examples/Invoice.xsd"/>
+    <pd:name>Examples/SendExceptionExample.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx:InvoiceListRequest"/>
+    <pd:startX>27</pd:startX>
+    <pd:startY>39</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>629</pd:endX>
+    <pd:endY>35</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1321306730771</pd:targetNamespace>
+    <pd:activity name="Read File">
+        <pd:type>com.tibco.plugin.file.FileReadActivity</pd:type>
+        <pd:resourceType>ae.activities.FileReadActivity</pd:resourceType>
+        <pd:x>363</pd:x>
+        <pd:y>35</pd:y>
+        <config>
+            <encoding>text</encoding>
+        </config>
+        <pd:inputBindings>
+            <ns:ReadActivityInputClass>
+                <fileName>
+                    <xsl:value-of select="&quot;c:\doesnotexist.dat&quot;"/>
+                </fileName>
+            </ns:ReadActivityInputClass>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch File Not Found">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>44</pd:x>
+        <pd:y>147</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=FileNotFoundException namespace=http://schemas.tibco.com/bw/plugins/file/5.0/fileExceptions</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Raise Exception">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>229</pd:x>
+        <pd:y>138</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendException.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns2:ExceptionRequest>
+                <ns2:Header>
+                    <xsl:if test="$Start/pfx:InvoiceListRequest/pfx:BillingDocumentDetailRequest/pfx:DocumentNumber">
+                        <ns2:TransactionID>
+                            <xsl:value-of select="$Start/pfx:InvoiceListRequest/pfx:BillingDocumentDetailRequest/pfx:DocumentNumber"/>
+                        </ns2:TransactionID>
+                    </xsl:if>
+                    <xsl:if test="$Start/pfx:InvoiceListRequest/pfx:BillingDocumentDetailRequest/pfx:DocumentNumber">
+                        <ns2:CorrelationID>
+                            <xsl:value-of select="$Start/pfx:InvoiceListRequest/pfx:BillingDocumentDetailRequest/pfx:DocumentNumber"/>
+                        </ns2:CorrelationID>
+                    </xsl:if>
+                    <ns2:Transaction>
+                        <xsl:value-of select="tib:render-xml($Start/pfx:InvoiceListRequest, false(), false())"/>
+                    </ns2:Transaction>
+                </ns2:Header>
+                <ns2:ExceptionCode>
+                    <xsl:value-of select="&quot;MyExceptionCode&quot;"/>
+                </ns2:ExceptionCode>
+                <xsl:if test="$_error/ns1:ErrorReport/StackTrace">
+                    <ns2:StackTrace>
+                        <xsl:value-of select="$_error/ns1:ErrorReport/StackTrace"/>
+                    </ns2:StackTrace>
+                </xsl:if>
+            </ns2:ExceptionRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Set CLEHeader">
+        <pd:type>com.tibco.pe.core.SetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.setSharedVariable</pd:resourceType>
+        <pd:x>159</pd:x>
+        <pd:y>39</pd:y>
+        <config>
+            <variableConfig>/CLE/Interface/SharedVariables/CLEHeader.jobsharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings>
+            <ns2:Header>
+                <ns2:ComponentName>
+                    <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns1:ProcessContext/ProcessId)"/>
+                </ns2:ComponentName>
+                <ns2:Hostname>
+                    <xsl:value-of select="BW:getHostName()"/>
+                </ns2:Hostname>
+                <ns2:TransactionDomain>
+                    <xsl:value-of select="&quot;HR&quot;"/>
+                </ns2:TransactionDomain>
+                <ns2:TransactionType>
+                    <xsl:value-of select="&quot;NewHire&quot;"/>
+                </ns2:TransactionType>
+                <ns2:TransactionID>
+                    <xsl:value-of select="&quot;NewHireTranID123&quot;"/>
+                </ns2:TransactionID>
+                <ns2:CorrelationID>
+                    <xsl:value-of select="&quot;NewHireCorrID123&quot;"/>
+                </ns2:CorrelationID>
+                <ns2:InterfaceID>
+                    <xsl:value-of select="&quot;NewHire12&quot;"/>
+                </ns2:InterfaceID>
+            </ns2:Header>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Set CLEHeader</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Read File</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch File Not Found</pd:from>
+        <pd:to>Raise Exception</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Raise Exception</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Set CLEHeader</pd:from>
+        <pd:to>Read File</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

@@ -1,0 +1,7 @@
+<data jsxid="jsxroot" jsxns="urn:tibco.com/v3.0/dynamicproperties/1">
+  <record jsxid="exceptionColumnLeftBorder" type="jsxcellborder" jsxtext="0px solid;0px solid;1px solid #9898a5;1px solid #9898a5"></record>
+  <record jsxid="exceptionColumnRightBorder" type="jsxcellborder" jsxtext="0px solid;1px solid #9898a5;1px solid #9898a5;0px solid"></record>
+  <record jsxid="exceptionColumnBorder" type="jsxcellborder" jsxtext="0px solid;0px solid;1px solid #9898a5;0px solid"></record>
+  <record jsxid="exceptionHeaderHeight" type="jsxheaderheight" jsxtext="26"></record>
+  <record jsxid="exceptionNameColWidth" type="jsxwidth" jsxtext="180"></record>
+</data>

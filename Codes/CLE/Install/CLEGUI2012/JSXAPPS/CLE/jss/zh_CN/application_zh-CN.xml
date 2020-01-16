@@ -1,0 +1,11 @@
+﻿<data jsxnamespace="propsbundle" locales="">
+  <locale key="zh_CH">
+    <record jsxid="application_ApplicationID" jsxtext="应用程序ID"/>
+    <record jsxid="application_ID" jsxtext="应用程序ID"/>
+    <record jsxid="application_Name" jsxtext="名字"/>
+    <record jsxid="application_Description" jsxtext="描述"/>
+    <record jsxid="application_createNewItemCaption" jsxtext="创建新应用程序"/>
+    <record jsxid="application_createApplication" jsxtext="创建应用程序"/>
+    <record jsxid="application_createApplicationTip" jsxtext="创建应用程序"/>
+  </locale>
+</data>

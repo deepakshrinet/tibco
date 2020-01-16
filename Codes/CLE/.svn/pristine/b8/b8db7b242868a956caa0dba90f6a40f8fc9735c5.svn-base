@@ -1,0 +1,115 @@
+<data jsxnamespace="propsbundle" locales="">
+  <locale>
+    <record jsxid="interface_ApplicationID" jsxtext="Application ID"/>
+    <record jsxid="interface_InterfaceID" jsxtext="ID"/>
+    <record jsxid="interface_ID" jsxtext="ID"/>
+    <record jsxid="interface_InterfaceName" jsxtext="Name"/>
+    <record jsxid="interface_Name" jsxtext="Name"/>
+    <record jsxid="interface_InterfaceType" jsxtext="Type"/>
+    <record jsxid="interface_Type" jsxtext="Type"/>
+    <record jsxid="interface_dbUse" jsxtext="db Use"/>
+    <record jsxid="interface_TransComplexity" jsxtext="Trans Complexity"/>
+    <record jsxid="interface_Owner" jsxtext="Owner"/>
+    <record jsxid="interface_SourceSystem" jsxtext="Source System"/>
+    <record jsxid="interface_TargetSystem" jsxtext="Target System"/>
+    <record jsxid="interface_Protocol" jsxtext="Protocol"/>
+    <record jsxid="interface_Status" jsxtext="Status"/>
+    <record jsxid="interface_Description" jsxtext="Description"/>
+    <record jsxid="interface_ParentID" jsxtext="Parent ID"/>
+    <record jsxid="interface_createNewItemCaption" jsxtext="Create New Interface"/>
+    <record jsxid="interface_createInterface" jsxtext="Create Interface"/>
+    <record jsxid="interface_createInterfaceTip" jsxtext="Create Interface"/>
+    <!-- added -->
+    <record jsxid="interface_simple" jsxtext="Simple"/>
+    <record jsxid="interface_medium" jsxtext="Medium"/>
+    <record jsxid="interface_complex" jsxtext="Complex"/>
+    <record jsxid="interface_logical" jsxtext="Logical"/>
+    <record jsxid="interface_physical" jsxtext="Physical"/>
+    <record jsxid="interface_active" jsxtext="Active"/>
+    <record jsxid="interface_inactive" jsxtext="Inactive"/>
+  </locale>
+  <locale key="pt_BR">
+    <record jsxid="interface_ApplicationID" jsxtext="ID da Aplicação"/>
+    <record jsxid="interface_InterfaceID" jsxtext="ID"/>
+    <record jsxid="interface_ID" jsxtext="ID"/>
+    <record jsxid="interface_InterfaceName" jsxtext="Nome"/>
+    <record jsxid="interface_Name" jsxtext="Nome"/>
+    <record jsxid="interface_InterfaceType" jsxtext="Tipo"/>
+    <record jsxid="interface_Type" jsxtext="Tipo"/>
+    <record jsxid="interface_dbUse" jsxtext="Uso do db"/>
+    <record jsxid="interface_TransComplexity" jsxtext="Complexidade Trans."/>
+    <record jsxid="interface_Owner" jsxtext="Proprietário"/>
+    <record jsxid="interface_SourceSystem" jsxtext="Sistema Origem"/>
+    <record jsxid="interface_TargetSystem" jsxtext="Sistema Destino"/>
+    <record jsxid="interface_Protocol" jsxtext="Protocolo"/>
+    <record jsxid="interface_Status" jsxtext="Status"/>
+    <record jsxid="interface_Description" jsxtext="Descrição"/>
+    <record jsxid="interface_ParentID" jsxtext="ID do Pai"/>
+    <record jsxid="interface_createNewItemCaption" jsxtext="Criar Nova Interface"/>
+    <record jsxid="interface_createInterface" jsxtext="Criar Interface"/>
+    <record jsxid="interface_createInterfaceTip" jsxtext="Criar Interface"/>
+  </locale>
+  <locale key="es_ES">
+    <record jsxid="interface_ApplicationID" jsxtext="IDAplicación"/>
+    <record jsxid="interface_InterfaceID" jsxtext="ID"/>
+    <record jsxid="interface_ID" jsxtext="ID"/>
+    <record jsxid="interface_InterfaceName" jsxtext="Nombre"/>
+    <record jsxid="interface_Name" jsxtext="Nombre"/>
+    <record jsxid="interface_InterfaceType" jsxtext="Tipo"/>
+    <record jsxid="interface_Type" jsxtext="Tipo"/>
+    <record jsxid="interface_dbUse" jsxtext="Usar DB"/>
+    <record jsxid="interface_TransComplexity" jsxtext="Complejidad de Trans"/>
+    <record jsxid="interface_Owner" jsxtext="Dueño"/>
+    <record jsxid="interface_SourceSystem" jsxtext="Sistema Origen"/>
+    <record jsxid="interface_TargetSystem" jsxtext="Sistema Destino"/>
+    <record jsxid="interface_Protocol" jsxtext="Protocolo"/>
+    <record jsxid="interface_Status" jsxtext="Estatus"/>
+    <record jsxid="interface_Description" jsxtext="Descripción"/>
+    <record jsxid="interface_ParentID" jsxtext="ID de Padre"/>
+    <record jsxid="interface_createNewItemCaption" jsxtext="Crear Nueva Interfaz"/>
+    <record jsxid="interface_createInterface" jsxtext="Crear Interfaz"/>
+    <record jsxid="interface_createInterfaceTip" jsxtext="Crear Interfaz"/>
+  </locale>
+  <locale key="sv_SV">
+    <record jsxid="interface_ApplicationID" jsxtext="ApplikationsID"/>
+    <record jsxid="interface_InterfaceID" jsxtext="ID"/>
+    <record jsxid="interface_ID" jsxtext="ID"/>
+    <record jsxid="interface_InterfaceName" jsxtext="Namn"/>
+    <record jsxid="interface_Name" jsxtext="Namn"/>
+    <record jsxid="interface_InterfaceType" jsxtext="Typ"/>
+    <record jsxid="interface_Type" jsxtext="Typ"/>
+    <record jsxid="interface_dbUse" jsxtext="Databasanvändning"/>
+    <record jsxid="interface_TransComplexity" jsxtext="Transaktionskomplexitet"/>
+    <record jsxid="interface_Owner" jsxtext="Ägare"/>
+    <record jsxid="interface_SourceSystem" jsxtext="Källsystem"/>
+    <record jsxid="interface_TargetSystem" jsxtext="Målsystem"/>
+    <record jsxid="interface_Protocol" jsxtext="Protokoll"/>
+    <record jsxid="interface_Status" jsxtext="Status"/>
+    <record jsxid="interface_Description" jsxtext="Beskrivning"/>
+    <record jsxid="interface_ParentID" jsxtext="Förälders ID"/>
+    <record jsxid="interface_createNewItemCaption" jsxtext="Skapa Nytt Gränssnitt"/>
+    <record jsxid="interface_createInterface" jsxtext="Skapa Gränssnitt"/>
+    <record jsxid="interface_createInterfaceTip" jsxtext="Skapa Gränssnitt"/>
+  </locale>
+  <locale key="zh_CH">
+    <record jsxid="interface_ApplicationID" jsxtext="应用程序ID"/>
+    <record jsxid="interface_InterfaceID" jsxtext="ID"/>
+    <record jsxid="interface_ID" jsxtext="ID"/>
+    <record jsxid="interface_InterfaceName" jsxtext="名字"/>
+    <record jsxid="interface_Name" jsxtext="名字"/>
+    <record jsxid="interface_InterfaceType" jsxtext="类型"/>
+    <record jsxid="interface_Type" jsxtext="类型"/>
+    <record jsxid="interface_dbUse" jsxtext="db 使用"/>
+    <record jsxid="interface_TransComplexity" jsxtext="Trans复杂度"/>
+    <record jsxid="interface_Owner" jsxtext="所有者"/>
+    <record jsxid="interface_SourceSystem" jsxtext="源系统"/>
+    <record jsxid="interface_TargetSystem" jsxtext="目标系统"/>
+    <record jsxid="interface_Protocol" jsxtext="协议"/>
+    <record jsxid="interface_Status" jsxtext="状态"/>
+    <record jsxid="interface_Description" jsxtext="描述"/>
+    <record jsxid="interface_ParentID" jsxtext="父ID"/>
+    <record jsxid="interface_createNewItemCaption" jsxtext="创建新接口"/>
+    <record jsxid="interface_createInterface" jsxtext="创建接口"/>
+    <record jsxid="interface_createInterfaceTip" jsxtext="创建接口"/>
+  </locale>
+</data>

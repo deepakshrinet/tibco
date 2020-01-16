@@ -1,0 +1,267 @@
+<serialization xmlns="urn:tibco.com/v3.0" jsxversion="3.9">
+  <name><![CDATA[Block - 100%]]></name>
+  <icon><![CDATA[images/prototypes/block.gif]]></icon>
+  <description><![CDATA[Simple block, relatively positioned with overflow=scroll.]]></description>
+  <object type="jsx3.gui.Block">
+    <variants jsxoverflow="1"/>
+    <strings jsxname="securityPane" jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1"/>
+    <object type="jsx3.gui.CDF">
+      <variants/>
+      <strings jsxname="securityPaneCDF" jsxwidth="100%" jsxheight="100%" jsxxmlid="securityACL_cdf"/>
+      <object type="jsx3.gui.LayoutGrid">
+        <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+        <strings jsxname="layoutRows" jsxrows="28,32,32,*" jsxwidth="100%" jsxheight="100%"/>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="2"/>
+          <strings jsxname="securityMenuPane" jsxwidth="100%" jsxheight="100%"/>
+          <object type="jsx3.gui.WindowBar">
+            <variants jsxbartype="1"/>
+            <strings jsxname="toolBar"/>
+            <dynamics jsxbgcolor="neutralBG"/>
+            <object type="jsx3.gui.ToolbarButton">
+              <variants/>
+              <strings jsxname="refreshRoleACLButton" jsximage="images/icons/refreshDoc.gif" jsxtext="Refresh"/>
+              <events jsxexecute="cle.security.refreshACLView(this);"/>
+            </object>
+            <object type="jsx3.gui.ToolbarButton">
+              <variants jsxenabled="0"/>
+              <strings jsxname="updateRoleACLButton" jsximage="images/icons/addDoc.gif" jsxtext="Update"/>
+              <events jsxexecute="cle.security.updateACL(this);"/>
+            </object>
+          </object>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="3"/>
+          <strings jsxname="securityAppIdPane" jsxwidth="100%" jsxheight="100%"/>
+          <object type="jsx3.gui.LayoutGrid">
+            <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+            <strings jsxname="layoutCols" jsxcols="120,*" jsxwidth="100%" jsxheight="100%"/>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%" jsxtext="App Id" jsxtextalign="right"/>
+              <dynamics jsxpadding="@8Pixel" jsxfontsize="labelFontSize"/>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="1"/>
+              <strings jsxname="pane2" jsxwidth="100%" jsxheight="100%" jsxpadding="4 4 4 4"/>
+              <object type="jsx3.gui.Select">
+                <variants jsxwidth="210" jsxheight="18" jsxtype="0" jsxxmlasync="1" jsxxmlbind="1"/>
+                <strings jsxname="appIdCombo" jsxmargin="0 4 0 0" jsxxmlid="securityAppIdList_cdf"/>
+                <dynamics jsxfontsize="@Label1 FS"/>
+                <events jsxselect="cle.security.selectAppId(this,strRECORDID);"/>
+              </object>
+            </object>
+          </object>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="3"/>
+          <strings jsxname="securityRolePane" jsxwidth="100%" jsxheight="100%"/>
+          <object type="jsx3.gui.LayoutGrid">
+            <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+            <strings jsxname="layoutCols" jsxcols="120,*" jsxwidth="100%" jsxheight="100%"/>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%" jsxtext="Role" jsxtextalign="right"/>
+              <dynamics jsxpadding="@8Pixel" jsxfontsize="labelFontSize"/>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="1"/>
+              <strings jsxname="pane2" jsxwidth="100%" jsxheight="100%" jsxpadding="4 4 4 4"/>
+              <object type="jsx3.gui.Select">
+                <variants jsxwidth="210" jsxheight="18" jsxtype="0" jsxxmlasync="1" jsxxmlbind="1" jsxenabled="0"/>
+                <strings jsxname="roleCombo" jsxvalue="" jsxmargin="0 4 0 0" jsxxmlid="securityRoleNameList_cdf"/>
+                <dynamics jsxfontsize="@Label1 FS"/>
+                <events jsxselect="cle.security.selectRoleName(this,strRECORDID);"/>
+              </object>
+            </object>
+          </object>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants/>
+          <strings jsxname="securityPrivilegesPane" jsxwidth="100%" jsxheight="100%" jsxpadding="6 0 0 0"/>
+          <dynamics jsxborder="@Inset Top"/>
+          <object type="jsx3.gui.LayoutGrid">
+            <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+            <strings jsxname="layoutCols" jsxcols="120,*" jsxwidth="100%" jsxheight="100%" jsxrows="18,18,18,18,18,18,18,18,18,18,18,18,18,*"/>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxname="configPane" jsxwidth="100%" jsxheight="100%" jsxtextalign="right"/>
+              <dynamics jsxtext="security_configurations" jsxfontsize="labelFontSize"/>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxname="spacer" jsxwidth="100%" jsxheight="100%"/>
+              <dynamics jsxfontsize="labelFontSize"/>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%"/>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%"/>
+              <object type="jsx3.gui.CheckBox">
+                <variants jsxheight="18" jsxdefaultchecked="0" jsxchecked="0" jsxenabled="0"/>
+                <strings jsxname="checkbox_viewConfigurations" jsxmargin="0 4 0 0" jsxcdfattribute="p1"/>
+                <dynamics jsxtext="security_viewConfigurations" jsxfontsize="labelFontSize"/>
+                <events jsxtoggle="cle.security.togglePrivilege(this,intCHECKED);"/>
+              </object>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%"/>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%"/>
+              <object type="jsx3.gui.CheckBox">
+                <variants jsxheight="18" jsxdefaultchecked="0" jsxchecked="0" jsxenabled="0"/>
+                <strings jsxname="checkbox_addConfigurations" jsxmargin="0 4 0 0" jsxcdfattribute="p2"/>
+                <dynamics jsxfontsize="labelFontSize" jsxtext="security_addConfigurations"/>
+                <events jsxtoggle="cle.security.togglePrivilege(this,intCHECKED);"/>
+              </object>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%"/>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%"/>
+              <object type="jsx3.gui.CheckBox">
+                <variants jsxheight="18" jsxdefaultchecked="0" jsxchecked="0" jsxenabled="0"/>
+                <strings jsxname="checkbox_editConfigurations" jsxmargin="0 4 0 0" jsxcdfattribute="p3"/>
+                <dynamics jsxfontsize="labelFontSize" jsxtext="security_editConfigurations"/>
+                <events jsxtoggle="cle.security.togglePrivilege(this,intCHECKED);"/>
+              </object>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%"/>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%"/>
+              <object type="jsx3.gui.CheckBox">
+                <variants jsxheight="18" jsxdefaultchecked="0" jsxchecked="0" jsxenabled="0"/>
+                <strings jsxname="checkbox_deleteConfigurations" jsxmargin="0 4 0 0" jsxcdfattribute="p4"/>
+                <dynamics jsxfontsize="labelFontSize" jsxtext="security_deleteConfigurations"/>
+                <events jsxtoggle="cle.security.togglePrivilege(this,intCHECKED);"/>
+              </object>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxname="logsPane" jsxwidth="100%" jsxheight="100%" jsxtextalign="right"/>
+              <dynamics jsxtext="security_logs" jsxfontsize="labelFontSize"/>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%"/>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%"/>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%"/>
+              <object type="jsx3.gui.CheckBox">
+                <variants jsxheight="18" jsxdefaultchecked="0" jsxchecked="0" jsxenabled="0"/>
+                <strings jsxname="checkbox_viewLogs" jsxmargin="0 4 0 0" jsxcdfattribute="p8"/>
+                <dynamics jsxfontsize="labelFontSize" jsxtext="security_viewLogs"/>
+                <events jsxtoggle="cle.security.togglePrivilege(this,intCHECKED);"/>
+              </object>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%"/>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%"/>
+              <object type="jsx3.gui.CheckBox">
+                <variants jsxheight="18" jsxdefaultchecked="0" jsxchecked="0" jsxenabled="0"/>
+                <strings jsxname="checkbox_deleteLogs" jsxmargin="0 4 0 0" jsxcdfattribute="p7"/>
+                <dynamics jsxfontsize="labelFontSize" jsxtext="security_deleteLogs"/>
+                <events jsxtoggle="cle.security.togglePrivilege(this,intCHECKED);"/>
+              </object>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxname="exceptionsPane" jsxwidth="100%" jsxheight="100%" jsxtextalign="right"/>
+              <dynamics jsxtext="security_exceptions" jsxfontsize="labelFontSize"/>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%"/>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%"/>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%"/>
+              <object type="jsx3.gui.CheckBox">
+                <variants jsxheight="18" jsxdefaultchecked="0" jsxchecked="0" jsxenabled="0"/>
+                <strings jsxname="checkbox_viewExceptions" jsxmargin="0 4 0 0" jsxcdfattribute="p9"/>
+                <dynamics jsxfontsize="labelFontSize" jsxtext="security_viewExceptions"/>
+                <events jsxtoggle="cle.security.togglePrivilege(this,intCHECKED);"/>
+              </object>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%"/>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%"/>
+              <object type="jsx3.gui.CheckBox">
+                <variants jsxheight="18" jsxdefaultchecked="0" jsxchecked="0" jsxenabled="0"/>
+                <strings jsxname="checkbox_resolveExceptions" jsxmargin="0 4 0 0" jsxcdfattribute="p5"/>
+                <dynamics jsxfontsize="labelFontSize" jsxtext="security_resolveExceptions"/>
+                <events jsxtoggle="cle.security.togglePrivilege(this,intCHECKED);"/>
+              </object>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%"/>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%"/>
+              <object type="jsx3.gui.CheckBox">
+                <variants jsxheight="18" jsxdefaultchecked="0" jsxchecked="0" jsxenabled="0"/>
+                <strings jsxname="checkbox_deleteExceptions" jsxmargin="0 4 0 0" jsxcdfattribute="p6"/>
+                <dynamics jsxfontsize="labelFontSize" jsxtext="security_deleteExceptions"/>
+                <events jsxtoggle="cle.security.togglePrivilege(this,intCHECKED);"/>
+              </object>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%"/>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%"/>
+              <object type="jsx3.gui.CheckBox">
+                <variants jsxheight="18" jsxdefaultchecked="0" jsxchecked="0" jsxenabled="0"/>
+                <strings jsxname="checkbox_editTransactions" jsxmargin="0 4 0 0" jsxcdfattribute="p10"/>
+                <dynamics jsxfontsize="labelFontSize" jsxtext="security_editTransactions"/>
+                <events jsxtoggle="cle.security.togglePrivilege(this,intCHECKED);"/>
+              </object>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%"/>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%"/>
+            </object>
+          </object>
+        </object>
+      </object>
+    </object>
+  </object>
+</serialization>

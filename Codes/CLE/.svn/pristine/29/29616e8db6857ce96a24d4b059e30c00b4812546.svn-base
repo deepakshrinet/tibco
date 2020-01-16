@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:pfx0="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogDetailQuery" xmlns:pfx1="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogDetail" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlPfx="http://www.tibco.com/CommonLE2/namespace/Logging/GUIServices" xmlns:ns5="http://www.tibco.com/CommonLE2/namespace/Public/Common/RequestHeader.xsd" xmlns:ns6="http://www.tibco.com/CommonLE2/namespace/Private/Exception" xmlns:pfx="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/pe/EngineTypes" xmlns:ns1="http://www.tibco.com/CommonLE2/namespace/Common" xmlns:ns4="http://www.tibco.com/CommonLE2/namespace/Public/Common" xmlns:ns3="http://www.tibco.com/CommonLE/namespace/Common" xmlns:pfx5="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/ExceptionManagement" xmlns:pfx4="http://www.tibco.com/CommonLE2/Public/Common" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx3="http://xmlns.example.com/unique/default/namespace/1163206731086" xmlns:pfx2="http://www.tibco.com/CommonLE2/namespace/private/Common" xmlns:pfx6="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/ExceptionManagement/ExceptionDetailQuery">
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogDetailQuery" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Log/LogDetailQuery.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogDetail" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Log/LogDetail.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/CommonLE2/Public/Common" schemaLocation="/SharedResources/SchemaDefinitions/Public/Common/ErrorMessage.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/ExceptionManagement/ExceptionDetailQuery" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/ExceptionManagement/ExceptionDetailQuery.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/CommonLE2/namespace/Private/Exception" schemaLocation="/SharedResources/SchemaDefinitions/Private/Exception/ExceptionDetailQuery.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/ExceptionManagement" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/ExceptionManagement/ExceptionDetail.xsd"/>
+    <wsdl:import namespace="http://www.tibco.com/CommonLE2/namespace/Logging/GUIServices" location="/SharedResources/WSDL/GUI/Log/intfRetrieve_Log.wsdl"/>
+    <pd:name>ExceptionManagement/Logic/RetrieveExceptionDetailwithRendering.process</pd:name>
+    <pd:description>Retrieve exception detail and transform transaction data into HTML. If transformation information is not avaialbe based on the provided 
+renderid , the process does not generate error, but  an error note is attached to the original transaction data to indicate 
+the transformation is not avaialbe. </pd:description>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="ns6:ExceptionDetailQuery"/>
+    <pd:startX>64</pd:startX>
+    <pd:startY>87</pd:startY>
+    <pd:returnBindings>
+        <xsl:copy-of select="$ExceptionDetailVar/pfx5:ExceptionDetail"/>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType ref="pfx5:ExceptionDetail"/>
+    <pd:endX>625</pd:endX>
+    <pd:endY>86</pd:endY>
+    <pd:errorSchemas>
+        <Schema0 ref="pfx4:Error"/>
+    </pd:errorSchemas>
+    <pd:processVariables>
+        <ExceptionDetailVar ref="pfx5:ExceptionDetail"/>
+    </pd:processVariables>
+    <pd:targetNamespace>http://xmlns.example.com/1284482854851</pd:targetNamespace>
+    <pd:activity name="Assign ExceptionDetail">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>757</pd:x>
+        <pd:y>91</pd:y>
+        <config>
+            <variableName>ExceptionDetailVar</variableName>
+        </config>
+        <pd:inputBindings>
+            <pfx5:ExceptionDetail>
+                <xsl:copy-of select="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/ns5:Header"/>
+                <ExceptionInstanceID>
+                    <xsl:value-of select="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/ExceptionInstanceID"/>
+                </ExceptionInstanceID>
+                <ExceptionCode>
+                    <xsl:value-of select="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/ExceptionCode"/>
+                </ExceptionCode>
+                <Category>
+                    <xsl:value-of select="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/Category"/>
+                </Category>
+                <Type>
+                    <xsl:value-of select="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/Type"/>
+                </Type>
+                <Severity>
+                    <xsl:value-of select="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/Severity"/>
+                </Severity>
+                <xsl:if test="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/Timeout">
+                    <Timeout>
+                        <xsl:value-of select="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/Timeout"/>
+                    </Timeout>
+                </xsl:if>
+                <xsl:if test="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/ReplyDestination">
+                    <ReplyDestination>
+                        <xsl:value-of select="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/ReplyDestination"/>
+                    </ReplyDestination>
+                </xsl:if>
+                <xsl:if test="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/NotificationChannel">
+                    <NotificationChannel>
+                        <xsl:value-of select="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/NotificationChannel"/>
+                    </NotificationChannel>
+                </xsl:if>
+                <xsl:if test="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/ResolutionDescription">
+                    <ResolutionDescription>
+                        <xsl:value-of select="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/ResolutionDescription"/>
+                    </ResolutionDescription>
+                </xsl:if>
+                <xsl:if test="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/Status">
+                    <Status>
+                        <xsl:value-of select="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/Status"/>
+                    </Status>
+                </xsl:if>
+                <TransactionDataAfterResolve>
+                    <xsl:value-of select="concat(&quot;*****&quot;,  $Catch-DBRecord-Not-Found/pfx2:DBRecordNotFound/pfx2:Message, &quot;*******&quot;, &#xA;&quot;&#xD;&#xA;&quot;, &quot;&#xD;&#xA;&quot;, &#xA;$Retrieve-Exception-Detail/pfx5:ExceptionDetail/TransactionDataAfterResolve)"/>
+                </TransactionDataAfterResolve>
+            </pfx5:ExceptionDetail>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Assign ExceptionDetail Var">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>411</pd:x>
+        <pd:y>101</pd:y>
+        <config>
+            <variableName>ExceptionDetailVar</variableName>
+        </config>
+        <pd:inputBindings>
+            <xsl:copy-of select="$Retrieve-Exception-Detail/pfx5:ExceptionDetail"/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Assign ExceptionDetail Var-1">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>625</pd:x>
+        <pd:y>228</pd:y>
+        <config>
+            <variableName>ExceptionDetailVar</variableName>
+        </config>
+        <pd:inputBindings>
+            <pfx5:ExceptionDetail>
+                <ns5:Header>
+                    <ns5:ApplicationID>
+                        <xsl:value-of select="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/ns5:Header/ns5:ApplicationID"/>
+                    </ns5:ApplicationID>
+                    <xsl:if test="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/ns5:Header/ns5:ComponentName">
+                        <ns5:ComponentName>
+                            <xsl:value-of select="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/ns5:Header/ns5:ComponentName"/>
+                        </ns5:ComponentName>
+                    </xsl:if>
+                    <xsl:if test="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/ns5:Header/ns5:Hostname">
+                        <ns5:Hostname>
+                            <xsl:value-of select="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/ns5:Header/ns5:Hostname"/>
+                        </ns5:Hostname>
+                    </xsl:if>
+                    <ns5:Timestamp>
+                        <xsl:value-of select="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/ns5:Header/ns5:Timestamp"/>
+                    </ns5:Timestamp>
+                    <xsl:if test="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/ns5:Header/ns5:TransactionDomain">
+                        <ns5:TransactionDomain>
+                            <xsl:value-of select="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/ns5:Header/ns5:TransactionDomain"/>
+                        </ns5:TransactionDomain>
+                    </xsl:if>
+                    <xsl:if test="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/ns5:Header/ns5:TransactionType">
+                        <ns5:TransactionType>
+                            <xsl:value-of select="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/ns5:Header/ns5:TransactionType"/>
+                        </ns5:TransactionType>
+                    </xsl:if>
+                    <xsl:if test="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/ns5:Header/ns5:TransactionID">
+                        <ns5:TransactionID>
+                            <xsl:value-of select="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/ns5:Header/ns5:TransactionID"/>
+                        </ns5:TransactionID>
+                    </xsl:if>
+                    <xsl:if test="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/ns5:Header/ns5:CorrelationID">
+                        <ns5:CorrelationID>
+                            <xsl:value-of select="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/ns5:Header/ns5:CorrelationID"/>
+                        </ns5:CorrelationID>
+                    </xsl:if>
+                    <xsl:if test="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/ns5:Header/ns5:InterfaceID">
+                        <ns5:InterfaceID>
+                            <xsl:value-of select="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/ns5:Header/ns5:InterfaceID"/>
+                        </ns5:InterfaceID>
+                    </xsl:if>
+                    <xsl:if test="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/ns5:Header/ns5:Filename">
+                        <ns5:Filename>
+                            <xsl:value-of select="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/ns5:Header/ns5:Filename"/>
+                        </ns5:Filename>
+                    </xsl:if>
+                    <xsl:if test="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/ns5:Header/ns5:Message">
+                        <ns5:Message>
+                            <xsl:value-of select="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/ns5:Header/ns5:Message"/>
+                        </ns5:Message>
+                    </xsl:if>
+                    <xsl:if test="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/ns5:Header/ns5:RenderID">
+                        <ns5:RenderID>
+                            <xsl:value-of select="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/ns5:Header/ns5:RenderID"/>
+                        </ns5:RenderID>
+                    </xsl:if>
+                    <xsl:if test="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/ns5:Header/ns5:DataEncoding">
+                        <ns5:DataEncoding>
+                            <xsl:value-of select="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/ns5:Header/ns5:DataEncoding"/>
+                        </ns5:DataEncoding>
+                    </xsl:if>
+                    <ns5:Transaction>
+                        <xsl:value-of select="$Transform-Transaction-Before/HTMLString"/>
+                    </ns5:Transaction>
+                </ns5:Header>
+                <ExceptionInstanceID>
+                    <xsl:value-of select="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/ExceptionInstanceID"/>
+                </ExceptionInstanceID>
+                <ExceptionCode>
+                    <xsl:value-of select="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/ExceptionCode"/>
+                </ExceptionCode>
+                <Category>
+                    <xsl:value-of select="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/Category"/>
+                </Category>
+                <Type>
+                    <xsl:value-of select="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/Type"/>
+                </Type>
+                <Severity>
+                    <xsl:value-of select="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/Severity"/>
+                </Severity>
+                <xsl:if test="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/Timeout">
+                    <Timeout>
+                        <xsl:value-of select="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/Timeout"/>
+                    </Timeout>
+                </xsl:if>
+                <xsl:if test="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/ReplyDestination">
+                    <ReplyDestination>
+                        <xsl:value-of select="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/ReplyDestination"/>
+                    </ReplyDestination>
+                </xsl:if>
+                <xsl:if test="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/NotificationChannel">
+                    <NotificationChannel>
+                        <xsl:value-of select="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/NotificationChannel"/>
+                    </NotificationChannel>
+                </xsl:if>
+                <xsl:if test="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/ResolutionDescription">
+                    <ResolutionDescription>
+                        <xsl:value-of select="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/ResolutionDescription"/>
+                    </ResolutionDescription>
+                </xsl:if>
+                <Status>
+                    <xsl:value-of select="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/Status"/>
+                </Status>
+                <TransactionDataAfterResolve>
+                    <xsl:value-of select="$Transform-Transaction-After/HTMLString"/>
+                </TransactionDataAfterResolve>
+                <xsl:if test="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/Custom">
+                    <Custom>
+                        <xsl:value-of select="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/Custom"/>
+                    </Custom>
+                </xsl:if>
+                <xsl:if test="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/ResolveDelayTime">
+                    <ResolveDelayTime>
+                        <xsl:value-of select="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/ResolveDelayTime"/>
+                    </ResolveDelayTime>
+                </xsl:if>
+                <xsl:if test="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/EventType">
+                    <EventType>
+                        <xsl:value-of select="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/EventType"/>
+                    </EventType>
+                </xsl:if>
+                <xsl:if test="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/Stacktrace">
+                    <Stacktrace>
+                        <xsl:value-of select="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/Stacktrace"/>
+                    </Stacktrace>
+                </xsl:if>
+            </pfx5:ExceptionDetail>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch All Errors">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>179</pd:x>
+        <pd:y>347</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Catch DBRecord Not Found">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>757</pd:x>
+        <pd:y>219</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=DBRecordNotFound namespace=http://www.tibco.com/CommonLE2/namespace/private/Common</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Generate Internal Error">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>492</pd:x>
+        <pd:y>355</pd:y>
+        <config>
+            <faultName>Schema0</faultName>
+        </config>
+        <pd:inputBindings>
+            <pfx:ActivityInput>
+                <message>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Exceptions/Common/Messages/InternalError"/>
+                </message>
+                <messageCode>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Exceptions/Common/Codes/InternalError"/>
+                </messageCode>
+                <data>
+                    <pfx4:Error>
+                        <pfx4:Message>
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Exceptions/Common/Messages/InternalError"/>
+                        </pfx4:Message>
+                        <pfx4:Code>
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Exceptions/Common/Codes/InternalError"/>
+                        </pfx4:Code>
+                    </pfx4:Error>
+                </data>
+            </pfx:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Generate Record Not Found Error">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>759</pd:x>
+        <pd:y>350</pd:y>
+        <config>
+            <faultName>Schema0</faultName>
+        </config>
+        <pd:inputBindings>
+            <pfx:ActivityInput>
+                <message>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Exceptions/Log/Messages/LogDetailRecNotFound"/>
+                </message>
+                <messageCode>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Exceptions/Log/Codes/LogDetailRecNotFound"/>
+                </messageCode>
+                <data>
+                    <pfx4:Error>
+                        <pfx4:Message>
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Exceptions/Log/Messages/LogDetailRecNotFound"/>
+                        </pfx4:Message>
+                        <pfx4:Code>
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Exceptions/Log/Codes/LogDetailRecNotFound"/>
+                        </pfx4:Code>
+                    </pfx4:Error>
+                </data>
+            </pfx:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Local Exception Handler">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>329</pd:x>
+        <pd:y>355</pd:y>
+        <config>
+            <processName>/Common/Local Exception Handler.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns3:Exception>
+                <ErrorMessage>
+                    <xsl:value-of select="$_error/ns2:ErrorReport/Msg"/>
+                </ErrorMessage>
+                <xsl:if test="$_error/ns2:ErrorReport/MsgCode">
+                    <ErrorCode>
+                        <xsl:value-of select="$_error/ns2:ErrorReport/MsgCode"/>
+                    </ErrorCode>
+                </xsl:if>
+                <ns3:Error>
+                    <xsl:for-each select="$_error/ns2:ErrorReport">
+                        <ns3:ErrorReport>
+                            <StackTrace>
+                                <xsl:value-of select="StackTrace"/>
+                            </StackTrace>
+                            <Msg>
+                                <xsl:value-of select="Msg"/>
+                            </Msg>
+                            <FullClass>
+                                <xsl:value-of select="FullClass"/>
+                            </FullClass>
+                            <Class>
+                                <xsl:value-of select="Class"/>
+                            </Class>
+                            <ProcessStack>
+                                <xsl:value-of select="ProcessStack"/>
+                            </ProcessStack>
+                            <MsgCode>
+                                <xsl:value-of select="MsgCode"/>
+                            </MsgCode>
+                        </ns3:ErrorReport>
+                    </xsl:for-each>
+                </ns3:Error>
+            </ns3:Exception>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Retrieve Exception Detail">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>216</pd:x>
+        <pd:y>95</pd:y>
+        <config>
+            <processName>/ExceptionManagement/DataAccess/Oracle/RetrieveExceptionDetail.process</processName>
+            <processNameXPath>concat("/ExceptionManagement/DataAccess/",$_globalVariables/ns:GlobalVariables/Database/MIG_DatabaseType,"/RetrieveExceptionDetail.process")</processNameXPath>
+        </config>
+        <pd:inputBindings>
+            <xsl:copy-of select="$Start/ns6:ExceptionDetailQuery"/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Retrieve Rendering Implementation">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>220</pd:x>
+        <pd:y>221</pd:y>
+        <config>
+            <processName>/Common/DataAccess/Oracle/RetrieveRenderingImplementation.process</processName>
+            <processNameXPath>concat("/Common/DataAccess/", $_globalVariables/ns:GlobalVariables/Database/MIG_DatabaseType,  "/RetrieveRenderingImplementation.process")</processNameXPath>
+        </config>
+        <pd:inputBindings>
+            <pfx2:Query>
+                <pfx2:ApplicationID>
+                    <xsl:value-of select="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/ns5:Header/ns5:ApplicationID"/>
+                </pfx2:ApplicationID>
+                <pfx2:RenderID>
+                    <xsl:value-of select="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/ns5:Header/ns5:RenderID"/>
+                </pfx2:RenderID>
+            </pfx2:Query>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Transform Transaction After">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>492</pd:x>
+        <pd:y>219</pd:y>
+        <config>
+            <processName>/Common/Logic/TransformToRenderableHTML.process</processName>
+        </config>
+        <pd:inputBindings>
+            <InputParam>
+                <pfx2:RenderingImp>
+                    <pfx2:Css>
+                        <xsl:value-of select="$Retrieve-Rendering-Implementation/pfx2:RenderingImp/pfx2:Css"/>
+                    </pfx2:Css>
+                    <pfx2:XSLTSyleSheet>
+                        <xsl:value-of select="$Retrieve-Rendering-Implementation/pfx2:RenderingImp/pfx2:XSLTSyleSheet"/>
+                    </pfx2:XSLTSyleSheet>
+                </pfx2:RenderingImp>
+                <xmlString>
+                    <xsl:value-of select="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/TransactionDataAfterResolve"/>
+                </xmlString>
+            </InputParam>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Transform Transaction Before">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>353</pd:x>
+        <pd:y>220</pd:y>
+        <config>
+            <processName>/Common/Logic/TransformToRenderableHTML.process</processName>
+        </config>
+        <pd:inputBindings>
+            <InputParam>
+                <pfx2:RenderingImp>
+                    <pfx2:Css>
+                        <xsl:value-of select="$Retrieve-Rendering-Implementation/pfx2:RenderingImp/pfx2:Css"/>
+                    </pfx2:Css>
+                    <pfx2:XSLTSyleSheet>
+                        <xsl:value-of select="$Retrieve-Rendering-Implementation/pfx2:RenderingImp/pfx2:XSLTSyleSheet"/>
+                    </pfx2:XSLTSyleSheet>
+                </pfx2:RenderingImp>
+                <xmlString>
+                    <xsl:value-of select="$Retrieve-Exception-Detail/pfx5:ExceptionDetail/ns5:Header/ns5:Transaction"/>
+                </xmlString>
+            </InputParam>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Retrieve Exception Detail</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch DBRecord Not Found</pd:from>
+        <pd:to>Generate Record Not Found Error</pd:to>
+        <pd:xpathDescription>Detail Not Found</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$_globalVariables/ns:GlobalVariables/Exceptions/Log/Codes/LogDetailRecNotFound = $Catch-DBRecord-Not-Found/pfx2:DBRecordNotFound/pfx2:Code</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch All Errors</pd:from>
+        <pd:to>Local Exception Handler</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Local Exception Handler</pd:from>
+        <pd:to>Generate Internal Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Retrieve Rendering Implementation</pd:from>
+        <pd:to>Transform Transaction Before</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Transform Transaction Before</pd:from>
+        <pd:to>Transform Transaction After</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Transform Transaction After</pd:from>
+        <pd:to>Assign ExceptionDetail Var-1</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign ExceptionDetail Var</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign ExceptionDetail Var-1</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch DBRecord Not Found</pd:from>
+        <pd:to>Assign ExceptionDetail</pd:to>
+        <pd:xpathDescription>RenderID not Found</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign ExceptionDetail</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Retrieve Exception Detail</pd:from>
+        <pd:to>Assign ExceptionDetail Var</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Retrieve Exception Detail</pd:from>
+        <pd:to>Retrieve Rendering Implementation</pd:to>
+        <pd:xpathDescription>Has RenderID</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>(string-length(tib:trim($Retrieve-Exception-Detail/pfx5:ExceptionDetail/ns5:Header/ns5:RenderID)) &gt; 0) and (tib:trim($Retrieve-Exception-Detail/pfx5:ExceptionDetail/ns5:Header/ns5:RenderID) !="None")</pd:xpath>
+    </pd:transition>
+</pd:ProcessDefinition>

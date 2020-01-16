@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://www.zimmer.com/v1_0/ResponseBaseType"
+	 xmlns:sbt="http://www.zimmer.com/v1_0/ServiceBaseTypes"
+	 xmlns:aud="http://www.zimmer.com/v1_0/AuditTrackBaseType"
+	 targetNamespace="http://www.zimmer.com/v1_0/ResponseBaseType"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:annotation>
+		<xs:documentation>Response Base Type standard Service Response structure for all TIBCO implemented services</xs:documentation>
+		<xs:documentation>
+			SentRequestID	- RequestID value provided by the sender on the request
+			RespondingService	- (Optional) Service name and version of the service generating this response.
+			responseTarget	- (Optional) Sending Service service name and target version provided provided by the requesting system.
+			overallStatus		- Success or Error Level of the service
+								OK			- Completed without service error, all necessary functionality executed (there may still be negative Return Codes / uncompleted Functional processing
+								TimeOut 		- Timeout attempting to access a target dependent system
+								Unexpected	- Unexpected service processing error, likely a coding error
+								DataIntegrity	- Internal Data integrity error (data linkage not consistent)
+								ClientMaxTime	- Processing time exceeded the limit specified by the sending client
+								(other values)	- Additional custom values
+			responseTimeStamp - time stamp of responding service prior to sending the content.  Reflects time as kept on processing service server
+			clientStarttime 		- Value provided by client originating request.
+			errorList 			- list of errors (and/or warnings) incurred during processing of the client request
+			customNVPList	- List of name/value pair times allowing for schema content extension (additional properties) without changing the schema structure.
+		</xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="http://www.zimmer.com/v1_0/ServiceBaseTypes" schemaLocation="./ServiceBaseTypes.xsd"/>
+	<xs:import namespace="http://www.zimmer.com/v1_0/AuditTrackBaseType" schemaLocation="AuditTrackBase.xsd"/>
+	<xs:element name="ResponseBaseTypeElement" type="ResponseBaseType"/>
+	<xs:complexType name="ResponseBaseType">
+		<xs:sequence>
+			<xs:element name="SentRequestID" type="xs:string"/>
+			<xs:element name="RespondingService" type="sbt:ServiceInfoType" minOccurs="0"/>
+			<xs:element name="responseTarget" type="sbt:ServiceInfoType" minOccurs="0"/>
+			<xs:element name="overallStatus" type="xs:string"/>
+			<xs:element name="responseTimeStamp" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="clientStartTime" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="errorList" type="sbt:ErrorListType" minOccurs="0"/>
+			<xs:element name="auditTrack" type="aud:AuditTrackBaseType" minOccurs="0"/>
+			<xs:element name="customNVPList" type="sbt:NVPairList" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

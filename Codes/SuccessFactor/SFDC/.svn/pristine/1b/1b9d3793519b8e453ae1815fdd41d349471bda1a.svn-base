@@ -1,0 +1,109 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>N_Days</name>
+			<value>1</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1525715774696</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>OPCOM1_CANADA_RECON</name>
+			<value>O'Neil, David</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1503471658766</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>OPCOM1_CANADA_SPINE</name>
+			<value>Windisch, Luke</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1503471658876</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>OPCOM1_CMFT</name>
+			<value>Bruneau, Aurelien</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1503472061351</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>OPCOM1_DEFAULT</name>
+			<value>UNKNOWN</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1489438168106</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>OPCOM1_OTHER</name>
+			<value>Bezjak, Mark</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1507141778519</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>OPCOM1_SPINE</name>
+			<value>Ross, George</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1488796269850</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>OPCOM_CANADA_RECON</name>
+			<value>Delp, Robert</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1503471659366</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>OPCOM_CANADA_SPINE</name>
+			<value>Jefferis, Chris</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1507141748916</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>OPCOM_CMFT</name>
+			<value>Jefferis, Chris</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1507141664738</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>OPCOM_DEFAULT</name>
+			<value>UNKNOWN</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1484220197377</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>OPCOM_OTHER</name>
+			<value>Delp, Robert</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1488796269912</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>OPCOM_SPINE</name>
+			<value>Jefferis, Chris</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1507141643705</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

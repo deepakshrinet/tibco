@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/Common/RequestHeader.xsd"
+	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	 targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/Common/RequestHeader.xsd"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xsd:element name="Header">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="ApplicationID" type="xsd:string"/>
+				<xsd:element name="ComponentName" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="Hostname" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="Timestamp" type="xsd:dateTime"/>
+				<xsd:element name="TransactionDomain" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="TransactionType" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="TransactionID" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="CorrelationID" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="InterfaceID" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="Filename" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="Message" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="RenderID" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="DataEncoding" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="Transaction" type="xsd:string" minOccurs="0"/>
+				<xsd:element ref="AltKey" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="AltKey">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="AltKeyName" type="xsd:string"/>
+				<xsd:element name="AltKeyValue" type="xsd:string" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

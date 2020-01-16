@@ -1,0 +1,21 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>TriggerInterval</name>
+			<value>1500000</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1487671956145</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>TriggerStartTIme</name>
+			<value>2013 Apr 01 03:00:00 UTC</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1487671905099</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

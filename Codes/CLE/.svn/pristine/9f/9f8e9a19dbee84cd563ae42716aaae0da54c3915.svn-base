@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns12="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:pfx="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Exception/ExceptionResolution" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:ns3="http://www.tibco.com/CommonLE2/namespace/Public/Common" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx5="http://www.tibco.com/CommonLE2/namespace/Public/Exception" xmlns:pfx4="http://www.tibco.com/CommonLE2/namespace/Private/Exception" xmlns:pfx3="http://www.tibco.com/CommonLE2/namespace/private/Common" xmlns:pfx2="http://www.tibco.com/CommonLE2/Public/Common/Dummy" xmlns:pfx6="http://www.tibco.com/schemas/CLE/SharedResources/SchemaDefinitions/Public/Pluggable/Workflow/Schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Exception/ExceptionResolution" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/ExceptionManagement/ExceptionResolution.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/private/Common" schemaLocation="/SharedResources/SchemaDefinitions/Private/Common/LocalExceptions.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Private/Exception" schemaLocation="/SharedResources/SchemaDefinitions/Private/Exception/ExceptionResolution.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/Public/Common/Dummy" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Common/DummyReturnMessage.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Exception" schemaLocation="/SharedResources/SchemaDefinitions/Public/Exception/ExceptionRequest.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/schemas/CLE/SharedResources/SchemaDefinitions/Public/Pluggable/Workflow/Schema.xsd" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/Workflow/ProcedureCompletion.xsd"/>
+    <pd:name>ExceptionManagement/DataAccess/ResolveExceptions.process</pd:name>
+    <pd:description>Updates the ResolutionDescription and Status of exception instances</pd:description>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx4:ExceptionResolutionRecords"/>
+    <pd:startX>107</pd:startX>
+    <pd:startY>95</pd:startY>
+    <pd:returnBindings>
+        <pfx2:Dummy>
+            <pfx2:StatusMessage>
+                <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ReservedIDs/DummyID"/>
+            </pfx2:StatusMessage>
+        </pfx2:Dummy>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endX>489</pd:endX>
+    <pd:endY>103</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1283357389894</pd:targetNamespace>
+    <pd:group name="Group">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>206</pd:x>
+        <pd:y>24</pd:y>
+        <pd:width>205</pd:width>
+        <pd:height>138</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>inputLoop</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:over>$Start/pfx4:ExceptionResolutionRecords/pfx4:ExceptionResolution</pd:over>
+            <pd:iterationElementSlot>currentItem</pd:iterationElementSlot>
+            <pd:indexSlot>i</pd:indexSlot>
+            <pd:activityOutputName/>
+            <pd:accumulateOutput>false</pd:accumulateOutput>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>JMS Queue Sender</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>JMS Queue Sender</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="JMS Queue Sender">
+            <pd:type>com.tibco.plugin.jms.JMSQueueSendActivity</pd:type>
+            <pd:resourceType>ae.activities.JMSQueueSendActivity</pd:resourceType>
+            <pd:x>301</pd:x>
+            <pd:y>93</pd:y>
+            <config>
+                <PermittedMessageType>XML Text</PermittedMessageType>
+                <SessionAttributes>
+                    <transacted>false</transacted>
+                    <acknowledgeMode>1</acknowledgeMode>
+                    <maxSessions>1</maxSessions>
+                    <destination>%%JMSDestinationNames/MIG_ResolutionQueue%%</destination>
+                </SessionAttributes>
+                <ConfigurableHeaders>
+                    <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                    <JMSExpiration>0</JMSExpiration>
+                    <JMSPriority>4</JMSPriority>
+                </ConfigurableHeaders>
+                <ConnectionReference>/SharedResources/Connections/JMS/JMS Exception.sharedjmscon</ConnectionReference>
+                <InDataxsdString ref="pfx6:ProcedureCompletion"/>
+            </config>
+            <pd:inputBindings>
+                <ns12:ActivityInput>
+                    <Body>
+                        <pfx6:ProcedureCompletion>
+                            <pfx6:ExceptionInstanceID>
+                                <xsl:value-of select="$currentItem/pfx4:ExceptionResolution/pfx4:ExceptionID"/>
+                            </pfx6:ExceptionInstanceID>
+                            <pfx6:Resolution>
+                                <xsl:value-of select="$currentItem/pfx4:ExceptionResolution/pfx4:Resolution"/>
+                            </pfx6:Resolution>
+                            <pfx6:Status>
+                                <xsl:value-of select="$currentItem/pfx4:ExceptionResolution/pfx4:Status"/>
+                            </pfx6:Status>
+                            <xsl:if test="$currentItem/pfx4:ExceptionResolution/pfx4:TransactionUpdate">
+                                <pfx6:TransactionUpdate>
+                                    <xsl:value-of select="$currentItem/pfx4:ExceptionResolution/pfx4:TransactionUpdate"/>
+                                </pfx6:TransactionUpdate>
+                            </xsl:if>
+                        </pfx6:ProcedureCompletion>
+                    </Body>
+                </ns12:ActivityInput>
+            </pd:inputBindings>
+        </pd:activity>
+    </pd:group>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Group</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

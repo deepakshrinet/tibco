@@ -1,0 +1,69 @@
+﻿<data jsxnamespace="propsbundle" locales="">
+  <locale key="zh_CH">
+    <record jsxid="exception_tabLabel" jsxtext="例外"/>
+    <record jsxid="exception_searchExceptions" jsxtext="查找例外"/>
+    <record jsxid="exception_detail" jsxtext="细节"/>
+    <record jsxid="exception_details" jsxtext="细节"/>
+    <record jsxid="exception_header" jsxtext="头"/>
+    <record jsxid="exception_manageColumns" jsxtext="管理列"/>
+    <record jsxid="exception_manageColumnsCaption" jsxtext="管理例外目录的列"/>
+    <record jsxid="exception_stacktrace" jsxtext="堆栈"/>
+    <record jsxid="exception_resolve" jsxtext="处理"/>
+    <record jsxid="exception_statusResolved" jsxtext="处理了"/>
+    <record jsxid="exception_statusUnresolved" jsxtext="未处理"/>
+    <record jsxid="exception_statusSuppressed" jsxtext="抑制了"/>
+    <record jsxid="exception_resolveTip" jsxtext="提交信息给服务来解决选中的例外"/>
+    <record jsxid="exception_resolveCancelTip" jsxtext="关闭这个窗口并不要保存或发送信息"/>
+    <record jsxid="exception_resolveExceptions" jsxtext="处理例外"/>
+    <record jsxid="exception_resolutionDescription" jsxtext="处理描述"/>
+    <record jsxid="exception_resolveSelectedExceptions" jsxtext="处理选中的例外"/>
+    <record jsxid="exception_deleteSelectedExceptions" jsxtext="删除选中的例外"/>
+    <record jsxid="exception_suppressSelectedExceptions" jsxtext="抑制选中的例外"/>
+    <record jsxid="exception_transaction" jsxtext="事务"/>
+    <record jsxid="exception_transactionAfterResolve" jsxtext="处理后的事务"/>
+    <record jsxid="exception_exceptionIdCol" jsxtext="ID" ref="EXCEPTIONID"/>
+    <record jsxid="exception_applicationIdCol" jsxtext="程序ID" ref="APPLICATIONID"/>
+    <record jsxid="exception_correlationIdCol" jsxtext="关联ID" ref="CORRELATIONID"/>
+    <record jsxid="exception_transIdCol" jsxtext="事务ID" ref="TRANSID"/>
+    <record jsxid="exception_categoryCol" jsxtext="类别" ref="CATEGORY"/>
+    <record jsxid="exception_typeCol" jsxtext="类型" ref="TYPE"/>
+    <record jsxid="exception_severityCol" jsxtext="严重度" ref="SEVERITY"/>
+    <record jsxid="exception_componentNameCol" jsxtext="部件名字" ref="COMPONENTNAME"/>
+    <record jsxid="exception_transactionDomainCol" jsxtext="事务域" ref="TRANSACTIONDOMAIN"/>
+    <record jsxid="exception_timestampCol" jsxtext="时间戳" ref="TIME_STAMP"/>
+    <record jsxid="exception_messageCol" jsxtext="消息" ref="MESSAGE"/>
+    <record jsxid="exception_statusCol" jsxtext="状态" ref="STATUS"/>
+    <record jsxid="exception_include" jsxtext="包含"/>
+    <record jsxid="exception_rebuildApplicationList" jsxtext="重建应用程序目录"/>
+    <record jsxid="exception_clearValue" jsxtext="清空/重置值"/>
+    <record jsxid="exception_correlateLogs" jsxtext="关联日志"/>
+    <record jsxid="exception_noRecordsFoundUsingCriteria" jsxtext="没有找到规则相应的记录。"/>
+    <record jsxid="exception_tableHeader" jsxtext="下面的例外ids将被处理:"/>
+    <record jsxid="exception_listScrollInfo" jsxtext="- 查看例外记录从 {0} 到 {2} 中的 {1}   -"/>
+    <record jsxid="exception_deleteMessage" jsxtext="选中的例外将被永久删除，继续删除吗?"/>
+    <record jsxid="exception_suppressMessage" jsxtext="选中的例外将被抑制（忽视），继续抑制吗?"/>
+    <record jsxid="exception_attrExceptionInstanceID" jsxtext="例外实例ID"/>
+    <record jsxid="exception_attrExceptionCode" jsxtext="例外码"/>
+    <record jsxid="exception_attrCategory" jsxtext="类别"/>
+    <record jsxid="exception_attrType" jsxtext="类型"/>
+    <record jsxid="exception_attrSeverity" jsxtext="严重度"/>
+    <record jsxid="exception_attrReplyDestination" jsxtext="回复目的地"/>
+    <record jsxid="exception_attrResolutionDescription" jsxtext="处理描述"/>
+    <record jsxid="exception_attrStatus" jsxtext="状态"/>
+    <record jsxid="exception_attrResolveDelayTime" jsxtext="处理延迟时间"/>
+    <record jsxid="exception_attrApplicationID" jsxtext="应用程序ID"/>
+    <record jsxid="exception_attrComponentName" jsxtext="组件名字"/>
+    <record jsxid="exception_attrHostname" jsxtext="主机名字"/>
+    <record jsxid="exception_attrTimestamp" jsxtext="时间戳"/>
+    <record jsxid="exception_attrTransactionDomain" jsxtext="事务域"/>
+    <record jsxid="exception_attrTransactionType" jsxtext="事务类型"/>
+    <record jsxid="exception_attrTransactionID" jsxtext="事务ID"/>
+    <record jsxid="exception_attrCorrelationID" jsxtext="关联ID"/>
+    <record jsxid="exception_attrInterfaceID" jsxtext="接口ID"/>
+    <record jsxid="exception_attrFilename" jsxtext="文件名字"/>
+    <record jsxid="exception_attrRenderID" jsxtext="转换ID"/>
+    <record jsxid="exception_attrMessage" jsxtext="消息"/>
+    <record jsxid="exception_flipDetailsOrientation" jsxtext="翻转细节的目标"/>
+    <record jsxid="exception_flipDetailsOrientationTip" jsxtext="改变细节查看目标"/>
+  </locale>
+</data>

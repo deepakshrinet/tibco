@@ -1,0 +1,11 @@
+﻿<data jsxnamespace="propsbundle" locales="">
+  <locale key="zh_CH">
+    <record jsxid="typeConfig_ApplicationID" jsxtext="应用程序ID"/>
+    <record jsxid="typeConfig_TypeID" jsxtext="ID"/>
+    <record jsxid="typeConfig_TypeName" jsxtext="名字"/>
+    <record jsxid="typeConfig_Description" jsxtext="描述"/>
+    <record jsxid="typeConfig_createNewItemCaption" jsxtext="创建新类型"/>
+    <record jsxid="typeConfig_createType" jsxtext="创建类型"/>
+    <record jsxid="typeConfig_createTypeTip" jsxtext="创建类型"/>
+  </locale>
+</data>

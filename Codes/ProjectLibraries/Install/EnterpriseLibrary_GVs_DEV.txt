@@ -1,0 +1,90 @@
+// ----------------------------------------------------------------------------------
+// Global Variables --- EAR level
+// ----------------------------------------------------------------------------------
+ApplicationDetails/AuditFlag=false
+ApplicationDetails/Environment=DEV
+CLE/Connections/JMS/CommonLE/MIG_JMSExpiration=0
+CLE/Connections/JMS/CommonLE/MIG_JNDIContextURL=tibjmsnaming://vtibemsdv01.zmr.zimmer.com:7222
+CLE/Connections/JMS/CommonLE/MIG_JNDIPassword=#!IMbymRSKU/dvmzF7+uyDMKQLOUsIUb4P
+CLE/Connections/JMS/CommonLE/MIG_JNDIUser=cleuser
+CLE/Connections/JMS/CommonLE/MIG_Password=#!rVTZAnF2MJj3ugrNz5+HeG+YdHAS1eRe
+CLE/Connections/JMS/CommonLE/MIG_QueueConnectionFactory=XSP_FW_PRIMARY_CLECore_QCF
+CLE/Connections/JMS/CommonLE/MIG_TopicConnectionFactory=XSP_FW_PRIMARY_CLECore_TCF
+CLE/Connections/JMS/CommonLE/MIG_UserName=cleuser
+CLE/Destinations/Queues/CommonLE/ExceptionQueue=ZBS.INTEGRATION.CLE.EXCEPTION
+CLE/Destinations/Queues/CommonLE/LogLevelReply=ZBS.INTEGRATION.CLE.LOGLEVELREPLY
+CLE/Destinations/Queues/CommonLE/LogQueue=ZBS.INTEGRATION.CLE.LOG
+CLE/Destinations/Topics/CommonLE/LogLevelRequest=ZBS.INTEGRATION.CLE.LOGLEVELREQUEST
+CLE/Environment/CommonLE/ApplicationID=Sample1
+CLE/Environment/CommonLE/FilePollingInterval=900000
+CLE/Environment/CommonLE/MIG_ExceptionDir=C:\TIBCLE\SendFailures\Exception\
+CLE/Environment/CommonLE/MIG_LogDir=C:\TIBCLE\SendFailures\Log\
+CLE/Tuning/UtilityServices/LoggingAndExceptions/InitialLogLevel=4
+CLE/Tuning/UtilityServices/LoggingAndExceptions/JmsSendRetryDelayMillis=1000
+CLE/Tuning/UtilityServices/LoggingAndExceptions/JmsSendRetryMaxCount=3
+EnvVariables/TIBCO_BC_Connection/DB_DriverType=Oracle Thin
+EnvVariables/TIBCO_BC_Connection/DB_JDBC_URL=jdbc:oracle:thin:@vtibdbdv01.zmr.zimmer.com:1521:TIBDEV
+EnvVariables/TIBCO_BC_Connection/DB_JDBCDriver=oracle.jdbc.OracleDriver
+EnvVariables/TIBCO_BC_Connection/DB_Password=#!J2mPJn4NgkHxN1V+oichwlngCjIg5G0A6xHSeYTXtsgjZVKup7DMHA==
+EnvVariables/TIBCO_BC_Connection/DB_User=TIB_BC_32
+EnvVariables/TIBCO_BC_Connection/JMS_Transport/InstallationName=ZIMBC-DEV
+EnvVariables/TIBCO_BC_Connection/JMS_Transport/InstallationPrefix=ZBS.B2B
+EnvVariables/TIBCO_BC_Connection/JMS_Transport/JMS_Password=#!CdhdptEwtLMTkMmzn/yFKuxYhg2qzFi9
+EnvVariables/TIBCO_BC_Connection/JMS_Transport/JMS_Username=TIBBC6
+EnvVariables/TIBCO_BC_Connection/JMS_Transport/JNDIContextFactory=com.tibco.tibjms.naming.TibjmsInitialContextFactory
+EnvVariables/TIBCO_BC_Connection/JMS_Transport/JNDIContextUrl=tibjmsnaming://vtibemsdv01:7222
+EnvVariables/TIBCO_BC_Connection/JMS_Transport/JNDIPassword=#!DR72o6XfPnGijnfE7/hV8WBT4T30GxqE
+EnvVariables/TIBCO_BC_Connection/JMS_Transport/JNDIUserName=TIBBC6
+EnvVariables/TIBCO_BC_Connection/JMS_Transport/QueueConnectionFactory=ZBS_QueueConnectionFactory
+EnvVariables/TIBCO_BC_Connection/JMS_Transport/TopicConnnectionFactory=ZBS_TopicConnectionFactory
+EnvVariables/TIBCO_JDBC_Connection/JDBC_DRIVER=oracle.jdbc.driver.OracleDriver (thin)
+EnvVariables/TIBCO_JDBC_Connection/JDBCTimeout=300
+EnvVariables/TIBCO_JDBC_Connection/LoggerDBURL=jdbc:oracle:thin:@vtibdbdv01:1521:tibdev
+EnvVariables/TIBCO_JDBC_Connection/LoginTimeout=300
+EnvVariables/TIBCO_JDBC_Connection/MaxConnection=10
+EnvVariables/TIBCO_JDBC_Connection/MAXIMUM_ROWS=500
+EnvVariables/TIBCO_JDBC_Connection/PASSWORD=#!CG9pUbwQE87BcuzSs1lFLabEA7xEI2QbahXb22W2eH0=
+EnvVariables/TIBCO_JDBC_Connection/Schema=tibco_app
+EnvVariables/TIBCO_JDBC_Connection/USERNAME=tibco_app
+EnvVariables/TIBCO_JMS_Connection/JNDI_PASSWORD=#!TYtGnL9uqgMC3TUKRHNic9n+r2/aVDceSyVr3NGMKb+HKt+Z+nEfPA==
+EnvVariables/TIBCO_JMS_Connection/JNDI_URL=tcp://vtibemsdv01.zmr.zimmer.com:7222
+EnvVariables/TIBCO_JMS_Connection/JNDI_USERNAME=dev_SRMTIBCO
+EnvVariables/TIBCO_JMS_Connection/PASSWORD=#!hmV2sE7ki4vDCJpVierLANQkfSdH5uy4dWxMkwIam8ZqVKE2MxVZOg==
+EnvVariables/TIBCO_JMS_Connection/QUEUE_CONNECTION_FACTORY=ZBS_QueueConnectionFactory
+EnvVariables/TIBCO_JMS_Connection/TOPIC_CONNECTION_FACTORY=ZBS_TopicConnectionFactory
+EnvVariables/TIBCO_JMS_Connection/USERNAME=dev_SRMTIBCO
+EnvVariables/TIBCO_MFT_Connection/COMMAND_CENTER/COMMAND_CENTER_PASSWORD=#!b5zGC7YsUHzqUOquJ8y5YoQkLRFE2l800b15uzcuC4I=
+EnvVariables/TIBCO_MFT_Connection/COMMAND_CENTER/COMMAND_CENTER_USER=MFTDEPLOY
+EnvVariables/TIBCO_MFT_Connection/COMMAND_CENTER/MANAGEMENT_QUEUE=ZBS.MFT.Management
+EnvVariables/TIBCO_MFT_Connection/COMMAND_CENTER/TIMEOUT=30
+QUEUE/CentralizedScheduler_Queue=ZBS.TIBCO.CENTRALIZEDSCHEDULER.UPDATEINTERFACESTATUS.ASYNC
+SendEmail/Email_From=MG-ZIM-WAR-COMMON-TIB-SUP@zimmer.com
+SendEmail/Email_To=MG-ZIM-WAR-COMMON-TIB-SUP@zimmer.com
+SendEmail/SMTP_Server=webmail.zimmer.com
+StoreAndReplayService/OperationRetryCount=3
+StoreAndReplayService/OperationSleepInterval=300
+StoreAndReplayService/OperationTimeOut=300
+StoreAndReplayService/StoreService/QueueName=ZBS.TIBCO.BW.STOREANDREPLAY.STOREMESSAGE.ASYNC
+// ----------------------------------------------------------------------------------
+// Process Archive.par --- Process Starter settings --- PAR level
+// ----------------------------------------------------------------------------------
+_TAG,BWProcess,Process Archive,CLE/Interface/Loader/ResendLogs.process,maxJob=0
+_TAG,BWProcess,Process Archive,CLE/Interface/Loader/ResendLogs.process,activation=true
+_TAG,BWProcess,Process Archive,CLE/Interface/Loader/ResendLogs.process,flowLimit=0
+_TAG,BWProcess,Process Archive,CLE/Interface/Loader/ResendExceptions.process,maxJob=0
+_TAG,BWProcess,Process Archive,CLE/Interface/Loader/ResendExceptions.process,activation=true
+_TAG,BWProcess,Process Archive,CLE/Interface/Loader/ResendExceptions.process,flowLimit=0
+_TAG,BWProcess,Process Archive,CLE/Interface/Loader/InitializeLogLevel.process,maxJob=0
+_TAG,BWProcess,Process Archive,CLE/Interface/Loader/InitializeLogLevel.process,activation=true
+_TAG,BWProcess,Process Archive,CLE/Interface/Loader/InitializeLogLevel.process,flowLimit=0
+_TAG,Setting,Process Archive,threadCount=8
+_TAG,Setting,Process Archive,maxLogFileCount=5
+_TAG,Setting,Process Archive,maxLogFileSize=20000
+_TAG,Setting,Process Archive,java/initHeapSize=32
+_TAG,Setting,Process Archive,java/maxHeapSize=256
+_TAG,Setting,Process Archive,java/prepandClassPath=
+_TAG,Setting,Process Archive,java/appendClassPath=
+// ----------------------------------------------------------------------------------
+// Machine #1 --- Process Archive.par --- Service Instance settings --- Service level
+// ----------------------------------------------------------------------------------
+_TAG,Machine,Process Archive,Process Archive,machine=%%Process Archive.par-machine%%

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BWSharedResource xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx="http://www.tibco.com/schemas/LMS_ESB_CRCLM_MES/SharedResources/Schemas/XSD/Curriculum.xsd">
+    <import namespace="http://www.tibco.com/schemas/LMS_ESB_CRCLM_MES/SharedResources/Schemas/XSD/Curriculum.xsd"/>
+    <name>CurriculumDataFormat</name>
+    <resourceType>ae.shared.ParseSharedResource</resourceType>
+    <config xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <FormatType>Delimiter separated</FormatType>
+        <ColumnSeparator>,</ColumnSeparator>
+        <ColSeparatorRule>Treat all characters as entered as a single column separator string</ColSeparatorRule>
+        <LineSeparator>
+</LineSeparator>
+        <FillCharacter>Space</FillCharacter>
+        <LineLength>8</LineLength>
+        <DataFormat>
+            <xsd:element name="root">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="SAPID" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="USERID" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="PERSONNELAREACODE" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="CURRICULUMID" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="CURRICULUMTITLE" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="COMPLETED" type="xsd:string" minOccurs="0"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </DataFormat>
+    </config>
+</BWSharedResource>

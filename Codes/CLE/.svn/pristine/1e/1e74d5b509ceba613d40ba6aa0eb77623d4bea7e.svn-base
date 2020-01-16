@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx5="http://www.tibco.com/schemas/CommonLE/Plug-ins/Notification/Resources/Schemas/SystemsInfo.xsd" xmlns:pfx4="http://www.tibco.com/CommonLE2/Private/Administration" xmlns:pfx3="http://www.tibco.com/CommonLE2/namespace/private/Common" xmlns:pfx2="http://www.tibco.com/pe/DeployedVarsType" xmlns:pfx="http://www.tibco.com/CommonLE2/Private/Exception">
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/Private/Exception" schemaLocation="/SharedResources/SchemaDefinitions/Private/Exception/QueryResults.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/Private/Administration" schemaLocation="/SharedResources/SchemaDefinitions/Private/Administration/QueryResults.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/Private/Exception" schemaLocation="/SharedResources/SchemaDefinitions/Private/Exception/QueryUpdate.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/private/Common" schemaLocation="/SharedResources/SchemaDefinitions/Private/Common/LocalExceptions.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/schemas/CommonLE/Plug-ins/Notification/Resources/Schemas/SystemsInfo.xsd" schemaLocation="/Plug-ins/Notification/Resources/Schemas/SystemsInfo.xsd"/>
+    <pd:name>Plug-ins/Notification/Logic/RetrieveInterfaceConfiguration.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="Key">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="ApplicationID" type="xsd:string"/>
+                    <xsd:element name="InterfaceID" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>26</pd:startX>
+    <pd:startY>105</pd:startY>
+    <pd:returnBindings>
+        <xsl:choose>
+            <xsl:when test="count($Get-Interface-Configuration/pfx5:SystemsInfo) > 0">
+                <xsl:copy-of select="$Get-Interface-Configuration/pfx5:SystemsInfo"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:copy-of select="$Retrieve-Interface-Configuration/pfx5:SystemsInfo"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType ref="pfx5:SystemsInfo"/>
+    <pd:endX>567</pd:endX>
+    <pd:endY>255</pd:endY>
+    <pd:errorSchemas>
+        <RecNotFound ref="pfx3:ExceptionConfigurationNotFound"/>
+        <DBError ref="pfx3:DBError"/>
+        <IDNotFound ref="pfx3:IDNotFound"/>
+    </pd:errorSchemas>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1284482855898</pd:targetNamespace>
+    <pd:activity name="Get Interface Cache">
+        <pd:type>com.tibco.pe.core.GetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.getSharedVariable</pd:resourceType>
+        <pd:x>141</pd:x>
+        <pd:y>113</pd:y>
+        <config>
+            <variableConfig>/Plug-ins/Notification/Resources/Shared Variables/SystemInfoCache.sharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Get Interface Configuration">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>143</pd:x>
+        <pd:y>273</pd:y>
+        <config>
+            <element ref="pfx5:SystemsInfo"/>
+        </config>
+        <pd:inputBindings>
+            <xsl:for-each select="$Get-Interface-Cache/pfx5:SystemInfoList/pfx5:SystemsInfo[ pfx5:InterfaceID= $Start/Key/InterfaceID][ $Get-Interface-Cache/pfx5:SystemInfoList/pfx5:SystemsInfo/pfx5:ApplicationID = $Start/Key/ApplicationID ][1]">
+                <pfx5:SystemsInfo>
+                    <pfx5:ApplicationID>
+                        <xsl:value-of select="pfx5:ApplicationID"/>
+                    </pfx5:ApplicationID>
+                    <pfx5:InterfaceID>
+                        <xsl:value-of select="pfx5:InterfaceID"/>
+                    </pfx5:InterfaceID>
+                    <xsl:if test="pfx5:SourceSystem">
+                        <pfx5:SourceSystem>
+                            <xsl:value-of select="pfx5:SourceSystem"/>
+                        </pfx5:SourceSystem>
+                    </xsl:if>
+                    <xsl:if test="pfx5:TargetSystem">
+                        <pfx5:TargetSystem>
+                            <xsl:value-of select="pfx5:TargetSystem"/>
+                        </pfx5:TargetSystem>
+                    </xsl:if>
+                </pfx5:SystemsInfo>
+            </xsl:for-each>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Retrieve Interface Configuration">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>385</pd:x>
+        <pd:y>113</pd:y>
+        <config>
+            <processName>/Plug-ins/Notification/DataAccess/Oracle/Get Source-Target SystemInfo.process</processName>
+            <processNameXPath>concat("/Plug-ins/Notification/DataAccess/", $_globalVariables/pfx2:GlobalVariables/Database/MIG_DatabaseType, "/Get Source-Target SystemInfo.process")</processNameXPath>
+        </config>
+        <pd:inputBindings>
+            <xsl:copy-of select="$Start/Key"/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:group name="Group">
+        <pd:type>com.tibco.pe.core.CriticalSectionGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>493</pd:x>
+        <pd:y>38</pd:y>
+        <pd:width>139</pd:width>
+        <pd:height>122</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>criticalSection</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:scope>single</pd:scope>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>SetVariable</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>SetVariable</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="SetVariable">
+            <pd:type>com.tibco.pe.core.SetSharedVariableActivity</pd:type>
+            <pd:resourceType>ae.activities.setSharedVariable</pd:resourceType>
+            <pd:description>Note: It is possible mutiple configuraitons of the same can be cached. 
+Exception minor performance impact, there is no functional side effect.</pd:description>
+            <pd:x>548</pd:x>
+            <pd:y>105</pd:y>
+            <config>
+                <variableConfig>/Plug-ins/Notification/Resources/Shared Variables/SystemInfoCache.sharedvariable</variableConfig>
+            </config>
+            <pd:inputBindings>
+                <pfx5:SystemInfoList>
+                    <xsl:if test="count($Get-Interface-Cache/pfx5:SystemInfoList/pfx5:SystemsInfo)>0">
+                        <xsl:copy-of select="$Get-Interface-Cache/pfx5:SystemInfoList/pfx5:SystemsInfo"/>
+                    </xsl:if>
+                    <xsl:copy-of select="$Retrieve-Interface-Configuration/pfx5:SystemsInfo"/>
+                </pfx5:SystemInfoList>
+            </pd:inputBindings>
+        </pd:activity>
+    </pd:group>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Get Interface Cache</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Get Interface Configuration</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Get Interface Cache</pd:from>
+        <pd:to>Get Interface Configuration</pd:to>
+        <pd:lineType>Straight</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Get Interface Cache</pd:from>
+        <pd:to>Retrieve Interface Configuration</pd:to>
+        <pd:xpathDescription>First time</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>error</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Get Interface Configuration</pd:from>
+        <pd:to>Retrieve Interface Configuration</pd:to>
+        <pd:xpathDescription>Not Found</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>error</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Retrieve Interface Configuration</pd:from>
+        <pd:to>Group</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

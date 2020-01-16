@@ -1,0 +1,23 @@
+﻿<data jsxnamespace="propsbundle" locales="">
+  <locale key="zh_CH">
+    <record jsxid="security_tabLabel" jsxtext="安全"/>
+    <record jsxid="security_appId" jsxtext="应用程序Id"/>
+    <record jsxid="security_role" jsxtext="角色"/>
+    <record jsxid="security_configurations" jsxtext="配置"/>
+    <record jsxid="security_viewConfigurations" jsxtext="查看配置"/>
+    <record jsxid="security_addConfigurations" jsxtext="添加配置"/>
+    <record jsxid="security_editConfigurations" jsxtext="编辑配置"/>
+    <record jsxid="security_deleteConfigurations" jsxtext="删除配置"/>
+    <record jsxid="security_logs" jsxtext="日志"/>
+    <record jsxid="security_viewLogs" jsxtext="查看"/>
+    <record jsxid="security_deleteLogs" jsxtext="删除日志"/>
+    <record jsxid="security_exceptions" jsxtext="例外"/>
+    <record jsxid="security_viewExceptions" jsxtext="查看例外"/>
+    <record jsxid="security_resolveExceptions" jsxtext="处理例外"/>
+    <record jsxid="security_deleteExceptions" jsxtext="删除例外"/>
+    <record jsxid="security_editTransactions" jsxtext="编辑事务"/>
+    <record jsxid="security_refresh" jsxtext="刷新"/>
+    <record jsxid="security_refreshMessage" jsxtext="有未保存的改变，丢弃改变并且刷新?"/>
+    <record jsxid="security_update" jsxtext="升级"/>
+  </locale>
+</data>

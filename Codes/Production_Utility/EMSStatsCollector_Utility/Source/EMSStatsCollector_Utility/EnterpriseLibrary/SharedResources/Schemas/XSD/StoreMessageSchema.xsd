@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://www.zimmer.com/tibco/schemas/ZBS/XSD/StoreReplayService/v1/StoreMessageSchema.xsd"
+	 targetNamespace="http://www.zimmer.com/tibco/schemas/ZBS/XSD/StoreReplayService/v1/StoreMessageSchema.xsd"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="GUID" type="xs:string"/>
+	<xs:element name="TransactionID" type="xs:string"/>
+	<xs:element name="OriginalDestination">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="destinationType" type="xs:string"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ReplayDestination">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="destinationType" type="xs:string"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Reason" type="xs:string"/>
+	<xs:element name="ApplicaitonID" type="xs:string"/>
+	<xs:element name="ApplicationName" type="xs:string"/>
+	<xs:element name="Message" type="xs:string"/>
+	<xs:element name="JMSConnectionFactory" type="xs:string"/>
+	<xs:element name="TargetSystem" type="xs:string"/>
+	<xs:element name="StoreMessage">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="GUID" minOccurs="0"/>
+				<xs:element ref="TransactionID" minOccurs="0"/>
+				<xs:element ref="OriginalDestination"/>
+				<xs:element ref="ReplayDestination" minOccurs="0"/>
+				<xs:element ref="Reason"/>
+				<xs:element ref="ApplicaitonID" minOccurs="0"/>
+				<xs:element ref="ApplicationName" minOccurs="0"/>
+				<xs:element ref="JMSConnectionFactory" minOccurs="0"/>
+				<xs:element ref="TargetSystem" minOccurs="0"/>
+				<xs:element ref="MessageTime" minOccurs="0"/>
+				<xs:element ref="Message"/>
+				<xs:element ref="Dynamic_property" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="MessageTime" type="xs:dateTime"/>
+	<xs:element name="Dynamic_property">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="name" type="xs:string" minOccurs="0"/>
+				<xs:element name="value" type="xs:string" minOccurs="0"/>
+				<xs:element name="type" type="xs:string" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

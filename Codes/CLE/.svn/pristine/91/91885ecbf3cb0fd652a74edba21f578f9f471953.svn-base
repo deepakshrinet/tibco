@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pfx16="http://www.tibco.com/CommonLE2/namespace/Public/CLEExtension/LogLevelRequest.xsd" xmlns:pfx15="http://www.tibco.com/CommonLE2/namespace/Public/CLEExtension/LogLevelReply.xsd" xmlns:pfx14="http://www.tibco.com/CommonLE2/namespace/Public/Logging/LogLevelRequest.xsd" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:pfx13="http://www.tibco.com/CommonLE2/namespace/private/Common" xmlns:pfx12="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogDetail" xmlns:pfx11="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogDetailQuery" xmlns:pfx10="http://schemas.tibco.com/bw/plugins/jdbc/5.0/jdbcExceptions" xmlns:pfx18="http://www.tibco.com/CommonLE2/namespace/Public/CLEExtension/LogLevelResponse.xsd" xmlns:pfx17="http://www.tibco.com/CommonLE2011/namespace/Public/CLEExtension/LogLevelReply.xsd" xmlns:pfx5="http://www.tibco.com/CommonLE/namespace/LogListResponse" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx4="http://www.tibco.com/CommonLE/namespace/InternalLogResponse" xmlns:pfx3="http://www.tibco.com/CommonLE/namespace/Common" xmlns:pfx2="http://www.tibco.com/unique/default/namespace/CommonLE" xmlns:pfx9="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log" xmlns:pfx8="http://www.tibco.com/CommonLE2/namespace/Log" xmlns:pfx7="http://www.tibco.com/CommonLE2/namespace/Exception" xmlns:pfx6="http://www.tibco.com/CommonLE/namespace/GUI" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns5="http://schemas.tibco.com/bw/plugins/xml/5.0/xmlExceptions" xmlns:ns12="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:ns6="http://www.tibco.com/CommonLE2/namespace/Public/Common" xmlns:pfx="http://www.tibco.com/unique/default/namespace/Log" xmlns:ns7="http://www.tibco.com/CommonLE2/namespace/Public/Common/RequestHeader.xsd" xmlns:ns8="www.tibco.com/plugin/Sleep" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:ns1="http://www.tibco.com/pe/EngineTypes" xmlns:ns4="http://www.tibco.com/CommonLE2/namespace/Common" xmlns:ns3="http://www.tibco.com/CommonLE/namespace/Custom" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xsd:import namespace="http://www.tibco.com/CommonLE/namespace/Common" schemaLocation="/SharedResources/SchemaDefinitions/Public/Common/LogQuery.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE/namespace/InternalLogResponse" schemaLocation="/SharedResources/SchemaDefinitions/Private/Logging/LogStoredProcedureResponse.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogDetailQuery" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Log/LogDetailQuery.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogDetail" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Log/LogDetail.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE/namespace/LogListResponse" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Log/LogList.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Exception"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/CLEExtension/LogLevelReply.xsd" schemaLocation="/SharedResources/SchemaDefinitions/Public/Logging/LogLevelReply.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/private/Common" schemaLocation="/SharedResources/SchemaDefinitions/Private/Common/LocalExceptions.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Logging/LogLevelRequest.xsd" schemaLocation="/SharedResources/SchemaDefinitions/Public/Logging/LogLevelReqest.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2011/namespace/Public/CLEExtension/LogLevelReply.xsd" schemaLocation="/SharedResources/SchemaDefinitions/Public/Logging/LogLevelInformation.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/CLEExtension/LogLevelResponse.xsd" schemaLocation="/SharedResources/SchemaDefinitions/Public/Logging/LogLevelResponse.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/CLEExtension/LogLevelRequest.xsd" schemaLocation="/SharedResources/SchemaDefinitions/Public/Logging/LogLevelRequest.xsd"/>
+    <pd:name>Logging/Logic/LogLevel/RetrieveLogLevelDetail.process</pd:name>
+    <pd:description>This process is used to retrieve the details of one log records based on the unique LOGID</pd:description>
+    <pd:startName>Start</pd:startName>
+    <pd:startDescription>Contains the LogID based on which the log details have to be retrieved</pd:startDescription>
+    <pd:startType ref="pfx16:GetLogLevelRequest"/>
+    <pd:startX>87</pd:startX>
+    <pd:startY>94</pd:startY>
+    <pd:returnBindings>
+        <pfx18:EngineLogLevelDetails>
+            <xsl:copy-of select="$GetSetLogLevelSharedVariable/pfx18:EngineLogLevelDetails/pfx18:EngineLogLevel"/>
+        </pfx18:EngineLogLevelDetails>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endDescription>Returns the LogDetails XML message containing all the details associated with the Log ID</pd:endDescription>
+    <pd:endType ref="pfx18:EngineLogLevelDetails"/>
+    <pd:endX>507</pd:endX>
+    <pd:endY>94</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1252092312264</pd:targetNamespace>
+    <pd:activity name="GetSetLogLevelSharedVariable">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>422</pd:x>
+        <pd:y>94</pd:y>
+        <config>
+            <processName>/Logging/Logic/LogLevel/GetSetLogLevelSharedVariable.process</processName>
+        </config>
+        <pd:inputBindings>
+            <pfx16:EngineLogLevel>
+                <pfx16:EngineName>
+                    <xsl:value-of select="$Start/pfx16:GetLogLevelRequest/pfx16:LogLevelRequest/pfx16:EngineName"/>
+                </pfx16:EngineName>
+                <pfx16:LogLevel>
+                    <xsl:value-of select="$Start/pfx16:GetLogLevelRequest/pfx16:LogLevelRequest/pfx16:LogLevel"/>
+                </pfx16:LogLevel>
+            </pfx16:EngineLogLevel>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="ReqLogLevel">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>188</pd:x>
+        <pd:y>94</pd:y>
+        <config>
+            <processName>/Logging/Logic/LogLevel/ReqLogLevel.process</processName>
+        </config>
+        <pd:inputBindings>
+            <pfx16:LogLevelRequest>
+                <xsl:if test="not(contains($Start/pfx16:GetLogLevelRequest/pfx16:LogLevelRequest/pfx16:EngineName, &quot;*&quot;) )">
+                    <xsl:if test="$Start/pfx16:GetLogLevelRequest/pfx16:LogLevelRequest/pfx16:EngineName">
+                        <pfx16:EngineName>
+                            <xsl:value-of select="$Start/pfx16:GetLogLevelRequest/pfx16:LogLevelRequest/pfx16:EngineName"/>
+                        </pfx16:EngineName>
+                    </xsl:if>
+                </xsl:if>
+                <pfx16:Operation>
+                    <xsl:value-of select="$Start/pfx16:GetLogLevelRequest/pfx16:LogLevelRequest/pfx16:Operation"/>
+                </pfx16:Operation>
+                <xsl:if test="$Start/pfx16:GetLogLevelRequest/pfx16:LogLevelRequest/pfx16:LogLevel">
+                    <pfx16:LogLevel>
+                        <xsl:value-of select="$Start/pfx16:GetLogLevelRequest/pfx16:LogLevelRequest/pfx16:LogLevel"/>
+                    </pfx16:LogLevel>
+                </xsl:if>
+            </pfx16:LogLevelRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Sleep">
+        <pd:type>com.tibco.plugin.timer.SleepActivity</pd:type>
+        <pd:resourceType>ae.activities.sleep</pd:resourceType>
+        <pd:x>302</pd:x>
+        <pd:y>94</pd:y>
+        <config/>
+        <pd:inputBindings>
+            <ns8:SleepInputSchema>
+                <IntervalInMillisec>
+                    <xsl:value-of select="5000"/>
+                </IntervalInMillisec>
+            </ns8:SleepInputSchema>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>167</pd:x>
+        <pd:y>209</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Generate Error">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>327</pd:x>
+        <pd:y>209</pd:y>
+        <config>
+            <faultName/>
+        </config>
+        <pd:inputBindings>
+            <xsl:choose>
+                <xsl:when test="exists($_error_GetSetLogLevelSharedVariable/pfx13:InvalidInputParameter/pfx13:Code)">
+                    <ns2:ActivityInput>
+                        <xsl:if test="$_error_GetSetLogLevelSharedVariable/pfx13:InvalidInputParameter/pfx13:Message">
+                            <message>
+                                <xsl:value-of select="$_error_GetSetLogLevelSharedVariable/pfx13:InvalidInputParameter/pfx13:Message"/>
+                            </message>
+                        </xsl:if>
+                        <xsl:if test="$_error_GetSetLogLevelSharedVariable/pfx13:InvalidInputParameter/pfx13:Code">
+                            <messageCode>
+                                <xsl:value-of select="$_error_GetSetLogLevelSharedVariable/pfx13:InvalidInputParameter/pfx13:Code"/>
+                            </messageCode>
+                        </xsl:if>
+                    </ns2:ActivityInput>
+                </xsl:when>
+                <xsl:when test="exists($_error_ReqLogLevel/pfx13:JMSError/pfx13:Code)">
+                    <ns2:ActivityInput>
+                        <message>
+                            <xsl:value-of select="$_error_ReqLogLevel/pfx13:JMSError/pfx13:Message"/>
+                        </message>
+                        <messageCode>
+                            <xsl:value-of select="$_error_ReqLogLevel/pfx13:JMSError/pfx13:Code"/>
+                        </messageCode>
+                    </ns2:ActivityInput>
+                </xsl:when>
+                <xsl:otherwise>
+                    <ns2:ActivityInput>
+                        <message>
+                            <xsl:value-of select="$_error/ns1:ErrorReport/Msg"/>
+                        </message>
+                        <messageCode>
+                            <xsl:value-of select="$_error/ns1:ErrorReport/MsgCode"/>
+                        </messageCode>
+                    </ns2:ActivityInput>
+                </xsl:otherwise>
+            </xsl:choose>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>ReqLogLevel</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Sleep</pd:from>
+        <pd:to>GetSetLogLevelSharedVariable</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>ReqLogLevel</pd:from>
+        <pd:to>Sleep</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetSetLogLevelSharedVariable</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch</pd:from>
+        <pd:to>Generate Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

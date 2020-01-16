@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx3="http://www.tibco.com/CommonLE2/namespace/private/Common" xmlns:pfx2="http://xmlns.example.com/unique/default/namespace/1163111140588" xmlns:pfx="http://www.tibco.com/CommonLE2/namespace/Public/Exception" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Exception" schemaLocation="/SharedResources/SchemaDefinitions/Public/Exception/ExceptionRequest.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/private/Common" schemaLocation="/SharedResources/SchemaDefinitions/Private/Common/LocalExceptions.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/private/Common" schemaLocation="/SharedResources/SchemaDefinitions/Private/Common/Rendering.xsd"/>
+    <pd:name>Common/DataAccess/Oracle/RetrieveRenderingImplementation.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx3:Query"/>
+    <pd:startX>26</pd:startX>
+    <pd:startY>92</pd:startY>
+    <pd:returnBindings>
+        <xsl:for-each select="$Get-Rendering-Information/resultSet/Record[1]">
+            <pfx3:RenderingImp>
+                <pfx3:Css>
+                    <xsl:value-of select="CSS"/>
+                </pfx3:Css>
+                <pfx3:XSLTSyleSheet>
+                    <xsl:value-of select="XSLT"/>
+                </pfx3:XSLTSyleSheet>
+            </pfx3:RenderingImp>
+        </xsl:for-each>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType ref="pfx3:RenderingImp"/>
+    <pd:endX>308</pd:endX>
+    <pd:endY>94</pd:endY>
+    <pd:errorSchemas>
+        <Schema0 ref="pfx3:DBRecordNotFound"/>
+    </pd:errorSchemas>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1311737709607</pd:targetNamespace>
+    <pd:activity name="Get Rendering Information">
+        <pd:type>com.tibco.plugin.jdbc.JDBCQueryActivity</pd:type>
+        <pd:resourceType>ae.activities.JDBCQueryActivity</pd:resourceType>
+        <pd:description>Retrieves the log information from the database</pd:description>
+        <pd:x>163</pd:x>
+        <pd:y>103</pd:y>
+        <config>
+            <timeout>%%Database/MIG_Timeout%%</timeout>
+            <commit>false</commit>
+            <maxRows>1</maxRows>
+            <emptyStrAsNil>false</emptyStrAsNil>
+            <statement>select XSLT, CSS  from transactionrenderconfig where applicationid = ? and renderid = ?</statement>
+            <jdbcSharedConfig>/SharedResources/Connections/Database/DBServerOracle.sharedjdbc</jdbcSharedConfig>
+            <Prepared_Param_DataType>
+                <parameter>
+                    <parameterName>applicationid</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>renderid</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+            </Prepared_Param_DataType>
+            <QueryOutputCachedSchemaColumns>XSLT</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>2005</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>CSS</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>2005</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+        </config>
+        <pd:inputBindings>
+            <jdbcQueryActivityInput>
+                <applicationid>
+                    <xsl:value-of select="$Start/pfx3:Query/pfx3:ApplicationID"/>
+                </applicationid>
+                <renderid>
+                    <xsl:value-of select="$Start/pfx3:Query/pfx3:RenderID"/>
+                </renderid>
+                <timeout>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Database/MIG_Timeout"/>
+                </timeout>
+                <maxRows>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Database/MIG_MAXROWS"/>
+                </maxRows>
+            </jdbcQueryActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Generate Error">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>166</pd:x>
+        <pd:y>215</pd:y>
+        <config>
+            <faultName>Schema0</faultName>
+        </config>
+        <pd:inputBindings>
+            <ns2:ActivityInput>
+                <message>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Exceptions/Common/Messages/RenderingRecNotFound"/>
+                </message>
+                <messageCode>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Exceptions/Common/Codes/RenderingRecNotFound"/>
+                </messageCode>
+                <data>
+                    <pfx3:DBRecordNotFound>
+                        <pfx3:Message>
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Exceptions/Common/Messages/RenderingRecNotFound"/>
+                        </pfx3:Message>
+                        <pfx3:Code>
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Exceptions/Common/Codes/RenderingRecNotFound"/>
+                        </pfx3:Code>
+                    </pfx3:DBRecordNotFound>
+                </data>
+            </ns2:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Get Rendering Information</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Get Rendering Information</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Get Rendering Information</pd:from>
+        <pd:to>Generate Error</pd:to>
+        <pd:xpathDescription>No Record Found</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>count($Get-Rendering-Information/resultSet/Record) = 0</pd:xpath>
+    </pd:transition>
+</pd:ProcessDefinition>

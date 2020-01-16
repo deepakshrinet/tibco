@@ -1,0 +1,87 @@
+<serialization xmlns="urn:tibco.com/v3.0" jsxversion="3.9">
+  <name><![CDATA[loginPane_gui.xml]]></name>
+  <icon/>
+  <description/>
+  <onBeforeDeserialize/>
+  <onAfterDeserialize><![CDATA[jsx3.sleep(function(){objJSX.getDescendantOfName("userId").focus();});
+  ]]></onAfterDeserialize>
+  <object type="jsx3.gui.Block">
+    <variants jsxoverflow="2" jsxwidth="300" jsxheight="160" jsxrelativeposition="0"/>
+    <strings jsxname="loginPane" jsxleft="33%" jsxtop="33%" jsxdisplay=""/>
+    <object type="jsx3.gui.LayoutGrid">
+      <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+      <strings jsxname="loginLayout" jsxcols="120,*" jsxwidth="100%" jsxheight="100%" jsxrows="6,28,28,30,*,6"/>
+      <dynamics jsxborder="@Outset" jsxbgcolor="lightBG"/>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="2"/>
+        <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%"/>
+        <dynamics jsxbgcolor="darkBG"/>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="2"/>
+        <strings jsxname="pane2" jsxwidth="100%" jsxheight="100%"/>
+        <dynamics jsxbgcolor="darkBG"/>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="2"/>
+        <strings jsxname="pane3" jsxwidth="100%" jsxheight="100%"/>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="2"/>
+        <strings jsxname="pane4" jsxwidth="100%" jsxheight="100%"/>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="2"/>
+        <strings jsxname="userIdLabel" jsxwidth="100%" jsxheight="100%" jsxfontweight="bold" jsxtextalign="right" jsxpadding="3 6 0 0"/>
+        <dynamics jsxfontsize="labelFontSize" jsxtext="login_userId"/>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="2"/>
+        <strings jsxname="userIdPane" jsxwidth="100%" jsxheight="100%"/>
+        <object type="jsx3.gui.TextBox">
+          <variants jsxheight="18"/>
+          <strings jsxname="userId" jsxmargin="0 4 0 0" jsxvalue=""/>
+          <dynamics jsxfontsize="labelFontSize"/>
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="2"/>
+        <strings jsxname="passwordLabel" jsxwidth="100%" jsxheight="100%" jsxfontweight="bold" jsxtextalign="right" jsxpadding="3 6 0 0"/>
+        <dynamics jsxtext="login_password" jsxfontsize="labelFontSize"/>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="2"/>
+        <strings jsxname="passwordPane" jsxwidth="100%" jsxheight="100%"/>
+        <object type="jsx3.gui.TextBox">
+          <variants jsxheight="18" jsxtype="2"/>
+          <strings jsxname="password" jsxmargin="0 4 0 0" jsxvalue=""/>
+          <dynamics jsxfontsize="labelFontSize"/>
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="2"/>
+        <strings jsxname="buttonLeft" jsxwidth="100%" jsxheight="100%" jsxtextalign="right"/>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="2"/>
+        <strings jsxname="buttonRight" jsxwidth="100%" jsxheight="100%"/>
+        <object type="jsx3.gui.Button">
+          <variants jsxindex="0" jsxheight="22" jsxwidth="60"/>
+          <strings jsxname="loginButton" jsxmargin="0 4 0 0" jsxkeycode="enter"/>
+          <dynamics jsxtext="login_buttonLogin" jsxfontsize="buttonFontSize" jsxbgcolor="buttonBackground"/>
+          <events jsxexecute="cle.login.sendLoginRequest(this);"/>
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="2"/>
+        <strings jsxname="pane5" jsxwidth="100%" jsxheight="100%"/>
+        <dynamics jsxbgcolor="darkBG"/>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="2"/>
+        <strings jsxname="pane6" jsxwidth="100%" jsxheight="100%"/>
+        <dynamics jsxbgcolor="darkBG"/>
+      </object>
+    </object>
+  </object>
+</serialization>

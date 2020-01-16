@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns0:proxySharedResource xmlns:ns0="www.tibco.com/shared/ProxyConnection">
+    <config>
+        <proxyPort>%%EnvVariables/PROXY_CONFIGURATION/Port_number%%</proxyPort>
+        <proxyHost>%%EnvVariables/PROXY_CONFIGURATION/Host_name%%</proxyHost>
+        <identity/>
+        <proxyAuth>NONE</proxyAuth>
+    </config>
+</ns0:proxySharedResource>

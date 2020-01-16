@@ -1,0 +1,801 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:ns="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:pfx14="http://www.tibco.com/CommonLE2/namespace/Public/Exception/ExceptionRequest.xsd" xmlns:pfx13="http://www.tibco.com/CommonLE2/Private/Exception" xmlns:pfx12="http://www.tibco.com/CommonLE2/namespace/private/Common" xmlns:pfx11="http://www.tibco.com/CommonLE2/namespace/Public/Exception" xmlns:pfx10="http://www.tibco.com/CommonLE2/Public/Common/Dummy" xmlns:pfx5="http://www.tibco.com/CommonLE2/namespace/Exception" xmlns:pfx4="http://www.tibco.com/CommonLE/namespace/Common" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx3="http://www.tibco.com/CommonLE/namespace/Reporting/LogRequest" xmlns:pfx2="http://www.tibco.com/unique/default/namespace/CommonLE" xmlns:pfx9="http://schemas.tibco.com/bw/plugins/jdbc/5.0/jdbcExceptions" xmlns:pfx8="http://www.tibco.com/CommonLE2/namespace/Public/Logging" xmlns:pfx7="http://www.tibco.com/CommonLE2/namespace/Log" xmlns:pfx6="http://www.tibco.com/CommonLE/namespace/LogListResponse" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns9="http://www.tibco.com/CommonLE2/namespace/Public/Common/RequestHeader.xsd" xmlns:ns5="http://www.tibco.com/CommonLE2/namespace/Common" xmlns:ns6="http://www.tibco.com/CommonLE2/namespace/Private/Logging" xmlns:pfx="http://www.tibco.com/unique/default/namespace/Log" xmlns:ns7="http://www.tibco.com/CommonLE2/Private/Common" xmlns:ns8="http://www.tibco.com/CommonLE2/namespace/Public/Common" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns1="http://www.tibco.com/pe/EngineTypes" xmlns:ns4="http://www.tibco.com/CommonLE/namespace/Custom" xmlns:ns3="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xsd:import namespace="http://www.tibco.com/CommonLE/namespace/Reporting/LogRequest" schemaLocation="/Shared Resources/Schema Definitions/Reporting/LogRequest.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE/namespace/Common" schemaLocation="/Shared Resources/Schema Definitions/Common/LogRequest.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE/namespace/LogListResponse" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Log/LogList.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Logging" schemaLocation="/SharedResources/SchemaDefinitions/Public/Logging/LogRequest.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/Public/Common/Dummy" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Common/DummyReturnMessage.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Exception/ExceptionRequest.xsd" schemaLocation="/SharedResources/SchemaDefinitions/Public/Exception/ExceptionRequest.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/Private/Exception" schemaLocation="/SharedResources/SchemaDefinitions/Private/Exception/ExceptionRequestExt.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/private/Common" schemaLocation="/SharedResources/SchemaDefinitions/Private/Common/LocalExceptions.xsd"/>
+    <pd:name>ExceptionManagement/DataAccess/MSSQL/SaveExceptionInstance.process</pd:name>
+    <pd:description>This function is used to save the exception instances into the database. If the application ID in a exception request is not defined, the database
+throws data integrity exception. The exception is used to detected unqualified exception save requests. Unqulified exceptionrequests
+are persisted into another table which has no application ID integrity check. These type of exceptions can only be viewed, and 
+are not used for exception correlation. </pd:description>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx13:ExceptionRequestExt"/>
+    <pd:startX>27</pd:startX>
+    <pd:startY>184</pd:startY>
+    <pd:returnBindings>
+        <pfx13:ExceptionID>
+            <xsl:value-of select="$Insert-Exception-Request/resultSet/outputSet/EXCEPTIONID"/>
+        </pfx13:ExceptionID>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType ref="pfx13:ExceptionID"/>
+    <pd:endX>577</pd:endX>
+    <pd:endY>186</pd:endY>
+    <pd:errorSchemas>
+        <DBError ref="pfx12:DBError"/>
+        <IDNotFound ref="pfx12:IDNotFound"/>
+    </pd:errorSchemas>
+    <pd:processVariables>
+        <MessageClauseVar>
+            <xsd:element name="MessageClause" type="xsd:string"/>
+        </MessageClauseVar>
+    </pd:processVariables>
+    <pd:targetNamespace>http://xmlns.example.com/1284613250488</pd:targetNamespace>
+    <pd:activity name="Catch JDBC SQL Error">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>703</pd:x>
+        <pd:y>43</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=JDBCSQLException namespace=http://schemas.tibco.com/bw/plugins/jdbc/5.0/jdbcExceptions</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Generate AppID  Error">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>1014</pd:x>
+        <pd:y>43</pd:y>
+        <config>
+            <faultName>IDNotFound</faultName>
+        </config>
+        <pd:inputBindings>
+            <ns3:ActivityInput>
+                <message>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/Exceptions/Common/Messages/ApplicationIDNotFound"/>
+                </message>
+                <messageCode>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/Exceptions/Common/Codes/ApplicationIDNotFound"/>
+                </messageCode>
+                <data>
+                    <pfx12:IDNotFound>
+                        <pfx12:ApplicationIDNotFound>
+                            <pfx12:Message>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/Exceptions/Common/Messages/ApplicationIDNotFound"/>
+                            </pfx12:Message>
+                            <pfx12:Code>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/Exceptions/Common/Codes/ApplicationIDNotFound"/>
+                            </pfx12:Code>
+                        </pfx12:ApplicationIDNotFound>
+                    </pfx12:IDNotFound>
+                </data>
+            </ns3:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Generate Render ID Error">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>986</pd:x>
+        <pd:y>171</pd:y>
+        <config>
+            <faultName>IDNotFound</faultName>
+        </config>
+        <pd:inputBindings>
+            <ns3:ActivityInput>
+                <message>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/Exceptions/Common/Messages/RenderingIDNotFound"/>
+                </message>
+                <messageCode>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/Exceptions/Common/Codes/RenderingIDNotFound"/>
+                </messageCode>
+                <data>
+                    <pfx12:IDNotFound>
+                        <pfx12:RenderIDNotFound>
+                            <pfx12:Message>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/Exceptions/Common/Messages/RenderingIDNotFound"/>
+                            </pfx12:Message>
+                            <pfx12:Code>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/Exceptions/Common/Codes/RenderingIDNotFound"/>
+                            </pfx12:Code>
+                        </pfx12:RenderIDNotFound>
+                    </pfx12:IDNotFound>
+                </data>
+            </ns3:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Generate-Render-ID-Error-1">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>861</pd:x>
+        <pd:y>288</pd:y>
+        <config>
+            <faultName>IDNotFound</faultName>
+        </config>
+        <pd:inputBindings>
+            <ns3:ActivityInput>
+                <message>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/Exceptions/Common/Messages/InterfaceIDNotFound"/>
+                </message>
+                <messageCode>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/Exceptions/Common/Codes/InterfaceIDNotFound"/>
+                </messageCode>
+                <data>
+                    <pfx12:IDNotFound>
+                        <pfx12:InterfaceIDNotFound>
+                            <pfx12:Message>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/Exceptions/Common/Messages/InterfaceIDNotFound"/>
+                            </pfx12:Message>
+                            <pfx12:Code>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/Exceptions/Common/Codes/InterfaceIDNotFound"/>
+                            </pfx12:Code>
+                        </pfx12:InterfaceIDNotFound>
+                    </pfx12:IDNotFound>
+                </data>
+            </ns3:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Query AppID">
+        <pd:type>com.tibco.plugin.jdbc.JDBCQueryActivity</pd:type>
+        <pd:resourceType>ae.activities.JDBCQueryActivity</pd:resourceType>
+        <pd:x>854</pd:x>
+        <pd:y>35</pd:y>
+        <config>
+            <timeout>10</timeout>
+            <commit>false</commit>
+            <maxRows>100</maxRows>
+            <emptyStrAsNil>false</emptyStrAsNil>
+            <jdbcSharedConfig>/SharedResources/Connections/Database/DBServerMSSQL.sharedjdbc</jdbcSharedConfig>
+            <statement>Select count(*) from Applications where applicationID = ?</statement>
+            <Prepared_Param_DataType>
+                <parameter>
+                    <parameterName>AppID</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+            </Prepared_Param_DataType>
+            <QueryOutputCachedSchemaColumns>COUNT</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>2</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+        </config>
+        <pd:inputBindings>
+            <jdbcQueryActivityInput>
+                <AppID>
+                    <xsl:value-of select="$Start/pfx13:ExceptionRequestExt/pfx14:ExceptionRequest/ns9:Header/ns9:ApplicationID"/>
+                </AppID>
+            </jdbcQueryActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Query InterfaceID">
+        <pd:type>com.tibco.plugin.jdbc.JDBCQueryActivity</pd:type>
+        <pd:resourceType>ae.activities.JDBCQueryActivity</pd:resourceType>
+        <pd:x>857</pd:x>
+        <pd:y>163</pd:y>
+        <config>
+            <timeout>10</timeout>
+            <commit>false</commit>
+            <maxRows>100</maxRows>
+            <emptyStrAsNil>false</emptyStrAsNil>
+            <jdbcSharedConfig>/SharedResources/Connections/Database/DBServerMSSQL.sharedjdbc</jdbcSharedConfig>
+            <statement>Select count(*) from InterfaceConfig where applicationID = ? and InterfaceID = ?</statement>
+            <QueryOutputCachedSchemaColumns>COUNT</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>2</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <Prepared_Param_DataType>
+                <parameter>
+                    <parameterName>AppID</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>InterfaceID</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+            </Prepared_Param_DataType>
+        </config>
+        <pd:inputBindings>
+            <jdbcQueryActivityInput>
+                <AppID>
+                    <xsl:value-of select="$Start/pfx13:ExceptionRequestExt/pfx14:ExceptionRequest/ns9:Header/ns9:ApplicationID"/>
+                </AppID>
+                <InterfaceID>
+                    <xsl:choose>
+                        <xsl:when test="exists($Start/pfx13:ExceptionRequestExt/pfx14:ExceptionRequest/ns9:Header/ns9:InterfaceID)">
+                            <xsl:value-of select="$Start/pfx13:ExceptionRequestExt/pfx14:ExceptionRequest/ns9:Header/ns9:InterfaceID"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </InterfaceID>
+            </jdbcQueryActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Rethrow">
+        <pd:type>com.tibco.pe.core.RethrowActivity</pd:type>
+        <pd:resourceType>ae.activities.rethrow</pd:resourceType>
+        <pd:x>707</pd:x>
+        <pd:y>180</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:group name="Group">
+        <pd:type>com.tibco.pe.core.TransactionGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>142</pd:x>
+        <pd:y>14</pd:y>
+        <pd:width>337</pd:width>
+        <pd:height>324</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>transactionGroup</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:transactionType>JDBCTransaction</pd:transactionType>
+            <pd:includeCheckpoint>false</pd:includeCheckpoint>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>Insert Exception Request</pd:to>
+            <pd:lineType>Straight</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Insert Exception Request</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Straight</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>otherwise</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Insert Alt Keys</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Multiple Bends</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Insert Exception Request</pd:from>
+            <pd:to>Insert Alt Keys</pd:to>
+            <pd:xpathDescription>With ALT Key</pd:xpathDescription>
+            <pd:lineType>Multiple Bends</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>xpath</pd:conditionType>
+            <pd:xpath>count($Start/pfx13:ExceptionRequestExt/pfx14:ExceptionRequest/ns9:Header/ns9:AltKey)&gt;0</pd:xpath>
+        </pd:transition>
+        <pd:activity name="Insert Alt Keys">
+            <pd:type>com.tibco.plugin.jdbc.JDBCUpdateActivity</pd:type>
+            <pd:resourceType>ae.activities.JDBCUpdateActivity</pd:resourceType>
+            <pd:x>373</pd:x>
+            <pd:y>69</pd:y>
+            <config>
+                <timeout>%%Database/MIG_Timeout%%</timeout>
+                <commit>false</commit>
+                <emptyStrAsNil>false</emptyStrAsNil>
+                <jdbcSharedConfig>/SharedResources/Connections/Database/DBServerMSSQL.sharedjdbc</jdbcSharedConfig>
+                <statement>INSERT INTO EXCEPTIONRECALTKEY (exceptionid, altkeyname, altkeyvalue) VALUES (?,?,?)</statement>
+                <batchUpdate>true</batchUpdate>
+                <Prepared_Param_DataType>
+                    <parameter>
+                        <parameterName>EXCEPTIONID</parameterName>
+                        <dataType>NUMERIC</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>KEY_NAME</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>KEY_VALUE</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                </Prepared_Param_DataType>
+            </config>
+            <pd:inputBindings>
+                <jdbcUpdateActivityInput>
+                    <xsl:for-each select="$Start/pfx13:ExceptionRequestExt/pfx14:ExceptionRequest/ns9:Header/ns9:AltKey">
+                        <Record>
+                            <EXCEPTIONID>
+                                <xsl:copy-of select="$Insert-Exception-Request/resultSet/outputSet/EXCEPTIONID/@xsi:nil"/>
+                                <xsl:value-of select="$Insert-Exception-Request/resultSet/outputSet/EXCEPTIONID"/>
+                            </EXCEPTIONID>
+                            <KEY_NAME>
+                                <xsl:value-of select="ns9:AltKeyName"/>
+                            </KEY_NAME>
+                            <KEY_VALUE>
+                                <xsl:choose>
+                                    <xsl:when test="exists(ns9:AltKeyValue)">
+                                        <xsl:value-of select="ns9:AltKeyValue"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </KEY_VALUE>
+                        </Record>
+                    </xsl:for-each>
+                </jdbcUpdateActivityInput>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="Insert Exception Request">
+            <pd:type>com.tibco.plugin.jdbc.JDBCCallActivity</pd:type>
+            <pd:resourceType>ae.activities.JDBCCallActivity</pd:resourceType>
+            <pd:x>249</pd:x>
+            <pd:y>191</pd:y>
+            <config>
+                <timeout>%%Database/MIG_Timeout%%</timeout>
+                <maxRows>100</maxRows>
+                <emptyStrAsNil>true</emptyStrAsNil>
+                <jdbcSharedConfig>/SharedResources/Connections/Database/DBServerMSSQL.sharedjdbc</jdbcSharedConfig>
+                <ProcedureName>INSERTEXCEPTIONREC;1</ProcedureName>
+                <parameterTypes>
+                    <parameter>
+                        <colName>@RETURN_VALUE</colName>
+                        <colType>5</colType>
+                        <dataType>4</dataType>
+                        <typeName>int</typeName>
+                    </parameter>
+                    <parameter>
+                        <colName>@APPLICATIONID</colName>
+                        <colType>1</colType>
+                        <dataType>12</dataType>
+                        <typeName>varchar</typeName>
+                    </parameter>
+                    <parameter>
+                        <colName>@EXCEPTIONCODE</colName>
+                        <colType>1</colType>
+                        <dataType>12</dataType>
+                        <typeName>varchar</typeName>
+                    </parameter>
+                    <parameter>
+                        <colName>@COMPONENTNAME</colName>
+                        <colType>1</colType>
+                        <dataType>12</dataType>
+                        <typeName>varchar</typeName>
+                    </parameter>
+                    <parameter>
+                        <colName>@HOSTNAME</colName>
+                        <colType>1</colType>
+                        <dataType>12</dataType>
+                        <typeName>varchar</typeName>
+                    </parameter>
+                    <parameter>
+                        <colName>@TRANSACTIONDOMAIN</colName>
+                        <colType>1</colType>
+                        <dataType>12</dataType>
+                        <typeName>varchar</typeName>
+                    </parameter>
+                    <parameter>
+                        <colName>@TRANSACTIONID</colName>
+                        <colType>1</colType>
+                        <dataType>12</dataType>
+                        <typeName>varchar</typeName>
+                    </parameter>
+                    <parameter>
+                        <colName>@TRANSACTIONTYPE</colName>
+                        <colType>1</colType>
+                        <dataType>12</dataType>
+                        <typeName>varchar</typeName>
+                    </parameter>
+                    <parameter>
+                        <colName>@TIME_STAMP</colName>
+                        <colType>1</colType>
+                        <dataType>93</dataType>
+                        <typeName>datetime</typeName>
+                    </parameter>
+                    <parameter>
+                        <colName>@MESSAGE</colName>
+                        <colType>1</colType>
+                        <dataType>12</dataType>
+                        <typeName>varchar</typeName>
+                    </parameter>
+                    <parameter>
+                        <colName>@TRANSACTIONDATA</colName>
+                        <colType>1</colType>
+                        <dataType>12</dataType>
+                        <typeName>varchar</typeName>
+                    </parameter>
+                    <parameter>
+                        <colName>@TRANSACTIONDATAAFTER</colName>
+                        <colType>1</colType>
+                        <dataType>12</dataType>
+                        <typeName>varchar</typeName>
+                    </parameter>
+                    <parameter>
+                        <colName>@NOTIFICATIONCHNL</colName>
+                        <colType>1</colType>
+                        <dataType>12</dataType>
+                        <typeName>varchar</typeName>
+                    </parameter>
+                    <parameter>
+                        <colName>@REPLYDESTINATION</colName>
+                        <colType>1</colType>
+                        <dataType>12</dataType>
+                        <typeName>varchar</typeName>
+                    </parameter>
+                    <parameter>
+                        <colName>@STACKTRACE</colName>
+                        <colType>1</colType>
+                        <dataType>12</dataType>
+                        <typeName>varchar</typeName>
+                    </parameter>
+                    <parameter>
+                        <colName>@STATUS</colName>
+                        <colType>1</colType>
+                        <dataType>12</dataType>
+                        <typeName>varchar</typeName>
+                    </parameter>
+                    <parameter>
+                        <colName>@RESOLUTIONDESCRIPTION</colName>
+                        <colType>1</colType>
+                        <dataType>12</dataType>
+                        <typeName>varchar</typeName>
+                    </parameter>
+                    <parameter>
+                        <colName>@DATAENCODING</colName>
+                        <colType>1</colType>
+                        <dataType>12</dataType>
+                        <typeName>varchar</typeName>
+                    </parameter>
+                    <parameter>
+                        <colName>@CORRELATIONID</colName>
+                        <colType>1</colType>
+                        <dataType>12</dataType>
+                        <typeName>varchar</typeName>
+                    </parameter>
+                    <parameter>
+                        <colName>@RENDERID</colName>
+                        <colType>1</colType>
+                        <dataType>12</dataType>
+                        <typeName>varchar</typeName>
+                    </parameter>
+                    <parameter>
+                        <colName>@INTERFACEID</colName>
+                        <colType>1</colType>
+                        <dataType>12</dataType>
+                        <typeName>varchar</typeName>
+                    </parameter>
+                    <parameter>
+                        <colName>@RESOLVEDELAYTIME</colName>
+                        <colType>1</colType>
+                        <dataType>93</dataType>
+                        <typeName>datetime</typeName>
+                    </parameter>
+                    <parameter>
+                        <colName>@EVENTTYPE</colName>
+                        <colType>1</colType>
+                        <dataType>12</dataType>
+                        <typeName>varchar</typeName>
+                    </parameter>
+                    <parameter>
+                        <colName>@JMSPROPERTIES</colName>
+                        <colType>1</colType>
+                        <dataType>12</dataType>
+                        <typeName>varchar</typeName>
+                    </parameter>
+                    <parameter>
+                        <colName>@CUSTOM</colName>
+                        <colType>1</colType>
+                        <dataType>12</dataType>
+                        <typeName>varchar</typeName>
+                    </parameter>
+                    <parameter>
+                        <colName>@EXCEPTIONID</colName>
+                        <colType>2</colType>
+                        <dataType>4</dataType>
+                        <typeName>int</typeName>
+                    </parameter>
+                </parameterTypes>
+            </config>
+            <pd:inputBindings>
+                <inputs>
+                    <inputSet>
+                        <APPLICATIONID>
+                            <xsl:value-of select="$Start/pfx13:ExceptionRequestExt/pfx14:ExceptionRequest/ns9:Header/ns9:ApplicationID"/>
+                        </APPLICATIONID>
+                        <EXCEPTIONCODE>
+                            <xsl:value-of select="$Start/pfx13:ExceptionRequestExt/pfx14:ExceptionRequest/ExceptionCode"/>
+                        </EXCEPTIONCODE>
+                        <COMPONENTNAME>
+                            <xsl:value-of select="$Start/pfx13:ExceptionRequestExt/pfx14:ExceptionRequest/ns9:Header/ns9:ComponentName"/>
+                        </COMPONENTNAME>
+                        <HOSTNAME>
+                            <xsl:value-of select="$Start/pfx13:ExceptionRequestExt/pfx14:ExceptionRequest/ns9:Header/ns9:Hostname"/>
+                        </HOSTNAME>
+                        <TRANSACTIONDOMAIN>
+                            <xsl:value-of select="$Start/pfx13:ExceptionRequestExt/pfx14:ExceptionRequest/ns9:Header/ns9:TransactionDomain"/>
+                        </TRANSACTIONDOMAIN>
+                        <TRANSACTIONID>
+                            <xsl:value-of select="$Start/pfx13:ExceptionRequestExt/pfx14:ExceptionRequest/ns9:Header/ns9:TransactionID"/>
+                        </TRANSACTIONID>
+                        <TRANSACTIONTYPE>
+                            <xsl:value-of select="$Start/pfx13:ExceptionRequestExt/pfx14:ExceptionRequest/ns9:Header/ns9:TransactionType"/>
+                        </TRANSACTIONTYPE>
+                        <TIME_STAMP>
+                            <xsl:value-of select="$Start/pfx13:ExceptionRequestExt/pfx14:ExceptionRequest/ns9:Header/ns9:Timestamp"/>
+                        </TIME_STAMP>
+                        <MESSAGE>
+                            <xsl:choose>
+                                <xsl:when test="exists($Start/pfx13:ExceptionRequestExt/pfx14:ExceptionRequest/ns9:Header/ns9:Message)">
+                                    <xsl:value-of select="$Start/pfx13:ExceptionRequestExt/pfx14:ExceptionRequest/ns9:Header/ns9:Message"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </MESSAGE>
+                        <TRANSACTIONDATA>
+                            <xsl:choose>
+                                <xsl:when test="exists($Start/pfx13:ExceptionRequestExt/pfx14:ExceptionRequest/ns9:Header/ns9:Transaction)">
+                                    <xsl:value-of select="$Start/pfx13:ExceptionRequestExt/pfx14:ExceptionRequest/ns9:Header/ns9:Transaction"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </TRANSACTIONDATA>
+                        <TRANSACTIONDATAAFTER>
+                            <xsl:value-of select="&quot;&quot;"/>
+                        </TRANSACTIONDATAAFTER>
+                        <NOTIFICATIONCHNL>
+                            <xsl:value-of select="$Start/pfx13:ExceptionRequestExt/pfx14:ExceptionRequest/NotificationChannel"/>
+                        </NOTIFICATIONCHNL>
+                        <REPLYDESTINATION>
+                            <xsl:value-of select="$Start/pfx13:ExceptionRequestExt/pfx14:ExceptionRequest/ReplyDestination"/>
+                        </REPLYDESTINATION>
+                        <STACKTRACE>
+                            <xsl:choose>
+                                <xsl:when test="exists($Start/pfx13:ExceptionRequestExt/pfx14:ExceptionRequest/StackTrace)">
+                                    <xsl:value-of select="$Start/pfx13:ExceptionRequestExt/pfx14:ExceptionRequest/StackTrace"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </STACKTRACE>
+                        <STATUS>
+                            <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ExceptionService/ResolutionStatus/New"/>
+                        </STATUS>
+                        <RESOLUTIONDESCRIPTION>
+                            <xsl:value-of select="&quot;&quot;"/>
+                        </RESOLUTIONDESCRIPTION>
+                        <DATAENCODING>
+                            <xsl:choose>
+                                <xsl:when test="exists($Start/pfx13:ExceptionRequestExt/pfx14:ExceptionRequest/ns9:Header/ns9:DataEncoding)">
+                                    <xsl:value-of select="$Start/pfx13:ExceptionRequestExt/pfx14:ExceptionRequest/ns9:Header/ns9:DataEncoding"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </DATAENCODING>
+                        <CORRELATIONID>
+                            <xsl:choose>
+                                <xsl:when test="exists($Start/pfx13:ExceptionRequestExt/pfx14:ExceptionRequest/ns9:Header/ns9:CorrelationID)">
+                                    <xsl:value-of select="$Start/pfx13:ExceptionRequestExt/pfx14:ExceptionRequest/ns9:Header/ns9:CorrelationID"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </CORRELATIONID>
+                        <RENDERID>
+                            <xsl:choose>
+                                <xsl:when test="exists($Start/pfx13:ExceptionRequestExt/pfx14:ExceptionRequest/ns9:Header/ns9:RenderID)">
+                                    <xsl:value-of select="$Start/pfx13:ExceptionRequestExt/pfx14:ExceptionRequest/ns9:Header/ns9:RenderID"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </RENDERID>
+                        <INTERFACEID>
+                            <xsl:choose>
+                                <xsl:when test="exists($Start/pfx13:ExceptionRequestExt/pfx14:ExceptionRequest/ns9:Header/ns9:InterfaceID)">
+                                    <xsl:value-of select="$Start/pfx13:ExceptionRequestExt/pfx14:ExceptionRequest/ns9:Header/ns9:InterfaceID"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </INTERFACEID>
+                        <RESOLVEDELAYTIME>
+                            <xsl:value-of select="if($Start/pfx13:ExceptionRequestExt/ExceptionResolveDelayTime) then&#xA;tib:add-to-dateTime(current-dateTime(),0,0,0,0,$Start/pfx13:ExceptionRequestExt/ExceptionResolveDelayTime,0)&#xA;else&#xA;current-dateTime()"/>
+                        </RESOLVEDELAYTIME>
+                        <EVENTTYPE>
+                            <xsl:value-of select="$Start/pfx13:ExceptionRequestExt/EventType"/>
+                        </EVENTTYPE>
+                        <JMSPROPERTIES>
+                            <xsl:value-of select="&quot;&quot;"/>
+                        </JMSPROPERTIES>
+                        <CUSTOM>
+                            <xsl:choose>
+                                <xsl:when test="exists($Start/pfx13:ExceptionRequestExt/pfx14:ExceptionRequest/Custom)">
+                                    <xsl:value-of select="$Start/pfx13:ExceptionRequestExt/pfx14:ExceptionRequest/Custom"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </CUSTOM>
+                        <EXCEPTIONID>
+                            <xsl:value-of select="0"/>
+                        </EXCEPTIONID>
+                    </inputSet>
+                </inputs>
+            </pd:inputBindings>
+        </pd:activity>
+    </pd:group>
+    <pd:activity name="Catch Database Driver Not Found">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>457</pd:x>
+        <pd:y>375</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=JDBCDriverLoadingException namespace=http://schemas.tibco.com/bw/plugins/jdbc/5.0/jdbcExceptions</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Catch Database Timed Out">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>586</pd:x>
+        <pd:y>369</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=JDBCTimedOutException namespace=http://schemas.tibco.com/bw/plugins/jdbc/5.0/jdbcExceptions</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Catch JDBC Connection Not Found">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>721</pd:x>
+        <pd:y>371</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=JDBCConnectionNotFoundException namespace=http://schemas.tibco.com/bw/plugins/jdbc/5.0/jdbcExceptions</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Generate DB Error">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>587</pd:x>
+        <pd:y>496</pd:y>
+        <config>
+            <faultName>DBError</faultName>
+        </config>
+        <pd:inputBindings>
+            <ns3:ActivityInput>
+                <message>
+                    <xsl:value-of select="$_error/ns1:ErrorReport/Msg"/>
+                </message>
+                <messageCode>
+                    <xsl:value-of select="$_error/ns1:ErrorReport/MsgCode"/>
+                </messageCode>
+                <data>
+                    <pfx12:DBError>
+                        <pfx12:Message>
+                            <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/Exceptions/DB/Messages/DatabaseError"/>
+                        </pfx12:Message>
+                        <pfx12:Code>
+                            <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/Exceptions/DB/Codes/DatabaseError"/>
+                        </pfx12:Code>
+                    </pfx12:DBError>
+                </data>
+            </ns3:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch Login Timed Out">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>398</pd:x>
+        <pd:y>495</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=LoginTimedOutException namespace=http://schemas.tibco.com/bw/plugins/jdbc/5.0/jdbcExceptions</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Catch JDBC SQL Error</pd:from>
+        <pd:to>Query AppID</pd:to>
+        <pd:xpathDescription>ID not found</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$Catch-JDBC-SQL-Error/pfx9:JDBCSQLException/msgCode = $_globalVariables/ns2:GlobalVariables/Exceptions/DB/Codes/SQLIntegrityError and 
+$Catch-JDBC-SQL-Error/pfx9:JDBCSQLException/sqlState = $_globalVariables/ns2:GlobalVariables/Exceptions/DB/Codes/SQLIntegrityState</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch JDBC SQL Error</pd:from>
+        <pd:to>Rethrow</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Query AppID</pd:from>
+        <pd:to>Generate AppID  Error</pd:to>
+        <pd:xpathDescription>AppID Not Found</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$Query-AppID/resultSet/Record[1]/COUNT = 0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Query AppID</pd:from>
+        <pd:to>Query InterfaceID</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Query InterfaceID</pd:from>
+        <pd:to>Generate Render ID Error</pd:to>
+        <pd:xpathDescription>Invalid Render ID</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Query InterfaceID</pd:from>
+        <pd:to>Generate-Render-ID-Error-1</pd:to>
+        <pd:xpathDescription>Invalid InterfaceID</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$Query-InterfaceID/resultSet/Record[1]/COUNT = 0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Group</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch Database Driver Not Found</pd:from>
+        <pd:to>Generate DB Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch Database Timed Out</pd:from>
+        <pd:to>Generate DB Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch JDBC Connection Not Found</pd:from>
+        <pd:to>Generate DB Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch Login Timed Out</pd:from>
+        <pd:to>Generate DB Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

@@ -1,0 +1,21 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>QueueListPath</name>
+			<value>\\tibco-nas\TIB_FILESHARE\DEV\PRODUCTION_UTILITY\EMSStatsCollector_Utility\queue.txt</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1507831640644</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>TopicListPath</name>
+			<value>no value</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1497290776589</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/CommonLE2/namespace/Public/Common" xmlns:ns3="http://www.tibco.com/CommonLE2/namespace/Public/Common/RequestHeader.xsd" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx5="http://www.tibco.com/CommonLE2/namespace/Public/Logging/LogRequest.xsd" xmlns:pfx4="http://xmlns.example.com/1161987078278" xmlns:pfx3="http://www.tibco.com/CommonLE2/namespace/LogRequest" xmlns:pfx2="http://xmlns.example.com/1161995512806" xmlns:pfx="http://www.tibco.com/CommonLE2/namespace/Public/Logging">
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Logging/LogRequest.xsd" schemaLocation="/SharedResources/SchemaDefinitions/Public/Logging/LogRequest.xsd"/>
+    <wsdl:import namespace="http://www.tibco.com/CommonLE2/namespace/LogRequest" location="/SharedResources/WSDL/Core/Handle_Log_Request.wsdl"/>
+    <wsdl:import namespace="http://xmlns.example.com/1161995512806" location="/Test/Core Services/Logging/WSDL-LogRequest.wsdl"/>
+    <pd:name>Test/Core Services/Logging/Send Logs.process</pd:name>
+    <pd:description>This process shows three different ways to send log requests to the 
+CommonLE core services</pd:description>
+    <pd:startName>Start</pd:startName>
+    <pd:startX>26</pd:startX>
+    <pd:startY>85</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>447</pd:endX>
+    <pd:endY>105</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1285032775208</pd:targetNamespace>
+    <pd:activity name="JMS Queue Sender">
+        <pd:type>com.tibco.plugin.jms.JMSQueueSendActivity</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueSendActivity</pd:resourceType>
+        <pd:x>259</pd:x>
+        <pd:y>45</pd:y>
+        <config>
+            <PermittedMessageType>XML Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+                <destination>%%JMSDestinationNames/MIG_LogQueue%%</destination>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/SharedResources/Connections/JMS/JMS Log.sharedjmscon</ConnectionReference>
+            <InDataxsdString ref="pfx5:LogRequest"/>
+        </config>
+        <pd:inputBindings>
+            <ns2:ActivityInput>
+                <Body>
+                    <pfx5:LogRequest>
+                        <xsl:copy-of select="$Seed-Log-Data/pfx5:LogRequest/ns3:Header"/>
+                        <xsl:if test="$Seed-Log-Data/pfx5:LogRequest/TimeDuration">
+                            <TimeDuration>
+                                <xsl:value-of select="$Seed-Log-Data/pfx5:LogRequest/TimeDuration"/>
+                            </TimeDuration>
+                        </xsl:if>
+                        <xsl:if test="$Seed-Log-Data/pfx5:LogRequest/Category">
+                            <Category>
+                                <xsl:value-of select="$Seed-Log-Data/pfx5:LogRequest/Category"/>
+                            </Category>
+                        </xsl:if>
+                        <xsl:if test="$Seed-Log-Data/pfx5:LogRequest/Status">
+                            <Status>
+                                <xsl:value-of select="$Seed-Log-Data/pfx5:LogRequest/Status"/>
+                            </Status>
+                        </xsl:if>
+                        <xsl:if test="$Seed-Log-Data/pfx5:LogRequest/FileSize">
+                            <FileSize>
+                                <xsl:value-of select="$Seed-Log-Data/pfx5:LogRequest/FileSize"/>
+                            </FileSize>
+                        </xsl:if>
+                        <Audit>
+                            <xsl:value-of select="$Seed-Log-Data/pfx5:LogRequest/Audit"/>
+                        </Audit>
+                    </pfx5:LogRequest>
+                </Body>
+            </ns2:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Seed Log Data">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>126</pd:x>
+        <pd:y>84</pd:y>
+        <config>
+            <element ref="pfx5:LogRequest"/>
+        </config>
+        <pd:inputBindings>
+            <pfx5:LogRequest>
+                <ns3:Header>
+                    <ns3:ApplicationID>
+                        <xsl:value-of select="&quot;AppID-1&quot;"/>
+                    </ns3:ApplicationID>
+                    <ns3:ComponentName>
+                        <xsl:value-of select="&quot;Component&quot;"/>
+                    </ns3:ComponentName>
+                    <ns3:Hostname>
+                        <xsl:value-of select="&quot;Local Host&quot;"/>
+                    </ns3:Hostname>
+                    <ns3:Timestamp>
+                        <xsl:value-of select="current-dateTime()"/>
+                    </ns3:Timestamp>
+                    <ns3:TransactionDomain>
+                        <xsl:value-of select="&quot;Sales Distribution&quot;"/>
+                    </ns3:TransactionDomain>
+                    <ns3:TransactionType>
+                        <xsl:value-of select="&quot;Order&quot;"/>
+                    </ns3:TransactionType>
+                    <ns3:TransactionID>
+                        <xsl:value-of select="&quot;Transaction ID&quot;"/>
+                    </ns3:TransactionID>
+                    <ns3:CorrelationID>
+                        <xsl:value-of select="&quot;1234567&quot;"/>
+                    </ns3:CorrelationID>
+                    <ns3:InterfaceID>
+                        <xsl:value-of select="&quot;InterfaceID.AppID-1.3&quot;"/>
+                    </ns3:InterfaceID>
+                    <ns3:Filename>
+                        <xsl:value-of select="&quot;file.dat&quot;"/>
+                    </ns3:Filename>
+                    <ns3:Message>
+                        <xsl:value-of select="&quot;this is a test&quot;"/>
+                    </ns3:Message>
+                    <ns3:DataEncoding>
+                        <xsl:value-of select="&quot;base64&quot;"/>
+                    </ns3:DataEncoding>
+                    <ns3:Transaction>
+                        <xsl:value-of select="'&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?> &#xA;&lt;PurchaseOrder>     &#xA;&lt;ProcessName>PO-BESTBUY&lt;/ProcessName>     &#xA;&lt;OrderIdentifier>ORDBESTBUY0001&lt;/OrderIdentifier>    &#xA;&lt;CustomerIdentifier>BestBuy&lt;/CustomerIdentifier>     &#xA;&lt;PurchaseOrderDate>2008-05-01T09:30:14.379-07:00&lt;/PurchaseOrderDate>&#xA;&lt;Total>100000000&lt;/Total>     &#xA;&lt;Status>Received&lt;/Status>     &#xA;&lt;Location>Palo Alto&lt;/Location>     &#xA;&lt;LineItem>         &#xA;&#x9;&lt;OrderIdentifier>ip-0001&lt;/OrderIdentifier>&#xA;        &lt;LineNumber>1&lt;/LineNumber>&#xA;        &lt;Item>iPod&lt;/Item>         &#xA;        &lt;ItemIdentifier>ID-0003&lt;/ItemIdentifier>         &#xA;        &lt;ItemCategory>Electronics&lt;/ItemCategory>         &#xA;        &lt;Quantity>300&lt;/Quantity>         &#xA;        &lt;UnitPrice>399&lt;/UnitPrice>         &#xA;        &lt;price>39900&lt;/price>         &#xA;        &lt;ShipmentDate>2008-09-01T09:30:06.648-07:00&lt;/ShipmentDate>         &#xA;        &lt;ShipmentLocation>New York&lt;/ShipmentLocation>         &#xA;        &lt;Status>Shipping&lt;/Status>         &#xA;        &lt;OverBuyQty>100&lt;/OverBuyQty>     &#xA;&lt;/LineItem>   &#xA;&lt;LineItem>         &#xA;&#x9;&lt;OrderIdentifier>ip-0001&lt;/OrderIdentifier>&#xA;        &lt;LineNumber>2&lt;/LineNumber>&#xA;        &lt;Item>NIKON D300&lt;/Item>         &#xA;        &lt;ItemIdentifier>ID-0004&lt;/ItemIdentifier>         &#xA;        &lt;ItemCategory>Electronics&lt;/ItemCategory>         &#xA;        &lt;Quantity>300&lt;/Quantity>         &#xA;        &lt;UnitPrice>2000&lt;/UnitPrice>         &#xA;        &lt;price>600000&lt;/price>         &#xA;        &lt;ShipmentDate>2008-09-01T09:30:06.648-07:00&lt;/ShipmentDate>         &#xA;        &lt;ShipmentLocation>New York&lt;/ShipmentLocation>         &#xA;        &lt;Status>Shipping&lt;/Status>         &#xA;        &lt;OverBuyQty>100&lt;/OverBuyQty>     &#xA;&lt;/LineItem>     &#xA;        &#xA;&lt;/PurchaseOrder>'"/>
+                    </ns3:Transaction>
+                </ns3:Header>
+                <TimeDuration>
+                    <xsl:value-of select="50"/>
+                </TimeDuration>
+                <Category>
+                    <xsl:value-of select="&quot;Category - Test&quot;"/>
+                </Category>
+                <Status>
+                    <xsl:value-of select="&quot;New&quot;"/>
+                </Status>
+                <Audit>
+                    <xsl:value-of select="1"/>
+                </Audit>
+            </pfx5:LogRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SOAPRequestReply">
+        <pd:type>com.tibco.plugin.soap.SOAPSendReceiveActivity</pd:type>
+        <pd:resourceType>ae.activities.SOAPSendReceiveUI</pd:resourceType>
+        <pd:x>250</pd:x>
+        <pd:y>145</pd:y>
+        <config>
+            <timeout>0</timeout>
+            <service>pfx2:Handle_Log_Request-service</service>
+            <servicePort>intfwsHandle_Log_RequestEndpoint2</servicePort>
+            <operation>Handle_sp_Log_sp_RequestOp</operation>
+            <soapAction>/Logging/Logic/intfHandle_Log_Request-service.serviceagent/intfwsHandle_Log_RequestEndpoint2/Handle_sp_Log_sp_RequestOp</soapAction>
+            <endpointURL>http://localhost:9901/Logging/Logic/intfHandle_Log_Request-service.serviceagent/intfwsHandle_Log_RequestEndpoint2</endpointURL>
+            <soapAttachmentStyle>SwA</soapAttachmentStyle>
+        </config>
+        <pd:inputBindings>
+            <inputMessage>
+                <xsl:copy-of select="$Seed-Log-Data/pfx5:LogRequest"/>
+            </inputMessage>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch SOAP Fault (App Error)">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>444</pd:x>
+        <pd:y>203</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=Error</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Seed Log Data</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>JMS Queue Sender</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Seed Log Data</pd:from>
+        <pd:to>JMS Queue Sender</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Seed Log Data</pd:from>
+        <pd:to>SOAPRequestReply</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SOAPRequestReply</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch SOAP Fault (App Error)</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

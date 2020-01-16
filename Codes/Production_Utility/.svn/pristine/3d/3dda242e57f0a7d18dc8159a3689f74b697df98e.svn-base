@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Repository:repository xmlns:Repository="http://www.tibco.com/xmlns/repo/types/2002">
+    <identity>
+        <objectType>usernamePassword</objectType>
+        <name>Identity</name>
+        <designer/>
+        <username>gangwars</username>
+        <password>#!a50Jj8PCCDsd6I95f2pJM1XxJKnl0OyZFEipQdHyImw=</password>
+    </identity>
+</Repository:repository>

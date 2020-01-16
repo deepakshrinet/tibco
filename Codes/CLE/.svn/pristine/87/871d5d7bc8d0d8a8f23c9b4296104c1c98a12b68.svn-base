@@ -1,0 +1,122 @@
+<serialization xmlns="urn:tibco.com/v3.0" jsxversion="3.9">
+  <name><![CDATA[Block - 100%]]></name>
+  <icon><![CDATA[images/prototypes/block.gif]]></icon>
+  <description><![CDATA[Simple block, relatively positioned with overflow=scroll.]]></description>
+  <onBeforeDeserialize/>
+  <onAfterDeserialize><![CDATA[
+    jsx3.$O(this).extend({
+    getFirstResponder: function() {
+        return tb_Name;
+    },
+    getApplicationId: function() {
+        return this.applicationId;
+    },
+    setApplicationId: function(strApplicationId) {
+    	tb_ApplicationID.setValue(strApplicationId);
+        this.applicationId = strApplicationId;
+    },
+    getRecordId: function() {
+        return this.recordId;
+    },
+    setRecordId: function(strRecordId) {
+        this.recordId = strRecordId;
+    },
+    markRequiredInputs: function(bRepaint){
+    	jsx3.require("jsx3.gui.Form");
+    	var objInputs = bodyPane.getDescendantsOfType("jsx3.gui.Form",false);
+    	jsx3.$A(objInputs).each(function(input){
+	    	if (input.getRequired()==jsx3.gui.Form.REQUIRED){
+	    		var objLabel = input.getParent().getChild('ifRequired');
+				if (objLabel != null){
+	    			objLabel.setText('*',bRepaint);
+	    		}
+	    	}
+    	});
+    }
+    });
+  ]]></onAfterDeserialize>
+  <object type="jsx3.gui.Block">
+    <variants jsxoverflow="1"/>
+    <strings jsxname="createTypePane" jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1"/>
+    <object type="jsx3.gui.LayoutGrid">
+      <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+      <strings jsxname="dialogLayout" jsxrows="28,*" jsxwidth="100%" jsxheight="100%"/>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="2"/>
+        <strings jsxname="menuPane" jsxwidth="100%" jsxheight="100%"/>
+        <dynamics jsxborder="@Outset" jsxbgcolor="neutralBG"/>
+        <object type="jsx3.gui.ToolbarButton">
+          <variants/>
+          <strings jsxname="createBtn" jsximage="images/icons/addDoc.gif"/>
+          <dynamics jsxtext="category_createCategory" jsxtip="category_createCategoryTip"/>
+          <events jsxexecute="cle.configuration.category.createNewCategory(this);"/>
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="1"/>
+        <strings jsxname="bodyPane" jsxwidth="100%" jsxheight="100%"/>
+        <dynamics jsxborder="@Outset" jsxbgcolor="@Solid Light"/>
+        <object type="jsx3.gui.Block">
+          <variants jsxleft="0" jsxtop="0" jsxheight="40" jsxoverflow="2" jsxrelativeposition="1"/>
+          <strings jsxtagname="div" jsxwidth="100%" jsxtext="&amp;#160;"/>
+          <dynamics jsxbgcolor="@Solid Light" jsxpadding="@8Pixel"/>
+          <object type="jsx3.gui.Block">
+            <variants jsxrelativeposition="1" jsxoverflow="2" jsxwidth="160" jsxheight="30"/>
+            <strings jsxname="label"/>
+            <dynamics jsxfontname="@Label1 FN" jsxfontsize="labelFontSize" jsxfontweight="@Label1 FW" jsxtext="category_ApplicationID"/>
+          </object>
+          <object type="jsx3.gui.Block">
+            <variants jsxrelativeposition="1" jsxoverflow="2" jsxwidth="8" jsxheight="30"/>
+            <strings jsxname="ifRequired" jsxtext="&amp;#160;" jsxcolor="red"/>
+            <dynamics jsxfontname="@Label1 FN" jsxfontsize="labelFontSize" jsxfontweight="@Label1 FW"/>
+          </object>
+          <object type="jsx3.gui.TextBox">
+            <variants jsxheight="18" jsxwidth="200" jsxenabled="0" jsxrequired="1"/>
+            <strings jsxname="tb_ApplicationID" jsxmargin="0 4 0 0" jsxcdfattribute="ApplicationID"/>
+            <dynamics jsxfontname="@Label1 FN" jsxfontsize="labelFontSize"/>
+          </object>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants jsxleft="0" jsxtop="0" jsxheight="40" jsxoverflow="2" jsxrelativeposition="1"/>
+          <strings jsxtagname="div" jsxwidth="100%" jsxtext="&amp;#160;"/>
+          <dynamics jsxbgcolor="@Solid Light" jsxpadding="@8Pixel"/>
+          <object type="jsx3.gui.Block">
+            <variants jsxrelativeposition="1" jsxoverflow="2" jsxwidth="160" jsxheight="30"/>
+            <strings jsxname="label"/>
+            <dynamics jsxfontname="@Label1 FN" jsxfontsize="labelFontSize" jsxfontweight="@Label1 FW" jsxtext="category_Name"/>
+          </object>
+          <object type="jsx3.gui.Block">
+            <variants jsxrelativeposition="1" jsxoverflow="2" jsxwidth="8" jsxheight="30"/>
+            <strings jsxname="ifRequired" jsxtext="&amp;#160;" jsxcolor="red"/>
+            <dynamics jsxfontname="@Label1 FN" jsxfontsize="labelFontSize" jsxfontweight="@Label1 FW"/>
+          </object>
+          <object type="jsx3.gui.TextBox">
+            <variants jsxheight="18" jsxwidth="200" jsxrequired="1"/>
+            <strings jsxname="tb_Name" jsxmargin="0 4 0 0" jsxcdfattribute="CategoryName"/>
+            <dynamics jsxfontname="@Label1 FN" jsxfontsize="labelFontSize"/>
+          </object>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants jsxleft="0" jsxtop="0" jsxheight="74" jsxoverflow="2" jsxrelativeposition="1"/>
+          <strings jsxtagname="div" jsxwidth="100%" jsxtext="&amp;#160;"/>
+          <dynamics jsxbgcolor="@Solid Light" jsxpadding="@8Pixel"/>
+          <object type="jsx3.gui.Block">
+            <variants jsxrelativeposition="1" jsxoverflow="2" jsxwidth="160" jsxheight="30"/>
+            <strings jsxname="label"/>
+            <dynamics jsxfontname="@Label1 FN" jsxfontsize="labelFontSize" jsxfontweight="@Label1 FW" jsxtext="category_Description"/>
+          </object>
+          <object type="jsx3.gui.Block">
+            <variants jsxrelativeposition="1" jsxoverflow="2" jsxwidth="8" jsxheight="30"/>
+            <strings jsxname="ifRequired" jsxtext="&amp;#160;" jsxcolor="red"/>
+            <dynamics jsxfontname="@Label1 FN" jsxfontsize="labelFontSize" jsxfontweight="@Label1 FW"/>
+          </object>
+          <object type="jsx3.gui.TextBox">
+            <variants jsxheight="72" jsxwidth="200" jsxrequired="0" jsxtype="1"/>
+            <strings jsxname="tb_Description" jsxmargin="0 4 0 0" jsxcdfattribute="Description"/>
+            <dynamics jsxfontname="@Label1 FN" jsxfontsize="labelFontSize"/>
+          </object>
+        </object>
+      </object>
+    </object>
+  </object>
+</serialization>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://www.tibco.com/schemas/TEXT-ULTILITY/SharedResources/Schemas/XSD/Schema.xsd"
+	 targetNamespace="http://www.tibco.com/schemas/TEXT-ULTILITY/SharedResources/Schemas/XSD/Schema.xsd"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="SlackNotification">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="TeamName" minOccurs="0"/>
+				<xs:element ref="SpecialNotification" minOccurs="0"/>
+				<xs:element ref="ChannelURI" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TeamName" type="xs:string"/>
+	<xs:element name="SpecialNotification" type="xs:string"/>
+	<xs:element name="ChannelURI" type="xs:string"/>
+</xs:schema>

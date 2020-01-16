@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Repository:repository xmlns:Repository="http://www.tibco.com/xmlns/repo/types/2002">
+    <enterpriseArchive>
+        <sharedArchive name="Shared Archive">
+            <resourceType>shared.archive.resource</resourceType>
+            <authorProperty>banerja3</authorProperty>
+        </sharedArchive>
+        <processArchive name="LMS_ESB_CRCLM_MES">
+            <resourceType>process.archive.resource</resourceType>
+            <authorProperty>singhalr</authorProperty>
+            <processProperty>/CLE/Interface/Loader/InitializeLogLevel.process,/Services/MainProcesses/StarterProcess_JMSReceiver_SFFile.process,/Services/MainProcesses/Timer_SFFile_StarterProcess.process</processProperty>
+        </processArchive>
+        <versionProperty>1.0.0</versionProperty>
+        <authorProperty>singhalr</authorProperty>
+        <addServiceSettableGvars>true</addServiceSettableGvars>
+        <name>LMS_ESB_CRCLM_MES</name>
+        <designer>
+            <lockedProperties/>
+            <fixedChildren/>
+            <resourceDescriptions/>
+        </designer>
+        <fileLocationProperty>C:\Users\singhalr\Desktop\SF\LMS_ESB_CRCLM_MES.ear</fileLocationProperty>
+        <description/>
+    </enterpriseArchive>
+</Repository:repository>

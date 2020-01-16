@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogList"
+	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	 targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogList"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xsd:element name="LogRecord">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="LOGID" type="xsd:int"/>
+				<xsd:element name="APPLICATIONID" type="xsd:string"/>
+				<xsd:element name="COMPONENTNAME" type="xsd:string"/>
+				<xsd:element name="TRANSACTIONDOMAIN" type="xsd:string"/>
+				<xsd:element name="TIME_STAMP" type="xsd:string"/>
+				<xsd:element name="TRANSACTIONID" type="xsd:string"/>
+				<xsd:element name="CORRELATIONID" type="xsd:string"/>
+				<xsd:element name="LOGMESSAGES" type="xsd:string"/>
+				<xsd:element name="STATUS" type="xsd:string"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="LogList">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="LogRecord" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

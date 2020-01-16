@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Repository:repository xmlns:Repository="http://www.tibco.com/xmlns/repo/types/2002">
+    <folder resourceType="ae.designerfolder" name="ClientSchema" propLocks="" allowUserToChangeIcon="false" sortContents="false" acceptsResources="true" allowDuplicates="false">
+        <description>The client schema is used  to encapsulate the native CLE schema. You can use a different client schema or modify this client schema to fit your needs. </description>
+        <fixedChildren/>
+    </folder>
+</Repository:repository>

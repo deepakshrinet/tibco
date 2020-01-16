@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BWSharedResource>
+    <name>JMS Connection</name>
+    <resourceType>ae.shared.JMSConnectionKey</resourceType>
+    <config>
+        <NamingEnvironment>
+            <UseJNDI>true</UseJNDI>
+            <ProviderURL>t3://localhost:7001</ProviderURL>
+            <NamingURL>t3://10.201.226.163:7081</NamingURL>
+            <NamingInitialContextFactory>weblogic.jndi.WLInitialContextFactory</NamingInitialContextFactory>
+            <TopicFactoryName>jms/TestConnection</TopicFactoryName>
+            <QueueFactoryName>jms/TestConnection</QueueFactoryName>
+            <NamingPrincipal>weblogic</NamingPrincipal>
+            <NamingCredential>#!FI7mGP0gFtV9xwbZQUaIEBL8o2LHhs6D3HZojcvQp6/BnhnaTCS25A==</NamingCredential>
+        </NamingEnvironment>
+        <ConnectionAttributes>
+            <username>weblogic</username>
+            <password>#!bs+gLxAsxFtGgTSUlJdQM56uwwyE8hYx6XJ0DUGY42oSqoSa6Zk/Tg==</password>
+            <clientID/>
+            <autoGenClientID>true</autoGenClientID>
+        </ConnectionAttributes>
+        <UseXACF>true</UseXACF>
+        <UseSharedJndiConfig>false</UseSharedJndiConfig>
+    </config>
+</BWSharedResource>

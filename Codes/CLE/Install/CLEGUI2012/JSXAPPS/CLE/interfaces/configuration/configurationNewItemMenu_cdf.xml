@@ -1,0 +1,12 @@
+<data jsxid="jsxroot">
+  <record jsxid="newItem" jsxtext="{config_menuNew}" jsximg="images/icons/gearDoc.gif" jsxdisabled="0">
+	<record jsxid="1" jsxtext="{config_applications}" jsximg="images/icons/application.gif" jsxdisabled="0" jsxexecute="cle.configuration.createApplicationItem(this,strRECORDID,this.getContextParent(),this.getContextRecordId());"/>
+	<record jsxid="2" jsxtext="{config_categories}" jsximg="images/icons/category.gif" jsxdisabled="1" jsxexecute="cle.configuration.createCategoryItem(this,strRECORDID,this.getContextParent(),this.getContextRecordId());"/>
+	<record jsxid="3" jsxtext="{config_exceptionCodes}" jsximg="images/icons/icon_exception.gif" jsxdisabled="1" jsxexecute="cle.configuration.createExceptionCodeItem(this,strRECORDID,this.getContextParent(),this.getContextRecordId());"/>
+	<record jsxid="4" jsxtext="{config_interfaces}" jsximg="images/icons/interface.gif" jsxdisabled="1" jsxexecute="cle.configuration.createInterfaceItem(this,strRECORDID,this.getContextParent(),this.getContextRecordId());"/>
+	<record jsxid="5" jsxtext="{config_procedures}" jsximg="images/icons/procedure.gif" jsxdisabled="1" jsxexecute="cle.configuration.createProcedureItem(this,strRECORDID,this.getContextParent(),this.getContextRecordId());"/>
+	<record jsxid="6" jsxtext="{config_renderConfigs}" jsximg="images/icons/rendering.gif" jsxdisabled="1" jsxexecute="cle.configuration.createRenderingItem(this,strRECORDID,this.getContextParent(),this.getContextRecordId());"/>
+	<record jsxid="7" jsxtext="{config_severities}" jsximg="images/icons/severity.gif" jsxdisabled="1" jsxexecute="cle.configuration.createSeverityItem(this,strRECORDID,this.getContextParent(),this.getContextRecordId());"/>
+	<record jsxid="8" jsxtext="{config_types}" jsximg="images/icons/type.gif" jsxdisabled="1" jsxexecute="cle.configuration.createTypeItem(this,strRECORDID,this.getContextParent(),this.getContextRecordId());"/>
+  </record>
+</data>

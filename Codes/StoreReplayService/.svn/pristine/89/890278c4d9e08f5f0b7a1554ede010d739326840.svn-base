@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BWSharedResource xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <name>BatchReplay</name>
+    <resourceType>ae.shared.sharedVariable</resourceType>
+    <config xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <persistent>false</persistent>
+        <multi-engine>false</multi-engine>
+        <initialValue>byData</initialValue>
+        <initialValueRef>/StoreAndReplayService/SharedResources/SharedVariables/Instance.xml</initialValueRef>
+        <initialValueData>&lt;?xml version="1.0" encoding="UTF-8"?&gt; &lt;Flag&gt;     &lt;ProcessFlag&gt;Y&lt;/ProcessFlag&gt; &lt;/Flag&gt;</initialValueData>
+        <xsdString>
+            <xsd:element name="Flag">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ProcessFlag" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsdString>
+    </config>
+</BWSharedResource>

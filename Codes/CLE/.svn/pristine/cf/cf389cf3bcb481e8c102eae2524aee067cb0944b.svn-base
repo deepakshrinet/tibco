@@ -1,0 +1,29 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>MIG_From</name>
+			<value>CLE-Notification-(Do-Not-Reply)</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874574880</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>MIG_Host</name>
+			<value>smtp.tibco.com</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874574206</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>MIG_SubjectPrefix</name>
+			<value>Exception::</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874574620</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

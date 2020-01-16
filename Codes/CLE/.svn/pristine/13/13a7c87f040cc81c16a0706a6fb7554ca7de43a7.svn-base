@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:ns2="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Administration/Configuration/ConfigurationListQuery.xsd" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:ns="http://www.tibco.com/CommonLE2/Public/Common" xmlns:ns3="http://www.tibco.com/CommonLE2/Public/Common/ErrorMessage.xsd" xmlns:pfx0="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Type" xmlns:pfx1="http://www.tibco.com/CommonLE2/namespace/private/Common" xmlns:tns="http://www.tibco.com/CommonLE2/namespace/Administration/GUIServices/Type" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx2="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Query" targetNamespace="http://www.tibco.com/CommonLE2/namespace/Administration/GUIServices/Type">
+    <import namespace="http://www.tibco.com/CommonLE2/namespace/private/Common" location="../../../SchemaDefinitions/Private/Common/LocalExceptions.xsd"/>
+    <import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Type" location="../../../SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/ExceptionType.xsd"/>
+    <import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Query" location="../../../SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/ConfigurationQuery.xsd"/>
+    <import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Administration/Configuration/ConfigurationListQuery.xsd" location="../../../SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/ConfigurationListQuery.xsd"/>
+    <import namespace="http://www.tibco.com/CommonLE2/Public/Common" location="../../../SchemaDefinitions/Public/Common/ErrorMessage.xsd"/>
+    <message name="ExceptionTypes">
+        <part element="pfx0:ExceptionTypes" name="parameters"/>
+    </message>
+    <message name="Error">
+        <part name="parameters" element="ns:Error"/>
+    </message>
+    <message name="Query">
+        <part element="pfx2:Query" name="parameters"/>
+    </message>
+    <message name="Dummy"/>
+    <portType name="portType">
+        <operation name="UpdateTypeOp">
+            <input message="tns:ExceptionTypes"/>
+            <output message="tns:Dummy"/>
+            <fault name="fault1" message="tns:Error"/>
+        </operation>
+        <operation name="RetrieveSpecificTypeOp">
+            <input message="tns:Query"/>
+            <output message="tns:ExceptionTypes"/>
+            <fault name="fault1" message="tns:Error"/>
+        </operation>
+        <operation name="DeleteTypeOp">
+            <input message="tns:Query"/>
+            <output message="tns:Dummy"/>
+            <fault name="fault1" message="tns:Error"/>
+        </operation>
+        <operation name="CreateTypeOp">
+            <input message="tns:ExceptionTypes"/>
+            <output message="tns:Dummy"/>
+            <fault name="fault1" message="tns:Error"/>
+        </operation>
+        <operation name="RetrieveTypeListWithSysIDOp">
+            <input message="tns:Query"/>
+            <output message="tns:ExceptionTypes"/>
+            <fault name="fault1" message="tns:Error"/>
+        </operation>
+    </portType>
+</definitions>

@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/WriteToLogActivitySchema" xmlns:pfx12="http://www.tibco.com/CommonLE2/namespace/Public/Common/RequestHeader.xsd" xmlns:pfx11="http://www.tibco.com/CommonLE2/namespace/Public/Logging/LogRequest.xsd" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:pfx10="http://www.tibco.com/CommonLE/namespace/Common" xmlns:pfx="http://www.tibco.com/unique/default/namespace/Exception" xmlns:ns2="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns4="http://www.tibco.com/CommonLE2/Private/Common" xmlns:ns3="http://www.tibco.com/CommonLE2/namespace/Public/Common" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx5="http://www.tibco.com/CommonLE2/namespace/Log" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx4="http://www.tibco.com/CommonLE2/namespace/Exception" xmlns:pfx3="http://www.tibco.com/CommonLE/namespace/Custom" xmlns:pfx2="http://www.tibco.com/pe/EngineTypes" xmlns:pfx9="http://www.tibco.com/CommonLE2/namespace/private/Common" xmlns:pfx8="http://www.tibco.com/pe/DeployedVarsType" xmlns:pfx7="http://www.tibco.com/CommonLE2/namespace/LogRequest" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pfx6="http://www.tibco.com/CommonLE2/namespace/Public/Logging">
+    <xsd:import namespace="http://www.tibco.com/unique/default/namespace/Exception" schemaLocation="/Shared Resources/Schema Definitions/Common/ExceptionRequest.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE/namespace/Custom" schemaLocation="/Shared Resources/Schema Definitions/Custom/Error.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Logging/LogRequest.xsd" schemaLocation="/SharedResources/SchemaDefinitions/Public/Logging/LogRequest.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/private/Common" schemaLocation="/SharedResources/SchemaDefinitions/Private/Common/LocalExceptions.xsd"/>
+    <wsdl:import namespace="http://www.tibco.com/CommonLE2/namespace/LogRequest" location="/SharedResources/WSDL/Core/Handle_Log_Request.wsdl"/>
+    <pd:name>Logging/Logic/HandleLogRequest.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="LogRequest" type="xsd:string"/>
+    </pd:startType>
+    <pd:startX>26</pd:startX>
+    <pd:startY>75</pd:startY>
+    <pd:returnBindings>
+        <pfx7:Dummy/>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endX>457</pd:endX>
+    <pd:endY>72</pd:endY>
+    <pd:errorSchemas>
+        <DBError ref="pfx9:DBError"/>
+        <IDNotFound ref="pfx9:IDNotFound"/>
+        <XMLError ref="pfx9:XMLError"/>
+    </pd:errorSchemas>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1284170257906</pd:targetNamespace>
+    <pd:activity name="Catch ID not Found">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>591</pd:x>
+        <pd:y>209</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=IDNotFound namespace=http://www.tibco.com/CommonLE2/namespace/private/Common</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Save Log Record">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>323</pd:x>
+        <pd:y>74</pd:y>
+        <config>
+            <processName>/Logging/DataAccess/Oracle/SaveLogRecord.process</processName>
+            <processNameXPath>concat("/Logging/DataAccess/",$_globalVariables/pfx8:GlobalVariables/Database/MIG_DatabaseType,"/SaveLogRecord.process")</processNameXPath>
+        </config>
+        <pd:inputBindings>
+            <pfx11:LogRequest>
+                <pfx12:Header>
+                    <pfx12:ApplicationID>
+                        <xsl:value-of select="substring(tib:trim($Parse-LogRequest/pfx11:LogRequest/pfx12:Header/pfx12:ApplicationID), 1, 50)"/>
+                    </pfx12:ApplicationID>
+                    <pfx12:ComponentName>
+                        <xsl:value-of select="substring(tib:trim($Parse-LogRequest/pfx11:LogRequest/pfx12:Header/pfx12:ComponentName), 1, 250)"/>
+                    </pfx12:ComponentName>
+                    <pfx12:Hostname>
+                        <xsl:value-of select="substring(tib:trim($Parse-LogRequest/pfx11:LogRequest/pfx12:Header/pfx12:Hostname), 1, 50)"/>
+                    </pfx12:Hostname>
+                    <pfx12:Timestamp>
+                        <xsl:value-of select="$Parse-LogRequest/pfx11:LogRequest/pfx12:Header/pfx12:Timestamp"/>
+                    </pfx12:Timestamp>
+                    <pfx12:TransactionDomain>
+                        <xsl:value-of select="substring(tib:trim($Parse-LogRequest/pfx11:LogRequest/pfx12:Header/pfx12:TransactionDomain), 1, 50)"/>
+                    </pfx12:TransactionDomain>
+                    <pfx12:TransactionType>
+                        <xsl:value-of select="substring(tib:trim($Parse-LogRequest/pfx11:LogRequest/pfx12:Header/pfx12:TransactionType), 1, 50)"/>
+                    </pfx12:TransactionType>
+                    <pfx12:TransactionID>
+                        <xsl:value-of select="substring(tib:trim($Parse-LogRequest/pfx11:LogRequest/pfx12:Header/pfx12:TransactionID), 1, 50)"/>
+                    </pfx12:TransactionID>
+                    <pfx12:CorrelationID>
+                        <xsl:value-of select="substring(tib:trim($Parse-LogRequest/pfx11:LogRequest/pfx12:Header/pfx12:CorrelationID), 1, 100)"/>
+                    </pfx12:CorrelationID>
+                    <pfx12:InterfaceID>
+                        <xsl:value-of select="substring(tib:trim($Parse-LogRequest/pfx11:LogRequest/pfx12:Header/pfx12:InterfaceID), 1, 50)"/>
+                    </pfx12:InterfaceID>
+                    <pfx12:Filename>
+                        <xsl:value-of select="substring(tib:trim($Parse-LogRequest/pfx11:LogRequest/pfx12:Header/pfx12:Filename), 1, 100)"/>
+                    </pfx12:Filename>
+                    <pfx12:Message>
+                        <xsl:value-of select="substring(tib:trim($Parse-LogRequest/pfx11:LogRequest/pfx12:Header/pfx12:Message), 1, 1500)"/>
+                    </pfx12:Message>
+                    <pfx12:RenderID>
+                        <xsl:value-of select="substring(tib:trim($Parse-LogRequest/pfx11:LogRequest/pfx12:Header/pfx12:RenderID), 1, 50)"/>
+                    </pfx12:RenderID>
+                    <pfx12:DataEncoding>
+                        <xsl:value-of select="substring(tib:trim($Parse-LogRequest/pfx11:LogRequest/pfx12:Header/pfx12:DataEncoding), 1, 10)"/>
+                    </pfx12:DataEncoding>
+                    <xsl:if test="$Parse-LogRequest/pfx11:LogRequest/pfx12:Header/pfx12:Transaction">
+                        <pfx12:Transaction>
+                            <xsl:value-of select="$Parse-LogRequest/pfx11:LogRequest/pfx12:Header/pfx12:Transaction"/>
+                        </pfx12:Transaction>
+                    </xsl:if>
+                    <xsl:for-each select="$Parse-LogRequest/pfx11:LogRequest/pfx12:Header/pfx12:AltKey">
+                        <pfx12:AltKey>
+                            <pfx12:AltKeyName>
+                                <xsl:value-of select="substring(tib:trim(current()/pfx12:AltKeyName), 1, 255)"/>
+                            </pfx12:AltKeyName>
+                            <pfx12:AltKeyValue>
+                                <xsl:value-of select="substring(tib:trim(current()/pfx12:AltKeyValue), 1, 255)"/>
+                            </pfx12:AltKeyValue>
+                        </pfx12:AltKey>
+                    </xsl:for-each>
+                </pfx12:Header>
+                <xsl:if test="exists($Parse-LogRequest/pfx11:LogRequest/TimeDuration)">
+                    <xsl:if test="$Parse-LogRequest/pfx11:LogRequest/TimeDuration">
+                        <TimeDuration>
+                            <xsl:value-of select="$Parse-LogRequest/pfx11:LogRequest/TimeDuration"/>
+                        </TimeDuration>
+                    </xsl:if>
+                </xsl:if>
+                <Category>
+                    <xsl:value-of select="substring(tib:trim($Parse-LogRequest/pfx11:LogRequest/Category), 1, 50)"/>
+                </Category>
+                <Status>
+                    <xsl:value-of select="substring(tib:trim($Parse-LogRequest/pfx11:LogRequest/Status), 1, 50)"/>
+                </Status>
+                <xsl:if test="$Parse-LogRequest/pfx11:LogRequest/FileSize">
+                    <FileSize>
+                        <xsl:value-of select="$Parse-LogRequest/pfx11:LogRequest/FileSize"/>
+                    </FileSize>
+                </xsl:if>
+                <Audit>
+                    <xsl:value-of select="$Parse-LogRequest/pfx11:LogRequest/Audit"/>
+                </Audit>
+            </pfx11:LogRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Parse LogRequest">
+        <pd:type>com.tibco.plugin.xml.XMLParseActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLParseActivity</pd:resourceType>
+        <pd:x>127</pd:x>
+        <pd:y>74</pd:y>
+        <config>
+            <inputStyle>text</inputStyle>
+            <xsdVersion>default</xsdVersion>
+            <validateOutput>true</validateOutput>
+            <term ref="pfx11:LogRequest"/>
+        </config>
+        <pd:inputBindings>
+            <xmlString>
+                <xsl:value-of select="$Start/LogRequest"/>
+            </xmlString>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Generate Error">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>71</pd:x>
+        <pd:y>194</pd:y>
+        <config>
+            <faultName>XMLError</faultName>
+        </config>
+        <pd:inputBindings>
+            <ns2:ActivityInput>
+                <message>
+                    <xsl:value-of select="$_globalVariables/pfx8:GlobalVariables/Exceptions/Common/Messages/XMLValidationError"/>
+                </message>
+                <xsl:if test="$_error/pfx2:ErrorReport/MsgCode">
+                    <messageCode>
+                        <xsl:value-of select="$_error/pfx2:ErrorReport/MsgCode"/>
+                    </messageCode>
+                </xsl:if>
+                <data>
+                    <pfx9:XMLError>
+                        <pfx9:Message>
+                            <xsl:value-of select="$_globalVariables/pfx8:GlobalVariables/Exceptions/Common/Messages/XMLValidationError"/>
+                        </pfx9:Message>
+                        <xsl:if test="$_error/pfx2:ErrorReport/MsgCode">
+                            <pfx9:Code>
+                                <xsl:value-of select="$_error/pfx2:ErrorReport/MsgCode"/>
+                            </pfx9:Code>
+                        </xsl:if>
+                    </pfx9:XMLError>
+                </data>
+            </ns2:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch XML Schema Error">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>345</pd:x>
+        <pd:y>222</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=XMLError namespace=http://www.tibco.com/CommonLE2/namespace/private/Common</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Raise Error Request Exception">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>466</pd:x>
+        <pd:y>222</pd:y>
+        <config>
+            <processName>/Common/Logic/RaiseErrorRequestException.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns4:ErrorRequest>
+                <ns4:RequestType>
+                    <xsl:value-of select="$_globalVariables/pfx8:GlobalVariables/LogService/LogRequestType"/>
+                </ns4:RequestType>
+                <xsl:choose>
+                    <xsl:when test="exists($Catch-ID-not-Found/pfx9:IDNotFound/pfx9:ApplicationIDNotFound)">
+                        <ns4:Message>
+                            <xsl:value-of select="$Catch-ID-not-Found/pfx9:IDNotFound/pfx9:ApplicationIDNotFound/pfx9:Message"/>
+                        </ns4:Message>
+                    </xsl:when>
+                    <xsl:when test="exists($Catch-ID-not-Found/pfx9:IDNotFound/pfx9:InterfaceIDNotFound)">
+                        <ns4:Message>
+                            <xsl:value-of select="$Catch-ID-not-Found/pfx9:IDNotFound/pfx9:InterfaceIDNotFound/pfx9:Message"/>
+                        </ns4:Message>
+                    </xsl:when>
+                    <xsl:when test="exists($Catch-ID-not-Found/pfx9:IDNotFound/pfx9:RenderIDNotFound)">
+                        <ns4:Message>
+                            <xsl:value-of select="$Catch-ID-not-Found/pfx9:IDNotFound/pfx9:RenderIDNotFound/pfx9:Message"/>
+                        </ns4:Message>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <ns4:Message>
+                            <xsl:value-of select="$Catch-XML-Schema-Error/pfx9:XMLError/pfx9:Message"/>
+                        </ns4:Message>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <ns4:xmlRequestString>
+                    <xsl:value-of select="$Start/LogRequest"/>
+                </ns4:xmlRequestString>
+            </ns4:ErrorRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="PayLoadCheckProcess">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>218</pd:x>
+        <pd:y>205</pd:y>
+        <config>
+            <processName>/Logging/Logic/PayLoadValidation.process</processName>
+        </config>
+        <pd:inputBindings>
+            <xsl:copy-of select="$Parse-LogRequest/pfx11:LogRequest"/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Parse LogRequest</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Save Log Record</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse LogRequest</pd:from>
+        <pd:to>Save Log Record</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse LogRequest</pd:from>
+        <pd:to>Generate Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-65485</pd:lineColor>
+        <pd:conditionType>error</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Raise Error Request Exception</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch XML Schema Error</pd:from>
+        <pd:to>Raise Error Request Exception</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch ID not Found</pd:from>
+        <pd:to>Raise Error Request Exception</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse LogRequest</pd:from>
+        <pd:to>PayLoadCheckProcess</pd:to>
+        <pd:xpathDescription>CheckFieldLength</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>string-length(tib:trim($Parse-LogRequest/pfx11:LogRequest/pfx12:Header/pfx12:ApplicationID))&gt;50 or
+string-length(tib:trim($Parse-LogRequest/pfx11:LogRequest/pfx12:Header/pfx12:ComponentName))&gt;250 or
+string-length(tib:trim($Parse-LogRequest/pfx11:LogRequest/pfx12:Header/pfx12:Hostname))&gt;50 or
+string-length(tib:trim($Parse-LogRequest/pfx11:LogRequest/pfx12:Header/pfx12:TransactionDomain))&gt;50 or
+string-length(tib:trim($Parse-LogRequest/pfx11:LogRequest/pfx12:Header/pfx12:TransactionType))&gt;50 or
+string-length(tib:trim($Parse-LogRequest/pfx11:LogRequest/pfx12:Header/pfx12:TransactionID))&gt;50 or
+string-length(tib:trim($Parse-LogRequest/pfx11:LogRequest/Category))&gt;50 or
+string-length(tib:trim($Parse-LogRequest/pfx11:LogRequest/pfx12:Header/pfx12:Message))&gt;1500 or
+string-length(tib:trim($Parse-LogRequest/pfx11:LogRequest/Status))&gt;50 or
+string-length(tib:trim($Parse-LogRequest/pfx11:LogRequest/pfx12:Header/pfx12:Filename))&gt;100 or
+string-length(tib:trim($Parse-LogRequest/pfx11:LogRequest/pfx12:Header/pfx12:InterfaceID))&gt;50 or
+string-length(tib:trim($Parse-LogRequest/pfx11:LogRequest/pfx12:Header/pfx12:DataEncoding))&gt;10 or
+string-length(tib:trim($Parse-LogRequest/pfx11:LogRequest/pfx12:Header/pfx12:CorrelationID))&gt;100 or
+string-length(tib:trim($Parse-LogRequest/pfx11:LogRequest/pfx12:Header/pfx12:RenderID))&gt;50</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>PayLoadCheckProcess</pd:from>
+        <pd:to>Save Log Record</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

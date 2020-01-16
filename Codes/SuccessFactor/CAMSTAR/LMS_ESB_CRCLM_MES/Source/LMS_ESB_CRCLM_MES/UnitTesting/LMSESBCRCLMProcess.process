@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:ns9="http://www.openapplications.org/oagis/10" xmlns:ns12="http://www.tibco.com/CommonLE/Client/Schema/ClientInterface.xsd" xmlns:ns5="http://www.tibco.com/namespaces/tnt/plugins/file/v2" xmlns:ns6="http://www.zimmer.com/v1_0/RequestBaseType" xmlns:ns10="pfx" xmlns:ns7="http://www.zimmer.com/v1_0/AuditTrackBaseType" xmlns:pfx="http://www.tibco.com/schemas/LMS_ESB_CRCLM_MES/SharedResources/Schemas/XSD/Curriculum.xsd" xmlns:ns8="http://www.zimmer.com/v1_0/ServiceBaseTypes" xmlns:ns2="http://www.tibco.com/namespaces/tnt/plugins/file" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns4="http://www.tibco.com/pe/WriteToLogActivitySchema" xmlns:ns3="http://www.tibco.com/pe/EngineTypes" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx2="http://www.zimmer.com/v1_0/LMSGroup/SyncPersonel.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xsd:import namespace="http://www.zimmer.com/v1_0/LMSGroup/SyncPersonel.xsd" schemaLocation="/SharedResources/Schemas/XSD/SyncPersonnelCDM.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/schemas/LMS_ESB_CRCLM_MES/SharedResources/Schemas/XSD/Curriculum.xsd" schemaLocation="/UnitTesting/Curriculum.xsd"/>
+    <pd:name>UnitTesting/LMSESBCRCLMProcess.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startX>85</pd:startX>
+    <pd:startY>102</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>1148</pd:endX>
+    <pd:endY>365</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1465824610724</pd:targetNamespace>
+    <pd:activity name="CatchAll">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>816</pd:x>
+        <pd:y>358</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="GetTransactionTime">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>340</pd:x>
+        <pd:y>102</pd:y>
+        <config>
+            <element>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="TransactionId" type="xsd:string"/>
+                            <xsd:element name="StartTime" type="xsd:string"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </element>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <TransactionId>
+                    <xsl:value-of select="tib:format-dateTime('yyyyMMDD-HHmmss',current-dateTime())"/>
+                </TransactionId>
+                <StartTime>
+                    <xsl:value-of select="tib:timestamp()"/>
+                </StartTime>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SendUnknownExceptionsTOCLE">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>1000</pd:x>
+        <pd:y>358</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendException.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns12:ExceptionRequest>
+                <ns12:Header>
+                    <ns12:ComponentName>
+                        <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns3:ProcessContext/ProcessId)"/>
+                    </ns12:ComponentName>
+                    <ns12:Hostname>
+                        <xsl:value-of select="BW:getHostName()"/>
+                    </ns12:Hostname>
+                    <ns12:TransactionDomain>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/LMS_ESB_CRCLM_MES/TransactionDomain"/>
+                    </ns12:TransactionDomain>
+                    <ns12:TransactionType>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/LMS_ESB_CRCLM_MES/TransactionType"/>
+                    </ns12:TransactionType>
+                    <ns12:TransactionID>
+                        <xsl:value-of select="if($GetTransactionTime/root/TransactionId !='')&#xA; then&#xA;$GetTransactionTime/root/TransactionId&#xA;else&#xA;tib:format-dateTime('yyyyMMDD-HHmmss',current-dateTime())"/>
+                    </ns12:TransactionID>
+                    <ns12:CorrelationID>
+                        <xsl:value-of select="tib:format-date('yyyyMMDD',current-date())"/>
+                    </ns12:CorrelationID>
+                    <ns12:InterfaceID>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/LMS_ESB_CRCLM_MES/InterfaceID"/>
+                    </ns12:InterfaceID>
+                    <ns12:Message>
+                        <xsl:value-of select="'Error in processing SF file.'"/>
+                    </ns12:Message>
+                </ns12:Header>
+                <ns12:ExceptionCode>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/ExceptionCodes/TECHNICAL-777"/>
+                </ns12:ExceptionCode>
+                <ns12:StackTrace>
+                    <xsl:value-of select="concat(&quot;Exception Code :&quot; ,    $_error/ns3:ErrorReport/MsgCode  , &quot; Exception Message : &quot;   ,  $_error/ns3:ErrorReport/Msg , &quot; Stack Trace : &quot;  , $_error/ns3:ErrorReport/StackTrace )"/>
+                </ns12:StackTrace>
+            </ns12:ExceptionRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Get_SF_File">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>489</pd:x>
+        <pd:y>103</pd:y>
+        <config>
+            <processName>/Services/SubProcesses/Get_SF_File.process</processName>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Null">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>492</pd:x>
+        <pd:y>259</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="SetCLEHeader">
+        <pd:type>com.tibco.pe.core.SetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.setSharedVariable</pd:resourceType>
+        <pd:x>196</pd:x>
+        <pd:y>101</pd:y>
+        <config>
+            <variableConfig>/CLE/Interface/SharedVariables/CLEHeader.jobsharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings>
+            <ns12:Header>
+                <ns12:ComponentName>
+                    <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns3:ProcessContext/ProcessId)"/>
+                </ns12:ComponentName>
+                <ns12:Hostname>
+                    <xsl:value-of select="BW:getHostName()"/>
+                </ns12:Hostname>
+                <ns12:TransactionDomain>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/LMS_ESB_CRCLM_MES/TransactionDomain"/>
+                </ns12:TransactionDomain>
+                <ns12:TransactionType>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/LMS_ESB_CRCLM_MES/TransactionType"/>
+                </ns12:TransactionType>
+                <ns12:TransactionID>
+                    <xsl:value-of select="tib:format-dateTime('yyyyMMdd-HHmmss', current-dateTime())"/>
+                </ns12:TransactionID>
+                <ns12:CorrelationID>
+                    <xsl:value-of select="tib:format-date('yyyyMMdd', current-date())"/>
+                </ns12:CorrelationID>
+                <ns12:InterfaceID>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/LMS_ESB_CRCLM_MES/InterfaceID"/>
+                </ns12:InterfaceID>
+            </ns12:Header>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Archive_File">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>776</pd:x>
+        <pd:y>99</pd:y>
+        <config>
+            <processName>/Services/SubProcesses/Archive_File.process</processName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <ArchiveFolder>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/SFFILE/ArchiveDir"/>
+                </ArchiveFolder>
+                <xsl:for-each select="$Get_SF_File/Root/FileNames">
+                    <FileNames>
+                        <xsl:value-of select="."/>
+                    </FileNames>
+                </xsl:for-each>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>CatchAll</pd:from>
+        <pd:to>SendUnknownExceptionsTOCLE</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SendUnknownExceptionsTOCLE</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetTransactionTime</pd:from>
+        <pd:to>Get_SF_File</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Get_SF_File</pd:from>
+        <pd:to>Null</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SetCLEHeader</pd:from>
+        <pd:to>GetTransactionTime</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Archive_File</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Get_SF_File</pd:from>
+        <pd:to>Archive_File</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>count($Get_SF_File/Root/root)&gt;0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>SetCLEHeader</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

@@ -1,0 +1,37 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>COMMAND_CENTER_PASSWORD</name>
+			<value>#!NIU4CL2VGgEd/hDE2qQSS0Vv9TMmv/bAMocVkn3r010=</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>Password</type>
+			<modTime>1472653533491</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>COMMAND_CENTER_USER</name>
+			<value>MFTDEPLOY</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1472653533803</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>MANAGEMENT_QUEUE</name>
+			<value>ZBS.MFT.Management</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1472653533913</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>TIMEOUT</name>
+			<value>30</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>Integer</type>
+			<modTime>1472653533991</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

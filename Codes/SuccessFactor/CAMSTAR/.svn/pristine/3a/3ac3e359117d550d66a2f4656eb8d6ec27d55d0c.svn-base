@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.zimmer.com/MES_LMS_TRNG_CHECK/Schemas/CurriculumStatusCheck" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.zimmer.com/Material_Check_Services/Schemas/MaterialLot" xmlns:ns3="http://www.zimmerbiomet.com/MES_LMS_TRNG_CHECK/Schemas/CurriculumStatusCheck" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:pfx5="http://www.zimmer.com/MES_LMS_TRNG_CHECK/wsdl/CurriculumStatusCheck/getCurriculumStatusImpl/Processes" xmlns:pfx4="http://xmlns.example.com/1470382648302" xmlns:pfx3="http://www.zimmer.com/Material_Check_Services/service/MaterialLot" xmlns:pfx2="http://www.zimmer.com/Material_Check_Services/wsdl/MaterialLot" xmlns:pfx="http://xmlns.example.com/1469095721181">
+    <wsdl:import namespace="http://xmlns.example.com/1470382648302"/>
+    <wsdl:import namespace="http://www.zimmer.com/MES_LMS_TRNG_CHECK/wsdl/CurriculumStatusCheck/getCurriculumStatusImpl/Processes" location="/UnitTesting/ping.wsdl"/>
+    <wsdl:import namespace="http://xmlns.example.com/1470382648302" location="/UnitTesting/CurriculumCheckService.wsdl"/>
+    <pd:name>UnitTesting/SoapTesting.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startX>150</pd:startX>
+    <pd:startY>64</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>450</pd:endX>
+    <pd:endY>64</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1469097766492</pd:targetNamespace>
+    <pd:activity name="SOAPRequestReply">
+        <pd:type>com.tibco.plugin.soap.SOAPSendReceiveActivity</pd:type>
+        <pd:resourceType>ae.activities.SOAPSendReceiveUI</pd:resourceType>
+        <pd:x>300</pd:x>
+        <pd:y>65</pd:y>
+        <config>
+            <timeout>0</timeout>
+            <soapAttachmentStyle>SwA</soapAttachmentStyle>
+            <timeoutType>Seconds</timeoutType>
+            <service>pfx4:CurriculumCheckService</service>
+            <servicePort>CurriculumStatusCheckEndpoint1</servicePort>
+            <operation>getCurriculumStatus</operation>
+            <soapAction>/CurriculumCheckService/getCurriculumStatus</soapAction>
+            <endpointURL>http://localhost:9015/CurriculumCheckService</endpointURL>
+            <authScheme>NONE</authScheme>
+            <useProxy>false</useProxy>
+            <requireBasicAuth>false</requireBasicAuth>
+            <basicHttpAuthIdentity/>
+        </config>
+        <pd:inputBindings>
+            <inputMessage>
+                <ns3:Input>
+                    <ns3:SAPID>
+                        <xsl:value-of select="'54549'"/>
+                    </ns3:SAPID>
+                    <ns3:CurriculumID>
+                        <xsl:value-of select="'13510'"/>
+                    </ns3:CurriculumID>
+                </ns3:Input>
+            </inputMessage>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>SOAPRequestReply</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SOAPRequestReply</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

@@ -1,0 +1,7 @@
+<data jsxnamespace="propsbundle" locales="">
+  <locale>
+    <record jsxid="main_loggedInAs" jsxtext="Sesión iniciada como:"/>
+    <record jsxid="main_logout" jsxtext="Salir"/>
+    <record jsxid="main_logoutTip" jsxtext="termina la sesión y despliega la página de inicio de sesión"/>
+  </locale>
+</data>

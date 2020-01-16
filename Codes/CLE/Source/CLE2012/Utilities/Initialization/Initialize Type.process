@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://xmlns.example.com/unique/default/namespace/1098735544074" xmlns:ns0="http://www.tibco.com/CommonLE/namespace/Custom" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx5="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Applications" xmlns:pfx4="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Query" xmlns:pfx3="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Category" xmlns:pfx2="http://www.tibco.com/pe/DeployedVarsType" xmlns:pfx="http://xmlns.example.com/unique/default/namespace/1097652867820" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pfx6="http://www.tibco.com/CommonLE2/Private/Administration">
+    <xsd:import namespace="http://xmlns.example.com/unique/default/namespace/1097652867820" schemaLocation="/Shared Resources/Schema Definitions/Custom/ACL.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Category" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/ExceptionCategory.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/Private/Administration" schemaLocation="/SharedResources/SchemaDefinitions/Private/Administration/QueryUpdate.xsd"/>
+    <pd:name>Utilities/Initialization/Initialize Type.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startX>26</pd:startX>
+    <pd:startY>168</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>724</pd:endX>
+    <pd:endY>176</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1286475275906</pd:targetNamespace>
+    <pd:activity name="Seed Type">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>239</pd:x>
+        <pd:y>169</pd:y>
+        <config>
+            <element ref="pfx6:TypeUpdate"/>
+        </config>
+        <pd:inputBindings>
+            <pfx6:TypeUpdate>
+                <pfx6:ID>
+                    <xsl:value-of select="&quot; &quot;"/>
+                </pfx6:ID>
+                <pfx6:Name>
+                    <xsl:value-of select="&quot;Type Name &quot;"/>
+                </pfx6:Name>
+                <pfx6:Description>
+                    <xsl:value-of select="&quot;Type Description &quot;"/>
+                </pfx6:Description>
+            </pfx6:TypeUpdate>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Get Application List">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>118</pd:x>
+        <pd:y>175</pd:y>
+        <config>
+            <processName>/Utilities/Initialization/GetApplicationList.process</processName>
+            <processNameXPath/>
+        </config>
+        <pd:inputBindings>
+            <pfx4:Query/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:group name="For each AppID">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>343</pd:x>
+        <pd:y>61</pd:y>
+        <pd:width>315</pd:width>
+        <pd:height>215</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>inputLoop</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:over>$Get-Application-List/pfx5:Applications/pfx5:Application</pd:over>
+            <pd:iterationElementSlot>AppID</pd:iterationElementSlot>
+            <pd:indexSlot>appid</pd:indexSlot>
+            <pd:activityOutputName/>
+            <pd:accumulateOutput>false</pd:accumulateOutput>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>Repeat</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Repeat</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:group name="Repeat">
+            <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+            <pd:resourceType>ae.process.group</pd:resourceType>
+            <pd:x>396</pd:x>
+            <pd:y>94</pd:y>
+            <pd:width>226</pd:width>
+            <pd:height>144</pd:height>
+            <pd:collapsedWidth>57</pd:collapsedWidth>
+            <pd:collapsedHeight>70</pd:collapsedHeight>
+            <pd:joinToggle>inherit</pd:joinToggle>
+            <config>
+                <pd:groupType>repeat</pd:groupType>
+                <pd:serializable>false</pd:serializable>
+                <pd:indexSlot>i</pd:indexSlot>
+                <pd:activityOutputName/>
+                <pd:repeatCondition>$i &gt;5</pd:repeatCondition>
+                <pd:accumulateOutput>false</pd:accumulateOutput>
+            </config>
+            <pd:inputBindings/>
+            <pd:expanded>true</pd:expanded>
+            <pd:transition>
+                <pd:from>start</pd:from>
+                <pd:to>Create Type</pd:to>
+                <pd:lineType>Straight</pd:lineType>
+                <pd:lineColor>-16777216</pd:lineColor>
+                <pd:conditionType>always</pd:conditionType>
+            </pd:transition>
+            <pd:transition>
+                <pd:from>Create Type</pd:from>
+                <pd:to>end</pd:to>
+                <pd:lineType>Straight</pd:lineType>
+                <pd:lineColor>-16777216</pd:lineColor>
+                <pd:conditionType>always</pd:conditionType>
+            </pd:transition>
+            <pd:activity name="Create Type">
+                <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+                <pd:resourceType>ae.process.subprocess</pd:resourceType>
+                <pd:x>511</pd:x>
+                <pd:y>172</pd:y>
+                <config>
+                    <processName>/Administration/DataAccess/Type/Oracle/CreateType.process</processName>
+                    <processNameXPath>concat("/Administration/DataAccess/Type/", $_globalVariables/pfx2:GlobalVariables/Database/MIG_DatabaseType, "/CreateType.process")</processNameXPath>
+                </config>
+                <pd:inputBindings>
+                    <pfx6:TypeUpdate>
+                        <pfx6:ID>
+                            <xsl:value-of select="$AppID/pfx5:Application/pfx5:ApplicationID"/>
+                        </pfx6:ID>
+                        <pfx6:Name>
+                            <xsl:value-of select="concat($Seed-Type/pfx6:TypeUpdate/pfx6:Name, $i)"/>
+                        </pfx6:Name>
+                        <pfx6:Description>
+                            <xsl:value-of select="concat($Seed-Type/pfx6:TypeUpdate/pfx6:Description, $i)"/>
+                        </pfx6:Description>
+                    </pfx6:TypeUpdate>
+                </pd:inputBindings>
+            </pd:activity>
+        </pd:group>
+    </pd:group>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Get Application List</pd:to>
+        <pd:lineType>Straight</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Get Application List</pd:from>
+        <pd:to>Seed Type</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Seed Type</pd:from>
+        <pd:to>For each AppID</pd:to>
+        <pd:lineType>Straight</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>For each AppID</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Straight</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

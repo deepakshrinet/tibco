@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:ns2="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:pfx5="http://www.tibco.com/CommonLE2/namespace/private/Common" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx4="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/AllRolesRetrievalResponse" xmlns:pfx3="http://www.tibco.com/CommonLE2/Public/Common/Dummy" xmlns:pfx2="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/UserAuthenticationResponse" xmlns:pfx="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/UserAuthenticationRequest">
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/UserAuthenticationRequest" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/SecurityConfiguration/UserAuthenticationRequest.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/UserAuthenticationResponse" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/SecurityConfiguration/UserAuthenticationResponse.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/AllRolesRetrievalResponse" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/SecurityConfiguration/AllRolesRetrieval.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/Public/Common/Dummy" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Common/DummyReturnMessage.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/private/Common" schemaLocation="/SharedResources/SchemaDefinitions/Private/Common/LocalExceptions.xsd"/>
+    <pd:name>SecurityManagement/DataAccess/Common/AvailableRolesRetrieval.process</pd:name>
+    <pd:description>Retrieves all the available roles from TIBCO Administrator</pd:description>
+    <pd:startName>Start</pd:startName>
+    <pd:startX>50</pd:startX>
+    <pd:startY>65</pd:startY>
+    <pd:returnBindings>
+        <pfx4:AllRoles>
+            <xsl:for-each select="$Construct-Role-XML/root/Role">
+                <pfx4:Role>
+                    <pfx4:rolename>
+                        <xsl:value-of select="."/>
+                    </pfx4:rolename>
+                </pfx4:Role>
+            </xsl:for-each>
+        </pfx4:AllRoles>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType ref="pfx4:AllRoles"/>
+    <pd:endX>455</pd:endX>
+    <pd:endY>66</pd:endY>
+    <pd:errorSchemas>
+        <Schema0 ref="pfx5:AdministratorConnectError"/>
+    </pd:errorSchemas>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1257283315894</pd:targetNamespace>
+    <pd:activity name="RetrieveAllRoles">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>166</pd:x>
+        <pd:y>65</pd:y>
+        <config>
+            <processName>/SecurityManagement/Logic/RetrieveRoles.process</processName>
+        </config>
+        <pd:inputBindings>
+            <UserDetails>
+                <username>
+                    <xsl:value-of select="$Start/pfx:UserAuthenticationRequest/pfx:UserName"/>
+                </username>
+                <password>
+                    <xsl:value-of select="$Start/pfx:UserAuthenticationRequest/pfx:Password"/>
+                </password>
+            </UserDetails>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Construct Role XML">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>310</pd:x>
+        <pd:y>67</pd:y>
+        <config>
+            <element>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="Role" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </element>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <xsl:variable xmlns:xsl="http://www.w3.org/1999/XSL/Transform" name="var" select="tib:tokenize($RetrieveAllRoles/RolesRetrieval/AllRoles, &quot;|&quot;)"/>
+                <xsl:for-each xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="$var">
+                    <xsl:variable name="var1" select="position()"/>
+                    <Role>
+                        <xsl:value-of select="$var[$var1]"/>
+                    </Role>
+                </xsl:for-each>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Error Retrieving Roles">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>169</pd:x>
+        <pd:y>188</pd:y>
+        <config>
+            <faultName>Schema0</faultName>
+        </config>
+        <pd:inputBindings>
+            <ns2:ActivityInput>
+                <message>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Exceptions/Common/Messages/TIBCOAdminAllRolesRetrievalError"/>
+                </message>
+                <messageCode>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Exceptions/Common/Codes/TIBCOAdminConnectionError"/>
+                </messageCode>
+                <data>
+                    <pfx5:AdministratorConnectError>
+                        <pfx5:Message>
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Exceptions/Common/Messages/TIBCOAdminAllRolesRetrievalError"/>
+                        </pfx5:Message>
+                        <pfx5:Code>
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Exceptions/Common/Messages/TIBCOAdminAllRolesRetrievalError"/>
+                        </pfx5:Code>
+                    </pfx5:AdministratorConnectError>
+                </data>
+            </ns2:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>RetrieveAllRoles</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>RetrieveAllRoles</pd:from>
+        <pd:to>Construct Role XML</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Construct Role XML</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>RetrieveAllRoles</pd:from>
+        <pd:to>Error Retrieving Roles</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>error</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

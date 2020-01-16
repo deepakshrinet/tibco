@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="www.tibco.com/plugin/java/JavaMethodActivityOutput" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns5="http://www.tibco.com/pe/EngineTypes" xmlns:ns12="http://www.tibco.com/CommonLE/Client/Schema/ClientInterface.xsd" xmlns:ns6="http://xmlns.tibco.com/encodings/mime" xmlns:ns7="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/740/basic/functionModules" xmlns:pfx="http://www.tibco.com/schemas/SFDC/SharedResources/Schemas/XSD/Schema.xsd" xmlns:ns2="http://www.tibco.com/pe/DeployedVarsType" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="www.tibco.com/plugin/java/JavaMethodActivityInput" xmlns:ns4="http://tibco.com/namespaces/tnt/plugins/soap" xmlns:ns3="urn:sobject.enterprise.soap.sforce.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx5="http://www.tibco.com/ns/no_namespace_schema_location/SharedResources/Schemas/DataFormat/SFDataFormat.sharedparse" xmlns:pfx4="http://xmlns.example.com/1321555930384" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx3="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:pfx2="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/ADB/HCF-ADBAdapterConfiguration" xmlns:pfx7="urn:enterprise.soap.sforce.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xsd:import namespace="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/ADB/HCF-ADBAdapterConfiguration" schemaLocation="/AESchemas/ae/ADB/HCF-ADBAdapterConfiguration.aeschema"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE/Client/Schema/ClientInterface.xsd" schemaLocation="/CLE/Interface/ClientSchema/ClientInterface.xsd"/>
+    <xsd:import namespace="urn:sobject.enterprise.soap.sforce.com"/>
+    <xsd:import namespace="urn:sobject.enterprise.soap.sforce.com" schemaLocation="/SharedResources/WSDLs/wsdl_sandbox01_6_DEC2016.wsdl"/>
+    <xsd:import namespace="http://www.tibco.com/ns/no_namespace_schema_location/SharedResources/Schemas/DataFormat/SFDataFormat.sharedparse" schemaLocation="/SharedResources/Schemas/DataFormat/SFDataFormat.sharedparse"/>
+    <wsdl:import namespace="urn:enterprise.soap.sforce.com" location="/SharedResources/WSDLs/wsdl_sandbox01_6_DEC2016.wsdl"/>
+    <pd:name>Services/SFDC_SF/Operations/FetchUserFromSAPHRIS.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="PERNR" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>163</pd:startX>
+    <pd:startY>60</pd:startY>
+    <pd:returnBindings>
+        <Rows>
+            <xsl:for-each select="$Invoke-an-Adapter-Request-Response-Service/aeRequestOutputType/ns7:__caret_reply_caret_Z__RFC__2170__HRIS__SFI_caret_Z__RFC__2170__HRIS__SFI/IT__OUTPUT/item">
+                <User>
+                    <xsl:if test="STATUS">
+                        <STATUS>
+                            <xsl:value-of select="STATUS"/>
+                        </STATUS>
+                    </xsl:if>
+                    <xsl:if test="USERID">
+                        <USERID>
+                            <xsl:value-of select="USERID"/>
+                        </USERID>
+                    </xsl:if>
+                    <xsl:if test="USERNAME">
+                        <USERNAME>
+                            <xsl:value-of select="USERNAME"/>
+                        </USERNAME>
+                    </xsl:if>
+                    <xsl:if test="FIRSTNAME">
+                        <FIRSTNAME>
+                            <xsl:value-of select="FIRSTNAME"/>
+                        </FIRSTNAME>
+                    </xsl:if>
+                    <xsl:if test="LASTNAME">
+                        <LASTNAME>
+                            <xsl:value-of select="LASTNAME"/>
+                        </LASTNAME>
+                    </xsl:if>
+                    <xsl:if test="MI">
+                        <MI>
+                            <xsl:value-of select="MI"/>
+                        </MI>
+                    </xsl:if>
+                    <xsl:if test="GENDER">
+                        <GENDER>
+                            <xsl:value-of select="GENDER"/>
+                        </GENDER>
+                    </xsl:if>
+                    <xsl:if test="EMAIL">
+                        <EMAIL>
+                            <xsl:value-of select="EMAIL"/>
+                        </EMAIL>
+                    </xsl:if>
+                    <xsl:if test="MANAGER">
+                        <MANAGER>
+                            <xsl:value-of select="MANAGER"/>
+                        </MANAGER>
+                    </xsl:if>
+                    <xsl:if test="HR">
+                        <HR>
+                            <xsl:value-of select="HR"/>
+                        </HR>
+                    </xsl:if>
+                    <xsl:if test="DIVISION">
+                        <DIVISION>
+                            <xsl:value-of select="DIVISION"/>
+                        </DIVISION>
+                    </xsl:if>
+                    <xsl:if test="DEPARTMENT">
+                        <DEPARTMENT>
+                            <xsl:value-of select="DEPARTMENT"/>
+                        </DEPARTMENT>
+                    </xsl:if>
+                    <xsl:if test="LOCATION">
+                        <LOCATION>
+                            <xsl:value-of select="LOCATION"/>
+                        </LOCATION>
+                    </xsl:if>
+                    <xsl:if test="JOBCODE">
+                        <JOBCODE>
+                            <xsl:value-of select="JOBCODE"/>
+                        </JOBCODE>
+                    </xsl:if>
+                    <xsl:if test="TIMEZONE">
+                        <TIMEZONE>
+                            <xsl:value-of select="TIMEZONE"/>
+                        </TIMEZONE>
+                    </xsl:if>
+                    <xsl:if test="HIREDATE">
+                        <HIREDATE>
+                            <xsl:value-of select="HIREDATE"/>
+                        </HIREDATE>
+                    </xsl:if>
+                    <xsl:if test="EMPID">
+                        <EMPID>
+                            <xsl:value-of select="EMPID"/>
+                        </EMPID>
+                    </xsl:if>
+                    <xsl:if test="TITLE">
+                        <TITLE>
+                            <xsl:value-of select="TITLE"/>
+                        </TITLE>
+                    </xsl:if>
+                    <xsl:if test="BIZ__PHONE">
+                        <BIZ_PHONE>
+                            <xsl:value-of select="BIZ__PHONE"/>
+                        </BIZ_PHONE>
+                    </xsl:if>
+                    <xsl:if test="FAX">
+                        <FAX>
+                            <xsl:value-of select="FAX"/>
+                        </FAX>
+                    </xsl:if>
+                    <xsl:if test="ADDR1">
+                        <ADDR1>
+                            <xsl:value-of select="ADDR1"/>
+                        </ADDR1>
+                    </xsl:if>
+                    <xsl:if test="ADDR2">
+                        <ADDR2>
+                            <xsl:value-of select="ADDR2"/>
+                        </ADDR2>
+                    </xsl:if>
+                    <xsl:if test="CITY">
+                        <CITY>
+                            <xsl:value-of select="CITY"/>
+                        </CITY>
+                    </xsl:if>
+                    <xsl:if test="STATE">
+                        <STATE>
+                            <xsl:value-of select="STATE"/>
+                        </STATE>
+                    </xsl:if>
+                    <xsl:if test="ZIP">
+                        <ZIP>
+                            <xsl:value-of select="ZIP"/>
+                        </ZIP>
+                    </xsl:if>
+                    <xsl:if test="COUNTRY">
+                        <COUNTRY>
+                            <xsl:value-of select="COUNTRY"/>
+                        </COUNTRY>
+                    </xsl:if>
+                    <xsl:if test="REVIEW__FREQ">
+                        <REVIEW_FREQ>
+                            <xsl:value-of select="REVIEW__FREQ"/>
+                        </REVIEW_FREQ>
+                    </xsl:if>
+                    <xsl:if test="LAST__REVIEW__DATE">
+                        <LAST_REVIEW_DATE>
+                            <xsl:value-of select="LAST__REVIEW__DATE"/>
+                        </LAST_REVIEW_DATE>
+                    </xsl:if>
+                    <xsl:if test="CUSTOM01">
+                        <CUSTOM01>
+                            <xsl:value-of select="CUSTOM01"/>
+                        </CUSTOM01>
+                    </xsl:if>
+                    <xsl:if test="CUSTOM02">
+                        <CUSTOM02>
+                            <xsl:value-of select="CUSTOM02"/>
+                        </CUSTOM02>
+                    </xsl:if>
+                    <xsl:if test="CUSTOM03">
+                        <CUSTOM03>
+                            <xsl:value-of select="CUSTOM03"/>
+                        </CUSTOM03>
+                    </xsl:if>
+                    <xsl:if test="CUSTOM04">
+                        <CUSTOM04>
+                            <xsl:value-of select="CUSTOM04"/>
+                        </CUSTOM04>
+                    </xsl:if>
+                    <xsl:if test="CUSTOM05">
+                        <CUSTOM05>
+                            <xsl:value-of select="CUSTOM05"/>
+                        </CUSTOM05>
+                    </xsl:if>
+                    <xsl:if test="CUSTOM06">
+                        <CUSTOM06>
+                            <xsl:value-of select="CUSTOM06"/>
+                        </CUSTOM06>
+                    </xsl:if>
+                    <xsl:if test="CUSTOM07">
+                        <CUSTOM07>
+                            <xsl:value-of select="CUSTOM07"/>
+                        </CUSTOM07>
+                    </xsl:if>
+                    <xsl:if test="CUSTOM08">
+                        <CUSTOM08>
+                            <xsl:value-of select="CUSTOM08"/>
+                        </CUSTOM08>
+                    </xsl:if>
+                    <xsl:if test="CUSTOM09">
+                        <CUSTOM09>
+                            <xsl:value-of select="CUSTOM09"/>
+                        </CUSTOM09>
+                    </xsl:if>
+                    <xsl:if test="CUSTOM10">
+                        <CUSTOM10>
+                            <xsl:value-of select="CUSTOM10"/>
+                        </CUSTOM10>
+                    </xsl:if>
+                    <xsl:if test="CUSTOM11">
+                        <CUSTOM11>
+                            <xsl:value-of select="CUSTOM11"/>
+                        </CUSTOM11>
+                    </xsl:if>
+                    <xsl:if test="CUSTOM12">
+                        <CUSTOM12>
+                            <xsl:value-of select="CUSTOM12"/>
+                        </CUSTOM12>
+                    </xsl:if>
+                    <xsl:if test="CUSTOM13">
+                        <CUSTOM13>
+                            <xsl:value-of select="CUSTOM13"/>
+                        </CUSTOM13>
+                    </xsl:if>
+                    <xsl:if test="CUSTOM14">
+                        <CUSTOM14>
+                            <xsl:value-of select="CUSTOM14"/>
+                        </CUSTOM14>
+                    </xsl:if>
+                    <xsl:if test="CUSTOM15">
+                        <CUSTOM15>
+                            <xsl:value-of select="CUSTOM15"/>
+                        </CUSTOM15>
+                    </xsl:if>
+                    <xsl:if test="MATRIX__MANAGER">
+                        <MATRIX_MANAGER>
+                            <xsl:value-of select="MATRIX__MANAGER"/>
+                        </MATRIX_MANAGER>
+                    </xsl:if>
+                    <xsl:if test="DEFAULT__LOCALE">
+                        <DEFAULT_LOCALE>
+                            <xsl:value-of select="DEFAULT__LOCALE"/>
+                        </DEFAULT_LOCALE>
+                    </xsl:if>
+                    <xsl:if test="PROXY">
+                        <PROXY>
+                            <xsl:value-of select="PROXY"/>
+                        </PROXY>
+                    </xsl:if>
+                    <xsl:if test="CUSTOM__MANAGER">
+                        <CUSTOM_MANAGER>
+                            <xsl:value-of select="CUSTOM__MANAGER"/>
+                        </CUSTOM_MANAGER>
+                    </xsl:if>
+                    <xsl:if test="SECOND__MANAGER">
+                        <SECOND_MANAGER>
+                            <xsl:value-of select="SECOND__MANAGER"/>
+                        </SECOND_MANAGER>
+                    </xsl:if>
+                    <xsl:if test="LOGINMETHOD">
+                        <LOGIN_METHOD>
+                            <xsl:value-of select="LOGINMETHOD"/>
+                        </LOGIN_METHOD>
+                    </xsl:if>
+                </User>
+            </xsl:for-each>
+        </Rows>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType ref="pfx5:Rows"/>
+    <pd:endX>442</pd:endX>
+    <pd:endY>60</pd:endY>
+    <pd:errorSchemas>
+        <CLEException ref="ns12:ExceptionRequest"/>
+    </pd:errorSchemas>
+    <pd:processVariables>
+        <QueryLocator>
+            <xsd:element name="root">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="QueryLocator" type="xsd:string" minOccurs="0"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </QueryLocator>
+    </pd:processVariables>
+    <pd:targetNamespace>http://xmlns.example.com/1345813402690</pd:targetNamespace>
+    <pd:activity name="Invoke an Adapter Request-Response Service">
+        <pd:type>com.tibco.plugin.ae.AERPCRequestReplyActivity</pd:type>
+        <pd:resourceType>ae.aepalette.aeOpClientReqActivity</pd:resourceType>
+        <pd:x>302</pd:x>
+        <pd:y>76</pd:y>
+        <config>
+            <ae.aepalette.sharedProperties.transportChoice>jmsQueue</ae.aepalette.sharedProperties.transportChoice>
+            <ae.aepalette.sharedProperties.useRequestReply>false</ae.aepalette.sharedProperties.useRequestReply>
+            <ae.aepalette.sharedProperties.adapterService>/Adapter/SAPHR_UserR3Adapter.adr3#adapterService.Z_RFC_2170_HRIS_SFIServer</ae.aepalette.sharedProperties.adapterService>
+            <tpPluginEndpointName>Z_RFC_2170_HRIS_SFIJMSQueueServer</tpPluginEndpointName>
+            <ae.aepalette.sharedProperties.transportType>jmsQueue</ae.aepalette.sharedProperties.transportType>
+            <ae.aepalette.sharedProperties.jmsQueueSessionQueue>%%ApplicationDetails/SFDC_SF_USER_SEND/Queue/AdapterRFCQueue%%</ae.aepalette.sharedProperties.jmsQueueSessionQueue>
+            <ae.aepalette.sharedProperties.deliveryMode>NONPERSISTENT</ae.aepalette.sharedProperties.deliveryMode>
+            <ae.aepalette.sharedProperties.timeToLive>0</ae.aepalette.sharedProperties.timeToLive>
+            <ae.aepalette.sharedProperties.jmsSessionJNDILookups>true</ae.aepalette.sharedProperties.jmsSessionJNDILookups>
+            <ae.aepalette.sharedProperties.jmsQueueSessionConnectionFactory>%%EnvVariables/TIBCO_JMS_Connection/QUEUE_CONNECTION_FACTORY%%</ae.aepalette.sharedProperties.jmsQueueSessionConnectionFactory>
+            <ae.aepalette.sharedProperties.jmsSessionUsername>%%EnvVariables/TIBCO_JMS_Connection/JNDI_USERNAME%%</ae.aepalette.sharedProperties.jmsSessionUsername>
+            <ae.aepalette.sharedProperties.jmsSessionPassword>%%EnvVariables/TIBCO_JMS_Connection/JNDI_PASSWORD%%</ae.aepalette.sharedProperties.jmsSessionPassword>
+            <ae.aepalette.sharedProperties.jmsSessionProviderURL>%%EnvVariables/TIBCO_JMS_Connection/JNDI_URL%%</ae.aepalette.sharedProperties.jmsSessionProviderURL>
+            <ae.aepalette.aeOpClientReqActivity.ops>Z_RFC_2170_HRIS_SFI</ae.aepalette.aeOpClientReqActivity.ops>
+            <ae.aepalette.sharedProperties.autoGenClientID>true</ae.aepalette.sharedProperties.autoGenClientID>
+            <ae.aepalette.sharedProperties.outputMeta>
+                <aeMeta>/AESchemas/ae/740/basic/functionModules.aeschema#rpcClass.Z_RFC_2170_HRIS_SFI</aeMeta>
+            </ae.aepalette.sharedProperties.outputMeta>
+        </config>
+        <pd:inputBindings>
+            <aeRequestInputType>
+                <ns7:__caret_request_caret_Z__RFC__2170__HRIS__SFI_caret_Z__RFC__2170__HRIS__SFI>
+                    <IT__PERNR>
+                        <xsl:for-each select="$Start/root/PERNR">
+                            <item>
+                                <PERNR>
+                                    <xsl:value-of select="current()"/>
+                                </PERNR>
+                            </item>
+                        </xsl:for-each>
+                    </IT__PERNR>
+                </ns7:__caret_request_caret_Z__RFC__2170__HRIS__SFI_caret_Z__RFC__2170__HRIS__SFI>
+            </aeRequestInputType>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Invoke an Adapter Request-Response Service</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Invoke an Adapter Request-Response Service</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

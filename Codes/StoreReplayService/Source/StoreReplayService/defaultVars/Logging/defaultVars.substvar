@@ -1,0 +1,22 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>LogLevel</name>
+			<value>DEBUG</value>
+			<description>DEBUG, INFO, WARN, ERROR, AUDIT</description>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1439401370902</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>LogLevelSequence</name>
+			<value>DEBUG,INFO,WARN,ERROR</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1439401370758</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

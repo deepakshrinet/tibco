@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/EngineTypes" xmlns:pfx0="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/RolePermissionInformation" xmlns:pfx1="http://www.tibco.com/CommonLE2/Public/Common/Dummy" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlPfx="http://www.tibco.com/CommonLE2/namespace/SecurityManagement/GUIServices" xmlns:ns12="http://www.tibco.com/CommonLE/namespace/Common" xmlns:pfx="http://www.tibco.com/pe/DeployedVarsType" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/CommonLE2/namespace/Administration/GUIServices/Category" xmlns:ns1="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:ns3="http://www.tibco.com/CommonLE2/Public/Common" xmlns:pfx2="http://www.tibco.com/CommonLE2/namespace/private/Common">
+    <wsdl:import namespace="http://www.tibco.com/CommonLE2/namespace/SecurityManagement/GUIServices" location="/SharedResources/WSDL/GUI/SecurityManagement/intfUpdateRoleACL.wsdl"/>
+    <pd:name>SecurityManagement/GUIServices/wsSetRoleACL.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType wsMsgRef="wsdlPfx:RolePermissionsInfo"/>
+    <pd:startX>150</pd:startX>
+    <pd:startY>50</pd:startY>
+    <pd:returnBindings>
+        <wsdlPfx:Dummy/>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType wsMsgRef="wsdlPfx:Dummy"/>
+    <pd:endX>450</pd:endX>
+    <pd:endY>50</pd:endY>
+    <pd:errorSchemas>
+        <Schema1 wsMsgRef="wsdlPfx:Error"/>
+    </pd:errorSchemas>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1287722114125</pd:targetNamespace>
+    <pd:activity name="Call Process">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>268</pd:x>
+        <pd:y>49</pd:y>
+        <config>
+            <processName>/SecurityManagement/DataAccess/Oracle/AddUpdateACL.process</processName>
+            <processNameXPath>concat("/SecurityManagement/DataAccess/",$_globalVariables/pfx:GlobalVariables/Database/MIG_DatabaseType,"/AddUpdateACL.process")</processNameXPath>
+        </config>
+        <pd:inputBindings>
+            <xsl:copy-of select="$Start/wsdlPfx:RolePermissionsInfo/parameters/pfx0:RolePermissionsInfo"/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch Integrity Error">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>170</pd:x>
+        <pd:y>162</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=ReferencialIntegrityViolation namespace=http://www.tibco.com/CommonLE2/namespace/private/Common</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Generate Error">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>352</pd:x>
+        <pd:y>152</pd:y>
+        <config>
+            <faultName>Schema1</faultName>
+        </config>
+        <pd:inputBindings>
+            <ns1:ActivityInput>
+                <message>
+                    <xsl:value-of select="$Catch-Integrity-Error/pfx2:ReferencialIntegrityViolation/pfx2:Message"/>
+                </message>
+                <messageCode>
+                    <xsl:value-of select="$Catch-Integrity-Error/pfx2:ReferencialIntegrityViolation/pfx2:Code"/>
+                </messageCode>
+                <data>
+                    <wsdlPfx:Error>
+                        <Error>
+                            <ns3:Error>
+                                <ns3:Message>
+                                    <xsl:value-of select="$Catch-Integrity-Error/pfx2:ReferencialIntegrityViolation/pfx2:Message"/>
+                                </ns3:Message>
+                                <ns3:Code>
+                                    <xsl:value-of select="$Catch-Integrity-Error/pfx2:ReferencialIntegrityViolation/pfx2:Code"/>
+                                </ns3:Code>
+                            </ns3:Error>
+                        </Error>
+                    </wsdlPfx:Error>
+                </data>
+            </ns1:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch All Errors">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>137</pd:x>
+        <pd:y>344</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Local Exception Handler">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>311</pd:x>
+        <pd:y>355</pd:y>
+        <config>
+            <processName>/Common/Local Exception Handler.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns12:Exception>
+                <ErrorMessage>
+                    <xsl:value-of select="$_error/ns:ErrorReport/Msg"/>
+                </ErrorMessage>
+                <ErrorCode>
+                    <xsl:value-of select="$_error/ns:ErrorReport/MsgCode"/>
+                </ErrorCode>
+                <ns12:Error>
+                    <xsl:for-each xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="$_error/ns:ErrorReport">
+                        <ns12:ErrorReport>
+                            <StackTrace>
+                                <xsl:value-of select="StackTrace"/>
+                            </StackTrace>
+                            <Msg>
+                                <xsl:value-of select="Msg"/>
+                            </Msg>
+                            <FullClass>
+                                <xsl:value-of select="FullClass"/>
+                            </FullClass>
+                            <Class>
+                                <xsl:value-of select="Class"/>
+                            </Class>
+                            <ProcessStack>
+                                <xsl:value-of select="ProcessStack"/>
+                            </ProcessStack>
+                            <MsgCode>
+                                <xsl:value-of select="MsgCode"/>
+                            </MsgCode>
+                        </ns12:ErrorReport>
+                    </xsl:for-each>
+                </ns12:Error>
+            </ns12:Exception>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Generate Internal Error">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>473</pd:x>
+        <pd:y>352</pd:y>
+        <config>
+            <faultName>Schema1</faultName>
+        </config>
+        <pd:inputBindings>
+            <ns1:ActivityInput>
+                <message>
+                    <xsl:value-of select="$_error/ns:ErrorReport/Msg"/>
+                </message>
+                <messageCode>
+                    <xsl:value-of select="$_error/ns:ErrorReport/MsgCode"/>
+                </messageCode>
+                <data>
+                    <wsdlPfx:Error>
+                        <Error>
+                            <ns3:Error>
+                                <ns3:Message>
+                                    <xsl:value-of select="$_error/ns:ErrorReport/Msg"/>
+                                </ns3:Message>
+                                <ns3:Code>
+                                    <xsl:value-of select="$_error/ns:ErrorReport/MsgCode"/>
+                                </ns3:Code>
+                            </ns3:Error>
+                        </Error>
+                    </wsdlPfx:Error>
+                </data>
+            </ns1:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Role not found">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>155</pd:x>
+        <pd:y>250</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=DBRecordNotFound namespace=http://www.tibco.com/CommonLE2/namespace/private/Common</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Generate Record Not Found Fault">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>360</pd:x>
+        <pd:y>254</pd:y>
+        <config>
+            <faultName>Schema1</faultName>
+        </config>
+        <pd:inputBindings>
+            <ns1:ActivityInput>
+                <message>
+                    <xsl:value-of select="$Role-not-found/pfx2:DBRecordNotFound/pfx2:Message"/>
+                </message>
+                <xsl:if test="$Role-not-found/pfx2:DBRecordNotFound/pfx2:Code">
+                    <messageCode>
+                        <xsl:value-of select="$Role-not-found/pfx2:DBRecordNotFound/pfx2:Code"/>
+                    </messageCode>
+                </xsl:if>
+                <data>
+                    <wsdlPfx:Error>
+                        <Error>
+                            <ns3:Error>
+                                <ns3:Message>
+                                    <xsl:value-of select="$Role-not-found/pfx2:DBRecordNotFound/pfx2:Message"/>
+                                </ns3:Message>
+                                <xsl:if test="$Role-not-found/pfx2:DBRecordNotFound/pfx2:Code">
+                                    <ns3:Code>
+                                        <xsl:value-of select="$Role-not-found/pfx2:DBRecordNotFound/pfx2:Code"/>
+                                    </ns3:Code>
+                                </xsl:if>
+                            </ns3:Error>
+                        </Error>
+                    </wsdlPfx:Error>
+                </data>
+            </ns1:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Call Process</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Call Process</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch Integrity Error</pd:from>
+        <pd:to>Generate Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch All Errors</pd:from>
+        <pd:to>Local Exception Handler</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Local Exception Handler</pd:from>
+        <pd:to>Generate Internal Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Role not found</pd:from>
+        <pd:to>Generate Record Not Found Fault</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

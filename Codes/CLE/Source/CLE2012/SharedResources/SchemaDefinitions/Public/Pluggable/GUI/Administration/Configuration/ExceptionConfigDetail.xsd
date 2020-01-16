@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfigDetail"
+	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	 targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfigDetail"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xsd:element name="ExceptionConfigDetail">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="ApplicationID" type="xsd:string"/>
+				<xsd:element name="ExceptionCode" type="xsd:string"/>
+				<xsd:element name="CategoryName" type="xsd:string"/>
+				<xsd:element name="TypeName" type="xsd:string"/>
+				<xsd:element name="SeverityName" type="xsd:string"/>
+				<xsd:element name="ProcedureName" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="Description" type="xsd:string"/>
+				<xsd:element name="ReplyDestination" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="RoleName" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="NotificationChnl" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="EmailTo" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="EmailCC" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="Exceptionttl" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="Instruction" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="EventType" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="ResolveDelayInterval" type="xsd:integer" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

@@ -1,0 +1,165 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>ApplicationIDNotFound</name>
+			<value>Application ID not registered</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874573795</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>ApplicationRecordNotFound</name>
+			<value>Application Record Not Found</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874575870</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>InterfaceIDNotFound</name>
+			<value>Interface ID not defined</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874577921</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>InternalError</name>
+			<value>"Internal Error Occurred, please contact your administrator"</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874576465</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>InvalidDestination</name>
+			<value>InvalidDestinationException</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874570937</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>JMSConnectionError</name>
+			<value>Cannot connect to EMS Server</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874578144</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>NoUserApps</name>
+			<value>No Applications Associated with User</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874572433</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>NoUserPermissionsFound</name>
+			<value>No Permissions Found for User for the Selected Application</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874573368</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>RenderingIDNotFound</name>
+			<value>Rendering ID is not defined</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874574480</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>RenderingRecNotFound</name>
+			<value>Transaction Rendering Information not found in database</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874575611</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>RenderingXSLTError</name>
+			<value>Rendering transformation error, the transaction XSLT code may have errors. Original XML data displayed"</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874573894</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>SystemIDDeletionError</name>
+			<value>"system" application cannot be deleted</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874575084</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>TIBCOAdminAllRolesRetrievalError</name>
+			<value>Error retrieving all available roles from TIBCO Administrator</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874570535</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>TIBCOAdminAuthenticationError</name>
+			<value>User authentication error</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874575136</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>TIBCOAdminConnectionError</name>
+			<value>Cannot connect to TIBCO Administrator. Please check connection and username</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874573022</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>TIBCOAdminUserFRolesRetrievalError</name>
+			<value>Error retrieving user roles</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874576908</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>TooManyRecords</name>
+			<value>Too Many Records</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874570824</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>UserAuthenticationError</name>
+			<value>User could not be authenticated</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874575817</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>UserAuthorizatoinError</name>
+			<value>No Authorization Information Available</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874576106</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>XMLValidationError</name>
+			<value>Data Validation Error</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874571479</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

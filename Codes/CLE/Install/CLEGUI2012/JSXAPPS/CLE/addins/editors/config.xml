@@ -1,0 +1,18 @@
+<data>
+  <record jsxid="id" type="string">cle_Editors</record>
+  <record jsxid="name" type="string">cle_Editors</record>
+  <record jsxid="description" type="string">cle Editor Additions</record>
+  <record jsxid="long_description" type="string"><![CDATA[]]></record>
+  <record jsxid="addin" type="string">cle_Editors.ADDIN</record>
+  <record jsxid="version" type="string">1.0</record>
+  <record jsxid="jsxversion" type="string">3.9</record>
+  <record jsxid="classpath" type="string"></record>
+  <record jsxid="includes" type="array">
+    <record jsxid="startup" type="map">
+      <record jsxid="id" type="string">startup_js</record>
+      <record jsxid="type" type="string">script</record>
+      <record jsxid="load" type="number">1</record>
+      <record jsxid="src" type="string">js/startup.js</record>
+    </record>
+  </record>
+</data>

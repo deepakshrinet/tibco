@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by TIBCO WSDL-->
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.tibco.com/CommonLE2/namespace/private/Common/Chart" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns0="http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common/Request" xmlns:ns1="http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common/Response" xmlns:ns2="http://www.tibco.com/CommonLE2/Public/Common" targetNamespace="http://www.tibco.com/CommonLE2/namespace/private/Common/Chart">
+    <wsdl:types>
+        <xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common/Request" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common/Request" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xsd:element name="ChartInfoRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="UserName" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+        <xsd:schema xmlns="http://www.tibco.com/CommonLE2/Public/Common" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tibco.com/CommonLE2/Public/Common" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xsd:element name="Code" type="xsd:string"/>
+            <xsd:element name="Error">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="ns2:Message" minOccurs="0"/>
+                        <xsd:element ref="ns2:Code" minOccurs="0"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="Message" type="xsd:string"/>
+        </xsd:schema>
+        <xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common/Response" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common/Response" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xsd:element name="AppDescription" type="xsd:string"/>
+            <xsd:element name="AppID" type="xsd:string"/>
+            <xsd:element name="AppInfo">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="ns1:AppID"/>
+                        <xsd:element ref="ns1:AppName" minOccurs="0"/>
+                        <xsd:element ref="ns1:AppDescription" minOccurs="0"/>
+                        <xsd:element ref="ns1:LogCount"/>
+                        <xsd:element ref="ns1:ExceptionCount"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="AppName" type="xsd:string"/>
+            <xsd:element name="ChartInfo">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="ns1:ExceptionPercentageChart"/>
+                        <xsd:element ref="ns1:LogExceptionCountChart"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="ExceptionCount" type="xsd:int"/>
+            <xsd:element name="ExceptionCountInfo">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="ns1:ExceptionResolveTypeName"/>
+                        <xsd:element ref="ns1:ExceptionCountValue"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="ExceptionCountValue" type="xsd:int"/>
+            <xsd:element name="ExceptionPercentageChart">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="ns1:ExceptionCountInfo" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="ExceptionResolveTypeName" type="xsd:string"/>
+            <xsd:element name="LogCount" type="xsd:int"/>
+            <xsd:element name="LogExceptionCountChart">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="ns1:AppInfo" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:service name="intfChartInfoRetrieval-service">
+        <wsdl:port name="portTypeEndpoint1" binding="tns:portTypeEndpoint1Binding">
+            <soap:address location="http://cmadhwac-lt:9950/Common/GUIServices/intfChartInfoRetrieval-service.serviceagent/portTypeEndpoint1"/>
+        </wsdl:port>
+    </wsdl:service>
+    <wsdl:portType name="portType">
+        <wsdl:operation name="ChartInfoRetrievalOp">
+            <wsdl:input message="tns:ChartInfoRequest"/>
+            <wsdl:output message="tns:ChartInfo"/>
+            <wsdl:fault name="fault1" message="tns:ErrorMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="portTypeEndpoint1Binding" type="tns:portType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="ChartInfoRetrievalOp">
+            <soap:operation style="document" soapAction="/Common/GUIServices/intfChartInfoRetrieval-service.serviceagent/portTypeEndpoint1/ChartInfoRetrievalOp"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="parameters"/>
+            </wsdl:output>
+            <wsdl:fault name="fault1">
+                <soap:fault use="literal" name="fault1"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:message name="ChartInfoRequest">
+        <wsdl:part name="parameters" element="ns0:ChartInfoRequest"/>
+    </wsdl:message>
+    <wsdl:message name="ChartInfo">
+        <wsdl:part name="parameters" element="ns1:ChartInfo"/>
+    </wsdl:message>
+    <wsdl:message name="ErrorMessage">
+        <wsdl:part name="parameters" element="ns2:Error"/>
+    </wsdl:message>
+</wsdl:definitions>

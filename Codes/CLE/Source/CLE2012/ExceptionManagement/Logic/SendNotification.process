@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:pfx="http://www.tibco.com/CommonLE2/namespace/Public/Exception" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns1="http://www.tibco.com/CommonLE2/namespace/Public/Common" xmlns:ns4="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:ns3="http://www.tibco.com/CommonLE/namespace/Common" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx5="http://www.tibco.com/pe/EngineTypes" xmlns:pfx4="http://www.tibco.com/CommonLE2/namespace/private/Common" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx3="http://www.tibco.com/CommonLE2/namespace/Public/Notification" xmlns:pfx2="http://www.tibco.com/CommonLE2/Private/Exception" xmlns:pfx6="http://schemas.tibco.com/bw/plugins/jms/5.0/jmsExceptions">
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Exception" schemaLocation="/SharedResources/SchemaDefinitions/Public/Exception/ExceptionRequest.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/Private/Exception" schemaLocation="/SharedResources/SchemaDefinitions/Private/Exception/Notification.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Notification" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/Notification/NotificationMessage.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/private/Common" schemaLocation="/SharedResources/SchemaDefinitions/Private/Common/LocalExceptions.xsd"/>
+    <pd:name>ExceptionManagement/Logic/SendNotification.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx3:NotificationMessage"/>
+    <pd:startX>26</pd:startX>
+    <pd:startY>85</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>287</pd:endX>
+    <pd:endY>185</pd:endY>
+    <pd:errorSchemas>
+        <ExceptionRecError ref="pfx4:ExceptionRecordNotFound"/>
+        <JMS-Connection-Error ref="pfx4:JMSError"/>
+    </pd:errorSchemas>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1287552509860</pd:targetNamespace>
+    <pd:activity name="Update Exception Status">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>464</pd:x>
+        <pd:y>103</pd:y>
+        <config>
+            <processName>/ExceptionManagement/Logic/UpdateExceptionStatus.process</processName>
+        </config>
+        <pd:inputBindings>
+            <pfx2:ExceptionStatusUpdate>
+                <pfx2:ExceptionID>
+                    <xsl:value-of select="$Start/pfx3:NotificationMessage/pfx3:ExceptionDetail/ExceptionInstanceID"/>
+                </pfx2:ExceptionID>
+                <pfx2:Status>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ExceptionService/ResolutionStatus/Notified"/>
+                </pfx2:Status>
+            </pfx2:ExceptionStatusUpdate>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Send to Notifcation Connector">
+        <pd:type>com.tibco.plugin.jms.JMSQueueSendActivity</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueSendActivity</pd:resourceType>
+        <pd:x>274</pd:x>
+        <pd:y>51</pd:y>
+        <config>
+            <PermittedMessageType>XML Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/SharedResources/Connections/JMS/JMS Exception.sharedjmscon</ConnectionReference>
+            <InDataxsdString ref="pfx3:NotificationMessage"/>
+        </config>
+        <pd:inputBindings>
+            <ns:ActivityInput>
+                <destinationQueue>
+                    <xsl:value-of select="$Start/pfx3:NotificationMessage/NotificationChannel"/>
+                </destinationQueue>
+                <Body>
+                    <xsl:copy-of select="$Start/pfx3:NotificationMessage"/>
+                </Body>
+            </ns:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch All">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>30</pd:x>
+        <pd:y>205</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Check Error">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>39</pd:x>
+        <pd:y>305</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Handle Local Exception">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>201</pd:x>
+        <pd:y>313</pd:y>
+        <config>
+            <processName>/Common/Local Exception Handler.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns3:Exception>
+                <xsl:if test="$_error/pfx5:ErrorReport/Msg">
+                    <ErrorMessage>
+                        <xsl:value-of select="$_error/pfx5:ErrorReport/Msg"/>
+                    </ErrorMessage>
+                </xsl:if>
+                <xsl:if test="$_error/pfx5:ErrorReport/MsgCode">
+                    <ErrorCode>
+                        <xsl:value-of select="$_error/pfx5:ErrorReport/MsgCode"/>
+                    </ErrorCode>
+                </xsl:if>
+                <ns3:Error>
+                    <xsl:for-each select="$_error/pfx5:ErrorReport">
+                        <ns3:ErrorReport>
+                            <StackTrace>
+                                <xsl:value-of select="StackTrace"/>
+                            </StackTrace>
+                            <Msg>
+                                <xsl:value-of select="Msg"/>
+                            </Msg>
+                            <FullClass>
+                                <xsl:value-of select="FullClass"/>
+                            </FullClass>
+                            <Class>
+                                <xsl:value-of select="Class"/>
+                            </Class>
+                            <ProcessStack>
+                                <xsl:value-of select="ProcessStack"/>
+                            </ProcessStack>
+                            <MsgCode>
+                                <xsl:value-of select="MsgCode"/>
+                            </MsgCode>
+                        </ns3:ErrorReport>
+                    </xsl:for-each>
+                </ns3:Error>
+            </ns3:Exception>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Rethrow">
+        <pd:type>com.tibco.pe.core.RethrowActivity</pd:type>
+        <pd:resourceType>ae.activities.rethrow</pd:resourceType>
+        <pd:x>39</pd:x>
+        <pd:y>425</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Generate JMS  Error">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>681</pd:x>
+        <pd:y>175</pd:y>
+        <config>
+            <faultName>JMS-Connection-Error</faultName>
+        </config>
+        <pd:inputBindings>
+            <ns4:ActivityInput>
+                <xsl:if test="$_error/pfx5:ErrorReport/Msg">
+                    <message>
+                        <xsl:value-of select="$_error/pfx5:ErrorReport/Msg"/>
+                    </message>
+                </xsl:if>
+                <xsl:if test="$_error/pfx5:ErrorReport/MsgCode">
+                    <messageCode>
+                        <xsl:value-of select="$_error/pfx5:ErrorReport/MsgCode"/>
+                    </messageCode>
+                </xsl:if>
+                <data>
+                    <pfx4:JMSError>
+                        <pfx4:Message>
+                            <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/Exceptions/Common/Messages/JMSConnectionError"/>
+                        </pfx4:Message>
+                        <pfx4:Code>
+                            <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/Exceptions/Common/Codes/JMSConnectionError"/>
+                        </pfx4:Code>
+                    </pfx4:JMSError>
+                </data>
+            </ns4:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch JMS Session Error">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>770</pd:x>
+        <pd:y>42</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=JMSSessionCreateException namespace=http://schemas.tibco.com/bw/plugins/jms/5.0/jmsExceptions</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Catch-JMS-Send-Error">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>589</pd:x>
+        <pd:y>35</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=JMSSendException namespace=http://schemas.tibco.com/bw/plugins/jms/5.0/jmsExceptions</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>End</pd:to>
+        <pd:xpathDescription>No Notification Channel</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Send to Notifcation Connector</pd:to>
+        <pd:xpathDescription>Notify</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>(string-length(tib:trim($Start/pfx3:NotificationMessage/NotificationChannel)) &gt;0) and ($Start/pfx3:NotificationMessage/NotificationChannel !="None")</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Send to Notifcation Connector</pd:from>
+        <pd:to>Update Exception Status</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch All</pd:from>
+        <pd:to>Check Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Check Error</pd:from>
+        <pd:to>Handle Local Exception</pd:to>
+        <pd:xpathDescription>Invalid Destination</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>contains($_error/pfx5:ErrorReport/StackTrace, $_globalVariables/ns2:GlobalVariables/Exceptions/Common/Messages/InvalidDestination) or
+exists($_error_Send-to-Notifcation-Connector/ActivityErrors/pfx6:JMSInvalidInputException)</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Handle Local Exception</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Update Exception Status</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Check Error</pd:from>
+        <pd:to>Rethrow</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch JMS Session Error</pd:from>
+        <pd:to>Generate JMS  Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch-JMS-Send-Error</pd:from>
+        <pd:to>Generate JMS  Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

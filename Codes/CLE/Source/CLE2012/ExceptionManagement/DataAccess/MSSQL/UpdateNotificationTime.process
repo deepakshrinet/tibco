@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:pfx3="http://www.tibco.com/schemas/CLE-Handlers/SharedResources/SchemaDefinitions/Private/Notification/NotificationParameters.xsd" xmlns:pfx2="http://www.tibco.com/CommonLE2/namespace/private/Common" xmlns:pfx="http://www.tibco.com/CommonLE2/namespace/Private/Logging">
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/CommonLE2/namespace/private/Common" schemaLocation="/SharedResources/SchemaDefinitions/Private/Common/LocalExceptions.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/schemas/CLE-Handlers/SharedResources/SchemaDefinitions/Private/Notification/NotificationParameters.xsd" schemaLocation="/SharedResources/SchemaDefinitions/Private/Notification/NotificationParameters.xsd"/>
+    <pd:name>ExceptionManagement/DataAccess/MSSQL/UpdateNotificationTime.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx3:NotificationUpdate"/>
+    <pd:startX>79</pd:startX>
+    <pd:startY>74</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>360</pd:endX>
+    <pd:endY>73</pd:endY>
+    <pd:errorSchemas>
+        <NoUpdate ref="pfx2:NoUpdate"/>
+    </pd:errorSchemas>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1287552420231</pd:targetNamespace>
+    <pd:activity name="Update Notification Time">
+        <pd:type>com.tibco.plugin.jdbc.JDBCUpdateActivity</pd:type>
+        <pd:resourceType>ae.activities.JDBCUpdateActivity</pd:resourceType>
+        <pd:x>216</pd:x>
+        <pd:y>82</pd:y>
+        <config>
+            <timeout>%%Database/MIG_Timeout%%</timeout>
+            <commit>false</commit>
+            <emptyStrAsNil>false</emptyStrAsNil>
+            <jdbcSharedConfig>/SharedResources/Connections/Database/DBServerMSSQL.sharedjdbc</jdbcSharedConfig>
+            <statement>Update Notification set  timeNotified = ? where exceptionCode = ? and ApplicationID = ?</statement>
+            <Prepared_Param_DataType>
+                <parameter>
+                    <parameterName>TimeNotified</parameterName>
+                    <dataType>TIMESTAMP</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>ExceptionCode</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>ApplicatoinID</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+            </Prepared_Param_DataType>
+        </config>
+        <pd:inputBindings>
+            <jdbcUpdateActivityInput>
+                <TimeNotified>
+                    <xsl:value-of select="$Start/pfx3:NotificationUpdate/pfx3:TimeNotified"/>
+                </TimeNotified>
+                <ExceptionCode>
+                    <xsl:value-of select="$Start/pfx3:NotificationUpdate/pfx3:ExceptionCode"/>
+                </ExceptionCode>
+                <ApplicatoinID>
+                    <xsl:value-of select="$Start/pfx3:NotificationUpdate/pfx3:ApplicationID"/>
+                </ApplicatoinID>
+            </jdbcUpdateActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Generate Error">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>221</pd:x>
+        <pd:y>199</pd:y>
+        <config>
+            <faultName>NoUpdate</faultName>
+        </config>
+        <pd:inputBindings>
+            <ns:ActivityInput>
+                <message>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/Connectors/Notifications/Messages/NoRecordUpdated"/>
+                </message>
+                <messageCode>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/Connectors/Notifications/Codes/NoRecordUpdated"/>
+                </messageCode>
+                <data>
+                    <pfx2:NoUpdate>
+                        <pfx2:Message>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/Connectors/Notifications/Messages/NoRecordUpdated"/>
+                        </pfx2:Message>
+                        <pfx2:Code>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Exceptions/Connectors/Notifications/Codes/NoRecordUpdated"/>
+                        </pfx2:Code>
+                    </pfx2:NoUpdate>
+                </data>
+            </ns:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Update Notification Time</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Update Notification Time</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Update Notification Time</pd:from>
+        <pd:to>Generate Error</pd:to>
+        <pd:xpathDescription>No update</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$Update-Notification-Time/jdbcUpdateActivityOutput/noOfUpdates = 0</pd:xpath>
+    </pd:transition>
+</pd:ProcessDefinition>

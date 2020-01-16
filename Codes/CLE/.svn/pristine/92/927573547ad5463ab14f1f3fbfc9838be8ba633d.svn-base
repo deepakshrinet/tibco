@@ -1,0 +1,56 @@
+<data jsxnamespace="propsbundle" locales="">
+  <locale>
+    <record jsxid="m_faultCaption" jsxtext="Service problem"/>
+    <record jsxid="CMN-01" jsxtext="Internal Error Occurred, please contact your administrator."/>
+    <record jsxid="CMN-08" jsxtext="User could not be authenticated"/>
+    <record jsxid="CMN-10" jsxtext="No Authorization Information Available"/>
+    <record jsxid="LOG-01" jsxtext="Log records not found for the search criteria."/>
+    <record jsxid="BW-JDBC-100014" jsxtext="Database error, missing expression criteria."/>
+    <record jsxid="BWENGINE-100030" jsxtext="Internal Processing Error"/>
+    <record jsxid="BWENGINE-100031" jsxtext="Output data invalid."/>
+    <record jsxid="BWENGINE-100035" jsxtext="ID in use.  This item can not be deleted at this time."/>
+    <record jsxid="no value" jsxtext="No records found."/>
+    <record jsxid="http-404" jsxtext="URL not found on server, please contact your administrator."/>    
+    <record jsxid="http-13030" jsxtext="Service Unavailable.  Please try again later."/>    
+  </locale>
+  <locale key="pt_BR">
+    <record jsxid="m_faultCaption" jsxtext="Problema no serviço"/>
+    <record jsxid="CMN-01" jsxtext="Um erro interno ocorreu, por favor contate seu administrador"/>
+    <record jsxid="CMN-08" jsxtext="Usuário não pode ser autenticado"/>
+    <record jsxid="CMN-10" jsxtext="Informação de autorização não disponível"/>
+    <record jsxid="LOG-01" jsxtext="Registros de log não encontrados para o critério de busca."/>
+    <record jsxid="BW-JDBC-100014" jsxtext="Erro de Banco de Dados, critério da expressão ausente."/>
+    <record jsxid="BWENGINE-100031" jsxtext="Dados de saída inválidos."/>
+    <record jsxid="no value" jsxtext="Nenhum registro encontrado."/>
+  </locale>
+  <locale key="es_ES">
+    <record jsxid="m_faultCaption" jsxtext="Problema de servicio"/>
+    <record jsxid="CMN-01" jsxtext="Ocurrió un Error Interno, por favor contacte a su administrador"/>
+    <record jsxid="CMN-08" jsxtext="El usuario no puede ser autenticado"/>
+    <record jsxid="CMN-10" jsxtext="No hay Información de Autorización Disponible"/>
+    <record jsxid="LOG-01" jsxtext="Registros de bitácora no encontrados para los criterios de búsqueda."/>
+    <record jsxid="BW-JDBC-100014" jsxtext="Error de Base de Datos, faltan criterios de expresión."/>
+    <record jsxid="BWENGINE-100031" jsxtext="Datos de salida inválidos."/>
+    <record jsxid="no value" jsxtext="No se encontraron registros."/>
+  </locale>
+  <locale key="sv_SV">
+    <record jsxid="m_faultCaption" jsxtext="Tjänsteproblem"/>
+    <record jsxid="CMN-01" jsxtext="Ett internt fel inträffade, kontakta din driftsansvarige"/>
+    <record jsxid="CMN-08" jsxtext="Användaren kunde inte verifieras"/>
+    <record jsxid="CMN-10" jsxtext="Ingen behörighetsinformation tillgänglig"/>
+    <record jsxid="LOG-01" jsxtext="Inga loggposter kunde hittas för angivna sökkriteria."/>
+    <record jsxid="BW-JDBC-100014" jsxtext="Databasfel, saknar kriterieinformation."/>
+    <record jsxid="BWENGINE-100031" jsxtext="Utdata ogiltlig."/>
+    <record jsxid="no value" jsxtext="Inga poster hittades."/>
+  </locale>
+  <locale key="zh_CH">
+    <record jsxid="m_faultCaption" jsxtext="服务问题"/>
+    <record jsxid="CMN-01" jsxtext="发生内部错误，请连续管理员"/>
+    <record jsxid="CMN-08" jsxtext="用户不能被验证"/>
+    <record jsxid="CMN-10" jsxtext="没有可用的授权信息"/>
+    <record jsxid="LOG-01" jsxtext="没有搜索规则相应的日志记录。"/>
+    <record jsxid="BW-JDBC-100014" jsxtext="数据库错误，缺少表达规则。"/>
+    <record jsxid="BWENGINE-100031" jsxtext="输出数据无效。"/>
+    <record jsxid="no value" jsxtext="没有相应记录。"/>
+  </locale>
+</data>

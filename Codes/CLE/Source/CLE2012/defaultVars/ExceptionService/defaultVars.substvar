@@ -1,0 +1,30 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>ExceptionRequestType</name>
+			<value>Exception</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874570593</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>ResolutionDocument</name>
+			<value>ExceptionRequest</value>
+			<description></description>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874570633</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>UIConfigType</name>
+			<value>Exception</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874576668</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

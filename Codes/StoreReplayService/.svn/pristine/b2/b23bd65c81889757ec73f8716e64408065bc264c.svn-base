@@ -1,0 +1,529 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:ns2="http://www.tibco.com/pe/EngineTypes" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx2="http://www.zimmer.com/tibco/schemas/ZBS/XSD/StoreReplayService/v1/StoreMessageSchema.xsd" xmlns:ns12="http://www.zimmer.com/tibco/schemas/ZBS/XSD/ExceptionHandler/v1/ExceptionMessageSchema.xsd" xmlns:ns13="www.tibco.com/plugin/Sleep" xmlns:pfx="http://www.zimmer.com/schemas/StoreReplayService/StoreAndReplayService/Schemas/Schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xsd:import namespace="http://www.zimmer.com/schemas/StoreReplayService/StoreAndReplayService/Schemas/Schema.xsd"/>
+    <xsd:import namespace="http://www.zimmer.com/tibco/schemas/ZBS/XSD/StoreReplayService/v1/StoreMessageSchema.xsd" schemaLocation="/EnterpriseLibrary/SharedResources/Schemas/XSD/StoreMessageSchema.xsd"/>
+    <pd:name>StoreAndReplayService/Processes/SubProcesses/ReadMessagefromDB.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="BatchReplayTimestamp" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>53</pd:startX>
+    <pd:startY>230</pd:startY>
+    <pd:returnBindings>
+        <root>
+            <xsl:for-each select="$JDBC-Query/resultSet/Record">
+                <pfx2:StoreMessage>
+                    <pfx2:GUID>
+                        <xsl:value-of select="GUID"/>
+                    </pfx2:GUID>
+                    <xsl:if test="TRANSACTION_ID">
+                        <pfx2:TransactionID>
+                            <xsl:value-of select="TRANSACTION_ID"/>
+                        </pfx2:TransactionID>
+                    </xsl:if>
+                    <pfx2:OriginalDestination>
+                        <xsl:if test="ORIG_DEST_TYPE">
+                            <xsl:attribute name="destinationType">
+                                <xsl:value-of select="ORIG_DEST_TYPE"/>
+                            </xsl:attribute>
+                        </xsl:if>
+                        <xsl:value-of select="ORIG_DEST"/>
+                    </pfx2:OriginalDestination>
+                    <xsl:if test="REPLAY_DEST">
+                        <pfx2:ReplayDestination>
+                            <xsl:if test="REPLAY_DEST_TYPE">
+                                <xsl:attribute name="destinationType">
+                                    <xsl:value-of select="REPLAY_DEST_TYPE"/>
+                                </xsl:attribute>
+                            </xsl:if>
+                            <xsl:value-of select="REPLAY_DEST"/>
+                        </pfx2:ReplayDestination>
+                    </xsl:if>
+                    <pfx2:Reason>
+                        <xsl:value-of select="ERROR_DESC"/>
+                    </pfx2:Reason>
+                    <xsl:if test="APPL_ID">
+                        <pfx2:ApplicaitonID>
+                            <xsl:value-of select="APPL_ID"/>
+                        </pfx2:ApplicaitonID>
+                    </xsl:if>
+                    <xsl:if test="APPL_NAME">
+                        <pfx2:ApplicationName>
+                            <xsl:value-of select="APPL_NAME"/>
+                        </pfx2:ApplicationName>
+                    </xsl:if>
+                    <xsl:if test="JMS_CONNECTION_FACTORY">
+                        <pfx2:JMSConnectionFactory>
+                            <xsl:value-of select="JMS_CONNECTION_FACTORY"/>
+                        </pfx2:JMSConnectionFactory>
+                    </xsl:if>
+                    <pfx2:TargetSystem>
+                        <xsl:value-of select="TARGET_SYSTEM"/>
+                    </pfx2:TargetSystem>
+                    <xsl:if test="MSG_TIME">
+                        <pfx2:MessageTime>
+                            <xsl:value-of select="MSG_TIME"/>
+                        </pfx2:MessageTime>
+                    </xsl:if>
+                    <pfx2:Message>
+                        <xsl:value-of select="MESSAGE"/>
+                    </pfx2:Message>
+                    <xsl:for-each select="$JDBC-Query-1/resultSet/Record">
+                        <pfx2:Dynamic_property>
+                            <xsl:if test="NAME">
+                                <pfx2:name>
+                                    <xsl:value-of select="NAME"/>
+                                </pfx2:name>
+                            </xsl:if>
+                            <xsl:if test="VALUE">
+                                <pfx2:value>
+                                    <xsl:value-of select="VALUE"/>
+                                </pfx2:value>
+                            </xsl:if>
+                            <xsl:if test="TYPE">
+                                <pfx2:type>
+                                    <xsl:value-of select="TYPE"/>
+                                </pfx2:type>
+                            </xsl:if>
+                        </pfx2:Dynamic_property>
+                    </xsl:for-each>
+                </pfx2:StoreMessage>
+            </xsl:for-each>
+            <lastRecord>
+                <xsl:value-of select="if (count($JDBC-Query/resultSet/Record)=0) then&#xA;&quot;true&quot; else&#xA;$JDBC-Query/resultSet/lastSubset"/>
+            </lastRecord>
+        </root>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx2:StoreMessage" minOccurs="0" maxOccurs="unbounded"/>
+                    <xsd:element name="lastRecord" type="xsd:boolean" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>1156</pd:endX>
+    <pd:endY>365</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables>
+        <RetryFlag>
+            <xsd:element name="root">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="RetryFlag" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </RetryFlag>
+    </pd:processVariables>
+    <pd:targetNamespace>http://xmlns.example.com/1327644683622</pd:targetNamespace>
+    <pd:group name="Group">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>253</pd:x>
+        <pd:y>169</pd:y>
+        <pd:width>557</pd:width>
+        <pd:height>402</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>errorLoop</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:indexSlot>i</pd:indexSlot>
+            <pd:errorCondition>$i &gt; $_globalVariables/ns1:GlobalVariables/StoreAndReplayService/JDBCRetryCount 
+or
+$RetryFlag/root/RetryFlag = 'N'</pd:errorCondition>
+            <pd:suspendAfterErrorRetry>false</pd:suspendAfterErrorRetry>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>JDBC Query</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Set Retry Flag to N 2</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>JDBC Timeout Exception</pd:from>
+            <pd:to>Sleep</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-65536</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Login Timeout Exception</pd:from>
+            <pd:to>Sleep</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-65536</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Sleep</pd:from>
+            <pd:to>Set Retry Flag to Y</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-65536</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Set Retry Flag to Y</pd:from>
+            <pd:to>Set Exception Details</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-65536</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Set Exception Details</pd:from>
+            <pd:to>Generate Error</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-65536</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>JDBC Query</pd:from>
+            <pd:to>JDBC-Query-1</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>JDBC-Query-1</pd:from>
+            <pd:to>Set Retry Flag to N 2</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="JDBC Timeout Exception">
+            <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+            <pd:resourceType>ae.activities.catch</pd:resourceType>
+            <pd:x>318</pd:x>
+            <pd:y>389</pd:y>
+            <pd:handler>true</pd:handler>
+            <config>
+                <fault>localname=JDBCTimedOutException namespace=http://schemas.tibco.com/bw/plugins/jdbc/5.0/jdbcExceptions</fault>
+            </config>
+            <pd:inputBindings/>
+        </pd:activity>
+        <pd:activity name="Login Timeout Exception">
+            <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+            <pd:resourceType>ae.activities.catch</pd:resourceType>
+            <pd:x>320</pd:x>
+            <pd:y>488</pd:y>
+            <pd:handler>true</pd:handler>
+            <config>
+                <fault>localname=LoginTimedOutException namespace=http://schemas.tibco.com/bw/plugins/jdbc/5.0/jdbcExceptions</fault>
+            </config>
+            <pd:inputBindings/>
+        </pd:activity>
+        <pd:activity name="Sleep">
+            <pd:type>com.tibco.plugin.timer.SleepActivity</pd:type>
+            <pd:resourceType>ae.activities.sleep</pd:resourceType>
+            <pd:x>423</pd:x>
+            <pd:y>436</pd:y>
+            <config/>
+            <pd:inputBindings>
+                <ns13:SleepInputSchema>
+                    <IntervalInMillisec>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/StoreAndReplayService/JDBCRetryInterval * 1000"/>
+                    </IntervalInMillisec>
+                </ns13:SleepInputSchema>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="Set Retry Flag to Y">
+            <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+            <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+            <pd:x>514</pd:x>
+            <pd:y>444</pd:y>
+            <config>
+                <variableName>RetryFlag</variableName>
+            </config>
+            <pd:inputBindings>
+                <root>
+                    <RetryFlag>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'Y'"/>
+                    </RetryFlag>
+                </root>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="Generate Error">
+            <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+            <pd:resourceType>ae.activities.throw</pd:resourceType>
+            <pd:x>720</pd:x>
+            <pd:y>437</pd:y>
+            <config>
+                <faultName/>
+            </config>
+            <pd:inputBindings>
+                <ns:ActivityInput/>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="Set Exception Details">
+            <pd:type>com.tibco.pe.core.SetSharedVariableActivity</pd:type>
+            <pd:resourceType>ae.activities.setSharedVariable</pd:resourceType>
+            <pd:x>613</pd:x>
+            <pd:y>446</pd:y>
+            <config>
+                <variableConfig>/EnterpriseLibrary/SharedResources/SharedVariables/ExceptionDetails.jobsharedvariable</variableConfig>
+            </config>
+            <pd:inputBindings>
+                <ns12:ExceptionMessage>
+                    <ns12:Application>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/ApplicationName"/>
+                    </ns12:Application>
+                    <ns12:Severity>
+                        <xsl:value-of select="1"/>
+                    </ns12:Severity>
+                    <ns12:ExceptionDescription>
+                        <xsl:value-of select="$_error/ns2:ErrorReport/Msg"/>
+                    </ns12:ExceptionDescription>
+                    <ns12:ExceptionDetailsText>
+                        <xsl:value-of select="tib:render-xml($_error/ns2:ErrorReport)"/>
+                    </ns12:ExceptionDetailsText>
+                    <ns12:ExceptionType>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ExceptionHandler/ExceptionType/Technical"/>
+                    </ns12:ExceptionType>
+                    <ns12:ExceptionCode>
+                        <xsl:value-of select="$_error/ns2:ErrorReport/MsgCode"/>
+                    </ns12:ExceptionCode>
+                    <ns12:ProcessId>
+                        <xsl:value-of select="$_processContext/ns2:ProcessContext/ProcessId"/>
+                    </ns12:ProcessId>
+                    <ns12:ProcessName>
+                        <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns2:ProcessContext/ProcessId)"/>
+                    </ns12:ProcessName>
+                    <ns12:EngineName>
+                        <xsl:value-of select="$_processContext/ns2:ProcessContext/EngineName"/>
+                    </ns12:EngineName>
+                    <ns12:CreateTimestamp>
+                        <xsl:value-of select="current-dateTime()"/>
+                    </ns12:CreateTimestamp>
+                </ns12:ExceptionMessage>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="Set Retry Flag to N 2">
+            <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+            <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+            <pd:x>694</pd:x>
+            <pd:y>260</pd:y>
+            <config>
+                <variableName>RetryFlag</variableName>
+            </config>
+            <pd:inputBindings>
+                <root>
+                    <RetryFlag>
+                        <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'N'"/>
+                    </RetryFlag>
+                </root>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="JDBC Query">
+            <pd:type>com.tibco.plugin.jdbc.JDBCQueryActivity</pd:type>
+            <pd:resourceType>ae.activities.JDBCQueryActivity</pd:resourceType>
+            <pd:x>371</pd:x>
+            <pd:y>248</pd:y>
+            <config>
+                <timeout>%%EnvVariables/TIBCO_JDBC_Connection/OperationTimeOut%%</timeout>
+                <commit>false</commit>
+                <maxRows>%%StoreAndReplayService/BatchRowExtract%%</maxRows>
+                <emptyStrAsNil>false</emptyStrAsNil>
+                <jdbcSharedConfig>/StoreAndReplayService/SharedResources/Connections/JDBC/TIBCO_JDBC_Connection.sharedjdbc</jdbcSharedConfig>
+                <statement>select GUID,TRANSACTION_ID,ORIG_DEST,ORIG_DEST_TYPE,REPLAY_DEST,REPLAY_DEST_TYPE,ERROR_DESC,APPL_ID,APPL_NAME,TARGET_SYSTEM,JMS_CONNECTION_FACTORY,MSG_TIME,MESSAGE,MESSAGE_PROPERTIES,REPLAY_FLAG,CREATE_TIMESTAMP,UPDATE_TIMESTAMP
+from store_service where replay_flag = ? order by msg_time</statement>
+                <processInSubsets>true</processInSubsets>
+                <Prepared_Param_DataType>
+                    <parameter>
+                        <parameterName>Replay_Flag</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                </Prepared_Param_DataType>
+                <oraObjects/>
+                <oraTables/>
+                <QueryOutputCachedSchemaColumns>GUID</QueryOutputCachedSchemaColumns>
+                <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+                <QueryOutputCachedSchemaDataTypesName>VARCHAR2</QueryOutputCachedSchemaDataTypesName>
+                <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+                <QueryOutputCachedSchemaColumns>TRANSACTION_ID</QueryOutputCachedSchemaColumns>
+                <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+                <QueryOutputCachedSchemaDataTypesName>VARCHAR2</QueryOutputCachedSchemaDataTypesName>
+                <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+                <QueryOutputCachedSchemaColumns>ORIG_DEST</QueryOutputCachedSchemaColumns>
+                <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+                <QueryOutputCachedSchemaDataTypesName>VARCHAR2</QueryOutputCachedSchemaDataTypesName>
+                <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+                <QueryOutputCachedSchemaColumns>ORIG_DEST_TYPE</QueryOutputCachedSchemaColumns>
+                <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+                <QueryOutputCachedSchemaDataTypesName>VARCHAR2</QueryOutputCachedSchemaDataTypesName>
+                <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+                <QueryOutputCachedSchemaColumns>REPLAY_DEST</QueryOutputCachedSchemaColumns>
+                <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+                <QueryOutputCachedSchemaDataTypesName>VARCHAR2</QueryOutputCachedSchemaDataTypesName>
+                <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+                <QueryOutputCachedSchemaColumns>REPLAY_DEST_TYPE</QueryOutputCachedSchemaColumns>
+                <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+                <QueryOutputCachedSchemaDataTypesName>VARCHAR2</QueryOutputCachedSchemaDataTypesName>
+                <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+                <QueryOutputCachedSchemaColumns>ERROR_DESC</QueryOutputCachedSchemaColumns>
+                <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+                <QueryOutputCachedSchemaDataTypesName>VARCHAR2</QueryOutputCachedSchemaDataTypesName>
+                <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+                <QueryOutputCachedSchemaColumns>APPL_ID</QueryOutputCachedSchemaColumns>
+                <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+                <QueryOutputCachedSchemaDataTypesName>VARCHAR2</QueryOutputCachedSchemaDataTypesName>
+                <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+                <QueryOutputCachedSchemaColumns>APPL_NAME</QueryOutputCachedSchemaColumns>
+                <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+                <QueryOutputCachedSchemaDataTypesName>VARCHAR2</QueryOutputCachedSchemaDataTypesName>
+                <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+                <QueryOutputCachedSchemaColumns>TARGET_SYSTEM</QueryOutputCachedSchemaColumns>
+                <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+                <QueryOutputCachedSchemaDataTypesName>VARCHAR2</QueryOutputCachedSchemaDataTypesName>
+                <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+                <QueryOutputCachedSchemaColumns>JMS_CONNECTION_FACTORY</QueryOutputCachedSchemaColumns>
+                <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+                <QueryOutputCachedSchemaDataTypesName>VARCHAR2</QueryOutputCachedSchemaDataTypesName>
+                <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+                <QueryOutputCachedSchemaColumns>MSG_TIME</QueryOutputCachedSchemaColumns>
+                <QueryOutputCachedSchemaDataTypes>93</QueryOutputCachedSchemaDataTypes>
+                <QueryOutputCachedSchemaDataTypesName>TIMESTAMP</QueryOutputCachedSchemaDataTypesName>
+                <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+                <QueryOutputCachedSchemaColumns>MESSAGE</QueryOutputCachedSchemaColumns>
+                <QueryOutputCachedSchemaDataTypes>2005</QueryOutputCachedSchemaDataTypes>
+                <QueryOutputCachedSchemaDataTypesName>CLOB</QueryOutputCachedSchemaDataTypesName>
+                <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+                <QueryOutputCachedSchemaColumns>MESSAGE_PROPERTIES</QueryOutputCachedSchemaColumns>
+                <QueryOutputCachedSchemaDataTypes>2005</QueryOutputCachedSchemaDataTypes>
+                <QueryOutputCachedSchemaDataTypesName>CLOB</QueryOutputCachedSchemaDataTypesName>
+                <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+                <QueryOutputCachedSchemaColumns>REPLAY_FLAG</QueryOutputCachedSchemaColumns>
+                <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+                <QueryOutputCachedSchemaDataTypesName>VARCHAR2</QueryOutputCachedSchemaDataTypesName>
+                <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+                <QueryOutputCachedSchemaColumns>CREATE_TIMESTAMP</QueryOutputCachedSchemaColumns>
+                <QueryOutputCachedSchemaDataTypes>93</QueryOutputCachedSchemaDataTypes>
+                <QueryOutputCachedSchemaDataTypesName>TIMESTAMP</QueryOutputCachedSchemaDataTypesName>
+                <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+                <QueryOutputCachedSchemaColumns>UPDATE_TIMESTAMP</QueryOutputCachedSchemaColumns>
+                <QueryOutputCachedSchemaDataTypes>93</QueryOutputCachedSchemaDataTypes>
+                <QueryOutputCachedSchemaDataTypesName>TIMESTAMP</QueryOutputCachedSchemaDataTypesName>
+                <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            </config>
+            <pd:inputBindings>
+                <jdbcQueryActivityInput>
+                    <Replay_Flag>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/StoreAndReplayService/ReplayFlags/Ready"/>
+                    </Replay_Flag>
+                    <subsetSize>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/StoreAndReplayService/JDBCSubset"/>
+                    </subsetSize>
+                </jdbcQueryActivityInput>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="JDBC-Query-1">
+            <pd:type>com.tibco.plugin.jdbc.JDBCQueryActivity</pd:type>
+            <pd:resourceType>ae.activities.JDBCQueryActivity</pd:resourceType>
+            <pd:x>519</pd:x>
+            <pd:y>249</pd:y>
+            <config>
+                <timeout>%%EnvVariables/TIBCO_JDBC_Connection/LoginTimeOut%%</timeout>
+                <commit>false</commit>
+                <maxRows>%%StoreAndReplayService/BatchRowExtract%%</maxRows>
+                <emptyStrAsNil>false</emptyStrAsNil>
+                <jdbcSharedConfig>/StoreAndReplayService/SharedResources/Connections/JDBC/TIBCO_JDBC_Connection.sharedjdbc</jdbcSharedConfig>
+                <statement>select VALUE,NAME,TYPE 
+from tibco_app.store_service_dynamic_prop 
+where transaction_id=?</statement>
+                <Prepared_Param_DataType>
+                    <parameter>
+                        <parameterName>transaction_id</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                </Prepared_Param_DataType>
+                <wizardData/>
+                <processInSubsets>false</processInSubsets>
+                <oraObjects/>
+                <oraTables/>
+                <QueryOutputCachedSchemaColumns>VALUE</QueryOutputCachedSchemaColumns>
+                <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+                <QueryOutputCachedSchemaDataTypesName>VARCHAR2</QueryOutputCachedSchemaDataTypesName>
+                <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+                <QueryOutputCachedSchemaColumns>NAME</QueryOutputCachedSchemaColumns>
+                <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+                <QueryOutputCachedSchemaDataTypesName>VARCHAR2</QueryOutputCachedSchemaDataTypesName>
+                <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+                <QueryOutputCachedSchemaColumns>TYPE</QueryOutputCachedSchemaColumns>
+                <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+                <QueryOutputCachedSchemaDataTypesName>VARCHAR2</QueryOutputCachedSchemaDataTypesName>
+                <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            </config>
+            <pd:inputBindings>
+                <jdbcQueryActivityInput>
+                    <transaction_id>
+                        <xsl:choose>
+                            <xsl:when test="exists($JDBC-Query/resultSet/Record[1]/TRANSACTION_ID)">
+                                <xsl:value-of select="$JDBC-Query/resultSet/Record[1]/TRANSACTION_ID"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </transaction_id>
+                </jdbcQueryActivityInput>
+            </pd:inputBindings>
+        </pd:activity>
+    </pd:group>
+    <pd:activity name="Set Retry Flag to N">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>52</pd:x>
+        <pd:y>383</pd:y>
+        <config>
+            <variableName>RetryFlag</variableName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <RetryFlag>
+                    <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="'N'"/>
+                </RetryFlag>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Set Retry Flag to N</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Set Retry Flag to N</pd:from>
+        <pd:to>Group</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

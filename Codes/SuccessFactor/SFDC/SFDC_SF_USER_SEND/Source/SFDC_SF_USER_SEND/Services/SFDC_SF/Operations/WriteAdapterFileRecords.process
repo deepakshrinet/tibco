@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns1="http://www.tibco.com/namespaces/tnt/plugins/file" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx="http://www.tibco.com/ns/no_namespace_schema_location/SharedResources/Schemas/DataFormat/SFDataFormat.sharedparse">
+    <xsd:import namespace="http://www.tibco.com/ns/no_namespace_schema_location/SharedResources/Schemas/DataFormat/SFDataFormat.sharedparse" schemaLocation="/SharedResources/Schemas/DataFormat/SFDataFormat.sharedparse"/>
+    <pd:name>Services/SFDC_SF/Operations/WriteAdapterFileRecords.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx:Rows"/>
+                    <xsd:element name="UserFileName" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="ExtFileName" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="SourceFile" type="xsd:string" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>146</pd:startX>
+    <pd:startY>69</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>784</pd:endX>
+    <pd:endY>66</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1486623228205</pd:targetNamespace>
+    <pd:activity name="WriteUserFile">
+        <pd:type>com.tibco.plugin.file.FileWriteActivity</pd:type>
+        <pd:resourceType>ae.activities.FileWriteActivity</pd:resourceType>
+        <pd:x>399</pd:x>
+        <pd:y>68</pd:y>
+        <config>
+            <encoding>text</encoding>
+            <compressFile>None</compressFile>
+            <append>true</append>
+            <createMissingDirectories>true</createMissingDirectories>
+        </config>
+        <pd:inputBindings>
+            <ns1:WriteActivityInputTextClass>
+                <fileName>
+                    <xsl:value-of select="$Start/root/UserFileName"/>
+                </fileName>
+                <textContent>
+                    <xsl:value-of select="$RenderUserData/Text"/>
+                </textContent>
+            </ns1:WriteActivityInputTextClass>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="WriteUserExtFile">
+        <pd:type>com.tibco.plugin.file.FileWriteActivity</pd:type>
+        <pd:resourceType>ae.activities.FileWriteActivity</pd:resourceType>
+        <pd:x>657</pd:x>
+        <pd:y>65</pd:y>
+        <config>
+            <encoding>text</encoding>
+            <compressFile>None</compressFile>
+            <append>true</append>
+            <createMissingDirectories>true</createMissingDirectories>
+        </config>
+        <pd:inputBindings>
+            <ns1:WriteActivityInputTextClass>
+                <fileName>
+                    <xsl:value-of select="$Start/root/ExtFileName"/>
+                </fileName>
+                <textContent>
+                    <xsl:value-of select="$RenderUserExtData/Text"/>
+                </textContent>
+            </ns1:WriteActivityInputTextClass>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="RenderUserData">
+        <pd:type>com.tibco.plugin.parse.RenderActivity</pd:type>
+        <pd:resourceType>ae.activities.RenderActivity</pd:resourceType>
+        <pd:x>274</pd:x>
+        <pd:y>68</pd:y>
+        <config>
+            <ParseSharedConfig>/SharedResources/Schemas/DataFormat/SFDataFormat.sharedparse</ParseSharedConfig>
+        </config>
+        <pd:inputBindings>
+            <Rows>
+                <xsl:for-each xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="$Start/root/Rows/User">
+                    <User>
+                        <STATUS>
+                            <xsl:value-of select="tib:trim(upper-case(STATUS))"/>
+                        </STATUS>
+                        <USERID>
+                            <xsl:value-of select="tib:trim(current()/USERID)"/>
+                        </USERID>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(upper-case(STATUS))='INACTIVE'">
+                                <USERNAME>
+                                    <xsl:value-of select="concat(tib:trim(current()/USERNAME),'_old')"/>
+                                </USERNAME>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <USERNAME>
+                                    <xsl:value-of select="tib:trim(current()/USERNAME)"/>
+                                </USERNAME>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <FIRSTNAME>
+                            <xsl:value-of select="tib:trim(current()/FIRSTNAME)"/>
+                        </FIRSTNAME>
+                        <LASTNAME>
+                            <xsl:value-of select="tib:trim(current()/LASTNAME)"/>
+                        </LASTNAME>
+                        <MI>
+                            <xsl:value-of select="tib:trim(current()/MI)"/>
+                        </MI>
+                        <EMAIL>
+                            <xsl:value-of select="tib:trim(current()/EMAIL)"/>
+                        </EMAIL>
+                        <MANAGER>
+                            <xsl:value-of select="tib:trim(current()/MANAGER)"/>
+                        </MANAGER>
+                        <HR>
+                            <xsl:value-of select="tib:trim(current()/HR)"/>
+                        </HR>
+                        <DIVISION>
+                            <xsl:value-of select="tib:trim(current()/DIVISION)"/>
+                        </DIVISION>
+                        <DEPARTMENT>
+                            <xsl:value-of select="tib:trim(current()/DEPARTMENT)"/>
+                        </DEPARTMENT>
+                        <LOCATION>
+                            <xsl:value-of select="tib:trim(current()/LOCATION)"/>
+                        </LOCATION>
+                        <JOBCODE>
+                            <xsl:value-of select="tib:trim(current()/JOBCODE)"/>
+                        </JOBCODE>
+                        <TIMEZONE>
+                            <xsl:value-of select="tib:trim(current()/TIMEZONE)"/>
+                        </TIMEZONE>
+                        <HIREDATE>
+                            <xsl:value-of select="tib:trim(current()/HIREDATE)"/>
+                        </HIREDATE>
+                        <EMPID>
+                            <xsl:value-of select="tib:trim(current()/EMPID)"/>
+                        </EMPID>
+                        <TITLE>
+                            <xsl:value-of select="tib:trim(current()/TITLE)"/>
+                        </TITLE>
+                        <BIZ_PHONE>
+                            <xsl:value-of select="tib:trim(current()/BIZ_PHONE)"/>
+                        </BIZ_PHONE>
+                        <FAX>
+                            <xsl:value-of select="tib:trim(current()/FAX)"/>
+                        </FAX>
+                        <ADDR1>
+                            <xsl:value-of select="tib:trim(current()/ADDR1)"/>
+                        </ADDR1>
+                        <ADDR2>
+                            <xsl:value-of select="tib:trim(current()/ADDR2)"/>
+                        </ADDR2>
+                        <CITY>
+                            <xsl:value-of select="tib:trim(current()/CITY)"/>
+                        </CITY>
+                        <STATE>
+                            <xsl:value-of select="tib:trim(current()/STATE)"/>
+                        </STATE>
+                        <ZIP>
+                            <xsl:value-of select="tib:trim(current()/ZIP)"/>
+                        </ZIP>
+                        <COUNTRY>
+                            <xsl:value-of select="tib:trim(current()/COUNTRY)"/>
+                        </COUNTRY>
+                        <DEFAULT_LOCALE>
+                            <xsl:value-of select="tib:trim(current()/DEFAULT_LOCALE)"/>
+                        </DEFAULT_LOCALE>
+                        <LOGIN_METHOD>
+                            <xsl:value-of select="tib:trim(current()/LOGIN_METHOD)"/>
+                        </LOGIN_METHOD>
+                    </User>
+                </xsl:for-each>
+            </Rows>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="RenderUserExtData">
+        <pd:type>com.tibco.plugin.parse.RenderActivity</pd:type>
+        <pd:resourceType>ae.activities.RenderActivity</pd:resourceType>
+        <pd:x>528</pd:x>
+        <pd:y>66</pd:y>
+        <config>
+            <ParseSharedConfig>/SharedResources/Schemas/DataFormat/UserExtDataFormat.sharedparse</ParseSharedConfig>
+        </config>
+        <pd:inputBindings>
+            <Rows>
+                <xsl:for-each xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="$Start/root/Rows/User">
+                    <User>
+                        <USERID>
+                            <xsl:value-of select="tib:trim(current()/USERID)"/>
+                        </USERID>
+                        <REGION>
+                            <xsl:value-of select="tib:trim(current()/CUSTOM01)"/>
+                        </REGION>
+                        <OPCOM>
+                            <xsl:value-of select="tib:trim(current()/CUSTOM02)"/>
+                        </OPCOM>
+                        <EMPLOYEE_TYPE>
+                            <xsl:value-of select="tib:trim(current()/CUSTOM03)"/>
+                        </EMPLOYEE_TYPE>
+                        <HCP>
+                            <xsl:value-of select="upper-case(tib:trim(current()/CUSTOM04))"/>
+                        </HCP>
+                        <ON_LEAVE>
+                            <xsl:value-of select="tib:trim(current()/CUSTOM05)"/>
+                        </ON_LEAVE>
+                        <LEAVE_EXPIRATION>
+                            <xsl:value-of select="tib:trim(current()/CUSTOM06)"/>
+                        </LEAVE_EXPIRATION>
+                        <DOMAIN>
+                            <xsl:value-of select="tib:trim(current()/CUSTOM07)"/>
+                        </DOMAIN>
+                        <OPCOM_1>
+                            <xsl:value-of select="tib:trim(current()/CUSTOM08)"/>
+                        </OPCOM_1>
+                        <SITE>
+                            <xsl:value-of select="tib:trim(current()/CUSTOM09)"/>
+                        </SITE>
+                        <USER_SOURCE>
+                            <xsl:value-of select="tib:trim(current()/CUSTOM10)"/>
+                        </USER_SOURCE>
+                        <SALES_SPECIALITY>
+                            <xsl:value-of select="tib:trim(current()/CUSTOM11)"/>
+                        </SALES_SPECIALITY>
+                        <JOB_DESCRIPTION>
+                            <xsl:value-of select="tib:trim(current()/CUSTOM12)"/>
+                        </JOB_DESCRIPTION>
+                        <LMS_EMAIL>
+                            <xsl:value-of select="tib:trim(current()/CUSTOM13)"/>
+                        </LMS_EMAIL>
+                    </User>
+                </xsl:for-each>
+            </Rows>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>RenderUserData</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>RenderUserData</pd:from>
+        <pd:to>WriteUserFile</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>WriteUserFile</pd:from>
+        <pd:to>RenderUserExtData</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>RenderUserExtData</pd:from>
+        <pd:to>WriteUserExtFile</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>WriteUserExtFile</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

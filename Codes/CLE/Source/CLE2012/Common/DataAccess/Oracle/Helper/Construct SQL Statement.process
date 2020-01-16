@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:pfx="http://www.tibco.com/unique/default/namespace/Log" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:ns1="http://www.tibco.com/pe/EngineTypes" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx5="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx4="http://www.tibco.com/CommonLE/namespace/GUI" xmlns:pfx3="http://www.tibco.com/CommonLE/namespace/Common" xmlns:pfx2="http://www.tibco.com/unique/default/namespace/CommonLE" xmlns:pfx9="http://www.tibco.com/schemas/COMMONLENEW/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Common/ListQuery.xsd" xmlns:pfx8="http://www.tibco.com/schemas/COMMONLENEW/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Common/Schema.xsd" xmlns:pfx7="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogListQuery" xmlns:pfx6="http://www.tibco.com/CommonLE2/namespace/Private/Logging">
+    <xsd:import namespace="http://www.tibco.com/unique/default/namespace/Log" schemaLocation="/Shared Resources/Schema Definitions/Common/LogRequest.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE/namespace/Common" schemaLocation="/Shared Resources/Schema Definitions/Common/LogQuery.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Private/Logging" schemaLocation="/SharedResources/SchemaDefinitions/Private/Logging/LogQuerySQLParameters.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogListQuery" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Log/LogListQuery.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/schemas/COMMONLENEW/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Common/ListQuery.xsd" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Common/ListQuery.xsd"/>
+    <pd:name>Common/DataAccess/Oracle/Helper/Construct SQL Statement.process</pd:name>
+    <pd:description>This process creates the Where and ORDER BY claues in the SQL statement that is used to retrieve the list of logs queried by the user</pd:description>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx9:ListQuery"/>
+    <pd:startX>30</pd:startX>
+    <pd:startY>95</pd:startY>
+    <pd:returnBindings>
+        <WhereClause>
+            <xsl:value-of select="$QueryConditionString/whereClaus"/>
+        </WhereClause>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="WhereClause" type="xsd:string"/>
+    </pd:endType>
+    <pd:endX>657</pd:endX>
+    <pd:endY>285</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables>
+        <QueryConditionString>
+            <xsd:element name="whereClaus" type="xsd:string"/>
+        </QueryConditionString>
+    </pd:processVariables>
+    <pd:targetNamespace>http://xmlns.example.com/1284088495135</pd:targetNamespace>
+    <pd:activity name="Initialize">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>128</pd:x>
+        <pd:y>94</pd:y>
+        <config>
+            <variableName>QueryConditionString</variableName>
+        </config>
+        <pd:inputBindings>
+            <xsl:choose>
+                <xsl:when test="count($Start/pfx9:ListQuery/pfx9:Applications)=0">
+                    <whereClaus>
+                        <xsl:value-of select="&quot;&quot;"/>
+                    </whereClaus>
+                </xsl:when>
+                <xsl:otherwise>
+                    <whereClaus>
+                        <xsl:value-of select="&quot;Where ApplicationID IN (&quot;"/>
+                    </whereClaus>
+                </xsl:otherwise>
+            </xsl:choose>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:group name="AppID Group">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>211</pd:x>
+        <pd:y>25</pd:y>
+        <pd:width>169</pd:width>
+        <pd:height>122</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>inputLoop</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:over>$Start/pfx9:ListQuery/pfx9:Applications/pfx9:Application</pd:over>
+            <pd:iterationElementSlot>ApplicationID</pd:iterationElementSlot>
+            <pd:indexSlot>i</pd:indexSlot>
+            <pd:activityOutputName/>
+            <pd:accumulateOutput>false</pd:accumulateOutput>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>ConstructAppIDs</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>ConstructAppIDs</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="ConstructAppIDs">
+            <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+            <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+            <pd:x>293</pd:x>
+            <pd:y>84</pd:y>
+            <config>
+                <variableName>QueryConditionString</variableName>
+            </config>
+            <pd:inputBindings>
+                <xsl:choose>
+                    <xsl:when test="count($Start/pfx9:ListQuery/pfx9:Applications/pfx9:Application) = $i">
+                        <whereClaus>
+                            <xsl:value-of select="concat($QueryConditionString/whereClaus,   &quot;'&quot;, $ApplicationID/pfx9:Application/pfx9:ApplicationID, &quot;'&quot;,   &quot;) &quot;)"/>
+                        </whereClaus>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <whereClaus>
+                            <xsl:value-of select="concat($QueryConditionString/whereClaus,   &quot;'&quot;, $ApplicationID/pfx9:Application/pfx9:ApplicationID, &quot;'&quot;,   &quot;, &quot;)"/>
+                        </whereClaus>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </pd:inputBindings>
+        </pd:activity>
+    </pd:group>
+    <pd:group name="Group">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>138</pd:x>
+        <pd:y>192</pd:y>
+        <pd:width>332</pd:width>
+        <pd:height>171</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>inputLoop</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:over>$Start/pfx9:ListQuery/pfx9:Criteria/pfx9:Criterion</pd:over>
+            <pd:iterationElementSlot>criteron</pd:iterationElementSlot>
+            <pd:indexSlot>j</pd:indexSlot>
+            <pd:activityOutputName/>
+            <pd:accumulateOutput>false</pd:accumulateOutput>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>Single</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Assign</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Single</pd:from>
+            <pd:to>Assign</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="Assign">
+            <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+            <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+            <pd:x>353</pd:x>
+            <pd:y>280</pd:y>
+            <config>
+                <variableName>QueryConditionString</variableName>
+            </config>
+            <pd:inputBindings>
+                <whereClaus>
+                    <xsl:value-of select="concat($QueryConditionString/whereClaus, $Single/oneCondition)"/>
+                </whereClaus>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="Single">
+            <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+            <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+            <pd:x>239</pd:x>
+            <pd:y>283</pd:y>
+            <config>
+                <element>
+                    <xsd:element name="oneCondition" type="xsd:string"/>
+                </element>
+            </config>
+            <pd:inputBindings>
+                <xsl:choose>
+                    <xsl:when test="$criteron/pfx9:Criterion/pfx9:FieldName = &quot;Time_Stamp&quot;">
+                        <oneCondition>
+                            <xsl:value-of select="if((not(string-length($criteron/pfx9:Criterion/pfx9:FromValue)= 0) and (not(string-length($criteron/pfx9:Criterion/pfx9:ToValue)= 0)))) then&#xA;concat (&quot; AND &quot;, &quot;time_stamp between &quot;,&#xA;&quot;to_date( '&quot;, $criteron/pfx9:Criterion/pfx9:FromValue, &quot;','YYYY-MM-DD HH24:MI:SS')&quot;, &#xA;&quot; and &quot;,&#xA;&quot;to_date( '&quot;, $criteron/pfx9:Criterion/pfx9:ToValue , &quot;','YYYY-MM-DD HH24:MI:SS')&quot;)&#xA;else&#xA;if((not(string-length($criteron/pfx9:Criterion/pfx9:FromValue)= 0) and (string-length($criteron/pfx9:Criterion/pfx9:ToValue)= 0))) then&#xA;concat( &quot; AND &quot;, &quot;time_stamp>=&quot;,&quot; &quot;,&#xA;&quot;to_date( '&quot;,  $criteron/pfx9:Criterion/pfx9:FromValue , &quot;','YYYY-MM-DD HH24:MI:SS')&quot;)&#xA;else&#xA;if((string-length($criteron/pfx9:Criterion/pfx9:FromValue)= 0) and (not(string-length($criteron/pfx9:Criterion/pfx9:ToValue)= 0))) then&#xA;concat(&quot; AND &quot;, &quot;time_stamp &lt;=&quot;,&quot; &quot;,&#xA;&quot;to_date( '&quot;, $criteron/pfx9:Criterion/pfx9:ToValue , &quot;','YYYY-MM-DD HH24:MI:SS')&quot;)&#xA;else&#xA;&quot;&quot;"/>
+                        </oneCondition>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <oneCondition>
+                            <xsl:value-of select="if((not(string-length($criteron/pfx9:Criterion/pfx9:FromValue)= 0) and (not(string-length($criteron/pfx9:Criterion/pfx9:ToValue)= 0)))) then&#xA;concat(&quot; AND &quot;, $criteron/pfx9:Criterion/pfx9:FieldName, &quot; BETWEEN&quot;,&quot; '&quot;,$criteron/pfx9:Criterion/pfx9:FromValue,&quot;'  &quot;,&quot;and&quot;,&quot; '&quot;,$criteron/pfx9:Criterion/pfx9:ToValue,&quot;'  &quot;)&#xA;else&#xA;if((not(string-length($criteron/pfx9:Criterion/pfx9:FromValue)= 0) and (string-length($criteron/pfx9:Criterion/pfx9:ToValue)= 0))) then&#xA;concat(&quot; AND &quot;, $criteron/pfx9:Criterion/pfx9:FieldName, &quot; like &quot;,&quot; '&quot;,$criteron/pfx9:Criterion/pfx9:FromValue,&quot;%&quot;,&quot;'  &quot;)&#xA;else&#xA;if((string-length($criteron/pfx9:Criterion/pfx9:FromValue)= 0) and (not(string-length($criteron/pfx9:Criterion/pfx9:ToValue)= 0))) then&#xA;concat(&quot; AND &quot;, $criteron/pfx9:Criterion/pfx9:FieldName , &quot; like&quot;,&quot; '&quot;,&quot;%&quot;,$criteron/pfx9:Criterion/pfx9:ToValue,&quot;'  &quot;)&#xA;else&#xA;&quot;&quot;"/>
+                        </oneCondition>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </pd:inputBindings>
+        </pd:activity>
+    </pd:group>
+    <pd:activity name="Assign-1">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>540</pd:x>
+        <pd:y>285</pd:y>
+        <config>
+            <variableName>QueryConditionString</variableName>
+        </config>
+        <pd:inputBindings>
+            <whereClaus>
+                <xsl:value-of select="if((not(string-length($Start/pfx9:ListQuery/pfx9:OrderBy)= 0)))  then&#xA;concat( $QueryConditionString/whereClaus, &quot; ORDER BY&quot;,&quot; &quot;,$Start/pfx9:ListQuery/pfx9:OrderBy)&#xA;else&#xA;&quot;&quot;"/>
+            </whereClaus>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Initialize</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Initialize</pd:from>
+        <pd:to>AppID Group</pd:to>
+        <pd:xpathDescription/>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AppID Group</pd:from>
+        <pd:to>Group</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>Assign-1</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign-1</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

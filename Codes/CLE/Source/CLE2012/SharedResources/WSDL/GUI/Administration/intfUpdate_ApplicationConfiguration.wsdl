@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:ns2="http://www.tibco.com/CommonLE2/namespace/Public/Common/IDQuery" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:ns="http://www.tibco.com/CommonLE2/Public/Common" xmlns:pfx0="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Applications" xmlns:pfx1="http://www.tibco.com/CommonLE2/Public/Common/Dummy" xmlns:tns="http://www.tibco.com/CommonLE2/namespace/Administration/GUIServices/Applications" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx3="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Query" xmlns:pfx2="http://www.tibco.com/CommonLE2/namespace/private/Common" targetNamespace="http://www.tibco.com/CommonLE2/namespace/Administration/GUIServices/Applications">
+    <import namespace="http://www.tibco.com/CommonLE2/Public/Common/Dummy" location="../../../SchemaDefinitions/Public/Pluggable/GUI/Common/DummyReturnMessage.xsd"/>
+    <import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Applications" location="../../../SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/Applications.xsd"/>
+    <import namespace="http://www.tibco.com/CommonLE2/namespace/private/Common" location="../../../SchemaDefinitions/Private/Common/LocalExceptions.xsd"/>
+    <import namespace="http://www.tibco.com/CommonLE2/Public/Common" location="../../../SchemaDefinitions/Public/Common/ErrorMessage.xsd"/>
+    <import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Query" location="../../../SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/ConfigurationQuery.xsd"/>
+    <import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Common/IDQuery" location="../../../SchemaDefinitions/Public/Pluggable/GUI/Common/IDQuery.xsd"/>
+    <message name="Applications">
+        <part element="pfx0:Applications" name="parameters"/>
+    </message>
+    <message name="Error">
+        <part name="parameters" element="ns:Error"/>
+    </message>
+    <message name="Query">
+        <part name="parameters" element="pfx3:Query"/>
+    </message>
+    <message name="Dummy"/>
+    <portType name="portType">
+        <operation name="Update_sp_ApplicationConfigurationOp">
+            <input message="tns:Applications"/>
+            <output message="tns:Dummy"/>
+            <fault name="fault1" message="tns:Error"/>
+        </operation>
+        <operation name="Retrieve_sp_ApplicationConfiguration_sp_ListOp">
+            <input message="tns:Query"/>
+            <output message="tns:Applications"/>
+            <fault name="fault1" message="tns:Error"/>
+        </operation>
+        <operation name="Delete_sp_ApplicationConfigurationOp">
+            <input message="tns:Query"/>
+            <output message="tns:Dummy"/>
+            <fault name="fault1" message="tns:Error"/>
+        </operation>
+        <operation name="CreateApplicationConfigurationOp">
+            <input message="tns:Applications"/>
+            <output message="tns:Dummy"/>
+            <fault name="fault1" message="tns:Error"/>
+        </operation>
+    </portType>
+</definitions>

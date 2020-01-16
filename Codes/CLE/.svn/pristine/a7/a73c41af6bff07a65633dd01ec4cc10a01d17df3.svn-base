@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serviceResource xmlns:wsdl="http://www.tibco.com/CommonLE2/namespace/Administration/GUIServices/ExceptionConfiguration">
+    <ns0:import xmlns:ns0="http://schemas.xmlsoap.org/wsdl/" namespace="http://www.tibco.com/CommonLE2/namespace/Administration/GUIServices/ExceptionConfiguration" location="/SharedResources/WSDL/GUI/Administration/intfRetrieveSpecificExceptionConfigurationList.wsdl"/>
+    <config>
+        <class>com.tibco.bw.service.serviceAgent.ServiceServiceAgent</class>
+        <name>intfExceptionConfiguration-service</name>
+        <resourceType>service.definition</resourceType>
+        <implType>bw</implType>
+        <groups>
+            <row isDefault="true" groupName="Default"/>
+        </groups>
+        <wsdl namespace="http://www.tibco.com/CommonLE2/Administration/GUIServices/ExceptionConfigurationServices" embedWsdlComponents="true" embedSchemaComponents="true" embedJndiProperties="false"/>
+        <serviceChange>Fri Sep 07 19:46:02 PDT 2007</serviceChange>
+        <interfaceImpl>
+            <tab>
+                <tabName>portType</tabName>
+                <tabType>bw</tabType>
+                <config>
+                    <wsdlDetail location="/SharedResources/WSDL/GUI/Administration/intfRetrieveSpecificExceptionConfigurationList.wsdl" portType="portType" ns="http://www.tibco.com/CommonLE2/namespace/Administration/GUIServices/ExceptionConfiguration"/>
+                    <detail>
+                        <tab>
+                            <tabName>service.definition.impl.tab.label</tabName>
+                            <tabType>impl</tabType>
+                            <config>
+                                <operations>
+                                    <row opName="RetrieveSpecificExceptionConfigurationListOp" opImpl="/Administration/GUIServices/ExceptionConfigurationServices/wsRetrieveSpecificExceptionConfigurationList.process"/>
+                                    <row opName="UpdateExceptionConfigurationOp" opImpl="/Administration/GUIServices/ExceptionConfigurationServices/wsUpdateExceptionConfiguration.process"/>
+                                    <row opName="RetrieveSpecificExceptionConfigurationOp" opImpl="/Administration/GUIServices/ExceptionConfigurationServices/wsRetrieveSpecificExceptionConfiguration.process"/>
+                                    <row opName="DeleteExceptionConfigurationOp" opImpl="/Administration/GUIServices/ExceptionConfigurationServices/wsDeleteExceptionConfiguration.process"/>
+                                    <row opName="CreateExceptionConfigurationOp" opImpl="/Administration/GUIServices/ExceptionConfigurationServices/wsCreateExceptionConfiguration.process"/>
+                                </operations>
+                            </config>
+                        </tab>
+                        <tab>
+                            <tabName>service.definition.ep.tab.label</tabName>
+                            <tabType>ep</tabType>
+                            <config>
+                                <epBindings>
+                                    <row epName="intfwsRetrieveSpecificExceptionConfigurationListEndpoint0" epType="soap">
+                                        <config>
+                                            <epDetail>
+                                                <tab>
+                                                    <tabName>soap.service.transport.ui.transport.tab.label</tabName>
+                                                    <tabType>transport</tabType>
+                                                    <config>
+                                                        <sharedChannel>/SharedResources/Connections/SOAP/HTTP GUIServicesAdministration.sharedhttp</sharedChannel>
+                                                        <transport>
+                                                            <config>
+                                                                <useBasicAuthentication>false</useBasicAuthentication>
+                                                                <httpURI>/Administration/GUIServices/ExceptionConfigurationServices/intfExceptionConfiguration-service.serviceagent/intfwsRetrieveSpecificExceptionConfigurationListEndpoint0</httpURI>
+                                                            </config>
+                                                        </transport>
+                                                    </config>
+                                                </tab>
+                                                <tab>
+                                                    <tabName>soap.service.transport.ui.details.tab.label</tabName>
+                                                    <tabType>details</tabType>
+                                                    <config>
+                                                        <operationStyle>document</operationStyle>
+                                                        <soapVersion>SOAP 1.1</soapVersion>
+                                                        <soap>
+                                                            <operation name="RetrieveSpecificExceptionConfigurationListOp">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Administration/GUIServices/ExceptionConfigurationServices/intfRetrieveSpecificExceptionConfigurationList-service.serviceagent/intfwsRetrieveSpecificExceptionConfigurationListEndpoint0/RetrieveSpecificExceptionConfigurationListOp</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="UpdateExceptionConfigurationOp">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Administration/GUIServices/ExceptionConfigurationServices/intfRetrieveSpecificExceptionConfigurationList-service.serviceagent/intfwsRetrieveSpecificExceptionConfigurationListEndpoint0/UpdateExceptionConfigurationOp</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="RetrieveSpecificExceptionConfigurationOp">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Administration/GUIServices/ExceptionConfigurationServices/intfRetrieveSpecificExceptionConfigurationList-service.serviceagent/intfwsRetrieveSpecificExceptionConfigurationListEndpoint0/RetrieveSpecificExceptionConfigurationOp</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="DeleteExceptionConfigurationOp">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Administration/GUIServices/ExceptionConfigurationServices/intfRetrieveSpecificExceptionConfigurationList-service.serviceagent/intfwsRetrieveSpecificExceptionConfigurationListEndpoint0/DeleteExceptionConfigurationOp</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="CreateExceptionConfigurationOp">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Administration/GUIServices/ExceptionConfigurationServices/intfRetrieveSpecificExceptionConfigurationList-service.serviceagent/intfwsRetrieveSpecificExceptionConfigurationListEndpoint0/CreateExceptionConfigurationOp</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                        </soap>
+                                                    </config>
+                                                </tab>
+                                            </epDetail>
+                                        </config>
+                                    </row>
+                                </epBindings>
+                            </config>
+                        </tab>
+                    </detail>
+                </config>
+            </tab>
+        </interfaceImpl>
+    </config>
+</serviceResource>

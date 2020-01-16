@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns="http://www.zimmer.com/v1_0/ErrorMessage"
+	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	 targetNamespace="http://www.zimmer.com/v1_0/ErrorMessage"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xsd:element name="Error">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Message" minOccurs="0"/>
+				<xsd:element ref="Code" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Code" type="xsd:string"/>
+	<xsd:element name="Message" type="xsd:string"/>
+</xsd:schema>

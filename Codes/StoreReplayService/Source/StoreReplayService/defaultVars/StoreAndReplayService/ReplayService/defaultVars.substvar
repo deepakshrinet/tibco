@@ -1,0 +1,21 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>JMSExpirationReply</name>
+			<value>0</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1439401370473</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>QueueName</name>
+			<value>ZBS.TIBCO.BW.STOREANDREPLAY.REPLAYMESSAGE.ASYNC</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1439401370489</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

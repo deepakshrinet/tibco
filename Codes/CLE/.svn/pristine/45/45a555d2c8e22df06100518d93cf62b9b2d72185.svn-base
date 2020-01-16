@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx="http://www.tibco.com/schemas/CommonLE/Plug-ins/Notification/Resources/Schemas/SystemsInfo.xsd">
+    <xsd:import namespace="http://www.tibco.com/schemas/CommonLE/Plug-ins/Notification/Resources/Schemas/SystemsInfo.xsd" schemaLocation="/Plug-ins/Notification/Resources/Schemas/SystemsInfo.xsd"/>
+    <pd:name>Plug-ins/Notification/DataAccess/Oracle/Get Source-Target SystemInfo.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="Key">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="ApplicationID" type="xsd:string"/>
+                    <xsd:element name="InterfaceID" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>139</pd:startX>
+    <pd:startY>65</pd:startY>
+    <pd:returnBindings>
+        <xsl:for-each select="$Query-InterfaceConfig/resultSet/Record[1]">
+            <pfx:SystemsInfo>
+                <pfx:ApplicationID>
+                    <xsl:value-of select="$Start/Key/ApplicationID"/>
+                </pfx:ApplicationID>
+                <pfx:InterfaceID>
+                    <xsl:value-of select="$Start/Key/InterfaceID"/>
+                </pfx:InterfaceID>
+                <xsl:if test="SOURCESYSTEM">
+                    <pfx:SourceSystem>
+                        <xsl:value-of select="SOURCESYSTEM"/>
+                    </pfx:SourceSystem>
+                </xsl:if>
+                <xsl:if test="TARGETSYSTEM">
+                    <pfx:TargetSystem>
+                        <xsl:value-of select="TARGETSYSTEM"/>
+                    </pfx:TargetSystem>
+                </xsl:if>
+            </pfx:SystemsInfo>
+        </xsl:for-each>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType ref="pfx:SystemsInfo"/>
+    <pd:endX>450</pd:endX>
+    <pd:endY>64</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1288045345441</pd:targetNamespace>
+    <pd:activity name="Query InterfaceConfig">
+        <pd:type>com.tibco.plugin.jdbc.JDBCQueryActivity</pd:type>
+        <pd:resourceType>ae.activities.JDBCQueryActivity</pd:resourceType>
+        <pd:x>279</pd:x>
+        <pd:y>65</pd:y>
+        <config>
+            <timeout>10</timeout>
+            <commit>false</commit>
+            <maxRows>100</maxRows>
+            <emptyStrAsNil>false</emptyStrAsNil>
+            <jdbcSharedConfig>/SharedResources/Connections/Database/DBServerOracle.sharedjdbc</jdbcSharedConfig>
+            <statement>Select SourceSystem, TargetSystem from InterfaceConfig where InterfaceID = ? and ApplicationID = ?</statement>
+            <oraObjects/>
+            <oraTables/>
+            <QueryOutputCachedSchemaColumns>SOURCESYSTEM</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>TARGETSYSTEM</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <Prepared_Param_DataType>
+                <parameter>
+                    <parameterName>InterfaceID</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>ApplicationID</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+            </Prepared_Param_DataType>
+        </config>
+        <pd:inputBindings>
+            <jdbcQueryActivityInput>
+                <InterfaceID>
+                    <xsl:value-of select="$Start/Key/InterfaceID"/>
+                </InterfaceID>
+                <ApplicationID>
+                    <xsl:value-of select="$Start/Key/ApplicationID"/>
+                </ApplicationID>
+            </jdbcQueryActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Query InterfaceConfig</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Query InterfaceConfig</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

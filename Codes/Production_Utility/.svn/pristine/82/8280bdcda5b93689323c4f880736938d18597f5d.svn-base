@@ -1,0 +1,68 @@
+--===============================================
+--   APPLICATIONS ApplicationName = ""
+--===============================================
+INSERT INTO APPLICATIONS(applicationid, NAME, description)VALUES ('Slack_Text_Utility', 'Slack_Text_Utility', 'To send slack and text alert based on email notification.');
+
+--===============================================
+--   EXCEPTIONCATEGORY
+--===============================================
+INSERT INTO EXCEPTIONCATEGORY (applicationid, ID, NAME,description)	VALUES 
+('Slack_Text_Utility', categoryid.nextval, 'System', 'System Exceptions, such as timeout, db outage,jms exception');
+INSERT INTO EXCEPTIONCATEGORY (applicationid, ID, NAME,description)	VALUES 
+('Slack_Text_Utility', categoryid.nextval, 'Technical', 'Technical Exceptions, such as java,mail,xpath exceptions.');
+INSERT INTO EXCEPTIONCATEGORY (applicationid, ID, NAME,description)	VALUES 
+('Slack_Text_Utility', categoryid.nextval, 'Business', 'Business Exceptions such as data issue, rule violation.');
+	
+--===============================================
+--   EXCEPTIONTYPE
+--===============================================
+
+Insert into EXCEPTIONTYPE (APPLICATIONID,ID,NAME,DESCRIPTION) values 
+('Slack_Text_Utility',TYPEID.nextval,'CatchAll','Generic Catch All Exception');
+
+
+
+
+--===============================================
+--   	EXCEPTIONSEVERITY
+--===============================================
+
+Insert into EXCEPTIONSEVERITY (APPLICATIONID,ID,NAME,DESCRIPTION) values 
+('Slack_Text_Utility',SEVERITYID.nextval,'CRITICAL','Condition that affects service has occurred, Immediate Corrective Action required');
+Insert into EXCEPTIONSEVERITY (APPLICATIONID,ID,NAME,DESCRIPTION) values 
+('Slack_Text_Utility',SEVERITYID.nextval,'HIGH','Problem with a relatively high severity level has occurred, It is likely that normal use of the object will be impeded');
+Insert into EXCEPTIONSEVERITY (APPLICATIONID,ID,NAME,DESCRIPTION) values 
+('Slack_Text_Utility',SEVERITYID.nextval,'MEDIUM','Problem with a relatively low severity level has occurred, It is unlikely that normal use of the object will be impeded');
+Insert into EXCEPTIONSEVERITY (APPLICATIONID,ID,NAME,DESCRIPTION) values
+ ('Slack_Text_Utility',SEVERITYID.nextval,'LOW','Problem that affects service will or could occur, Diagnostic and corrective action is recommended');
+Insert into EXCEPTIONSEVERITY (APPLICATIONID,ID,NAME,DESCRIPTION) values 
+('Slack_Text_Utility',SEVERITYID.nextval,'NORMAL','Message output is normal');
+Insert into EXCEPTIONSEVERITY (APPLICATIONID,ID,NAME,DESCRIPTION) values 
+('Slack_Text_Utility',SEVERITYID.nextval,'UNKNOWN','Severity level cannot be determined');
+--===============================================
+--   	EXCEPTIONPROCEDURE
+--===============================================
+
+--===============================================
+--   	BW EXCEPTIONCONFIG
+--===============================================
+--Common BW Exceptions
+
+
+
+Insert into EXCEPTIONCONFIG (APPLICATIONID,EXCEPTIONCODE,DESCRIPTION,CATEGORYID,TYPEID,SEVERITYID,REPLYDESTINATION,ROLENAME,PROCEDUREID,NOTIFICATIONCHNL,EMAILTO,EMAILCC,EXCEPTIONTTL,RESOLVEDELAYINTERVAL,EVENTTYPE) values 
+('Slack_Text_Utility','TECHNICAL-777','Generic Technical Exception',(SELECT EXCEPTIONCATEGORY.ID FROM EXCEPTIONCATEGORY WHERE NAME='Technical' AND APPLICATIONID='Slack_Text_Utility'),(SELECT EXCEPTIONTYPE.ID FROM EXCEPTIONTYPE WHERE NAME='CatchAll' AND APPLICATIONID='Slack_Text_Utility'),(SELECT EXCEPTIONSEVERITY.ID FROM EXCEPTIONSEVERITY WHERE NAME='HIGH' AND APPLICATIONID='Slack_Text_Utility'),null,null,null,'ZBS.INTEGRATION.CLE.NOTIFICATION','MG-ZIM-WAR-COMMON-TIB-SUP-QA@zimmerbiomet.com',null,10,0,null);
+
+
+
+
+--================================================
+--        INTERFACE CONFIG
+--================================================
+
+Insert into INTERFACECONFIG (APPLICATIONID,INTERFACEID,INTERFACENAME,INTERFACETYPE,OWNER,SOURCESYSTEM,TARGETSYSTEM,DBUSE,TRANSCOMPLEXITY,DESCRIPTION,PARENTID,STATUS,PROTOCOL) values 
+('Slack_Text_Utility','ALERT-UTILITY','ALERT-UTILITY','Logical','ZimmerBiomet','ZimmerBiomet','ZimmerBiomet','N','Medium',null,null,'Active',null);
+
+
+
+

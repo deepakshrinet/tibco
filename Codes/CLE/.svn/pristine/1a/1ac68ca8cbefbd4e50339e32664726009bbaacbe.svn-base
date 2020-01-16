@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Procedure"
+	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	 targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Procedure"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xsd:element name="ExceptionProcedure">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="ApplicationID" type="xsd:string"/>
+				<xsd:element name="ProcName" type="xsd:string"/>
+				<xsd:element name="Description" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="Destination" type="xsd:string"/>
+				<xsd:element name="PhysicalName" type="xsd:string"/>
+				<xsd:element name="ProcedureID" type="xsd:int"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ExceptionProcedures">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="ExceptionProcedure" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

@@ -1,0 +1,6 @@
+create queue ZB.EDI.OUT.NEWORDERNOTIFY.ASYNC secure
+create queue ZB.EDI.OUT.BACKORDERNOTIFY.ASYNC secure
+create queue ZB.EDI.OUT.IDOSTATUSMSG.ASYNC secure
+create queue ZB.EDI.OUT.855.POACK.ASYNC secure
+create queue ZB.EDI.OUT.856.ASN.ASYNC secure
+commit

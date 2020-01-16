@@ -1,0 +1,794 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- edited with XMLSpy v2009 sp1 (http://www.altova.com) by Anju (ABC) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://www.tibco.com/schemas/InvoiceListCDM"
+	 targetNamespace="http://www.tibco.com/schemas/InvoiceListCDM"
+	 elementFormDefault="unqualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="InvoiceListCDM">
+		<xs:annotation>
+			<xs:documentation>Invoice List CDM for Billing Document Details and Billing Documents List</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="InvoiceListRequest" minOccurs="0"/>
+				<xs:element ref="InvoiceListResponse" minOccurs="0"/>
+				<xs:element ref="Fault" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="InvoiceListRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="BillingDocumentDetailRequest" minOccurs="0"/>
+				<xs:element ref="BillingDocumentListRequest" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="InvoiceListResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="BillingDocumentDetailResponse" minOccurs="0"/>
+				<xs:element ref="BillingDocumentListResponse" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Fault">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="FaultDetails"/>
+				<xs:element ref="ErrorInfo"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="FaultDetails">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="faultcode"/>
+				<xs:element ref="faultstring"/>
+				<xs:element ref="faultactor"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ErrorInfo">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="MessageType"/>
+				<xs:element ref="MessageCode"/>
+				<xs:element name="MessageNumber">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="3"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element ref="Message"/>
+				<xs:element ref="LogNumber"/>
+				<xs:element ref="LogMessageNumber"/>
+				<xs:element ref="Message1"/>
+				<xs:element ref="Message2" minOccurs="0"/>
+				<xs:element ref="Message3" minOccurs="0"/>
+				<xs:element ref="Message4" minOccurs="0"/>
+				<xs:element ref="InterfaceID"/>
+				<xs:element ref="TransactionID"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="faultcode">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="255"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="faultstring">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="255"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="faultactor">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="255"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="MessageType">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="1"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="MessageCode">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="5"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="Message">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="220"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="LogNumber">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="20"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="LogMessageNumber">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="6"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="Message1">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="50"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="Message2">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="50"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="Message3">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="50"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="Message4">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="50"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="InterfaceID">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="255"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="TransactionID">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="255"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="ERPSource">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="1"/>
+				<xs:maxLength value="8"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="DocumentNumber">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="1"/>
+				<xs:maxLength value="24"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="BillingDocumentDetailRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="DocumentNumber"/>
+				<xs:element ref="ERPSource"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Volume">
+		<xs:simpleType>
+			<xs:restriction base="xs:decimal">
+				<xs:totalDigits value="14"/>
+				<xs:fractionDigits value="4"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="UnitPrice">
+		<xs:simpleType>
+			<xs:restriction base="xs:decimal">
+				<xs:totalDigits value="15"/>
+				<xs:fractionDigits value="2"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="TotalAmount">
+		<xs:simpleType>
+			<xs:restriction base="xs:decimal">
+				<xs:totalDigits value="15"/>
+				<xs:fractionDigits value="2"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="TermsNetDue" type="xs:date"/>
+	<xs:element name="TermsDiscountPercentage">
+		<xs:simpleType>
+			<xs:restriction base="xs:decimal">
+				<xs:totalDigits value="5"/>
+				<xs:fractionDigits value="2"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="TermsDiscountDueDate" type="xs:date"/>
+	<xs:element name="TermsDiscountDaysDue">
+		<xs:simpleType>
+			<xs:restriction base="xs:positiveInteger">
+				<xs:totalDigits value="8"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="TermsDescription">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="1"/>
+				<xs:maxLength value="40"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="Telephone">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="1"/>
+				<xs:maxLength value="16"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="Street">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="1"/>
+				<xs:maxLength value="64"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="Status">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="1"/>
+				<xs:maxLength value="24"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="State">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="1"/>
+				<xs:maxLength value="64"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="ShipmentList">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Shipment" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ShipmentDate" type="xs:date"/>
+	<xs:element name="Shipment">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ShipmentDate"/>
+				<xs:element ref="CarrierTrackingNumber"/>
+				<xs:element ref="CarrierName"/>
+				<xs:element ref="CarrierPhoneNumber" minOccurs="0"/>
+				<xs:element name="MaterialUnitList">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="MaterialUnit" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element ref="Volume"/>
+										<xs:element ref="SalesUnit"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SalesUnit" type="xs:string"/>
+	<xs:element name="SKU">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="1"/>
+				<xs:maxLength value="40"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="RoomNumber">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="1"/>
+				<xs:maxLength value="8"/>
+				<xs:whiteSpace value="preserve"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="RefDocNumber">
+		<xs:simpleType>
+			<xs:restriction base="xs:positiveInteger">
+				<xs:totalDigits value="24"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="RefDocCategory">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="0"/>
+				<xs:maxLength value="24"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="QtyShipped">
+		<xs:simpleType>
+			<xs:restriction base="xs:decimal">
+				<xs:totalDigits value="14"/>
+				<xs:fractionDigits value="4"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="QtyOrdered">
+		<xs:simpleType>
+			<xs:restriction base="xs:decimal">
+				<xs:totalDigits value="14"/>
+				<xs:fractionDigits value="4"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="PostalCode">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="1"/>
+				<xs:maxLength value="16"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="PaymentStatus">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="0"/>
+				<xs:maxLength value="24"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="PartnerFunction">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="ShipTo"/>
+				<xs:enumeration value="SoldTo"/>
+				<xs:enumeration value="BillTo"/>
+				<xs:enumeration value="RemitTo"/>
+				<xs:enumeration value="Payee"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="PONumber">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="1"/>
+				<xs:maxLength value="40"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="PODate" type="xs:date"/>
+	<xs:element name="POBox">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="1"/>
+				<xs:maxLength value="16"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="Name">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="1"/>
+				<xs:maxLength value="128"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="MaterialDesc">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="1"/>
+				<xs:maxLength value="256"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="Location">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="1"/>
+				<xs:maxLength value="64"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="Floor">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="1"/>
+				<xs:maxLength value="8"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="FederalTaxId">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="0"/>
+				<xs:maxLength value="24"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="FaxNumber">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="1"/>
+				<xs:maxLength value="16"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="ExtendedPrice">
+		<xs:simpleType>
+			<xs:restriction base="xs:decimal">
+				<xs:totalDigits value="15"/>
+				<xs:fractionDigits value="2"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="EstDeliveryDate" type="xs:date"/>
+	<xs:element name="Email">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="1"/>
+				<xs:maxLength value="150"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="Duns">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="1"/>
+				<xs:maxLength value="24"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="DocumentType">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="Invoice"/>
+				<xs:enumeration value="CreditMemo"/>
+				<xs:enumeration value="DebitMemo"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="DocumentLineNumber">
+		<xs:simpleType>
+			<xs:restriction base="xs:positiveInteger">
+				<xs:totalDigits value="24"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="DocumentDate" type="xs:date"/>
+	<xs:element name="DiscountAmountDue">
+		<xs:simpleType>
+			<xs:restriction base="xs:decimal">
+				<xs:totalDigits value="15"/>
+				<xs:fractionDigits value="2"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="DeliveryNumber">
+		<xs:simpleType>
+			<xs:restriction base="xs:positiveInteger">
+				<xs:totalDigits value="16"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="DeliveryInformation">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="DeliveryNumber" minOccurs="0"/>
+				<xs:element ref="BOLNumber" minOccurs="0"/>
+				<xs:element ref="EstDeliveryDate" minOccurs="0"/>
+				<xs:element ref="ShipmentList" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="CustomerNumber">
+		<xs:simpleType>
+			<xs:restriction base="xs:positiveInteger">
+				<xs:totalDigits value="24"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="CustomerAddressList">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="CustomerAddress"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="PaymentDate" type="xs:date"/>
+	<xs:element name="CustomerAddress">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="PartnerFunction"/>
+				<xs:element ref="CustomerNumber"/>
+				<xs:element ref="Name" minOccurs="0"/>
+				<xs:element ref="Attention" minOccurs="0"/>
+				<xs:element ref="Street" minOccurs="0"/>
+				<xs:element ref="PostalCode" minOccurs="0"/>
+				<xs:element ref="Location" minOccurs="0"/>
+				<xs:element ref="Building" minOccurs="0"/>
+				<xs:element ref="Floor" minOccurs="0"/>
+				<xs:element ref="RoomNumber" minOccurs="0"/>
+				<xs:element ref="City" minOccurs="0"/>
+				<xs:element ref="State" minOccurs="0"/>
+				<xs:element ref="POBox" minOccurs="0"/>
+				<xs:element ref="Telephone" minOccurs="0"/>
+				<xs:element ref="FaxNumber" minOccurs="0"/>
+				<xs:element ref="CountryISOCode" minOccurs="0"/>
+				<xs:element ref="AddressNotes" minOccurs="0"/>
+				<xs:element ref="Email" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="CustServicePhoneNumber">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="1"/>
+				<xs:maxLength value="16"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="CountryISOCode">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="1"/>
+				<xs:maxLength value="3"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="CompanyCode">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="1"/>
+				<xs:maxLength value="16"/>
+				<xs:whiteSpace value="preserve"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="City">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="1"/>
+				<xs:maxLength value="64"/>
+				<xs:whiteSpace value="preserve"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="CarrierTrackingNumber">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="1"/>
+				<xs:maxLength value="48"/>
+				<xs:whiteSpace value="preserve"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="CarrierPhoneNumber">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="1"/>
+				<xs:maxLength value="16"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="CarrierName">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="1"/>
+				<xs:maxLength value="48"/>
+				<xs:whiteSpace value="preserve"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="Building">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="1"/>
+				<xs:maxLength value="16"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="BillingDocumentLineItemList">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="BillingDocumentLineItem" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="BillingDocumentLineItem">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="DocumentLineNumber"/>
+				<xs:element ref="SKU"/>
+				<xs:element ref="MaterialDesc" minOccurs="0"/>
+				<xs:element ref="QtyOrdered" minOccurs="0"/>
+				<xs:element ref="QtyShipped" minOccurs="0"/>
+				<xs:element ref="UnitPrice" minOccurs="0"/>
+				<xs:element ref="ExtendedPrice" minOccurs="0"/>
+				<xs:element ref="PaymentStatus" minOccurs="0"/>
+				<xs:element ref="DeliveryInformation"/>
+				<xs:element ref="RefDocNumber" minOccurs="0"/>
+				<xs:element ref="RefDocCategory" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="BillingDocumentHeader">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="DocumentType"/>
+				<xs:element ref="DocumentNumber"/>
+				<xs:element ref="DocumentDate"/>
+				<xs:element ref="PONumber"/>
+				<xs:element ref="PODate"/>
+				<xs:element ref="CompanyCode"/>
+				<xs:element ref="FederalTaxId" minOccurs="0"/>
+				<xs:element ref="Duns" minOccurs="0"/>
+				<xs:element ref="Status"/>
+				<xs:element ref="TermsDescription"/>
+				<xs:element ref="TermsDiscountDaysDue"/>
+				<xs:element ref="TermsNetDue"/>
+				<xs:element ref="TermsDiscountPercentage"/>
+				<xs:element ref="TermsDiscountDueDate"/>
+				<xs:element ref="DiscountAmountDue"/>
+				<xs:element ref="TotalAmount"/>
+				<xs:element ref="CustServicePhoneNumber" minOccurs="0"/>
+				<xs:element ref="DeliveryInformation"/>
+				<xs:element ref="CustomerAddressList"/>
+				<xs:element ref="PaymentDate"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="BillingDocumentDetailResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="BillingDocumentHeader"/>
+				<xs:element ref="BillingDocumentLineItemList"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="BOLNumber">
+		<xs:simpleType>
+			<xs:restriction base="xs:positiveInteger">
+				<xs:totalDigits value="16"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="Attention">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="1"/>
+				<xs:maxLength value="64"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="AddressNotes">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="1"/>
+				<xs:maxLength value="256"/>
+				<xs:whiteSpace value="preserve"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="ReceivedDateTo" type="xs:date"/>
+	<xs:element name="ReceivedDateFrom" type="xs:date"/>
+	<xs:element name="PaymentType">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="1"/>
+				<xs:maxLength value="16"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="CustomerList">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Customer" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Customer">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="PartnerFunction"/>
+				<xs:element ref="AccountNumber" minOccurs="0"/>
+				<xs:element ref="Name" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="BillingDocumentListRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="DocumentType"/>
+				<xs:element ref="ReceivedDateFrom" minOccurs="0"/>
+				<xs:element ref="ReceivedDateTo" minOccurs="0"/>
+				<xs:element ref="DocumentNumber" minOccurs="0"/>
+				<xs:element ref="Status" minOccurs="0"/>
+				<xs:element ref="PaymentType" minOccurs="0"/>
+				<xs:element ref="PONumber" minOccurs="0"/>
+				<xs:element ref="ERPSource"/>
+				<xs:element ref="CustomerList"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="AccountNumber">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="1"/>
+				<xs:maxLength value="16"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="TotalAmtBeforeDiscount">
+		<xs:simpleType>
+			<xs:restriction base="xs:decimal">
+				<xs:totalDigits value="15"/>
+				<xs:fractionDigits value="2"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="BillingDocumentListResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="BillingDocumentList"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="BillingDocumentList">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="BillingDocument" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="BillingDocument">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="DocumentNumber"/>
+				<xs:element ref="DocumentDate"/>
+				<xs:element ref="PONumber"/>
+				<xs:element ref="Status" minOccurs="0"/>
+				<xs:element ref="TotalAmtBeforeDiscount" minOccurs="0"/>
+				<xs:element ref="CustomerList"/>
+				<xs:element ref="CompanyCode" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

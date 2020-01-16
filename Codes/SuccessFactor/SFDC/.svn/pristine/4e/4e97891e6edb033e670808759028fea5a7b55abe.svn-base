@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Repository:repository xmlns:Repository="http://www.tibco.com/xmlns/repo/types/2002">
+    <enterpriseArchive>
+        <sharedArchive name="Shared Archive">
+            <resourceType>shared.archive.resource</resourceType>
+            <authorProperty>chandraj</authorProperty>
+        </sharedArchive>
+        <adapterArchive name="SAPHR_UserR3Adapter">
+            <resourceType>adapter.archive.resource</resourceType>
+            <authorProperty>chandraj</authorProperty>
+            <sdkVersion>7.1.0</sdkVersion>
+            <wantsManualSdkVersionUpdates>true</wantsManualSdkVersionUpdates>
+            <adapterReference>/Adapter/SAPHR_UserR3Adapter.adr3#adapter.SAPAdapter</adapterReference>
+            <softwareTypeProperty>adr3</softwareTypeProperty>
+        </adapterArchive>
+        <versionProperty>1.0.0</versionProperty>
+        <authorProperty>chandraj</authorProperty>
+        <addServiceSettableGvars>true</addServiceSettableGvars>
+        <name>SFDC_SF_USER_SAP_ADAPTER</name>
+        <designer>
+            <lockedProperties>
+                <locked>
+                    <resource>/SAPHR_UserR3Adapter</resource>
+                    <properties>sdkVersion</properties>
+                </locked>
+            </lockedProperties>
+        </designer>
+        <fileLocationProperty>C:\Users\chandraj\SFDC_SF_USER_SAP_ADAPTER.ear</fileLocationProperty>
+    </enterpriseArchive>
+</Repository:repository>

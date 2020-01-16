@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BWSharedResource xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx="http://www.tibco.com/CommonLE2/namespace/Public/CLEExtension/LogLevelReport.xsd">
+    <import namespace="http://www.tibco.com/CommonLE2/namespace/Public/CLEExtension/LogLevelReport.xsd"/>
+    <name>CurrentLogLevelStore</name>
+    <resourceType>ae.shared.sharedVariable</resourceType>
+    <config xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <persistent>false</persistent>
+        <multi-engine>false</multi-engine>
+        <initialValue>byData</initialValue>
+        <initialValueData>&lt;?xml version="1.0" encoding="UTF-8"?&gt; &lt;LogLevels&gt;     &lt;EngineLogLevel&gt;         &lt;EngineName/&gt;         &lt;LogLevel/&gt;         &lt;Message/&gt;         &lt;LastUpdateTime&gt;1999-05-31T13:20:00-05:00&lt;/LastUpdateTime&gt;     &lt;/EngineLogLevel&gt; &lt;/LogLevels&gt;</initialValueData>
+        <xsdString>
+            <xsd:element name="LogLevels">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="EngineLogLevel" minOccurs="0" maxOccurs="unbounded">
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:element name="EngineName" type="xsd:string"/>
+                                    <xsd:element name="LogLevel" type="xsd:string"/>
+                                    <xsd:element name="Message" type="xsd:string"/>
+                                    <xsd:element name="LastUpdateTime" type="xsd:dateTime"/>
+                                </xsd:sequence>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsdString>
+    </config>
+</BWSharedResource>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://www.zimmerbiomet.com/MES_LMS_TRNG_CHECK/Schemas/CurriculumStatusCheck"
+	 targetNamespace="http://www.zimmerbiomet.com/MES_LMS_TRNG_CHECK/Schemas/CurriculumStatusCheck"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="CurriculumStatusCheck">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Input"/>
+				<xs:element ref="output"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Input">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="SAPID"/>
+				<xs:element ref="CurriculumID"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="output">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="SAPID" minOccurs="0"/>
+				<xs:element ref="CurriculumID" minOccurs="0"/>
+				<xs:element ref="CurriculumStatus" minOccurs="0"/>
+				<xs:element ref="ExpirationGMT" minOccurs="0"/>
+				<xs:element ref="intResponseCode" minOccurs="0"/>
+				<xs:element ref="intResponseMessage" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ExpirationGMT" type="xs:dateTime"/>
+	<xs:element name="intResponseCode" type="xs:int"/>
+	<xs:element name="intResponseMessage" type="xs:string"/>
+	<xs:element name="CurriculumID" type="xs:string"/>
+	<xs:element name="CurriculumStatus" type="xs:string"/>
+	<xs:element name="SAPID" type="xs:string"/>
+</xs:schema>

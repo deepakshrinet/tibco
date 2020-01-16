@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serviceResource xmlns:wsdl="http://www.tibco.com/CommonLE2/namespace/Administration/GUIServices/Procedure">
+    <ns0:import xmlns:ns0="http://schemas.xmlsoap.org/wsdl/" namespace="http://www.tibco.com/CommonLE2/namespace/Administration/GUIServices/Procedure" location="/SharedResources/WSDL/GUI/Administration/intfUpdateProcedure.wsdl"/>
+    <config>
+        <class>com.tibco.bw.service.serviceAgent.ServiceServiceAgent</class>
+        <name>intfProcedure-service</name>
+        <resourceType>service.definition</resourceType>
+        <implType>bw</implType>
+        <groups>
+            <row isDefault="true" groupName="Default"/>
+        </groups>
+        <wsdl namespace="http://www.tibco.com/CommonLE2/Administration/GUIServices/ProcedureServices" embedWsdlComponents="true" embedSchemaComponents="true" embedJndiProperties="false"/>
+        <serviceChange>Wed Oct 10 15:25:23 CDT 2007</serviceChange>
+        <interfaceImpl>
+            <tab>
+                <tabName>portType</tabName>
+                <tabType>bw</tabType>
+                <config>
+                    <wsdlDetail location="/SharedResources/WSDL/GUI/Administration/intfUpdateProcedure.wsdl" portType="portType" ns="http://www.tibco.com/CommonLE2/namespace/Administration/GUIServices/Procedure"/>
+                    <detail>
+                        <tab>
+                            <tabName>service.definition.impl.tab.label</tabName>
+                            <tabType>impl</tabType>
+                            <config>
+                                <operations>
+                                    <row opName="UpdateProcedureOp" opImpl="/Administration/GUIServices/ProcedureServices/wsUpdateProcedure.process"/>
+                                    <row opName="RetrieveSpecificProcedureOp" opImpl="/Administration/GUIServices/ProcedureServices/wsRetrieveSpecificProcedure.process"/>
+                                    <row opName="DeleteProcedureOp" opImpl="/Administration/GUIServices/ProcedureServices/wsDeleteProcedure.process"/>
+                                    <row opName="CreateProcedureOp" opImpl="/Administration/GUIServices/ProcedureServices/wsCreateProcedure.process"/>
+                                    <row opName="RetrieveProcedureListWithSysIDOp" opImpl="/Administration/GUIServices/ProcedureServices/wsRetrieveProcedureListwithSysID.process"/>
+                                </operations>
+                            </config>
+                        </tab>
+                        <tab>
+                            <tabName>service.definition.ep.tab.label</tabName>
+                            <tabType>ep</tabType>
+                            <config>
+                                <epBindings>
+                                    <row epName="intfwsUpdateProcedureEndpoint2" epType="soap">
+                                        <config>
+                                            <epDetail>
+                                                <tab>
+                                                    <tabName>soap.service.transport.ui.transport.tab.label</tabName>
+                                                    <tabType>transport</tabType>
+                                                    <config>
+                                                        <sharedChannel>/SharedResources/Connections/SOAP/HTTP GUIServicesAdministration.sharedhttp</sharedChannel>
+                                                        <transport>
+                                                            <config>
+                                                                <useBasicAuthentication>false</useBasicAuthentication>
+                                                                <httpURI>/Administration/GUIServices/ProcedureServices/intfProcedure-service.serviceagent/intfwsUpdateProcedureEndpoint2</httpURI>
+                                                            </config>
+                                                        </transport>
+                                                    </config>
+                                                </tab>
+                                                <tab>
+                                                    <tabName>soap.service.transport.ui.details.tab.label</tabName>
+                                                    <tabType>details</tabType>
+                                                    <config>
+                                                        <operationStyle>document</operationStyle>
+                                                        <soapVersion>SOAP 1.1</soapVersion>
+                                                        <soap>
+                                                            <operation name="UpdateProcedureOp">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Administration/GUIServices/ProcedureServices/intfUpdateProcedure-service.serviceagent/intfwsUpdateProcedureEndpoint2/UpdateProcedureOp</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="RetrieveSpecificProcedureOp">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Administration/GUIServices/ProcedureServices/intfUpdateProcedure-service.serviceagent/intfwsUpdateProcedureEndpoint2/RetrieveSpecificProcedureOp</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="DeleteProcedureOp">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Administration/GUIServices/ProcedureServices/intfUpdateProcedure-service.serviceagent/intfwsUpdateProcedureEndpoint2/DeleteProcedureOp</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="CreateProcedureOp">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Administration/GUIServices/ProcedureServices/intfUpdateProcedure-service.serviceagent/intfwsUpdateProcedureEndpoint2/CreateProcedureOp</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="RetrieveProcedureListWithSysIDOp">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Administration/GUIServices/ProcedureServices/intfProcedure-service.serviceagent//RetrieveProcedureListWithSysIDOp</soapAction>
+                                                                        <soapUse>literal</soapUse>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                        </soap>
+                                                    </config>
+                                                </tab>
+                                            </epDetail>
+                                        </config>
+                                    </row>
+                                </epBindings>
+                            </config>
+                        </tab>
+                    </detail>
+                </config>
+            </tab>
+        </interfaceImpl>
+    </config>
+</serviceResource>

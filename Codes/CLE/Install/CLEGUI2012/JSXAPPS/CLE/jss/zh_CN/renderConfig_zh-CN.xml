@@ -1,0 +1,20 @@
+﻿<data jsxnamespace="propsbundle" locales="">
+  <locale key="zh_CH">
+    <record jsxid="renderConfig_ApplicationID" jsxtext="应用程序ID"/>
+    <record jsxid="renderConfig_RenderID" jsxtext="转换ID"/>
+    <record jsxid="renderConfig_ID" jsxtext="转换ID"/>
+    <record jsxid="renderConfig_Name" jsxtext="名字"/>
+    <record jsxid="renderConfig_Description" jsxtext="描述"/>
+    <record jsxid="renderConfig_XSLT" jsxtext="XSLT"/>
+    <record jsxid="renderConfig_CSS" jsxtext="CSS"/>
+    <record jsxid="renderConfig_addRenderConfig" jsxtext="添加"/>
+    <record jsxid="renderConfig_addRenderConfigTip" jsxtext="添加新的转换配置。"/>
+    <record jsxid="renderConfig_removeRenderConfig" jsxtext="移除"/>
+    <record jsxid="renderConfig_removeRenderConfigTip" jsxtext="移除转换配置"/>
+    <record jsxid="renderConfig_XSLT" jsxtext="XSLT"/>
+    <record jsxid="renderConfig_CSS" jsxtext="CSS"/>
+    <record jsxid="renderConfig_createNewItemCaption" jsxtext="创建新的转换"/>
+    <record jsxid="renderConfig_createRendering" jsxtext="创建转换"/>
+    <record jsxid="renderConfig_createRenderingTip" jsxtext="创建转换"/>
+  </locale>
+</data>

@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:ns2="http://www.tibco.com/CommonLE/namespace/Common" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="com/tibco/pe/commands" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/EngineTypes" xmlns:ns3="http://www.tibco.com/CommonLE2/namespace/private/Common" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx4="http://www.tibco.com/CommonLE2/namespace/Public/Logging/LogRequest.xsd" xmlns:pfx3="http://www.tibco.com/CommonLE2/namespace/Public/Logging" xmlns:pfx2="http://www.tibco.com/CommonLE2/namespace/Log" xmlns:pfx="http://www.tibco.com/CommonLE2/namespace/Exception">
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Logging/LogRequest.xsd" schemaLocation="/SharedResources/SchemaDefinitions/Public/Logging/LogRequest.xsd"/>
+    <pd:name>Logging/LogServices/RVChannel.process</pd:name>
+    <pd:description>Receiving a log request using RV transport. 
+The log request data must be in LogRequest Schema. 
+Log requests that do not conform to this schema are ignored. 
+This process delegates the main processing logic to a subprocess</pd:description>
+    <pd:startName>LogRequest Subscriber</pd:startName>
+    <pd:startX>0</pd:startX>
+    <pd:startY>0</pd:startY>
+    <pd:returnBindings/>
+    <pd:starter name="LogRequest Subscriber">
+        <pd:type>com.tibco.plugin.tibrv.RVEventSource</pd:type>
+        <pd:resourceType>ae.rvpalette.RVEventSource</pd:resourceType>
+        <pd:x>94</pd:x>
+        <pd:y>71</pd:y>
+        <config>
+            <wantsValidationForOutput>true</wantsValidationForOutput>
+            <wantsFiltrationForOutput>false</wantsFiltrationForOutput>
+            <wantsXMLCompliantFieldNames>false</wantsXMLCompliantFieldNames>
+            <wantsRawRVObjectForOutput>false</wantsRawRVObjectForOutput>
+            <xmlEncoding>false</xmlEncoding>
+            <sharedChannel>/SharedResources/Connections/RV/RV Log.rvtransport</sharedChannel>
+            <subject>%%RVSubjectNames/LogRequestSubject%%</subject>
+            <xsdString>
+                <xsd:element name="LogRequest" type="xsd:string"/>
+            </xsdString>
+        </config>
+        <pd:inputBindings/>
+    </pd:starter>
+    <pd:endName>End</pd:endName>
+    <pd:endX>646</pd:endX>
+    <pd:endY>66</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1283538136645</pd:targetNamespace>
+    <pd:activity name="Call Local Exception Handler">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>240</pd:x>
+        <pd:y>185</pd:y>
+        <config>
+            <processName>/Common/Local Exception Handler.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns2:Exception>
+                <ErrorMessage>
+                    <xsl:value-of select="$_error/ns:ErrorReport/Msg"/>
+                </ErrorMessage>
+                <xsl:if test="$_error/ns:ErrorReport/MsgCode">
+                    <ErrorCode>
+                        <xsl:value-of select="$_error/ns:ErrorReport/MsgCode"/>
+                    </ErrorCode>
+                </xsl:if>
+                <ns2:Error>
+                    <xsl:for-each select="$_error/ns:ErrorReport">
+                        <ns2:ErrorReport>
+                            <StackTrace>
+                                <xsl:value-of select="StackTrace"/>
+                            </StackTrace>
+                            <Msg>
+                                <xsl:value-of select="Msg"/>
+                            </Msg>
+                            <FullClass>
+                                <xsl:value-of select="FullClass"/>
+                            </FullClass>
+                            <Class>
+                                <xsl:value-of select="Class"/>
+                            </Class>
+                            <ProcessStack>
+                                <xsl:value-of select="ProcessStack"/>
+                            </ProcessStack>
+                            <MsgCode>
+                                <xsl:value-of select="MsgCode"/>
+                            </MsgCode>
+                        </ns2:ErrorReport>
+                    </xsl:for-each>
+                </ns2:Error>
+            </ns2:Exception>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch DB Error">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>94</pd:x>
+        <pd:y>177</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>false</catchAll>
+            <fault>localname=DBError namespace=http://www.tibco.com/CommonLE2/namespace/private/Common</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Catch All">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>240</pd:x>
+        <pd:y>300</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=IDNotFound namespace=http://www.tibco.com/CommonLE2/namespace/private/Common</fault>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Confirm">
+        <pd:type>com.tibco.pe.core.ConfirmActivity</pd:type>
+        <pd:resourceType>activity.confirm</pd:resourceType>
+        <pd:x>400</pd:x>
+        <pd:y>65</pd:y>
+        <config>
+            <ConfirmEvent>LogRequest Subscriber</ConfirmEvent>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Confirm 1">
+        <pd:type>com.tibco.pe.core.ConfirmActivity</pd:type>
+        <pd:resourceType>activity.confirm</pd:resourceType>
+        <pd:x>401</pd:x>
+        <pd:y>300</pd:y>
+        <config>
+            <ConfirmEvent>LogRequest Subscriber</ConfirmEvent>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Invoke Log Handling Process">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>240</pd:x>
+        <pd:y>70</pd:y>
+        <config>
+            <processName>/Logging/Logic/HandleLogRequest.process</processName>
+        </config>
+        <pd:inputBindings>
+            <LogRequest>
+                <xsl:value-of select="$LogRequest-Subscriber/ActivityOutput/body/LogRequest"/>
+            </LogRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Suspend Log Request Starter">
+        <pd:type>com.tibco.pe.core.EngineCommandActivity</pd:type>
+        <pd:resourceType>ae.activities.enginecommand</pd:resourceType>
+        <pd:description>The errors catched in this branch are all database related errors and unhanded 
+by the subprocesses, in other words, these database errors are not controllable
+by the BW processes. Therefore, suspend the starter to keep the messages in
+the queue is necessary. </pd:description>
+        <pd:x>400</pd:x>
+        <pd:y>185</pd:y>
+        <config>
+            <command>SuspendProcessStarter</command>
+            <processDefinition>/Logging/LogServices/RVChannel.process</processDefinition>
+        </config>
+        <pd:inputBindings>
+            <ns1:input/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>LogRequest Subscriber</pd:from>
+        <pd:to>Invoke Log Handling Process</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Invoke Log Handling Process</pd:from>
+        <pd:to>Confirm</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Confirm</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch DB Error</pd:from>
+        <pd:to>Call Local Exception Handler</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Call Local Exception Handler</pd:from>
+        <pd:to>Suspend Log Request Starter</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Suspend Log Request Starter</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>S-Shaped</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Confirm 1</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>S-Shaped</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch All</pd:from>
+        <pd:to>Confirm 1</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

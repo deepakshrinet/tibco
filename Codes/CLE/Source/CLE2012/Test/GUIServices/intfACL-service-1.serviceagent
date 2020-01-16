@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serviceResource xmlns:wsdl="http://www.tibco.com/CommonLE2/namespace/SecurityManagement/GUIServices">
+    <ns0:import xmlns:ns0="http://schemas.xmlsoap.org/wsdl/" namespace="http://www.tibco.com/CommonLE2/namespace/SecurityManagement/GUIServices" location="/SharedResources/WSDL/GUI/SecurityManagement/intfUpdateRoleACL.wsdl"/>
+    <config>
+        <wsdl namespace="http://xmlns.example.com/1181230889129" embedWsdlComponents="true" embedSchemaComponents="true" embedJndiProperties="false"/>
+        <class>com.tibco.bw.service.serviceAgent.ServiceServiceAgent</class>
+        <name>intfACL-service-1</name>
+        <resourceType>service.definition</resourceType>
+        <implType>bw</implType>
+        <groups>
+            <row isDefault="true" groupName="Default"/>
+        </groups>
+        <serviceChange>Sat Sep 08 17:19:19 PDT 2007</serviceChange>
+        <interfaceImpl>
+            <tab>
+                <tabName>SecurityPortType</tabName>
+                <tabType>bw</tabType>
+                <config>
+                    <wsdlDetail location="/SharedResources/WSDL/GUI/SecurityManagement/intfUpdateRoleACL.wsdl" portType="SecurityPortType" ns="http://www.tibco.com/CommonLE2/namespace/SecurityManagement/GUIServices"/>
+                    <detail>
+                        <tab>
+                            <tabName>service.definition.impl.tab.label</tabName>
+                            <tabType>impl</tabType>
+                            <config>
+                                <operations>
+                                    <row opName="SetRoleACLOp" opImpl="/SecurityManagement/GUIServices/wsSetRoleACL.process"/>
+                                    <row opName="RetrieveACLOp" opImpl="/SecurityManagement/GUIServices/wsRetrieveACL.process"/>
+                                    <row opName="DeleteRoleFromACLTableOp" opImpl="/SecurityManagement/GUIServices/wsDeleteRoleFromACLTable.process"/>
+                                    <row opName="UserRolesRetrievalOp" opImpl="/SecurityManagement/GUIServices/wsUserRolesRetrieval.process"/>
+                                    <row opName="UserAuthenticationOp" opImpl="/SecurityManagement/GUIServices/wsUserAuthentication.process"/>
+                                    <row opName="AvailableRolesRetrievalOp" opImpl="/SecurityManagement/GUIServices/wsAvailableRolesRetrieval.process"/>
+                                    <row opName="UserRolesAppsRetrievalOp" opImpl="/SecurityManagement/GUIServices/wsUserRolesApps.process"/>
+                                </operations>
+                            </config>
+                        </tab>
+                        <tab>
+                            <tabName>service.definition.ep.tab.label</tabName>
+                            <tabType>ep</tabType>
+                            <config>
+                                <epBindings>
+                                    <row epName="intfwsUpdateRoleACLEndpoint0" epType="soap">
+                                        <config>
+                                            <epDetail>
+                                                <tab>
+                                                    <tabName>soap.service.transport.ui.transport.tab.label</tabName>
+                                                    <tabType>transport</tabType>
+                                                    <config>
+                                                        <sharedChannel>/SharedResources/Connections/SOAP/HTTP GUIServicesAdministration.sharedhttp</sharedChannel>
+                                                        <transport>
+                                                            <config>
+                                                                <useBasicAuthentication>false</useBasicAuthentication>
+                                                                <httpURI>/SecurityManagement/GUIServices/intfACL-service.serviceagent/intfwsUpdateRoleACLEndpoint0</httpURI>
+                                                            </config>
+                                                        </transport>
+                                                    </config>
+                                                </tab>
+                                                <tab>
+                                                    <tabName>soap.service.transport.ui.details.tab.label</tabName>
+                                                    <tabType>details</tabType>
+                                                    <config>
+                                                        <operationStyle>document</operationStyle>
+                                                        <soapVersion>SOAP 1.1</soapVersion>
+                                                        <soap>
+                                                            <operation name="SetRoleACLOp">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/SecurityManagement/GUIServices/intfUpdateRoleACL-service.serviceagent/intfwsUpdateRoleACLEndpoint0/SetRoleACLOp</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="RetrieveACLOp">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/SecurityManagement/GUIServices/intfUpdateRoleACL-service.serviceagent/intfwsUpdateRoleACLEndpoint0/RetrieveACLOp</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="DeleteRoleFromACLTableOp">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/SecurityManagement/GUIServices/intfUpdateRoleACL-service.serviceagent/intfwsUpdateRoleACLEndpoint0/DeleteRoleFromACLTableOp</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="UserRolesRetrievalOp">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/SecurityManagement/GUIServices/intfUpdateRoleACL-service.serviceagent/intfwsUpdateRoleACLEndpoint0/UserRolesRetrievalOp</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="UserAuthenticationOp">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/SecurityManagement/GUIServices/intfUpdateRoleACL-service.serviceagent/intfwsUpdateRoleACLEndpoint0/UserAuthenticationOp</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="AvailableRolesRetrievalOp">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/SecurityManagement/GUIServices/intfUpdateRoleACL-service.serviceagent/intfwsUpdateRoleACLEndpoint0/AvailableRolesRetrievalOp</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="UserRolesAppsRetrievalOp">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/SecurityManagement/GUIServices/intfACL-service.serviceagent//UserRolesAppsRetrievalOp</soapAction>
+                                                                        <soapUse>literal</soapUse>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                        </soap>
+                                                    </config>
+                                                </tab>
+                                            </epDetail>
+                                        </config>
+                                    </row>
+                                </epBindings>
+                            </config>
+                        </tab>
+                    </detail>
+                </config>
+            </tab>
+        </interfaceImpl>
+    </config>
+</serviceResource>

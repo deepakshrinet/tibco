@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Private/Exception"
+	 xmlns:PublicException="http://www.tibco.com/CommonLE2/namespace/Public/Exception/ExceptionRequest.xsd"
+	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	 xmlns:local="http://www.tibco.com/CommonLE2/Private/Exception"
+	 targetNamespace="http://www.tibco.com/CommonLE2/Private/Exception"
+	 elementFormDefault="unqualified"
+	 attributeFormDefault="unqualified">
+	<xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Exception/ExceptionRequest.xsd" schemaLocation="../../Public/Exception/ExceptionRequest.xsd"/>
+	<xsd:element name="ExceptionRequestExt">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="ExceptionID" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="EventType" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="ExceptionResolveDelayTime" type="xsd:integer" minOccurs="0"/>
+				<xsd:element ref="PublicException:ExceptionRequest"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

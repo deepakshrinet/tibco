@@ -1,0 +1,570 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/pe/EngineTypes" xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns1="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns3="http://www.tibco.com/CommonLE2/namespace/Public/Common/RequestHeader.xsd" xmlns:Zimmer="java://CustomFunctions" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:ns12="http://www.tibco.com/CommonLE/Client/Schema/ClientInterface.xsd" xmlns:pfx="http://www.tibco.com/CommonLE2/namespace/Public/Exception/ExceptionRequest.xsd">
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Exception/ExceptionRequest.xsd" schemaLocation="/CLE/SharedResources/Schemas/Public/Exception/ExceptionRequest.xsd"/>
+    <pd:name>Services/Operations/StopServices.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="ApplicationName" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="AdminPassword" type="xsd:string"/>
+                    <xsd:element name="Correlationid" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="PARName" type="xsd:string" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>152</pd:startX>
+    <pd:startY>129</pd:startY>
+    <pd:returnBindings>
+        <root>
+            <xsl:choose>
+                <xsl:when test="$Stop-Service/CmdOutputWithActivityOutput/returnCode='0'">
+                    <CreateIncident>
+                        <xsl:value-of select="'Y'"/>
+                    </CreateIncident>
+                </xsl:when>
+                <xsl:otherwise>
+                    <CreateIncident>
+                        <xsl:value-of select="'N'"/>
+                    </CreateIncident>
+                </xsl:otherwise>
+            </xsl:choose>
+        </root>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="CreateIncident" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>687</pd:endX>
+    <pd:endY>130</pd:endY>
+    <pd:errorSchemas>
+        <StopFailureSchema ref="pfx:ExceptionRequest"/>
+    </pd:errorSchemas>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1489879486533</pd:targetNamespace>
+    <pd:activity name="Stop Service">
+        <pd:type>com.tibco.plugin.cmdexec.CmdExecActivity</pd:type>
+        <pd:resourceType>ae.activities.CmdExecActivity</pd:resourceType>
+        <pd:x>371</pd:x>
+        <pd:y>128</pd:y>
+        <config>
+            <outputToString>true</outputToString>
+            <lineSplit>None</lineSplit>
+        </config>
+        <pd:inputBindings>
+            <CmdInput>
+                <command>
+                    <xsl:value-of select="if($Start/root/PARName=1)&#xA;then&#xA;concat($_globalVariables/ns:GlobalVariables/ApplicationDetails/InterfaceRestart/ExternalCommand,' -stop -app ','&quot;',$Start/root/ApplicationName,'&quot;',' -domain ',$_globalVariables/ns:GlobalVariables/ApplicationDetails/InterfaceRestart/Domain,' -user ',$_globalVariables/ns:GlobalVariables/ApplicationDetails/InterfaceRestart/AdminUser,' -pw ',$Start/root/AdminPassword)&#xA;else&#xA;concat($_globalVariables/ns:GlobalVariables/ApplicationDetails/InterfaceRestart/ExternalCommand,' -stop -app ','&quot;',$Start/root/ApplicationName,'&quot;',' -service ','&quot;',$Start/root/PARName,'&quot;', ' -domain ',$_globalVariables/ns:GlobalVariables/ApplicationDetails/InterfaceRestart/Domain,'  -user ',$_globalVariables/ns:GlobalVariables/ApplicationDetails/InterfaceRestart/AdminUser,' -pw ',$Start/root/AdminPassword)"/>
+                </command>
+            </CmdInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="CatchUnknownException">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>381</pd:x>
+        <pd:y>224</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="SendCatchUnknownexceptionToCLE">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>511</pd:x>
+        <pd:y>223</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendException.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns12:ExceptionRequest>
+                <ns12:Header>
+                    <ns12:ComponentName>
+                        <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns2:ProcessContext/ProcessId)"/>
+                    </ns12:ComponentName>
+                    <ns12:Hostname>
+                        <xsl:value-of select="BW:getHostName()"/>
+                    </ns12:Hostname>
+                    <ns12:TransactionDomain>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ApplicationDetails/InterfaceRestart/TransactionDomain"/>
+                    </ns12:TransactionDomain>
+                    <ns12:TransactionType>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ApplicationDetails/InterfaceRestart/TransactionType"/>
+                    </ns12:TransactionType>
+                    <ns12:TransactionID>
+                        <xsl:value-of select="tib:format-dateTime('yyyyMMdd-HHmmss',current-dateTime())"/>
+                    </ns12:TransactionID>
+                    <xsl:if test="$Start/root/Correlationid">
+                        <ns12:CorrelationID>
+                            <xsl:value-of select="$Start/root/Correlationid"/>
+                        </ns12:CorrelationID>
+                    </xsl:if>
+                    <ns12:InterfaceID>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ApplicationDetails/InterfaceRestart/InterfaceId"/>
+                    </ns12:InterfaceID>
+                    <ns12:Message>
+                        <xsl:value-of select="if($Start/root/PARName=1)&#xA;then&#xA;concat('Stop service process failed for application ',$Start/root/ApplicationName)&#xA;else&#xA;concat('Stop service process failed for application ',$Start/root/ApplicationName,'/',$Start/root/PARName)"/>
+                    </ns12:Message>
+                </ns12:Header>
+                <ns12:ExceptionCode>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ApplicationDetails/ExceptionCodes/TECHNICAL-101"/>
+                </ns12:ExceptionCode>
+                <ns12:StackTrace>
+                    <xsl:value-of select="concat(&quot;Error Message: &quot;,Zimmer:stringReplace($_error/ns2:ErrorReport/Msg, $Start/root/AdminPassword, 'XXXX'), &quot;  BW MsgCode: &quot;, &#xA;$_error/ns2:ErrorReport/MsgCode, &quot;&#xA;&quot;,&#xA;&quot;Stack Trace: &quot;, Zimmer:stringReplace($_error/ns2:ErrorReport/StackTrace, $Start/root/AdminPassword, 'XXXXX'), &quot;&#xA;&quot;,&#xA;&quot; Process Stack: &quot;, $_error/ns2:ErrorReport/ProcessStack)"/>
+                </ns12:StackTrace>
+            </ns12:ExceptionRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="LogException">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>620</pd:x>
+        <pd:y>223</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendLog.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns12:LogRequest>
+                <ns12:Header>
+                    <ns12:ComponentName>
+                        <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns2:ProcessContext/ProcessId)"/>
+                    </ns12:ComponentName>
+                    <ns12:Hostname>
+                        <xsl:value-of select="BW:getHostName()"/>
+                    </ns12:Hostname>
+                    <ns12:TransactionDomain>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ApplicationDetails/InterfaceRestart/TransactionDomain"/>
+                    </ns12:TransactionDomain>
+                    <ns12:TransactionType>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ApplicationDetails/InterfaceRestart/TransactionType"/>
+                    </ns12:TransactionType>
+                    <ns12:TransactionID>
+                        <xsl:value-of select="tib:format-dateTime('yyyyMMdd-HHmmss',current-dateTime())"/>
+                    </ns12:TransactionID>
+                    <ns12:CorrelationID>
+                        <xsl:value-of select="$Start/root/Correlationid"/>
+                    </ns12:CorrelationID>
+                    <ns12:InterfaceID>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ApplicationDetails/InterfaceRestart/InterfaceId"/>
+                    </ns12:InterfaceID>
+                    <ns12:Message>
+                        <xsl:value-of select="if($Start/root/PARName=1)&#xA;then&#xA;concat('Stop service process failed for application ',$Start/root/ApplicationName)&#xA;else&#xA;concat('Stop service process failed for application ',$Start/root/ApplicationName,'/',$Start/root/PARName)"/>
+                    </ns12:Message>
+                </ns12:Header>
+                <ns12:Status>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/CLE/Status/ERROR"/>
+                </ns12:Status>
+                <ns12:Audit>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ApplicationDetails/AuditFlag"/>
+                </ns12:Audit>
+                <ns12:LogLevel>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/CLE/Environment/CommonLE/LOGGING_LEVEL_NUM_ERROR"/>
+                </ns12:LogLevel>
+            </ns12:LogRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="EndLog">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>538</pd:x>
+        <pd:y>129</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendLog.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns12:LogRequest>
+                <ns12:Header>
+                    <ns12:ComponentName>
+                        <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns2:ProcessContext/ProcessId)"/>
+                    </ns12:ComponentName>
+                    <ns12:Hostname>
+                        <xsl:value-of select="BW:getHostName()"/>
+                    </ns12:Hostname>
+                    <ns12:TransactionDomain>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ApplicationDetails/InterfaceRestart/TransactionDomain"/>
+                    </ns12:TransactionDomain>
+                    <ns12:TransactionType>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ApplicationDetails/InterfaceRestart/TransactionType"/>
+                    </ns12:TransactionType>
+                    <ns12:TransactionID>
+                        <xsl:value-of select="tib:format-dateTime('yyyyMMdd-HHmmss',current-dateTime())"/>
+                    </ns12:TransactionID>
+                    <ns12:CorrelationID>
+                        <xsl:value-of select="$Start/root/Correlationid"/>
+                    </ns12:CorrelationID>
+                    <ns12:InterfaceID>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ApplicationDetails/InterfaceRestart/InterfaceId"/>
+                    </ns12:InterfaceID>
+                    <ns12:Message>
+                        <xsl:value-of select="if($Start/root/PARName=1)&#xA;then&#xA;concat('Application ',$Start/root/ApplicationName,' Stopped')&#xA;else&#xA;concat('Application ',$Start/root/ApplicationName,'/',$Start/root/PARName,' Stopped')"/>
+                    </ns12:Message>
+                </ns12:Header>
+                <ns12:Status>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/CLE/Status/COMPLETED"/>
+                </ns12:Status>
+                <ns12:Audit>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ApplicationDetails/AuditFlag"/>
+                </ns12:Audit>
+                <ns12:LogLevel>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/CLE/Environment/CommonLE/LOGGING_LEVEL_NUM_INFO"/>
+                </ns12:LogLevel>
+            </ns12:LogRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Generate Error">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>558</pd:x>
+        <pd:y>35</pd:y>
+        <config>
+            <faultName>StopFailureSchema</faultName>
+        </config>
+        <pd:inputBindings>
+            <ns1:ActivityInput>
+                <message>
+                    <xsl:value-of select="$Stop-Service/CmdOutputWithActivityOutput/output[1]"/>
+                </message>
+                <messageCode/>
+                <data>
+                    <pfx:ExceptionRequest>
+                        <ns3:Header>
+                            <ns3:ApplicationID>
+                                <xsl:value-of select="$_globalVariables/ns:GlobalVariables/CLE/Environment/CommonLE/ApplicationID"/>
+                            </ns3:ApplicationID>
+                            <ns3:ComponentName>
+                                <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns2:ProcessContext/ProcessId)"/>
+                            </ns3:ComponentName>
+                            <ns3:Hostname>
+                                <xsl:value-of select="BW:getHostName()"/>
+                            </ns3:Hostname>
+                            <ns3:Timestamp>
+                                <xsl:value-of select="current-dateTime()"/>
+                            </ns3:Timestamp>
+                            <ns3:TransactionDomain>
+                                <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ApplicationDetails/InterfaceRestart/TransactionDomain"/>
+                            </ns3:TransactionDomain>
+                            <ns3:TransactionType>
+                                <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ApplicationDetails/InterfaceRestart/TransactionType"/>
+                            </ns3:TransactionType>
+                            <ns3:TransactionID>
+                                <xsl:value-of select="tib:format-dateTime('yyyyMMdd-HHmmss',current-dateTime())"/>
+                            </ns3:TransactionID>
+                            <xsl:if test="$Start/root/Correlationid">
+                                <ns3:CorrelationID>
+                                    <xsl:value-of select="$Start/root/Correlationid"/>
+                                </ns3:CorrelationID>
+                            </xsl:if>
+                            <ns3:InterfaceID>
+                                <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ApplicationDetails/InterfaceRestart/InterfaceId"/>
+                            </ns3:InterfaceID>
+                            <ns3:Message>
+                                <xsl:value-of select="if($Start/root/PARName=1)&#xA;then&#xA;concat('Stop service process failed for application ',$Start/root/ApplicationName)&#xA;else&#xA;concat('Stop service process failed for application ',$Start/root/ApplicationName,'/',$Start/root/PARName)"/>
+                            </ns3:Message>
+                        </ns3:Header>
+                        <ExceptionCode>
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ApplicationDetails/ExceptionCodes/TECHNICAL-101"/>
+                        </ExceptionCode>
+                    </pfx:ExceptionRequest>
+                </data>
+            </ns1:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="CatchknownException">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>376</pd:x>
+        <pd:y>322</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>false</catchAll>
+            <fault>localname=ExceptionRequest namespace=http://www.tibco.com/CommonLE2/namespace/Public/Exception/ExceptionRequest.xsd</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="SendCatchknownexceptionToCLE">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>686</pd:x>
+        <pd:y>321</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendException.process</processName>
+        </config>
+        <pd:inputBindings>
+            <xsl:for-each xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="$_error_Generate-Error/pfx:ExceptionRequest">
+                <ns12:ExceptionRequest>
+                    <xsl:for-each select="ns3:Header">
+                        <ns12:Header>
+                            <xsl:if test="ns3:ComponentName">
+                                <ns12:ComponentName>
+                                    <xsl:value-of select="ns3:ComponentName"/>
+                                </ns12:ComponentName>
+                            </xsl:if>
+                            <xsl:if test="ns3:Hostname">
+                                <ns12:Hostname>
+                                    <xsl:value-of select="ns3:Hostname"/>
+                                </ns12:Hostname>
+                            </xsl:if>
+                            <xsl:if test="ns3:TransactionDomain">
+                                <ns12:TransactionDomain>
+                                    <xsl:value-of select="ns3:TransactionDomain"/>
+                                </ns12:TransactionDomain>
+                            </xsl:if>
+                            <xsl:if test="ns3:TransactionType">
+                                <ns12:TransactionType>
+                                    <xsl:value-of select="ns3:TransactionType"/>
+                                </ns12:TransactionType>
+                            </xsl:if>
+                            <xsl:if test="ns3:TransactionID">
+                                <ns12:TransactionID>
+                                    <xsl:value-of select="ns3:TransactionID"/>
+                                </ns12:TransactionID>
+                            </xsl:if>
+                            <xsl:if test="ns3:CorrelationID">
+                                <ns12:CorrelationID>
+                                    <xsl:value-of select="ns3:CorrelationID"/>
+                                </ns12:CorrelationID>
+                            </xsl:if>
+                            <xsl:if test="ns3:InterfaceID">
+                                <ns12:InterfaceID>
+                                    <xsl:value-of select="ns3:InterfaceID"/>
+                                </ns12:InterfaceID>
+                            </xsl:if>
+                            <xsl:if test="ns3:Filename">
+                                <ns12:Filename>
+                                    <xsl:value-of select="ns3:Filename"/>
+                                </ns12:Filename>
+                            </xsl:if>
+                            <xsl:if test="ns3:Message">
+                                <ns12:Message>
+                                    <xsl:value-of select="ns3:Message"/>
+                                </ns12:Message>
+                            </xsl:if>
+                            <xsl:if test="ns3:RenderID">
+                                <ns12:RenderID>
+                                    <xsl:value-of select="ns3:RenderID"/>
+                                </ns12:RenderID>
+                            </xsl:if>
+                            <xsl:if test="ns3:DataEncoding">
+                                <ns12:DataEncoding>
+                                    <xsl:value-of select="ns3:DataEncoding"/>
+                                </ns12:DataEncoding>
+                            </xsl:if>
+                            <xsl:if test="ns3:Transaction">
+                                <ns12:Transaction>
+                                    <xsl:value-of select="ns3:Transaction"/>
+                                </ns12:Transaction>
+                            </xsl:if>
+                        </ns12:Header>
+                    </xsl:for-each>
+                    <ns12:ExceptionCode>
+                        <xsl:value-of select="ExceptionCode"/>
+                    </ns12:ExceptionCode>
+                    <ns12:StackTrace>
+                        <xsl:value-of select="concat(&quot;Error Message: &quot;, Zimmer:stringReplace($_error/ns2:ErrorReport/Msg, $Start/root/AdminPassword, 'XXXXX'), &quot;  BW MsgCode: &quot;, &#xA;$_error/ns2:ErrorReport/MsgCode, &quot;&#xA;&quot;,&#xA;&quot;Stack Trace: &quot;, Zimmer:stringReplace($_error/ns2:ErrorReport/StackTrace, $Start/root/AdminPassword, 'XXXX'), &quot;&#xA;&quot;,&#xA;&quot; Process Stack: &quot;, $_error/ns2:ErrorReport/ProcessStack)"/>
+                    </ns12:StackTrace>
+                    <xsl:if test="Custom">
+                        <ns12:Custom>
+                            <xsl:value-of select="Custom"/>
+                        </ns12:Custom>
+                    </xsl:if>
+                    <xsl:if test="Timeout">
+                        <ns12:Timeout>
+                            <xsl:value-of select="Timeout"/>
+                        </ns12:Timeout>
+                    </xsl:if>
+                    <xsl:if test="ReplyDestination">
+                        <ns12:ReplyDestination>
+                            <xsl:value-of select="ReplyDestination"/>
+                        </ns12:ReplyDestination>
+                    </xsl:if>
+                    <xsl:if test="NotificationChannel">
+                        <ns12:NotificationChannel>
+                            <xsl:value-of select="NotificationChannel"/>
+                        </ns12:NotificationChannel>
+                    </xsl:if>
+                </ns12:ExceptionRequest>
+            </xsl:for-each>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="LogKnwnException">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>533</pd:x>
+        <pd:y>321</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendLog.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns12:LogRequest>
+                <xsl:for-each xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="$_error_Generate-Error/pfx:ExceptionRequest/ns3:Header">
+                    <ns12:Header>
+                        <xsl:if test="ns3:ComponentName">
+                            <ns12:ComponentName>
+                                <xsl:value-of select="ns3:ComponentName"/>
+                            </ns12:ComponentName>
+                        </xsl:if>
+                        <xsl:if test="ns3:Hostname">
+                            <ns12:Hostname>
+                                <xsl:value-of select="ns3:Hostname"/>
+                            </ns12:Hostname>
+                        </xsl:if>
+                        <xsl:if test="ns3:TransactionDomain">
+                            <ns12:TransactionDomain>
+                                <xsl:value-of select="ns3:TransactionDomain"/>
+                            </ns12:TransactionDomain>
+                        </xsl:if>
+                        <xsl:if test="ns3:TransactionType">
+                            <ns12:TransactionType>
+                                <xsl:value-of select="ns3:TransactionType"/>
+                            </ns12:TransactionType>
+                        </xsl:if>
+                        <xsl:if test="ns3:TransactionID">
+                            <ns12:TransactionID>
+                                <xsl:value-of select="ns3:TransactionID"/>
+                            </ns12:TransactionID>
+                        </xsl:if>
+                        <xsl:if test="ns3:CorrelationID">
+                            <ns12:CorrelationID>
+                                <xsl:value-of select="ns3:CorrelationID"/>
+                            </ns12:CorrelationID>
+                        </xsl:if>
+                        <xsl:if test="ns3:InterfaceID">
+                            <ns12:InterfaceID>
+                                <xsl:value-of select="ns3:InterfaceID"/>
+                            </ns12:InterfaceID>
+                        </xsl:if>
+                        <xsl:if test="ns3:Filename">
+                            <ns12:Filename>
+                                <xsl:value-of select="ns3:Filename"/>
+                            </ns12:Filename>
+                        </xsl:if>
+                        <xsl:if test="ns3:Message">
+                            <ns12:Message>
+                                <xsl:value-of select="ns3:Message"/>
+                            </ns12:Message>
+                        </xsl:if>
+                        <xsl:if test="ns3:RenderID">
+                            <ns12:RenderID>
+                                <xsl:value-of select="ns3:RenderID"/>
+                            </ns12:RenderID>
+                        </xsl:if>
+                        <xsl:if test="ns3:DataEncoding">
+                            <ns12:DataEncoding>
+                                <xsl:value-of select="ns3:DataEncoding"/>
+                            </ns12:DataEncoding>
+                        </xsl:if>
+                        <xsl:if test="ns3:Transaction">
+                            <ns12:Transaction>
+                                <xsl:value-of select="ns3:Transaction"/>
+                            </ns12:Transaction>
+                        </xsl:if>
+                    </ns12:Header>
+                </xsl:for-each>
+                <ns12:Status>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/CLE/Status/ERROR"/>
+                </ns12:Status>
+                <ns12:Audit>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ApplicationDetails/AuditFlag"/>
+                </ns12:Audit>
+                <ns12:LogLevel>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/CLE/Environment/CommonLE/LOGGING_LEVEL_NUM_ERROR"/>
+                </ns12:LogLevel>
+            </ns12:LogRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Stop Service</pd:from>
+        <pd:to>EndLog</pd:to>
+        <pd:xpathDescription>SUCCESS</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$Stop-Service/CmdOutputWithActivityOutput/returnCode='0'</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>CatchUnknownException</pd:from>
+        <pd:to>SendCatchUnknownexceptionToCLE</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SendCatchUnknownexceptionToCLE</pd:from>
+        <pd:to>LogException</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>LogException</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>EndLog</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Stop Service</pd:from>
+        <pd:to>Generate Error</pd:to>
+        <pd:lineType>Curved</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>CatchknownException</pd:from>
+        <pd:to>LogKnwnException</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>LogKnwnException</pd:from>
+        <pd:to>SendCatchknownexceptionToCLE</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SendCatchknownexceptionToCLE</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Stop Service</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:label>
+        <pd:name>Label</pd:name>
+        <pd:description>This process stops the interface using appmanage feature in external command . Process receives application name and admin password in start activity to stop.</pd:description>
+        <pd:x>348</pd:x>
+        <pd:y>396</pd:y>
+        <pd:width>504</pd:width>
+        <pd:height>48</pd:height>
+        <pd:fontColor>-16777216</pd:fontColor>
+        <pd:color>-13312</pd:color>
+        <pd:type>solid</pd:type>
+        <pd:thickness>0</pd:thickness>
+        <pd:fade>true</pd:fade>
+    </pd:label>
+</pd:ProcessDefinition>

@@ -1,0 +1,253 @@
+<serialization jsxversion="3.8" xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Dialog]]></name>
+  <icon><![CDATA[images/prototypes/dialog.gif]]></icon>
+  <description><![CDATA[Shows the DOM from the JSXROOT.  Upon selection of object, shows properties.]]></description>
+  <onBeforeDeserialize></onBeforeDeserialize>
+  <onAfterDeserialize><![CDATA[
+  jsx3.$O(refreshDomButton).extend({
+  	refreshView: function(btn){
+  		var objServer = btn.getServer();
+  		var objRootBlock = objServer.getRootBlock();
+  		var strRootBlock = objRootBlock.getId();
+  		//var rootObjects = jsx3.$A(objServer.getRootObjects());
+  		var rootObjects = jsx3.$A(objServer.getRootBlock().getChildren()); 
+  		var addChildren = jsx3.$F(function(node,id){
+  			var children = jsx3.$A(node.getChildren());
+  			children.each(function(child){
+  				var c={jsxid:child.getId(),jsxtext:child.getName(),jsxopen:'0',jsximg:'images/icons/attr.gif'};
+  				domMatrix.insertRecord(c,id,false);
+  				addChildren(child,c.jsxid);
+  			});
+  		}).bind(this);
+  		domDetailMatrix.resetXmlCacheData();
+  		domDetailMatrix.repaintData();
+  		domMatrix.resetXmlCacheData();
+  		domMatrix.repaintData();
+  		domEventMatrix.resetXmlCacheData();
+  		domEventMatrix.repaintData();
+  		var o={jsxid:strRootBlock,jsxtext:objRootBlock.getName(),jsxopen:'1',jsximg:'images/icons/attr.gif'};
+  		domMatrix.insertRecord(o,'jsxroot',false);
+  		rootObjects.each(function(obj){
+  			var o={jsxid:obj.getId(),jsxtext:obj.getName(),jsxopen:'1',jsximg:'images/icons/attr.gif'};
+  			domMatrix.insertRecord(o,strRootBlock,false);
+  			addChildren(obj,o.jsxid);
+  		});
+  		domMatrix.repaintData();
+  	}
+  });
+  jsx3.$O(domMatrix).extend({
+  	showObject: function(strRecordId){
+  		domDetailMatrix.resetXmlCacheData();
+  		domEventMatrix.resetXmlCacheData();
+  		var objjsx = domDetailMatrix.getServer().getJSXById(strRecordId);
+  		if (objjsx !=null){
+  			var id={jsxid:jsx3.xml.CDF.getKey(),jsxtext:'jsxid',jsxvalue:objjsx.getId(),jsxopen:'1',jsximg:'attr.gif'};
+  			domDetailMatrix.insertRecord(id,'jsxroot',false);
+  			for (var p in objjsx){
+  				if ((p.substring(0,3)=='jsx')&&(typeof(objjsx[p])=='string')){
+  					var o={jsxid:jsx3.xml.CDF.getKey(),jsxtext:p,jsxvalue:objjsx[p],jsxopen:'1',jsximg:'attr.gif'};
+  					domDetailMatrix.insertRecord(o,'jsxroot',false);
+  				}
+  			}
+  			domDetailMatrix.repaintData();
+  			var events = jsx3.$A(objjsx.getEvents());
+  			events.each(function(event){
+  				for (var p in event){
+  					var o={jsxid:jsx3.xml.CDF.getKey(),jsxtext:p,jsxvalue:event[p],jsximg:'attr.gif'};
+  					domEventMatrix.insertRecord(o,'jsxroot',false);
+  				}
+  			});
+  			domEventMatrix.repaintData();
+  		}
+  	},
+  	revealChildren: function(objMatrix, strRecordId){
+  		var objRecordNode = objMatrix.getRecordNode(strRecordId);
+  		if (objRecordNode){
+  			var children = objRecordNode.selectNodes("descendant::record");
+  			jsx3.$A(children.toArray()).each(function(node){
+  				node.setAttribute("jsxopen",jsx3.Boolean.TRUE);
+  			});
+  		}
+  		objMatrix.revealRecord(strRecordId);
+  	}
+  });
+]]></onAfterDeserialize>
+	<object type="jsx3.gui.Dialog">
+		<variants jsxwidth="701" jsxheight="656" jsxwindowstate="1"
+			jsxleft="5" jsxtop="6"></variants>
+		<strings jsxname="dom viewer"></strings>
+		<dynamics jsxbgcolor="@Solid Medium"></dynamics>
+		<object type="jsx3.gui.WindowBar">
+			<variants></variants>
+			<strings jsxname="windowBar" jsxtext="DOM Viewer"></strings>
+			<object type="jsx3.gui.ToolbarButton">
+				<variants></variants>
+				<strings jsxname="btnMinimize"></strings>
+				<dynamics jsximage="@Min Icon" jsxtip="jsx3.gui.Dialog.min"></dynamics>
+				<events jsxexecute="this.getAncestorOfType(jsx3.gui.Dialog).doToggleState();"></events>
+			</object>
+			<object type="jsx3.gui.ToolbarButton">
+				<variants></variants>
+				<strings jsxname="btnMaximize"></strings>
+				<dynamics jsximage="@Max Icon" jsxtip="jsx3.gui.Dialog.max"></dynamics>
+				<events jsxexecute="this.getAncestorOfType(jsx3.gui.Dialog).doMaximize(this);"></events>
+			</object>
+			<object type="jsx3.gui.ToolbarButton">
+				<variants></variants>
+				<strings jsxname="btnClose"></strings>
+				<dynamics jsximage="@Close Icon" jsxtip="jsx3.gui.Dialog.close"></dynamics>
+				<events jsxexecute="this.getAncestorOfType(jsx3.gui.Dialog).doClose();"></events>
+			</object>
+		</object>
+		<object type="jsx3.gui.Block">
+			<variants jsxoverflow="1" jsxloadtype="1"></variants>
+			<strings jsxname="domViewBody" jsxwidth="100%" jsxheight="100%"
+				jsxrelativeposition="1"></strings>
+			<object type="jsx3.gui.Splitter">
+				<variants jsxleft="0" jsxtop="0"></variants>
+				<strings jsxname="domSplitter" jsxsubcontainer1pct="34.48773448773449%"></strings>
+				<object type="jsx3.gui.Block">
+					<variants jsxoverflow="1"></variants>
+					<strings jsxname="paneLeft" jsxwidth="100%" jsxheight="100%"></strings>
+					<dynamics jsxborder="@Inset" jsxbgcolor="@Solid Light"></dynamics>
+					<object type="jsx3.gui.LayoutGrid">
+						<variants jsxrelativeposition="0" jsxleft="0" jsxtop="0"
+							jsxoverflow="2"></variants>
+						<strings jsxname="layoutRows" jsxrows="28,*" jsxwidth="100%"
+							jsxheight="100%"></strings>
+						<dynamics jsxbgcolor="@Solid Light"></dynamics>
+						<object type="jsx3.gui.Block">
+							<variants jsxoverflow="2"></variants>
+							<strings jsxname="pane1" jsxwidth="100%" jsxheight="100%"></strings>
+							<dynamics jsxborder="@Outset"></dynamics>
+							<object type="jsx3.gui.WindowBar">
+								<variants jsxbartype="1"></variants>
+								<strings jsxname="toolBar"></strings>
+								<object type="jsx3.gui.ToolbarButton">
+									<variants></variants>
+									<strings jsxname="refreshDomButton" jsximage="images/icons/refreshDoc.gif"
+										jsxtext="Refresh"></strings>
+									<events jsxexecute="this.refreshView(this);"></events>
+								</object>
+							</object>
+						</object>
+						<object type="jsx3.gui.Block">
+							<variants jsxoverflow="2"></variants>
+							<strings jsxname="pane2" jsxwidth="100%" jsxheight="100%"></strings>
+							<dynamics jsxborder="@Outset"></dynamics>
+							<object type="jsx3.gui.Matrix">
+								<variants jsxheaderheight="0" jsxjsxxmlasync="1"
+									jsxsuppresshscroll="0" jsxsuppressvscroll="0"></variants>
+								<strings jsxname="domMatrix" jsxrenderingmodel="hierarchical"
+									jsxpagingmodel="4" jsxdrag="1" jsxdrop="1" jsxselectionmodel="2"></strings>
+								<dynamics jsxbgcolor="@Solid Light"></dynamics>
+								<events jsxselect="this.showObject(strRECORDID);" jsxexecute="this.revealChildren(this, strRECORDID);"></events>
+								<object type="jsx3.gui.Matrix.Column">
+									<variants jsxwidth="600"></variants>
+									<strings jsxname="mc1" jsxcellpadding="2" jsxpath="jsxtext"></strings>
+									<dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown"
+										jsxbgcolor="@Solid Disabled"></dynamics>
+								</object>
+							</object>
+						</object>
+					</object>
+				</object>
+
+				<object type="jsx3.gui.Splitter">
+					<variants jsxorientation="1" jsxleft="0" jsxtop="0"></variants>
+					<strings jsxname="splitterH" jsxsubcontainer1pct="50%"></strings>
+					<object type="jsx3.gui.Block">
+						<variants jsxoverflow="2"></variants>
+						<strings jsxname="paneTop" jsxwidth="100%" jsxheight="100%"></strings>
+						<dynamics jsxborder="@Inset" jsxbgcolor="@Solid Light"></dynamics>
+						<object type="jsx3.gui.Matrix">
+							<variants jsxpagingmodel="4" jsxselectionmodel="0"
+								jsxscalewidth="0" jsxjsxxmlasync="1" jsxxmlbind="1" jsxdrag="0"
+								jsxspy="1" jsxheaderheight="0" jsxdrop="0" jsxrowheight="22"
+								jsxsuppresshscroll="0" jsxsuppressvscroll="0"></variants>
+							<strings jsxname="domDetailMatrix" jsxheaderborder="1px solid #dfdfef"
+								jsxfocusstyle="font-weight:bold;" jsxrenderingmodel="hierarchical"
+								jsxspystyle="textdecoration:none;"></strings>
+							<xslparameters jsx_rowbg1="#ffffff" jsx_rowbg2="#ffffff"
+								jsx_use_categories="1" jsx_treehead_bgcolor="#efefef"
+								jsx_no_empty_indent="1" jsx_indent="2" jsx_treehead_fontweight="bold"
+								jsx_img_resolve="1"></xslparameters>
+							<object type="jsx3.gui.Matrix.Column">
+								<variants jsxwidth="160"></variants>
+								<strings jsxname="nameCol" jsxtext="Name" jsxpadding="2"
+									jsxcellpadding="2" jsxpath="jsxtext"
+									jsxcellborder="0px solid #a8a8b5;0px solid #a8a8b5;1px solid #a8a8b5;1px solid #a8a8b5"
+									jsxborder="1px solid #d8d8e5;1px solid #9898a5;1px solid #9898a5;1px solid #d8d8e5"></strings>
+								<dynamics jsxbg="@Bevel TopDown" jsxbgcolor="@Solid Medium"
+									jsxcellbgcolor="cellMediumBG"></dynamics>
+							</object>
+							<object type="jsx3.gui.Matrix.Column">
+								<variants></variants>
+								<strings jsxname="imageCol" jsxwidth="20" jsxtext="&amp;#160;"
+									jsxvaluetemplate="&lt;xsl:template xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;&gt;&lt;xsl:variable name=&quot;imageURL&quot;&gt;JSXAPPS/ipc/components/Forms/TSOAP/images/icons/error.gif&lt;/xsl:variable&gt;&lt;xsl:if test=&quot;@jsxinvalid='1'&quot;&gt;&lt;img style=&quot;position:relative;&quot; unselectable=&quot;on&quot;&gt;&lt;xsl:attribute name=&quot;src&quot;&gt;&lt;xsl:value-of select=&quot;$imageURL&quot;/&gt;&lt;/xsl:attribute&gt;&lt;/img&gt;&lt;/xsl:if&gt;&lt;/xsl:template&gt;"
+									jsxpadding="3" jsxcellpadding="1" jsxpath="jsxicon"
+									jsxcellborder="0px solid #a8a8b5;1px solid #a8a8b5;1px solid #a8a8b5;0px solid #a8a8b5"
+									jsxannotation="This column will display a special icon if the attribute 'jsxicon' is set.  If 'jsxicon' and 'jsxexecute' is set it will form an onclick handler.  Refer to the value template property."></strings>
+								<dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown"
+									jsxbgcolor="@Solid Disabled" jsxcellbgcolor="cellMediumBG"></dynamics>
+							</object>
+							<object type="jsx3.gui.Matrix.Column">
+								<variants jsxsort="0" jsxwidth="400"></variants>
+								<strings jsxname="valueCol" jsxpadding="2"
+									jsxcellpadding="2" jsxpath="jsxvalue" jsxtext="Value"
+									jsxcellborder="0px solid #a8a8b5;1px solid #a8a8b5;1px solid #a8a8b5;0px solid #a8a8b5"></strings>
+								<dynamics jsxbg="@Bevel TopDown" jsxbgcolor="@Solid Disabled"
+									jsxborder="summaryBorderRight"></dynamics>
+							</object>
+						</object>
+					</object>
+					<object type="jsx3.gui.Block">
+						<variants jsxoverflow="2"></variants>
+						<strings jsxname="paneBottom" jsxwidth="100%" jsxheight="100%"></strings>
+						<dynamics jsxborder="@Inset" jsxbgcolor="@Solid Light"></dynamics>
+						<object type="jsx3.gui.Matrix">
+							<variants jsxpagingmodel="4" jsxselectionmodel="0"
+								jsxscalewidth="0" jsxjsxxmlasync="1" jsxxmlbind="1" jsxdrag="0"
+								jsxspy="1" jsxheaderheight="0" jsxdrop="0"
+								jsxsuppresshscroll="0" jsxsuppressvscroll="0"></variants>
+							<strings jsxname="domEventMatrix" jsxheaderborder="1px solid #dfdfef"
+								jsxfocusstyle="font-weight:bold;" jsxrenderingmodel="hierarchical"
+								jsxspystyle="textdecoration:none;"></strings>
+							<xslparameters jsx_rowbg1="#ffffff" jsx_rowbg2="#ffffff"
+								jsx_use_categories="1" jsx_treehead_bgcolor="#efefef"
+								jsx_no_empty_indent="1" jsx_indent="2" jsx_treehead_fontweight="bold"
+								jsx_img_resolve="1"></xslparameters>
+							<object type="jsx3.gui.Matrix.Column">
+								<variants jsxwidth="160"></variants>
+								<strings jsxname="nameCol" jsxtext="Name" jsxpadding="2"
+									jsxcellpadding="2" jsxpath="jsxtext"
+									jsxcellborder="0px solid #a8a8b5;0px solid #a8a8b5;1px solid #a8a8b5;1px solid #a8a8b5"
+									jsxborder="1px solid #d8d8e5;1px solid #9898a5;1px solid #9898a5;1px solid #d8d8e5"></strings>
+								<dynamics jsxbg="@Bevel TopDown" jsxbgcolor="@Solid Medium"
+									jsxcellbgcolor="cellMediumBG"></dynamics>
+							</object>
+							<object type="jsx3.gui.Matrix.Column">
+								<variants></variants>
+								<strings jsxname="imageCol" jsxwidth="20" jsxtext="&amp;#160;"
+									jsxvaluetemplate="&lt;xsl:template xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;&gt;&lt;xsl:variable name=&quot;imageURL&quot;&gt;JSXAPPS/ipc/components/Forms/TSOAP/images/icons/error.gif&lt;/xsl:variable&gt;&lt;xsl:if test=&quot;@jsxinvalid='1'&quot;&gt;&lt;img style=&quot;position:relative;&quot; unselectable=&quot;on&quot;&gt;&lt;xsl:attribute name=&quot;src&quot;&gt;&lt;xsl:value-of select=&quot;$imageURL&quot;/&gt;&lt;/xsl:attribute&gt;&lt;/img&gt;&lt;/xsl:if&gt;&lt;/xsl:template&gt;"
+									jsxpadding="3" jsxcellpadding="1" jsxpath="jsxicon"
+									jsxcellborder="0px solid #a8a8b5;1px solid #a8a8b5;1px solid #a8a8b5;0px solid #a8a8b5"
+									jsxannotation="This column will display a special icon if the attribute 'jsxicon' is set.  If 'jsxicon' and 'jsxexecute' is set it will form an onclick handler.  Refer to the value template property."></strings>
+								<dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown"
+									jsxbgcolor="@Solid Disabled"></dynamics>
+							</object>
+							<object type="jsx3.gui.Matrix.Column">
+								<variants jsxsort="0" jsxwidth="400"></variants>
+								<strings jsxname="valueCol" jsxpadding="2"
+									jsxcellpadding="2" jsxpath="jsxvalue" jsxtext="Value"
+									jsxcellborder="0px solid #a8a8b5;1px solid #a8a8b5;1px solid #a8a8b5;0px solid #a8a8b5"></strings>
+								<dynamics jsxbg="@Bevel TopDown" jsxbgcolor="@Solid Disabled"
+									jsxborder="summaryBorderRight"></dynamics>
+							</object>
+						</object>
+					</object>
+				</object>
+			</object>
+		</object>
+	</object>
+</serialization>

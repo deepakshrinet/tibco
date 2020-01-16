@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:ns2="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="http://www.tibco.com/CommonLE/Client/Schema/ClientInterface.xsd" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/EngineTypes" xmlns:ns4="http://www.tibco.com/namespaces/tnt/plugins/mail" xmlns:ns3="http://www.tibco.com/pe/DeployedVarsType" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx3="http://xmlns.tibco.com/encodings/mime" xmlns:pfx2="http://xmlns.tibco.com/body" xmlns:pfx="http://www.zimmer.com/SendEmailSchema_v_1_0.xsd">
+    <xsd:import namespace="http://www.zimmer.com/SendEmailSchema_v_1_0.xsd" schemaLocation="/EnterpriseLibrary/SharedResources/Schemas/XSD/SendEmailSchema.xsd"/>
+    <pd:name>Services/SendEmailProcess/Processes/ReceiveEmail_Process.process</pd:name>
+    <pd:startName>ReceiveEmail_Txn</pd:startName>
+    <pd:startX>0</pd:startX>
+    <pd:startY>0</pd:startY>
+    <pd:returnBindings/>
+    <pd:starter name="ReceiveEmail_Txn">
+        <pd:type>com.tibco.plugin.jms.JMSQueueEventSource</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueEventSource</pd:resourceType>
+        <pd:x>62</pd:x>
+        <pd:y>62</pd:y>
+        <config>
+            <PermittedMessageType>Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>23</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+                <destination>%%ApplicationDetails/SendEmailQueueName%%</destination>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/EnterpriseLibrary/SharedResources/Connections/JMS/TIBCO_JMS_Connection.sharedjmscon</ConnectionReference>
+        </config>
+        <pd:inputBindings/>
+    </pd:starter>
+    <pd:endName>End</pd:endName>
+    <pd:endX>495</pd:endX>
+    <pd:endY>55</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1339602063187</pd:targetNamespace>
+    <pd:activity name="CatchAll">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>628</pd:x>
+        <pd:y>52</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Send CatchAll Exception ToCLE">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>626</pd:x>
+        <pd:y>228</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendException.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns1:ExceptionRequest>
+                <ns1:Header>
+                    <ns1:CorrelationID>
+                        <xsl:value-of select="$_processContext/ns:ProcessContext/ProcessId"/>
+                    </ns1:CorrelationID>
+                    <ns1:Message>
+                        <xsl:value-of select="$_error/ns:ErrorReport/Msg"/>
+                    </ns1:Message>
+                    <ns1:DataEncoding>
+                        <xsl:value-of select="&quot;STRING&quot;"/>
+                    </ns1:DataEncoding>
+                </ns1:Header>
+                <ns1:ExceptionCode>
+                    <xsl:value-of select="&quot;TECHNICAL-777&quot;"/>
+                </ns1:ExceptionCode>
+                <ns1:StackTrace>
+                    <xsl:value-of select="concat(&quot;Error Message: &quot;, $_error/ns:ErrorReport/Msg, &quot;  BW MsgCode: &quot;, &#xA;$_error/ns:ErrorReport/MsgCode, &quot;&#xA;&quot;,&#xA;&quot;Stack Trace: &quot;, $_error/ns:ErrorReport/StackTrace, &quot;&#xA;&quot;,&#xA;&quot; Process Stack: &quot;, $_error/ns:ErrorReport/ProcessStack)"/>
+                </ns1:StackTrace>
+            </ns1:ExceptionRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SetCLEHeader">
+        <pd:type>com.tibco.pe.core.SetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.setSharedVariable</pd:resourceType>
+        <pd:x>66</pd:x>
+        <pd:y>230</pd:y>
+        <config>
+            <variableConfig>/CLE/Interface/SharedVariables/CLEHeader.jobsharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings>
+            <ns1:Header>
+                <ns1:ComponentName>
+                    <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns:ProcessContext/ProcessId)"/>
+                </ns1:ComponentName>
+                <ns1:Hostname>
+                    <xsl:value-of select="BW:getHostName()"/>
+                </ns1:Hostname>
+                <ns1:TransactionDomain>
+                    <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/ApplicationDetails/CommonSendEmail_Utility/TransactionDomain"/>
+                </ns1:TransactionDomain>
+                <ns1:TransactionType>
+                    <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/ApplicationDetails/CommonSendEmail_Utility/TransactionType"/>
+                </ns1:TransactionType>
+                <ns1:InterfaceID>
+                    <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/ApplicationDetails/CommonSendEmail_Utility/InterfaceID"/>
+                </ns1:InterfaceID>
+            </ns1:Header>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Capture StartTime">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>209</pd:x>
+        <pd:y>67</pd:y>
+        <config>
+            <element>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="StartTime" type="xsd:string"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </element>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <StartTime>
+                    <xsl:value-of select="tib:timestamp()"/>
+                </StartTime>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Confirm">
+        <pd:type>com.tibco.pe.core.ConfirmActivity</pd:type>
+        <pd:resourceType>activity.confirm</pd:resourceType>
+        <pd:x>334</pd:x>
+        <pd:y>233</pd:y>
+        <config>
+            <ConfirmEvent>ReceiveEmail_Txn</ConfirmEvent>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Confirm On Exception">
+        <pd:type>com.tibco.pe.core.ConfirmActivity</pd:type>
+        <pd:resourceType>activity.confirm</pd:resourceType>
+        <pd:x>492</pd:x>
+        <pd:y>221</pd:y>
+        <config>
+            <ConfirmEvent>ReceiveEmail_Txn</ConfirmEvent>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="PrimaryServer">
+        <pd:type>com.tibco.plugin.mail.MailPubActivity</pd:type>
+        <pd:resourceType>ae.activities.MailActivityResource</pd:resourceType>
+        <pd:x>337</pd:x>
+        <pd:y>59</pd:y>
+        <config>
+            <newMimeSupport>true</newMimeSupport>
+            <inputOutputVersion>5.2.0</inputOutputVersion>
+            <host>%%SendEmail/SMTP_Server%%</host>
+            <InputHeaders>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="Content-Type" type="xsd:string" minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </InputHeaders>
+        </config>
+        <pd:inputBindings>
+            <ns4:mailActivityInput>
+                <from>
+                    <xsl:value-of select="$ParseEmailRequest/pfx:SendEmail/pfx:From"/>
+                </from>
+                <xsl:for-each select="$ParseEmailRequest/pfx:SendEmail/pfx:To">
+                    <to>
+                        <xsl:value-of select="."/>
+                    </to>
+                </xsl:for-each>
+                <xsl:for-each select="$ParseEmailRequest/pfx:SendEmail/pfx:CC">
+                    <cc>
+                        <xsl:value-of select="."/>
+                    </cc>
+                </xsl:for-each>
+                <xsl:for-each select="$ParseEmailRequest/pfx:SendEmail/pfx:BCC">
+                    <bcc>
+                        <xsl:value-of select="."/>
+                    </bcc>
+                </xsl:for-each>
+                <xsl:for-each select="$ParseEmailRequest/pfx:SendEmail/pfx:ReplyTo">
+                    <replyTo>
+                        <xsl:value-of select="."/>
+                    </replyTo>
+                </xsl:for-each>
+                <xsl:if test="$ParseEmailRequest/pfx:SendEmail/pfx:Subject">
+                    <subject>
+                        <xsl:value-of select="$ParseEmailRequest/pfx:SendEmail/pfx:Subject"/>
+                    </subject>
+                </xsl:if>
+                <xsl:if test="$ParseEmailRequest/pfx:SendEmail/pfx:SentDate">
+                    <sentdate>
+                        <xsl:value-of select="$ParseEmailRequest/pfx:SendEmail/pfx:SentDate"/>
+                    </sentdate>
+                </xsl:if>
+                <pfx2:bodyElement>
+                    <bodyText>
+                        <xsl:value-of select="$ParseEmailRequest/pfx:SendEmail/pfx:BodyElement/pfx:BodyText"/>
+                    </bodyText>
+                </pfx2:bodyElement>
+                <Headers>
+                    <xsl:if test="$ParseEmailRequest/pfx:SendEmail/pfx:Header/pfx:ContentType">
+                        <Content-Type>
+                            <xsl:value-of select="$ParseEmailRequest/pfx:SendEmail/pfx:Header/pfx:ContentType"/>
+                        </Content-Type>
+                    </xsl:if>
+                </Headers>
+                <pfx3:mimeEnvelopeElement>
+                    <xsl:for-each select="$ParseEmailRequest/pfx:SendEmail/pfx:MimeElement/pfx:MimePart">
+                        <mimePart>
+                            <xsl:for-each select="pfx:MimeHeaders">
+                                <mimeHeaders>
+                                    <xsl:if test="pfx:content_Desposition">
+                                        <content-disposition>
+                                            <xsl:value-of select="pfx:content_Desposition"/>
+                                        </content-disposition>
+                                    </xsl:if>
+                                    <content-type>
+                                        <xsl:value-of select="pfx:content_Type"/>
+                                    </content-type>
+                                    <xsl:if test="pfx:content_Encoding">
+                                        <content-transfer-encoding>
+                                            <xsl:value-of select="pfx:content_Encoding"/>
+                                        </content-transfer-encoding>
+                                    </xsl:if>
+                                    <xsl:if test="pfx:content_id">
+                                        <content-id>
+                                            <xsl:value-of select="pfx:content_id"/>
+                                        </content-id>
+                                    </xsl:if>
+                                </mimeHeaders>
+                            </xsl:for-each>
+                            <textContent>
+                                <xsl:value-of select="pfx:Content"/>
+                            </textContent>
+                        </mimePart>
+                    </xsl:for-each>
+                </pfx3:mimeEnvelopeElement>
+            </ns4:mailActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="ParseEmailRequest">
+        <pd:type>com.tibco.plugin.xml.XMLParseActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLParseActivity</pd:resourceType>
+        <pd:x>207</pd:x>
+        <pd:y>223</pd:y>
+        <config>
+            <inputStyle>text</inputStyle>
+            <xsdVersion>default</xsdVersion>
+            <validateOutput>false</validateOutput>
+            <term ref="pfx:SendEmail"/>
+        </config>
+        <pd:inputBindings>
+            <xmlString>
+                <xsl:value-of select="$ReceiveEmail_Txn/ns2:ActivityOutput/Body"/>
+            </xmlString>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>ReceiveEmail_Txn</pd:from>
+        <pd:to>SetCLEHeader</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>CatchAll</pd:from>
+        <pd:to>Send CatchAll Exception ToCLE</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-65536</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Send CatchAll Exception ToCLE</pd:from>
+        <pd:to>Confirm On Exception</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-65536</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SetCLEHeader</pd:from>
+        <pd:to>Capture StartTime</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Capture StartTime</pd:from>
+        <pd:to>ParseEmailRequest</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Confirm</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Confirm On Exception</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-65536</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>PrimaryServer</pd:from>
+        <pd:to>Confirm</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>ParseEmailRequest</pd:from>
+        <pd:to>PrimaryServer</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

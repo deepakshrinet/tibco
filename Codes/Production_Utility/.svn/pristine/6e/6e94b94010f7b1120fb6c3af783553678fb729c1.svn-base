@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<repository version="2" commitCount="1">
+  <instanceInfo>
+    <instanceInfoProperty name="displayName" value="Excel_Metrics"/>
+    <instanceInfoProperty name="version" value="5.7.3"/>
+    <instanceInfoProperty name="rootDir" value="."/>
+    <instanceInfoProperty name="instanceType" value="localFile"/>
+    <instanceInfoProperty name="fileType" value="VC"/>
+    <instanceInfoProperty name="creationTime" value="1422968748416"/>
+    <instanceInfoProperty name="encoding" value="UTF-8"/>
+  </instanceInfo>
+</repository>

@@ -1,0 +1,16 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<RolePermissionsInfo xmlns = "http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/RolePermissionInformation" xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation = "http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/SecurityConfiguration/RolePermissionInformation ../SchemaDefinitions/Public/Pluggable/GUI/Administration/SecurityConfiguration/RolePermissionsInformation.xsd">
+	<rolename>manager</rolename>
+	<appid>1102</appid>
+	<permissions>
+		<permission>
+			<permissionID>1</permissionID>
+		</permission>
+		<permission>
+			<permissionID>2</permissionID>
+		</permission>
+		<permission>
+			<permissionID>3</permissionID>
+		</permission>
+	</permissions>
+</RolePermissionsInfo>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RestartAppList xmlns="http://www.zimmerbiomet.com/xsd/RestartProfile">
+	<ApplicationName>DELTA_REFACTOR/DELTA_JDE_Adapter</ApplicationName>
+	<ApplicationName>DELTA_REFACTOR/Delta_Reconciliation</ApplicationName>
+	<ApplicationName>DELTA_REFACTOR/DistributionDataService_Substation1</ApplicationName>
+	<ApplicationName>DELTA_REFACTOR/PurchasingDataService</ApplicationName>
+    <ApplicationName>DELTA_REFACTOR/WarehouseDataService_1</ApplicationName>
+	<ApplicationName>DELTA_REFACTOR/WarehouseDataService_846</ApplicationName>
+	<ApplicationName>SAPGLS/SAPGLS_BW</ApplicationName>
+    <ApplicationName>SAPGLS/SAPGLS_R3Adapter</ApplicationName>
+    <ApplicationName>SAPGLS/SAPGLS_R3Adapter_SOT</ApplicationName>
+    <ApplicationName>CPR_Project/CPR_DCS_BATCH</ApplicationName>
+	<ApplicationName>PSI/PSI_BWProcess</ApplicationName>
+    <ApplicationName>PSI/PSI_JDEAdapter</ApplicationName>
+	<ApplicationName>ZSMS_Interfaces/ZSMS_DCS_CycleCount</ApplicationName>
+    <ApplicationName>PACIFIC_II/DCS_ZSMS_ORDER_ACK_INVOICE</ApplicationName>
+	<ApplicationName>PACIFIC_II/SMS_OrderCreation </ApplicationName>
+	<ApplicationName>PACIFIC_II/ZSMS_DCS_CBE_ORDER_1</ApplicationName>
+	<ApplicationName>PACIFIC_II/ZSMS_DCS_TOE_ORDER_1</ApplicationName>
+	<ApplicationName>PARIS/IDPMTxns_JDEAdapter</ApplicationName>
+    <ApplicationName>PARIS/JDEAdapterForMasterData</ApplicationName>
+    <ApplicationName>PARIS/IDPMTxns_BWProcesses</ApplicationName>
+    <ApplicationName>PARIS/IDPMTxns_SAPAdapter</ApplicationName>
+    <ApplicationName>PARIS/MasterDataProcesses</ApplicationName>
+    <ApplicationName>PARISB2B/PARISB2B</ApplicationName>
+    <ApplicationName>GHX/GHX_Gateway</ApplicationName>
+    <ApplicationName>DCS_Transform_CartonLabel/DCS_Transform_CartonLabel</ApplicationName>
+   <ApplicationName>MES Services/Adapter services/Camstar_Outbound_ADB_Service-2</ApplicationName>
+    <ApplicationName>MES Services/Adapter services/Camstar_Outbound_ADB_Service_TMT</ApplicationName>
+    <ApplicationName>MES Services/Adapter services/GIW_Outbound_ADB_Service-2</ApplicationName>
+    <ApplicationName>MES Services/Adapter services/JDEAdapter_MES_Service</ApplicationName>
+    <ApplicationName>MES Services/Adapter services/LMS_AdapterService</ApplicationName>
+	<ApplicationName>MES Services/Adapter services/SAP-GAGETRACK_MES_Adapter_Service</ApplicationName>
+	<ApplicationName>MES Services/CMM_DataService</ApplicationName>
+	<ApplicationName>MES Services/Gagetrack_DataService</ApplicationName>
+	<ApplicationName>MES Services/JDE_MES_Data_Service_1</ApplicationName>
+	<ApplicationName>MES Services/LMS_DataService</ApplicationName>
+	<ApplicationName>MES Services/Material_Check_Services</ApplicationName>
+	<ApplicationName>MES Services/MES_Gateway_Service</ApplicationName>
+	<ApplicationName>MES Services/MES_Gateway_Service_Inbound</ApplicationName>
+	<ApplicationName>MES Services/MES_Gateway_Service_Inbound_Shannon</ApplicationName>
+	<ApplicationName>MES Services/MES_Gateway_Service_Inbound_TMT</ApplicationName>
+	<ApplicationName>MES Services/MES_Gateway_Service_Outbound</ApplicationName>
+	<ApplicationName>MES Services/MES_Gateway_Service_Outbound_Shannon</ApplicationName>
+	<ApplicationName>MES Services/MES_Gateway_Service_Outbound_TMT</ApplicationName>
+	<ApplicationName>MES Services/MES_Sterilization_Service</ApplicationName>
+	<ApplicationName>MES Services/PlantMaintenance_DataService</ApplicationName>
+	<ApplicationName>MES Services/SAP-GAGETRACK_MES_Data_Service</ApplicationName>
+</RestartAppList>

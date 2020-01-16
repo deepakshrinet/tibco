@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://www.zimmer.com/tibco/schemas/ZBS/XSD/LogService/v1/LogMessageSchema.xsd"
+	 targetNamespace="http://www.zimmer.com/tibco/schemas/ZBS/XSD/LogService/v1/LogMessageSchema.xsd"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="LogMessageDetails">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Message" type="xs:string"/>
+				<xs:element name="LogLevel" type="xs:string"/>
+				<xs:element name="ActivityName" type="xs:string"/>
+				<xs:element name="ProcessName" type="xs:string"/>
+				<xs:element name="CreateTimestamp" type="xs:dateTime"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TransactionInfo">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Name" type="xs:string"/>
+				<xs:element name="Value" type="xs:string"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="LogMessage">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ApplicationName" type="xs:string"/>
+				<xs:element name="InstanceID" type="xs:string"/>
+				<xs:element name="JobID" type="xs:string"/>
+				<xs:element ref="LogMessageDetails"/>
+				<xs:element ref="TransactionInfo" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

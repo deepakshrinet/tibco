@@ -1,0 +1,16 @@
+﻿<data jsxnamespace="propsbundle" locales="">
+  <locale key="zh_CH">
+    <record jsxid="procedure_ApplicationID" jsxtext="应用程序ID"/>
+    <record jsxid="procedure_ProcedureID" jsxtext="ID"/>
+    <record jsxid="procedure_ProcedureName" jsxtext="名字"/>
+    <record jsxid="procedure_ProcName" jsxtext="名字"/>
+    <record jsxid="procedure_Description" jsxtext="描述"/>
+    <record jsxid="procedure_Destination" jsxtext="目的地"/>
+    <record jsxid="procedure_destinationCol" jsxtext="目的地"/>
+    <record jsxid="procedure_PhysicalName" jsxtext="物理名字"/>
+    <record jsxid="procedure_physicalNameCol" jsxtext="物理名字"/>
+    <record jsxid="procedure_createNewItemCaption" jsxtext="创建新步骤"/>
+    <record jsxid="procedure_createProcedure" jsxtext="创建步骤"/>
+    <record jsxid="procedure_createProcedureTip" jsxtext="创建步骤"/>
+  </locale>
+</data>

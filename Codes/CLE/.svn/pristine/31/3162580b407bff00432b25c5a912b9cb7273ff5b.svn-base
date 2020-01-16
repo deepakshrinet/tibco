@@ -1,0 +1,72 @@
+<data jsxnamespace="propsbundle" locales="">
+  <locale>
+    <record jsxid="procedure_ApplicationID" jsxtext="Application ID"/>
+    <record jsxid="procedure_ProcedureID" jsxtext="ID"/>
+    <record jsxid="procedure_ProcedureName" jsxtext="Name"/>
+    <record jsxid="procedure_ProcName" jsxtext="Name"/>
+    <record jsxid="procedure_Description" jsxtext="Description"/>
+    <record jsxid="procedure_Destination" jsxtext="Destination"/>
+    <record jsxid="procedure_destinationCol" jsxtext="Destination"/>
+    <record jsxid="procedure_PhysicalName" jsxtext="Physical Name"/>
+    <record jsxid="procedure_physicalNameCol" jsxtext="Physical Name"/>
+    <record jsxid="procedure_createNewItemCaption" jsxtext="Create New Procedure"/>
+    <record jsxid="procedure_createProcedure" jsxtext="Create Procedure"/>
+    <record jsxid="procedure_createProcedureTip" jsxtext="Create Procedure"/>
+  </locale>
+  <locale key="pt_BR">
+    <record jsxid="procedure_ApplicationID" jsxtext="ID da Aplicação"/>
+    <record jsxid="procedure_ProcedureID" jsxtext="ID"/>
+    <record jsxid="procedure_ProcedureName" jsxtext="Nome"/>
+    <record jsxid="procedure_ProcName" jsxtext="Nome"/>
+    <record jsxid="procedure_Description" jsxtext="Descrição"/>
+    <record jsxid="procedure_Destination" jsxtext="Destino"/>
+    <record jsxid="procedure_destinationCol" jsxtext="Destino"/>
+    <record jsxid="procedure_PhysicalName" jsxtext="Nome Físico"/>
+    <record jsxid="procedure_physicalNameCol" jsxtext="Nome Físico"/>
+    <record jsxid="procedure_createNewItemCaption" jsxtext="Criar Novo Procedimento"/>
+    <record jsxid="procedure_createProcedure" jsxtext="Criar Procedimento"/>
+    <record jsxid="procedure_createProcedureTip" jsxtext="Criar Procedimento"/>
+  </locale>
+  <locale key="es_ES">
+    <record jsxid="procedure_ApplicationID" jsxtext="ID de Aplicación"/>
+    <record jsxid="procedure_ProcedureID" jsxtext="ID"/>
+    <record jsxid="procedure_ProcedureName" jsxtext="Nombre"/>
+    <record jsxid="procedure_ProcName" jsxtext="Nombre"/>
+    <record jsxid="procedure_Description" jsxtext="Descripción"/>
+    <record jsxid="procedure_Destination" jsxtext="Destino"/>
+    <record jsxid="procedure_destinationCol" jsxtext="Destino"/>
+    <record jsxid="procedure_PhysicalName" jsxtext="Nombre Físico"/>
+    <record jsxid="procedure_physicalNameCol" jsxtext="Nombre Físico"/>
+    <record jsxid="procedure_createNewItemCaption" jsxtext="Crear Nuevo Procedimiento"/>
+    <record jsxid="procedure_createProcedure" jsxtext="Crear Procedimiento"/>
+    <record jsxid="procedure_createProcedureTip" jsxtext="Crear Procedimiento"/>
+  </locale>
+  <locale key="sv_SV">
+    <record jsxid="procedure_ApplicationID" jsxtext="ApplikationsID"/>
+    <record jsxid="procedure_ProcedureID" jsxtext="ID"/>
+    <record jsxid="procedure_ProcedureName" jsxtext="Namn"/>
+    <record jsxid="procedure_ProcName" jsxtext="Namn"/>
+    <record jsxid="procedure_Description" jsxtext="Beskrivning"/>
+    <record jsxid="procedure_Destination" jsxtext="Beskrivning"/>
+    <record jsxid="procedure_destinationCol" jsxtext="Destination"/>
+    <record jsxid="procedure_PhysicalName" jsxtext="Faktiskt Namn"/>
+    <record jsxid="procedure_physicalNameCol" jsxtext="Faktiskt Namn"/>
+    <record jsxid="procedure_createNewItemCaption" jsxtext="Skapa Ny Procedur"/>
+    <record jsxid="procedure_createProcedure" jsxtext="Skapa Procedur"/>
+    <record jsxid="procedure_createProcedureTip" jsxtext="Skapa Procedur"/>
+  </locale>
+  <locale key="zh_CH">
+    <record jsxid="procedure_ApplicationID" jsxtext="应用程序ID"/>
+    <record jsxid="procedure_ProcedureID" jsxtext="ID"/>
+    <record jsxid="procedure_ProcedureName" jsxtext="名字"/>
+    <record jsxid="procedure_ProcName" jsxtext="名字"/>
+    <record jsxid="procedure_Description" jsxtext="描述"/>
+    <record jsxid="procedure_Destination" jsxtext="目的地"/>
+    <record jsxid="procedure_destinationCol" jsxtext="目的地"/>
+    <record jsxid="procedure_PhysicalName" jsxtext="物理名字"/>
+    <record jsxid="procedure_physicalNameCol" jsxtext="物理名字"/>
+    <record jsxid="procedure_createNewItemCaption" jsxtext="创建新步骤"/>
+    <record jsxid="procedure_createProcedure" jsxtext="创建步骤"/>
+    <record jsxid="procedure_createProcedureTip" jsxtext="创建步骤"/>
+  </locale>
+</data>

@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/CommonLE2/namespace/Public/Common" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:ns3="http://www.tibco.com/CommonLE2/namespace/Public/Exception/ExceptionRequest.xsd" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx4="http://www.tibco.com/CommonLE2/namespace/Public/Exception" xmlns:pfx3="http://www.tibco.com/CommonLE2/namespace/Public/Common/RequestHeader.xsd" xmlns:pfx2="http://www.tibco.com/CommonLE2/namespace/Public/Logging" xmlns:pfx="http://xmlns.example.com/1161987078278">
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Exception/ExceptionRequest.xsd" schemaLocation="/SharedResources/SchemaDefinitions/Public/Exception/ExceptionRequest.xsd"/>
+    <wsdl:import namespace="http://xmlns.example.com/1161987078278" location="/Test/Core Services/Exception Handling/WSDL-ExceptionRequest.wsdl"/>
+    <pd:name>Test/Core Services/Exception Handling/Send Exception Requests.process</pd:name>
+    <pd:description>This process shows three different ways to send exception requests to the 
+CommonLE core services</pd:description>
+    <pd:startName>Start</pd:startName>
+    <pd:startX>26</pd:startX>
+    <pd:startY>155</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>504</pd:endX>
+    <pd:endY>161</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1288669082498</pd:targetNamespace>
+    <pd:activity name="Seed Exception data">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>129</pd:x>
+        <pd:y>163</pd:y>
+        <config>
+            <element ref="ns3:ExceptionRequest"/>
+        </config>
+        <pd:inputBindings>
+            <ns3:ExceptionRequest>
+                <pfx3:Header>
+                    <pfx3:ApplicationID>
+                        <xsl:value-of select="&quot;AppID-1&quot;"/>
+                    </pfx3:ApplicationID>
+                    <pfx3:ComponentName>
+                        <xsl:value-of select="&quot;Component name&quot;"/>
+                    </pfx3:ComponentName>
+                    <pfx3:Hostname>
+                        <xsl:value-of select="&quot;Host Name&quot;"/>
+                    </pfx3:Hostname>
+                    <pfx3:Timestamp>
+                        <xsl:value-of select="current-dateTime()"/>
+                    </pfx3:Timestamp>
+                    <pfx3:TransactionDomain>
+                        <xsl:value-of select="&quot;Transaction Domain&quot;"/>
+                    </pfx3:TransactionDomain>
+                    <pfx3:TransactionType>
+                        <xsl:value-of select="&quot;Transaction Type&quot;"/>
+                    </pfx3:TransactionType>
+                    <pfx3:TransactionID>
+                        <xsl:value-of select="&quot;TransID&quot;"/>
+                    </pfx3:TransactionID>
+                    <pfx3:CorrelationID>
+                        <xsl:value-of select="&quot;corrid&quot;"/>
+                    </pfx3:CorrelationID>
+                    <pfx3:InterfaceID>
+                        <xsl:value-of select="&quot;InterfaceID.AppID-1.1&quot;"/>
+                    </pfx3:InterfaceID>
+                    <pfx3:Filename>
+                        <xsl:value-of select="&quot;abc.dat&quot;"/>
+                    </pfx3:Filename>
+                    <pfx3:Message>
+                        <xsl:value-of select="&quot;error message&quot;"/>
+                    </pfx3:Message>
+                    <pfx3:Transaction>
+                        <xsl:value-of select="'&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?> &#xA;&lt;PurchaseOrder>     &#xA;&lt;ProcessName>PO-BESTBUY&lt;/ProcessName>     &#xA;&lt;OrderIdentifier>ORDBESTBUY0001&lt;/OrderIdentifier>    &#xA;&lt;CustomerIdentifier>BestBuy&lt;/CustomerIdentifier>     &#xA;&lt;PurchaseOrderDate>2008-05-01T09:30:14.379-07:00&lt;/PurchaseOrderDate>&#xA;&lt;Total>100000000&lt;/Total>     &#xA;&lt;Status>Received&lt;/Status>     &#xA;&lt;Location>Palo Alto&lt;/Location>     &#xA;&lt;LineItem>         &#xA;&#x9;&lt;OrderIdentifier>ip-0001&lt;/OrderIdentifier>&#xA;        &lt;LineNumber>1&lt;/LineNumber>&#xA;        &lt;Item>iPod&lt;/Item>         &#xA;        &lt;ItemIdentifier>ID-0003&lt;/ItemIdentifier>         &#xA;        &lt;ItemCategory>Electronics&lt;/ItemCategory>         &#xA;        &lt;Quantity>300&lt;/Quantity>         &#xA;        &lt;UnitPrice>399&lt;/UnitPrice>         &#xA;        &lt;price>39900&lt;/price>         &#xA;        &lt;ShipmentDate>2008-09-01T09:30:06.648-07:00&lt;/ShipmentDate>         &#xA;        &lt;ShipmentLocation>New York&lt;/ShipmentLocation>         &#xA;        &lt;Status>Shipping&lt;/Status>         &#xA;        &lt;OverBuyQty>100&lt;/OverBuyQty>     &#xA;&lt;/LineItem>   &#xA;&lt;LineItem>         &#xA;&#x9;&lt;OrderIdentifier>ip-0001&lt;/OrderIdentifier>&#xA;        &lt;LineNumber>2&lt;/LineNumber>&#xA;        &lt;Item>NIKON D300&lt;/Item>         &#xA;        &lt;ItemIdentifier>ID-0004&lt;/ItemIdentifier>         &#xA;        &lt;ItemCategory>Electronics&lt;/ItemCategory>         &#xA;        &lt;Quantity>300&lt;/Quantity>         &#xA;        &lt;UnitPrice>2000&lt;/UnitPrice>         &#xA;        &lt;price>600000&lt;/price>         &#xA;        &lt;ShipmentDate>2008-09-01T09:30:06.648-07:00&lt;/ShipmentDate>         &#xA;        &lt;ShipmentLocation>New York&lt;/ShipmentLocation>         &#xA;        &lt;Status>Shipping&lt;/Status>         &#xA;        &lt;OverBuyQty>100&lt;/OverBuyQty>     &#xA;&lt;/LineItem>     &#xA;        &#xA;&lt;/PurchaseOrder>'"/>
+                    </pfx3:Transaction>
+                </pfx3:Header>
+                <ExceptionCode>
+                    <xsl:value-of select="&quot;AppID-1-EC3&quot;"/>
+                </ExceptionCode>
+                <StackTrace>
+                    <xsl:value-of select="&quot;Stack Trace&quot;"/>
+                </StackTrace>
+                <Custom>
+                    <xsl:value-of select="&quot;Custom&quot;"/>
+                </Custom>
+                <ReplyDestination>
+                    <xsl:value-of select="&quot;cle2.reply.destination&quot;"/>
+                </ReplyDestination>
+            </ns3:ExceptionRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="JMS Queue Sender">
+        <pd:type>com.tibco.plugin.jms.JMSQueueSendActivity</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueSendActivity</pd:resourceType>
+        <pd:x>305</pd:x>
+        <pd:y>52</pd:y>
+        <config>
+            <PermittedMessageType>XML Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+                <destination>%%JMSDestinationNames/MIG_ExceptionQueue%%</destination>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/SharedResources/Connections/JMS/JMS Exception.sharedjmscon</ConnectionReference>
+            <InDataxsdString ref="ns3:ExceptionRequest"/>
+        </config>
+        <pd:inputBindings>
+            <ns:ActivityInput>
+                <Body>
+                    <xsl:copy-of select="$Seed-Exception-data/ns3:ExceptionRequest"/>
+                </Body>
+            </ns:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SOAPRequestReply">
+        <pd:type>com.tibco.plugin.soap.SOAPSendReceiveActivity</pd:type>
+        <pd:resourceType>ae.activities.SOAPSendReceiveUI</pd:resourceType>
+        <pd:x>305</pd:x>
+        <pd:y>161</pd:y>
+        <config>
+            <timeout>0</timeout>
+            <service>pfx:Handle_Exception_Request-service</service>
+            <servicePort>intfwsHandle_Exception_RequestEndpoint1</servicePort>
+            <operation>Handle_sp_Exception_sp_RequestOp</operation>
+            <soapAction>/ExceptionManagement/Logic/intfHandle_Exception_Request-service.serviceagent/intfwsHandle_Exception_RequestEndpoint1/Handle_sp_Exception_sp_RequestOp</soapAction>
+            <endpointURL>http://localhost:9989/ExceptionManagement/Logic/intfHandle_Exception_Request-service.serviceagent/intfwsHandle_Exception_RequestEndpoint1</endpointURL>
+            <soapAttachmentStyle>SwA</soapAttachmentStyle>
+        </config>
+        <pd:inputBindings>
+            <inputMessage>
+                <xsl:for-each select="$Seed-Exception-data/ns3:ExceptionRequest">
+                    <ns3:ExceptionRequest>
+                        <xsl:for-each select="pfx3:Header">
+                            <pfx3:Header>
+                                <pfx3:ApplicationID>
+                                    <xsl:value-of select="pfx3:ApplicationID"/>
+                                </pfx3:ApplicationID>
+                                <xsl:if test="pfx3:ComponentName">
+                                    <pfx3:ComponentName>
+                                        <xsl:value-of select="pfx3:ComponentName"/>
+                                    </pfx3:ComponentName>
+                                </xsl:if>
+                                <xsl:if test="pfx3:Hostname">
+                                    <pfx3:Hostname>
+                                        <xsl:value-of select="pfx3:Hostname"/>
+                                    </pfx3:Hostname>
+                                </xsl:if>
+                                <pfx3:Timestamp>
+                                    <xsl:value-of select="pfx3:Timestamp"/>
+                                </pfx3:Timestamp>
+                                <xsl:if test="pfx3:TransactionDomain">
+                                    <pfx3:TransactionDomain>
+                                        <xsl:value-of select="pfx3:TransactionDomain"/>
+                                    </pfx3:TransactionDomain>
+                                </xsl:if>
+                                <xsl:if test="pfx3:TransactionType">
+                                    <pfx3:TransactionType>
+                                        <xsl:value-of select="pfx3:TransactionType"/>
+                                    </pfx3:TransactionType>
+                                </xsl:if>
+                                <xsl:if test="pfx3:TransactionID">
+                                    <pfx3:TransactionID>
+                                        <xsl:value-of select="pfx3:TransactionID"/>
+                                    </pfx3:TransactionID>
+                                </xsl:if>
+                                <xsl:if test="pfx3:CorrelationID">
+                                    <pfx3:CorrelationID>
+                                        <xsl:value-of select="pfx3:CorrelationID"/>
+                                    </pfx3:CorrelationID>
+                                </xsl:if>
+                                <xsl:if test="pfx3:InterfaceID">
+                                    <pfx3:InterfaceID>
+                                        <xsl:value-of select="pfx3:InterfaceID"/>
+                                    </pfx3:InterfaceID>
+                                </xsl:if>
+                                <xsl:if test="pfx3:Filename">
+                                    <pfx3:Filename>
+                                        <xsl:value-of select="pfx3:Filename"/>
+                                    </pfx3:Filename>
+                                </xsl:if>
+                                <xsl:if test="pfx3:Message">
+                                    <pfx3:Message>
+                                        <xsl:value-of select="pfx3:Message"/>
+                                    </pfx3:Message>
+                                </xsl:if>
+                                <xsl:if test="pfx3:RenderID">
+                                    <pfx3:RenderID>
+                                        <xsl:value-of select="pfx3:RenderID"/>
+                                    </pfx3:RenderID>
+                                </xsl:if>
+                                <xsl:if test="pfx3:DataEncoding">
+                                    <pfx3:DataEncoding>
+                                        <xsl:value-of select="pfx3:DataEncoding"/>
+                                    </pfx3:DataEncoding>
+                                </xsl:if>
+                                <xsl:if test="pfx3:Transaction">
+                                    <pfx3:Transaction>
+                                        <xsl:value-of select="pfx3:Transaction"/>
+                                    </pfx3:Transaction>
+                                </xsl:if>
+                            </pfx3:Header>
+                        </xsl:for-each>
+                        <ExceptionCode>
+                            <xsl:value-of select="ExceptionCode"/>
+                        </ExceptionCode>
+                        <xsl:if test="StackTrace">
+                            <StackTrace>
+                                <xsl:value-of select="StackTrace"/>
+                            </StackTrace>
+                        </xsl:if>
+                        <Custom>
+                            <xsl:value-of select="&quot;Soap&quot;"/>
+                        </Custom>
+                        <xsl:if test="Timeout">
+                            <Timeout>
+                                <xsl:value-of select="Timeout"/>
+                            </Timeout>
+                        </xsl:if>
+                        <xsl:if test="ReplyDestination">
+                            <ReplyDestination>
+                                <xsl:value-of select="ReplyDestination"/>
+                            </ReplyDestination>
+                        </xsl:if>
+                        <xsl:if test="NotificationChannel">
+                            <NotificationChannel>
+                                <xsl:value-of select="NotificationChannel"/>
+                            </NotificationChannel>
+                        </xsl:if>
+                    </ns3:ExceptionRequest>
+                </xsl:for-each>
+            </inputMessage>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch Soap Fault">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>505</pd:x>
+        <pd:y>273</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=Error</fault>
+            <catchAll>false</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Seed Exception data</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Seed Exception data</pd:from>
+        <pd:to>JMS Queue Sender</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Seed Exception data</pd:from>
+        <pd:to>SOAPRequestReply</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>JMS Queue Sender</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SOAPRequestReply</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch Soap Fault</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

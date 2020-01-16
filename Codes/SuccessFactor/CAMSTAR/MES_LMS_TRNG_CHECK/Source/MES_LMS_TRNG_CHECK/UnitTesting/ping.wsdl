@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by TIBCO WSDL-->
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.zimmer.com/MES_LMS_TRNG_CHECK/wsdl/CurriculumStatusCheck/getCurriculumStatusImpl/Processes" xmlns:ns0="http://www.zimmer.com/MES_LMS_TRNG_CHECK/Schemas/CurriculumStatusCheck" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="Untitled" targetNamespace="http://www.zimmer.com/MES_LMS_TRNG_CHECK/wsdl/CurriculumStatusCheck/getCurriculumStatusImpl/Processes">
+    <wsdl:types>
+        <xs:schema xmlns="http://www.zimmer.com/MES_LMS_TRNG_CHECK/Schemas/CurriculumStatusCheck" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.zimmer.com/MES_LMS_TRNG_CHECK/Schemas/CurriculumStatusCheck" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xs:element name="CurriculumID" type="xs:string"/>
+            <xs:element name="CurriculumStatus" type="xs:string"/>
+            <xs:element name="CurriculumStatusCheck">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="ns0:Input"/>
+                        <xs:element ref="ns0:output"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ExpirationGMT" type="xs:dateTime"/>
+            <xs:element name="Input">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="ns0:UserID"/>
+                        <xs:element ref="ns0:CurriculumID"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="USERID" type="xs:string"/>
+            <xs:element name="UserID" type="xs:string"/>
+            <xs:element name="intResponseCode" type="xs:int"/>
+            <xs:element name="intResponseMessage" type="xs:string"/>
+            <xs:element name="output">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="ns0:USERID" minOccurs="0"/>
+                        <xs:element ref="ns0:CurriculumID" minOccurs="0"/>
+                        <xs:element ref="ns0:CurriculumStatus" minOccurs="0"/>
+                        <xs:element ref="ns0:ExpirationGMT" minOccurs="0"/>
+                        <xs:element ref="ns0:intResponseCode" minOccurs="0"/>
+                        <xs:element ref="ns0:intResponseMessage" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:service name="PingTest">
+        <wsdl:port name="SOAPEventSource" binding="tns:SOAPEventSourceBinding">
+            <soap:address location="http://localhost:9016/Processes/PingTest"/>
+        </wsdl:port>
+    </wsdl:service>
+    <wsdl:portType name="CurriculumStatusCheck">
+        <wsdl:operation name="getCurriculumStatus">
+            <wsdl:input message="tns:Input"/>
+            <wsdl:output message="tns:Output"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="SOAPEventSourceBinding" type="tns:CurriculumStatusCheck">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="getCurriculumStatus">
+            <soap:operation style="document" soapAction="/Processes/PingTest"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="Request"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="Response"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:message name="Input">
+        <wsdl:part name="Request" element="ns0:Input"/>
+    </wsdl:message>
+    <wsdl:message name="Output">
+        <wsdl:part name="Response" element="ns0:output"/>
+    </wsdl:message>
+</wsdl:definitions>

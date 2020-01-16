@@ -1,0 +1,41 @@
+<serialization xmlns="urn:tibco.com/v3.0" jsxversion="3.9">
+  <name><![CDATA[layout_gui.xml]]></name>
+  <icon/>
+  <description/>
+  <onBeforeDeserialize/>
+  <onAfterDeserialize><![CDATA[var bannerSrcURI = objJSX.getServer().resolveURI("images/banner_bg.jpg");paneTop.setBackground("background-image:url(" + bannerSrcURI + ");background-repeat:no-repeat;background-position:right center;");
+  ]]></onAfterDeserialize>
+  <object type="jsx3.gui.Block">
+    <variants jsxoverflow="3" jsxrelativeposition="0"/>
+    <strings jsxname="appBlock" jsxwidth="100%" jsxheight="100%" jsxdisplay=""/>
+    <dynamics jsxbgcolor="@Solid Light"/>
+    <object type="jsx3.gui.LayoutGrid">
+      <variants jsxrepeat="3" jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2" jsxbestguess="1" jsxorientation="0"/>
+      <strings jsxname="appLayout" jsxwidth="100%" jsxheight="100%" jsxrows="60,*,17" jsxbgcolor=""/>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="3" jsxrelativeposition="0" jsxfontsize="14"/>
+        <strings jsxname="paneTop" jsxwidth="100%" jsxtext="" jsxborder="1px solid #d8d8e5;1px solid #9898a5;2px solid #808080;1px solid #d8d8e5" jsxdisplay="" jsxheight="100%"/>
+        <dynamics jsxpadding="@8Pixel" jsxbgcolor="bannerBackground" />
+        <object type="jsx3.gui.Image">
+          <variants jsxoverflow="2" jsxrelativeposition="0" jsxleft="2" jsxtop="1" jsxwidth="126" jsxheight="56"/>
+          <strings jsxname="bannerImage" jsxsrc="images/tibcobluelogo.jpg" jsxdisplay=""/>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants jsxrelativeposition="0" jsxoverflow="3" jsxwidth="580" jsxheight="40" jsxfontsize="24" jsxleft="130" jsxtop="8"/>
+          <strings jsxname="Title" jsxfontweight="normal" jsxcolor="white" jsxdisplay="" jsxstyleoverride="" jsxbgcolor="" jsxtextalign="left"/>
+          <dynamics jsxtext="m_bannerTitle"/>
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="2"/>
+        <strings jsxname="paneMiddleMain" jsxwidth="100%" jsxborder="0px solid;1px solid #9898a5;0px solid;0px solid"/>
+        <dynamics jsxbgcolor="@Solid Light"/>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="2" jsxfontsize="8"/>
+        <strings jsxname="paneBottom" jsxborder="1px solid #808080;1px solid #9898a5;1px solid #808080;1px solid #d8d8e5" jsxwidth="100%" jsxheight="100%" jsxfontweight="bold" jsxtextalign="left" jsxcolor="white" jsxfontname="Arial" jsxpadding="2 2 2 2"/>
+        <dynamics jsxbgcolor="windowbarBackground" jsxtext="m_copyright"/>
+      </object>
+    </object>
+  </object>
+</serialization>

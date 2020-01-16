@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Repository:repository xmlns:Repository="http://www.tibco.com/xmlns/repo/types/2002">
+    <enterpriseArchive>
+        <sharedArchive name="Shared Archive">
+            <resourceType>shared.archive.resource</resourceType>
+            <authorProperty>gangwars</authorProperty>
+        </sharedArchive>
+        <processArchive name="Slack_Text_Utility">
+            <resourceType>process.archive.resource</resourceType>
+            <authorProperty>gangwars</authorProperty>
+            <processProperty>/Services/Slack_Text_Utility/Processes/OnStartupLoad-PropertyFile.process,/Services/Slack_Text_Utility/Processes/Common-Notification-Sender.process,/CLE/Interface/Loader/InitializeLogLevel.process</processProperty>
+        </processArchive>
+        <processArchive name="Restart_ReceiveEmailProcess">
+            <resourceType>process.archive.resource</resourceType>
+            <authorProperty>gangwars</authorProperty>
+            <processProperty>/Services/Slack_Text_Utility/Processes/Restart_ReceiveEmailProcess.process,/CLE/Interface/Loader/InitializeLogLevel.process</processProperty>
+        </processArchive>
+        <versionProperty>1.0.0</versionProperty>
+        <authorProperty>gangwars</authorProperty>
+        <addServiceSettableGvars>true</addServiceSettableGvars>
+        <name>Slack_Text_Utility</name>
+        <designer>
+            <lockedProperties/>
+            <fixedChildren/>
+            <resourceDescriptions/>
+        </designer>
+        <fileLocationProperty>C:\Development\EAR\Slack_Text_Utility.ear</fileLocationProperty>
+    </enterpriseArchive>
+</Repository:repository>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:ns="http://xmlns.example.com/unique/default/namespace/1163206731086" xmlns:pfx0="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogDetailQuery" xmlns:pfx1="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogDetail" xmlns:ns9="http://www.tibco.com/CommonLE2/namespace/Public/CLEExtension/LogLevelResponse.xsd" xmlns:ns5="http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common" xmlns:ns6="http://www.tibco.com/schemas/COMMONLENEW/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Common/ListQuery.xsd" xmlns:ns7="http://www.tibco.com/CommonLE2011/namespace/Public/CLEExtension/LogLevelReply.xsd" xmlns:ns8="http://www.tibco.com/CommonLE2/namespace/Public/CLEExtension/LogLevelRequest.xsd" xmlns:ns2="http://www.tibco.com/CommonLE2/Public/Common" xmlns:ns4="http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/'GUI/Common" xmlns:ns3="http://www.tibco.com/CommonLE2/namespace/Public/Common/IDQuery" xmlns:tns="http://www.tibco.com/CommonLE2/namespace/Logging/LogLevel/GUIServices" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx4="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogList" xmlns:pfx3="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogListQuery" xmlns:pfx2="http://www.tibco.com/CommonLE2/namespace/private/Common" targetNamespace="http://www.tibco.com/CommonLE2/namespace/Logging/LogLevel/GUIServices">
+    <import location="../../../SchemaDefinitions/Public/Pluggable/GUI/Log/LogListQuery.xsd" namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogListQuery"/>
+    <import location="../../../SchemaDefinitions/Private/Common/LocalExceptions.xsd" namespace="http://www.tibco.com/CommonLE2/namespace/private/Common"/>
+    <import location="../../../SchemaDefinitions/Public/Pluggable/GUI/Log/LogDetail.xsd" namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogDetail"/>
+    <import location="../../../SchemaDefinitions/Public/Pluggable/GUI/Log/LogList.xsd" namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogList"/>
+    <import location="../../../SchemaDefinitions/Public/Common/ErrorMessage.xsd" namespace="http://www.tibco.com/CommonLE2/Public/Common"/>
+    <import location="../../../SchemaDefinitions/Public/Pluggable/GUI/Log/LogDetailQuery.xsd" namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogDetailQuery"/>
+    <import location="../../../SchemaDefinitions/Public/Pluggable/GUI/Common/IDQuery.xsd" namespace="http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common"/>
+    <import location="../../../SchemaDefinitions/Public/Pluggable/GUI/Common/ListQuery.xsd" namespace="http://www.tibco.com/schemas/COMMONLENEW/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Common/ListQuery.xsd"/>
+    <import location="../../../SchemaDefinitions/Public/Logging/LogLevelResponse.xsd" namespace="http://www.tibco.com/CommonLE2/namespace/Public/CLEExtension/LogLevelResponse.xsd"/>
+    <import location="../../../SchemaDefinitions/Public/Logging/LogLevelRequest.xsd" namespace="http://www.tibco.com/CommonLE2/namespace/Public/CLEExtension/LogLevelRequest.xsd"/>
+    <message name="Error">
+        <part element="ns2:Error" name="parameters"/>
+    </message>
+    <message name="Dummy"/>
+    <message name="GetLogLevelRequest">
+        <part element="ns8:GetLogLevelRequest" name="parameters"/>
+    </message>
+    <message name="GetLogLevelResponse">
+        <part element="ns9:GetLogLevelResponse" name="parameters"/>
+    </message>
+    <message name="SetLogLevelRequest">
+        <part element="ns8:SetLogLevelRequest" name="parameters"/>
+    </message>
+    <portType name="portType">
+        <operation name="GetLogLevelOp">
+            <input message="tns:GetLogLevelRequest"/>
+            <output message="tns:GetLogLevelResponse"/>
+            <fault message="tns:Error" name="fault1"/>
+        </operation>
+        <operation name="SetLogLevelOp">
+            <input message="tns:SetLogLevelRequest"/>
+            <output message="tns:Dummy"/>
+            <fault message="tns:Error" name="fault1"/>
+        </operation>
+    </portType>
+</definitions>

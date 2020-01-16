@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:pfx5="http://www.zimmer.com/InvAdjustmentReqWSDL" xmlns:pfx4="http://www.zimmer.com/InventoryService" xmlns:pfx3="http://www.zimmer.com/InvPositionWSDL" xmlns:pfx2="http://www.zimmer.com/tibco/services/ZBS/WSDL/PACIFIC/v1.0/CBE.wsdl" xmlns:pfx9="http://www.zimmerbiomet.com/MES_LMS_TRNG_CHECK/wsdl/CurriculumStatusCheck" xmlns:pfx8="http://www.zimmer.com/MES_LMS_TRNG_CHECK/wsdl/CurriculumStatusCheck/getCurriculumStatusImpl/Processes" xmlns:pfx7="http://www.zimmer.com/MES_LMS_TRNG_CHECK/wsdl/CurriculumStatusCheck" xmlns:pfx="http://www.zimmer.com/TibcoDentaleComWSDL" xmlns:pfx6="http://www.zimmer.com/Material_Check_Services/wsdl/MaterialLot">
+    <wsdl:import namespace="http://www.zimmer.com/TibcoDentaleComWSDL" location="/SharedResources/WSDL/PricingInventoryWSDL.wsdl"/>
+    <wsdl:import namespace="http://www.zimmer.com/InvPositionWSDL" location="/SharedResources/WSDL/InvPositionWSDL.wsdl"/>
+    <wsdl:import namespace="http://www.zimmer.com/InventoryService" location="/SharedResources/WSDL/InventoryService.wsdl"/>
+    <wsdl:import namespace="http://www.zimmer.com/MES_LMS_TRNG_CHECK/wsdl/CurriculumStatusCheck/getCurriculumStatusImpl/Processes" location="/UnitTesting/ping.wsdl"/>
+    <wsdl:import namespace="http://www.zimmerbiomet.com/MES_LMS_TRNG_CHECK/wsdl/CurriculumStatusCheck" location="/SharedResources/WSDLs/CurriculumStatusCheck.wsdl"/>
+    <pd:name>Processes/PingTest.process</pd:name>
+    <pd:startName>SOAPEventSource</pd:startName>
+    <pd:startX>0</pd:startX>
+    <pd:startY>0</pd:startY>
+    <pd:returnBindings/>
+    <pd:starter name="SOAPEventSource">
+        <pd:type>com.tibco.plugin.soap.SOAPEventSource</pd:type>
+        <pd:resourceType>ae.activities.SOAPEventSourceUI</pd:resourceType>
+        <pd:x>183</pd:x>
+        <pd:y>74</pd:y>
+        <config>
+            <service>pfx9:CurriculumStatusCheck</service>
+            <wsdlNamespaceRoot>http://www.zimmerbiomet.com/MES_LMS_TRNG_CHECK/wsdl/CurriculumStatusCheck/getCurriculumStatusImpl</wsdlNamespaceRoot>
+            <operation>getCurriculumStatus</operation>
+            <portAddressPrefix/>
+            <operationStyle>document</operationStyle>
+            <soapUse>literal</soapUse>
+            <embedWsdlComponents>true</embedWsdlComponents>
+            <embedSchemaComponents>true</embedSchemaComponents>
+            <soapAction>/Processes/PingTest</soapAction>
+            <soapAttachmentStyle>SwA</soapAttachmentStyle>
+            <sharedChannel>/SharedResources/HTTP/HTTP_Ping.sharedhttp</sharedChannel>
+            <soapVersion>SOAP 1.1</soapVersion>
+            <inputAttachmentBindings/>
+            <outputAttachmentBindings/>
+        </config>
+        <pd:inputBindings/>
+    </pd:starter>
+    <pd:endName>End</pd:endName>
+    <pd:endX>360</pd:endX>
+    <pd:endY>76</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1398276250462</pd:targetNamespace>
+    <pd:transition>
+        <pd:from>SOAPEventSource</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

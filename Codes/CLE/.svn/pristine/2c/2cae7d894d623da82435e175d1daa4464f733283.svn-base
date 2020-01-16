@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns1="http://www.tibco.com/pe/EngineTypes" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx2="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:pfx="http://www.tibco.com/CommonLE2/namespace/private/Common">
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/private/Common" schemaLocation="/SharedResources/SchemaDefinitions/Private/Common/Rendering.xsd"/>
+    <pd:name>Common/Logic/TransformToRenderableHTML.process</pd:name>
+    <pd:description>Transform the incoming XML document (transaction data) into HTML document based on
+a XSLT stylesheet and a Css sytelsheet. When there is transformation error, an error message is inserted into 
+the original message to indicate there was transformation error. </pd:description>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="InputParam">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx:RenderingImp"/>
+                    <xsd:element name="xmlString" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>27</pd:startX>
+    <pd:startY>61</pd:startY>
+    <pd:returnBindings>
+        <HTMLString>
+            <xsl:value-of select="$HTMLStringVar/HTMLString"/>
+        </HTMLString>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="HTMLString" type="xsd:string"/>
+    </pd:endType>
+    <pd:endX>375</pd:endX>
+    <pd:endY>60</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables>
+        <HTMLStringVar>
+            <xsd:element name="HTMLString" type="xsd:string"/>
+        </HTMLStringVar>
+    </pd:processVariables>
+    <pd:targetNamespace>http://xmlns.example.com/1287552395980</pd:targetNamespace>
+    <pd:activity name="Transform XML">
+        <pd:type>com.tibco.plugin.xml.XMLTransformActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLTransformActivity</pd:resourceType>
+        <pd:x>134</pd:x>
+        <pd:y>181</pd:y>
+        <config>
+            <inputStyle>text</inputStyle>
+        </config>
+        <pd:inputBindings>
+            <textInput>
+                <xmlString>
+                    <xsl:value-of select="$Start/InputParam/xmlString"/>
+                </xmlString>
+                <stylesheet>
+                    <xsl:value-of select="$Start/InputParam/pfx:RenderingImp/pfx:XSLTSyleSheet"/>
+                </stylesheet>
+            </textInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Initailize htmlVar">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>132</pd:x>
+        <pd:y>61</pd:y>
+        <config>
+            <variableName>HTMLStringVar</variableName>
+        </config>
+        <pd:inputBindings>
+            <HTMLString>
+                <xsl:value-of select="&quot;&quot;"/>
+            </HTMLString>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Assign HTML String">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>375</pd:x>
+        <pd:y>180</pd:y>
+        <config>
+            <variableName>HTMLStringVar</variableName>
+        </config>
+        <pd:inputBindings>
+            <xsl:choose>
+                <xsl:when test="(string-length($Start/InputParam/pfx:RenderingImp/pfx:Css) = 0) or ($Start/InputParam/pfx:RenderingImp/pfx:Css = &quot;None&quot;)">
+                    <HTMLString>
+                        <xsl:value-of select="$Transform-XML/xmlString"/>
+                    </HTMLString>
+                </xsl:when>
+                <xsl:when test="contains($Transform-XML/xmlString, $_globalVariables/ns:GlobalVariables/Rendering/HTMLHead)">
+                    <HTMLString>
+                        <xsl:value-of select="concat(&#xA;substring-before($Transform-XML/xmlString, $_globalVariables/ns:GlobalVariables/Rendering/HTMLHead),&#xA;$_globalVariables/ns:GlobalVariables/Rendering/HTMLHead, &#xA;$Start/InputParam/pfx:RenderingImp/pfx:Css, &#xA;substring-after($Transform-XML/xmlString, $_globalVariables/ns:GlobalVariables/Rendering/HTMLHead)&#xA;)"/>
+                    </HTMLString>
+                </xsl:when>
+                <xsl:otherwise>
+                    <HTMLString>
+                        <xsl:value-of select="concat(&#xA;substring-before($Transform-XML/xmlString, $_globalVariables/ns:GlobalVariables/Rendering/HTMLBody),&#xA;$_globalVariables/ns:GlobalVariables/Rendering/HTMLHead, &quot;  &quot;, &#xA;$Start/InputParam/pfx:RenderingImp/pfx:Css, &quot; &quot;, &#xA;$_globalVariables/ns:GlobalVariables/Rendering/HTMLHeadClose,&#xA;$_globalVariables/ns:GlobalVariables/Rendering/HTMLBody,&#xA;substring-after($Transform-XML/xmlString, $_globalVariables/ns:GlobalVariables/Rendering/HTMLBody)&#xA;)"/>
+                    </HTMLString>
+                </xsl:otherwise>
+            </xsl:choose>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch Transformation Error">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>518</pd:x>
+        <pd:y>179</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Assign HTMLString">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:description>when there is a transformation error, add a warnning message on top of the original message</pd:description>
+        <pd:x>517</pd:x>
+        <pd:y>58</pd:y>
+        <config>
+            <variableName>HTMLStringVar</variableName>
+        </config>
+        <pd:inputBindings>
+            <HTMLString>
+                <xsl:value-of select="concat(&quot;[&quot;,  $_globalVariables/ns:GlobalVariables/Exceptions/Common/Codes/RenderingXSLTError, &quot;] &quot;, &#xA;$_globalVariables/ns:GlobalVariables/Exceptions/Common/Messages/RenderingXSLTError, &quot;&#xD;&#xA;&quot;, &#xA;$Start/InputParam/xmlString)"/>
+            </HTMLString>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Transform XML</pd:from>
+        <pd:to>Assign HTML String</pd:to>
+        <pd:xpathDescription/>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Initailize htmlVar</pd:to>
+        <pd:xpathDescription/>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Initailize htmlVar</pd:from>
+        <pd:to>Transform XML</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign HTML String</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Initailize htmlVar</pd:from>
+        <pd:to>End</pd:to>
+        <pd:xpathDescription>Empty XMLString</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>(string-length($Start/InputParam/xmlString) =0) or ($Start/InputParam/xmlString = "None") or ($Start/InputParam/xmlString = " ")</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch Transformation Error</pd:from>
+        <pd:to>Assign HTMLString</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign HTMLString</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

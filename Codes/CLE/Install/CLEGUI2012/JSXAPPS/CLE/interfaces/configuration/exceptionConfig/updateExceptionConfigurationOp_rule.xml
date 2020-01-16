@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2001-2011, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot" jsxnamespace="jsx3.ide.mapper.Mapper" jsxversion="1.0">
+	<record jsxid="x79309" jsxtext="WSDL (xml/WSDL/ExceptionConfiguration_wsdl.xml)" jsxopen="1" src="xml/WSDL/ExceptionConfiguration_wsdl.xml" type="W" path="/jsx1:definitions">
+		<record jsxid="x37690" jsxtext="Service (http://localhost:9950/Adm...istEndpoint0)" jsxopen="1" path="/jsx1:definitions/jsx1:service/jsx1:port/jsx4:address" type="S" soapstyle="document">
+			<record jsxid="x43855" jsxtext="UpdateExceptionConfigurationOp" jsxopen="1" opname="UpdateExceptionConfigurationOp" endpoint="http://localhost:9950/Administration/GUIServices/ExceptionConfigurationServices/intfExceptionConfiguration-service.serviceagent/intfwsRetrieveSpecificExceptionConfigurationListEndpoint0" method="POST" type="P" path="/jsx1:definitions/jsx1:binding/jsx1:operation[2]">
+				<headers jsxid="x33103">
+					<record jsxid="x4485" name="SOAPAction" value="/Administration/GUIServices/ExceptionConfigurationServices/intfRetrieveSpecificExceptionConfigurationList-service.serviceagent/intfwsRetrieveSpecificExceptionConfigurationListEndpoint0/UpdateExceptionConfigurationOp"/>
+					<record jsxid="x46630" name="Content-Type" value="text/xml"/>
+				</headers>
+				<record jsxid="x4812" jsxtext="Input (request)" type="I" stubsrc="jsx://xml/stubs/soap.xml" stubpath="/SOAP-ENV:Envelope/SOAP-ENV:Body" soapuse="literal" path="/jsx1:definitions/jsx1:message[4]" jsxopen="1">
+					<record jsxid="x65397" jsxtext="ExceptionConfigs" jsxopen="1" type="C" path="//jsx3:schema[@targetNamespace='http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig']//jsx3:element[@name='ExceptionConfigs']" datatype="" tns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig">
+						<record jsxid="x62021" jsxtext="ExceptionConfig" jsxopen="1" type="C" path="//jsx3:schema[@targetNamespace='http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig']//jsx3:element[@name='ExceptionConfig']" datatype="" ref="1" tns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig">
+							<restrictions jsxid="x76970">
+								<record jsxid="x97467" name="maxoccur" value="unbounded"/>
+								<record jsxid="x13496" name="minoccur" value="0"/>
+							</restrictions>
+							<record jsxid="x60970" jsxtext="ApplicationID" jsxopen="1" type="E" path="//jsx3:schema[@targetNamespace='http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig']//jsx3:element[@name='ApplicationID']" datatype="string" simple="1" tns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig" jsxSelectMask="Script">
+								<mappings jsxid="x50804">
+									<record jsxid="jsx_5" name="Script" value="setValue(this.data[MESSAGENODE.getBaseName()]);"/>
+								</mappings>
+							</record>
+							<record jsxid="x27610" jsxtext="ExceptionCode" jsxopen="1" type="E" path="//jsx3:schema[@targetNamespace='http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig']//jsx3:element[@name='ExceptionCode']" datatype="string" simple="1" tns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig" jsxSelectMask="Script">
+								<mappings jsxid="x31388">
+									<record jsxid="jsx_6" name="Script" value="setValue(this.data[MESSAGENODE.getBaseName()]);"/>
+								</mappings>
+							</record>
+							<record jsxid="x88128" jsxtext="CategoryID" jsxopen="1" type="E" path="//jsx3:schema[@targetNamespace='http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig']//jsx3:element[@name='CategoryID']" datatype="integer" simple="1" tns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig" jsxSelectMask="Script">
+								<mappings jsxid="x526">
+									<record jsxid="jsx_7" name="Script" value="setValue(this.data[MESSAGENODE.getBaseName()]);"/>
+								</mappings>
+							</record>
+							<record jsxid="x47429" jsxtext="TypeID" jsxopen="1" type="E" path="//jsx3:schema[@targetNamespace='http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig']//jsx3:element[@name='TypeID']" datatype="integer" simple="1" tns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig" jsxSelectMask="Script">
+								<mappings jsxid="x24400">
+									<record jsxid="jsx_8" name="Script" value="setValue(this.data[MESSAGENODE.getBaseName()]);"/>
+								</mappings>
+							</record>
+							<record jsxid="x69959" jsxtext="SeverityID" jsxopen="1" type="E" path="//jsx3:schema[@targetNamespace='http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig']//jsx3:element[@name='SeverityID']" datatype="integer" simple="1" tns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig" jsxSelectMask="Script">
+								<mappings jsxid="x38918">
+									<record jsxid="jsx_9" name="Script" value="setValue(this.data[MESSAGENODE.getBaseName()]);"/>
+								</mappings>
+							</record>
+							<record jsxid="x67126" jsxtext="ProcedureID" jsxopen="1" type="E" path="//jsx3:schema[@targetNamespace='http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig']//jsx3:element[@name='ProcedureID']" datatype="integer" simple="1" tns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig" jsxSelectMask="Script">
+								<restrictions jsxid="x61471">
+									<record jsxid="x29159" name="minoccur" value="0"/>
+								</restrictions>
+								<mappings jsxid="x58392">
+									<record jsxid="jsx_a" name="Script" value="var o=this.getServer().getJSXByName('tb_ProcedureID');if (!jsx3.util.strEmpty(o.getValue())) MESSAGENODE.setValue(o.getValue());" />
+								</mappings>
+							</record>
+							<record jsxid="x24216" jsxtext="Description" jsxopen="1" type="E" path="//jsx3:schema[@targetNamespace='http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig']//jsx3:element[@name='Description']" datatype="string" simple="1" tns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig" jsxSelectMask="Script">
+								<mappings jsxid="x77814">
+									<record jsxid="jsx_b" name="Script" value="setValue(this.data[MESSAGENODE.getBaseName()]);"/>
+								</mappings>
+							</record>
+							<record jsxid="x27533" jsxtext="ReplyDestination" jsxopen="1" type="E" path="//jsx3:schema[@targetNamespace='http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig']//jsx3:element[@name='ReplyDestination']" datatype="string" simple="1" tns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig" jsxSelectMask="Script">
+								<restrictions jsxid="x53559">
+									<record jsxid="x46662" name="minoccur" value="0"/>
+								</restrictions>
+								<mappings jsxid="x10139">
+									<record jsxid="jsx_c" name="Script" value="setValue(this.data[MESSAGENODE.getBaseName()]);"/>
+								</mappings>
+							</record>
+							<record jsxid="x43755" jsxtext="RoleName" jsxopen="1" type="E" path="//jsx3:schema[@targetNamespace='http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig']//jsx3:element[@name='RoleName']" datatype="string" simple="1" tns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig" jsxSelectMask="Script">
+								<restrictions jsxid="x62567">
+									<record jsxid="x54155" name="minoccur" value="0"/>
+								</restrictions>
+								<mappings jsxid="x11939">
+									<record jsxid="jsx_d" name="Script" value="setValue(this.data[MESSAGENODE.getBaseName()]);"/>
+								</mappings>
+							</record>
+							<record jsxid="x99608" jsxtext="NotificationChnl" jsxopen="1" type="E" path="//jsx3:schema[@targetNamespace='http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig']//jsx3:element[@name='NotificationChnl']" datatype="string" simple="1" tns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig" jsxSelectMask="Script">
+								<restrictions jsxid="x22171">
+									<record jsxid="x31024" name="minoccur" value="0"/>
+								</restrictions>
+								<mappings jsxid="x57656">
+									<record jsxid="jsx_e" name="Script" value="setValue(this.data[MESSAGENODE.getBaseName()]);"/>
+								</mappings>
+							</record>
+							<record jsxid="x2451" jsxtext="EmailTo" jsxopen="1" type="E" path="//jsx3:schema[@targetNamespace='http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig']//jsx3:element[@name='EmailTo']" datatype="string" simple="1" tns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig" jsxSelectMask="Script">
+								<restrictions jsxid="x76682">
+									<record jsxid="x93938" name="minoccur" value="0"/>
+								</restrictions>
+								<mappings jsxid="x8146">
+									<record jsxid="jsx_f" name="Script" value="setValue(this.data[MESSAGENODE.getBaseName()]);"/>
+								</mappings>
+							</record>
+							<record jsxid="x18765" jsxtext="EmailCC" jsxopen="1" type="E" path="//jsx3:schema[@targetNamespace='http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig']//jsx3:element[@name='EmailCC']" datatype="string" simple="1" tns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig" jsxSelectMask="Script">
+								<restrictions jsxid="x70707">
+									<record jsxid="x46875" name="minoccur" value="0"/>
+								</restrictions>
+								<mappings jsxid="x75570">
+									<record jsxid="jsx_g" name="Script" value="setValue(this.data[MESSAGENODE.getBaseName()]);"/>
+								</mappings>
+							</record>
+							<record jsxid="x33768" jsxtext="Exceptionttl" jsxopen="1" type="E" path="//jsx3:schema[@targetNamespace='http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig']//jsx3:element[@name='Exceptionttl']" datatype="string" simple="1" tns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig" jsxSelectMask="Script">
+								<restrictions jsxid="x93402">
+									<record jsxid="x1061" name="minoccur" value="0"/>
+								</restrictions>
+								<mappings jsxid="x73136">
+									<record jsxid="jsx_h" name="Script" value="setValue(this.data[MESSAGENODE.getBaseName()]);"/>
+								</mappings>
+							</record>
+							<record jsxid="x2349" jsxtext="Instruction" jsxopen="1" type="E" path="//jsx3:schema[@targetNamespace='http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig']//jsx3:element[@name='Instruction']" datatype="string" simple="1" tns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig" jsxSelectMask="Script">
+								<restrictions jsxid="x4848">
+									<record jsxid="x28507" name="minoccur" value="0"/>
+								</restrictions>
+								<mappings jsxid="x64605">
+									<record jsxid="jsx_i" name="Script" value="setValue(this.data[MESSAGENODE.getBaseName()]);"/>
+								</mappings>
+							</record>
+							<record jsxid="x49457" jsxtext="EventType" jsxopen="1" type="E" path="//jsx3:schema[@targetNamespace='http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig']//jsx3:element[@name='EventType']" datatype="string" simple="1" tns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig" jsxSelectMask="Script">
+								<restrictions jsxid="x16346">
+									<record jsxid="x29132" name="minoccur" value="0"/>
+								</restrictions>
+								<mappings jsxid="x75247">
+									<record jsxid="jsx_j" name="Script" value="setValue(this.data[MESSAGENODE.getBaseName()]);"/>
+								</mappings>
+							</record>
+							<record jsxid="x729" jsxtext="ResolveDelayInterval" jsxopen="1" type="E" path="//jsx3:schema[@targetNamespace='http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig']//jsx3:element[@name='ResolveDelayInterval']" datatype="integer" simple="1" tns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig" jsxselected="1" jsxSelectMask="Script">
+								<restrictions jsxid="x23614">
+									<record jsxid="x85219" name="minoccur" value="0"/>
+								</restrictions>
+								<mappings jsxid="x36345">
+									<record jsxid="jsx_k" name="Script" value="setValue(this.data[MESSAGENODE.getBaseName()]);"/>
+								</mappings>
+							</record>
+						</record>
+					</record>
+				</record>
+				<record jsxid="x99563" jsxtext="Output (response)" type="O" soapuse="literal" path="/jsx1:definitions/jsx1:message[5]"/>
+				<record jsxid="x49230" jsxtext="Fault (response variant)" type="F" path="/jsx1:definitions/jsx1:message[3]">
+					<record jsxid="x5658" jsxtext="Error" jsxopen="1" type="C" path="//jsx3:schema[@targetNamespace='http://www.tibco.com/CommonLE2/Public/Common']//jsx3:element[@name='Error']" datatype="" tns="http://www.tibco.com/CommonLE2/Public/Common"/>
+				</record>
+			</record>
+		</record>
+	</record>
+</data>

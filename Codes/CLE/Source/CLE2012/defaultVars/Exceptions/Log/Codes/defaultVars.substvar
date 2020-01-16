@@ -1,0 +1,29 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>LogDetailRecNotFound</name>
+			<value>LOG-02</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874577367</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>LogListRecNotFound</name>
+			<value>LOG-01</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874573320</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>RecordNotFound</name>
+			<value>LogExp-01</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1322874571980</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

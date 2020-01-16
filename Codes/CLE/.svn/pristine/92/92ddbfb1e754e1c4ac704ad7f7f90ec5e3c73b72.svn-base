@@ -1,0 +1,16 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<exception:ExceptionRequest xmlns:exception = "http://www.tibco.com/CommonLE2/namespace/Public/Exception" xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation = "http://www.tibco.com/CommonLE2/namespace/Public/Exception ../SchemaDefinitions/Public/Exception/ExceptionRequest.xsd">
+	<Common:Header xmlns:Common = "http://www.tibco.com/CommonLE2/namespace/Common">
+		<Common:ApplicationID>12345</Common:ApplicationID>
+		<Common:ComponentName>BW</Common:ComponentName>
+		<Common:Hostname>LOCALHOST</Common:Hostname>
+		<Common:Timestamp>2007-04-13</Common:Timestamp>
+		<Common:TransactionDomain>Business</Common:TransactionDomain>
+		<Common:TransactionType>Blah Blah Blah</Common:TransactionType>
+		<Common:TransactionID>2</Common:TransactionID>
+	</Common:Header>
+	<ExceptionCode>1234</ExceptionCode>
+	<Message>Testing</Message>
+	<TransactionData>Bloo Blerrrrr</TransactionData>
+	<DumpAnalysis>None</DumpAnalysis>
+</exception:ExceptionRequest>

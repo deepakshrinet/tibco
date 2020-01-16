@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Exception/ExceptionList"
+	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	 targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Exception/ExceptionList"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xsd:element name="ExceptionRecord">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="EXCEPTIONID" type="xsd:int"/>
+				<xsd:element name="APPLICATIONID" type="xsd:string"/>
+				<xsd:element name="CORRELATIONID" type="xsd:string"/>
+				<xsd:element name="TRANSID" type="xsd:string"/>
+				<xsd:element name="CATEGORY" type="xsd:string"/>
+				<xsd:element name="TYPE" type="xsd:string"/>
+				<xsd:element name="SEVERITY" type="xsd:string"/>
+				<xsd:element name="COMPONENTNAME" type="xsd:string"/>
+				<xsd:element name="TRANSACTIONDOMAIN" type="xsd:string"/>
+				<xsd:element name="TIME_STAMP" type="xsd:string"/>
+				<xsd:element name="MESSAGE" type="xsd:string"/>
+				<xsd:element name="STATUS" type="xsd:string"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ExceptionList">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="ExceptionRecord" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

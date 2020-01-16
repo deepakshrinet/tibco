@@ -1,0 +1,42 @@
+<data jsxid="jsxroot">
+	<record jsxid="Applications" jsxtext="Applications" jsxcategory="1" jsxopen="1" uneditable="1">
+		<record jsxid="AllApps" jsxtext="{exception_allApps}" jsxvalue="0" maskName="allAppsMask" dataType="Checkbox"/>
+	</record>
+	<record jsxid="criteria" jsxtext="{exception_criteria}" jsxopen="1" jsxcategory="1" uneditable="1">
+		<record jsxid="OrderBy" jsxtext="{exception_orderBy}" jsxvalue="Time_Stamp" maskName="selectMask" type="param">
+			<enum jsxid="Time_Stamp" jsxtext="{exception_time_stamp}"/>
+			<enum jsxid="TransactionDomain" jsxtext="{exception_attrTransactionDomain}"/>
+			<enum jsxid="ComponentName" jsxtext="{exception_attrComponentName}"/>
+			<enum jsxid="Status" jsxtext="{exception_attrStatus}"/>
+			<enum jsxid="TransactionType" jsxtext="{exception_attrTransactionType}"/>
+			<enum jsxid="TransactionID" jsxtext="{exception_attrTransactionID}"/>
+			<enum jsxid="CorrelationID" jsxtext="{exception_attrCorrelationID}"/>
+			<enum jsxid="FileName" jsxtext="{exception_attrFilename}"/>
+		</record>
+		<record jsxid="componentName" id="ComponentName" maskName="textboxMask" jsxtext="{exception_attrComponentName}" jsxvalue="" type="criteria"/>
+		<record jsxid="transactionDomain" id="TransactionDomain" maskName="textboxMask" jsxtext="{exception_attrTransactionDomain}" jsxvalue="" type="criteria"/>
+		<record jsxid="fileName" id="FileName" jsxtext="{exception_attrFilename}" maskName="textboxMask" jsxvalue="" type="criteria"/>
+		<record jsxid="transactionType" id="TransactionType" maskName="textboxMask" jsxtext="{exception_attrTransactionType}" jsxvalue="" type="criteria"/>
+		<record jsxid="transactionID" id="TransactionID" maskName="textboxMask" jsxtext="{exception_attrTransactionID}" jsxvalue="" type="criteria"/>
+		<record jsxid="status" id="Status" maskName="selectMask" jsxtext="{exception_attrStatus}" jsxvalue="" type="criteria">
+			<enum jsxid="Resolved" jsxtext="{exception_statusResolved}"/>
+			<enum jsxid="Unresolved" jsxtext="{exception_statusUnresolved}"/>
+		</record>
+		<record jsxid="correlationID" id="CorrelationID" maskName="textboxMask" jsxtext="{exception_attrCorrelationID}" jsxvalue="" type="criteria"/>
+	</record>
+	<record jsxid="timeRange" id="Time_Stamp" jsxtext="{exception_timeRange}" jsxopen="1" jsxcategory="1" type="criteria" uneditable="1">
+		<record jsxid="timeframe" jsxtext="{exception_timeFrame}" jsxvalue="" maskName="timeframeSelectMask">
+			<enum jsxid="pastTenMinutes" jsxtext="{exception_pastTenMinutes}"/>
+			<enum jsxid="pastThirtyMinutes" jsxtext="{exception_pastThirtyMinutes}"/>
+			<enum jsxid="pastHour" jsxtext="{exception_pastHour}"/>
+			<enum jsxid="pastSixHours" jsxtext="{exception_pastSixHours}"/>
+			<enum jsxid="pastTwelveHours" jsxtext="{exception_pastTwelveHours}"/>
+			<enum jsxid="pastDay" jsxtext="{exception_pastDay}"/>
+			<enum jsxid="pastTwoDays" jsxtext="{exception_pastTwoDays}"/>
+			<enum jsxid="pastWeek" jsxtext="{exception_pastWeek}"/>
+			<enum jsxid="pastTwoWeeks" jsxtext="{exception_pastTwoWeeks}"/>
+		</record>
+		<record jsxid="fromTimestamp" jsxtext="{exception_fromTimestamp}" jsxvalue="" maskName="textboxMask"/>
+		<record jsxid="toTimestamp" jsxtext="{exception_toTimestamp}" jsxvalue="" maskName="textboxMask"/>
+	</record>
+</data>

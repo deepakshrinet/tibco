@@ -1,0 +1,20 @@
+<data jsxnamespace="propsbundle" locales="">
+  <locale>
+    <record jsxid="renderConfig_ApplicationID" jsxtext="ID de Aplicación"/>
+    <record jsxid="renderConfig_RenderID" jsxtext="ID de Conversión"/>
+    <record jsxid="renderConfig_ID" jsxtext="ID de Conversión"/>
+    <record jsxid="renderConfig_Name" jsxtext="Nombre"/>
+    <record jsxid="renderConfig_Description" jsxtext="Descripción"/>
+    <record jsxid="renderConfig_XSLT" jsxtext="XSLT"/>
+    <record jsxid="renderConfig_CSS" jsxtext="CSS"/>
+    <record jsxid="renderConfig_addRenderConfig" jsxtext="Agregar"/>
+    <record jsxid="renderConfig_addRenderConfigTip" jsxtext="Agregar nueva configuración de conversión."/>
+    <record jsxid="renderConfig_removeRenderConfig" jsxtext="Remover"/>
+    <record jsxid="renderConfig_removeRenderConfigTip" jsxtext="Remover la configuración de conversión"/>
+    <record jsxid="renderConfig_XSLT" jsxtext="XSLT"/>
+    <record jsxid="renderConfig_CSS" jsxtext="CSS"/>
+    <record jsxid="renderConfig_createNewItemCaption" jsxtext="Crear Nueva Conversión"/>
+    <record jsxid="renderConfig_createRendering" jsxtext="Crear Conversión"/>
+    <record jsxid="renderConfig_createRenderingTip" jsxtext="Crear Conversión"/>
+  </locale>
+</data>

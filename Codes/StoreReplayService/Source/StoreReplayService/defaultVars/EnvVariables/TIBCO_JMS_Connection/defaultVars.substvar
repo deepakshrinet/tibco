@@ -1,0 +1,45 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>JNDI_URL</name>
+			<value>tcp://vtibemsdv01.zmr.zimmer.com:7222</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1439401371059</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>PASSWORD</name>
+			<value>#!Y375iveJQ2RRlohxeHU2VkG9OPnVeY6ZBCK2euKGLmCWkKe7dFqpFA==</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>Password</type>
+			<modTime>1439401370918</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>QUEUE_CONNECTION_FACTORY</name>
+			<value>ZBS_QueueConnectionFactory</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1439401370996</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>TOPIC_CONNECTION_FACTORY</name>
+			<value>ZBS_TopicConnectionFactory</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1439401370615</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>USERNAME</name>
+			<value>dev_SRMTIBCO</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1439401371075</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/CommonLE2/namespace/Private/Exception" xmlns:ns5="http://www.tibco.com/pe/EngineTypes" xmlns:ns6="http://www.tibco.com/CommonLE/namespace/Common" xmlns:pfx="http://www.tibco.com/schemas/CLE/SharedResources/SchemaDefinitions/Public/Pluggable/Workflow/Schema.xsd" xmlns:ns7="http://www.tibco.com/CommonLE2/namespace/Public/Common/RequestHeader.xsd" xmlns:ns8="http://www.tibco.com/CommonLE2/namespace/Public/Exception/ResolutionReply.xsd" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/ExceptionManagement" xmlns:ns1="http://www.tibco.com/CommonLE2/namespace/Public/Common" xmlns:ns4="http://www.tibco.com/CommonLE2/namespace/private/Common" xmlns:ns3="http://www.tibco.com/CommonLE2/namespace/Public/Exception" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx3="http://www.tibco.com/CommonLE2/Private/Exception" xmlns:pfx2="http://www.tibco.com/pe/DeployedVarsType">
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/schemas/CLE/SharedResources/SchemaDefinitions/Public/Pluggable/Workflow/Schema.xsd" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/Workflow/ProcedureCompletion.xsd"/>
+    <pd:name>ExceptionManagement/Logic/HandleProcedureCompletion.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx:ProcedureCompletion"/>
+    <pd:startX>82</pd:startX>
+    <pd:startY>109</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>353</pd:endX>
+    <pd:endY>267</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1286474385625</pd:targetNamespace>
+    <pd:activity name="Catch Exception ID Not Found">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>83</pd:x>
+        <pd:y>277</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=ExceptionRecordNotFound namespace=http://www.tibco.com/CommonLE2/namespace/private/Common</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Handle Local Exception">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>224</pd:x>
+        <pd:y>276</pd:y>
+        <config>
+            <processName>/Common/Local Exception Handler.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns6:Exception>
+                <xsl:if test="$Catch-Exception-ID-Not-Found/ns4:ExceptionRecordNotFound/ns4:Message">
+                    <ErrorMessage>
+                        <xsl:value-of select="concat($Catch-Exception-ID-Not-Found/ns4:ExceptionRecordNotFound/ns4:Message, &quot;: Exception ID -- &quot;, $Start/pfx:ProcedureCompletion/pfx:ExceptionInstanceID)"/>
+                    </ErrorMessage>
+                </xsl:if>
+                <xsl:if test="$Catch-Exception-ID-Not-Found/ns4:ExceptionRecordNotFound/ns4:Code">
+                    <ErrorCode>
+                        <xsl:value-of select="$Catch-Exception-ID-Not-Found/ns4:ExceptionRecordNotFound/ns4:Code"/>
+                    </ErrorCode>
+                </xsl:if>
+                <ns6:Error>
+                    <xsl:for-each select="$_error/ns5:ErrorReport">
+                        <ns6:ErrorReport>
+                            <StackTrace>
+                                <xsl:value-of select="StackTrace"/>
+                            </StackTrace>
+                            <Msg>
+                                <xsl:value-of select="Msg"/>
+                            </Msg>
+                            <FullClass>
+                                <xsl:value-of select="FullClass"/>
+                            </FullClass>
+                            <Class>
+                                <xsl:value-of select="Class"/>
+                            </Class>
+                            <ProcessStack>
+                                <xsl:value-of select="ProcessStack"/>
+                            </ProcessStack>
+                            <MsgCode>
+                                <xsl:value-of select="MsgCode"/>
+                            </MsgCode>
+                        </ns6:ErrorReport>
+                    </xsl:for-each>
+                </ns6:Error>
+            </ns6:Exception>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Reply to Client">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>489</pd:x>
+        <pd:y>112</pd:y>
+        <config>
+            <processName>/ExceptionManagement/Logic/ReplyResolution.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns8:ResolutionReply>
+                <xsl:copy-of select="$Retrieve-Exception-Detail/ns2:ExceptionDetail/ns7:Header"/>
+                <ExceptionCode>
+                    <xsl:value-of select="$Retrieve-Exception-Detail/ns2:ExceptionDetail/ExceptionCode"/>
+                </ExceptionCode>
+                <xsl:if test="$Retrieve-Exception-Detail/ns2:ExceptionDetail/ResolutionDescription">
+                    <ResolutionDescription>
+                        <xsl:value-of select="$Retrieve-Exception-Detail/ns2:ExceptionDetail/ResolutionDescription"/>
+                    </ResolutionDescription>
+                </xsl:if>
+                <xsl:if test="$Retrieve-Exception-Detail/ns2:ExceptionDetail/Status">
+                    <Status>
+                        <xsl:value-of select="$Retrieve-Exception-Detail/ns2:ExceptionDetail/Status"/>
+                    </Status>
+                </xsl:if>
+                <ReplyTimestamp>
+                    <xsl:value-of select="$Retrieve-Exception-Detail/ns2:ExceptionDetail/ns7:Header/ns7:Timestamp"/>
+                </ReplyTimestamp>
+                <xsl:if test="$Retrieve-Exception-Detail/ns2:ExceptionDetail/TransactionDataAfterResolve">
+                    <UpdatedTransactionData>
+                        <xsl:value-of select="$Retrieve-Exception-Detail/ns2:ExceptionDetail/TransactionDataAfterResolve"/>
+                    </UpdatedTransactionData>
+                </xsl:if>
+                <xsl:if test="$Retrieve-Exception-Detail/ns2:ExceptionDetail/ReplyDestination">
+                    <Destination>
+                        <xsl:value-of select="$Retrieve-Exception-Detail/ns2:ExceptionDetail/ReplyDestination"/>
+                    </Destination>
+                </xsl:if>
+            </ns8:ResolutionReply>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Retrieve Exception Detail">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>351</pd:x>
+        <pd:y>120</pd:y>
+        <config>
+            <processName>/ExceptionManagement/DataAccess/Oracle/RetrieveExceptionDetail.process</processName>
+            <processNameXPath>concat("/ExceptionManagement/DataAccess/", $_globalVariables/pfx2:GlobalVariables/Database/MIG_DatabaseType,"/RetrieveExceptionDetail.process" )</processNameXPath>
+        </config>
+        <pd:inputBindings>
+            <ns:ExceptionDetailQuery>
+                <ns:ExceptionID>
+                    <xsl:value-of select="$Start/pfx:ProcedureCompletion/pfx:ExceptionInstanceID"/>
+                </ns:ExceptionID>
+            </ns:ExceptionDetailQuery>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Save Exception Resolutions">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>207</pd:x>
+        <pd:y>118</pd:y>
+        <config>
+            <processName>/ExceptionManagement/DataAccess/Oracle/UpdateResolvedExceptions.process</processName>
+            <processNameXPath>concat("/ExceptionManagement/DataAccess/", $_globalVariables/pfx2:GlobalVariables/Database/MIG_DatabaseType, "/UpdateResolvedExceptions.process")</processNameXPath>
+        </config>
+        <pd:inputBindings>
+            <ns:ExceptionResolutionRecords>
+                <xsl:for-each select="$Start/pfx:ProcedureCompletion">
+                    <ns:ExceptionResolution>
+                        <ns:ExceptionID>
+                            <xsl:value-of select="pfx:ExceptionInstanceID"/>
+                        </ns:ExceptionID>
+                        <ns:Resolution>
+                            <xsl:value-of select="pfx:Resolution"/>
+                        </ns:Resolution>
+                        <ns:Status>
+                            <xsl:value-of select="if (pfx:Status = $_globalVariables/pfx2:GlobalVariables/ExceptionService/ResolutionStatus/Suppressed) then &#xA;$_globalVariables/pfx2:GlobalVariables/ExceptionService/ResolutionStatus/Resolved else&#xA;pfx:Status"/>
+                        </ns:Status>
+                        <ns:TransactionUpdate>
+                            <xsl:value-of select="tib:trim(pfx:TransactionUpdate)"/>
+                        </ns:TransactionUpdate>
+                    </ns:ExceptionResolution>
+                </xsl:for-each>
+            </ns:ExceptionResolutionRecords>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Update Exception Status">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>491</pd:x>
+        <pd:y>273</pd:y>
+        <config>
+            <processName>/ExceptionManagement/Logic/UpdateExceptionStatus.process</processName>
+        </config>
+        <pd:inputBindings>
+            <pfx3:ExceptionStatusUpdate>
+                <pfx3:ExceptionID>
+                    <xsl:value-of select="$Retrieve-Exception-Detail/ns2:ExceptionDetail/ExceptionInstanceID"/>
+                </pfx3:ExceptionID>
+                <pfx3:Status>
+                    <xsl:value-of select="$_globalVariables/pfx2:GlobalVariables/ExceptionService/ResolutionStatus/Replied"/>
+                </pfx3:Status>
+            </pfx3:ExceptionStatusUpdate>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Save Exception Resolutions</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Save Exception Resolutions</pd:from>
+        <pd:to>Retrieve Exception Detail</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Reply to Client</pd:from>
+        <pd:to>Update Exception Status</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Retrieve Exception Detail</pd:from>
+        <pd:to>Reply to Client</pd:to>
+        <pd:xpathDescription>Need to Reply</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>(string-length(tib:trim($Retrieve-Exception-Detail/ns2:ExceptionDetail/ReplyDestination)) &gt;0) and (tib:trim($Retrieve-Exception-Detail/ns2:ExceptionDetail/ReplyDestination)!=" ") and (tib:trim($Retrieve-Exception-Detail/ns2:ExceptionDetail/ReplyDestination)!="None")</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Update Exception Status</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Straight</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Retrieve Exception Detail</pd:from>
+        <pd:to>End</pd:to>
+        <pd:xpathDescription>No need to reply</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch Exception ID Not Found</pd:from>
+        <pd:to>Handle Local Exception</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Handle Local Exception</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Save Exception Resolutions</pd:from>
+        <pd:to>End</pd:to>
+        <pd:xpathDescription>Suppressed</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$Start/pfx:ProcedureCompletion/pfx:Status= $_globalVariables/pfx2:GlobalVariables/ExceptionService/ResolutionStatus/Suppressed</pd:xpath>
+    </pd:transition>
+</pd:ProcessDefinition>

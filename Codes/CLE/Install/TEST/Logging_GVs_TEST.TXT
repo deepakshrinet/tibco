@@ -1,0 +1,110 @@
+// ----------------------------------------------------------------------------------
+// Global Variables --- EAR level
+// ----------------------------------------------------------------------------------
+Database/MIG_DatabaseType=Oracle
+Database/MIG_DBDriver=oracle.jdbc.driver.OracleDriver (thin)
+Database/MIG_DBURL=jdbc:oracle:thin:@xsp-tibdb-qa.pac.zimmer.com:1521:tibqa
+Database/MIG_MaxConnection=10
+Database/MIG_MAXROWS=2000
+Database/MIG_Password=#!+simUNYzLIjTpy1SGSinlIVz5Y6Y113+jdt/1ayh9C0=
+Database/MIG_Timeout=120
+Database/MIG_User=CLE
+DirLedger=.
+DirTrace=E:\TIBCO\Application_Log
+ExceptionService/Scheduler/MIG_PollingInterval=600000
+HawkEnabled=false
+JMSDestinationNames/MIG_EventHandler=ZBS.INTEGRATION.CLE.EVENTHANDLER
+JMSDestinationNames/MIG_ExceptionCache=ZBS.INTEGRATION.CLE.EXCEPTIONCACHE
+JMSDestinationNames/MIG_ExceptionQueue=ZBS.INTEGRATION.CLE.EXCEPTION
+JMSDestinationNames/MIG_InterfaceCache=ZBS.INTEGRATION.CLE.INTERFACECACHE
+JMSDestinationNames/MIG_LogLevelReplyQueue=ZBS.INTEGRATION.CLE.LOGLEVELREPLY
+JMSDestinationNames/MIG_LogLevelRequestTopic=ZBS.INTEGRATION.CLE.LOGLEVELREQUEST
+JMSDestinationNames/MIG_LogQueue=ZBS.INTEGRATION.CLE.LOG
+JMSDestinationNames/MIG_NotificationQueue=ZBS.INTEGRATION.CLE.NOTIFICATION
+JMSDestinationNames/MIG_ResolutionQueue=ZBS.INTEGRATION.CLE.RESOLUTION
+JMSDestinationNames/MIG_WorkflowRequestQueue=ZBS.INTEGRATION.CLE.WFREQUEST
+JMSServer/Application/MIG_ClientID=CLEAdministrator
+JMSServer/Application/MIG_JMSExpiration=100
+JMSServer/Application/MIG_JNDIContextURL=tibjmsnaming://xsp-tibemsj-qa.pac.zimmer.com:7222
+JMSServer/Application/MIG_JNDIPassword=#!p8uwPuN4S0OHLc9q1wuo2WXg8uukj+6sz2mhWCtTdfw=
+JMSServer/Application/MIG_JNDIUser=cleuser
+JMSServer/Application/MIG_Password=#!p8uwPuN4S0OHLc9q1wuo2WXg8uukj+6sz2mhWCtTdfw=
+JMSServer/Application/MIG_QueueConnectionFactory=XSP_FW_PRIMARY_CLEAdminUI_QCF
+JMSServer/Application/MIG_TopicConnectionFactory=XSP_FW_PRIMARY_CLEAdminUI_TCF
+JMSServer/Application/MIG_UserName=cleuser
+JMSServer/MIG_ClientID=CLEAdministrator
+JMSServer/MIG_ClientIDException=CLEException
+JMSServer/MIG_ClientIDExceptionReploy=CLEExceptionReply
+JMSServer/MIG_ClientIDLog=CLELog
+JMSServer/MIG_JMSExpiration=100
+JMSServer/MIG_JNDIContextURL=tibjmsnaming://xsp-tibemsj-qa.pac.zimmer.com:7222
+JMSServer/MIG_JNDIPassword=#!p8uwPuN4S0OHLc9q1wuo2WXg8uukj+6sz2mhWCtTdfw=
+JMSServer/MIG_JNDIUser=cleuser
+JMSServer/MIG_Password=#!p8uwPuN4S0OHLc9q1wuo2WXg8uukj+6sz2mhWCtTdfw=
+JMSServer/MIG_QueueConnectionFactory=XSP_FW_PRIMARY_CLEAdminUI_QCF
+JMSServer/MIG_TopicConnectionFactory=XSP_FW_PRIMARY_CLEAdminUI_TCF
+JMSServer/MIG_UserName=cleuser
+Notification/Email/MIG_From=tibco.alerts@zimmer.com
+Notification/Email/MIG_Host=pac-msg-htr1.pac.zimmer.com
+Notification/Email/MIG_SubjectPrefix=Exception::
+RVSubjectNames/ExceptionRequestSubject=cle2.exception
+RVSubjectNames/LogRequestSubject=cle2.log
+RVTransport/MIG_ExceptionCM_Name_=ExceptionCM
+RVTransport/MIG_ExceptionLedger_Filename=E:\temp\ExceptionLedger
+RVTransport/MIG_LogCM_Name=LogCM
+RVTransport/MIG_LogLedger_File=E:\temp\LogLedger
+RVTransport/RemoteRvDaemon=
+RVTransport/RvaHost=localhost
+RVTransport/RvaPort=7500
+RVTransport/RvDaemon=tcp:7500
+RVTransport/RvNetwork=
+RVTransport/RvService=7500
+Security/MIG_AdministratorRoleName=CLEAdmin
+SOAPServer/CoreServices/MIG_ExceptionHost=localhost
+SOAPServer/CoreServices/MIG_ExceptionPort=29989
+SOAPServer/CoreServices/MIG_LogReqHost=localhost
+SOAPServer/CoreServices/MIG_LogReqPort=29901
+SOAPServer/GUIServices/MIG_AdministrationHost=localhost
+SOAPServer/GUIServices/MIG_AdministrationPort=29950
+SOAPServer/GUIServices/MIG_ExceptionRuntimeHost=localhost
+SOAPServer/GUIServices/MIG_ExceptionRuntimePort=29951
+SOAPServer/GUIServices/MIG_LogLevelRuntimeHost=localhost
+SOAPServer/GUIServices/MIG_LogLevelRuntimePort=29953
+SOAPServer/GUIServices/MIG_LogRuntimeHost=localhost
+SOAPServer/GUIServices/MIG_LogRuntimePort=29952
+Testing/Debug=1
+Testing/ExceptionRptCounter=10000
+Testing/LogRptCounter=10000
+Testing/StartExceptionTestTimer=2005 JAN 01 13:49:41 CST
+TIBHawkDaemon=tcp:7474
+TIBHawkNetwork=
+TIBHawkService=7474
+Utilities/ConfigMigrationFileName=CLEMigrate.xml
+// ----------------------------------------------------------------------------------
+// CLELogMgmt.par ---  Global Variables --- PAR level
+// ----------------------------------------------------------------------------------
+CLELogMgmt,HawkEnabled=false
+// ----------------------------------------------------------------------------------
+// CLELogMgmt.par --- Process Starter settings --- PAR level
+// ----------------------------------------------------------------------------------
+_TAG,BWProcess,CLELogMgmt,Logging/LogServices/JMSChannel.process,maxJob=10
+_TAG,BWProcess,CLELogMgmt,Logging/LogServices/JMSChannel.process,activation=true
+_TAG,BWProcess,CLELogMgmt,Logging/LogServices/JMSChannel.process,flowLimit=10
+_TAG,BWProcess,CLELogMgmt,Logging/LogServices/Handle_Log_Request-service.serviceagent,maxJob=10
+_TAG,BWProcess,CLELogMgmt,Logging/LogServices/Handle_Log_Request-service.serviceagent,activation=true
+_TAG,BWProcess,CLELogMgmt,Logging/LogServices/Handle_Log_Request-service.serviceagent,flowLimit=10
+_TAG,Setting,CLELogMgmt,threadCount=16
+_TAG,Setting,CLELogMgmt,maxLogFileCount=5
+_TAG,Setting,CLELogMgmt,maxLogFileSize=20000
+_TAG,Setting,CLELogMgmt,java/initHeapSize=32
+_TAG,Setting,CLELogMgmt,java/maxHeapSize=768
+_TAG,Setting,CLELogMgmt,java/prepandClassPath=
+_TAG,Setting,CLELogMgmt,java/appendClassPath=
+// ----------------------------------------------------------------------------------
+// Machine #1 --- CLELogMgmt.par --- Service Instance settings --- Service level
+// ----------------------------------------------------------------------------------
+_TAG,Machine,CLELogMgmt,CLELogMgmt,machine=XSP-TIBAPP-QA1
+// ----------------------------------------------------------------------------------
+// Machine #2 --- CLELogMgmt.par --- Service Instance settings --- Service level
+// ----------------------------------------------------------------------------------
+_TAG,Machine,CLELogMgmt,CLELogMgmt-1,machine=XSP-TIBAPP-QA2

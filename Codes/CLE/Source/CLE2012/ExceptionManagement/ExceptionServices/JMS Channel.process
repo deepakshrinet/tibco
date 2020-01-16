@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:ns12="http://www.tibco.com/CommonLE2/Private/Common" xmlns:pfx="http://www.tibco.com/CommonLE2/namespace/Exception" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/CommonLE/namespace/Common" xmlns:ns1="http://www.tibco.com/pe/EngineTypes" xmlns:ns4="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns3="http://www.tibco.com/CommonLE2/namespace/private/Common" xmlns:pfx5="http://www.tibco.com/CommonLE2/namespace/Public/Exception/ExceptionRequest.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx4="com/tibco/pe/commands" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx3="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:pfx2="http://www.tibco.com/CommonLE2/namespace/Public/Exception" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/private/Common" schemaLocation="/SharedResources/SchemaDefinitions/Private/Common/LocalExceptions.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Exception/ExceptionRequest.xsd" schemaLocation="/SharedResources/SchemaDefinitions/Public/Exception/ExceptionRequest.xsd"/>
+    <pd:name>ExceptionManagement/ExceptionServices/JMS Channel.process</pd:name>
+    <pd:description>Receiving an exception request using JMS transport. 
+The exception request data must be in ExceptionRequest Schema. 
+Exception requests that do not conform to this scheam are ignored. 
+This process does not perform the main processing logic. </pd:description>
+    <pd:startName>ExceptionRquest Receiver</pd:startName>
+    <pd:startX>0</pd:startX>
+    <pd:startY>0</pd:startY>
+    <pd:returnBindings/>
+    <pd:starter name="ExceptionRquest Receiver">
+        <pd:type>com.tibco.plugin.jms.JMSQueueEventSource</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueEventSource</pd:resourceType>
+        <pd:x>63</pd:x>
+        <pd:y>43</pd:y>
+        <config>
+            <PermittedMessageType>XML Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>23</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+                <destination>%%JMSDestinationNames/MIG_ExceptionQueue%%</destination>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/SharedResources/Connections/JMS/JMS Exception.sharedjmscon</ConnectionReference>
+            <OutDataxsdString ref="pfx5:ExceptionRequest"/>
+        </config>
+        <pd:inputBindings/>
+    </pd:starter>
+    <pd:endName>End</pd:endName>
+    <pd:endX>587</pd:endX>
+    <pd:endY>185</pd:endY>
+    <pd:errorSchemas>
+        <Catch-JMS-Connection-Error ref="ns3:JMSError"/>
+    </pd:errorSchemas>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1284568629447</pd:targetNamespace>
+    <pd:activity name="Catch DB Error">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>53</pd:x>
+        <pd:y>145</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>false</catchAll>
+            <fault>localname=DBError namespace=http://www.tibco.com/CommonLE2/namespace/private/Common</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Confirm">
+        <pd:type>com.tibco.pe.core.ConfirmActivity</pd:type>
+        <pd:resourceType>activity.confirm</pd:resourceType>
+        <pd:description>Using late comfirm based on performance and data duplication trade off. 
+As performance is more important, the late confim is used. As a result, it is
+possible to have duplicated excption records. </pd:description>
+        <pd:x>377</pd:x>
+        <pd:y>35</pd:y>
+        <config>
+            <ConfirmEvent>ExceptionRquest Receiver</ConfirmEvent>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Confirm-1">
+        <pd:type>com.tibco.pe.core.ConfirmActivity</pd:type>
+        <pd:resourceType>activity.confirm</pd:resourceType>
+        <pd:x>413</pd:x>
+        <pd:y>335</pd:y>
+        <config>
+            <ConfirmEvent>ExceptionRquest Receiver</ConfirmEvent>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Handle Local Exception">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>231</pd:x>
+        <pd:y>193</pd:y>
+        <config>
+            <processName>/Common/Local Exception Handler.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns2:Exception>
+                <ErrorMessage>
+                    <xsl:value-of select="$Catch-DB-Error/ns3:DBError/ns3:Message"/>
+                </ErrorMessage>
+                <ErrorCode>
+                    <xsl:value-of select="$Catch-DB-Error/ns3:DBError/ns3:Code"/>
+                </ErrorCode>
+                <ns2:Error>
+                    <xsl:for-each select="$_error/ns1:ErrorReport">
+                        <ns2:ErrorReport>
+                            <StackTrace>
+                                <xsl:value-of select="StackTrace"/>
+                            </StackTrace>
+                            <Msg>
+                                <xsl:value-of select="Msg"/>
+                            </Msg>
+                            <FullClass>
+                                <xsl:value-of select="FullClass"/>
+                            </FullClass>
+                            <Class>
+                                <xsl:value-of select="Class"/>
+                            </Class>
+                            <ProcessStack>
+                                <xsl:value-of select="ProcessStack"/>
+                            </ProcessStack>
+                            <MsgCode>
+                                <xsl:choose>
+                                    <xsl:when test="exists(MsgCode)">
+                                        <xsl:value-of select="MsgCode"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </MsgCode>
+                        </ns2:ErrorReport>
+                    </xsl:for-each>
+                </ns2:Error>
+                <ns2:Data>
+                    <xsl:value-of select="tib:render-xml($_error/ns1:ErrorReport/Data)"/>
+                </ns2:Data>
+            </ns2:Exception>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Invoke Exception Management Process">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>232</pd:x>
+        <pd:y>43</pd:y>
+        <config>
+            <processName>/ExceptionManagement/Logic/HandleExceptionRequest.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ExceptionRequest>
+                <xsl:value-of select="tib:render-xml($ExceptionRquest-Receiver/ns:ActivityOutput/Body/pfx5:ExceptionRequest)"/>
+            </ExceptionRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Suspend Exception Request Starter">
+        <pd:type>com.tibco.pe.core.EngineCommandActivity</pd:type>
+        <pd:resourceType>ae.activities.enginecommand</pd:resourceType>
+        <pd:description>Receiving a log request using JMS transport. 
+The log request data must be in LogRequest Schema. 
+Log requests that do not conform to this schema are ignored. 
+This process delegates the main processing logic to a subprocess</pd:description>
+        <pd:x>369</pd:x>
+        <pd:y>193</pd:y>
+        <config>
+            <command>SuspendProcessStarter</command>
+            <processDefinition>/ExceptionManagement/ExceptionServices/JMS Channel.process</processDefinition>
+        </config>
+        <pd:inputBindings>
+            <pfx4:input/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch All">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>140</pd:x>
+        <pd:y>339</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=ExceptionConfigurationNotFound namespace=http://www.tibco.com/CommonLE2/namespace/private/Common</fault>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Catch JMS Error">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>51</pd:x>
+        <pd:y>225</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>false</catchAll>
+            <fault>localname=JMSError namespace=http://www.tibco.com/CommonLE2/namespace/private/Common</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Local Exception Handling">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>274</pd:x>
+        <pd:y>344</pd:y>
+        <config>
+            <processName>/Common/Local Exception Handler.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns2:Exception>
+                <xsl:if test="$_error/ns1:ErrorReport/Msg">
+                    <ErrorMessage>
+                        <xsl:value-of select="$_error/ns1:ErrorReport/Msg"/>
+                    </ErrorMessage>
+                </xsl:if>
+                <xsl:if test="$_error/ns1:ErrorReport/MsgCode">
+                    <ErrorCode>
+                        <xsl:value-of select="$_error/ns1:ErrorReport/MsgCode"/>
+                    </ErrorCode>
+                </xsl:if>
+                <xsl:for-each select="$_error">
+                    <ns2:Error>
+                        <xsl:for-each select="ns1:ErrorReport">
+                            <ns2:ErrorReport>
+                                <StackTrace>
+                                    <xsl:value-of select="StackTrace"/>
+                                </StackTrace>
+                                <Msg>
+                                    <xsl:value-of select="Msg"/>
+                                </Msg>
+                                <FullClass>
+                                    <xsl:value-of select="FullClass"/>
+                                </FullClass>
+                                <Class>
+                                    <xsl:value-of select="Class"/>
+                                </Class>
+                                <ProcessStack>
+                                    <xsl:value-of select="ProcessStack"/>
+                                </ProcessStack>
+                                <xsl:if test="MsgCode">
+                                    <MsgCode>
+                                        <xsl:value-of select="MsgCode"/>
+                                    </MsgCode>
+                                </xsl:if>
+                            </ns2:ErrorReport>
+                        </xsl:for-each>
+                    </ns2:Error>
+                </xsl:for-each>
+            </ns2:Exception>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>ExceptionRquest Receiver</pd:from>
+        <pd:to>Invoke Exception Management Process</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Invoke Exception Management Process</pd:from>
+        <pd:to>Confirm</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Confirm</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>S-Shaped</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch DB Error</pd:from>
+        <pd:to>Handle Local Exception</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Handle Local Exception</pd:from>
+        <pd:to>Suspend Exception Request Starter</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Suspend Exception Request Starter</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Straight</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Confirm-1</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>S-Shaped</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch All</pd:from>
+        <pd:to>Local Exception Handling</pd:to>
+        <pd:lineType>Straight</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch JMS Error</pd:from>
+        <pd:to>Handle Local Exception</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Local Exception Handling</pd:from>
+        <pd:to>Confirm-1</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

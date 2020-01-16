@@ -1,0 +1,21 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>AuditFlag</name>
+			<value>false</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>Boolean</type>
+			<modTime>1340222864218</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>SendEmailQueueName</name>
+			<value>ZB.TIBCO.COMMON.SENDEMAIL.UTILITY.ASYN</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1507045751106</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

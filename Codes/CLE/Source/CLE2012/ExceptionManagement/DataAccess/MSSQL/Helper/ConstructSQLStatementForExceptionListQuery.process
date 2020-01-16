@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:pfx="http://www.tibco.com/unique/default/namespace/Log" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:ns1="http://www.tibco.com/pe/EngineTypes" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx5="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx4="http://www.tibco.com/CommonLE/namespace/GUI" xmlns:pfx3="http://www.tibco.com/CommonLE/namespace/Common" xmlns:pfx2="http://www.tibco.com/unique/default/namespace/CommonLE" xmlns:pfx9="http://www.tibco.com/CommonLE2/namespace/Private/Exception" xmlns:pfx8="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/ExceptionManagement/ExceptionListQuery" xmlns:pfx7="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogListQuery" xmlns:pfx6="http://www.tibco.com/CommonLE2/namespace/Private/Logging">
+    <xsd:import namespace="http://www.tibco.com/unique/default/namespace/Log" schemaLocation="/Shared Resources/Schema Definitions/Common/LogRequest.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE/namespace/Common" schemaLocation="/Shared Resources/Schema Definitions/Common/LogQuery.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Private/Logging" schemaLocation="/SharedResources/SchemaDefinitions/Private/Logging/LogQuerySQLParameters.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogListQuery" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Log/LogListQuery.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/ExceptionManagement/ExceptionListQuery" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/ExceptionManagement/ExceptionListQuery.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Private/Exception" schemaLocation="/SharedResources/SchemaDefinitions/Private/Exception/ExceptionListQuerySQLParameters.xsd"/>
+    <pd:name>ExceptionManagement/DataAccess/MSSQL/Helper/ConstructSQLStatementForExceptionListQuery.process</pd:name>
+    <pd:description>This process creates the Where and ORDER BY claues in the SQL statement that is used to retrieve the list of exceptions queried by the user</pd:description>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx8:ExceptionListQuery"/>
+    <pd:startX>30</pd:startX>
+    <pd:startY>93</pd:startY>
+    <pd:returnBindings>
+        <WhereClause>
+            <xsl:value-of select="concat (&quot;where&quot;, &quot; &quot;, $Filter-Query-Conditions/pfx9:ExceptionListQuerySQLParameters/pfx9:AppID,&#xA; if ($Filter-Query-Conditions/pfx9:ExceptionListQuerySQLParameters/pfx9:TransID  !=&quot;&quot;)    then &quot; and &quot; else &quot;&quot;, &#xA;$Filter-Query-Conditions/pfx9:ExceptionListQuerySQLParameters/pfx9:TransID, &#xA; if ($Filter-Query-Conditions/pfx9:ExceptionListQuerySQLParameters/pfx9:Component  !=&quot;&quot;)    then &quot; and &quot; else &quot;&quot;, &#xA;$Filter-Query-Conditions/pfx9:ExceptionListQuerySQLParameters/pfx9:Component, &#xA; if ($Filter-Query-Conditions/pfx9:ExceptionListQuerySQLParameters/pfx9:TransactionDomain  !=&quot;&quot;)    then &quot; and &quot; else &quot;&quot;, &#xA;$Filter-Query-Conditions/pfx9:ExceptionListQuerySQLParameters/pfx9:TransactionDomain, &#xA; if ($Filter-Query-Conditions/pfx9:ExceptionListQuerySQLParameters/pfx9:Date  !=&quot;&quot;)    then &quot; and &quot; else &quot;&quot;, &#xA; $Filter-Query-Conditions/pfx9:ExceptionListQuerySQLParameters/pfx9:Date, &quot;&quot;, &#xA; if ($Filter-Query-Conditions/pfx9:ExceptionListQuerySQLParameters/pfx9:Status  !=&quot;&quot;)    then &quot; and &quot; else &quot;&quot;, &#xA; $Filter-Query-Conditions/pfx9:ExceptionListQuerySQLParameters/pfx9:Status, &quot;&quot;, &#xA;$Filter-Query-Conditions/pfx9:ExceptionListQuerySQLParameters/pfx9:OrderBy)"/>
+        </WhereClause>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="WhereClause" type="xsd:string"/>
+    </pd:endType>
+    <pd:endX>281</pd:endX>
+    <pd:endY>95</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1284434540234</pd:targetNamespace>
+    <pd:activity name="Filter Query Conditions">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:description>Filters the sql query conditions based on the options selected by the user in the GUI</pd:description>
+        <pd:x>153</pd:x>
+        <pd:y>102</pd:y>
+        <config>
+            <element ref="pfx9:ExceptionListQuerySQLParameters"/>
+        </config>
+        <pd:inputBindings>
+            <pfx9:ExceptionListQuerySQLParameters>
+                <pfx9:AppID>
+                    <xsl:value-of select="if(not(string-length($Start/pfx8:ExceptionListQuery/pfx8:AppIDFrom)= 0))  then&#xA;concat(&quot;APPLICATIONID =&quot;,&quot;'&quot;,$Start/pfx8:ExceptionListQuery/pfx8:AppIDFrom,&quot;'&quot;)&#xA;else&#xA;&quot;&quot;"/>
+                </pfx9:AppID>
+                <pfx9:Component>
+                    <xsl:value-of select="if((not(string-length($Start/pfx8:ExceptionListQuery/pfx8:ComponentFrom)= 0) and (not(string-length($Start/pfx8:ExceptionListQuery/pfx8:ComponentTo)= 0)))) then&#xA;concat(&quot;COMPONENTNAME between&quot;,&quot; '&quot;,$Start/pfx8:ExceptionListQuery/pfx8:ComponentFrom,&quot;'  &quot;,&quot;and&quot;,&quot; '&quot;,$Start/pfx8:ExceptionListQuery/pfx8:ComponentTo,&quot;'  &quot;)&#xA;else&#xA;if((not(string-length($Start/pfx8:ExceptionListQuery/pfx8:ComponentFrom)= 0) and (string-length($Start/pfx8:ExceptionListQuery/pfx8:ComponentTo)= 0))) then&#xA;concat(&quot;COMPONENTNAME like&quot;,&quot; '&quot;,$Start/pfx8:ExceptionListQuery/pfx8:ComponentFrom,&quot;%&quot;,&quot;'  &quot;)&#xA;else&#xA;if((string-length($Start/pfx8:ExceptionListQuery/pfx8:ComponentFrom)= 0) and (not(string-length($Start/pfx8:ExceptionListQuery/pfx8:ComponentTo)= 0))) then&#xA;concat(&quot;COMPONENTNAME like&quot;,&quot; '&quot;,&quot;%&quot;,$Start/pfx8:ExceptionListQuery/pfx8:ComponentTo,&quot;'  &quot;)&#xA;else&#xA;&quot;&quot;"/>
+                </pfx9:Component>
+                <pfx9:TransID>
+                    <xsl:value-of select="if((not(string-length($Start/pfx8:ExceptionListQuery/pfx8:TransIDFrom)= 0) and (not(string-length($Start/pfx8:ExceptionListQuery/pfx8:TransIDTo)= 0)))) then&#xA;concat(&quot;TRANSACTIONID between&quot;,&quot; '&quot;,$Start/pfx8:ExceptionListQuery/pfx8:TransIDFrom,&quot;'  &quot;,&quot;and&quot;,&quot; '&quot;,$Start/pfx8:ExceptionListQuery/pfx8:TransIDTo,&quot;'  &quot;)&#xA;else&#xA;if((not(string-length($Start/pfx8:ExceptionListQuery/pfx8:TransIDFrom)= 0) and (string-length($Start/pfx8:ExceptionListQuery/pfx8:TransIDTo)= 0))) then&#xA;concat(&quot;TRANSACTIONID like&quot;,&quot; '&quot;,$Start/pfx8:ExceptionListQuery/pfx8:TransIDFrom,&quot;%&quot;,&quot;'  &quot;)&#xA;else&#xA;if((string-length($Start/pfx8:ExceptionListQuery/pfx8:TransIDFrom)= 0) and (not(string-length($Start/pfx8:ExceptionListQuery/pfx8:TransIDTo)= 0))) then&#xA;concat(&quot;TRANSACTIONID like&quot;,&quot; '&quot;,&quot;%&quot;,$Start/pfx8:ExceptionListQuery/pfx8:TransIDTo,&quot;'  &quot;)&#xA;else&#xA;&quot;&quot;"/>
+                </pfx9:TransID>
+                <pfx9:TransactionDomain>
+                    <xsl:value-of select="if((not(string-length($Start/pfx8:ExceptionListQuery/pfx8:TransactionDomainFrom)= 0) and (not(string-length($Start/pfx8:ExceptionListQuery/pfx8:TransactionDomainTo)= 0)))) then&#xA;concat(&quot;TRANSACTIONDOMAIN between&quot;,&quot; '&quot;,$Start/pfx8:ExceptionListQuery/pfx8:TransactionDomainFrom,&quot;'  &quot;,&quot;and&quot;,&quot; '&quot;,$Start/pfx8:ExceptionListQuery/pfx8:TransactionDomainTo,&quot;'  &quot;)&#xA;else&#xA;if((not(string-length($Start/pfx8:ExceptionListQuery/pfx8:TransactionDomainFrom)= 0) and (string-length($Start/pfx8:ExceptionListQuery/pfx8:TransactionDomainTo)= 0))) then&#xA;concat(&quot;TRANSACTIONDOMAIN like&quot;,&quot; '&quot;,$Start/pfx8:ExceptionListQuery/pfx8:TransactionDomainFrom,&quot;%&quot;,&quot;'  &quot;)&#xA;else&#xA;if((string-length($Start/pfx8:ExceptionListQuery/pfx8:TransactionDomainFrom)= 0) and (not(string-length($Start/pfx8:ExceptionListQuery/pfx8:TransactionDomainTo)= 0))) then&#xA;concat(&quot;TRANSACTIONDOMAIN like&quot;,&quot; '&quot;,&quot;%&quot;,$Start/pfx8:ExceptionListQuery/pfx8:TransactionDomainTo,&quot;'  &quot;)&#xA;else&#xA;&quot;&quot;"/>
+                </pfx9:TransactionDomain>
+                <pfx9:Date>
+                    <xsl:value-of select="if((not(string-length($Start/pfx8:ExceptionListQuery/pfx8:DateFrom)= 0) and (not(string-length($Start/pfx8:ExceptionListQuery/pfx8:DateTo)= 0)))) then&#xA;concat (&quot;time_stamp between &quot;,&#xA;&quot;to_date( '&quot;,&#xA;$Start/pfx8:ExceptionListQuery/pfx8:DateFrom,&#xA;&quot;','YYYY-MM-DD HH24:MI:SS')&quot;, &#xA;&quot; and &quot;,&#xA;&quot;to_date( '&quot;, &#xA;$Start/pfx8:ExceptionListQuery/pfx8:DateTo ,&#xA;&quot;','YYYY-MM-DD HH24:MI:SS')&quot;&#xA;)&#xA;else&#xA;if((not(string-length($Start/pfx8:ExceptionListQuery/pfx8:DateFrom)= 0) and (string-length($Start/pfx8:ExceptionListQuery/pfx8:DateTo)= 0))) then&#xA;concat(&quot;time_stamp >=&quot;,&quot; &quot;,&quot;to_date( '&quot;, &#xA;$Start/pfx8:ExceptionListQuery/pfx8:DateFrom ,&#xA;&quot;','YYYY-MM-DD HH24:MI:SS')&quot;)&#xA;else&#xA;if((string-length($Start/pfx8:ExceptionListQuery/pfx8:DateFrom)= 0) and (not(string-length($Start/pfx8:ExceptionListQuery/pfx8:DateTo)= 0))) then&#xA;concat(&quot;time_stamp &lt;=&quot;,&quot; &quot;,&quot;to_date( '&quot;, &#xA;$Start/pfx8:ExceptionListQuery/pfx8:DateTo ,&#xA;&quot;','YYYY-MM-DD HH24:MI:SS')&quot;)&#xA;else&#xA;&quot;&quot;"/>
+                </pfx9:Date>
+                <pfx9:OrderBy>
+                    <xsl:value-of select="if((not(string-length($Start/pfx8:ExceptionListQuery/pfx8:OrderBy)= 0)))  then&#xA;concat(&quot; ORDER BY&quot;,&quot; &quot;,$Start/pfx8:ExceptionListQuery/pfx8:OrderBy)&#xA;else&#xA;&quot;&quot;"/>
+                </pfx9:OrderBy>
+                <xsl:choose>
+                    <xsl:when test="$Start/pfx8:ExceptionListQuery/pfx8:Status=&quot;AllResolved&quot;">
+                        <pfx9:Status>
+                            <xsl:value-of select="if((not(string-length($Start/pfx8:ExceptionListQuery/pfx8:Status)= 0)))  then&#xA;concat(&quot;(STATUS='Resolved'&quot;,&quot; or &quot;,&quot;STATUS='Replied' )&quot;)&#xA;else&#xA;&quot;&quot;"/>
+                        </pfx9:Status>
+                    </xsl:when>
+                    <xsl:when test="$Start/pfx8:ExceptionListQuery/pfx8:Status=&quot;AllUnResolved&quot;">
+                        <pfx9:Status>
+                            <xsl:value-of select="if((not(string-length($Start/pfx8:ExceptionListQuery/pfx8:Status)= 0)))  then&#xA;concat(&quot;(STATUS!='Resolved'&quot;,&quot; and &quot;,&quot;STATUS!='Replied')&quot;)&#xA;else&#xA;&quot;&quot;"/>
+                        </pfx9:Status>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <pfx9:Status>
+                            <xsl:value-of select="if((not(string-length($Start/pfx8:ExceptionListQuery/pfx8:Status)= 0)))  then&#xA;concat(&quot;STATUS=&quot;,&quot;'&quot;,$Start/pfx8:ExceptionListQuery/pfx8:Status,&quot;'&quot;)&#xA;else&#xA;&quot;&quot;"/>
+                        </pfx9:Status>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </pfx9:ExceptionListQuerySQLParameters>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Filter Query Conditions</pd:from>
+        <pd:to>End</pd:to>
+        <pd:xpathDescription/>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Filter Query Conditions</pd:to>
+        <pd:xpathDescription/>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

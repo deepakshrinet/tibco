@@ -1,0 +1,39 @@
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<SOAP-ENV:Body>
+		<jsx1:ChartInfo xmlns:jsx1="http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common/Response">
+			<jsx1:ExceptionPercentageChart>
+				<jsx1:ExceptionCountInfo>
+					<jsx1:ExceptionResolveTypeName>Resolved</jsx1:ExceptionResolveTypeName>
+					<jsx1:ExceptionCountValue>60</jsx1:ExceptionCountValue>
+				</jsx1:ExceptionCountInfo>
+				<jsx1:ExceptionCountInfo>
+					<jsx1:ExceptionResolveTypeName>Unresolved</jsx1:ExceptionResolveTypeName>
+					<jsx1:ExceptionCountValue>100</jsx1:ExceptionCountValue>
+				</jsx1:ExceptionCountInfo>
+			</jsx1:ExceptionPercentageChart>
+			<jsx1:LogExceptionCountChart>
+				<jsx1:AppInfo>
+					<jsx1:AppID>AppID-1</jsx1:AppID>
+					<jsx1:AppName>ApplicationID-1</jsx1:AppName>
+					<jsx1:AppDescription>ApplicationID-1</jsx1:AppDescription>
+					<jsx1:LogCount>175</jsx1:LogCount>
+					<jsx1:ExceptionCount>150</jsx1:ExceptionCount>
+				</jsx1:AppInfo>
+				<jsx1:AppInfo>
+					<jsx1:AppID>AppID-2</jsx1:AppID>
+					<jsx1:AppName>ApplicationID-2</jsx1:AppName>
+					<jsx1:AppDescription>ApplicationID-2</jsx1:AppDescription>
+					<jsx1:LogCount>80</jsx1:LogCount>
+					<jsx1:ExceptionCount>10</jsx1:ExceptionCount>
+				</jsx1:AppInfo>
+				<jsx1:AppInfo>
+					<jsx1:AppID>AppID-3</jsx1:AppID>
+					<jsx1:AppName>ApplicationID-3</jsx1:AppName>
+					<jsx1:AppDescription>ApplicationID-3</jsx1:AppDescription>
+					<jsx1:LogCount>100</jsx1:LogCount>
+					<jsx1:ExceptionCount>20</jsx1:ExceptionCount>
+				</jsx1:AppInfo>
+			</jsx1:LogExceptionCountChart>
+		</jsx1:ChartInfo>
+	</SOAP-ENV:Body>
+</SOAP-ENV:Envelope>

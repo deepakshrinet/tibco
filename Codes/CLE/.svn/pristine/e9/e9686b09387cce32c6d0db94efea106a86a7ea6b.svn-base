@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/CommonLE2/Private/Administration" xmlns:pfx3="http://www.tibco.com/pe/DeployedVarsType" xmlns:pfx2="http://www.tibco.com/CommonLE2/namespace/private/Common" xmlns:pfx="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/InterfaceConfigDetail">
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/InterfaceConfigDetail" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/InterfaceConfigDetail.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/CommonLE2/namespace/private/Common" schemaLocation="/SharedResources/SchemaDefinitions/Private/Common/LocalExceptions.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/CommonLE2/Private/Administration" schemaLocation="/SharedResources/SchemaDefinitions/Private/Administration/QueryUpdate.xsd"/>
+    <pd:name>Administration/Logic/InterfaceConfiguration/UpdateInterfaceConfiguration.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx:InterfaceConfig"/>
+    <pd:startX>39</pd:startX>
+    <pd:startY>75</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>467</pd:endX>
+    <pd:endY>75</pd:endY>
+    <pd:errorSchemas>
+        <RecNotFound ref="pfx2:DBRecordNotFound"/>
+    </pd:errorSchemas>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1288827573653</pd:targetNamespace>
+    <pd:activity name="Update Interface Configuration">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>302</pd:x>
+        <pd:y>83</pd:y>
+        <config>
+            <processName>/Administration/DataAccess/InterfaceConfiguration/Oracle/UpdateInterfaceConfiguration.process</processName>
+            <processNameXPath>concat("/Administration/DataAccess/InterfaceConfiguration/",
+$_globalVariables/pfx3:GlobalVariables/Database/MIG_DatabaseType,
+"/UpdateInterfaceConfiguration.process")</processNameXPath>
+        </config>
+        <pd:inputBindings>
+            <xsl:for-each select="$Start/pfx:InterfaceConfig">
+                <ns:InterfaceConfiguration>
+                    <ns:ApplicationID>
+                        <xsl:value-of select="pfx:ApplicationID"/>
+                    </ns:ApplicationID>
+                    <ns:ID>
+                        <xsl:value-of select="pfx:InterfaceID"/>
+                    </ns:ID>
+                    <ns:Name>
+                        <xsl:value-of select="pfx:InterfaceName"/>
+                    </ns:Name>
+                    <ns:Type>
+                        <xsl:value-of select="pfx:InterfaceType"/>
+                    </ns:Type>
+                    <ns:dbUse>
+                        <xsl:value-of select="pfx:dbUse"/>
+                    </ns:dbUse>
+                    <ns:TransComplexity>
+                        <xsl:value-of select="pfx:TransComplexity"/>
+                    </ns:TransComplexity>
+                    <ns:Owner>
+                        <xsl:value-of select="pfx:Owner"/>
+                    </ns:Owner>
+                    <ns:SourceSystem>
+                        <xsl:value-of select="pfx:SourceSystem"/>
+                    </ns:SourceSystem>
+                    <ns:TargetSystem>
+                        <xsl:value-of select="pfx:TargetSystem"/>
+                    </ns:TargetSystem>
+                    <xsl:if test="pfx:Protocol">
+                        <ns:Protocol>
+                            <xsl:value-of select="pfx:Protocol"/>
+                        </ns:Protocol>
+                    </xsl:if>
+                    <ns:Status>
+                        <xsl:value-of select="pfx:Status"/>
+                    </ns:Status>
+                    <xsl:if test="pfx:Description">
+                        <ns:Description>
+                            <xsl:value-of select="pfx:Description"/>
+                        </ns:Description>
+                    </xsl:if>
+                    <xsl:choose>
+                        <xsl:when test="contains(pfx:ParentID, &quot;-Select-&quot;)">
+                            <ns:ParentID>
+                                <xsl:value-of select="&quot;&quot;"/>
+                            </ns:ParentID>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:if test="pfx:ParentID">
+                                <ns:ParentID>
+                                    <xsl:value-of select="pfx:ParentID"/>
+                                </ns:ParentID>
+                            </xsl:if>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </ns:InterfaceConfiguration>
+            </xsl:for-each>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Update Cache Notice">
+        <pd:type>com.tibco.plugin.jms.JMSTopicPublishActivity</pd:type>
+        <pd:resourceType>ae.activities.JMSTopicPublishActivity</pd:resourceType>
+        <pd:x>163</pd:x>
+        <pd:y>85</pd:y>
+        <config>
+            <PermittedMessageType>XML Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+                <destination>%%JMSDestinationNames/MIG_InterfaceCache%%</destination>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>%%JMSServer/MIG_JMSExpiration%%</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/SharedResources/Connections/JMS/JMS Extension.sharedjmscon</ConnectionReference>
+            <InDataxsdString ref="ns:InterfaceConfiguration"/>
+        </config>
+        <pd:inputBindings>
+            <ns2:ActivityInput>
+                <Body>
+                    <xsl:for-each select="$Start/pfx:InterfaceConfig">
+                        <ns:InterfaceConfiguration>
+                            <ns:ApplicationID>
+                                <xsl:value-of select="pfx:ApplicationID"/>
+                            </ns:ApplicationID>
+                            <ns:ID>
+                                <xsl:value-of select="pfx:InterfaceID"/>
+                            </ns:ID>
+                            <ns:Name>
+                                <xsl:value-of select="pfx:InterfaceName"/>
+                            </ns:Name>
+                            <ns:Type>
+                                <xsl:value-of select="pfx:InterfaceType"/>
+                            </ns:Type>
+                            <ns:dbUse>
+                                <xsl:value-of select="pfx:dbUse"/>
+                            </ns:dbUse>
+                            <ns:TransComplexity>
+                                <xsl:value-of select="pfx:TransComplexity"/>
+                            </ns:TransComplexity>
+                            <ns:Owner>
+                                <xsl:value-of select="pfx:Owner"/>
+                            </ns:Owner>
+                            <ns:SourceSystem>
+                                <xsl:value-of select="pfx:SourceSystem"/>
+                            </ns:SourceSystem>
+                            <ns:TargetSystem>
+                                <xsl:value-of select="pfx:TargetSystem"/>
+                            </ns:TargetSystem>
+                            <xsl:if test="pfx:Protocol">
+                                <ns:Protocol>
+                                    <xsl:value-of select="pfx:Protocol"/>
+                                </ns:Protocol>
+                            </xsl:if>
+                            <ns:Status>
+                                <xsl:value-of select="pfx:Status"/>
+                            </ns:Status>
+                            <xsl:if test="pfx:Description">
+                                <ns:Description>
+                                    <xsl:value-of select="pfx:Description"/>
+                                </ns:Description>
+                            </xsl:if>
+                            <xsl:if test="pfx:ParentID">
+                                <ns:ParentID>
+                                    <xsl:value-of select="pfx:ParentID"/>
+                                </ns:ParentID>
+                            </xsl:if>
+                        </ns:InterfaceConfiguration>
+                    </xsl:for-each>
+                </Body>
+            </ns2:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Update Interface Configuration</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Update Cache Notice</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Update Cache Notice</pd:from>
+        <pd:to>Update Interface Configuration</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

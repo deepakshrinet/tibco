@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://www.tibco.com/CommonLE2/namespace/Private/Exception"
+	 targetNamespace="http://www.tibco.com/CommonLE2/namespace/Private/Exception"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="ExceptionQuery">
+		<xs:complexType>
+			<xs:choice>
+				<xs:element ref="Schedule"/>
+				<xs:element ref="EventType"/>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Schedule" type="xs:dateTime"/>
+	<xs:element name="ExceptionQueryResult">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ExceptionID"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ExceptionID" type="xs:string"/>
+	<xs:element name="EventType" type="xs:string"/>
+	<xs:element name="ApplicationID" type="xs:string"/>
+	<xs:element name="QueryReplayInfo">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ApplicationID"/>
+				<xs:element ref="ExceptionCode"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ExceptionCode" type="xs:string"/>
+	<xs:element name="ReplayInterval" type="xs:positiveInteger"/>
+	<xs:element name="ReplayInfo">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ReplayInterval"/>
+				<xs:element ref="EventType"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ExceptionSchedule">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ExceptionID"/>
+				<xs:element ref="ReplayTime"/>
+				<xs:element ref="EventType"/>
+				<xs:element ref="ResolutionDestination"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ReplayTime" type="xs:dateTime"/>
+	<xs:element name="ExceptionDetailQuery">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ExceptionID"/>
+				<xs:element ref="RequestDestination"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="RequestDestination" type="xs:string"/>
+	<xs:element name="ResolutionDestination" type="xs:string"/>
+	<xs:element name="ExceptionQueryResults">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ExceptionQueryResult" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

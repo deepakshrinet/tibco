@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:ns2="http://www.tibco.com/CommonLE2/namespace/Public/CLEExtension/LogLevelControl.xsd" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType">
+    <pd:name>CLE/Interface/Loader/InitializeLogLevel.process</pd:name>
+    <pd:startName>onStartup</pd:startName>
+    <pd:startX>0</pd:startX>
+    <pd:startY>0</pd:startY>
+    <pd:returnBindings/>
+    <pd:starter name="onStartup">
+        <pd:type>com.tibco.pe.core.OnStartupEventSource</pd:type>
+        <pd:resourceType>ae.activities.onStartup</pd:resourceType>
+        <pd:x>87</pd:x>
+        <pd:y>86</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:starter>
+    <pd:endName>End</pd:endName>
+    <pd:endX>437</pd:endX>
+    <pd:endY>89</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1339782984343</pd:targetNamespace>
+    <pd:activity name="Set Initial LogLevel">
+        <pd:type>com.tibco.pe.core.SetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.setSharedVariable</pd:resourceType>
+        <pd:x>251</pd:x>
+        <pd:y>96</pd:y>
+        <config>
+            <variableConfig>/CLE/LogLevelControl/SharedVariable/LogLevelControl.sharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings>
+            <ns2:LogLevelState>
+                <LogLevel>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/CLE/Tuning/UtilityServices/LoggingAndExceptions/InitialLogLevel"/>
+                </LogLevel>
+                <Message>
+                    <xsl:value-of select="concat(&quot;Initializing LogLevel  to: &quot;, $_globalVariables/ns:GlobalVariables/CLE/Tuning/UtilityServices/LoggingAndExceptions/InitialLogLevel, &quot; at Engine startup&quot;)"/>
+                </Message>
+                <LastUpdateTime>
+                    <xsl:value-of select="current-dateTime()"/>
+                </LastUpdateTime>
+            </ns2:LogLevelState>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>onStartup</pd:from>
+        <pd:to>Set Initial LogLevel</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Set Initial LogLevel</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

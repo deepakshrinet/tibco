@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:ns2="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/RenderConfigDelete" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:ns="http://www.tibco.com/CommonLE2/Public/Common" xmlns:pfx0="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/RenderConfig" xmlns:pfx1="http://www.tibco.com/CommonLE2/Public/Common/Dummy" xmlns:tns="http://www.tibco.com/CommonLE2/namespace/Administration/GUIServices/RenderConfigs" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx3="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Query" xmlns:pfx2="http://www.tibco.com/CommonLE2/namespace/private/Common" targetNamespace="http://www.tibco.com/CommonLE2/namespace/Administration/GUIServices/RenderConfigs">
+    <import namespace="http://www.tibco.com/CommonLE2/Public/Common/Dummy" location="../../../SchemaDefinitions/Public/Pluggable/GUI/Common/DummyReturnMessage.xsd"/>
+    <import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/RenderConfig" location="../../../SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/RenderConfig.xsd"/>
+    <import namespace="http://www.tibco.com/CommonLE2/namespace/private/Common" location="../../../SchemaDefinitions/Private/Common/LocalExceptions.xsd"/>
+    <import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Query" location="../../../SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/ConfigurationQuery.xsd"/>
+    <import namespace="http://www.tibco.com/CommonLE2/Public/Common" location="../../../SchemaDefinitions/Public/Common/ErrorMessage.xsd"/>
+    <import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/RenderConfigDelete" location="../../../SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/RenderConfigDelete.xsd"/>
+    <message name="Error">
+        <part name="parameters" element="ns:Error"/>
+    </message>
+    <message name="Dummy">
+	    
+	</message>
+    <message name="Query">
+        <part element="pfx3:Query" name="parameters"/>
+    </message>
+    <message name="RenderConfigs">
+        <part element="pfx0:RenderConfigs" name="parameters"/>
+    </message>
+    <message name="DeleteQueries">
+        <part name="part1" element="ns2:DeleteQueries"/>
+    </message>
+    <portType name="portType">
+        <operation name="UpdateRenderConfigOp">
+            <input message="tns:RenderConfigs"/>
+            <output message="tns:Dummy"/>
+            <fault name="fault1" message="tns:Error"/>
+        </operation>
+        <operation name="RetrieveAppSpecificRenderConfigOp">
+            <input message="tns:Query"/>
+            <output message="tns:RenderConfigs"/>
+            <fault name="fault1" message="tns:Error"/>
+        </operation>
+        <operation name="DeleteRenderConfigOp">
+            <input message="tns:DeleteQueries"/>
+            <output message="tns:Dummy"/>
+            <fault name="fault1" message="tns:Error"/>
+        </operation>
+        <operation name="CreateRenderConfigOp">
+            <input message="tns:RenderConfigs"/>
+            <output message="tns:Dummy"/>
+            <fault name="fault1" message="tns:Error"/>
+        </operation>
+    </portType>
+</definitions>

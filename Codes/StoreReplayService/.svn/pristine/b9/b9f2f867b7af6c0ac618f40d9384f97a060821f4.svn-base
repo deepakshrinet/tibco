@@ -1,0 +1,63 @@
+// ----------------------------------------------------------------------------------
+// Global Variables --- EAR level
+// ----------------------------------------------------------------------------------
+ApplicationDetails/ApplicationName=StoreReplayService
+DirLedger=.
+DirTrace=E:\TIBCO\Application_Log
+EnvVariables/TIBCO_JDBC_Connection/JDBCDriver=oracle.jdbc.driver.OracleDriver (thin)
+EnvVariables/TIBCO_JDBC_Connection/JDBCURL=<<>>
+EnvVariables/TIBCO_JDBC_Connection/LoginTimeOut=60
+EnvVariables/TIBCO_JDBC_Connection/MaxConnections=10
+EnvVariables/TIBCO_JDBC_Connection/OperationTimeOut=60
+EnvVariables/TIBCO_JDBC_Connection/Password=<<>>
+EnvVariables/TIBCO_JDBC_Connection/UserName=<<>>
+EnvVariables/TIBCO_JMS_Connection/JNDI_URL=<<>>
+EnvVariables/TIBCO_JMS_Connection/PASSWORD=<<>>
+EnvVariables/TIBCO_JMS_Connection/QUEUE_CONNECTION_FACTORY=ZBS_QueueConnectionFactory
+EnvVariables/TIBCO_JMS_Connection/TOPIC_CONNECTION_FACTORY=ZBS_TopicConnectionFactory
+EnvVariables/TIBCO_JMS_Connection/USERNAME=<<>>
+ExceptionHandler/ExceptionCode=FUNC-BW-001
+ExceptionHandler/ExceptionType/Functional=FUNCTIONAL
+ExceptionHandler/ExceptionType/Technical=TECHNICAL
+HawkEnabled=false
+StoreAndReplayService/BatchRowExtract=100
+StoreAndReplayService/BatchStartTime=2012 Jan 01 00:00:00 EST
+StoreAndReplayService/JDBCCheckMaxRows=1
+StoreAndReplayService/JDBCRetryCount=3
+StoreAndReplayService/JDBCRetryInterval=300
+StoreAndReplayService/JDBCSubset=5
+StoreAndReplayService/JMSSession=5
+StoreAndReplayService/ReplayFlags/Ready=READY
+StoreAndReplayService/ReplayFlags/Replayed=REPLAYED
+StoreAndReplayService/ReplayFlags/SystemError=SYS_ERROR
+StoreAndReplayService/ReplayService/JMSExpirationReply=0
+StoreAndReplayService/ReplayService/QueueName=ZBS.TIBCO.BW.STOREANDREPLAY.REPLAYMESSAGE.ASYNC
+StoreAndReplayService/ReplayTimer=30000
+StoreAndReplayService/StoreService/QueueName=ZBS.TIBCO.BW.STOREANDREPLAY.STOREMESSAGE.ASYNC
+TIBHawkDaemon=tcp:7474
+TIBHawkNetwork=
+TIBHawkService=7474
+// ----------------------------------------------------------------------------------
+// StoreReplayService_StoreReplay.par --- Process Starter settings --- PAR level
+// ----------------------------------------------------------------------------------
+_TAG,BWProcess,StoreReplayService_StoreReplay,StoreAndReplayService/Processes/StarterProcesses/BatchReplayMessage.process,maxJob=0
+_TAG,BWProcess,StoreReplayService_StoreReplay,StoreAndReplayService/Processes/StarterProcesses/BatchReplayMessage.process,activation=true
+_TAG,BWProcess,StoreReplayService_StoreReplay,StoreAndReplayService/Processes/StarterProcesses/BatchReplayMessage.process,flowLimit=0
+_TAG,BWProcess,StoreReplayService_StoreReplay,StoreAndReplayService/Processes/StarterProcesses/StoreMessage.process,maxJob=0
+_TAG,BWProcess,StoreReplayService_StoreReplay,StoreAndReplayService/Processes/StarterProcesses/StoreMessage.process,activation=true
+_TAG,BWProcess,StoreReplayService_StoreReplay,StoreAndReplayService/Processes/StarterProcesses/StoreMessage.process,flowLimit=0
+_TAG,Setting,StoreReplayService_StoreReplay,threadCount=8
+_TAG,Setting,StoreReplayService_StoreReplay,maxLogFileCount=5
+_TAG,Setting,StoreReplayService_StoreReplay,maxLogFileSize=20000
+_TAG,Setting,StoreReplayService_StoreReplay,java/initHeapSize=32
+_TAG,Setting,StoreReplayService_StoreReplay,java/maxHeapSize=256
+_TAG,Setting,StoreReplayService_StoreReplay,java/prepandClassPath=
+_TAG,Setting,StoreReplayService_StoreReplay,java/appendClassPath=
+// ----------------------------------------------------------------------------------
+// Machine #1 --- StoreReplayService_StoreReplay.par --- Service Instance settings --- Service level
+// ----------------------------------------------------------------------------------
+_TAG,Machine,StoreReplayService_StoreReplay,StoreReplayService_StoreReplay-1,machine=%%StoreReplayService_StoreReplay.par-machine%%
+// ----------------------------------------------------------------------------------
+// Machine #2 --- StoreReplayService_StoreReplay.par --- Service Instance settings --- Service level
+// ----------------------------------------------------------------------------------
+_TAG,Machine,StoreReplayService_StoreReplay,StoreReplayService_StoreReplay-2,machine=%%StoreReplayService_StoreReplay.par-1-machine%%

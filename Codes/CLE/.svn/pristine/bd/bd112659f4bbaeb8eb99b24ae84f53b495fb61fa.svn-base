@@ -1,0 +1,688 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data>
+  <record jsxid="version" type="string">1.0_v71</record>
+  <record jsxid="jsxversion" type="string">3.9.1</record>
+  <record jsxid="caption" type="string">Common Logging and Exceptions</record>
+  <record jsxid="mode" type="boolean">true</record>
+  <record jsxid="namespace" type="string">app.tibco.CLE</record>
+  <record jsxid="cancelerror" type="boolean">true</record>
+  <record jsxid="cancelrightclick" type="boolean">true</record>
+  <record jsxid="left" type="number">0</record>
+  <record jsxid="top" type="number">0</record>
+  <record jsxid="width" type="string">100%</record>
+  <record jsxid="height" type="string">100%</record>
+  <record jsxid="position" type="number">0</record>
+  <record jsxid="overflow" type="string">3</record>
+  <record jsxid="eventsvers" type="number">3.1</record>
+  <record jsxid="default_locale" type="string">en_US</record>
+  <record jsxid="onload" type="string">cle.logic.onApplicationLoad();</record>
+  <record jsxid="objectseturl" type="string">interfaces/main/layout_gui.xml</record>
+  <record jsxid="includes" type="array">
+    <record jsxid="0" type="map">
+      <record jsxid="id" type="string">cle_css</record>
+      <record jsxid="type" type="string">css</record>
+      <record jsxid="load" type="number">1</record>
+      <record jsxid="src" type="string">css/cle.css</record>
+    </record>
+    <record jsxid="1" type="map">
+      <record jsxid="id" type="string">alerts_js</record>
+      <record jsxid="type" type="string">script</record>
+      <record jsxid="load" type="number">1</record>
+      <record jsxid="src" type="string">js/Alerts.js</record>
+    </record>
+    <record jsxid="2" type="map">
+      <record jsxid="id" type="string">utils_js</record>
+      <record jsxid="type" type="string">script</record>
+      <record jsxid="load" type="number">1</record>
+      <record jsxid="src" type="string">js/utils.js</record>
+    </record>
+    <record jsxid="3" type="map">
+      <record jsxid="id" type="string">logic_js</record>
+      <record jsxid="type" type="string">script</record>
+      <record jsxid="load" type="number">1</record>
+      <record jsxid="src" type="string">js/logic.js</record>
+    </record>
+    <record jsxid="4" type="map">
+      <record jsxid="id" type="string">localization_js</record>
+      <record jsxid="type" type="string">script</record>
+      <record jsxid="load" type="number">1</record>
+      <record jsxid="src" type="string">js/localization.js</record>
+    </record>
+    <record jsxid="5" type="map">
+      <record jsxid="id" type="string">settings_js</record>
+      <record jsxid="type" type="string">script</record>
+      <record jsxid="load" type="number">1</record>
+      <record jsxid="src" type="string">js/settings.js</record>
+    </record>
+    <record jsxid="6" type="map">
+      <record jsxid="id" type="string">strings_ljss_xml</record>
+      <record jsxid="type" type="string">ljss</record>
+      <record jsxid="load" type="number">1</record>
+      <record jsxid="src" type="string">jss/strings_ljss.xml</record>
+    </record>
+    <record jsxid="7" type="map">
+      <record jsxid="id" type="string">settings_jss_xml</record>
+      <record jsxid="type" type="string">jss</record>
+      <record jsxid="load" type="number">1</record>
+      <record jsxid="src" type="string">jss/settings_jss.xml</record>
+    </record>
+    <record jsxid="8" type="map">
+      <record jsxid="id" type="string">blueTheme_jss_xml</record>
+      <record jsxid="type" type="string">jss</record>
+      <record jsxid="load" type="number">1</record>
+      <record jsxid="src" type="string">jss/blueTheme_jss.xml</record>
+    </record>
+    <record jsxid="9" type="map">
+      <record jsxid="id" type="string">login_ljss_xml</record>
+      <record jsxid="type" type="string">ljss</record>
+      <record jsxid="load" type="number">1</record>
+      <record jsxid="src" type="string">interfaces/login/login_ljss.xml</record>
+    </record>
+    <record jsxid="10" type="map">
+      <record jsxid="id" type="string">login_js</record>
+      <record jsxid="type" type="string">script</record>
+      <record jsxid="load" type="number">1</record>
+      <record jsxid="src" type="string">interfaces/login/login.js</record>
+    </record>
+    <record jsxid="11" type="map">
+      <record jsxid="id" type="string">main_js</record>
+      <record jsxid="type" type="string">script</record>
+      <record jsxid="load" type="number">1</record>
+      <record jsxid="src" type="string">interfaces/main/main.js</record>
+    </record>
+    <record jsxid="12" type="map">
+      <record jsxid="id" type="string">userAuthentication_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/login/userAuthentication_rule.xml</record>
+    </record>
+    <record jsxid="13" type="map">
+      <record jsxid="id" type="string">faultCodes_ljss_xml</record>
+      <record jsxid="type" type="string">ljss</record>
+      <record jsxid="load" type="number">1</record>
+      <record jsxid="src" type="string">jss/faultCodes_ljss.xml</record>
+    </record>
+    <record jsxid="14" type="map">
+      <record jsxid="id" type="string">main_ljss_xml</record>
+      <record jsxid="type" type="string">ljss</record>
+      <record jsxid="load" type="number">1</record>
+      <record jsxid="src" type="string">interfaces/main/main_ljss.xml</record>
+    </record>
+    <record jsxid="15" type="map">
+      <record jsxid="id" type="string">privileges_js</record>
+      <record jsxid="type" type="string">script</record>
+      <record jsxid="load" type="number">1</record>
+      <record jsxid="src" type="string">js/privileges.js</record>
+    </record>
+    <record jsxid="16" type="map">
+      <record jsxid="id" type="string">charts_ljss_xml</record>
+      <record jsxid="type" type="string">ljss</record>
+      <record jsxid="load" type="number">1</record>
+      <record jsxid="src" type="string">interfaces/charts/charts_ljss.xml</record>
+    </record>
+    <record jsxid="17" type="map">
+      <record jsxid="id" type="string">charts_js</record>
+      <record jsxid="type" type="string">script</record>
+      <record jsxid="load" type="number">1</record>
+      <record jsxid="src" type="string">interfaces/charts/charts.js</record>
+    </record>
+    <record jsxid="18" type="map">
+      <record jsxid="id" type="string">log_ljss_xml</record>
+      <record jsxid="type" type="string">ljss</record>
+      <record jsxid="load" type="number">1</record>
+      <record jsxid="src" type="string">interfaces/log/log_ljss.xml</record>
+    </record>
+    <record jsxid="19" type="map">
+      <record jsxid="id" type="string">log_js</record>
+      <record jsxid="type" type="string">script</record>
+      <record jsxid="load" type="number">1</record>
+      <record jsxid="src" type="string">interfaces/log/log.js</record>
+    </record>
+    <record jsxid="20" type="map">
+      <record jsxid="id" type="string">exception_ljss_xml</record>
+      <record jsxid="type" type="string">ljss</record>
+      <record jsxid="load" type="number">1</record>
+      <record jsxid="src" type="string">interfaces/exception/exception_ljss.xml</record>
+    </record>
+    <record jsxid="21" type="map">
+      <record jsxid="id" type="string">exception_js</record>
+      <record jsxid="type" type="string">script</record>
+      <record jsxid="load" type="number">1</record>
+      <record jsxid="src" type="string">interfaces/exception/exception.js</record>
+    </record>
+    <record jsxid="22" type="map">
+      <record jsxid="id" type="string">security_ljss_xml</record>
+      <record jsxid="type" type="string">ljss</record>
+      <record jsxid="load" type="number">1</record>
+      <record jsxid="src" type="string">interfaces/security/security_ljss.xml</record>
+    </record>
+    <record jsxid="23" type="map">
+      <record jsxid="id" type="string">security_js</record>
+      <record jsxid="type" type="string">script</record>
+      <record jsxid="load" type="number">1</record>
+      <record jsxid="src" type="string">interfaces/security/security.js</record>
+    </record>
+    <record jsxid="24" type="map">
+      <record jsxid="id" type="string">configuration_ljss_xml</record>
+      <record jsxid="type" type="string">ljss</record>
+      <record jsxid="load" type="number">1</record>
+      <record jsxid="src" type="string">interfaces/configuration/configuration_ljss.xml</record>
+    </record>
+    <record jsxid="25" type="map">
+      <record jsxid="id" type="string">IBlock_js</record>
+      <record jsxid="type" type="string">script</record>
+      <record jsxid="load" type="number">1</record>
+      <record jsxid="src" type="string">js/IBlock.js</record>
+    </record>
+    <record jsxid="26" type="map">
+      <record jsxid="id" type="string">configuration_js</record>
+      <record jsxid="type" type="string">script</record>
+      <record jsxid="load" type="number">1</record>
+      <record jsxid="src" type="string">interfaces/configuration/configuration.js</record>
+    </record>
+    <record jsxid="27" type="map">
+      <record jsxid="id" type="string">application_ljss_xml</record>
+      <record jsxid="type" type="string">ljss</record>
+      <record jsxid="load" type="number">1</record>
+      <record jsxid="src" type="string">interfaces/configuration/applicationConfig/application_ljss.xml</record>
+    </record>
+    <record jsxid="28" type="map">
+      <record jsxid="id" type="string">retrieveApplicationConfiguration_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/configuration/rules/retrieveApplicationConfiguration_rule.xml</record>
+    </record>
+    <record jsxid="29" type="map">
+      <record jsxid="id" type="string">applicationConfig_js</record>
+      <record jsxid="type" type="string">script</record>
+      <record jsxid="load" type="number">1</record>
+      <record jsxid="src" type="string">interfaces/configuration/applicationConfig/applicationConfig.js</record>
+    </record>
+    <record jsxid="30" type="map">
+      <record jsxid="id" type="string">updateApplicationConfiguration_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/configuration/applicationConfig/updateApplicationConfiguration_rule.xml</record>
+    </record>
+    <record jsxid="31" type="map">
+      <record jsxid="id" type="string">retrieveSpecificApplicationById_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/configuration/applicationConfig/retrieveSpecificApplicationById_rule.xml</record>
+    </record>
+    <record jsxid="32" type="map">
+      <record jsxid="id" type="string">deleteApplicationConfigurationById_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/configuration/applicationConfig/deleteApplicationConfigurationById_rule.xml</record>
+    </record>
+    <record jsxid="33" type="map">
+      <record jsxid="id" type="string">createApplicationConfiguration_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/configuration/applicationConfig/createApplicationConfiguration_rule.xml</record>
+    </record>
+    <record jsxid="34" type="map">
+      <record jsxid="id" type="string">retrieveCategoryConfiguration_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/configuration/categoryConfig/retrieveCategoryConfiguration_rule.xml</record>
+    </record>
+    <record jsxid="35" type="map">
+      <record jsxid="id" type="string">categoryConfig_js</record>
+      <record jsxid="type" type="string">script</record>
+      <record jsxid="load" type="number">1</record>
+      <record jsxid="src" type="string">interfaces/configuration/categoryConfig/categoryConfig.js</record>
+    </record>
+    <record jsxid="36" type="map">
+      <record jsxid="id" type="string">updateCategory_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/configuration/categoryConfig/updateCategory_rule.xml</record>
+    </record>
+    <record jsxid="37" type="map">
+      <record jsxid="id" type="string">createCategory_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/configuration/categoryConfig/createCategory_rule.xml</record>
+    </record>
+    <record jsxid="38" type="map">
+      <record jsxid="id" type="string">deleteCategory_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/configuration/categoryConfig/deleteCategory_rule.xml</record>
+    </record>
+    <record jsxid="39" type="map">
+      <record jsxid="id" type="string">retrieveCategoryListWithSysID_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/configuration/categoryConfig/retrieveCategoryListWithSysID_rule.xml</record>
+    </record>
+    <record jsxid="40" type="map">
+      <record jsxid="id" type="string">typeConfig_ljss_xml</record>
+      <record jsxid="type" type="string">ljss</record>
+      <record jsxid="load" type="number">1</record>
+      <record jsxid="src" type="string">interfaces/configuration/typeConfig/typeConfig_ljss.xml</record>
+    </record>
+    <record jsxid="41" type="map">
+      <record jsxid="id" type="string">typeConfig_js</record>
+      <record jsxid="type" type="string">script</record>
+      <record jsxid="load" type="number">1</record>
+      <record jsxid="src" type="string">interfaces/configuration/typeConfig/typeConfig.js</record>
+    </record>
+    <record jsxid="42" type="map">
+      <record jsxid="id" type="string">createType_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/configuration/typeConfig/createType_rule.xml</record>
+    </record>
+    <record jsxid="43" type="map">
+      <record jsxid="id" type="string">retrieveSpecificType_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/configuration/typeConfig/retrieveSpecificType_rule.xml</record>
+    </record>
+    <record jsxid="44" type="map">
+      <record jsxid="id" type="string">updateType_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/configuration/typeConfig/updateType_rule.xml</record>
+    </record>
+    <record jsxid="45" type="map">
+      <record jsxid="id" type="string">retrieveTypeListWithSysID_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/configuration/typeConfig/retrieveTypeListWithSysID_rule.xml</record>
+    </record>
+    <record jsxid="46" type="map">
+      <record jsxid="id" type="string">deleteType_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/configuration/typeConfig/deleteType_rule.xml</record>
+    </record>
+    <record jsxid="47" type="map">
+      <record jsxid="id" type="string">interfaceConfig_js</record>
+      <record jsxid="type" type="string">script</record>
+      <record jsxid="load" type="number">1</record>
+      <record jsxid="src" type="string">interfaces/configuration/interfaceConfig/interfaceConfig.js</record>
+    </record>
+    <record jsxid="48" type="map">
+      <record jsxid="id" type="string">createInterfaceConfiguration_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/configuration/interfaceConfig/createInterfaceConfiguration_rule.xml</record>
+    </record>
+    <record jsxid="49" type="map">
+      <record jsxid="id" type="string">deleteInterfaceConfigurations_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/configuration/interfaceConfig/deleteInterfaceConfigurations_rule.xml</record>
+    </record>
+    <record jsxid="50" type="map">
+      <record jsxid="id" type="string">retrieveInterfaceConfigurationDetail_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/configuration/interfaceConfig/retrieveInterfaceConfigurationDetail_rule.xml</record>
+    </record>
+    <record jsxid="51" type="map">
+      <record jsxid="id" type="string">retrieveInterfaceConfigurationList_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/configuration/interfaceConfig/retrieveInterfaceConfigurationList_rule.xml</record>
+    </record>
+    <record jsxid="52" type="map">
+      <record jsxid="id" type="string">retrieveInterfaceParentList_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/configuration/interfaceConfig/retrieveInterfaceParentList_rule.xml</record>
+    </record>
+    <record jsxid="53" type="map">
+      <record jsxid="id" type="string">severityConfig_js</record>
+      <record jsxid="type" type="string">script</record>
+      <record jsxid="load" type="number">1</record>
+      <record jsxid="src" type="string">interfaces/configuration/severityConfig/severityConfig.js</record>
+    </record>
+    <record jsxid="54" type="map">
+      <record jsxid="id" type="string">interfaceConfig_ljss_xml</record>
+      <record jsxid="type" type="string">ljss</record>
+      <record jsxid="load" type="number">1</record>
+      <record jsxid="src" type="string">interfaces/configuration/interfaceConfig/interfaceConfig_ljss.xml</record>
+    </record>
+    <record jsxid="55" type="map">
+      <record jsxid="id" type="string">severityConfig_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/configuration/severityConfig/severityConfig_rule.xml</record>
+    </record>
+    <record jsxid="56" type="map">
+      <record jsxid="id" type="string">retrieveSpecificSeverityOp_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/configuration/severityConfig/retrieveSpecificSeverityOp_rule.xml</record>
+    </record>
+    <record jsxid="57" type="map">
+      <record jsxid="id" type="string">createSeverityOp_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/configuration/severityConfig/createSeverityOp_rule.xml</record>
+    </record>
+    <record jsxid="58" type="map">
+      <record jsxid="id" type="string">deleteSeverityOp_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/configuration/severityConfig/deleteSeverityOp_rule.xml</record>
+    </record>
+    <record jsxid="59" type="map">
+      <record jsxid="id" type="string">retrieveSeverityListWithSysIDOp_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/configuration/severityConfig/retrieveSeverityListWithSysIDOp_rule.xml</record>
+    </record>
+    <record jsxid="60" type="map">
+      <record jsxid="id" type="string">updateSeverityOp_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/configuration/severityConfig/updateSeverityOp_rule.xml</record>
+    </record>
+    <record jsxid="61" type="map">
+      <record jsxid="id" type="string">severityConfig_ljss_xml</record>
+      <record jsxid="type" type="string">ljss</record>
+      <record jsxid="load" type="number">1</record>
+      <record jsxid="src" type="string">interfaces/configuration/severityConfig/severityConfig_ljss.xml</record>
+    </record>
+    <record jsxid="62" type="map">
+      <record jsxid="id" type="string">retrieveProcedureListWithSysIDOp_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/configuration/procedureConfig/retrieveProcedureListWithSysIDOp_rule.xml</record>
+    </record>
+    <record jsxid="63" type="map">
+      <record jsxid="id" type="string">createProcedureOp_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/configuration/procedureConfig/createProcedureOp_rule.xml</record>
+    </record>
+    <record jsxid="64" type="map">
+      <record jsxid="id" type="string">retrieveSpecificProcedureOp_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/configuration/procedureConfig/retrieveSpecificProcedureOp_rule.xml</record>
+    </record>
+    <record jsxid="65" type="map">
+      <record jsxid="id" type="string">updateProcedureOp_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/configuration/procedureConfig/updateProcedureOp_rule.xml</record>
+    </record>
+    <record jsxid="66" type="map">
+      <record jsxid="id" type="string">deleteProcedureOp_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/configuration/procedureConfig/deleteProcedureOp_rule.xml</record>
+    </record>
+    <record jsxid="67" type="map">
+      <record jsxid="id" type="string">procedureConfig_ljss_xml</record>
+      <record jsxid="type" type="string">ljss</record>
+      <record jsxid="load" type="number">1</record>
+      <record jsxid="src" type="string">interfaces/configuration/procedureConfig/procedureConfig_ljss.xml</record>
+    </record>
+    <record jsxid="68" type="map">
+      <record jsxid="id" type="string">procedureConfig_js</record>
+      <record jsxid="type" type="string">script</record>
+      <record jsxid="load" type="number">1</record>
+      <record jsxid="src" type="string">interfaces/configuration/procedureConfig/procedureConfig.js</record>
+    </record>
+    <record jsxid="69" type="map">
+      <record jsxid="id" type="string">exceptionConfig_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/configuration/exceptionConfig/exceptionConfig_rule.xml</record>
+    </record>
+    <record jsxid="70" type="map">
+      <record jsxid="id" type="string">retrieveSpecificExceptionConfigurationListOp_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/configuration/exceptionConfig/retrieveSpecificExceptionConfigurationListOp_rule.xml</record>
+    </record>
+    <record jsxid="71" type="map">
+      <record jsxid="id" type="string">updateExceptionConfigurationOp_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/configuration/exceptionConfig/updateExceptionConfigurationOp_rule.xml</record>
+    </record>
+    <record jsxid="72" type="map">
+      <record jsxid="id" type="string">retrieveSpecificExceptionConfigurationOp_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/configuration/exceptionConfig/retrieveSpecificExceptionConfigurationOp_rule.xml</record>
+    </record>
+    <record jsxid="73" type="map">
+      <record jsxid="id" type="string">createExceptionConfigurationOp_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/configuration/exceptionConfig/createExceptionConfigurationOp_rule.xml</record>
+    </record>
+    <record jsxid="74" type="map">
+      <record jsxid="id" type="string">deleteExceptionConfigurationOp_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/configuration/exceptionConfig/deleteExceptionConfigurationOp_rule.xml</record>
+    </record>
+    <record jsxid="75" type="map">
+      <record jsxid="id" type="string">exceptionConfig_js</record>
+      <record jsxid="type" type="string">script</record>
+      <record jsxid="load" type="number">1</record>
+      <record jsxid="src" type="string">interfaces/configuration/exceptionConfig/exceptionConfig.js</record>
+    </record>
+    <record jsxid="76" type="map">
+      <record jsxid="id" type="string">exceptionConfig_ljss_xml</record>
+      <record jsxid="type" type="string">ljss</record>
+      <record jsxid="load" type="number">1</record>
+      <record jsxid="src" type="string">interfaces/configuration/exceptionConfig/exceptionConfig_ljss.xml</record>
+    </record>
+    <record jsxid="77" type="map">
+      <record jsxid="id" type="string">category_ljss_xml</record>
+      <record jsxid="type" type="string">ljss</record>
+      <record jsxid="load" type="number">1</record>
+      <record jsxid="src" type="string">interfaces/configuration/categoryConfig/category_ljss.xml</record>
+    </record>
+    <record jsxid="78" type="map">
+      <record jsxid="id" type="string">renderConfig_ljss_xml</record>
+      <record jsxid="type" type="string">ljss</record>
+      <record jsxid="load" type="number">1</record>
+      <record jsxid="src" type="string">interfaces/configuration/renderConfig/renderConfig_ljss.xml</record>
+    </record>
+    <record jsxid="79" type="map">
+      <record jsxid="id" type="string">renderConfig_js</record>
+      <record jsxid="type" type="string">script</record>
+      <record jsxid="load" type="number">1</record>
+      <record jsxid="src" type="string">interfaces/configuration/renderConfig/renderConfig.js</record>
+    </record>
+    <record jsxid="80" type="map">
+      <record jsxid="id" type="string">renderConfiguration_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/configuration/renderConfig/renderConfiguration_rule.xml</record>
+    </record>
+    <record jsxid="81" type="map">
+      <record jsxid="id" type="string">updateRenderConfigOp_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/configuration/renderConfig/updateRenderConfigOp_rule.xml</record>
+    </record>
+    <record jsxid="82" type="map">
+      <record jsxid="id" type="string">createRenderConfigOp_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/configuration/renderConfig/createRenderConfigOp_rule.xml</record>
+    </record>
+    <record jsxid="83" type="map">
+      <record jsxid="id" type="string">deleteRenderConfigOp_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/configuration/renderConfig/deleteRenderConfigOp_rule.xml</record>
+    </record>
+    <record jsxid="84" type="map">
+      <record jsxid="id" type="string">retrieveAppSpecificRenderConfigOp_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/configuration/renderConfig/retrieveAppSpecificRenderConfigOp_rule.xml</record>
+    </record>
+    <record jsxid="85" type="map">
+      <record jsxid="id" type="string">log_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/log/log_rule.xml</record>
+    </record>
+    <record jsxid="86" type="map">
+      <record jsxid="id" type="string">retrieveLogDetailOp_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/log/retrieveLogDetailOp_rule.xml</record>
+    </record>
+    <record jsxid="87" type="map">
+      <record jsxid="id" type="string">deleteLogOp_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/log/deleteLogOp_rule.xml</record>
+    </record>
+    <record jsxid="88" type="map">
+      <record jsxid="id" type="string">retrieveLogListOp_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/log/retrieveLogListOp_rule.xml</record>
+    </record>
+    <record jsxid="89" type="map">
+      <record jsxid="id" type="string">userRolesRetrievalOp_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">rules/userRolesRetrievalOp_rule.xml</record>
+    </record>
+    <record jsxid="90" type="map">
+      <record jsxid="id" type="string">log_jss_xml</record>
+      <record jsxid="type" type="string">jss</record>
+      <record jsxid="load" type="number">1</record>
+      <record jsxid="src" type="string">interfaces/log/log_jss.xml</record>
+    </record>
+    <record jsxid="91" type="map">
+      <record jsxid="id" type="string">exception_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/exception/exception_rule.xml</record>
+    </record>
+    <record jsxid="92" type="map">
+      <record jsxid="id" type="string">retrieveExceptionListOp_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/exception/retrieveExceptionListOp_rule.xml</record>
+    </record>
+    <record jsxid="93" type="map">
+      <record jsxid="id" type="string">exception_jss_xml</record>
+      <record jsxid="type" type="string">jss</record>
+      <record jsxid="load" type="number">1</record>
+      <record jsxid="src" type="string">interfaces/exception/exception_jss.xml</record>
+    </record>
+    <record jsxid="94" type="map">
+      <record jsxid="id" type="string">retrieveExceptionDetailOp_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/exception/retrieveExceptionDetailOp_rule.xml</record>
+    </record>
+    <record jsxid="94a" type="map">
+      <record jsxid="id" type="string">retrieveExceptionDetailNoRenderingOp_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/exception/retrieveExceptionDetailNoRenderingOp_rule.xml</record>
+    </record>
+    <record jsxid="95" type="map">
+      <record jsxid="id" type="string">resolveExceptionsOp_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/exception/resolveExceptionsOp_rule.xml</record>
+    </record>
+    <record jsxid="96" type="map">
+      <record jsxid="id" type="string">deleteExceptionsOp_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/exception/deleteExceptionsOp_rule.xml</record>
+    </record>
+    <record jsxid="97" type="map">
+      <record jsxid="id" type="string">retrieveACLOp_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">rules/retrieveACLOp_rule.xml</record>
+    </record>
+    <record jsxid="98" type="map">
+      <record jsxid="id" type="string">securityConfiguration_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">rules/securityConfiguration_rule.xml</record>
+    </record>
+    <record jsxid="99" type="map">
+      <record jsxid="id" type="string">availableRolesRetrievalOp_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">rules/availableRolesRetrievalOp_rule.xml</record>
+    </record>
+    <record jsxid="100" type="map">
+      <record jsxid="id" type="string">deleteRoleFromACLTableOp_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">rules/deleteRoleFromACLTableOp_rule.xml</record>
+    </record>
+    <record jsxid="101" type="map">
+      <record jsxid="id" type="string">setRoleACLOp_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">rules/setRoleACLOp_rule.xml</record>
+    </record>
+    <record jsxid="102" type="map">
+      <record jsxid="id" type="string">updateRoleACLOp_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">rules/updateRoleACLOp_rule.xml</record>
+    </record>
+    <record jsxid="103" type="map">
+      <record jsxid="id" type="string">userRolesAppsRetrievalOp_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">rules/userRolesAppsRetrievalOp_rule.xml</record>
+    </record>
+    <record jsxid="104" type="map">
+      <record jsxid="id" type="string">roles_js</record>
+      <record jsxid="type" type="string">script</record>
+      <record jsxid="load" type="number">1</record>
+      <record jsxid="src" type="string">js/roles.js</record>
+    </record>
+    <record jsxid="105" type="map">
+      <record jsxid="id" type="string">createInterfaceConfiguration2011_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/configuration/interfaceConfig/createInterfaceConfiguration2011_rule.xml</record>
+    </record>
+    <record jsxid="106" type="map">
+      <record jsxid="id" type="string">updateInterfaceConfiguration_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/configuration/interfaceConfig/updateInterfaceConfiguration_rule.xml</record>
+    </record>
+    <record jsxid="107" type="map">
+      <record jsxid="id" type="string">retrieveChartInfo_rule_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">interfaces/charts/retrieveChartInfo_rule.xml</record>
+    </record>
+    <record jsxid="108" type="map">
+      <record jsxid="id" type="string">service_endpoints_js</record>
+      <record jsxid="type" type="string">script</record>
+      <record jsxid="load" type="number">1</record>
+      <record jsxid="src" type="string">js/service_endpoints.js</record>
+    </record>
+  </record>
+  <record jsxid="addins" type="array">
+    <record jsxid="0" type="string">../../JSXAPPS/CLE/addins/editors</record>
+    <!-- <record jsxid="1" type="string">charting</record> -->
+  </record>
+  <record jsxid="bodyhotkeys" type="boolean">false</record>
+  <record jsxid="onunload" type="string">cle.logic.unloadApplication();</record>
+</data>

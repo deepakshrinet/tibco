@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by TIBCO WSDL-->
+<wsdl:definitions xmlns:ns2="http://www.tibco.com/CommonLE2/Public/Common" xmlns:ns1="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogDetail" xmlns:ns4="http://www.tibco.com/schemas/COMMONLENEW/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Common/ListQuery.xsd" xmlns:ns3="http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common" xmlns:tns="http://www.tibco.com/CommonLE2/Logging/GUIServices" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns0="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogDetailQuery" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns5="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogList" xmlns:ns6="http://www.tibco.com/CommonLE2/namespace/Public/Common/RequestHeader.xsd" name="Untitled" targetNamespace="http://www.tibco.com/CommonLE2/Logging/GUIServices">
+    <wsdl:types>
+        <xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogList" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogList">
+            <xsd:element name="LogList">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element maxOccurs="unbounded" minOccurs="0" ref="ns5:LogRecord"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="LogRecord">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="LOGID" type="xsd:int"/>
+                        <xsd:element name="APPLICATIONID" type="xsd:string"/>
+                        <xsd:element name="COMPONENTNAME" type="xsd:string"/>
+                        <xsd:element name="TRANSACTIONDOMAIN" type="xsd:string"/>
+                        <xsd:element name="TIME_STAMP" type="xsd:string"/>
+                        <xsd:element name="TRANSACTIONID" type="xsd:string"/>
+                        <xsd:element name="CORRELATIONID" type="xsd:string"/>
+                        <xsd:element name="LOGMESSAGES" type="xsd:string"/>
+                        <xsd:element name="STATUS" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+        <xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/'GUI/Common" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common">
+            <xsd:element name="Query">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element maxOccurs="unbounded" minOccurs="0" name="ID" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+        <xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/Common/RequestHeader.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/Common/RequestHeader.xsd">
+            <xsd:element name="Header">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ApplicationID" type="xsd:string"/>
+                        <xsd:element minOccurs="0" name="ComponentName" type="xsd:string"/>
+                        <xsd:element minOccurs="0" name="Hostname" type="xsd:string"/>
+                        <xsd:element name="Timestamp" type="xsd:dateTime"/>
+                        <xsd:element minOccurs="0" name="TransactionDomain" type="xsd:string"/>
+                        <xsd:element minOccurs="0" name="TransactionType" type="xsd:string"/>
+                        <xsd:element minOccurs="0" name="TransactionID" type="xsd:string"/>
+                        <xsd:element minOccurs="0" name="CorrelationID" type="xsd:string"/>
+                        <xsd:element minOccurs="0" name="InterfaceID" type="xsd:string"/>
+                        <xsd:element minOccurs="0" name="Filename" type="xsd:string"/>
+                        <xsd:element minOccurs="0" name="Message" type="xsd:string"/>
+                        <xsd:element minOccurs="0" name="RenderID" type="xsd:string"/>
+                        <xsd:element minOccurs="0" name="DataEncoding" type="xsd:string"/>
+                        <xsd:element minOccurs="0" name="Transaction" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+        <xsd:schema xmlns="http://www.tibco.com/CommonLE2/Public/Common" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.tibco.com/CommonLE2/Public/Common">
+            <xsd:element name="Code" type="xsd:string"/>
+            <xsd:element name="Error">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="0" ref="ns2:Message"/>
+                        <xsd:element minOccurs="0" ref="ns2:Code"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="Message" type="xsd:string"/>
+        </xsd:schema>
+        <xs:schema xmlns="http://www.tibco.com/schemas/COMMONLENEW/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Common/ListQuery.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.tibco.com/schemas/COMMONLENEW/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Common/ListQuery.xsd">
+            <xs:element name="Application">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="ns4:ApplicationID"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ApplicationID" type="xs:string"/>
+            <xs:element name="Applications">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" ref="ns4:Application"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Criteria">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" ref="ns4:Criterion"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Criterion">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="ns4:FieldName"/>
+                        <xs:element ref="ns4:FromValue"/>
+                        <xs:element ref="ns4:ToValue"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="FieldName">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="TransactionID"/>
+                        <xs:enumeration value="ComponentName"/>
+                        <xs:enumeration value="Time_Stamp"/>
+                        <xs:enumeration value="TransactionDomain"/>
+                        <xs:enumeration value="CorrelationID"/>
+                        <xs:enumeration value="FileName"/>
+                        <xs:enumeration value="TransactionType"/>
+                        <xs:enumeration value="Status"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="FromValue" type="xs:string"/>
+            <xs:element name="ListQuery">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="ns4:Applications"/>
+                        <xs:element ref="ns4:Criteria"/>
+                        <xs:element minOccurs="0" ref="ns4:OrderBy"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="OrderBy">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="TransactionID"/>
+                        <xs:enumeration value="ComponentName"/>
+                        <xs:enumeration value="Time_Stamp"/>
+                        <xs:enumeration value="TransactionDomain"/>
+                        <xs:enumeration value="CorrelationID"/>
+                        <xs:enumeration value="FileName"/>
+                        <xs:enumeration value="TransactionType"/>
+                        <xs:enumeration value="Status"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ToValue" type="xs:string"/>
+        </xs:schema>
+        <xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogDetailQuery" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogDetailQuery">
+            <xsd:element name="LogDetailQuery">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="LogID" type="xsd:integer"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+        <xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogDetail" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:Common="http://www.tibco.com/CommonLE2/namespace/Public/Common/RequestHeader.xsd" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogDetail">
+            <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Common/RequestHeader.xsd"/>
+            <xsd:element name="LogDetail">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="0" ref="Common:Header"/>
+                        <xsd:element minOccurs="0" name="LogID" type="xsd:string"/>
+                        <xsd:element minOccurs="0" name="TimeDuration" type="xsd:string"/>
+                        <xsd:element minOccurs="0" name="Category" type="xsd:string"/>
+                        <xsd:element minOccurs="0" name="Status" type="xsd:string"/>
+                        <xsd:element minOccurs="0" name="Size" type="xsd:unsignedLong"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:service name="Retrieve_Log_service">
+        <wsdl:port binding="tns:intfwsRetrieve_Log_DetailEndpoint2Binding" name="intfwsRetrieve_Log_DetailEndpoint2">
+            <soap:address location="http://localhost:9950/Logging/GUIServices/Retrieve_Log_service.serviceagent/intfwsRetrieve_Log_DetailEndpoint2"/>
+        </wsdl:port>
+    </wsdl:service>
+    <wsdl:portType name="portType">
+        <wsdl:operation name="Retrieve_sp_Log_sp_DetailOp">
+            <wsdl:input message="tns:LogDetailQuery"/>
+            <wsdl:output message="tns:LogDetail"/>
+            <wsdl:fault message="tns:Error" name="fault1"/>
+        </wsdl:operation>
+        <wsdl:operation name="DeleteLogOp">
+            <wsdl:input message="tns:LogDeleteQuery"/>
+            <wsdl:output message="tns:Dummy"/>
+            <wsdl:fault message="tns:Error" name="fault1"/>
+        </wsdl:operation>
+        <wsdl:operation name="Retrieve_sp_Log_sp_ListOp">
+            <wsdl:input message="tns:LogListQuery"/>
+            <wsdl:output message="tns:LogList"/>
+            <wsdl:fault message="tns:Error" name="fault1"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="intfwsRetrieve_Log_DetailEndpoint2Binding" type="tns:portType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="Retrieve_sp_Log_sp_DetailOp">
+            <soap:operation soapAction="/Logging/GUIServices/intfRetrieve_Log_Detail-service.serviceagent/intfwsRetrieve_Log_DetailEndpoint2/Retrieve_sp_Log_sp_DetailOp" style="document"/>
+            <wsdl:input>
+                <soap:body parts="parameters" use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body parts="parameters" use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="fault1">
+                <soap:fault name="fault1" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="DeleteLogOp">
+            <soap:operation soapAction="/Logging/GUIServices/Retrieve_Log_service.serviceagent//DeleteLogOp" style="document"/>
+            <wsdl:input>
+                <soap:body parts="parameters" use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body parts="" use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="fault1">
+                <soap:fault name="fault1" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="Retrieve_sp_Log_sp_ListOp">
+            <soap:operation soapAction="/Logging/GUIServices/intfRetrieve_Log_Detail-service.serviceagent/intfwsRetrieve_Log_DetailEndpoint2/Retrieve_sp_Log_sp_ListOp" style="document"/>
+            <wsdl:input>
+                <soap:body parts="parameters" use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body parts="parameters" use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="fault1">
+                <soap:fault name="fault1" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:message name="LogDetailQuery">
+        <wsdl:part element="ns0:LogDetailQuery" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="LogDetail">
+        <wsdl:part element="ns1:LogDetail" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="Error">
+        <wsdl:part element="ns2:Error" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="LogDeleteQuery">
+        <wsdl:part element="ns3:Query" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="Dummy"/>
+    <wsdl:message name="LogListQuery">
+        <wsdl:part element="ns4:ListQuery" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="LogList">
+        <wsdl:part element="ns5:LogList" name="parameters"/>
+    </wsdl:message>
+</wsdl:definitions>

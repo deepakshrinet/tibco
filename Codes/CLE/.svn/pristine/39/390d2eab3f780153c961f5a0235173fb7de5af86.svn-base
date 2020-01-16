@@ -1,0 +1,51 @@
+﻿<data jsxnamespace="propsbundle" locales="">
+  <locale key="zh_CH">
+    <record jsxid="log_tabLabel" jsxtext="日志"/>
+    <record jsxid="log_searchLogs" jsxtext="搜索日志"/>
+    <record jsxid="log_detail" jsxtext="细节"/>
+    <record jsxid="log_details" jsxtext="细节"/>
+    <record jsxid="log_header" jsxtext="头部"/>
+    <record jsxid="log_transaction" jsxtext="事务"/>
+    <record jsxid="log_deleteSelectedLogs" jsxtext="删除所选日志"/>
+    <record jsxid="log_manageColumns" jsxtext="管理列"/>
+    <record jsxid="log_manageColumnsCaption" jsxtext="管理日志目录列"/>
+    <record jsxid="log_idCol" jsxtext="ID" ref="日志ID"/>
+    <record jsxid="log_logIdCol" jsxtext="ID" ref="日志ID"/>
+    <record jsxid="log_applicationIdCol" jsxtext="应用程序ID" ref="APPLICATIONID"/>
+    <record jsxid="log_componentNameCol" jsxtext="组件名字" ref="COMPONENTNAME"/>
+    <record jsxid="log_transactionDomainCol" jsxtext="事务域" ref="TRANSACTIONDOMAIN"/>
+    <record jsxid="log_timestampCol" jsxtext="时间戳" ref="TIME_STAMP"/>
+    <record jsxid="log_transactionIdCol" jsxtext="事务ID" ref="TRANSACTIONID"/>
+    <record jsxid="log_correlationIdCol" jsxtext="关联ID" ref="CORRELATIONID"/>
+    <record jsxid="log_messageCol" jsxtext="消息" ref="LOGMESSAGES"/>
+    <record jsxid="log_logMessagesCol" jsxtext="消息" ref="LOGMESSAGES"/>
+    <record jsxid="log_statusCol" jsxtext="状态" ref="STATUS"/>
+    <record jsxid="log_clearValue" jsxtext="清空/重置值"/>
+    <record jsxid="log_correlateExceptions" jsxtext="关联例外"/>
+    <record jsxid="log_include" jsxtext="包含"/>
+    <record jsxid="log_rebuildApplicationList" jsxtext="重建应用程序目录"/>
+    <record jsxid="log_noRecordsFoundUsingCriteria" jsxtext="没有规则相应的记录。"/>
+    <record jsxid="log_listScrollInfo" jsxtext="- 查看日志消息从{0} 到 {2} 中的 {1} -"/>
+    <record jsxid="log_deleteMessage" jsxtext="选中的日志将被永远删除，继续删除吗?"/>
+    <record jsxid="log_attrLogID" jsxtext="日志ID"/>
+    <record jsxid="log_attrTimeDuration" jsxtext="时间持续"/>
+    <record jsxid="log_attrCategory" jsxtext="类别"/>
+    <record jsxid="log_attrStatus" jsxtext="状态"/>
+    <record jsxid="log_attrSize" jsxtext="大小"/>
+    <record jsxid="log_attrApplicationID" jsxtext="应用程序ID"/>
+    <record jsxid="log_attrComponentName" jsxtext="组件名字"/>
+    <record jsxid="log_attrHostname" jsxtext="主机名字"/>
+    <record jsxid="log_attrTimestamp" jsxtext="时间戳"/>
+    <record jsxid="log_attrTransactionDomain" jsxtext="事务域"/>
+    <record jsxid="log_attrTransactionType" jsxtext="事务类型"/>
+    <record jsxid="log_attrTransactionID" jsxtext="事务ID"/>
+    <record jsxid="log_attrCorrelationID" jsxtext="关联ID"/>
+    <record jsxid="log_attrInterfaceID" jsxtext="接口ID"/>
+    <record jsxid="log_attrFilename" jsxtext="文件名字"/>
+    <record jsxid="log_attrMessage" jsxtext="消息"/>
+    <record jsxid="log_attrRenderID" jsxtext="转换ID"/>
+    <record jsxid="log_attrDataEncoding" jsxtext="数据编码"/>
+    <record jsxid="log_flipDetailsOrientation" jsxtext="翻转细节目标"/>
+    <record jsxid="log_flipDetailsOrientationTip" jsxtext="改变细节查看目标"/>
+  </locale>
+</data>

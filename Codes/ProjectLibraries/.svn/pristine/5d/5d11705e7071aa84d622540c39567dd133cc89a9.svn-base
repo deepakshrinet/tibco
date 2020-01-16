@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:ns03="www.tibco.com/plugin/Sleep" xmlns:ns="http://www.tibco.com/pe/EngineTypes" xmlns:pfx11="http://www.tibco.com/CommonLE2/namespace/Public/CLEExtension/LogLevelControl.xsd" xmlns:pfx1="http://www.tibco.com/CommonLE2/namespace/Public/LogLevel" xmlns:pfx10="http://www.tibco.com/CommonLE/Client/Schema/ClientInterface.xsd" xmlns:ns02="http://www.tibco.com/pe/WriteToLogActivitySchema" xmlns:pfx5="http://www.tibco.com/ns/no_namespace_schema_location/SharedResources/Schemas/CLE2007/Logging/LogRequest.xsd" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx4="http://www.tibco.com/CommonLE2/namespace/Public/Logging/LogRequest.xsd" xmlns:pfx3="http://www.tibco.com/CommonLE2/namespace/Public/ExceptionRequestError.xsd" xmlns:pfx2="http://www.tibco.com/pe/DeployedVarsType" xmlns:pfx9="http://www.tibco.com/Customer/CommonLE/namespace/Public/Logging/CustomerLogRequest.xsd" xmlns:pfx8="http://www.macys.com/CommonLE/namespace/Public/Logging/LogRequest.xsd" xmlns:pfx7="http://www.realmed.com/CommonLE/namespace/Public/Logging/LogRequest.xsd" xmlns:pfx6="http://www.nscorp.com/CommonLE/namespace/Public/Logging/LogRequest.xsd" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns5="http://www.tibco.com/CommonLE2/namespace/Public/Common/RequestHeader.xsd" xmlns:ns6="http://www.realmed.com/CommonLE/namespace/Public/Common/RequestHeader.xsd" xmlns:pfx="http://www.tibco.com/CommonLE2/namespace/Public/Exception/ExceptionRequest.xsd" xmlns:ns7="http://www.macys.com/CommonLE/namespace/Public/Common/RequestHeader.xsd" xmlns:ns8="http://www.tibco.com/Customer/CommonLE/namespace/Public/Common/CustomerRequestHeader.xsd" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/namespaces/tnt/plugins/file" xmlns:ns1="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:ns4="http://www.nscorp.com/CommonLE/namespace/Public/Common/RequestHeader.xsd" xmlns:ns3="http://www.tibco.com/CommonLE2/namespace/Public/LogRequestError.xsd" xmlns:ns0="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Logging/LogRequest.xsd" schemaLocation="/SharedResources/Schemas/Public/Logging/LogRequest.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Common/RequestHeader.xsd" schemaLocation="/SharedResources/Schemas/Public/Common/RequestHeader.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE/Client/Schema/ClientInterface.xsd" schemaLocation="/CLE/Interface/ClientSchema/ClientInterface.xsd"/>
+    <pd:name>CLE/Interface/SendLog.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx10:LogRequest"/>
+    <pd:startX>30</pd:startX>
+    <pd:startY>35</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>502</pd:endX>
+    <pd:endY>36</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1232144241234</pd:targetNamespace>
+    <pd:activity name="Get Log Level">
+        <pd:type>com.tibco.pe.core.GetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.getSharedVariable</pd:resourceType>
+        <pd:x>167</pd:x>
+        <pd:y>35</pd:y>
+        <config>
+            <variableConfig>/CLE/LogLevelControl/SharedVariable/LogLevelControl.sharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Publish to CLE">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>418</pd:x>
+        <pd:y>176</pd:y>
+        <config>
+            <processName>/CLE/Interface/JMS/SendLogHelper.process</processName>
+            <spawn>true</spawn>
+        </config>
+        <pd:inputBindings>
+            <pfx4:LogRequest>
+                <xsl:copy-of select="$MergeHeader/ns5:Header"/>
+                <xsl:if test="$Start/pfx10:LogRequest/pfx10:TimeDuration">
+                    <TimeDuration>
+                        <xsl:value-of select="$Start/pfx10:LogRequest/pfx10:TimeDuration"/>
+                    </TimeDuration>
+                </xsl:if>
+                <xsl:if test="$Start/pfx10:LogRequest/pfx10:Category">
+                    <Category>
+                        <xsl:value-of select="$Start/pfx10:LogRequest/pfx10:Category"/>
+                    </Category>
+                </xsl:if>
+                <xsl:if test="$Start/pfx10:LogRequest/pfx10:Status">
+                    <Status>
+                        <xsl:value-of select="$Start/pfx10:LogRequest/pfx10:Status"/>
+                    </Status>
+                </xsl:if>
+                <xsl:if test="$Start/pfx10:LogRequest/pfx10:FileSize">
+                    <FileSize>
+                        <xsl:value-of select="$Start/pfx10:LogRequest/pfx10:FileSize"/>
+                    </FileSize>
+                </xsl:if>
+                <Audit>
+                    <xsl:value-of select="$Start/pfx10:LogRequest/pfx10:Audit"/>
+                </Audit>
+            </pfx4:LogRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="MergeHeader">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>172</pd:x>
+        <pd:y>172</pd:y>
+        <config>
+            <processName>/CLE/Interface/Helper/MergeHeader.process</processName>
+        </config>
+        <pd:inputBindings>
+            <xsl:copy-of select="$Start/pfx10:LogRequest/pfx10:Header"/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Get Log Level</pd:to>
+        <pd:lineType>Straight</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Publish to CLE</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Get Log Level</pd:from>
+        <pd:to>MergeHeader</pd:to>
+        <pd:xpathDescription>Log</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$Get-Log-Level/pfx11:LogLevelState/LogLevel&gt;=$Start/pfx10:LogRequest/pfx10:LogLevel</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Get Log Level</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Multiple Bends</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>MergeHeader</pd:from>
+        <pd:to>Publish to CLE</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

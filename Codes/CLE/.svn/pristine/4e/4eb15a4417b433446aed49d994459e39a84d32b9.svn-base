@@ -1,0 +1,47 @@
+<data jsxnamespace="propsbundle" locales="">
+  <locale>
+    <record jsxid="severity_ApplicationID" jsxtext="Application ID"/>
+    <record jsxid="severity_SeverityID" jsxtext="ID"/>
+    <record jsxid="severity_SeverityName" jsxtext="Name"/>
+    <record jsxid="severity_Description" jsxtext="Description"/>
+    <record jsxid="severity_createNewItemCaption" jsxtext="Create New Severity"/>
+    <record jsxid="severity_createSeverity" jsxtext="Create Severity"/>
+    <record jsxid="severity_createSeverityTip" jsxtext="Create Severity"/>
+  </locale>
+  <locale key="pt_BR">
+    <record jsxid="severity_ApplicationID" jsxtext="ID da Aplicação"/>
+    <record jsxid="severity_SeverityID" jsxtext="ID"/>
+    <record jsxid="severity_SeverityName" jsxtext="Nome"/>
+    <record jsxid="severity_Description" jsxtext="Descrição"/>
+    <record jsxid="severity_createNewItemCaption" jsxtext="Criar Nova Severidade"/>
+    <record jsxid="severity_createSeverity" jsxtext="Criar Severidade"/>
+    <record jsxid="severity_createSeverityTip" jsxtext="Criar Severidade"/>
+  </locale>
+  <locale key="es_ES">
+    <record jsxid="severity_ApplicationID" jsxtext="ID de Aplicación"/>
+    <record jsxid="severity_SeverityID" jsxtext="ID"/>
+    <record jsxid="severity_SeverityName" jsxtext="Nombre"/>
+    <record jsxid="severity_Description" jsxtext="Descripción"/>
+    <record jsxid="severity_createNewItemCaption" jsxtext="Crear Nueva Severidad"/>
+    <record jsxid="severity_createSeverity" jsxtext="Crear Severidad"/>
+    <record jsxid="severity_createSeverityTip" jsxtext="Crear Severidad"/>
+  </locale>
+  <locale key="sv_SV">
+    <record jsxid="severity_ApplicationID" jsxtext="ApplikationsID"/>
+    <record jsxid="severity_SeverityID" jsxtext="ID"/>
+    <record jsxid="severity_SeverityName" jsxtext="Namn"/>
+    <record jsxid="severity_Description" jsxtext="Beskrivning"/>
+    <record jsxid="severity_createNewItemCaption" jsxtext="Skapa Ny Prioritet"/>
+    <record jsxid="severity_createSeverity" jsxtext="Skapa Prioritet"/>
+    <record jsxid="severity_createSeverityTip" jsxtext="Skapa Prioritet"/>
+  </locale>
+  <locale key="zh_CH">
+    <record jsxid="severity_ApplicationID" jsxtext="应用程序ID"/>
+    <record jsxid="severity_SeverityID" jsxtext="ID"/>
+    <record jsxid="severity_SeverityName" jsxtext="名字"/>
+    <record jsxid="severity_Description" jsxtext="描述"/>
+    <record jsxid="severity_createNewItemCaption" jsxtext="创建新的严重度"/>
+    <record jsxid="severity_createSeverity" jsxtext="创建严重度"/>
+    <record jsxid="severity_createSeverityTip" jsxtext="创建严重度"/>
+  </locale>
+</data>

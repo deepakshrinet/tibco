@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:pfx0="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Applications" xmlns:pfx1="http://www.tibco.com/CommonLE2/Public/Common/Dummy" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlPfx="http://www.tibco.com/CommonLE2/namespace/Administration/GUIServices/Applications" xmlns:ns22="http://www.tibco.com/CommonLE2/namespace/Logging/GUIServices" xmlns:ns5="http://www.tibco.com/CommonLE2/Private/Administration" xmlns:ns12="http://www.tibco.com/CommonLE/namespace/Common" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns1="http://www.tibco.com/pe/EngineTypes" xmlns:ns4="http://www.tibco.com/CommonLE2/Private/Common" xmlns:ns3="http://www.tibco.com/CommonLE2/Public/Common" xmlns:pfx2="http://www.tibco.com/CommonLE2/namespace/private/Common">
+    <wsdl:import namespace="http://www.tibco.com/CommonLE2/namespace/Administration/GUIServices/Applications" location="/SharedResources/WSDL/GUI/Administration/intfUpdate_ApplicationConfiguration.wsdl"/>
+    <pd:name>Administration/GUIServices/ApplicationServices/wsCreateApplicationConfiguration.process</pd:name>
+    <pd:description>Web Service to create a new application configuration</pd:description>
+    <pd:startName>Start</pd:startName>
+    <pd:startType wsMsgRef="wsdlPfx:Applications"/>
+    <pd:startX>150</pd:startX>
+    <pd:startY>50</pd:startY>
+    <pd:returnBindings>
+        <wsdlPfx:Dummy/>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType wsMsgRef="wsdlPfx:Dummy"/>
+    <pd:endX>450</pd:endX>
+    <pd:endY>50</pd:endY>
+    <pd:errorSchemas>
+        <Schema1 wsMsgRef="wsdlPfx:Error"/>
+    </pd:errorSchemas>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1312979884279</pd:targetNamespace>
+    <pd:activity name="Create Application">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>274</pd:x>
+        <pd:y>49</pd:y>
+        <config>
+            <processName>/Administration/DataAccess/ApplicationConfiguration/Oracle/CreateApplicationConfiguration.process</processName>
+            <processNameXPath>concat("/Administration/DataAccess/ApplicationConfiguration/",$_globalVariables/ns2:GlobalVariables/Database/MIG_DatabaseType,"/CreateApplicationConfiguration.process")</processNameXPath>
+        </config>
+        <pd:inputBindings>
+            <ns5:ApplicationUpdate>
+                <ns5:ID>
+                    <xsl:value-of select="$Start/wsdlPfx:Applications/parameters/pfx0:Applications/pfx0:Application[1]/pfx0:ApplicationID"/>
+                </ns5:ID>
+                <ns5:Name>
+                    <xsl:value-of select="$Start/wsdlPfx:Applications/parameters/pfx0:Applications/pfx0:Application[1]/pfx0:Name"/>
+                </ns5:Name>
+                <ns5:Description>
+                    <xsl:value-of select="$Start/wsdlPfx:Applications/parameters/pfx0:Applications/pfx0:Application[1]/pfx0:Description"/>
+                </ns5:Description>
+            </ns5:ApplicationUpdate>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch App ID Exists">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>151</pd:x>
+        <pd:y>155</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=IDNotUnique namespace=http://www.tibco.com/CommonLE2/namespace/private/Common</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Generate Error">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>357</pd:x>
+        <pd:y>150</pd:y>
+        <config>
+            <faultName>Schema1</faultName>
+        </config>
+        <pd:inputBindings>
+            <ns:ActivityInput>
+                <message>
+                    <xsl:value-of select="$Catch-App-ID-Exists/pfx2:IDNotUnique/pfx2:Message"/>
+                </message>
+                <messageCode>
+                    <xsl:value-of select="$Catch-App-ID-Exists/pfx2:IDNotUnique/pfx2:Code"/>
+                </messageCode>
+                <data>
+                    <wsdlPfx:Error>
+                        <parameters>
+                            <ns3:Error>
+                                <ns3:Message>
+                                    <xsl:value-of select="$Catch-App-ID-Exists/pfx2:IDNotUnique/pfx2:Message"/>
+                                </ns3:Message>
+                                <ns3:Code>
+                                    <xsl:value-of select="$Catch-App-ID-Exists/pfx2:IDNotUnique/pfx2:Code"/>
+                                </ns3:Code>
+                            </ns3:Error>
+                        </parameters>
+                    </wsdlPfx:Error>
+                </data>
+            </ns:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch All Errors">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>158</pd:x>
+        <pd:y>245</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Local Exception Handler">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>299</pd:x>
+        <pd:y>256</pd:y>
+        <config>
+            <processName>/Common/Local Exception Handler.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns12:Exception>
+                <ErrorMessage>
+                    <xsl:value-of select="$_error/ns1:ErrorReport/Msg"/>
+                </ErrorMessage>
+                <xsl:if test="$_error/ns1:ErrorReport/MsgCode">
+                    <ErrorCode>
+                        <xsl:value-of select="$_error/ns1:ErrorReport/MsgCode"/>
+                    </ErrorCode>
+                </xsl:if>
+                <ns12:Error>
+                    <xsl:for-each select="$_error/ns1:ErrorReport">
+                        <ns12:ErrorReport>
+                            <StackTrace>
+                                <xsl:value-of select="StackTrace"/>
+                            </StackTrace>
+                            <Msg>
+                                <xsl:value-of select="Msg"/>
+                            </Msg>
+                            <FullClass>
+                                <xsl:value-of select="FullClass"/>
+                            </FullClass>
+                            <Class>
+                                <xsl:value-of select="Class"/>
+                            </Class>
+                            <ProcessStack>
+                                <xsl:value-of select="ProcessStack"/>
+                            </ProcessStack>
+                            <MsgCode>
+                                <xsl:value-of select="MsgCode"/>
+                            </MsgCode>
+                        </ns12:ErrorReport>
+                    </xsl:for-each>
+                </ns12:Error>
+            </ns12:Exception>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Generate Internal Error">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>467</pd:x>
+        <pd:y>255</pd:y>
+        <config>
+            <faultName>Schema1</faultName>
+        </config>
+        <pd:inputBindings>
+            <ns:ActivityInput>
+                <message>
+                    <xsl:value-of select="$_error/ns1:ErrorReport/Msg"/>
+                </message>
+                <messageCode>
+                    <xsl:value-of select="$_error/ns1:ErrorReport/MsgCode"/>
+                </messageCode>
+                <data>
+                    <wsdlPfx:Error>
+                        <parameters>
+                            <ns3:Error>
+                                <xsl:if test="$_error/ns1:ErrorReport/Msg">
+                                    <ns3:Message>
+                                        <xsl:value-of select="$_error/ns1:ErrorReport/Msg"/>
+                                    </ns3:Message>
+                                </xsl:if>
+                                <xsl:if test="$_error/ns1:ErrorReport/MsgCode">
+                                    <ns3:Code>
+                                        <xsl:value-of select="$_error/ns1:ErrorReport/MsgCode"/>
+                                    </ns3:Code>
+                                </xsl:if>
+                            </ns3:Error>
+                        </parameters>
+                    </wsdlPfx:Error>
+                </data>
+            </ns:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Create Application</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Create Application</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch App ID Exists</pd:from>
+        <pd:to>Generate Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch All Errors</pd:from>
+        <pd:to>Local Exception Handler</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Local Exception Handler</pd:from>
+        <pd:to>Generate Internal Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

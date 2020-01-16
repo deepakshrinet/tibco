@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/CLEExtension/LogLevelResponse.xsd"
+	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	 targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/CLEExtension/LogLevelResponse.xsd"
+	 elementFormDefault="unqualified"
+	 attributeFormDefault="unqualified">
+	<xsd:element name="EngineLogLevelDetails">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="EngineLogLevel" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="EngineName" type="xsd:string"/>
+	<xsd:element name="EngineLogLevel">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="EngineName"/>
+				<xsd:element ref="LogLevel"/>
+				<xsd:element ref="Message" minOccurs="0"/>
+				<xsd:element ref="LastUpdateTime" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="LogLevel" type="xsd:string"/>
+	<xsd:element name="Message" type="xsd:string"/>
+	<xsd:element name="LastUpdateTime" type="xsd:dateTime"/>
+	<xsd:element name="GetLogLevelResponse">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="EngineLogLevelDetails"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

@@ -1,0 +1,43 @@
+--===============================================
+--   APPLICATIONS ApplicationName = ""
+--===============================================
+INSERT INTO APPLICATIONS(applicationid, NAME, description)VALUES ('TEXT-UTILITY', 'TEXT-UTILITY', 'TEXT-UTILITY');
+
+--===============================================
+--   EXCEPTIONCATEGORY
+--===============================================
+INSERT INTO EXCEPTIONCATEGORY (applicationid, ID, NAME,description)	VALUES 
+('TEXT-UTILITY', categoryid.nextval, 'System', 'System Exceptions, such as timeout, db outage,jms exception');
+
+--===============================================
+--   EXCEPTIONTYPE
+--===============================================
+
+Insert into EXCEPTIONTYPE (APPLICATIONID,ID,NAME,DESCRIPTION) values 
+('TEXT-UTILITY',TYPEID.nextval,'CatchAll','Generic Catch All Exception');
+
+--===============================================
+--   	EXCEPTIONSEVERITY
+--===============================================
+
+Insert into EXCEPTIONSEVERITY (APPLICATIONID,ID,NAME,DESCRIPTION) values 
+('TEXT-UTILITY',SEVERITYID.nextval,'UNKNOWN','Severity level cannot be determined');
+--===============================================
+--   	EXCEPTIONPROCEDURE
+--===============================================
+
+--===============================================
+--   	BW EXCEPTIONCONFIG
+--===============================================
+--Common BW Exceptions
+
+Insert into EXCEPTIONCONFIG (APPLICATIONID,EXCEPTIONCODE,DESCRIPTION,CATEGORYID,TYPEID,SEVERITYID,REPLYDESTINATION,ROLENAME,PROCEDUREID,NOTIFICATIONCHNL,EMAILTO,EMAILCC,EXCEPTIONTTL,RESOLVEDELAYINTERVAL,EVENTTYPE) values 
+('TEXT-UTILITY','TECHNICAL-777','Generic Technical Exception',(SELECT EXCEPTIONCATEGORY.ID FROM EXCEPTIONCATEGORY WHERE NAME='System' AND APPLICATIONID='TEXT-UTILITY'),(SELECT EXCEPTIONTYPE.ID FROM EXCEPTIONTYPE WHERE NAME='CatchAll' AND APPLICATIONID='TEXT-UTILITY'),(SELECT EXCEPTIONSEVERITY.ID FROM EXCEPTIONSEVERITY WHERE NAME='UNKNOWN' AND APPLICATIONID='TEXT-UTILITY'),null,null,null,'ZBS.INTEGRATION.CLE.NOTIFICATION','MG-ZIM-WAR-COMMON-TIB-SUP@zimmerbiomet.com',10,0,null);
+
+--================================================
+--        INTERFACE CONFIG
+--================================================
+
+Insert into INTERFACECONFIG 
+(APPLICATIONID,INTERFACEID,INTERFACENAME,INTERFACETYPE,OWNER,SOURCESYSTEM,TARGETSYSTEM,DBUSE,TRANSCOMPLEXITY,DESCRIPTION,PARENTID,STATUS,PROTOCOL) values 
+('TEXT-UTILITY','TEXT-UTILITY','TEXT-UTILITY','Logical','Zimmer','TIBCO','TIBCO','N','Medium',null,null,'Active',null);

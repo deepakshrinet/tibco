@@ -1,0 +1,29 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>ExceptionQueue</name>
+			<value>ZBS.INTEGRATION.CLE.EXCEPTION</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1395742784563</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>LogLevelReply</name>
+			<value>ZBS.INTEGRATION.CLE.LOGLEVELREPLY</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1395742782657</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>LogQueue</name>
+			<value>ZBS.INTEGRATION.CLE.LOG</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1395742785657</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

@@ -1,0 +1,8 @@
+<serialization xmlns="urn:tibco.com/v3.0" jsxversion="3.9">
+  <object type="jsx3.gui.Tab">
+    <variants jsxheight="18"/>
+    <strings jsxname="transactionTab" jsxbgcolor="#d8d8e5"/>
+    <dynamics jsxfontsize="labelFontSize" jsxactivecolor="activeTabColor" jsxinactivecolor="inactiveTabColor" jsxtext="exception_transaction"/>
+    <include src="interfaces/exception/transactionTabPane_gui.xml" async="false"/>
+  </object>
+</serialization>

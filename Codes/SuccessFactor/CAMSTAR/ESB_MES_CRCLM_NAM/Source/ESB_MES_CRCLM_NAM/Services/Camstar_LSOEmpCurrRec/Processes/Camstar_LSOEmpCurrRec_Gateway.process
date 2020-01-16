@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/ADB/ActiveDatabaseAdapterConfiguration" xmlns:Zimmer="java://com.zimmer.eai.tibcobw.CustomFunctions" xmlns:ns5="http://www.zimmer.com/v1_0/RequestBaseType" xmlns:ns12="http://www.zimmer.com/tibco/schemas/ZBS/XSD/StoreReplayService/v1/StoreMessageSchema.xsd" xmlns:ns6="http://www.zimmer.com/SendEmailSchema_v_1_0.xsd" xmlns:pfx="http://www.tibco.com/CommonLE/Client/Schema/ClientInterface.xsd" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns4="http://www.zimmer.com/PersistMessageSchema.xsd" xmlns:ns3="http://www.tibco.com/pe/EngineTypes" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx5="http://www.zimmer.com/v1_0//CancelProductionOrder.xsd" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx4="http://www.zimmer.com/v1_0/AuditTrackBaseType" xmlns:pfx3="http://www.zimmer.com/v1_0/ServiceBaseTypes" xmlns:pfx2="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:pfx7="http://www.zimmer.com/v1_0/LMSGroup/SyncPersonel.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pfx6="http://www.zimmer.com/v1_0/ProductionOrder.xsd">
+    <xsd:import namespace="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/ADB/ActiveDatabaseAdapterConfiguration" schemaLocation="/AESchemas/ae/ADB/ActiveDatabaseAdapterConfiguration.aeschema"/>
+    <xsd:import namespace="http://www.zimmer.com/v1_0//CancelProductionOrder.xsd" schemaLocation="/SharedResources/Schemas/XSD/SyncWorkOrder/CancelOrder.xsd"/>
+    <xsd:import namespace="http://www.zimmer.com/v1_0/LMSGroup/SyncPersonel.xsd" schemaLocation="/SharedResources/Schemas/XSD/LMS-Group/SyncPersonnelCDM.xsd"/>
+    <pd:name>Services/Camstar_LSOEmpCurrRec/Processes/Camstar_LSOEmpCurrRec_Gateway.process</pd:name>
+    <pd:startName>LSOEmpCurrRec Subscriber</pd:startName>
+    <pd:startX>0</pd:startX>
+    <pd:startY>0</pd:startY>
+    <pd:returnBindings/>
+    <pd:starter name="LSOEmpCurrRec Subscriber">
+        <pd:type>com.tibco.plugin.jms.JMSQueueEventSource</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueEventSource</pd:resourceType>
+        <pd:x>86</pd:x>
+        <pd:y>103</pd:y>
+        <config>
+            <PermittedMessageType>Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>23</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+                <destination>%%ApplicationDetails/ESB_MES_CRCLM_NAM/Queues/SAPEmpoyeeRecords_SUB%%</destination>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/EnterpriseLibrary/SharedResources/Connections/JMS/TIBCO_JMS_Connection.sharedjmscon</ConnectionReference>
+            <ApplicationProperties>/SharedResources/Connections/JMS/BranchPlant.sharedjmsapp</ApplicationProperties>
+        </config>
+        <pd:inputBindings/>
+    </pd:starter>
+    <pd:endName>End</pd:endName>
+    <pd:endX>804</pd:endX>
+    <pd:endY>96</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1396446002612</pd:targetNamespace>
+    <pd:activity name="Catch UnKnown Exception">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>872</pd:x>
+        <pd:y>335</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=ValidationException namespace=http://schemas.tibco.com/bw/plugins/xml/5.0/xmlExceptions</fault>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="EndLog">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>600</pd:x>
+        <pd:y>97</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendLog.process</processName>
+        </config>
+        <pd:inputBindings>
+            <pfx:LogRequest>
+                <pfx:Header>
+                    <xsl:if test="$Parse-CDMXML/pfx7:LMSGroup/pfx7:SvcHdr/ns5:auditTrack/pfx4:FileName">
+                        <pfx:Filename>
+                            <xsl:value-of select="$Parse-CDMXML/pfx7:LMSGroup/pfx7:SvcHdr/ns5:auditTrack/pfx4:FileName"/>
+                        </pfx:Filename>
+                    </xsl:if>
+                    <pfx:Message>
+                        <xsl:value-of select="if($LSOEmpCurrRec-Subscriber/ns2:ActivityOutput/JMSHeaders/ns2:JMSType='REPLAYED')&#xA;then&#xA;concat('REPLAYED:  '  , $InvokeWCF/root/SuccessResponse)&#xA;else&#xA;$InvokeWCF/root/SuccessResponse"/>
+                    </pfx:Message>
+                    <pfx:Transaction>
+                        <xsl:value-of select="concat('Data Inserted:',$LSOEmpCurrRec-Subscriber/ns2:ActivityOutput/Body)"/>
+                    </pfx:Transaction>
+                </pfx:Header>
+                <pfx:TimeDuration>
+                    <xsl:value-of select="tib:timestamp()-$Parse-CDMXML/pfx7:LMSGroup/pfx7:SvcHdr/ns5:customNVPList/pfx3:NVPitem[pfx3:NVPname=&quot;TIMESTAMP&quot;]/pfx3:NVPvalue"/>
+                </pfx:TimeDuration>
+                <pfx:Category>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/ESB_MES_CRCLM_NAM/Category"/>
+                </pfx:Category>
+                <pfx:Status>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/Status/COMPLETED"/>
+                </pfx:Status>
+                <pfx:Audit>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/AuditFlag"/>
+                </pfx:Audit>
+                <pfx:LogLevel>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/Environment/CommonLE/LOGGING_LEVEL_NUM_DEBUG"/>
+                </pfx:LogLevel>
+            </pfx:LogRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Log Exception">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>656</pd:x>
+        <pd:y>229</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendLog.process</processName>
+        </config>
+        <pd:inputBindings>
+            <pfx:LogRequest>
+                <pfx:Header>
+                    <xsl:if test="$Parse-CDMXML/pfx7:LMSGroup/pfx7:SvcHdr/ns5:auditTrack/pfx4:FileName">
+                        <pfx:Filename>
+                            <xsl:value-of select="$Parse-CDMXML/pfx7:LMSGroup/pfx7:SvcHdr/ns5:auditTrack/pfx4:FileName"/>
+                        </pfx:Filename>
+                    </xsl:if>
+                    <pfx:Message>
+                        <xsl:value-of select="&quot;Curriculum Records Update Failed&quot;"/>
+                    </pfx:Message>
+                </pfx:Header>
+                <pfx:TimeDuration>
+                    <xsl:value-of select="tib:timestamp()-(&#xA;if(tib:trim($Parse-CDMXML/pfx7:LMSGroup/pfx7:SvcHdr/ns5:customNVPList/pfx3:NVPitem[pfx3:NVPname=&quot;TIMESTAMP&quot;]/pfx3:NVPvalue)!='')&#xA;then&#xA;$Parse-CDMXML/pfx7:LMSGroup/pfx7:SvcHdr/ns5:customNVPList/pfx3:NVPitem[pfx3:NVPname=&quot;TIMESTAMP&quot;]/pfx3:NVPvalue&#xA;else&#xA;tib:timestamp())"/>
+                </pfx:TimeDuration>
+                <pfx:Category>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/ESB_MES_CRCLM_NAM/Category"/>
+                </pfx:Category>
+                <pfx:Status>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/Status/ERROR"/>
+                </pfx:Status>
+                <pfx:Audit>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/AuditFlag"/>
+                </pfx:Audit>
+                <pfx:LogLevel>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/Environment/CommonLE/LOGGING_LEVEL_NUM_DEBUG"/>
+                </pfx:LogLevel>
+            </pfx:LogRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Parse CDMXML">
+        <pd:type>com.tibco.plugin.xml.XMLParseActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLParseActivity</pd:resourceType>
+        <pd:x>202</pd:x>
+        <pd:y>95</pd:y>
+        <config>
+            <inputStyle>text</inputStyle>
+            <xsdVersion>default</xsdVersion>
+            <validateOutput>true</validateOutput>
+            <term ref="pfx7:LMSGroup"/>
+        </config>
+        <pd:inputBindings>
+            <xmlString>
+                <xsl:value-of select="$LSOEmpCurrRec-Subscriber/ns2:ActivityOutput/Body"/>
+            </xmlString>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Send-Catch UnKnown-Exception-ToCLE">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>746</pd:x>
+        <pd:y>337</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendException.process</processName>
+        </config>
+        <pd:inputBindings>
+            <pfx:ExceptionRequest>
+                <pfx:Header>
+                    <pfx:ComponentName>
+                        <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns3:ProcessContext/ProcessId)"/>
+                    </pfx:ComponentName>
+                    <pfx:Hostname>
+                        <xsl:value-of select="BW:getHostName()"/>
+                    </pfx:Hostname>
+                    <pfx:TransactionDomain>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/ESB_MES_CRCLM_NAM/TransactionDomain"/>
+                    </pfx:TransactionDomain>
+                    <pfx:TransactionType>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/ESB_MES_CRCLM_NAM/TransactionType"/>
+                    </pfx:TransactionType>
+                    <pfx:TransactionID>
+                        <xsl:value-of select="$Parse-CDMXML/pfx7:LMSGroup/pfx7:SvcHdr/ns5:auditTrack/pfx4:auditTransID"/>
+                    </pfx:TransactionID>
+                    <pfx:CorrelationID>
+                        <xsl:value-of select="if(contains($LSOEmpCurrRec-Subscriber/ns2:ActivityOutput/Body,'-')) then&#xA;&#xA;substring-before($LSOEmpCurrRec-Subscriber/ns2:ActivityOutput/JMSHeaders/ns2:JMSCorrelationID,'-')&#xA;else&#xA;$LSOEmpCurrRec-Subscriber/ns2:ActivityOutput/JMSHeaders/ns2:JMSCorrelationID"/>
+                    </pfx:CorrelationID>
+                    <pfx:InterfaceID>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/ESB_MES_CRCLM_NAM/InterfaceID"/>
+                    </pfx:InterfaceID>
+                    <xsl:if test="$Parse-CDMXML/pfx7:LMSGroup/pfx7:SvcHdr/ns5:auditTrack/pfx4:FileName">
+                        <pfx:Filename>
+                            <xsl:value-of select="$Parse-CDMXML/pfx7:LMSGroup/pfx7:SvcHdr/ns5:auditTrack/pfx4:FileName"/>
+                        </pfx:Filename>
+                    </xsl:if>
+                    <xsl:if test="$_error/ns3:ErrorReport/Msg">
+                        <pfx:Message>
+                            <xsl:value-of select="$_error/ns3:ErrorReport/Msg"/>
+                        </pfx:Message>
+                    </xsl:if>
+                    <pfx:Transaction>
+                        <xsl:value-of select="$LSOEmpCurrRec-Subscriber/ns2:ActivityOutput/Body"/>
+                    </pfx:Transaction>
+                </pfx:Header>
+                <pfx:ExceptionCode>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/ExceptionCode/Technical/TECHNICAL-777"/>
+                </pfx:ExceptionCode>
+                <pfx:StackTrace>
+                    <xsl:value-of select="tib:render-xml($_error/ns3:ErrorReport)"/>
+                </pfx:StackTrace>
+            </pfx:ExceptionRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SetCLEHeader">
+        <pd:type>com.tibco.pe.core.SetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.setSharedVariable</pd:resourceType>
+        <pd:x>306</pd:x>
+        <pd:y>95</pd:y>
+        <config>
+            <variableConfig>/CLE/Interface/SharedVariables/CLEHeader.jobsharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings>
+            <pfx:Header>
+                <pfx:ComponentName>
+                    <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns3:ProcessContext/ProcessId)"/>
+                </pfx:ComponentName>
+                <pfx:Hostname>
+                    <xsl:value-of select="BW:getHostName()"/>
+                </pfx:Hostname>
+                <pfx:TransactionDomain>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/ESB_MES_CRCLM_NAM/TransactionDomain"/>
+                </pfx:TransactionDomain>
+                <pfx:TransactionType>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/ESB_MES_CRCLM_NAM/TransactionType"/>
+                </pfx:TransactionType>
+                <pfx:TransactionID>
+                    <xsl:value-of select="$Parse-CDMXML/pfx7:LMSGroup/pfx7:SvcHdr/ns5:auditTrack/pfx4:auditTransID"/>
+                </pfx:TransactionID>
+                <pfx:CorrelationID>
+                    <xsl:value-of select="$Parse-CDMXML/pfx7:LMSGroup/pfx7:SvcHdr/ns5:auditTrack/pfx4:auditCorrelationID"/>
+                </pfx:CorrelationID>
+                <pfx:InterfaceID>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/ESB_MES_CRCLM_NAM/InterfaceID"/>
+                </pfx:InterfaceID>
+                <xsl:if test="$Parse-CDMXML/pfx7:LMSGroup/pfx7:SvcHdr/ns5:auditTrack/pfx4:FileName">
+                    <pfx:Filename>
+                        <xsl:value-of select="$Parse-CDMXML/pfx7:LMSGroup/pfx7:SvcHdr/ns5:auditTrack/pfx4:FileName"/>
+                    </pfx:Filename>
+                </xsl:if>
+            </pfx:Header>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="InvokeWCF">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>455</pd:x>
+        <pd:y>97</pd:y>
+        <config>
+            <processName>/Services/Camstar_LSOEmpCurrRec/Operations/InvokeWCF.process</processName>
+        </config>
+        <pd:inputBindings>
+            <xsl:copy-of select="$Parse-CDMXML/pfx7:LMSGroup"/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch Known Exception">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>181</pd:x>
+        <pd:y>229</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=ExceptionRequest namespace=http://www.tibco.com/CommonLE/Client/Schema/ClientInterface.xsd</fault>
+            <catchAll>false</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Send-Catch Known-Exception-ToCLE">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>336</pd:x>
+        <pd:y>230</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendException.process</processName>
+        </config>
+        <pd:inputBindings>
+            <pfx:ExceptionRequest>
+                <xsl:for-each select="$Catch-Known-Exception/pfx:ExceptionRequest/pfx:Header">
+                    <pfx:Header>
+                        <xsl:if test="pfx:ComponentName">
+                            <pfx:ComponentName>
+                                <xsl:value-of select="pfx:ComponentName"/>
+                            </pfx:ComponentName>
+                        </xsl:if>
+                        <xsl:if test="pfx:Hostname">
+                            <pfx:Hostname>
+                                <xsl:value-of select="pfx:Hostname"/>
+                            </pfx:Hostname>
+                        </xsl:if>
+                        <xsl:if test="pfx:TransactionDomain">
+                            <pfx:TransactionDomain>
+                                <xsl:value-of select="pfx:TransactionDomain"/>
+                            </pfx:TransactionDomain>
+                        </xsl:if>
+                        <xsl:if test="pfx:TransactionType">
+                            <pfx:TransactionType>
+                                <xsl:value-of select="pfx:TransactionType"/>
+                            </pfx:TransactionType>
+                        </xsl:if>
+                        <xsl:if test="pfx:TransactionID">
+                            <pfx:TransactionID>
+                                <xsl:value-of select="pfx:TransactionID"/>
+                            </pfx:TransactionID>
+                        </xsl:if>
+                        <xsl:if test="pfx:CorrelationID">
+                            <pfx:CorrelationID>
+                                <xsl:value-of select="pfx:CorrelationID"/>
+                            </pfx:CorrelationID>
+                        </xsl:if>
+                        <xsl:if test="pfx:InterfaceID">
+                            <pfx:InterfaceID>
+                                <xsl:value-of select="pfx:InterfaceID"/>
+                            </pfx:InterfaceID>
+                        </xsl:if>
+                        <xsl:if test="pfx:Filename">
+                            <pfx:Filename>
+                                <xsl:value-of select="pfx:Filename"/>
+                            </pfx:Filename>
+                        </xsl:if>
+                        <xsl:if test="pfx:Message">
+                            <pfx:Message>
+                                <xsl:value-of select="pfx:Message"/>
+                            </pfx:Message>
+                        </xsl:if>
+                        <xsl:if test="pfx:RenderID">
+                            <pfx:RenderID>
+                                <xsl:value-of select="pfx:RenderID"/>
+                            </pfx:RenderID>
+                        </xsl:if>
+                        <xsl:if test="pfx:DataEncoding">
+                            <pfx:DataEncoding>
+                                <xsl:value-of select="pfx:DataEncoding"/>
+                            </pfx:DataEncoding>
+                        </xsl:if>
+                        <pfx:Transaction>
+                            <xsl:value-of select="$LSOEmpCurrRec-Subscriber/ns2:ActivityOutput/Body"/>
+                        </pfx:Transaction>
+                        <xsl:for-each select="pfx:AltKey">
+                            <pfx:AltKey>
+                                <pfx:AltKeyName>
+                                    <xsl:value-of select="pfx:AltKeyName"/>
+                                </pfx:AltKeyName>
+                                <xsl:if test="pfx:AltKeyValue">
+                                    <pfx:AltKeyValue>
+                                        <xsl:value-of select="pfx:AltKeyValue"/>
+                                    </pfx:AltKeyValue>
+                                </xsl:if>
+                            </pfx:AltKey>
+                        </xsl:for-each>
+                    </pfx:Header>
+                </xsl:for-each>
+                <pfx:ExceptionCode>
+                    <xsl:value-of select="$Catch-Known-Exception/pfx:ExceptionRequest/pfx:ExceptionCode"/>
+                </pfx:ExceptionCode>
+                <xsl:if test="$Catch-Known-Exception/pfx:ExceptionRequest/pfx:StackTrace">
+                    <pfx:StackTrace>
+                        <xsl:value-of select="$Catch-Known-Exception/pfx:ExceptionRequest/pfx:StackTrace"/>
+                    </pfx:StackTrace>
+                </xsl:if>
+                <xsl:if test="$Catch-Known-Exception/pfx:ExceptionRequest/pfx:Custom">
+                    <pfx:Custom>
+                        <xsl:value-of select="$Catch-Known-Exception/pfx:ExceptionRequest/pfx:Custom"/>
+                    </pfx:Custom>
+                </xsl:if>
+                <xsl:if test="$Catch-Known-Exception/pfx:ExceptionRequest/pfx:Timeout">
+                    <pfx:Timeout>
+                        <xsl:value-of select="$Catch-Known-Exception/pfx:ExceptionRequest/pfx:Timeout"/>
+                    </pfx:Timeout>
+                </xsl:if>
+                <xsl:if test="$Catch-Known-Exception/pfx:ExceptionRequest/pfx:ReplyDestination">
+                    <pfx:ReplyDestination>
+                        <xsl:value-of select="$Catch-Known-Exception/pfx:ExceptionRequest/pfx:ReplyDestination"/>
+                    </pfx:ReplyDestination>
+                </xsl:if>
+                <xsl:if test="$Catch-Known-Exception/pfx:ExceptionRequest/pfx:NotificationChannel">
+                    <pfx:NotificationChannel>
+                        <xsl:value-of select="$Catch-Known-Exception/pfx:ExceptionRequest/pfx:NotificationChannel"/>
+                    </pfx:NotificationChannel>
+                </xsl:if>
+            </pfx:ExceptionRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Store&amp;Replay">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>439</pd:x>
+        <pd:y>330</pd:y>
+        <config>
+            <processName>/EnterpriseLibrary/Services/StoreReplayService/StoreMessage.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns12:StoreMessage>
+                <ns12:GUID>
+                    <xsl:value-of select="$Parse-CDMXML/pfx7:LMSGroup/pfx7:SvcHdr/ns5:RequestID"/>
+                </ns12:GUID>
+                <ns12:TransactionID>
+                    <xsl:value-of select="$Parse-CDMXML/pfx7:LMSGroup/pfx7:SvcHdr/ns5:auditTrack/pfx4:auditTransID"/>
+                </ns12:TransactionID>
+                <ns12:OriginalDestination>
+                    <xsl:attribute name="destinationType">
+                        <xsl:value-of select="&quot;Queue&quot;"/>
+                    </xsl:attribute>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/ESB_MES_CRCLM_NAM/Queues/SAPEmpoyeeRecords_SUB"/>
+                </ns12:OriginalDestination>
+                <ns12:Reason>
+                    <xsl:value-of select="tib:left(tib:trim($Catch-Known-Exception/pfx:ExceptionRequest/pfx:StackTrace), 1000)"/>
+                </ns12:Reason>
+                <ns12:ApplicaitonID>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/ESB_MES_CRCLM_NAM/InterfaceID"/>
+                </ns12:ApplicaitonID>
+                <ns12:ApplicationName>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/Environment/CommonLE/ApplicationID"/>
+                </ns12:ApplicationName>
+                <ns12:TargetSystem>
+                    <xsl:value-of select="&quot;CAMSTAR&quot;"/>
+                </ns12:TargetSystem>
+                <ns12:MessageTime>
+                    <xsl:value-of select="current-dateTime()"/>
+                </ns12:MessageTime>
+                <ns12:Message>
+                    <xsl:value-of select="$LSOEmpCurrRec-Subscriber/ns2:ActivityOutput/Body"/>
+                </ns12:Message>
+            </ns12:StoreMessage>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Null">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>560</pd:x>
+        <pd:y>329</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Confirm">
+        <pd:type>com.tibco.pe.core.ConfirmActivity</pd:type>
+        <pd:resourceType>activity.confirm</pd:resourceType>
+        <pd:x>696</pd:x>
+        <pd:y>96</pd:y>
+        <config>
+            <ConfirmEvent>LSOEmpCurrRec Subscriber</ConfirmEvent>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Confirm-1">
+        <pd:type>com.tibco.pe.core.ConfirmActivity</pd:type>
+        <pd:resourceType>activity.confirm</pd:resourceType>
+        <pd:x>804</pd:x>
+        <pd:y>212</pd:y>
+        <config>
+            <ConfirmEvent>LSOEmpCurrRec Subscriber</ConfirmEvent>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>EndLog</pd:from>
+        <pd:to>Confirm</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Log Exception</pd:from>
+        <pd:to>Confirm-1</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-65536</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch UnKnown Exception</pd:from>
+        <pd:to>Send-Catch UnKnown-Exception-ToCLE</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-65485</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>LSOEmpCurrRec Subscriber</pd:from>
+        <pd:to>Parse CDMXML</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SetCLEHeader</pd:from>
+        <pd:to>InvokeWCF</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse CDMXML</pd:from>
+        <pd:to>SetCLEHeader</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>InvokeWCF</pd:from>
+        <pd:to>EndLog</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Send-Catch UnKnown-Exception-ToCLE</pd:from>
+        <pd:to>Log Exception</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-52429</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch Known Exception</pd:from>
+        <pd:to>Send-Catch Known-Exception-ToCLE</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-65485</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Send-Catch Known-Exception-ToCLE</pd:from>
+        <pd:to>Store&amp;Replay</pd:to>
+        <pd:xpathDescription>StoreandReply</pd:xpathDescription>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$Catch-Known-Exception/pfx:ExceptionRequest/pfx:ExceptionCode=$_globalVariables/ns1:GlobalVariables/CLE/ExceptionCode/Technical/TECHNICAL-101</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Send-Catch Known-Exception-ToCLE</pd:from>
+        <pd:to>Null</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-65485</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Store&amp;Replay</pd:from>
+        <pd:to>Null</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null</pd:from>
+        <pd:to>Log Exception</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-65536</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Confirm</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Confirm-1</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:label>
+        <pd:name>Label</pd:name>
+        <pd:description>This process accepts the SF records and update it in the Camstar system by calling its WCF API.</pd:description>
+        <pd:x>203</pd:x>
+        <pd:y>372</pd:y>
+        <pd:width>276</pd:width>
+        <pd:height>71</pd:height>
+        <pd:fontColor>-65536</pd:fontColor>
+        <pd:color>-1</pd:color>
+        <pd:type>solid</pd:type>
+        <pd:thickness>1</pd:thickness>
+        <pd:fade>true</pd:fade>
+    </pd:label>
+</pd:ProcessDefinition>

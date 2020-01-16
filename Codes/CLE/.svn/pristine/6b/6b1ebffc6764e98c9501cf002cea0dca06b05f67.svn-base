@@ -1,0 +1,41 @@
+<serialization xmlns="urn:tibco.com/v3.0" jsxversion="3.9">
+  <name><![CDATA[Dialog]]></name>
+  <icon><![CDATA[images/prototypes/dialog.gif]]></icon>
+  <description><![CDATA[Dialog box.  (Set Modal property for a modal dialog).]]></description>
+  <onAfterDeserialize><![CDATA[
+    jsx3.$O(this).extend({
+    getCloseButton: function() {
+        return btnClose;
+    },
+    close: function(objJSX) {
+    	//use injected function added by included UI
+        if (this._doCloseDialog){
+        	this._doCloseDialog();
+        } else {
+        	this.doClose();
+        }
+    }
+    });
+  ]]></onAfterDeserialize>
+  <object type="jsx3.gui.Dialog">
+    <variants jsxwidth="450" jsxheight="350" jsxwindowstate="1" jsxzindex="5000"/>
+    <strings jsxname="configurationDialog"/>
+    <dynamics jsxbgcolor="@Solid Medium"/>
+    <object type="jsx3.gui.WindowBar">
+      <variants/>
+      <strings jsxname="windowBar" jsxtext="[Caption]"/>
+      <dynamics jsxbgcolor="mediumBG"/>
+      <object type="jsx3.gui.ToolbarButton">
+        <variants/>
+        <strings jsxname="btnClose"/>
+        <dynamics jsximage="@Close Icon" jsxtip="jsx3.gui.Dialog.close"/>
+        <events jsxexecute="this.getAncestorOfType(jsx3.gui.Dialog).close(this);"/>
+      </object>
+    </object>
+    <object type="jsx3.gui.Block">
+      <variants jsxoverflow="1" jsxloadtype="1"/>
+      <strings jsxname="dialogPane" jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1"/>
+      <dynamics jsxbgcolor="@Solid Light"/>
+    </object>
+  </object>
+</serialization>

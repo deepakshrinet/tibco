@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/CommonLE2/Public/Common/ChartInfoRequest" xmlns:pfx1="http://www.tibco.com/CommonLE2/namespace/private/Common" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlPfx="http://www.tibco.com/CommonLE2/Public/Common" xmlns:ns22="http://www.tibco.com/CommonLE2/namespace/SecurityManagement/GUIServices" xmlns:ns5="http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common/Response" xmlns:ns12="http://www.tibco.com/CommonLE/namespace/Common" xmlns:ns13="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:pfx="http://www.tibco.com/pe/DeployedVarsType" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/pe/EngineTypes" xmlns:ns1="http://www.tibco.com/CommonLE2/Public/Common/ChartInfoResponse" xmlns:ns4="http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common/Request" xmlns:ns3="http://www.tibco.com/CommonLE2/Public/Pluggable/GUI/Common" xmlns:pfx2="http://www.tibco.com/CommonLE2/namespace/private/Common/Chart">
+    <wsdl:import namespace="http://www.tibco.com/CommonLE2/namespace/private/Common/Chart" location="/SharedResources/WSDL/GUI/Common/intfChartInfoRetrieval.wsdl"/>
+    <pd:name>Common/GUIServices/wsChartInfoRetrieval.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType wsMsgRef="pfx2:ChartInfoRequest"/>
+    <pd:startX>149</pd:startX>
+    <pd:startY>49</pd:startY>
+    <pd:returnBindings>
+        <pfx2:ChartInfo>
+            <parameters>
+                <ns5:ChartInfo>
+                    <xsl:copy-of select="$Retrieve-Chart-Info/ns5:ChartInfo/ns5:ExceptionPercentageChart"/>
+                    <xsl:copy-of select="$Retrieve-Chart-Info/ns5:ChartInfo/ns5:LogExceptionCountChart"/>
+                </ns5:ChartInfo>
+            </parameters>
+        </pfx2:ChartInfo>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType wsMsgRef="pfx2:ChartInfo"/>
+    <pd:endX>434</pd:endX>
+    <pd:endY>49</pd:endY>
+    <pd:errorSchemas>
+        <Schema1 wsMsgRef="pfx2:ErrorMessage"/>
+    </pd:errorSchemas>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1288192198609</pd:targetNamespace>
+    <pd:activity name="Retrieve Chart Info">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>279</pd:x>
+        <pd:y>58</pd:y>
+        <config>
+            <processNameXPath/>
+            <processName>/Common/Logic/ChartInfoRetrieval.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns4:ChartInfoRequest>
+                <ns4:UserName>
+                    <xsl:value-of select="$Start/pfx2:ChartInfoRequest/parameters/ns4:ChartInfoRequest/ns4:UserName"/>
+                </ns4:UserName>
+            </ns4:ChartInfoRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch All Errors">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>149</pd:x>
+        <pd:y>171</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Local Exception Handler">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>298</pd:x>
+        <pd:y>177</pd:y>
+        <config>
+            <processName>/Common/Local Exception Handler.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns12:Exception>
+                <ErrorMessage>
+                    <xsl:value-of select="$_error/ns2:ErrorReport/Msg"/>
+                </ErrorMessage>
+                <ErrorCode>
+                    <xsl:value-of select="$_error/ns2:ErrorReport/MsgCode"/>
+                </ErrorCode>
+                <ns12:Error>
+                    <xsl:for-each xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="$_error/ns2:ErrorReport">
+                        <ns12:ErrorReport>
+                            <StackTrace>
+                                <xsl:value-of select="StackTrace"/>
+                            </StackTrace>
+                            <Msg>
+                                <xsl:value-of select="Msg"/>
+                            </Msg>
+                            <FullClass>
+                                <xsl:value-of select="FullClass"/>
+                            </FullClass>
+                            <Class>
+                                <xsl:value-of select="Class"/>
+                            </Class>
+                            <ProcessStack>
+                                <xsl:value-of select="ProcessStack"/>
+                            </ProcessStack>
+                            <MsgCode>
+                                <xsl:value-of select="MsgCode"/>
+                            </MsgCode>
+                        </ns12:ErrorReport>
+                    </xsl:for-each>
+                </ns12:Error>
+            </ns12:Exception>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Generate Internal Error">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>443</pd:x>
+        <pd:y>178</pd:y>
+        <config>
+            <faultName>Schema1</faultName>
+        </config>
+        <pd:inputBindings>
+            <ns13:ActivityInput>
+                <message>
+                    <xsl:value-of select="$_error/ns2:ErrorReport/Msg"/>
+                </message>
+                <messageCode>
+                    <xsl:value-of select="$_error/ns2:ErrorReport/MsgCode"/>
+                </messageCode>
+                <data>
+                    <pfx2:ErrorMessage>
+                        <parameters>
+                            <wsdlPfx:Error>
+                                <wsdlPfx:Message>
+                                    <xsl:value-of select="$_error/ns2:ErrorReport/Msg"/>
+                                </wsdlPfx:Message>
+                                <wsdlPfx:Code>
+                                    <xsl:value-of select="$_error/ns2:ErrorReport/Msg"/>
+                                </wsdlPfx:Code>
+                            </wsdlPfx:Error>
+                        </parameters>
+                    </pfx2:ErrorMessage>
+                </data>
+            </ns13:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Retrieve Chart Info</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Retrieve Chart Info</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch All Errors</pd:from>
+        <pd:to>Local Exception Handler</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Local Exception Handler</pd:from>
+        <pd:to>Generate Internal Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

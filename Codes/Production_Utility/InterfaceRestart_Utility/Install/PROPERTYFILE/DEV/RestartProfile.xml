@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RestartAppList xmlns="http://www.zimmerbiomet.com/xsd/RestartProfile">
+
+	<ApplicationName>DELTA_REFACTOR/DELTA_Inbound_Interface</ApplicationName>
+	<ApplicationName>DELTA_REFACTOR/DELTA_JDE_Adapter</ApplicationName>
+	<ApplicationName>DELTA_REFACTOR/Delta_Reconciliation</ApplicationName>
+	<ApplicationName>DELTA_REFACTOR/DistributionDataService_Substation</ApplicationName>
+	<ApplicationName>DELTA_REFACTOR/PurchasingDataService</ApplicationName>
+	<ApplicationName>DELTA_REFACTOR/WarehouseDataService</ApplicationName>
+	<ApplicationName>DELTA_REFACTOR/WarehouseDataService-1</ApplicationName>
+    
+</RestartAppList>

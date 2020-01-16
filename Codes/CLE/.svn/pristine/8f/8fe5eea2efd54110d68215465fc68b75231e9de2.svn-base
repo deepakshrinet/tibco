@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pfx16="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogList" xmlns:pfx15="http://www.tibco.com/CommonLE2/namespace/private/Common" xmlns:pfx14="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogListResponse" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:pfx13="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogListQuery" xmlns:pfx12="http://www.tibco.com/ns/no_namespace_schema_location/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Log/LogListQuery.xsd" xmlns:pfx11="http://www.tibco.com/ns/no_namespace_schema_location/SharedResources/SchemaDefinitions/Private/Logging/LogStoredProcedureResponse.xsd" xmlns:pfx10="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log" xmlns:pfx17="http://www.tibco.com/schemas/COMMONLENEW/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Common/ListQuery.xsd" xmlns:pfx5="http://www.tibco.com/CommonLE/namespace/LogListResponse" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx4="http://www.tibco.com/CommonLE/namespace/InternalLogResponse" xmlns:pfx3="http://www.tibco.com/CommonLE/namespace/Common" xmlns:pfx2="http://www.tibco.com/unique/default/namespace/CommonLE" xmlns:pfx9="http://www.tibco.com/ns/no_namespace_schema_location/SharedResources/SchemaDefinitions/Private/Logging/LogStoredProcedureMessages.xsd" xmlns:pfx8="http://www.tibco.com/CommonLE2/namespace/Log" xmlns:pfx7="http://www.tibco.com/ns/no_namespace_schema_location/SharedResources/SchemaDefinitions/Private/LogStoredProcedureResponse.xsd" xmlns:pfx6="http://www.tibco.com/CommonLE/namespace/GUI" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx="http://www.tibco.com/unique/default/namespace/Log" xmlns:ns2="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="http://www.tibco.com/pe/EngineTypes" xmlns:ns3="http://www.tibco.com/CommonLE/namespace/Custom" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xsd:import namespace="http://www.tibco.com/CommonLE/namespace/Common" schemaLocation="/SharedResources/SchemaDefinitions/Public/Common/LogQuery.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE/namespace/Common" schemaLocation="/Shared Resources/Schema Definitions/Common/LogReporting.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Log" schemaLocation="/SharedResources/SchemaDefinitions/Public/Logging/LogRequest.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/ns/no_namespace_schema_location/SharedResources/SchemaDefinitions/Private/Logging/LogStoredProcedureMessages.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogListResponse" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Log/LogListResponse.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogListQuery" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Log/LogListQuery.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/private/Common" schemaLocation="/SharedResources/SchemaDefinitions/Private/Common/LocalExceptions.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogList" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Log/LogList.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/ns/no_namespace_schema_location/SharedResources/SchemaDefinitions/Private/Logging/LogStoredProcedureResponse.xsd" schemaLocation="/SharedResources/SchemaDefinitions/Private/Logging/LogStoredProcedureResponse.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/schemas/COMMONLENEW/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Common/ListQuery.xsd" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Common/ListQuery.xsd"/>
+    <pd:name>Logging/DataAccess/Oracle/RetrieveLogList.process</pd:name>
+    <pd:description>This function is used to retrieve a list of log records based on the user query.</pd:description>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx17:ListQuery"/>
+    <pd:startX>26</pd:startX>
+    <pd:startY>72</pd:startY>
+    <pd:returnBindings>
+        <pfx16:LogList>
+            <xsl:for-each select="$Parse-XML-from-Stored-Procedure/Resultsets/ResultSet1/Record1">
+                <pfx16:LogRecord>
+                    <pfx16:LOGID>
+                        <xsl:value-of select="LOGID"/>
+                    </pfx16:LOGID>
+                    <pfx16:APPLICATIONID>
+                        <xsl:value-of select="APPLICATIONID"/>
+                    </pfx16:APPLICATIONID>
+                    <pfx16:COMPONENTNAME>
+                        <xsl:value-of select="if(string-length(COMPONENTNAME)=0) then&#xA;&quot;&quot;&#xA;else&#xA;COMPONENTNAME"/>
+                    </pfx16:COMPONENTNAME>
+                    <pfx16:TRANSACTIONDOMAIN>
+                        <xsl:value-of select="if(string-length(TRANSACTIONDOMAIN)=0) then&#xA;''&#xA;else&#xA;TRANSACTIONDOMAIN"/>
+                    </pfx16:TRANSACTIONDOMAIN>
+                    <pfx16:TIME_STAMP>
+                        <xsl:value-of select="tib:substring-before-last(TIME_STAMP, &quot;-&quot;)"/>
+                    </pfx16:TIME_STAMP>
+                    <pfx16:TRANSACTIONID>
+                        <xsl:value-of select="if(string-length(TRANSACTIONID)=0) then&#xA;''&#xA;else&#xA;TRANSACTIONID"/>
+                    </pfx16:TRANSACTIONID>
+                    <pfx16:CORRELATIONID>
+                        <xsl:value-of select="if(string-length(CORRELATIONID)=0) then&#xA;''&#xA;else&#xA;CORRELATIONID"/>
+                    </pfx16:CORRELATIONID>
+                    <pfx16:LOGMESSAGES>
+                        <xsl:value-of select="if(string-length(MESSAGE)=0) then ''  else&#xA;MESSAGE"/>
+                    </pfx16:LOGMESSAGES>
+                    <pfx16:STATUS>
+                        <xsl:value-of select="if(string-length(STATUS)=0) then&#xA;''&#xA;else&#xA;STATUS"/>
+                    </pfx16:STATUS>
+                </pfx16:LogRecord>
+            </xsl:for-each>
+        </pfx16:LogList>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType ref="pfx16:LogList"/>
+    <pd:endX>897</pd:endX>
+    <pd:endY>75</pd:endY>
+    <pd:errorSchemas>
+        <Schema0 ref="pfx15:DBRecordNotFound"/>
+    </pd:errorSchemas>
+    <pd:processVariables>
+        <SQLStatement>
+            <xsd:element name="QueryStatement" type="xsd:string"/>
+        </SQLStatement>
+    </pd:processVariables>
+    <pd:targetNamespace>http://xmlns.example.com/1284089285350</pd:targetNamespace>
+    <pd:activity name="Construct Where Clause">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:description>Function to dynamically create SQL statement based on user data</pd:description>
+        <pd:x>156</pd:x>
+        <pd:y>83</pd:y>
+        <config>
+            <processName>/Common/DataAccess/Oracle/Helper/Construct SQL Statement.process</processName>
+            <processNameXPath>concat("/Common/DataAccess/", $_globalVariables/ns:GlobalVariables/Database/MIG_DatabaseType, "/Helper/Construct SQL Statement.process")</processNameXPath>
+        </config>
+        <pd:inputBindings>
+            <xsl:copy-of select="$Start/pfx17:ListQuery"/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Call Procedure to Retrieve Records">
+        <pd:type>com.tibco.plugin.jdbc.JDBCCallActivity</pd:type>
+        <pd:resourceType>ae.activities.JDBCCallActivity</pd:resourceType>
+        <pd:description>Calls the Stored Procedure that executes the SQL Statement to retrieve records</pd:description>
+        <pd:x>563</pd:x>
+        <pd:y>82</pd:y>
+        <config>
+            <timeout>%%Database/MIG_Timeout%%</timeout>
+            <maxRows>%%Database/MIG_MAXROWS%%</maxRows>
+            <emptyStrAsNil>false</emptyStrAsNil>
+            <jdbcSharedConfig>/SharedResources/Connections/Database/DBServerOracle.sharedjdbc</jdbcSharedConfig>
+            <ProcedureName>SELECTLOGRECORDS</ProcedureName>
+            <oraObjects/>
+            <oraTables/>
+            <parameterTypes>
+                <parameter>
+                    <colName>QUERYSTRING</colName>
+                    <colType>1</colType>
+                    <dataType>12</dataType>
+                    <typeName>VARCHAR2</typeName>
+                </parameter>
+                <parameter>
+                    <colName>P_RECORDSET</colName>
+                    <colType>3</colType>
+                    <dataType>-10</dataType>
+                    <typeName>REF CURSOR</typeName>
+                </parameter>
+            </parameterTypes>
+        </config>
+        <pd:inputBindings>
+            <inputs>
+                <inputSet>
+                    <QUERYSTRING>
+                        <xsl:value-of select="$SQLStatement/QueryStatement"/>
+                    </QUERYSTRING>
+                </inputSet>
+            </inputs>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Parse XML from Stored Procedure">
+        <pd:type>com.tibco.plugin.xml.XMLParseActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLParseActivity</pd:resourceType>
+        <pd:description>Used to Parse the XML data from the string returned by the called procedure</pd:description>
+        <pd:x>755</pd:x>
+        <pd:y>82</pd:y>
+        <config>
+            <inputStyle>text</inputStyle>
+            <xsdVersion>default</xsdVersion>
+            <validateOutput>true</validateOutput>
+            <term ref="pfx11:Resultsets"/>
+        </config>
+        <pd:inputBindings>
+            <xmlString>
+                <xsl:value-of select="$Call-Procedure-to-Retrieve-Records/resultSet/UnresolvedResultsets"/>
+            </xmlString>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Generate Error">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>757</pd:x>
+        <pd:y>225</pd:y>
+        <config>
+            <faultName>Schema0</faultName>
+        </config>
+        <pd:inputBindings>
+            <ns2:ActivityInput>
+                <message>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Exceptions/Log/Messages/LogListRecNotFound"/>
+                </message>
+                <messageCode>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Exceptions/Log/Codes/LogListRecNotFound"/>
+                </messageCode>
+                <data>
+                    <pfx15:DBRecordNotFound>
+                        <pfx15:Message>
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Exceptions/Log/Messages/LogListRecNotFound"/>
+                        </pfx15:Message>
+                        <pfx15:Code>
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Exceptions/Log/Codes/LogListRecNotFound"/>
+                        </pfx15:Code>
+                    </pfx15:DBRecordNotFound>
+                </data>
+            </ns2:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Log">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>428</pd:x>
+        <pd:y>75</pd:y>
+        <config>
+            <processName>/Common/Local Logger.process</processName>
+        </config>
+        <pd:inputBindings>
+            <Log>
+                <Component>
+                    <xsl:value-of select="&quot;RetrieveLogList&quot;"/>
+                </Component>
+                <Info>
+                    <xsl:value-of select="concat(&quot;SQL Statement Used: &quot;, $SQLStatement/QueryStatement)"/>
+                </Info>
+            </Log>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Construct SQL Statement">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>286</pd:x>
+        <pd:y>83</pd:y>
+        <config>
+            <variableName>SQLStatement</variableName>
+        </config>
+        <pd:inputBindings>
+            <QueryStatement>
+                <xsl:value-of select="concat (&quot;select LOGID, APPLICATIONID,COMPONENTNAME, TRANSACTIONDOMAIN,CORRELATIONID,TRANSACTIONID,time_stamp, MESSAGE, STATUS from (select LOGID, APPLICATIONID,COMPONENTNAME, TRANSACTIONDOMAIN,CORRELATIONID,TRANSACTIONID,time_stamp, MESSAGE, STATUS from LOG &quot;, &#xA;if ($Construct-Where-Clause/WhereClause=&quot;where &quot;) then &quot;&quot; else $Construct-Where-Clause/WhereClause,' ) WHERE ROWNUM &lt;= ',$_globalVariables/ns:GlobalVariables/Database/MIG_MAXROWS)"/>
+            </QueryStatement>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Construct Where Clause</pd:to>
+        <pd:lineType>Straight</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Call Procedure to Retrieve Records</pd:from>
+        <pd:to>Parse XML from Stored Procedure</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Construct Where Clause</pd:from>
+        <pd:to>Construct SQL Statement</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse XML from Stored Procedure</pd:from>
+        <pd:to>End</pd:to>
+        <pd:xpathDescription/>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse XML from Stored Procedure</pd:from>
+        <pd:to>Generate Error</pd:to>
+        <pd:xpathDescription>No Records Found</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>count($Parse-XML-from-Stored-Procedure/Resultsets/ResultSet1/Record1) = 0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Log</pd:from>
+        <pd:to>Call Procedure to Retrieve Records</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Construct SQL Statement</pd:from>
+        <pd:to>Log</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

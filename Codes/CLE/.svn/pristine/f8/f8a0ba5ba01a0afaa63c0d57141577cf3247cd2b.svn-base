@@ -1,0 +1,53 @@
+#
+# EMS_Config_CLE.script
+#
+#
+# 05/30/2012 - Amul Chapla (TIBCO PSG)
+# EMS objects required for TIBCO CLE Framework
+
+
+##================================================================================================================================================
+##users
+##================================================================================================================================================
+
+create user cleuser password=cleuser
+
+##================================================================================================================================================
+##CLE queues
+##================================================================================================================================================
+
+create queue ZBS.INTEGRATION.CLE.EXCEPTION secure,maxbytes=1024MB
+create queue ZBS.INTEGRATION.CLE.LOGLEVELREPLY secure,maxbytes=1024MB
+create queue ZBS.INTEGRATION.CLE.LOG secure,maxbytes=1024MB
+create queue ZBS.INTEGRATION.CLE.EVENTHANDLER secure,maxbytes=1024MB
+create queue ZBS.INTEGRATION.CLE.NOTIFICATION secure,maxbytes=1024MB
+create queue ZBS.INTEGRATION.CLE.RESOLUTION secure,maxbytes=1024MB
+create queue ZBS.INTEGRATION.CLE.WFREQUEST secure,maxbytes=1024MB
+
+##================================================================================================================================================
+##CLE topics
+##================================================================================================================================================
+
+create topic ZBS.INTEGRATION.CLE.LOGLEVELREQUEST secure
+create topic ZBS.INTEGRATION.CLE.EXCEPTIONCACHE secure
+create topic ZBS.INTEGRATION.CLE.INTERFACECACHE secure
+
+##================================================================================================================================================
+##permissions
+##================================================================================================================================================
+
+grant queue ZBS.INTEGRATION.CLE.EXCEPTION user=cleuser all
+grant queue ZBS.INTEGRATION.CLE.LOGLEVELREPLY user=cleuser all
+grant queue ZBS.INTEGRATION.CLE.LOG user=cleuser all
+grant queue ZBS.INTEGRATION.CLE.EVENTHANDLER user=cleuser all
+grant queue ZBS.INTEGRATION.CLE.NOTIFICATION user=cleuser all
+grant queue ZBS.INTEGRATION.CLE.RESOLUTION user=cleuser all
+grant queue ZBS.INTEGRATION.CLE.WFREQUEST user=cleuser all
+
+grant topic ZBS.INTEGRATION.CLE.LOGLEVELREQUEST user=cleuser all
+grant topic ZBS.INTEGRATION.CLE.EXCEPTIONCACHE user=cleuser all
+grant topic ZBS.INTEGRATION.CLE.INTERFACECACHE user=cleuser all
+
+##================================================================================================================================================
+
+commit

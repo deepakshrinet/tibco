@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/pe/DeployedVarsType" xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:ns1="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/WriteToLogActivitySchema" xmlns:ns3="http://www.tibco.com/pe/EngineTypes" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx3="http://www.zimmer.com/tibco/schemas/ZBS/XSD/StoreReplayService/v1/StoreMessageSchema.xsd" xmlns:pfx2="http://www.zimmer.com/tibco/schemas/ZBS/XSD/ExceptionHandler/v1/ExceptionMessageSchema.xsd" xmlns:pfx="http://www.zimmer.com/schemas/StoreReplayService/StoreAndReplayService/Schemas/Schema.xsd">
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.zimmer.com/schemas/StoreReplayService/StoreAndReplayService/Schemas/Schema.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.zimmer.com/tibco/schemas/ZBS/XSD/StoreReplayService/v1/StoreMessageSchema.xsd" schemaLocation="/EnterpriseLibrary/SharedResources/Schemas/XSD/StoreMessageSchema.xsd"/>
+    <pd:name>StoreAndReplayService/Processes/StarterProcesses/StoreMessage.process</pd:name>
+    <pd:startName>JMS Queue Receiver</pd:startName>
+    <pd:startX>0</pd:startX>
+    <pd:startY>0</pd:startY>
+    <pd:returnBindings/>
+    <pd:starter name="JMS Queue Receiver">
+        <pd:type>com.tibco.plugin.jms.JMSQueueEventSource</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueEventSource</pd:resourceType>
+        <pd:x>65</pd:x>
+        <pd:y>73</pd:y>
+        <config>
+            <PermittedMessageType>Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>23</acknowledgeMode>
+                <maxSessions>%%StoreAndReplayService/JMSSession%%</maxSessions>
+                <destination>%%StoreAndReplayService/StoreService/QueueName%%</destination>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/EnterpriseLibrary/SharedResources/Connections/JMS/TIBCO_JMS_Connection.sharedjmscon</ConnectionReference>
+        </config>
+        <pd:inputBindings/>
+    </pd:starter>
+    <pd:endName>End</pd:endName>
+    <pd:endX>701</pd:endX>
+    <pd:endY>178</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1327642405301</pd:targetNamespace>
+    <pd:activity name="Confirm">
+        <pd:type>com.tibco.pe.core.ConfirmActivity</pd:type>
+        <pd:resourceType>activity.confirm</pd:resourceType>
+        <pd:x>469</pd:x>
+        <pd:y>176</pd:y>
+        <config>
+            <ConfirmEvent>JMS Queue Receiver</ConfirmEvent>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Call StoreMessage IBP">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>333</pd:x>
+        <pd:y>179</pd:y>
+        <config>
+            <processName>/StoreAndReplayService/Processes/IntegrationBusinessProcesses/StoreMessageIBP.process</processName>
+        </config>
+        <pd:inputBindings>
+            <group>
+                <xsl:copy-of select="$Parse-Request/pfx3:StoreMessage"/>
+                <jms_message_id>
+                    <xsl:value-of select="$JMS-Queue-Receiver/ns1:ActivityOutput/JMSHeaders/ns1:JMSMessageID"/>
+                </jms_message_id>
+            </group>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Parse Request">
+        <pd:type>com.tibco.plugin.xml.XMLParseActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLParseActivity</pd:resourceType>
+        <pd:x>188</pd:x>
+        <pd:y>175</pd:y>
+        <config>
+            <inputStyle>text</inputStyle>
+            <xsdVersion>default</xsdVersion>
+            <validateOutput>true</validateOutput>
+            <term ref="pfx3:StoreMessage"/>
+        </config>
+        <pd:inputBindings>
+            <xmlString>
+                <xsl:value-of select="$JMS-Queue-Receiver/ns1:ActivityOutput/Body"/>
+            </xmlString>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>329</pd:x>
+        <pd:y>277</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Confirm Exception">
+        <pd:type>com.tibco.pe.core.ConfirmActivity</pd:type>
+        <pd:resourceType>activity.confirm</pd:resourceType>
+        <pd:x>603</pd:x>
+        <pd:y>277</pd:y>
+        <config>
+            <ConfirmEvent>JMS Queue Receiver</ConfirmEvent>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Set Process Details">
+        <pd:type>com.tibco.pe.core.SetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.setSharedVariable</pd:resourceType>
+        <pd:x>193</pd:x>
+        <pd:y>82</pd:y>
+        <config>
+            <variableConfig>/EnterpriseLibrary/SharedResources/SharedVariables/ProcessDetails.jobsharedvariable</variableConfig>
+            <showResult>true</showResult>
+        </config>
+        <pd:inputBindings>
+            <ProcessDetails>
+                <ProcessName>
+                    <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns3:ProcessContext/ProcessId)"/>
+                </ProcessName>
+            </ProcessDetails>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Start Logger">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>319</pd:x>
+        <pd:y>73</pd:y>
+        <config>
+            <processName>/EnterpriseLibrary/Services/LogService/LogService.process</processName>
+        </config>
+        <pd:inputBindings>
+            <LogMessage>
+                <Message>
+                    <xsl:value-of select="'Start'"/>
+                </Message>
+                <LogLevel>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/Logging/LogLevels/INFO"/>
+                </LogLevel>
+                <ActivityName>
+                    <xsl:value-of select="'Start Logger'"/>
+                </ActivityName>
+                <ProcessName>
+                    <xsl:value-of select="$Set-Process-Details/ProcessDetails/ProcessName"/>
+                </ProcessName>
+                <TransactionInfo>
+                    <Name>
+                        <xsl:value-of select="'JMSMessageId'"/>
+                    </Name>
+                    <Value>
+                        <xsl:value-of select="$JMS-Queue-Receiver/ns1:ActivityOutput/JMSHeaders/ns1:JMSMessageID"/>
+                    </Value>
+                </TransactionInfo>
+            </LogMessage>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="End Logger">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>595</pd:x>
+        <pd:y>176</pd:y>
+        <config>
+            <processName>/EnterpriseLibrary/Services/LogService/LogService.process</processName>
+        </config>
+        <pd:inputBindings>
+            <LogMessage>
+                <Message>
+                    <xsl:value-of select="$Call-StoreMessage-IBP/OutputResponse/OutputMessage"/>
+                </Message>
+                <LogLevel>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/Logging/LogLevels/INFO"/>
+                </LogLevel>
+                <ActivityName>
+                    <xsl:value-of select="'End Logger'"/>
+                </ActivityName>
+                <ProcessName>
+                    <xsl:value-of select="$Set-Process-Details/ProcessDetails/ProcessName"/>
+                </ProcessName>
+                <TransactionInfo>
+                    <Name>
+                        <xsl:value-of select="'TransactionId'"/>
+                    </Name>
+                    <Value>
+                        <xsl:value-of select="$Parse-Request/pfx3:StoreMessage/pfx3:TransactionID"/>
+                    </Value>
+                </TransactionInfo>
+            </LogMessage>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Call Error Handler">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>472</pd:x>
+        <pd:y>277</pd:y>
+        <config>
+            <processName>/EnterpriseLibrary/Services/ExceptionHandler/ErrorHandler.process</processName>
+        </config>
+        <pd:inputBindings>
+            <pfx2:ExceptionMessage>
+                <pfx2:Application>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ApplicationDetails/ApplicationName"/>
+                </pfx2:Application>
+                <pfx2:Severity>
+                    <xsl:value-of select="'1'"/>
+                </pfx2:Severity>
+                <pfx2:ExceptionDescription>
+                    <xsl:value-of select="tib:render-xml($_error/ns3:ErrorReport)"/>
+                </pfx2:ExceptionDescription>
+                <pfx2:ExceptionType>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ExceptionHandler/ExceptionType/Technical"/>
+                </pfx2:ExceptionType>
+                <pfx2:ExceptionCode>
+                    <xsl:value-of select="$_error/ns3:ErrorReport/MsgCode"/>
+                </pfx2:ExceptionCode>
+                <pfx2:PayLoad>
+                    <xsl:value-of select="$JMS-Queue-Receiver/ns1:ActivityOutput/Body"/>
+                </pfx2:PayLoad>
+                <pfx2:ProcessId>
+                    <xsl:value-of select="$_processContext/ns3:ProcessContext/ProcessId"/>
+                </pfx2:ProcessId>
+                <pfx2:ProcessName>
+                    <xsl:value-of select="$Set-Process-Details/ProcessDetails/ProcessName"/>
+                </pfx2:ProcessName>
+                <pfx2:EngineName>
+                    <xsl:value-of select="$_processContext/ns3:ProcessContext/EngineName"/>
+                </pfx2:EngineName>
+                <pfx2:CreateTimestamp>
+                    <xsl:value-of select="current-dateTime()"/>
+                </pfx2:CreateTimestamp>
+            </pfx2:ExceptionMessage>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SuspendProcess">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>627</pd:x>
+        <pd:y>440</pd:y>
+        <config>
+            <processName>/StoreAndReplayService/Processes/SubProcesses/SuspendProcess.process</processName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <ProcessStarter>
+                    <xsl:value-of select="$Set-Process-Details/ProcessDetails/ProcessName"/>
+                </ProcessStarter>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Confirm</pd:from>
+        <pd:to>End Logger</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>JMS Queue Receiver</pd:from>
+        <pd:to>Set Process Details</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Call StoreMessage IBP</pd:from>
+        <pd:to>Confirm</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse Request</pd:from>
+        <pd:to>Call StoreMessage IBP</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Confirm Exception</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-65536</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Set Process Details</pd:from>
+        <pd:to>Start Logger</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start Logger</pd:from>
+        <pd:to>Parse Request</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>End Logger</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch</pd:from>
+        <pd:to>Call Error Handler</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-65536</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Call Error Handler</pd:from>
+        <pd:to>Confirm Exception</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-52480</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Call Error Handler</pd:from>
+        <pd:to>SuspendProcess</pd:to>
+        <pd:xpathDescription>Database Timeout Exception</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-52480</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$Call-Error-Handler/pfx2:ExceptionMessage/pfx2:ExceptionCode = 'BW-JDBC-100000'
+or
+$Call-Error-Handler/pfx2:ExceptionMessage/pfx2:ExceptionCode = 'BW-JDBC-100009'
+or
+$Call-Error-Handler/pfx2:ExceptionMessage/pfx2:ExceptionCode = 'BW-JDBC-100023'
+or
+$Call-Error-Handler/pfx2:ExceptionMessage/pfx2:ExceptionCode = 'BW-JDBC-100039'</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SuspendProcess</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-65536</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

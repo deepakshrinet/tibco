@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns="http://www.tibco.com/schemas/CLE-Handlers/SharedResources/SchemaDefinitions/Private/Notification/NotificationParameters.xsd"
+	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	 targetNamespace="http://www.tibco.com/schemas/CLE-Handlers/SharedResources/SchemaDefinitions/Private/Notification/NotificationParameters.xsd"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xsd:element name="NotificationQuery">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="ApplicationID"/>
+				<xsd:element ref="ExceptionCode"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ResultTimeNotified">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="TimeNotified"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="NotificationUpdate">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="ApplicationID"/>
+				<xsd:element ref="ExceptionCode"/>
+				<xsd:element ref="TimeNotified"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ApplicationID" type="xsd:string"/>
+	<xsd:element name="ExceptionCode" type="xsd:string"/>
+	<xsd:element name="TimeNotified" type="xsd:dateTime"/>
+</xsd:schema>

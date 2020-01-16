@@ -1,0 +1,33 @@
+﻿<data jsxnamespace="propsbundle" locales="">
+  <locale key="zh_CH">
+    <record jsxid="m_copyright" jsxtext="&amp;拷贝;2005-2011 TIBCO软件有限公司 保留所有权利"/>
+    <record jsxid="m_options" jsxtext="选择"/>
+    <record jsxid="m_create" jsxtext="创建"/>
+    <record jsxid="m_close" jsxtext="关闭"/>
+    <record jsxid="m_closeTip" jsxtext="应用改变，关闭对话。"/>
+    <record jsxid="m_apply" jsxtext="应用"/>
+    <record jsxid="m_applyTip" jsxtext="应用这个改变，对话保持打开。"/>
+    <record jsxid="m_search" jsxtext="搜索"/>
+    <record jsxid="m_cancel" jsxtext="放弃"/>
+    <record jsxid="m_cancelTip" jsxtext="放弃改变，关闭对话。"/>
+    <record jsxid="m_ok" jsxtext="OK"/>
+    <record jsxid="m_No" jsxtext="不"/>
+    <record jsxid="m_exit" jsxtext="退出"/>
+    <record jsxid="m_true" jsxtext="真"/>
+    <record jsxid="m_false" jsxtext="假"/>
+    <record jsxid="m_name" jsxtext="名字"/>
+    <record jsxid="m_value" jsxtext="值"/>
+    <record jsxid="m_confirmCaption" jsxtext="确认"/>
+    <record jsxid="m_confirmUnloadApplication" jsxtext="你想要结束这个会话吗?"/>
+    <record jsxid="m_bannerTitle" jsxtext="公共日志记录和例外处理"/>
+    <record jsxid="m_included" jsxtext="包含"/>
+    <record jsxid="m_notIncluded" jsxtext=""/>
+    <record jsxid="m_timeout" jsxtext="超时"/>
+    <record jsxid="m_retrievingRecords" jsxtext="检索记录。。。"/>
+    <record jsxid="m_loadingData" jsxtext="加载数据。。。"/>
+    <record jsxid="m_timeoutMessage" jsxtext="服务没有相应， 请晚点再尝试。"/>
+    <record jsxid="m_columnManager" jsxtext="列管理"/>
+    <record jsxid="m_minutes" jsxtext="（几）分钟"/>
+    <record jsxid="m_hours" jsxtext="（几）小时"/>
+  </locale>
+</data>

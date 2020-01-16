@@ -1,0 +1,18 @@
+<data jsxid="jsxroot">
+	<record jsxid="Configurations" jsxtext="Configurations" jsxopen="1" jsximg="jsx:/images/spc.gif" jsxcategory="1">
+		<record jsxid="1a" jsxtext="View Configurations" pId="1" jsxopen="1" jsximg="images/icons/attr.gif" checked="0"/>
+		<record jsxid="1b" jsxtext="Add Configurations" pId="2" jsxopen="1" jsximg="images/icons/attr.gif" checked="0"/>
+		<record jsxid="1c" jsxtext="Edit Configurations" pId="3" jsxopen="1" jsximg="images/icons/attr.gif" checked="0"/>
+		<record jsxid="1d" jsxtext="Delete Configurations" pId="4" jsxopen="1" jsximg="images/icons/attr.gif" checked="0"/>
+	</record>
+	<record jsxid="Logs" jsxtext="Logs" jsxopen="1" jsximg="jsx:/images/spc.gif" jsxcategory="1">
+		<record jsxid="2a" jsxtext="View Logs" pId="8" jsxopen="1" jsximg="images/icons/attr.gif" checked="0"/>
+		<record jsxid="2b" jsxtext="Delete Logs" pId="7" jsxopen="1" jsximg="images/icons/attr.gif" checked="0"/>
+	</record>
+	<record jsxid="Exceptions" jsxtext="Exceptions" jsxopen="1" jsximg="jsx:/images/spc.gif" jsxcategory="1">
+		<record jsxid="3a" jsxtext="View Exceptions" pId="9" jsxopen="1" jsximg="images/icons/attr.gif" checked="0"/>
+		<record jsxid="3b" jsxtext="Resolve Exceptions" pId="5" jsxopen="1" jsximg="images/icons/attr.gif" checked="0"/>
+		<record jsxid="3c" jsxtext="Delete Exceptions" pId="6" jsxopen="1" jsximg="images/icons/attr.gif" checked="0"/>
+		<record jsxid="3d" jsxtext="Edit Transactions" pId="10" jsxopen="1" jsximg="images/icons/attr.gif" checked="0"/>
+	</record>
+</data>

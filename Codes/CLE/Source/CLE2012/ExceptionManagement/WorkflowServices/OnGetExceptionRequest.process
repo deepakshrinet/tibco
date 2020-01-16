@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:ns12="http://www.tibco.com/CommonLE/namespace/Common" xmlns:ns5="http://www.tibco.com/CommonLE2/namespace/Private/Exception" xmlns:ns6="http://www.tibco.com/CommonLE2/namespace/Public/Common/RequestHeader.xsd" xmlns:pfx="http://www.tibco.com/CommonLE2/namespace/Workflow" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/CommonLE2/Private/Exception" xmlns:ns1="http://www.tibco.com/pe/EngineTypes" xmlns:ns4="http://www.tibco.com/CommonLE2/namespace/private/Common" xmlns:ns3="http://www.tibco.com/CommonLE2/Public/Common" xmlns:pfx5="http://www.tibco.com/pe/DeployedVarsType" xmlns:pfx4="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/Workflow/ExceptionReply" xmlns:pfx3="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/ExceptionManagement" xmlns:pfx2="http://www.tibco.com/CommonLE2/namespace/Public/Exception">
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/CommonLE2/namespace/Public/Exception" schemaLocation="/SharedResources/SchemaDefinitions/Public/Exception/ExceptionRequest.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/ExceptionManagement" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/ExceptionManagement/ExceptionDetail.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/Workflow/ExceptionReply" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/Workflow/ExceptionReply.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/CommonLE2/namespace/Workflow" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/Workflow/ExceptionQuery.xsd"/>
+    <pd:name>ExceptionManagement/WorkflowServices/OnGetExceptionRequest.process</pd:name>
+    <pd:startName>Request for Exception Receiver</pd:startName>
+    <pd:startX>0</pd:startX>
+    <pd:startY>0</pd:startY>
+    <pd:returnBindings/>
+    <pd:starter name="Request for Exception Receiver">
+        <pd:type>com.tibco.plugin.jms.JMSQueueEventSource</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueEventSource</pd:resourceType>
+        <pd:x>85</pd:x>
+        <pd:y>77</pd:y>
+        <config>
+            <PermittedMessageType>XML Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+                <destination>%%JMSDestinationNames/MIG_WorkflowRequestQueue%%</destination>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/SharedResources/Connections/JMS/JMS Exception.sharedjmscon</ConnectionReference>
+            <OutDataxsdString ref="pfx:ExceptionRequestQuery"/>
+        </config>
+        <pd:inputBindings/>
+    </pd:starter>
+    <pd:endName>End</pd:endName>
+    <pd:endX>485</pd:endX>
+    <pd:endY>69</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1287606627817</pd:targetNamespace>
+    <pd:activity name="Reply to JMS Message">
+        <pd:type>com.tibco.plugin.jms.JMSReplyActivity</pd:type>
+        <pd:resourceType>ae.activities.JMSReplyActivity</pd:resourceType>
+        <pd:x>361</pd:x>
+        <pd:y>73</pd:y>
+        <config>
+            <PermittedMessageType>XML Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>NON_PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>%%JMSServer/MIG_JMSExpiration%%</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+                <EventSource>Request for Exception Receiver</EventSource>
+            </ConfigurableHeaders>
+            <InDataxsdString ref="pfx4:ExceptionReply"/>
+        </config>
+        <pd:inputBindings>
+            <ns:ActivityInput>
+                <Body>
+                    <pfx4:ExceptionReply>
+                        <xsl:for-each select="$Retrieve-Exception-Request/pfx3:ExceptionDetail">
+                            <pfx4:ExceptionDetail>
+                                <xsl:for-each select="ns6:Header">
+                                    <ns6:Header>
+                                        <ns6:ApplicationID>
+                                            <xsl:value-of select="ns6:ApplicationID"/>
+                                        </ns6:ApplicationID>
+                                        <xsl:if test="ns6:ComponentName">
+                                            <ns6:ComponentName>
+                                                <xsl:value-of select="ns6:ComponentName"/>
+                                            </ns6:ComponentName>
+                                        </xsl:if>
+                                        <xsl:if test="ns6:Hostname">
+                                            <ns6:Hostname>
+                                                <xsl:value-of select="ns6:Hostname"/>
+                                            </ns6:Hostname>
+                                        </xsl:if>
+                                        <ns6:Timestamp>
+                                            <xsl:value-of select="ns6:Timestamp"/>
+                                        </ns6:Timestamp>
+                                        <xsl:if test="ns6:TransactionDomain">
+                                            <ns6:TransactionDomain>
+                                                <xsl:value-of select="ns6:TransactionDomain"/>
+                                            </ns6:TransactionDomain>
+                                        </xsl:if>
+                                        <xsl:if test="ns6:TransactionType">
+                                            <ns6:TransactionType>
+                                                <xsl:value-of select="ns6:TransactionType"/>
+                                            </ns6:TransactionType>
+                                        </xsl:if>
+                                        <xsl:if test="ns6:TransactionID">
+                                            <ns6:TransactionID>
+                                                <xsl:value-of select="ns6:TransactionID"/>
+                                            </ns6:TransactionID>
+                                        </xsl:if>
+                                        <xsl:if test="ns6:CorrelationID">
+                                            <ns6:CorrelationID>
+                                                <xsl:value-of select="ns6:CorrelationID"/>
+                                            </ns6:CorrelationID>
+                                        </xsl:if>
+                                        <xsl:if test="ns6:InterfaceID">
+                                            <ns6:InterfaceID>
+                                                <xsl:value-of select="ns6:InterfaceID"/>
+                                            </ns6:InterfaceID>
+                                        </xsl:if>
+                                        <xsl:if test="ns6:Filename">
+                                            <ns6:Filename>
+                                                <xsl:value-of select="ns6:Filename"/>
+                                            </ns6:Filename>
+                                        </xsl:if>
+                                        <xsl:if test="ns6:Message">
+                                            <ns6:Message>
+                                                <xsl:value-of select="ns6:Message"/>
+                                            </ns6:Message>
+                                        </xsl:if>
+                                        <xsl:if test="ns6:RenderID">
+                                            <ns6:RenderID>
+                                                <xsl:value-of select="ns6:RenderID"/>
+                                            </ns6:RenderID>
+                                        </xsl:if>
+                                        <xsl:if test="ns6:DataEncoding">
+                                            <ns6:DataEncoding>
+                                                <xsl:value-of select="ns6:DataEncoding"/>
+                                            </ns6:DataEncoding>
+                                        </xsl:if>
+                                        <xsl:if test="ns6:Transaction">
+                                            <ns6:Transaction>
+                                                <xsl:value-of select="ns6:Transaction"/>
+                                            </ns6:Transaction>
+                                        </xsl:if>
+                                    </ns6:Header>
+                                </xsl:for-each>
+                                <ExceptionInstanceID>
+                                    <xsl:value-of select="ExceptionInstanceID"/>
+                                </ExceptionInstanceID>
+                                <ExceptionCode>
+                                    <xsl:value-of select="ExceptionCode"/>
+                                </ExceptionCode>
+                                <Category>
+                                    <xsl:value-of select="Category"/>
+                                </Category>
+                                <Type>
+                                    <xsl:value-of select="Type"/>
+                                </Type>
+                                <Severity>
+                                    <xsl:value-of select="Severity"/>
+                                </Severity>
+                                <xsl:if test="Timeout">
+                                    <Timeout>
+                                        <xsl:value-of select="Timeout"/>
+                                    </Timeout>
+                                </xsl:if>
+                                <xsl:if test="ReplyDestination">
+                                    <ReplyDestination>
+                                        <xsl:value-of select="ReplyDestination"/>
+                                    </ReplyDestination>
+                                </xsl:if>
+                                <xsl:if test="NotificationChannel">
+                                    <NotificationChannel>
+                                        <xsl:value-of select="NotificationChannel"/>
+                                    </NotificationChannel>
+                                </xsl:if>
+                                <xsl:if test="ResolutionDescription">
+                                    <ResolutionDescription>
+                                        <xsl:value-of select="ResolutionDescription"/>
+                                    </ResolutionDescription>
+                                </xsl:if>
+                                <xsl:if test="Status">
+                                    <Status>
+                                        <xsl:value-of select="Status"/>
+                                    </Status>
+                                </xsl:if>
+                                <xsl:if test="Custom">
+                                    <Custom>
+                                        <xsl:value-of select="Custom"/>
+                                    </Custom>
+                                </xsl:if>
+                            </pfx4:ExceptionDetail>
+                        </xsl:for-each>
+                    </pfx4:ExceptionReply>
+                </Body>
+            </ns:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Retrieve Exception Request">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>221</pd:x>
+        <pd:y>76</pd:y>
+        <config>
+            <processName>/ExceptionManagement/DataAccess/Oracle/RetrieveExceptionDetail.process</processName>
+            <processNameXPath>concat("/ExceptionManagement/DataAccess/", $_globalVariables/pfx5:GlobalVariables/Database/MIG_DatabaseType,"/RetrieveExceptionDetail.process" )</processNameXPath>
+        </config>
+        <pd:inputBindings>
+            <ns5:ExceptionDetailQuery>
+                <ns5:ExceptionID>
+                    <xsl:value-of select="$Request-for-Exception-Receiver/ns:ActivityOutput/Body/pfx:ExceptionRequestQuery/pfx:ExceptionInstanceID"/>
+                </ns5:ExceptionID>
+            </ns5:ExceptionDetailQuery>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch Record Not Found Error">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>212</pd:x>
+        <pd:y>326</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=ExceptionRecordNotFound namespace=http://www.tibco.com/CommonLE2/namespace/private/Common</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Catch All">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>83</pd:x>
+        <pd:y>189</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Handle Local Exception">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>223</pd:x>
+        <pd:y>198</pd:y>
+        <config>
+            <processName>/Common/Local Exception Handler.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns12:Exception>
+                <ErrorMessage>
+                    <xsl:value-of select="$_error/ns1:ErrorReport/Msg"/>
+                </ErrorMessage>
+                <xsl:if test="$_error/ns1:ErrorReport/MsgCode">
+                    <ErrorCode>
+                        <xsl:value-of select="$_error/ns1:ErrorReport/MsgCode"/>
+                    </ErrorCode>
+                </xsl:if>
+                <ns12:Error>
+                    <xsl:for-each xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="$_error/ns1:ErrorReport">
+                        <ns12:ErrorReport>
+                            <StackTrace>
+                                <xsl:value-of select="StackTrace"/>
+                            </StackTrace>
+                            <Msg>
+                                <xsl:value-of select="Msg"/>
+                            </Msg>
+                            <FullClass>
+                                <xsl:value-of select="FullClass"/>
+                            </FullClass>
+                            <Class>
+                                <xsl:value-of select="Class"/>
+                            </Class>
+                            <ProcessStack>
+                                <xsl:value-of select="ProcessStack"/>
+                            </ProcessStack>
+                            <MsgCode>
+                                <xsl:value-of select="MsgCode"/>
+                            </MsgCode>
+                        </ns12:ErrorReport>
+                    </xsl:for-each>
+                </ns12:Error>
+            </ns12:Exception>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Reply-to-JMS-Message-1">
+        <pd:type>com.tibco.plugin.jms.JMSReplyActivity</pd:type>
+        <pd:resourceType>ae.activities.JMSReplyActivity</pd:resourceType>
+        <pd:x>360</pd:x>
+        <pd:y>193</pd:y>
+        <config>
+            <PermittedMessageType>XML Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+                <EventSource>Request for Exception Receiver</EventSource>
+            </ConfigurableHeaders>
+            <InDataxsdString ref="pfx4:ExceptionReply"/>
+        </config>
+        <pd:inputBindings>
+            <ns:ActivityInput>
+                <Body>
+                    <pfx4:ExceptionReply>
+                        <ns3:Error>
+                            <xsl:if test="$_error/ns1:ErrorReport/Msg">
+                                <ns3:Message>
+                                    <xsl:value-of select="$_error/ns1:ErrorReport/Msg"/>
+                                </ns3:Message>
+                            </xsl:if>
+                            <xsl:if test="$_error/ns1:ErrorReport/MsgCode">
+                                <ns3:Code>
+                                    <xsl:value-of select="$_error/ns1:ErrorReport/MsgCode"/>
+                                </ns3:Code>
+                            </xsl:if>
+                        </ns3:Error>
+                    </pfx4:ExceptionReply>
+                </Body>
+            </ns:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Reply-to-JMS-Message-1-1">
+        <pd:type>com.tibco.plugin.jms.JMSReplyActivity</pd:type>
+        <pd:resourceType>ae.activities.JMSReplyActivity</pd:resourceType>
+        <pd:x>366</pd:x>
+        <pd:y>317</pd:y>
+        <config>
+            <PermittedMessageType>XML Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+                <EventSource>Request for Exception Receiver</EventSource>
+            </ConfigurableHeaders>
+            <InDataxsdString ref="pfx4:ExceptionReply"/>
+        </config>
+        <pd:inputBindings>
+            <ns:ActivityInput>
+                <Body>
+                    <pfx4:ExceptionReply>
+                        <ns3:Error>
+                            <xsl:if test="$Catch-Record-Not-Found-Error/ns4:ExceptionRecordNotFound/ns4:Message">
+                                <ns3:Message>
+                                    <xsl:value-of select="$Catch-Record-Not-Found-Error/ns4:ExceptionRecordNotFound/ns4:Message"/>
+                                </ns3:Message>
+                            </xsl:if>
+                            <xsl:if test="$Catch-Record-Not-Found-Error/ns4:ExceptionRecordNotFound/ns4:Code">
+                                <ns3:Code>
+                                    <xsl:value-of select="$Catch-Record-Not-Found-Error/ns4:ExceptionRecordNotFound/ns4:Code"/>
+                                </ns3:Code>
+                            </xsl:if>
+                        </ns3:Error>
+                    </pfx4:ExceptionReply>
+                </Body>
+            </ns:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Request for Exception Receiver</pd:from>
+        <pd:to>Retrieve Exception Request</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Retrieve Exception Request</pd:from>
+        <pd:to>Reply to JMS Message</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Reply to JMS Message</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch All</pd:from>
+        <pd:to>Handle Local Exception</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Handle Local Exception</pd:from>
+        <pd:to>Reply-to-JMS-Message-1</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Reply-to-JMS-Message-1</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch Record Not Found Error</pd:from>
+        <pd:to>Reply-to-JMS-Message-1-1</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Reply-to-JMS-Message-1-1</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

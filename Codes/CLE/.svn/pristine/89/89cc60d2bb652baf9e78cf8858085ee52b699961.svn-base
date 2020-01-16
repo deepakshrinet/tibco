@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogDetail"
+	 xmlns:Common="http://www.tibco.com/CommonLE2/namespace/Public/Common/RequestHeader.xsd"
+	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	 targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogDetail"
+	 elementFormDefault="unqualified"
+	 attributeFormDefault="unqualified">
+	<xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Common/RequestHeader.xsd" schemaLocation="../../../Common/RequestHeader.xsd"/>
+	<xsd:element name="LogDetail">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Common:Header" minOccurs="0"/>
+				<xsd:element name="LogID" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="TimeDuration" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="Category" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="Status" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="Size" type="xsd:unsignedLong" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

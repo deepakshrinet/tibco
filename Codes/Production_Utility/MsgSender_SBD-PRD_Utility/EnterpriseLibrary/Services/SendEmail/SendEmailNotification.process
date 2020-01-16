@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/namespaces/tnt/plugins/mail" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx5="http://www.tibco.com/CommonLE2/namespace/Public/Exception/ExceptionRequest.xsd" xmlns:pfx4="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:pfx3="http://xmlns.tibco.com/encodings/mime" xmlns:pfx2="http://xmlns.tibco.com/body" xmlns:pfx="http://www.zimmer.com/SendEmailSchema_v_1_0.xsd">
+    <xsd:import namespace="http://www.zimmer.com/SendEmailSchema_v_1_0.xsd" schemaLocation="/EnterpriseLibrary/SharedResources/Schemas/XSD/SendEmailSchema.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Exception/ExceptionRequest.xsd" schemaLocation="/CLE/SharedResources/Schemas/Public/Exception/ExceptionRequest.xsd"/>
+    <pd:name>EnterpriseLibrary/Services/SendEmail/SendEmailNotification.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx:SendEmail"/>
+    <pd:startX>89</pd:startX>
+    <pd:startY>54</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>633</pd:endX>
+    <pd:endY>61</pd:endY>
+    <pd:errorSchemas>
+        <CLE_Exception ref="pfx5:ExceptionRequest"/>
+    </pd:errorSchemas>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1395944455558</pd:targetNamespace>
+    <pd:activity name="PrimaryServer">
+        <pd:type>com.tibco.plugin.mail.MailPubActivity</pd:type>
+        <pd:resourceType>ae.activities.MailActivityResource</pd:resourceType>
+        <pd:x>270</pd:x>
+        <pd:y>60</pd:y>
+        <config>
+            <newMimeSupport>true</newMimeSupport>
+            <inputOutputVersion>5.2.0</inputOutputVersion>
+            <host>%%SendEmail/SMTP_Server%%</host>
+            <InputHeaders>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="Content-Type" type="xsd:string" minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </InputHeaders>
+        </config>
+        <pd:inputBindings>
+            <ns:mailActivityInput>
+                <from>
+                    <xsl:value-of select="$Start/pfx:SendEmail/pfx:From"/>
+                </from>
+                <xsl:for-each select="$Start/pfx:SendEmail/pfx:To">
+                    <to>
+                        <xsl:value-of select="."/>
+                    </to>
+                </xsl:for-each>
+                <xsl:for-each select="$Start/pfx:SendEmail/pfx:CC">
+                    <cc>
+                        <xsl:value-of select="."/>
+                    </cc>
+                </xsl:for-each>
+                <xsl:for-each select="$Start/pfx:SendEmail/pfx:BCC">
+                    <bcc>
+                        <xsl:value-of select="."/>
+                    </bcc>
+                </xsl:for-each>
+                <xsl:for-each select="$Start/pfx:SendEmail/pfx:ReplyTo">
+                    <replyTo>
+                        <xsl:value-of select="."/>
+                    </replyTo>
+                </xsl:for-each>
+                <xsl:if test="$Start/pfx:SendEmail/pfx:Subject">
+                    <subject>
+                        <xsl:value-of select="$Start/pfx:SendEmail/pfx:Subject"/>
+                    </subject>
+                </xsl:if>
+                <xsl:if test="$Start/pfx:SendEmail/pfx:SentDate">
+                    <sentdate>
+                        <xsl:value-of select="$Start/pfx:SendEmail/pfx:SentDate"/>
+                    </sentdate>
+                </xsl:if>
+                <pfx2:bodyElement>
+                    <bodyText>
+                        <xsl:value-of select="$Start/pfx:SendEmail/pfx:BodyElement/pfx:BodyText"/>
+                    </bodyText>
+                </pfx2:bodyElement>
+                <Headers>
+                    <xsl:if test="$Start/pfx:SendEmail/pfx:Header/pfx:ContentType">
+                        <Content-Type>
+                            <xsl:value-of select="$Start/pfx:SendEmail/pfx:Header/pfx:ContentType"/>
+                        </Content-Type>
+                    </xsl:if>
+                </Headers>
+                <pfx3:mimeEnvelopeElement>
+                    <xsl:for-each select="$Start/pfx:SendEmail/pfx:MimeElement/pfx:MimePart">
+                        <mimePart>
+                            <xsl:for-each select="pfx:MimeHeaders">
+                                <mimeHeaders>
+                                    <xsl:if test="pfx:content_Desposition">
+                                        <content-disposition>
+                                            <xsl:value-of select="pfx:content_Desposition"/>
+                                        </content-disposition>
+                                    </xsl:if>
+                                    <content-type>
+                                        <xsl:value-of select="pfx:content_Type"/>
+                                    </content-type>
+                                    <xsl:if test="pfx:content_Encoding">
+                                        <content-transfer-encoding>
+                                            <xsl:value-of select="pfx:content_Encoding"/>
+                                        </content-transfer-encoding>
+                                    </xsl:if>
+                                    <xsl:if test="pfx:content_id">
+                                        <content-id>
+                                            <xsl:value-of select="pfx:content_id"/>
+                                        </content-id>
+                                    </xsl:if>
+                                </mimeHeaders>
+                            </xsl:for-each>
+                            <textContent>
+                                <xsl:value-of select="pfx:Content"/>
+                            </textContent>
+                        </mimePart>
+                    </xsl:for-each>
+                </pfx3:mimeEnvelopeElement>
+            </ns:mailActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>PrimaryServer</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>PrimaryServer</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Repository:repository xmlns:Repository="http://www.tibco.com/xmlns/repo/types/2002">
+    <enterpriseArchive>
+        <sharedArchive name="Shared Archive">
+            <resourceType>shared.archive.resource</resourceType>
+            <authorProperty>cmadhwac</authorProperty>
+            <sharedResources>/Logging/DataAccess/MSSQL/SaveLogRecord.process</sharedResources>
+            <sharedFiles/>
+            <sharedJarFiles/>
+        </sharedArchive>
+        <processArchive name="CLELogMgmt">
+            <resourceType>process.archive.resource</resourceType>
+            <authorProperty>achapla</authorProperty>
+            <processProperty>/Logging/LogServices/JMSChannel.process,/Logging/LogServices/Handle_Log_Request-service.serviceagent</processProperty>
+        </processArchive>
+        <versionProperty>1_3_2</versionProperty>
+        <authorProperty>baidyaa</authorProperty>
+        <addServiceSettableGvars>true</addServiceSettableGvars>
+        <name>Logging</name>
+        <designer>
+            <lockedProperties/>
+            <fixedChildren/>
+            <resourceDescriptions/>
+        </designer>
+        <fileLocationProperty>C:\LifeIsBeautiful\EAR\Logging.ear</fileLocationProperty>
+        <description>This is the archive that contains all the service/processes pertinent to sending log messages to CLE.</description>
+    </enterpriseArchive>
+</Repository:repository>

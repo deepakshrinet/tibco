@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/namespaces/tnt/plugins/mail" xmlns:Zimmer="java://CustomFunctions" xmlns:ns9="http://www.tibco.com/schemas/TEXT-ULTILITY/SharedResources/Schemas/XSD/Schema.xsd2" xmlns:ns5="http://www.tibco.com/pe/EngineTypes" xmlns:ns12="http://www.tibco.com/CommonLE/Client/Schema/ClientInterface.xsd" xmlns:ns6="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:ns7="www.tibco.com/plugin/Sleep" xmlns:ns8="http://www.tibco.com/schemas/TEXT-ULTILITY/SharedResources/Schemas/XSD/Schema.xsd" xmlns:ns2="http://xmlns.tibco.com/body" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns4="http://www.zimmer.com/V1_0/TextMsgProfileFile" xmlns:ns3="http://www.zimmer.com/SendEmailSchema_v_1_0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions">
+    <pd:name>Services/Slack_Text_Utility/Processes/Common-Notification-Sender.process</pd:name>
+    <pd:startName>Receive Mail</pd:startName>
+    <pd:startX>0</pd:startX>
+    <pd:startY>0</pd:startY>
+    <pd:returnBindings/>
+    <pd:starter name="Receive Mail">
+        <pd:type>com.tibco.plugin.mail.MailEventSource</pd:type>
+        <pd:resourceType>ae.activities.MailEventSourceResource</pd:resourceType>
+        <pd:x>86</pd:x>
+        <pd:y>170</pd:y>
+        <config>
+            <pollinginterval>%%ApplicationDetails/ReceiveEmail/PollingInterval%%</pollinginterval>
+            <newMimeSupport>true</newMimeSupport>
+            <inputOutputVersion>5.2.0</inputOutputVersion>
+            <host>%%ApplicationDetails/ReceiveEmail/Host%%</host>
+            <username>%%ApplicationDetails/ReceiveEmail/UserName%%</username>
+            <password>%%ApplicationDetails/ReceiveEmail/Password%%</password>
+            <deletemail>true</deletemail>
+            <OutputHeaders>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="Content-Type" type="xsd:string" minOccurs="0"/>
+                            <xsd:any minOccurs="0" maxOccurs="unbounded" processContents="skip"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </OutputHeaders>
+        </config>
+        <pd:inputBindings/>
+    </pd:starter>
+    <pd:endName>End</pd:endName>
+    <pd:endX>1023</pd:endX>
+    <pd:endY>170</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1476473534754</pd:targetNamespace>
+    <pd:activity name="Catch">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>1022</pd:x>
+        <pd:y>389</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="GetVariable">
+        <pd:type>com.tibco.pe.core.GetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.getSharedVariable</pd:resourceType>
+        <pd:x>365</pd:x>
+        <pd:y>171</pd:y>
+        <config>
+            <variableConfig>/SharedResources/SharedVariables/TextMsg.sharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="SendCatchAllExceptionToCLE">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>1021</pd:x>
+        <pd:y>269</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendException.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns12:ExceptionRequest>
+                <ns12:Header>
+                    <ns12:ComponentName>
+                        <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns5:ProcessContext/ProcessId)"/>
+                    </ns12:ComponentName>
+                    <ns12:Hostname>
+                        <xsl:value-of select="BW:getHostName()"/>
+                    </ns12:Hostname>
+                    <ns12:TransactionDomain>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/CLE/TransactionDomain"/>
+                    </ns12:TransactionDomain>
+                    <ns12:TransactionType>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/CLE/TransactionType"/>
+                    </ns12:TransactionType>
+                    <ns12:TransactionID>
+                        <xsl:value-of select="tib:format-dateTime('yyyyMMdd-HHmmss', current-dateTime())"/>
+                    </ns12:TransactionID>
+                    <ns12:CorrelationID>
+                        <xsl:value-of select="tib:format-date('yyyyMMdd', current-date())"/>
+                    </ns12:CorrelationID>
+                    <ns12:InterfaceID>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/CLE/InterfaceId"/>
+                    </ns12:InterfaceID>
+                    <ns12:Message>
+                        <xsl:value-of select="&quot;Exception occured in Send Slack/Text notification Process&quot;"/>
+                    </ns12:Message>
+                </ns12:Header>
+                <ns12:ExceptionCode>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/CLE/TECHNICAL-777"/>
+                </ns12:ExceptionCode>
+                <ns12:StackTrace>
+                    <xsl:value-of select="concat( &quot;Error Msg:&quot;, $_error/ns5:ErrorReport/Msg, &quot;Msg Code:&quot;,$_error/ns5:ErrorReport/MsgCode,&quot;Stack Trace:&quot;,$_error/ns5:ErrorReport/StackTrace,&quot;Process Stack:&quot;,$_error/ns5:ErrorReport/ProcessStack)"/>
+                </ns12:StackTrace>
+            </ns12:ExceptionRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Sleep">
+        <pd:type>com.tibco.plugin.timer.SleepActivity</pd:type>
+        <pd:resourceType>ae.activities.sleep</pd:resourceType>
+        <pd:x>232</pd:x>
+        <pd:y>170</pd:y>
+        <config/>
+        <pd:inputBindings>
+            <ns7:SleepInputSchema>
+                <IntervalInMillisec>
+                    <xsl:value-of select="5000"/>
+                </IntervalInMillisec>
+            </ns7:SleepInputSchema>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:group name="Group">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>468</pd:x>
+        <pd:y>1</pd:y>
+        <pd:width>424</pd:width>
+        <pd:height>318</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>inputLoop</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:over>$GetVariable/ns4:Profiles/ns4:Team[contains( upper-case($Receive-Mail/ns:outputClass/from),upper-case(ns4:TeamIdentifier))]</pd:over>
+            <pd:iterationElementSlot>td</pd:iterationElementSlot>
+            <pd:indexSlot>t</pd:indexSlot>
+            <pd:activityOutputName/>
+            <pd:accumulateOutput>false</pd:accumulateOutput>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>OnM</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>OnM</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:group name="OnM">
+            <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+            <pd:resourceType>ae.process.group</pd:resourceType>
+            <pd:x>568</pd:x>
+            <pd:y>33</pd:y>
+            <pd:width>248</pd:width>
+            <pd:height>261</pd:height>
+            <pd:collapsedWidth>57</pd:collapsedWidth>
+            <pd:collapsedHeight>70</pd:collapsedHeight>
+            <pd:groupVariables/>
+            <pd:joinToggle>inherit</pd:joinToggle>
+            <config>
+                <pd:groupType>inputLoop</pd:groupType>
+                <pd:serializable>false</pd:serializable>
+                <pd:over>$td/ns4:Team/ns4:MessageFilter/ns4:Message</pd:over>
+                <pd:iterationElementSlot>je</pd:iterationElementSlot>
+                <pd:indexSlot>j</pd:indexSlot>
+                <pd:activityOutputName/>
+                <pd:accumulateOutput>false</pd:accumulateOutput>
+            </config>
+            <pd:inputBindings/>
+            <pd:expanded>true</pd:expanded>
+            <pd:transition>
+                <pd:from>start</pd:from>
+                <pd:to>Null</pd:to>
+                <pd:lineType>Multiple Bends</pd:lineType>
+                <pd:lineColor>-16777216</pd:lineColor>
+                <pd:conditionType>always</pd:conditionType>
+            </pd:transition>
+            <pd:transition>
+                <pd:from>SendAlert</pd:from>
+                <pd:to>end</pd:to>
+                <pd:lineType>S-Shaped</pd:lineType>
+                <pd:lineColor>-16777216</pd:lineColor>
+                <pd:conditionType>always</pd:conditionType>
+            </pd:transition>
+            <pd:transition>
+                <pd:from>Null</pd:from>
+                <pd:to>end</pd:to>
+                <pd:lineType>S-Shaped</pd:lineType>
+                <pd:lineColor>-16777216</pd:lineColor>
+                <pd:conditionType>otherwise</pd:conditionType>
+            </pd:transition>
+            <pd:transition>
+                <pd:from>Null</pd:from>
+                <pd:to>SendAlert</pd:to>
+                <pd:xpathDescription>CheckMessage</pd:xpathDescription>
+                <pd:lineType>Default</pd:lineType>
+                <pd:lineColor>-16777216</pd:lineColor>
+                <pd:conditionType>xpath</pd:conditionType>
+                <pd:xpath>contains($MapData_EmailBody/root/EmailBody,$je/ns4:Message) or contains($Receive-Mail/ns:outputClass/subject,$je/ns4:Message)</pd:xpath>
+            </pd:transition>
+            <pd:activity name="SendAlert">
+                <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+                <pd:resourceType>ae.process.subprocess</pd:resourceType>
+                <pd:x>635</pd:x>
+                <pd:y>101</pd:y>
+                <config>
+                    <processName>/Services/Slack_Text_Utility/Operations/CallSendAlertProcess.process</processName>
+                </config>
+                <pd:inputBindings>
+                    <root>
+                        <xsl:if test="$td/ns4:Team/ns4:SlackNotification">
+                            <SendSlackNotification>
+                                <xsl:value-of select="$td/ns4:Team/ns4:SlackNotification"/>
+                            </SendSlackNotification>
+                        </xsl:if>
+                        <xsl:if test="$td/ns4:Team/ns4:TextNotification">
+                            <SendTextNotification>
+                                <xsl:value-of select="$td/ns4:Team/ns4:TextNotification"/>
+                            </SendTextNotification>
+                        </xsl:if>
+                        <ns9:Notification>
+                            <ns9:SlackNotifcation>
+                                <xsl:if test="$td/ns4:Team/ns4:TeamIdentifier">
+                                    <ns9:TeamIdentifier>
+                                        <xsl:value-of select="$td/ns4:Team/ns4:TeamIdentifier"/>
+                                    </ns9:TeamIdentifier>
+                                </xsl:if>
+                                <xsl:if test="$td/ns4:Team/ns4:ChannelURI">
+                                    <ns9:ChannelURI>
+                                        <xsl:value-of select="$td/ns4:Team/ns4:ChannelURI"/>
+                                    </ns9:ChannelURI>
+                                </xsl:if>
+                                <ns9:SpecialNotification>
+                                    <xsl:value-of select="if($GetVariable/ns4:Profiles/ns4:Team/ns4:TeamIdentifier='tibco.alerts.text@zimmerbiomet.com') then&#xA;&#xA;concat($je/ns4:Message,&quot;  &quot;,$Receive-Mail/ns:outputClass/subject,substring-before(substring-after($Receive-Mail/ns:outputClass/bodyText, 'ErrText'),'FromParty'))&#xA;&#xA;else&#xA;$Receive-Mail/ns:outputClass/subject"/>
+                                </ns9:SpecialNotification>
+                            </ns9:SlackNotifcation>
+                            <ns9:TextNotification>
+                                <xsl:if test="$td/ns4:Team/ns4:TeamIdentifier">
+                                    <ns9:TeamIdentifier>
+                                        <xsl:value-of select="$td/ns4:Team/ns4:TeamIdentifier"/>
+                                    </ns9:TeamIdentifier>
+                                </xsl:if>
+                                <xsl:variable name="var" select="upper-case($Receive-Mail/ns:outputClass/from)"/>
+                                <ns9:EmailAddress>
+                                    <xsl:value-of select="tib:concat-sequence-format($GetVariable/ns4:Profiles/ns4:Team[contains($var,upper-case(ns4:TeamIdentifier))]/ns4:ContactDetail/ns4:Email, ',')"/>
+                                </ns9:EmailAddress>
+                                <xsl:if test="$Receive-Mail/ns:outputClass/subject">
+                                    <ns9:Subject>
+                                        <xsl:value-of select="$Receive-Mail/ns:outputClass/subject"/>
+                                    </ns9:Subject>
+                                </xsl:if>
+                                <xsl:if test="$Receive-Mail/ns:outputClass/bodyText">
+                                    <ns9:body>
+                                        <xsl:value-of select="$Receive-Mail/ns:outputClass/bodyText"/>
+                                    </ns9:body>
+                                </xsl:if>
+                            </ns9:TextNotification>
+                        </ns9:Notification>
+                    </root>
+                </pd:inputBindings>
+            </pd:activity>
+            <pd:activity name="Null">
+                <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+                <pd:resourceType>ae.activities.null</pd:resourceType>
+                <pd:x>634</pd:x>
+                <pd:y>220</pd:y>
+                <config/>
+                <pd:inputBindings/>
+            </pd:activity>
+        </pd:group>
+    </pd:group>
+    <pd:activity name="MapData_EmailBody">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>278</pd:x>
+        <pd:y>274</pd:y>
+        <config>
+            <element>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="EmailBody" type="xsd:string" minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </element>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <EmailBody>
+                    <xsl:value-of select="Zimmer:stringReplace($Receive-Mail/ns:outputClass/bodyText,'&amp;quot;','')"/>
+                </EmailBody>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Catch</pd:from>
+        <pd:to>SendCatchAllExceptionToCLE</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SendCatchAllExceptionToCLE</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Receive Mail</pd:from>
+        <pd:to>Sleep</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Sleep</pd:from>
+        <pd:to>MapData_EmailBody</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetVariable</pd:from>
+        <pd:to>Group</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>MapData_EmailBody</pd:from>
+        <pd:to>GetVariable</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

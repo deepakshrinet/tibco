@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BWSharedResource>
+    <name>DBServerOracle</name>
+    <resourceType>ae.shared.JDBCSharedResource</resourceType>
+    <config>
+        <connection/>
+        <location>%%Database/MIG_DBURL%%</location>
+        <maxConnections>%%Database/MIG_MaxConnection%%</maxConnections>
+        <driver>%%Database/MIG_DBDriver%%</driver>
+        <user>%%Database/MIG_User%%</user>
+        <password>%%Database/MIG_Password%%</password>
+        <connectionType>JDBC</connectionType>
+        <loginTimeout>0</loginTimeout>
+    </config>
+</BWSharedResource>

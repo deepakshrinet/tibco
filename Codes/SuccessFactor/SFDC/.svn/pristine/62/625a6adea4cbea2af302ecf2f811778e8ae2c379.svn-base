@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Repository:repository xmlns="http://www.tibco.com/xmlns/aemeta/types/2002" xmlns:Repository="http://www.tibco.com/xmlns/repo/types/2002" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <class name="DelimitedFileRecord">
+        <extendedProperties>
+            <positionFromHeader>begin</positionFromHeader>
+            <type>delimited</type>
+            <strip>false</strip>
+            <delimiter>,</delimiter>
+            <repeatingDelimiter>false</repeatingDelimiter>
+            <identifier>fieldsNumber</identifier>
+        </extendedProperties>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>STATUS</name>
+            <extendedProperties>
+                <position>0</position>
+            </extendedProperties>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>USERID</name>
+            <extendedProperties>
+                <position>1</position>
+            </extendedProperties>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>BIZ_PHONE</name>
+            <extendedProperties>
+                <position>2</position>
+            </extendedProperties>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>CITY</name>
+            <extendedProperties>
+                <position>3</position>
+            </extendedProperties>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>COUNTRY</name>
+            <extendedProperties>
+                <position>4</position>
+            </extendedProperties>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>CUSTOM1</name>
+            <extendedProperties>
+                <position>5</position>
+            </extendedProperties>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>CUSTOM2</name>
+            <extendedProperties>
+                <position>6</position>
+            </extendedProperties>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>CUSTOM3</name>
+            <extendedProperties>
+                <position>7</position>
+            </extendedProperties>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>CUSTOM4</name>
+            <extendedProperties>
+                <position>8</position>
+            </extendedProperties>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>CUSTOM5</name>
+            <extendedProperties>
+                <position>9</position>
+            </extendedProperties>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>CUSTOM6</name>
+            <extendedProperties>
+                <position>10</position>
+            </extendedProperties>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>CUSTOM7</name>
+            <extendedProperties>
+                <position>11</position>
+            </extendedProperties>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>CUSTOM8</name>
+            <extendedProperties>
+                <position>12</position>
+            </extendedProperties>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>CUSTOM9</name>
+            <extendedProperties>
+                <position>13</position>
+            </extendedProperties>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>CUSTOM10</name>
+            <extendedProperties>
+                <position>14</position>
+            </extendedProperties>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>CUSTOM11</name>
+            <extendedProperties>
+                <position>15</position>
+            </extendedProperties>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>CUSTOM12</name>
+            <extendedProperties>
+                <position>16</position>
+            </extendedProperties>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>CUSTOM13</name>
+            <extendedProperties>
+                <position>17</position>
+            </extendedProperties>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>CUSTOM14</name>
+            <extendedProperties>
+                <position>18</position>
+            </extendedProperties>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>CUSTOM15</name>
+            <extendedProperties>
+                <position>19</position>
+            </extendedProperties>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>CUSTOM_MANAGER</name>
+            <extendedProperties>
+                <position>20</position>
+            </extendedProperties>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>DEFAULT_LOCALE</name>
+            <extendedProperties>
+                <position>21</position>
+            </extendedProperties>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>DEPARTMENT</name>
+            <extendedProperties>
+                <position>22</position>
+            </extendedProperties>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>DIVISION</name>
+            <extendedProperties>
+                <position>23</position>
+            </extendedProperties>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>EMAIL</name>
+            <extendedProperties>
+                <position>24</position>
+            </extendedProperties>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>EMPID</name>
+            <extendedProperties>
+                <position>25</position>
+            </extendedProperties>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>FAX</name>
+            <extendedProperties>
+                <position>26</position>
+            </extendedProperties>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>FIRSTNAME</name>
+            <extendedProperties>
+                <position>27</position>
+            </extendedProperties>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>HIREDATE</name>
+            <extendedProperties>
+                <position>28</position>
+            </extendedProperties>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>HR</name>
+            <extendedProperties>
+                <position>29</position>
+            </extendedProperties>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>JOBCODE</name>
+            <extendedProperties>
+                <position>30</position>
+            </extendedProperties>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>LASTNAME</name>
+            <extendedProperties>
+                <position>31</position>
+            </extendedProperties>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>LAST_REVIEW_DATE</name>
+            <extendedProperties>
+                <position>32</position>
+            </extendedProperties>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>LOCATION</name>
+            <extendedProperties>
+                <position>33</position>
+            </extendedProperties>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>LOGIN_METHOD</name>
+            <extendedProperties>
+                <position>34</position>
+            </extendedProperties>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>MANAGER</name>
+            <extendedProperties>
+                <position>35</position>
+            </extendedProperties>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>MATRIX_MANAGER</name>
+            <extendedProperties>
+                <position>36</position>
+            </extendedProperties>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>MI</name>
+            <extendedProperties>
+                <position>37</position>
+            </extendedProperties>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>PROXY</name>
+            <extendedProperties>
+                <position>38</position>
+            </extendedProperties>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>REVIEW_FREQ</name>
+            <extendedProperties>
+                <position>39</position>
+            </extendedProperties>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>SECOND_MANAGER</name>
+            <extendedProperties>
+                <position>40</position>
+            </extendedProperties>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>STATE</name>
+            <extendedProperties>
+                <position>41</position>
+            </extendedProperties>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>TIMEZONE</name>
+            <extendedProperties>
+                <position>42</position>
+            </extendedProperties>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>TITLE</name>
+            <extendedProperties>
+                <position>43</position>
+            </extendedProperties>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>USERNAME</name>
+            <extendedProperties>
+                <position>44</position>
+            </extendedProperties>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>ZIP</name>
+            <extendedProperties>
+                <position>45</position>
+            </extendedProperties>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+        </attribute>
+    </class>
+    <designer>
+        <lockedProperties>
+            <locked>
+                <properties>name</properties>
+            </locked>
+            <locked>
+                <resource>/Classes/DelimitedFileRecord</resource>
+                <properties>name</properties>
+            </locked>
+        </lockedProperties>
+        <fixedChildren>
+            <fixed>
+                <resource>/Classes</resource>
+                <children>DelimitedFileRecord</children>
+            </fixed>
+            <fixed>
+                <resource>/Classes/DelimitedFileRecord</resource>
+                <children>STATUS,USERID,BIZ_PHONE,CITY,COUNTRY,CUSTOM1,CUSTOM2,CUSTOM3,CUSTOM4,CUSTOM5,CUSTOM6,CUSTOM7,CUSTOM8,CUSTOM9,CUSTOM10,CUSTOM11,CUSTOM12,CUSTOM13,CUSTOM14,CUSTOM15,CUSTOM_MANAGER,DEFAULT_LOCALE,DEPARTMENT,DIVISION,EMAIL,EMPID,FAX,FIRSTNAME,HIREDATE,HR,JOBCODE,LASTNAME,LAST_REVIEW_DATE,LOCATION,LOGIN_METHOD,MANAGER,MATRIX_MANAGER,MI,PROXY,REVIEW_FREQ,SECOND_MANAGER,STATE,TIMEZONE,TITLE,USERNAME,ZIP</children>
+            </fixed>
+        </fixedChildren>
+        <resourceDescriptions/>
+    </designer>
+</Repository:repository>

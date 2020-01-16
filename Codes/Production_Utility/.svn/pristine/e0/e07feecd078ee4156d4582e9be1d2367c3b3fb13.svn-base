@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Repository:repository xmlns:Repository="http://www.tibco.com/xmlns/repo/types/2002">
+    <enterpriseArchive>
+        <sharedArchive name="Shared Archive">
+            <resourceType>shared.archive.resource</resourceType>
+            <authorProperty>banerja3</authorProperty>
+        </sharedArchive>
+        <processArchive name="DeploymentArtifactCreationTool">
+            <resourceType>process.archive.resource</resourceType>
+            <authorProperty>banerja3</authorProperty>
+            <processProperty>/Services/Processes/ArtifactCreation.process</processProperty>
+        </processArchive>
+        <versionProperty>2</versionProperty>
+        <authorProperty>banerja3</authorProperty>
+        <addServiceSettableGvars>true</addServiceSettableGvars>
+        <name>DeploymentArtifactCreationTool</name>
+        <designer>
+            <lockedProperties/>
+            <fixedChildren/>
+            <resourceDescriptions/>
+        </designer>
+        <fileLocationProperty>C:\EAR\DeploymentArtifactCreationTool.ear</fileLocationProperty>
+        <description>Changed the default QA machines to 03 and 04. Incorporate '*' in GV values</description>
+    </enterpriseArchive>
+</Repository:repository>

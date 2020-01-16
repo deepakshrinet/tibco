@@ -1,0 +1,7 @@
+﻿<data jsxnamespace="propsbundle" locales="">
+  <locale key="zh_CH">
+    <record jsxid="main_loggedInAs" jsxtext="登录为:"/>
+    <record jsxid="main_logout" jsxtext="退出"/>
+    <record jsxid="main_logoutTip" jsxtext="结束会话和展示登录页面"/>
+  </locale>
+</data>

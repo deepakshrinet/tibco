@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/pe/DeployedVarsType" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns1="http://www.tibco.com/namespaces/tnt/plugins/file" xmlns:ns="http://www.tibco.com/namespaces/tnt/plugins/file/v2" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:StringReplace="java://CustomFunctions" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions">
+    <pd:name>Services/Operations/MainProcess.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="PropertyFileName" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="Is_BC_REST" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="Is_Adapter" type="xsd:string" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>27</pd:startX>
+    <pd:startY>35</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>1026</pd:endX>
+    <pd:endY>35</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1470991531292</pd:targetNamespace>
+    <pd:activity name="CallQAGVCreationProcess">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>174</pd:x>
+        <pd:y>35</pd:y>
+        <config>
+            <processName>/Services/Operations/QA/GV_File_Creation_Process.process</processName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <xsl:if test="$Start/root/PropertyFileName">
+                    <PropertyFileName>
+                        <xsl:value-of select="$Start/root/PropertyFileName"/>
+                    </PropertyFileName>
+                </xsl:if>
+                <xsl:if test="$Start/root/Is_BC_REST">
+                    <Is_BC_REST>
+                        <xsl:value-of select="$Start/root/Is_BC_REST"/>
+                    </Is_BC_REST>
+                </xsl:if>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="CallQAXMLCreationProcess">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>342</pd:x>
+        <pd:y>35</pd:y>
+        <config>
+            <processName>/Services/Operations/QA/XML_File_Creation_Process.process</processName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <xsl:if test="$Start/root/PropertyFileName">
+                    <PropertyFileName>
+                        <xsl:value-of select="$Start/root/PropertyFileName"/>
+                    </PropertyFileName>
+                </xsl:if>
+                <xsl:if test="$Start/root/Is_Adapter">
+                    <Is_Adapter>
+                        <xsl:value-of select="$Start/root/Is_Adapter"/>
+                    </Is_Adapter>
+                </xsl:if>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="CallQAPropertyCreationProcess">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>498</pd:x>
+        <pd:y>35</pd:y>
+        <config>
+            <processName>/Services/Operations/QA/Property_File_Creation_Process.process</processName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <PropertyFileName>
+                    <xsl:value-of select="$Start/root/PropertyFileName"/>
+                </PropertyFileName>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="CallProdGVCreationProcess">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>646</pd:x>
+        <pd:y>35</pd:y>
+        <config>
+            <processName>/Services/Operations/Prod/GV_File_Creation_Process.process</processName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <xsl:if test="$Start/root/PropertyFileName">
+                    <PropertyFileName>
+                        <xsl:value-of select="$Start/root/PropertyFileName"/>
+                    </PropertyFileName>
+                </xsl:if>
+                <xsl:if test="$Start/root/Is_BC_REST">
+                    <Is_BC_REST>
+                        <xsl:value-of select="$Start/root/Is_BC_REST"/>
+                    </Is_BC_REST>
+                </xsl:if>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="CallProdPropertyCreationProcess">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>904</pd:x>
+        <pd:y>35</pd:y>
+        <config>
+            <processName>/Services/Operations/Prod/Property_File_Creation_Process.process</processName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <xsl:if test="$Start/root/PropertyFileName">
+                    <PropertyFileName>
+                        <xsl:value-of select="$Start/root/PropertyFileName"/>
+                    </PropertyFileName>
+                </xsl:if>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="CallProdXMLCreationProcess">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>764</pd:x>
+        <pd:y>35</pd:y>
+        <config>
+            <processName>/Services/Operations/Prod/XML_File_Creation_Process.process</processName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <xsl:if test="$Start/root/PropertyFileName">
+                    <PropertyFileName>
+                        <xsl:value-of select="$Start/root/PropertyFileName"/>
+                    </PropertyFileName>
+                </xsl:if>
+                <xsl:if test="$Start/root/Is_Adapter">
+                    <Is_Adapter>
+                        <xsl:value-of select="$Start/root/Is_Adapter"/>
+                    </Is_Adapter>
+                </xsl:if>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>CallQAGVCreationProcess</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>CallQAGVCreationProcess</pd:from>
+        <pd:to>CallQAXMLCreationProcess</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>CallQAXMLCreationProcess</pd:from>
+        <pd:to>CallQAPropertyCreationProcess</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>CallQAPropertyCreationProcess</pd:from>
+        <pd:to>CallProdGVCreationProcess</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>CallProdGVCreationProcess</pd:from>
+        <pd:to>CallProdXMLCreationProcess</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>CallProdXMLCreationProcess</pd:from>
+        <pd:to>CallProdPropertyCreationProcess</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>CallProdPropertyCreationProcess</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

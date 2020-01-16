@@ -1,0 +1,45 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>Category</name>
+			<value>WARN</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1481030580088</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>Max_ReTry</name>
+			<value>3</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1481030580432</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>NO_Flag</name>
+			<value>N</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1481030580354</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>Sleep_Interval</name>
+			<value>10000</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1481030580213</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>YES_Flag</name>
+			<value>Y</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1481030618779</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

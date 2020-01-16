@@ -1,0 +1,265 @@
+<data jsxnamespace="propsbundle" locales="">
+  <locale>
+    <record jsxid="log_tabLabel" jsxtext="Logs"/>
+    <record jsxid="log_searchLogs" jsxtext="Search Logs"/>
+    <record jsxid="log_detail" jsxtext="Detail"/>
+    <record jsxid="log_details" jsxtext="Details"/>
+    <record jsxid="log_header" jsxtext="Header"/>
+    <record jsxid="log_transaction" jsxtext="Transaction"/>
+    <record jsxid="log_deleteSelectedLogs" jsxtext="Delete Selected Logs"/>
+    <record jsxid="log_manageColumns" jsxtext="Manage Columns"/>
+    <record jsxid="log_manageColumnsCaption" jsxtext="Manage Columns for Log List"/>
+    <record jsxid="log_idCol" jsxtext="ID" ref="LOGID"/>
+    <record jsxid="log_logIdCol" jsxtext="ID" ref="LOGID"/>
+    <record jsxid="log_applicationIdCol" jsxtext="Application ID" ref="APPLICATIONID"/>
+    <record jsxid="log_componentNameCol" jsxtext="Component Name" ref="COMPONENTNAME"/>
+    <record jsxid="log_transactionDomainCol" jsxtext="Transaction Domain" ref="TRANSACTIONDOMAIN"/>
+    <record jsxid="log_timestampCol" jsxtext="Timestamp" ref="TIME_STAMP"/>
+    <record jsxid="log_transactionIdCol" jsxtext="Transaction ID" ref="TRANSACTIONID"/>
+    <record jsxid="log_correlationIdCol" jsxtext="Correlation ID" ref="CORRELATIONID"/>
+    <record jsxid="log_messageCol" jsxtext="Message" ref="LOGMESSAGES"/>
+    <record jsxid="log_logMessagesCol" jsxtext="Message" ref="LOGMESSAGES"/>
+    <record jsxid="log_statusCol" jsxtext="Status" ref="STATUS"/>
+    <record jsxid="log_clearValue" jsxtext="Clear/Reset Value"/>
+    <record jsxid="log_correlateExceptions" jsxtext="Correlate Exceptions"/>
+    <record jsxid="log_include" jsxtext="Include"/>
+    <record jsxid="log_rebuildApplicationList" jsxtext="Rebuild Application List"/>
+    <record jsxid="log_noRecordsFoundUsingCriteria" jsxtext="No records found using criteria."/>
+    <record jsxid="log_listScrollInfo" jsxtext="- viewing log messages {0} to {1} of {2} -"/>
+    <record jsxid="log_deleteMessage" jsxtext="The selected logs will be permanently deleted, continue with delete?"/>
+    <record jsxid="log_attrLogID" jsxtext="Log ID"/>
+    <record jsxid="log_attrTimeDuration" jsxtext="Time Duration"/>
+    <record jsxid="log_attrCategory" jsxtext="Category"/>
+    <record jsxid="log_attrStatus" jsxtext="Status"/>
+    <record jsxid="log_attrSize" jsxtext="Size"/>
+    <record jsxid="log_attrApplicationID" jsxtext="Application ID"/>
+    <record jsxid="log_attrComponentName" jsxtext="Component Name"/>
+    <record jsxid="log_attrHostname" jsxtext="Host Name"/>
+    <record jsxid="log_attrTimestamp" jsxtext="Timestamp"/>
+    <record jsxid="log_attrTransactionDomain" jsxtext="Transaction Domain"/>
+    <record jsxid="log_attrTransactionType" jsxtext="Transaction Type"/>
+    <record jsxid="log_attrTransactionID" jsxtext="Transaction ID"/>
+    <record jsxid="log_attrCorrelationID" jsxtext="Correlation ID"/>
+    <record jsxid="log_attrInterfaceID" jsxtext="Interface ID"/>
+    <record jsxid="log_attrFilename" jsxtext="File Name"/>
+    <record jsxid="log_attrMessage" jsxtext="Message"/>
+    <record jsxid="log_attrRenderID" jsxtext="Render ID"/>
+    <record jsxid="log_attrDataEncoding" jsxtext="Data Encoding"/>
+    <record jsxid="log_flipDetailsOrientation" jsxtext="Flip Details Orientation"/>
+    <record jsxid="log_flipDetailsOrientationTip" jsxtext="Changes the Details View Orientation"/>
+    <!-- added -->
+    <record jsxid="log_allApps" jsxtext="All Apps"/>
+    <record jsxid="log_criteria" jsxtext="Criteria"/>
+    <record jsxid="log_orderBy" jsxtext="OrderBy"/>
+    <record jsxid="log_time_stamp" jsxtext="Time_Stamp"/>
+    <record jsxid="log_timeFrame" jsxtext="Time Frame"/>
+    <record jsxid="log_pastTenMinutes" jsxtext="Past 10 minutes"/>
+    <record jsxid="log_pastThirtyMinutes" jsxtext="Past 30 minutes"/>
+    <record jsxid="log_pastHour" jsxtext="Past hour"/>
+    <record jsxid="log_pastSixHours" jsxtext="Past 6 hours"/>
+    <record jsxid="log_pastTwelveHours" jsxtext="Past 12 hours"/>
+    <record jsxid="log_pastDay" jsxtext="Past day"/>
+    <record jsxid="log_pastTwoDays" jsxtext="Past 2 days"/>
+    <record jsxid="log_pastWeek" jsxtext="Past week"/>
+    <record jsxid="log_pastTwoWeeks" jsxtext="Past 2 weeks"/>
+    <record jsxid="log_fromTimestamp" jsxtext="From Timestamp"/>
+    <record jsxid="log_toTimestamp" jsxtext="To Timestamp"/>
+    <record jsxid="log_timeRange" jsxtext="Time Range"/>
+  </locale>
+  <locale key="pt_BR">
+    <record jsxid="log_tabLabel" jsxtext="Logs"/>
+    <record jsxid="log_searchLogs" jsxtext="Procurar Logs"/>
+    <record jsxid="log_detail" jsxtext="Detalhe"/>
+    <record jsxid="log_details" jsxtext="Detalhes"/>
+    <record jsxid="log_header" jsxtext="Cabeçalho"/>
+    <record jsxid="log_transaction" jsxtext="Transação"/>
+    <record jsxid="log_deleteSelectedLogs" jsxtext="Apagar Logs Selecionados"/>
+    <record jsxid="log_manageColumns" jsxtext="Gerenciar Colunas"/>
+    <record jsxid="log_manageColumnsCaption" jsxtext="Gerenciar Colunas para Lista de Log"/>
+    <record jsxid="log_idCol" jsxtext="ID" ref="LOGID"/>
+    <record jsxid="log_logIdCol" jsxtext="ID" ref="LOGID"/>
+    <record jsxid="log_applicationIdCol" jsxtext="ID da Aplicação" ref="APPLICATIONID"/>
+    <record jsxid="log_componentNameCol" jsxtext="Nome do Componente" ref="COMPONENTNAME"/>
+    <record jsxid="log_transactionDomainCol" jsxtext="Domínio da Transação" ref="TRANSACTIONDOMAIN"/>
+    <record jsxid="log_timestampCol" jsxtext="Data/Hora" ref="TIME_STAMP"/>
+    <record jsxid="log_transactionIdCol" jsxtext="ID da Transação" ref="TRANSACTIONID"/>
+    <record jsxid="log_correlationIdCol" jsxtext="ID de Correlação" ref="CORRELATIONID"/>
+    <record jsxid="log_messageCol" jsxtext="Mensagem" ref="LOGMESSAGES"/>
+    <record jsxid="log_logMessagesCol" jsxtext="Mensagem" ref="LOGMESSAGES"/>
+    <record jsxid="log_statusCol" jsxtext="Status" ref="STATUS"/>
+    <record jsxid="log_clearValue" jsxtext="Limpar/Reiniciar Valor"/>
+    <record jsxid="log_correlateExceptions" jsxtext="Correlacionar exceções"/>
+    <record jsxid="log_include" jsxtext="Incluir"/>
+    <record jsxid="log_rebuildApplicationList" jsxtext="Refazer Lista de Aplicações"/>
+    <record jsxid="log_noRecordsFoundUsingCriteria" jsxtext="Nenhum registro encontrado com esse critério."/>
+    <record jsxid="log_listScrollInfo" jsxtext="- visualizando mensagens de log {0} a {1} de {2} -"/>
+    <record jsxid="log_deleteMessage" jsxtext="Os logs selecionados serão apagados permanentemente. Confirma exclusão?"/>
+    <record jsxid="log_attrLogID" jsxtext="ID do Log"/>
+    <record jsxid="log_attrTimeDuration" jsxtext="Tempo de duração"/>
+    <record jsxid="log_attrCategory" jsxtext="Categoria"/>
+    <record jsxid="log_attrStatus" jsxtext="Status"/>
+    <record jsxid="log_attrSize" jsxtext="Tamanho"/>
+    <record jsxid="log_attrApplicationID" jsxtext="ID da Aplicação"/>
+    <record jsxid="log_attrComponentName" jsxtext="Nome do Componente"/>
+    <record jsxid="log_attrHostname" jsxtext="Nome do Host"/>
+    <record jsxid="log_attrTimestamp" jsxtext="Data/Hora"/>
+    <record jsxid="log_attrTransactionDomain" jsxtext="Domínio da Transação"/>
+    <record jsxid="log_attrTransactionType" jsxtext="Tipo de Transação"/>
+    <record jsxid="log_attrTransactionID" jsxtext="ID da Transação"/>
+    <record jsxid="log_attrCorrelationID" jsxtext="ID de Correlação"/>
+    <record jsxid="log_attrInterfaceID" jsxtext="ID da Interface"/>
+    <record jsxid="log_attrFilename" jsxtext="Nome do Arquivo"/>
+    <record jsxid="log_attrMessage" jsxtext="Mensagem"/>
+    <record jsxid="log_attrRenderID" jsxtext="ID do Renderizador"/>
+    <record jsxid="log_attrDataEncoding" jsxtext="Encoding dos Dados"/>
+    <record jsxid="log_flipDetailsOrientation" jsxtext="Mudar a Orientação dos Detalhes"/>
+    <record jsxid="log_flipDetailsOrientationTip" jsxtext="Mudar a Orientação da Visualização de Detalhes"/>
+  </locale>
+  <locale key="es_ES">
+    <record jsxid="log_tabLabel" jsxtext="Bitácoras"/>
+    <record jsxid="log_searchLogs" jsxtext="Buscar Bitácoras"/>
+    <record jsxid="log_detail" jsxtext="Detalle"/>
+    <record jsxid="log_details" jsxtext="Detalles"/>
+    <record jsxid="log_header" jsxtext="Encabezado"/>
+    <record jsxid="log_transaction" jsxtext="Transacción"/>
+    <record jsxid="log_deleteSelectedLogs" jsxtext="Eliminar Bitácoras Seleccionadas"/>
+    <record jsxid="log_manageColumns" jsxtext="Administrar Columnas"/>
+    <record jsxid="log_manageColumnsCaption" jsxtext="Administrar Columnas para Lista de Bitácora"/>
+    <record jsxid="log_idCol" jsxtext="ID" ref="LOGID"/>
+    <record jsxid="log_logIdCol" jsxtext="ID" ref="LOGID"/>
+    <record jsxid="log_applicationIdCol" jsxtext="ID de Aplicación" ref="APPLICATIONID"/>
+    <record jsxid="log_componentNameCol" jsxtext="Nombre de Componente" ref="COMPONENTNAME"/>
+    <record jsxid="log_transactionDomainCol" jsxtext="Dominio de Transacción" ref="TRANSACTIONDOMAIN"/>
+    <record jsxid="log_timestampCol" jsxtext="Fecha y Hora" ref="TIME_STAMP"/>
+    <record jsxid="log_transactionIdCol" jsxtext="ID de Transacción" ref="TRANSACTIONID"/>
+    <record jsxid="log_correlationIdCol" jsxtext="ID de Correlación" ref="CORRELATIONID"/>
+    <record jsxid="log_messageCol" jsxtext="Mensaje" ref="LOGMESSAGES"/>
+    <record jsxid="log_logMessagesCol" jsxtext="Mensaje" ref="LOGMESSAGES"/>
+    <record jsxid="log_statusCol" jsxtext="Status" ref="STATUS"/>
+    <record jsxid="log_clearValue" jsxtext="Limpiar/Reiniciar Valor"/>
+    <record jsxid="log_correlateExceptions" jsxtext="Correlacionar Excepciones"/>
+    <record jsxid="log_include" jsxtext="Incluir"/>
+    <record jsxid="log_rebuildApplicationList" jsxtext="Reconstruir Lista de Aplicación"/>
+    <record jsxid="log_noRecordsFoundUsingCriteria" jsxtext="No se encontraron registros utilizando criterios."/>
+    <record jsxid="log_listScrollInfo" jsxtext="- viendo mensajes de bitácora {0} al {1} de {2} -"/>
+    <record jsxid="log_deleteMessage" jsxtext="Las bitácoras seleccionadas serán eliminadas permanentemente, ¿continuar con la eliminación?"/>
+    <record jsxid="log_attrLogID" jsxtext="ID de Bitácora"/>
+    <record jsxid="log_attrTimeDuration" jsxtext="Tiempo de Duración"/>
+    <record jsxid="log_attrCategory" jsxtext="Categoría"/>
+    <record jsxid="log_attrStatus" jsxtext="Estatus"/>
+    <record jsxid="log_attrSize" jsxtext="Tamaño"/>
+    <record jsxid="log_attrApplicationID" jsxtext="ID de Aplicación"/>
+    <record jsxid="log_attrComponentName" jsxtext="Nombre de Componente"/>
+    <record jsxid="log_attrHostname" jsxtext="Hostname"/>
+    <record jsxid="log_attrTimestamp" jsxtext="Fecha y Hora"/>
+    <record jsxid="log_attrTransactionDomain" jsxtext="Dominio de Transacción"/>
+    <record jsxid="log_attrTransactionType" jsxtext="Tipo de Transacción"/>
+    <record jsxid="log_attrTransactionID" jsxtext="ID de Transacción"/>
+    <record jsxid="log_attrCorrelationID" jsxtext="ID de Correlación"/>
+    <record jsxid="log_attrInterfaceID" jsxtext="ID de Interfaz"/>
+    <record jsxid="log_attrFilename" jsxtext="Nombre de Archivo"/>
+    <record jsxid="log_attrMessage" jsxtext="Mensaje"/>
+    <record jsxid="log_attrRenderID" jsxtext="ID de Conversión"/>
+    <record jsxid="log_attrDataEncoding" jsxtext="Codificación de Datos"/>
+    <record jsxid="log_flipDetailsOrientation" jsxtext="Voltear Orientación de Detalles"/>
+    <record jsxid="log_flipDetailsOrientationTip" jsxtext="Modificar Orientación de Vista de Detalles"/>
+  </locale>
+  <locale key="sv_SV">
+    <record jsxid="log_tabLabel" jsxtext="Loggar"/>
+    <record jsxid="log_searchLogs" jsxtext="Sök i Loggar"/>
+    <record jsxid="log_detail" jsxtext="Detalj"/>
+    <record jsxid="log_details" jsxtext="Detaljer"/>
+    <record jsxid="log_header" jsxtext="Header"/>
+    <record jsxid="log_transaction" jsxtext="Transaktion"/>
+    <record jsxid="log_deleteSelectedLogs" jsxtext="Ta bort valda loggar"/>
+    <record jsxid="log_manageColumns" jsxtext="Hantera Kolumner"/>
+    <record jsxid="log_manageColumnsCaption" jsxtext="Hantera Kolumner för Logglista"/>
+    <record jsxid="log_idCol" jsxtext="ID" ref="LOGID"/>
+    <record jsxid="log_logIdCol" jsxtext="ID" ref="LOGID"/>
+    <record jsxid="log_applicationIdCol" jsxtext="ApplikationsID" ref="APPLICATIONID"/>
+    <record jsxid="log_componentNameCol" jsxtext="Komponentnamn" ref="COMPONENTNAME"/>
+    <record jsxid="log_transactionDomainCol" jsxtext="Transaktionsdomän" ref="TRANSACTIONDOMAIN"/>
+    <record jsxid="log_timestampCol" jsxtext="Tidstämpel" ref="TIME_STAMP"/>
+    <record jsxid="log_transactionIdCol" jsxtext="TransaktionsID" ref="TRANSACTIONID"/>
+    <record jsxid="log_correlationIdCol" jsxtext="KorrelationsID" ref="CORRELATIONID"/>
+    <record jsxid="log_messageCol" jsxtext="Meddelande" ref="LOGMESSAGES"/>
+    <record jsxid="log_logMessagesCol" jsxtext="Meddelande" ref="LOGMESSAGES"/>
+    <record jsxid="log_statusCol" jsxtext="Status" ref="STATUS"/>
+    <record jsxid="log_clearValue" jsxtext="Rensa/Återställ Värde"/>
+    <record jsxid="log_correlateExceptions" jsxtext="Korrelera Undantag"/>
+    <record jsxid="log_include" jsxtext="Ta Med"/>
+    <record jsxid="log_rebuildApplicationList" jsxtext="Återskapa Applikationslista"/>
+    <record jsxid="log_noRecordsFoundUsingCriteria" jsxtext="Inga poster funna med givna kriterier."/>
+    <record jsxid="log_listScrollInfo" jsxtext="- visar loggmeddelanden {0} till {1} av {2} -"/>
+    <record jsxid="log_deleteMessage" jsxtext="De valda loggarna kommer att tas bort permanent, fortsätt med radering?"/>
+    <record jsxid="log_attrLogID" jsxtext="LoggID"/>
+    <record jsxid="log_attrTimeDuration" jsxtext="Tidsintervall"/>
+    <record jsxid="log_attrCategory" jsxtext="Kategori"/>
+    <record jsxid="log_attrStatus" jsxtext="Status"/>
+    <record jsxid="log_attrSize" jsxtext="Storlek"/>
+    <record jsxid="log_attrApplicationID" jsxtext="ApplikationsID"/>
+    <record jsxid="log_attrComponentName" jsxtext="komponentnamn"/>
+    <record jsxid="log_attrHostname" jsxtext="Maskinnamn"/>
+    <record jsxid="log_attrTimestamp" jsxtext="Tidstämpel"/>
+    <record jsxid="log_attrTransactionDomain" jsxtext="Transaktionsdomän"/>
+    <record jsxid="log_attrTransactionType" jsxtext="Transaktionstyp"/>
+    <record jsxid="log_attrTransactionID" jsxtext="TransaktionsID"/>
+    <record jsxid="log_attrCorrelationID" jsxtext="KorrelationsID"/>
+    <record jsxid="log_attrInterfaceID" jsxtext="GränssnittsID"/>
+    <record jsxid="log_attrFilename" jsxtext="Filnamn"/>
+    <record jsxid="log_attrMessage" jsxtext="Meddelande"/>
+    <record jsxid="log_attrRenderID" jsxtext="FramställningsID"/>
+    <record jsxid="log_attrDataEncoding" jsxtext="Datakodning"/>
+    <record jsxid="log_flipDetailsOrientation" jsxtext="Kasta Om Detaljvyns orientering"/>
+    <record jsxid="log_flipDetailsOrientationTip" jsxtext="Ändrar Detaljvyns orientering"/>
+  </locale>
+  <locale key="zh_CH">
+    <record jsxid="log_tabLabel" jsxtext="日志"/>
+    <record jsxid="log_searchLogs" jsxtext="搜索日志"/>
+    <record jsxid="log_detail" jsxtext="细节"/>
+    <record jsxid="log_details" jsxtext="细节"/>
+    <record jsxid="log_header" jsxtext="头部"/>
+    <record jsxid="log_transaction" jsxtext="事务"/>
+    <record jsxid="log_deleteSelectedLogs" jsxtext="删除所选日志"/>
+    <record jsxid="log_manageColumns" jsxtext="管理列"/>
+    <record jsxid="log_manageColumnsCaption" jsxtext="管理日志目录列"/>
+    <record jsxid="log_idCol" jsxtext="ID" ref="日志ID"/>
+    <record jsxid="log_logIdCol" jsxtext="ID" ref="日志ID"/>
+    <record jsxid="log_applicationIdCol" jsxtext="应用程序ID" ref="APPLICATIONID"/>
+    <record jsxid="log_componentNameCol" jsxtext="组件名字" ref="COMPONENTNAME"/>
+    <record jsxid="log_transactionDomainCol" jsxtext="事务域" ref="TRANSACTIONDOMAIN"/>
+    <record jsxid="log_timestampCol" jsxtext="时间戳" ref="TIME_STAMP"/>
+    <record jsxid="log_transactionIdCol" jsxtext="事务ID" ref="TRANSACTIONID"/>
+    <record jsxid="log_correlationIdCol" jsxtext="关联ID" ref="CORRELATIONID"/>
+    <record jsxid="log_messageCol" jsxtext="消息" ref="LOGMESSAGES"/>
+    <record jsxid="log_logMessagesCol" jsxtext="消息" ref="LOGMESSAGES"/>
+    <record jsxid="log_statusCol" jsxtext="状态" ref="STATUS"/>
+    <record jsxid="log_clearValue" jsxtext="清空/重置值"/>
+    <record jsxid="log_correlateExceptions" jsxtext="关联例外"/>
+    <record jsxid="log_include" jsxtext="包含"/>
+    <record jsxid="log_rebuildApplicationList" jsxtext="重建应用程序目录"/>
+    <record jsxid="log_noRecordsFoundUsingCriteria" jsxtext="没有规则相应的记录。"/>
+    <record jsxid="log_listScrollInfo" jsxtext="- 查看日志消息从{0} 到 {2} 中的 {1} -"/>
+    <record jsxid="log_deleteMessage" jsxtext="选中的日志将被永远删除，继续删除吗?"/>
+    <record jsxid="log_attrLogID" jsxtext="日志ID"/>
+    <record jsxid="log_attrTimeDuration" jsxtext="时间持续"/>
+    <record jsxid="log_attrCategory" jsxtext="类别"/>
+    <record jsxid="log_attrStatus" jsxtext="状态"/>
+    <record jsxid="log_attrSize" jsxtext="大小"/>
+    <record jsxid="log_attrApplicationID" jsxtext="应用程序ID"/>
+    <record jsxid="log_attrComponentName" jsxtext="组件名字"/>
+    <record jsxid="log_attrHostname" jsxtext="主机名字"/>
+    <record jsxid="log_attrTimestamp" jsxtext="时间戳"/>
+    <record jsxid="log_attrTransactionDomain" jsxtext="事务域"/>
+    <record jsxid="log_attrTransactionType" jsxtext="事务类型"/>
+    <record jsxid="log_attrTransactionID" jsxtext="事务ID"/>
+    <record jsxid="log_attrCorrelationID" jsxtext="关联ID"/>
+    <record jsxid="log_attrInterfaceID" jsxtext="接口ID"/>
+    <record jsxid="log_attrFilename" jsxtext="文件名字"/>
+    <record jsxid="log_attrMessage" jsxtext="消息"/>
+    <record jsxid="log_attrRenderID" jsxtext="转换ID"/>
+    <record jsxid="log_attrDataEncoding" jsxtext="数据编码"/>
+    <record jsxid="log_flipDetailsOrientation" jsxtext="翻转细节目标"/>
+    <record jsxid="log_flipDetailsOrientationTip" jsxtext="改变细节查看目标"/>
+  </locale>
+</data>

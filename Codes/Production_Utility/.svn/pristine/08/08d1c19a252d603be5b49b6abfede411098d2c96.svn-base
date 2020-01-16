@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Repository:repository xmlns:Repository="http://www.tibco.com/xmlns/repo/types/2002">
+    <folder resourceType="ae.designerfolder" name="EnterpriseLibrary" propLocks="" allowUserToChangeIcon="false" sortContents="false" acceptsResources="true" allowDuplicates="false">
+        <description>Version 1.18 Sachin Gangwar, done some changes in PersistMessageSchema
+Version 1.15, Sachin Gangwar, added CentralizedScheduler_Implementation process
+Version 1.12, Dipakkumar Kachhadiya, Removed Log and Exception Handling Processes
+Version 1.11, Dipakkumar Kachhadiya, Added ReplayMessage service call
+Version 1.10, Dipakkumar Kachhadiya, Fixed exception handler process to populate process name
+Version 1.9, Dipakkumar Kachhadiya, Updated looping mechanism for store message and updated default email id for notification
+Version 1.8, Dipakkumar Kachhadiya, Updated JMS connection for JNDI username, password GV, Email Notification
+Version 1.7, Dipakkumar Kachhadiya, Added custom functions
+Version 1.6, Dipakkumar Kachhadiya, Changed logging format from XML to string
+Version 1.5, Dipakkumar Kachhadiya, Updated Exception Hamdler to send complete message in email</description>
+        <fixedChildren/>
+    </folder>
+</Repository:repository>

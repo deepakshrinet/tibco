@@ -1,0 +1,386 @@
+<serialization xmlns="urn:tibco.com/v3.0" jsxversion="3.9">
+  <name><![CDATA[Block - 100%]]></name>
+  <icon><![CDATA[images/prototypes/block.gif]]></icon>
+  <description><![CDATA[Simple block, relatively positioned with overflow=scroll.]]></description>
+  <onBeforeDeserialize/>
+  <onAfterDeserialize><![CDATA[
+	logListSplitter.subscribe("beforeSplitterResize",cle.log.onBeforeSplitterResize);
+	logListSplitter.subscribe("afterSplitterResize",cle.log.onAfterSplitterResize);
+	]]></onAfterDeserialize>
+  <object type="jsx3.gui.Block">
+    <variants jsxoverflow="2"/>
+    <strings jsxname="logPane" jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1"/>
+    <object type="jsx3.gui.Block">
+      <variants jsxoverflow="2"/>
+      <strings jsxname="pane2" jsxwidth="100%" jsxheight="100%"/>
+      <object type="jsx3.gui.Splitter">
+        <variants jsxleft="0" jsxtop="0"/>
+        <strings jsxname="logSplitterV" jsxsubcontainer1pct="365,*"/>
+        <dynamics jsxbgcolor="splitterPaneBackground"/>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="1"/>
+          <strings jsxname="paneLeft" jsxwidth="100%" jsxheight="100%"/>
+          <dynamics jsxborder="@Inset" jsxbgcolor="@Solid Light"/>
+          <object type="jsx3.gui.LayoutGrid">
+            <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+            <strings jsxname="logSearchLayout" jsxrows="26,*" jsxwidth="100%" jsxheight="100%"/>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%" jsxtextalign="right"/>
+              <dynamics jsxborder="@Outset" jsxbgcolor="mediumBG" jsxbg="@CBar Bevel TopDown"/>
+              <object type="jsx3.gui.ToolbarButton">
+                <variants jsxenabled="0"/>
+                <strings jsxname="logSearchBtn" jsximage="images/icons/search.gif"/>
+                <dynamics jsxfontsize="@Normal FS" jsxtext="m_search" jsxtip="log_searchLogs"/>
+                <events jsxexecute="cle.log.queryLogs(this);"/>
+              </object>
+              <object type="jsx3.gui.Menu">
+                <variants jsxxmlasync="1"/>
+                <strings jsxname="logSearchMenu" jsxxmlurl="interfaces/log/logQueryToolbarMenu_cdf.xml"/>
+                <dynamics jsxtext="m_options"/>
+              </object>
+              <object type="jsx3.gui.Menu">
+                <variants jsxxmlasync="1"/>
+                <strings jsxname="logSearchContextMenu" jsxtip="menu" jsxtext="context" jsxxmlurl="interfaces/log/logSearchContextMenu_cdf.xml" jsxdisplay="none"/>
+              </object>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxname="pane2" jsxwidth="100%" jsxheight="100%"/>
+              <dynamics jsxbgcolor="@Solid Light"/>
+              <object type="jsx3.gui.Block">
+                <variants jsxoverflow="2"/>
+                <strings jsxname="logQueryMatrixPane" jsxwidth="100%" jsxheight="100%"/>
+                <dynamics jsxborder="@Outset"/>
+                <object type="jsx3.gui.Matrix">
+                  <variants jsxpagingmodel="4" jsxselectionmodel="0" jsxxmlbind="1" jsxxmlasync="0" jsxrowheight="23" jsxsuppresshscroll="0" jsxsuppressvscroll="0" jsxscalewidth="0" jsxrendernavigators="1" jsxdrag="0" jsxdrop="0" jsxshare="1" jsxheaderheight="0"/>
+                  <strings jsxname="logQueryMatrix" jsxbodyborder="1px solid ;1px solid #9898a5;0px solid #9898a5;0px solid" jsxheaderborder="0px solid ;1px solid #9898a5;1px solid #9898a5;0px solid" jsxxmlid="logCriteria_cdf_xml" jsxrenderingmodel="hierarchical" jsxrenderingcontext="" jsxicon="jsx:///images/spc.gif" jsxmenu="logSearchContextMenu" jsxxmlurl="interfaces/log/logCriteria_cdf.xml"/>
+                  <events jsxafteredit="cle.log.queryFieldChange(this);" jsxbeforeedit="cle.utils.onBeforeEdit(this, objCOLUMN, strRECORDID);" jsxaftercommit="cle.utils.onAfterCommit(this,strRECORDID,objCOLUMN,strVALUE);"/>
+                  <xslparameters jsx_rowbg1="#FFFFFF" jsx_rowbg2="#ffffff" jsx_no_empty_indent="1" jsx_indent="0" jsx_treehead_bgcolor="#D6E1ED" jsx_use_categories="1" jsx_treehead_fontweight="Bold"/>
+                  <object type="jsx3.gui.Matrix.Column">
+                    <variants/>
+                    <strings jsxname="descriptionCol" jsxresize="0" jsxpadding="2" jsxpath="jsxtext" jsxcelltextalign="left" jsxtextalign="left" jsxborder="0px solid ;1px solid #9898a5;1px solid #9898a5;0px solid" jsxcellpadding="2" jsxcellborder="0px solid ;0px solid ;1px solid #9898a5;0px solid"/>
+                    <dynamics jsxbg="@Bevel TopDown" jsxcellbgcolor="cellMediumBG" jsxbgcolor="mediumBG" jsxtext="m_name" jsxcellfontsize="matrixCellFontSize" jsxwidth="logNameColWidth"/>
+                  </object>
+                  <object type="jsx3.gui.Matrix.Column">
+                    <variants jsxwrap="0" jsxwidth="160"/>
+                    <strings jsxname="dataCol" jsxpadding="2" jsxpath="jsxvalue" jsxtextalign="left" jsxborder="0px solid ;0px solid ;1px solid #9898a5;0px solid" jsxcellborder="0px solid ;0px solid ;1px solid #9898a5;0px solid" jsxcellpadding="4" jsxcelltextalign="left" jsxformathandler="cle.utils.formatCell"/>
+                    <dynamics jsxbg="@Bevel TopDown" jsxbgcolor="@Solid Light" jsxtext="m_value" jsxcellfontsize="matrixCellFontSize"/>
+                    <object type="jsx3.gui.TextBox">
+                      <variants jsxrelativeposition="0" jsxleft="160" jsxtop="253" jsxwidth="160" jsxheight="22" jsxzindex="10"/>
+                      <strings jsxname="textboxMask" jsxdisplay="none" jsxvalue=""/>
+                      <dynamics jsxfontsize="matrixMaskFontSize"/>
+                      <events jsxkeydown="1;"/>
+                    </object>
+                    <object type="jsx3.gui.Select">
+                      <variants jsxrelativeposition="0" jsxleft="160" jsxtop="138" jsxwidth="160" jsxheight="22" jsxzindex="10"/>
+                      <strings jsxname="selectMask" jsxdisplay="none" jsxvalue=""/>
+                      <dynamics jsxfontsize="matrixMaskFontSize"/>
+                    </object>
+                    <object type="jsx3.gui.Select">
+                      <variants jsxrelativeposition="0" jsxleft="160" jsxtop="138" jsxwidth="160" jsxheight="22" jsxzindex="10"/>
+                      <strings jsxname="timeframeSelectMask" jsxdisplay="none" jsxvalue=""/>
+                      <dynamics jsxfontsize="matrixMaskFontSize"/>
+                      <events jsxselect="cle.log.setTimeframe(this.emGetSession().matrix,this.emGetSession().recordId);"/>
+                    </object>
+                    <object type="jsx3.gui.ToolbarButton">
+                      <variants jsxenabled="1"/>
+                      <strings jsxname="tbButtonMask" jsximage="jsx:///images/tbb/open.gif" jsxmargin="0 0 0 0"/>
+                      <events jsxexecute="jsx3.log('Clicked on button mask in row ' + this.emGetSession().recordId + '.');"/>
+                    </object>
+                    <object type="jsx3.gui.DatePicker">
+                      <variants jsxrelativeposition="0" jsxleft="120" jsxtop="184" jsxwidth="162" jsxheight="22" jsxzindex="10" jsxdateformat="2"/>
+                      <strings jsxname="datePickerMask" jsxdisplay="none" jsxformat="yyyy-MM-dd"/>
+                      <dynamics jsxfontsize="matrixMaskFontSize"/>
+                    </object>
+                    <object type="jsx3.gui.TimePicker">
+                      <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxshowsecs="0" jsxshowmillis="0"/>
+                      <strings jsxname="timePickerMask" jsxbgcolor="#FFFFFF" jsxdisplay="none"/>
+                      <dynamics jsxfontsize="matrixMaskFontSize"/>
+                    </object>
+                    <object type="jsx3.gui.Dialog">
+                      <variants jsxwidth="300" jsxheight="100" jsxzindex="5000" jsxleft="0" jsxtop="0" jsxrelativeposition="0"/>
+                      <strings jsxname="dialogMask" jsxdisplay="none"/>
+                      <dynamics jsxbgcolor="@Solid Medium"/>
+                      <object type="jsx3.gui.WindowBar">
+                        <variants jsxheight="9"/>
+                        <strings jsxname="caption" jsxbg="" jsxborder="1px solid #d8d8e5;0px;0px;1px solid #e8e8f5;" jsxbgcolor="#f5f5fb"/>
+                        <object type="jsx3.gui.ImageButton">
+                          <variants jsxwidth="8" jsxheight="8" jsxprefetch="1" jsxtype="0" jsxstate="0"/>
+                          <strings jsxname="closebtn" jsximage="jsx:///images/dialog/close_small.gif"/>
+                          <dynamics jsxtip="jsx3.gui.Dialog.close"/>
+                          <events jsxexecute="this.getParent().getParent().commitEditMask(objEVENT);"/>
+                        </object>
+                      </object>
+                      <object type="jsx3.gui.Block">
+                        <variants jsxrelativeposition="1" jsxoverflow="2"/>
+                        <strings jsxname="block" jsxwidth="100%" jsxheight="100%"/>
+                        <object type="jsx3.gui.TextBox">
+                          <variants jsxtype="1" jsxrelativeposition="1" jsxleft="0" jsxtop="0"/>
+                          <strings jsxwidth="100%" jsxheight="100%" jsxname="textarea" jsxvalue=""/>
+                          <dynamics jsxfontsize="matrixMaskFontSize"/>
+                          <events jsxkeydown="1;"/>
+                        </object>
+                      </object>
+                    </object>
+                    <object type="jsx3.gui.Block">
+                      <variants jsxwidth="200" jsxheight="23" jsxleft="0" jsxtop="0" jsxrelativeposition="0"/>
+                      <strings jsxname="checkboxMask" jsxpadding="3 3 3 6" jsxdisplay="none" jsxborder="0px solid ;0px solid ;1px solid #9898a5;0px solid;"/>
+                      <dynamics jsxbgcolor="@Solid Light"/>
+                      <object type="jsx3.gui.CheckBox">
+                        <variants jsxheight="18" jsxchecked="1" jsxdefaultchecked="0"/>
+                        <strings jsxname="checkbox" jsxmargin="0 4 0 0"/>
+                        <dynamics jsxtext="log_include" jsxfontsize="matrixMaskFontSize"/>
+                        <events jsxtoggle="var s=this.getParent().emGetSession();cle.log.enableApp(s.matrix,s.recordId,intCHECKED);this.getParent().commitEditMask(objEVENT);"/>
+                      </object>
+                    </object>
+                    <object type="jsx3.gui.Block">
+                      <variants jsxwidth="200" jsxheight="23" jsxleft="0" jsxtop="0" jsxrelativeposition="0"/>
+                      <strings jsxname="allAppsMask" jsxpadding="3 3 3 6" jsxdisplay="none" jsxborder="0px solid ;0px solid ;1px solid #9898a5;0px solid;"/>
+                      <dynamics jsxbgcolor="@Solid Light"/>
+                      <object type="jsx3.gui.CheckBox">
+                        <variants jsxheight="18" jsxdefaultchecked="0"/>
+                        <strings jsxname="checkbox" jsxmargin="0 4 0 0"/>
+                        <dynamics jsxtext="log_include" jsxfontsize="matrixMaskFontSize"/>
+                        <events jsxtoggle="var s=this.getParent().emGetSession();cle.log.enableAllApps(s.matrix,intCHECKED);"/>
+                      </object>
+                    </object>
+                    <object type="jsx3.gui.Block">
+                      <variants jsxwidth="200" jsxheight="25" jsxleft="0" jsxtop="0" jsxrelativeposition="0"/>
+                      <strings jsxname="radioMask" jsxpadding="3" jsxdisplay="none"/>
+                      <dynamics jsxbgcolor="@Solid Light" jsxborder="@Inset"/>
+                      <object type="jsx3.gui.RadioButton">
+                        <variants jsxheight="18" jsxdefaultselected="1" jsxselected="0" jsxrelativeposition="1"/>
+                        <strings jsxname="radio" jsxtext="[radio button text]" jsxgroupname="group1" jsxmargin="0 4 0 0"/>
+                        <dynamics jsxfontsize="matrixMaskFontSize"/>
+                      </object>
+                    </object>
+                  </object>
+                </object>
+              </object>
+            </object>
+          </object>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="2"/>
+          <strings jsxname="paneRight" jsxwidth="100%" jsxheight="100%"/>
+          <dynamics jsxbgcolor="@Solid Light"/>
+          <object type="jsx3.gui.Splitter">
+            <variants jsxorientation="0" jsxleft="0" jsxtop="0"/>
+            <strings jsxname="logListSplitter" jsxsubcontainer1pct="70%"/>
+            <dynamics jsxbgcolor="splitterPaneBackground"/>
+            <events jsxbeforeresize="this.publish({subject:'beforeSplitterResize',target:this});" jsxafterresize="this.publish({subject:'afterSplitterResize',target:this});"/>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxname="paneLeft" jsxwidth="100%" jsxheight="100%"/>
+              <dynamics jsxbgcolor="@Solid Light"/>
+              <object type="jsx3.gui.LayoutGrid">
+                <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+                <strings jsxname="logInfoLayout" jsxrows="26,*" jsxwidth="100%" jsxheight="100%"/>
+                <object type="jsx3.gui.WindowBar">
+                  <variants jsxbartype="1"/>
+                  <strings jsxname="logActionsPane" jsxwidth="100%" jsxheight="100%"/>
+                  <dynamics jsxbgcolor="@Solid Light" jsxbg="@No BG Image"/>
+                  <object type="jsx3.gui.ToolbarButton">
+                    <variants/>
+                    <strings jsxname="logManageColumnsBtn" jsximage="images/icons/matrix-column.gif"/>
+                    <dynamics jsxtext="log_manageColumns"/>
+                    <events jsxexecute="cle.log.showColumnManager(this);"/>
+                  </object>
+                  <object type="jsx3.gui.ToolbarButton">
+                    <variants jsxenabled="0"/>
+                    <strings jsxname="deleteSelectedLogsBtn" jsximage="images/icons/removeDoc.gif"/>
+                    <dynamics jsxtext="log_deleteSelectedLogs"/>
+                    <events jsxexecute="cle.log.deleteSelectedLogs(this);"/>
+                  </object>
+                  <object type="jsx3.gui.Menu">
+                    <variants jsxxmlasync="1"/>
+                    <strings jsxname="logContextMenu" jsxtext="context" jsxxmlurl="interfaces/log/logContextMenu_cdf.xml" jsxdisplay="none"/>
+                  </object>
+                </object>
+                <object type="jsx3.gui.Block">
+                  <variants jsxoverflow="2"/>
+                  <strings jsxname="logListPane" jsxwidth="100%" jsxheight="100%"/>
+                  <dynamics jsxborder="@Outset" jsxbgcolor="@Solid Light"/>
+                  <object type="jsx3.gui.Matrix">
+                    <variants jsxpagingmodel="3" jsxpaintqueuesize="3" jsxrowsperpanel="50" jsxpanelpoolsize="5" jsxjsxxmlasync="1" jsxxmlbind="1" jsxselectionmodel="2"/>
+                    <strings xmlns="urn:tibco.com/v3.0" jsxname="logListMatrix" jsxbodyborder="1px solid #dfdfff" jsxheaderborder="1px solid #dfdfff" jsxxmlid="logList_cdf" jsxrenderingmodel="hierarchical" jsxicon="jsx:///images/spc.gif" jsxmenu="logContextMenu"/>
+                    <dynamics jsxscrollinfolabel="log_listScrollInfo" jsxheaderheight="logHeaderHeight" jsxbgcolor="@Solid Light"/>
+                    <events jsxexecute="cle.log.getLogDetails(this, strRECORDID);" jsxselect="cle.log.setLogSelection(this);" jsxmenu="cle.log.beforeShowMenu(this,strRECORDID,objCOLUMN,objMENU);"/>
+                    <xslparameters jsx_rowbg1="#ffffff" jsx_rowbg2="#ffffff"/>
+                    <object type="jsx3.gui.Matrix.Column">
+                      <variants/>
+                      <strings jsxname="imageColumn" jsxwidth="20" jsxtext="&amp;#160;" jsxvaluetemplate="@image" jsxpadding="3" jsxcellpadding="1" jsxpath="jsximg"/>
+                      <dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="mediumBG" jsxcellborder="logColumnLeftBorder"/>
+                    </object>
+                    <object type="jsx3.gui.Matrix.Column">
+                      <variants jsxwidth="80"/>
+                      <strings xmlns="urn:tibco.com/v3.0" jsxname="logIdCol" jsxpadding="2" jsxcellpadding="1" jsxpath="jsxid"/>
+                      <dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="mediumBG" jsxtext="log_logIdCol" jsxcellborder="logColumnBorder"/>
+                    </object>
+                    <object type="jsx3.gui.Matrix.Column">
+                      <variants jsxwidth="90"/>
+                      <strings xmlns="urn:tibco.com/v3.0" jsxname="statusCol" jsxpadding="2" jsxcellpadding="1" jsxpath="STATUS"/>
+                      <dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="mediumBG" jsxtext="log_statusCol" jsxcellborder="logColumnBorder"/>
+                    </object>
+                    <object type="jsx3.gui.Matrix.Column">
+                      <variants jsxwidth="100"/>
+                      <strings xmlns="urn:tibco.com/v3.0" jsxname="applicationIdCol" jsxpadding="2" jsxcellpadding="1" jsxpath="APPLICATIONID"/>
+                      <dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="mediumBG" jsxtext="log_applicationIdCol" jsxcellborder="logColumnBorder"/>
+                    </object>
+                    <object type="jsx3.gui.Matrix.Column">
+                      <variants jsxwidth="120"/>
+                      <strings xmlns="urn:tibco.com/v3.0" jsxname="componentNameCol" jsxpadding="2" jsxcellpadding="1" jsxpath="COMPONENTNAME"/>
+                      <dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="mediumBG" jsxtext="log_componentNameCol" jsxcellborder="logColumnBorder"/>
+                    </object>
+                    <object type="jsx3.gui.Matrix.Column">
+                      <variants jsxwidth="140"/>
+                      <strings xmlns="urn:tibco.com/v3.0" jsxname="transactionDomainCol" jsxpadding="2" jsxcellpadding="1" jsxpath="TRANSACTIONDOMAIN"/>
+                      <dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="mediumBG" jsxtext="log_transactionDomainCol" jsxcellborder="logColumnBorder"/>
+                    </object>
+                    <object type="jsx3.gui.Matrix.Column">
+                      <variants jsxwidth="170"/>
+                      <strings xmlns="urn:tibco.com/v3.0" jsxname="timestampCol" jsxpadding="2" jsxcellpadding="1" jsxpath="TIME_STAMP" jsxformathandler="cle.exception.formatCellForDate"/>
+                      <dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="mediumBG" jsxtext="log_timestampCol" jsxcellborder="logColumnBorder"/>
+                    </object>
+                    <object type="jsx3.gui.Matrix.Column">
+                      <variants jsxwidth="120"/>
+                      <strings xmlns="urn:tibco.com/v3.0" jsxname="transactionIdCol" jsxpadding="2" jsxcellpadding="1" jsxpath="TRANSACTIONID"/>
+                      <dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="mediumBG" jsxtext="log_transactionIdCol" jsxcellborder="logColumnBorder"/>
+                    </object>
+                    <object type="jsx3.gui.Matrix.Column">
+                      <variants jsxwidth="120"/>
+                      <strings xmlns="urn:tibco.com/v3.0" jsxname="correlationIdCol" jsxpadding="2" jsxcellpadding="1" jsxpath="CORRELATIONID"/>
+                      <dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="mediumBG" jsxtext="log_correlationIdCol" jsxcellborder="logColumnBorder"/>
+                    </object>
+                    <object type="jsx3.gui.Matrix.Column">
+                      <variants/>
+                      <strings jsxwidth="120" xmlns="urn:tibco.com/v3.0" jsxname="logMessageCol" jsxpadding="2" jsxcellpadding="1" jsxpath="LOGMESSAGES"/>
+                      <dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="mediumBG" jsxcellborder="logColumnRightBorder" jsxtext="log_logMessagesCol"/>
+                    </object>
+                  </object>
+                </object>
+              </object>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxname="paneRight" jsxwidth="100%" jsxheight="100%"/>
+              <dynamics jsxbgcolor="@Solid Light"/>
+              <object type="jsx3.gui.Block">
+                <variants jsxoverflow="2"/>
+                <strings jsxname="logDetailStackPane" jsxwidth="100%" jsxheight="100%"/>
+                <dynamics jsxbgcolor="@Solid Light" jsxborder="@Outset"/>
+                <object type="jsx3.gui.StackGroup">
+                  <variants jsxoverflow="2"/>
+                  <strings jsxname="logStackGroup" jsxrows="*,27"/>
+                  <object type="jsx3.gui.Stack">
+                    <variants/>
+                    <strings jsxname="logDetailsStack"/>
+                    <dynamics jsxactivecolor="activeTabColor" jsxinactivecolor="inactiveTabColor" jsxfontsize="labelFontSize" jsxtext="log_details"/>
+                    <object type="jsx3.gui.Block">
+                      <variants jsxoverflow="2" jsxloadtype="4"/>
+                      <strings jsxname="logDetailPane" jsxbgcolor="#ffffff" jsxdisplay="" jsxvisibility="visible"/>
+                      <object type="jsx3.gui.Matrix">
+                        <variants jsxpagingmodel="4" jsxselectionmodel="0" jsxxmlasync="1" jsxxmlbind="0" jsxrowheight="23" jsxsuppresshscroll="0" jsxsuppressvscroll="0" jsxscalewidth="0" jsxrendernavigators="1" jsxdrag="0" jsxdrop="0" jsxshare="0" jsxheaderheight="0"/>
+                        <strings jsxname="logDetailsMatrix" jsxbodyborder="1px solid ;1px solid #9898a5;0px solid #9898a5;0px solid" jsxheaderborder="0px solid ;1px solid #9898a5;1px solid #9898a5;0px solid" jsxxmlid="logDetails_cdf" jsxrenderingmodel="hierarchical" jsxicon="jsx:///images/spc.gif"/>
+                        <events jsxbeforeedit="cle.utils.onBeforeEdit(this, objCOLUMN, strRECORDID);" jsxaftercommit="cle.utils.onAfterCommit(this,strRECORDID,objCOLUMN,strVALUE);"/>
+                        <xslparameters jsx_rowbg1="#FFFFFF" jsx_rowbg2="#ffffff" jsx_no_empty_indent="1" jsx_indent="0" jsx_treehead_bgcolor="#D6E1ED" jsx_use_categories="1" jsx_treehead_fontweight="Bold"/>
+                        <object type="jsx3.gui.Matrix.Column">
+                          <variants/>
+                          <strings jsxname="descriptionCol" jsxresize="0" jsxpadding="2" jsxpath="jsxtext" jsxcelltextalign="left" jsxtextalign="left" jsxborder="0px solid ;1px solid #9898a5;1px solid #9898a5;0px solid ;" jsxcellpadding="2" jsxcellborder="0px solid ;0px solid ;1px solid #9898a5;1px solid #9898a5"/>
+                          <dynamics jsxbg="@Bevel TopDown" jsxcellbgcolor="cellMediumBG" jsxbgcolor="mediumBG" jsxtext="m_name" jsxcellfontsize="matrixCellFontSize" jsxwidth="exceptionNameColWidth"/>
+                        </object>
+                        <object type="jsx3.gui.Matrix.Column">
+                          <variants jsxwrap="0" jsxwidth="160"/>
+                          <strings jsxname="dataCol" jsxpadding="2" jsxpath="jsxvalue" jsxtextalign="left" jsxborder="0px solid ;0px solid ;1px solid #9898a5;0px solid" jsxcellborder="0px solid ;0px solid ;1px solid #9898a5;1px solid #9898a5;" jsxcellpadding="4" jsxcelltextalign="left" jsxformathandler="cle.utils.formatCell"/>
+                          <dynamics jsxbg="@Bevel TopDown" jsxbgcolor="@Solid Light" jsxtext="m_value" jsxcellfontsize="matrixCellFontSize"/>
+                          <object type="jsx3.gui.TextBox">
+                            <variants jsxrelativeposition="0" jsxleft="160" jsxtop="253" jsxwidth="160" jsxheight="22" jsxzindex="10"/>
+                            <strings jsxname="textboxMask" jsxdisplay="none" jsxvalue=""/>
+                            <dynamics jsxfontsize="matrixMaskFontSize"/>
+                            <events jsxkeydown="1;"/>
+                          </object>
+                          <object type="jsx3.gui.Select">
+                            <variants jsxrelativeposition="0" jsxleft="160" jsxtop="138" jsxwidth="160" jsxheight="22" jsxzindex="10"/>
+                            <strings jsxname="selectMask" jsxdisplay="none" jsxvalue=""/>
+                            <dynamics jsxfontsize="matrixMaskFontSize"/>
+                          </object>
+                          <object type="jsx3.gui.DatePicker">
+                            <variants jsxrelativeposition="0" jsxleft="120" jsxtop="184" jsxwidth="162" jsxheight="22" jsxzindex="10" jsxdateformat="2"/>
+                            <strings jsxname="datePickerMask" jsxdisplay="none" jsxformat="yyyy-MM-dd"/>
+                            <dynamics jsxfontsize="matrixMaskFontSize"/>
+                          </object>
+                          <object type="jsx3.gui.TimePicker">
+                            <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxshowsecs="0" jsxshowmillis="0"/>
+                            <strings jsxname="timePickerMask" jsxbgcolor="#FFFFFF" jsxdisplay="none"/>
+                            <dynamics jsxfontsize="matrixMaskFontSize"/>
+                          </object>
+                          <object type="jsx3.gui.Dialog">
+                            <variants jsxwidth="300" jsxheight="100" jsxzindex="5001" jsxleft="0" jsxtop="0" jsxrelativeposition="0"/>
+                            <strings jsxname="dialogMask" jsxdisplay="none"/>
+                            <dynamics jsxbgcolor="@Solid Medium"/>
+                            <object type="jsx3.gui.WindowBar">
+                              <variants jsxheight="9"/>
+                              <strings jsxname="caption" jsxbg="" jsxborder="1px solid #d8d8e5;0px;0px;1px solid #e8e8f5;" jsxbgcolor="#f5f5fb"/>
+                              <object type="jsx3.gui.ImageButton">
+                                <variants jsxwidth="8" jsxheight="8" jsxprefetch="1" jsxtype="0" jsxstate="0"/>
+                                <strings jsxname="closebtn" jsximage="jsx:///images/dialog/close_small.gif"/>
+                                <dynamics jsxtip="jsx3.gui.Dialog.close"/>
+                                <events jsxexecute="this.getParent().getParent().commitEditMask(objEVENT);"/>
+                              </object>
+                            </object>
+                            <object type="jsx3.gui.Block">
+                              <variants jsxrelativeposition="1" jsxoverflow="2"/>
+                              <strings jsxname="block" jsxwidth="100%" jsxheight="100%"/>
+                              <object type="jsx3.gui.TextBox">
+                                <variants jsxtype="1" jsxrelativeposition="1" jsxleft="0" jsxtop="0"/>
+                                <strings jsxwidth="100%" jsxheight="100%" jsxname="textarea" jsxvalue=""/>
+                                <events jsxkeydown="1;"/>
+                              </object>
+                            </object>
+                          </object>
+                          <object type="jsx3.gui.Block">
+                            <variants jsxwidth="200" jsxheight="25" jsxleft="0" jsxtop="0" jsxrelativeposition="0"/>
+                            <strings jsxname="checkboxMask" jsxpadding="3" jsxdisplay="none"/>
+                            <dynamics jsxbgcolor="@Solid Light" jsxborder="@Inset"/>
+                            <object type="jsx3.gui.CheckBox">
+                              <variants jsxheight="18" jsxchecked="1" jsxdefaultchecked="0"/>
+                              <strings jsxname="checkbox" jsxtext="Include" jsxmargin="0 4 0 0"/>
+                            </object>
+                          </object>
+                          <object type="jsx3.gui.Block">
+                            <variants jsxwidth="200" jsxheight="25" jsxleft="0" jsxtop="0" jsxrelativeposition="0"/>
+                            <strings jsxname="radioMask" jsxpadding="3" jsxdisplay="none"/>
+                            <dynamics jsxbgcolor="@Solid Light" jsxborder="@Inset"/>
+                            <object type="jsx3.gui.RadioButton">
+                              <variants jsxheight="18" jsxdefaultselected="1" jsxselected="0" jsxrelativeposition="1"/>
+                              <strings jsxname="radio" jsxtext="[radio button text]" jsxgroupname="group1" jsxmargin="0 4 0 0"/>
+                            </object>
+                          </object>
+                        </object>
+                      </object>
+                    </object>
+                    <object type="jsx3.gui.Menu">
+                      <variants jsxxmlasync="1" jsxfontsize="10"/>
+                      <strings jsxname="logDetailsMenu" jsxtip="menu" jsxxmlurl="interfaces/log/logDetailsMenu_cdf.xml" jsxfontweight="normal"/>
+                      <dynamics jsxtext="m_options"/>
+                    </object>
+                  </object>
+                  <object type="jsx3.gui.Stack">
+                    <variants/>
+                    <strings jsxname="logTransactionStack"/>
+                    <dynamics jsxactivecolor="activeTabColor" jsxinactivecolor="inactiveTabColor" jsxfontsize="labelFontSize" jsxtext="log_transaction"/>
+                    <object type="jsx3.gui.Block">
+                      <variants jsxoverflow="1"/>
+                      <strings jsxtagname="div" jsxname="logTransactionPane" jsxbgcolor="#ffffff" jsxdisplay="none" jsxvisibility="visible"/>
+                    </object>
+                  </object>
+                </object>
+              </object>
+            </object>
+          </object>
+        </object>
+      </object>
+    </object>
+  </object>
+</serialization>

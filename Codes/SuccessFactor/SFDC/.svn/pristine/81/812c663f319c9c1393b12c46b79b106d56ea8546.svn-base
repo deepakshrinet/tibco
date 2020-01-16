@@ -1,0 +1,824 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:ns2="http://www.tibco.com/namespaces/tnt/plugins/file" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="www.tibco.com/plugin/Timer" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns4="http://www.tibco.com/CommonLE/Client/Schema/ClientInterface.xsd" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns3="http://www.tibco.com/pe/EngineTypes" xmlns:Zimmer="java://CustomFunctions" xmlns:ns0="http://www.tibco.com/namespaces/tnt/plugins/file/v2" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:ns5="http://www.tibco.com/namespaces/tnt/plugins/jms">
+    <pd:name>Services/SFDC_SF/Processes/WriteEmpDataToFile.process</pd:name>
+    <pd:startName>ReceiveEmpDatafromSFDC</pd:startName>
+    <pd:startX>0</pd:startX>
+    <pd:startY>0</pd:startY>
+    <pd:returnBindings>
+        <root/>
+    </pd:returnBindings>
+    <pd:starter name="ReceiveEmpDatafromSFDC">
+        <pd:type>com.tibco.plugin.jms.JMSQueueEventSource</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueEventSource</pd:resourceType>
+        <pd:x>74</pd:x>
+        <pd:y>107</pd:y>
+        <config>
+            <PermittedMessageType>XML Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>23</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+                <destination>%%ApplicationDetails/SFDC_SF_USER_SEND/Queue/WritePerNRFileRequestQueue%%</destination>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/EnterpriseLibrary/SharedResources/Connections/JMS/TIBCO_JMS_Connection.sharedjmscon</ConnectionReference>
+            <OutDataxsdString>
+                <xsd:element name="Users">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="Records" minOccurs="0" maxOccurs="unbounded">
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element name="ID" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="FirstName" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="MiddleName" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="LastName" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Title" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Email" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Inactive__c" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="MobilePhone" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Phone" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Territory_Number__c" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Role_Classification__c" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Sales_Assoc_ID__c" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Sales_Specialty__c" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="ReportsToId" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="SAP__c" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Class_Description__c" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="AccountId" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="AccountName" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Record_Edit_Status__c" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Employee_Non_Employee__c" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Lms_required__c" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="RecordTypeId" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="ReportsToEmail" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Hire_Date__c" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="Fax" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="MAILINGSTREET" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="MAILINGCITY" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="MAILINGSTATE" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="MAILINGPOSTALCODE" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="MAILINGCOUNTRY" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="CreatedDate" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="LastModifiedDate" type="xsd:string" minOccurs="0"/>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                            <xsd:element name="Lot" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Transactionid" type="xsd:string" minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </OutDataxsdString>
+        </config>
+        <pd:inputBindings/>
+    </pd:starter>
+    <pd:endName>End</pd:endName>
+    <pd:endX>424</pd:endX>
+    <pd:endY>107</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1479993619638</pd:targetNamespace>
+    <pd:activity name="CatchUnknownException">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>666</pd:x>
+        <pd:y>107</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Confirm">
+        <pd:type>com.tibco.pe.core.ConfirmActivity</pd:type>
+        <pd:resourceType>activity.confirm</pd:resourceType>
+        <pd:x>299</pd:x>
+        <pd:y>209</pd:y>
+        <config>
+            <ConfirmEvent>ReceiveEmpDatafromSFDC</ConfirmEvent>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Confirm-1">
+        <pd:type>com.tibco.pe.core.ConfirmActivity</pd:type>
+        <pd:resourceType>activity.confirm</pd:resourceType>
+        <pd:x>529</pd:x>
+        <pd:y>107</pd:y>
+        <config>
+            <ConfirmEvent>ReceiveEmpDatafromSFDC</ConfirmEvent>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="FetchUserFromSAPHRIS">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>77</pd:x>
+        <pd:y>206</pd:y>
+        <config>
+            <processName>/Services/SFDC_SF/Operations/FetchUserFromSAPHRIS.process</processName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <xsl:for-each select="$ReceiveEmpDatafromSFDC/ns5:ActivityOutput/Body/Users/Records">
+                    <PERNR>
+                        <xsl:value-of select="tib:trim(current()/SAP__c)"/>
+                    </PERNR>
+                </xsl:for-each>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Render Data">
+        <pd:type>com.tibco.plugin.parse.RenderActivity</pd:type>
+        <pd:resourceType>ae.activities.RenderActivity</pd:resourceType>
+        <pd:x>192</pd:x>
+        <pd:y>208</pd:y>
+        <config>
+            <ParseSharedConfig>/SharedResources/Schemas/DataFormat/SFDataFormat.sharedparse</ParseSharedConfig>
+        </config>
+        <pd:inputBindings>
+            <Rows>
+                <xsl:for-each select="$FetchUserFromSAPHRIS/Rows/User">
+                    <User>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/STATUS)!=''">
+                                <STATUS>
+                                    <xsl:value-of select="concat('&quot;',lower-case(tib:trim(current()/STATUS)),'&quot;')"/>
+                                </STATUS>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/USERID)!=''">
+                                <USERID>
+                                    <xsl:value-of select="concat('&quot;',tib:trim(current()/USERID), '&quot;')"/>
+                                </USERID>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/USERNAME)!=''">
+                                <USERNAME>
+                                    <xsl:value-of select="concat('&quot;',tib:trim(current()/USERNAME), '&quot;')"/>
+                                </USERNAME>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/FIRSTNAME)!=''">
+                                <FIRSTNAME>
+                                    <xsl:value-of select="concat('&quot;',tib:trim(current()/FIRSTNAME),'&quot;')"/>
+                                </FIRSTNAME>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/LASTNAME)!=''">
+                                <LASTNAME>
+                                    <xsl:value-of select="concat('&quot;',tib:trim(current()/LASTNAME), '&quot;')"/>
+                                </LASTNAME>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/MI)!=''">
+                                <MI>
+                                    <xsl:value-of select="concat('&quot;',tib:trim(current()/MI), '&quot;')"/>
+                                </MI>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/EMAIL)!=''">
+                                <EMAIL>
+                                    <xsl:value-of select="concat('&quot;',tib:trim(current()/EMAIL), '&quot;')"/>
+                                </EMAIL>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <EMAIL>
+                                    <xsl:value-of select="'noemail@zimmerbiomet.com'"/>
+                                </EMAIL>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/MANAGER)!=''">
+                                <MANAGER>
+                                    <xsl:value-of select="concat('&quot;',tib:trim(current()/MANAGER), '&quot;')"/>
+                                </MANAGER>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <MANAGER>
+                                    <xsl:value-of select="'NO_MANAGER'"/>
+                                </MANAGER>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/HR)!=''">
+                                <HR>
+                                    <xsl:value-of select="concat('&quot;',tib:trim(current()/HR), '&quot;')"/>
+                                </HR>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <HR>
+                                    <xsl:value-of select="'NO_HR'"/>
+                                </HR>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim($ReceiveEmpDatafromSFDC/ns5:ActivityOutput/Body/Users/Records[SAP__c=current()/USERID]/Territory_Number__c)!=''&#xA;and&#xA;tib:trim($ReceiveEmpDatafromSFDC/ns5:ActivityOutput/Body/Users/Records[SAP__c=current()/USERID]/AccountName)!=''">
+                                <DIVISION>
+                                    <xsl:value-of select="concat('&quot;',tib:trim($ReceiveEmpDatafromSFDC/ns5:ActivityOutput/Body/Users/Records[SAP__c=current()/USERID]/Territory_Number__c),&quot;_&quot;,&#xA;tib:trim($ReceiveEmpDatafromSFDC/ns5:ActivityOutput/Body/Users/Records[SAP__c=current()/USERID]/AccountName),'&quot;')"/>
+                                </DIVISION>
+                            </xsl:when>
+                            <xsl:when test="tib:trim($ReceiveEmpDatafromSFDC/ns5:ActivityOutput/Body/Users/Records[SAP__c=current()/USERID]/Territory_Number__c)!=''&#xA;and&#xA;tib:trim($ReceiveEmpDatafromSFDC/ns5:ActivityOutput/Body/Users/Records[SAP__c=current()/USERID]/AccountName)=''">
+                                <DIVISION>
+                                    <xsl:value-of select="concat('&quot;',tib:trim($ReceiveEmpDatafromSFDC/ns5:ActivityOutput/Body/Users/Records[SAP__c=current()/USERID]/Territory_Number__c),&quot;_&quot;,'NA&quot;')"/>
+                                </DIVISION>
+                            </xsl:when>
+                            <xsl:when test="tib:trim($ReceiveEmpDatafromSFDC/ns5:ActivityOutput/Body/Users/Records[SAP__c=current()/USERID]/Territory_Number__c)=''&#xA;and&#xA;tib:trim($ReceiveEmpDatafromSFDC/ns5:ActivityOutput/Body/Users/Records[SAP__c=current()/USERID]/AccountName)=''">
+                                <DIVISION>
+                                    <xsl:value-of select="concat('&quot;NA',&quot;_&quot;,tib:trim($ReceiveEmpDatafromSFDC/ns5:ActivityOutput/Body/Users/Records[SAP__c=current()/USERID]/AccountName),'&quot;')"/>
+                                </DIVISION>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <DIVISION>
+                                    <xsl:value-of select="'NULL'"/>
+                                </DIVISION>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim($ReceiveEmpDatafromSFDC/ns5:ActivityOutput/Body/Users/Records[SAP__c=current()/USERID]/Role_Classification__c)!=''">
+                                <xsl:choose>
+                                    <xsl:when test="tib:trim($ReceiveEmpDatafromSFDC/ns5:ActivityOutput/Body/Users/Records[SAP__c=current()/USERID]/Role_Classification__c)='Zimmer Spine'&#xA;or&#xA;tib:trim($ReceiveEmpDatafromSFDC/ns5:ActivityOutput/Body/Users/Records[SAP__c=current()/USERID]/Role_Classification__c)='Zimmer Biomet Spine'">
+                                        <DEPARTMENT>
+                                            <xsl:value-of select="'SPINE_SALES'"/>
+                                        </DEPARTMENT>
+                                    </xsl:when>
+                                    <xsl:when test="tib:trim($ReceiveEmpDatafromSFDC/ns5:ActivityOutput/Body/Users/Records[SAP__c=current()/USERID]/Role_Classification__c)='CMF&amp;T'">
+                                        <DEPARTMENT>
+                                            <xsl:value-of select="'CMF&amp;T_SALES'"/>
+                                        </DEPARTMENT>
+                                    </xsl:when>
+                                    <xsl:when test="tib:trim($ReceiveEmpDatafromSFDC/ns5:ActivityOutput/Body/Users/Records[SAP__c=current()/USERID]/Role_Classification__c)='Zimmer Biomet Canada Recon'">
+                                        <DEPARTMENT>
+                                            <xsl:value-of select="'RECON_SALES'"/>
+                                        </DEPARTMENT>
+                                    </xsl:when>
+                                    <xsl:when test="tib:trim($ReceiveEmpDatafromSFDC/ns5:ActivityOutput/Body/Users/Records[SAP__c=current()/USERID]/Role_Classification__c)='Zimmer Biomet Canada Spine'">
+                                        <DEPARTMENT>
+                                            <xsl:value-of select="'SPINE_SALES'"/>
+                                        </DEPARTMENT>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <DEPARTMENT>
+                                            <xsl:value-of select="'RECON_SALES'"/>
+                                        </DEPARTMENT>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <DEPARTMENT>
+                                    <xsl:value-of select="'RECON_SALES'"/>
+                                </DEPARTMENT>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/LOCATION)!=''">
+                                <LOCATION>
+                                    <xsl:value-of select="concat('&quot;',tib:trim(current()/LOCATION),'&quot;')"/>
+                                </LOCATION>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <LOCATION>
+                                    <xsl:value-of select="'N/A'"/>
+                                </LOCATION>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/JOBCODE)!=''">
+                                <JOBCODE>
+                                    <xsl:value-of select="concat('&quot;',tib:trim(current()/JOBCODE), '&quot;')"/>
+                                </JOBCODE>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <JOBCODE>
+                                    <xsl:value-of select="'N/A'"/>
+                                </JOBCODE>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <TIMEZONE>
+                            <xsl:value-of select="'EST'"/>
+                        </TIMEZONE>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/HIREDATE)!=''">
+                                <HIREDATE>
+                                    <xsl:value-of select="concat('&quot;',tib:trim(current()/HIREDATE), '&quot;')"/>
+                                </HIREDATE>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <HIREDATE>
+                                    <xsl:value-of select="'12/31/9999'"/>
+                                </HIREDATE>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/EMPID)!=''">
+                                <EMPID>
+                                    <xsl:value-of select="concat('&quot;',tib:trim(current()/EMPID),'&quot;')"/>
+                                </EMPID>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <EMPID>
+                                    <xsl:value-of select="'N/A'"/>
+                                </EMPID>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/TITLE)!=''">
+                                <TITLE>
+                                    <xsl:value-of select="concat('&quot;',tib:trim(current()/TITLE),'&quot;')"/>
+                                </TITLE>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <TITLE>
+                                    <xsl:value-of select="'N/A'"/>
+                                </TITLE>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/BIZ_PHONE)!=''">
+                                <BIZ_PHONE>
+                                    <xsl:value-of select="concat('&quot;',tib:trim(current()/BIZ_PHONE), '&quot;')"/>
+                                </BIZ_PHONE>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/FAX)!=''">
+                                <FAX>
+                                    <xsl:value-of select="concat('&quot;',tib:trim(current()/FAX), '&quot;')"/>
+                                </FAX>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim($ReceiveEmpDatafromSFDC/ns5:ActivityOutput/Body/Users/Records[SAP__c=current()/USERID]/MAILINGSTREET)!=''">
+                                <ADDR1>
+                                    <xsl:value-of select="concat('&quot;',Zimmer:stringReplace(tib:trim($ReceiveEmpDatafromSFDC/ns5:ActivityOutput/Body/Users/Records[SAP__c=current()/USERID]/MAILINGSTREET),&quot;&#xA;&quot;,' '),'&quot;')"/>
+                                </ADDR1>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:choose>
+                                    <xsl:when test="tib:trim(current()/ADDR1)!=''">
+                                        <ADDR1>
+                                            <xsl:value-of select="concat('&quot;',Zimmer:stringReplace(tib:trim(current()/ADDR1), &quot;&#xA;&quot;, ' '),'&quot;')"/>
+                                        </ADDR1>
+                                    </xsl:when>
+                                    <xsl:otherwise/>
+                                </xsl:choose>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/CITY)!=''">
+                                <CITY>
+                                    <xsl:value-of select="concat('&quot;',tib:trim(current()/CITY),'&quot;')"/>
+                                </CITY>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/STATE)!=''">
+                                <STATE>
+                                    <xsl:value-of select="concat('&quot;',tib:trim(current()/STATE),'&quot;')"/>
+                                </STATE>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/ZIP)!=''">
+                                <ZIP>
+                                    <xsl:value-of select="concat('&quot;',tib:trim(current()/ZIP),'&quot;')"/>
+                                </ZIP>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/COUNTRY)!=''">
+                                <COUNTRY>
+                                    <xsl:value-of select="concat('&quot;',tib:trim(current()/COUNTRY),'&quot;')"/>
+                                </COUNTRY>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <COUNTRY>
+                                    <xsl:value-of select="'US'"/>
+                                </COUNTRY>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/CUSTOM01)!=''">
+                                <CUSTOM01>
+                                    <xsl:value-of select="concat('&quot;',tib:trim(current()/CUSTOM01),'&quot;')"/>
+                                </CUSTOM01>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/CUSTOM02)!=''">
+                                <CUSTOM02>
+                                    <xsl:value-of select="concat('&quot;',tib:trim(current()/CUSTOM02),'&quot;')"/>
+                                </CUSTOM02>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/CUSTOM03)!=''">
+                                <CUSTOM03>
+                                    <xsl:value-of select="concat('&quot;',tib:trim(current()/CUSTOM03),'&quot;')"/>
+                                </CUSTOM03>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/CUSTOM04)!=''">
+                                <CUSTOM04>
+                                    <xsl:value-of select="concat('&quot;',tib:trim(current()/CUSTOM04),'&quot;')"/>
+                                </CUSTOM04>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <CUSTOM04>
+                                    <xsl:value-of select="'N/A'"/>
+                                </CUSTOM04>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/CUSTOM05)!=''">
+                                <CUSTOM05>
+                                    <xsl:value-of select="concat('&quot;',tib:trim(current()/CUSTOM05),'&quot;')"/>
+                                </CUSTOM05>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <CUSTOM05>
+                                    <xsl:value-of select="'active'"/>
+                                </CUSTOM05>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/CUSTOM06)!=''">
+                                <CUSTOM06>
+                                    <xsl:value-of select="concat('&quot;',tib:trim(current()/CUSTOM06),'&quot;')"/>
+                                </CUSTOM06>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="lower-case(tib:trim(current()/STATUS))='active'">
+                                <CUSTOM07>
+                                    <xsl:value-of select="'ZB_ALL'"/>
+                                </CUSTOM07>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <CUSTOM07>
+                                    <xsl:value-of select="'ZB_CATCH_ALL'"/>
+                                </CUSTOM07>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/CUSTOM08)!=''">
+                                <CUSTOM08>
+                                    <xsl:value-of select="concat('&quot;',tib:trim(current()/CUSTOM08),'&quot;')"/>
+                                </CUSTOM08>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <CUSTOM08>
+                                    <xsl:value-of select="'N/A'"/>
+                                </CUSTOM08>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/CUSTOM09)!=''">
+                                <CUSTOM09>
+                                    <xsl:value-of select="concat('&quot;',tib:trim(current()/CUSTOM09),'&quot;')"/>
+                                </CUSTOM09>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <CUSTOM09>
+                                    <xsl:value-of select="'N/A'"/>
+                                </CUSTOM09>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <CUSTOM10>
+                            <xsl:value-of select="'SFDC &amp; HRIS'"/>
+                        </CUSTOM10>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/CUSTOM11)!=''">
+                                <CUSTOM11>
+                                    <xsl:value-of select="concat('&quot;',tib:trim(current()/CUSTOM11),'&quot;')"/>
+                                </CUSTOM11>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <CUSTOM11>
+                                    <xsl:value-of select="'N/A'"/>
+                                </CUSTOM11>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim($ReceiveEmpDatafromSFDC/ns5:ActivityOutput/Body/Users/Records[SAP__c=current()/USERID]/Role_Classification__c)!=''">
+                                <CUSTOM12>
+                                    <xsl:value-of select="concat('&quot;',tib:trim($ReceiveEmpDatafromSFDC/ns5:ActivityOutput/Body/Users/Records[SAP__c=current()/USERID]/Role_Classification__c),'&quot;')&#xA;&#xA;{--mapped for HCP--}"/>
+                                </CUSTOM12>
+                            </xsl:when>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/CUSTOM12)!=''">
+                                <CUSTOM15>
+                                    <xsl:value-of select="concat('&quot;',tib:trim(current()/CUSTOM12), '&quot;')&#xA;{--mapped for JOB_DESCRIPTION--}"/>
+                                </CUSTOM15>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <CUSTOM15>
+                                    <xsl:value-of select="'N/A'&#xA;{--mapped for JOB_DESCRIPTION--}"/>
+                                </CUSTOM15>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim(current()/DEFAULT_LOCALE)!=''">
+                                <DEFAULT_LOCALE>
+                                    <xsl:value-of select="concat('&quot;',tib:trim(current()/DEFAULT_LOCALE),'&quot;')"/>
+                                </DEFAULT_LOCALE>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <DEFAULT_LOCALE>
+                                    <xsl:value-of select="'en_US'"/>
+                                </DEFAULT_LOCALE>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <LOGIN_METHOD>
+                            <xsl:value-of select="'SSO'"/>
+                        </LOGIN_METHOD>
+                    </User>
+                </xsl:for-each>
+            </Rows>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SendUnknownExceptions">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>534</pd:x>
+        <pd:y>204</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendException.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns4:ExceptionRequest>
+                <ns4:Header>
+                    <ns4:ComponentName>
+                        <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns3:ProcessContext/ProcessId)"/>
+                    </ns4:ComponentName>
+                    <ns4:Hostname>
+                        <xsl:value-of select="BW:getHostName()"/>
+                    </ns4:Hostname>
+                    <ns4:TransactionDomain>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ApplicationDetails/SFDC_SF_USER_SEND/TransactionDomain"/>
+                    </ns4:TransactionDomain>
+                    <ns4:TransactionType>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ApplicationDetails/SFDC_SF_USER_SEND/TransactionType"/>
+                    </ns4:TransactionType>
+                    <xsl:choose>
+                        <xsl:when test="exists($ReceiveEmpDatafromSFDC/ns5:ActivityOutput/Body/Users/Transactionid) and tib:trim($ReceiveEmpDatafromSFDC/ns5:ActivityOutput/Body/Users/Transactionid)!=''">
+                            <xsl:if test="$ReceiveEmpDatafromSFDC/ns5:ActivityOutput/Body/Users/Transactionid">
+                                <ns4:TransactionID>
+                                    <xsl:value-of select="$ReceiveEmpDatafromSFDC/ns5:ActivityOutput/Body/Users/Transactionid"/>
+                                </ns4:TransactionID>
+                            </xsl:if>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <ns4:TransactionID>
+                                <xsl:value-of select="tib:format-dateTime('ddMMyyHHmmss', current-dateTime())"/>
+                            </ns4:TransactionID>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <ns4:CorrelationID>
+                        <xsl:value-of select="current-date()"/>
+                    </ns4:CorrelationID>
+                    <ns4:InterfaceID>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ApplicationDetails/SFDC_SF_USER_SEND/InterfaceID"/>
+                    </ns4:InterfaceID>
+                    <ns4:Message>
+                        <xsl:value-of select="concat(&quot;Lot:&quot;,$ReceiveEmpDatafromSFDC/ns5:ActivityOutput/Body/Users/Lot, &quot; - &quot;,'Error Writing PerNR User Data to file')"/>
+                    </ns4:Message>
+                    <ns4:Transaction>
+                        <xsl:value-of select="concat(&quot;INPUT::&quot;,tib:render-xml($ReceiveEmpDatafromSFDC/ns5:ActivityOutput),&quot;OUTPUT::&quot;,tib:render-xml($CatchUnknownException))"/>
+                    </ns4:Transaction>
+                </ns4:Header>
+                <ns4:ExceptionCode>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ApplicationDetails/ErrorCodes/Technical/TECHNICAL_777"/>
+                </ns4:ExceptionCode>
+                <ns4:StackTrace>
+                    <xsl:value-of select="concat(&quot;Error Message: &quot;, $_error/ns3:ErrorReport/Msg, &quot;&#xA;&quot;, &quot;  BW MsgCode: &quot;, &#xA;$_error/ns3:ErrorReport/MsgCode, &quot;&#xA;&quot;,&#xA;&quot;Stack Trace: &quot;, $_error/ns3:ErrorReport/StackTrace, &quot;&#xA;&quot;,&#xA;&quot; Process Stack: &quot;, $_error/ns3:ErrorReport/ProcessStack)"/>
+                </ns4:StackTrace>
+            </ns4:ExceptionRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Write File">
+        <pd:type>com.tibco.plugin.file.FileWriteActivity</pd:type>
+        <pd:resourceType>ae.activities.FileWriteActivity</pd:resourceType>
+        <pd:x>191</pd:x>
+        <pd:y>107</pd:y>
+        <config>
+            <encoding>text</encoding>
+            <compressFile>None</compressFile>
+            <append>true</append>
+        </config>
+        <pd:inputBindings>
+            <ns2:WriteActivityInputTextClass>
+                <fileName>
+                    <xsl:value-of select="concat($_globalVariables/ns:GlobalVariables/ApplicationDetails/SFDC_SF_USER_SEND/File/FileLocation,&quot;SFDC_PERNR&quot;,$ReceiveEmpDatafromSFDC/ns5:ActivityOutput/Body/Users/Transactionid,&quot;.csv&quot;)"/>
+                </fileName>
+                <textContent>
+                    <xsl:value-of select="$Render-Data/Text"/>
+                </textContent>
+            </ns2:WriteActivityInputTextClass>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="sendSuccessResponse">
+        <pd:type>com.tibco.plugin.jms.JMSReplyActivity</pd:type>
+        <pd:resourceType>ae.activities.JMSReplyActivity</pd:resourceType>
+        <pd:x>300</pd:x>
+        <pd:y>107</pd:y>
+        <config>
+            <PermittedMessageType>XML Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+                <EventSource>ReceiveEmpDatafromSFDC</EventSource>
+            </ConfigurableHeaders>
+            <InDataxsdString>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="lot" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="status" type="xsd:string" minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </InDataxsdString>
+        </config>
+        <pd:inputBindings>
+            <ns5:ActivityInput>
+                <Body>
+                    <root>
+                        <xsl:if test="$ReceiveEmpDatafromSFDC/ns5:ActivityOutput/Body/Users/Lot">
+                            <lot>
+                                <xsl:value-of select="$ReceiveEmpDatafromSFDC/ns5:ActivityOutput/Body/Users/Lot"/>
+                            </lot>
+                        </xsl:if>
+                        <status>
+                            <xsl:value-of select="'SUCCESS'"/>
+                        </status>
+                    </root>
+                </Body>
+            </ns5:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="sendErrorResponse">
+        <pd:type>com.tibco.plugin.jms.JMSReplyActivity</pd:type>
+        <pd:resourceType>ae.activities.JMSReplyActivity</pd:resourceType>
+        <pd:x>675</pd:x>
+        <pd:y>204</pd:y>
+        <config>
+            <PermittedMessageType>XML Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+                <EventSource>ReceiveEmpDatafromSFDC</EventSource>
+            </ConfigurableHeaders>
+            <InDataxsdString>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="lot" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="status" type="xsd:string" minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </InDataxsdString>
+        </config>
+        <pd:inputBindings>
+            <ns5:ActivityInput>
+                <Body>
+                    <root>
+                        <xsl:if test="$ReceiveEmpDatafromSFDC/ns5:ActivityOutput/Body/Users/Lot">
+                            <lot>
+                                <xsl:value-of select="$ReceiveEmpDatafromSFDC/ns5:ActivityOutput/Body/Users/Lot"/>
+                            </lot>
+                        </xsl:if>
+                        <status>
+                            <xsl:value-of select="'ERROR'"/>
+                        </status>
+                    </root>
+                </Body>
+            </ns5:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Confirm</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Render Data</pd:from>
+        <pd:to>Write File</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Write File</pd:from>
+        <pd:to>sendSuccessResponse</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>CatchUnknownException</pd:from>
+        <pd:to>sendErrorResponse</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SendUnknownExceptions</pd:from>
+        <pd:to>Confirm-1</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Confirm-1</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>ReceiveEmpDatafromSFDC</pd:from>
+        <pd:to>FetchUserFromSAPHRIS</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>FetchUserFromSAPHRIS</pd:from>
+        <pd:to>Render Data</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>sendSuccessResponse</pd:from>
+        <pd:to>Confirm</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>sendErrorResponse</pd:from>
+        <pd:to>SendUnknownExceptions</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:label>
+        <pd:name>Label (2)</pd:name>
+        <pd:description>Process is triggered from GetEmployeesSFDC. 
+This process fetches details from SAP RFC.
+Sync process writes each record and sends the confirmation to parent process</pd:description>
+        <pd:x>411</pd:x>
+        <pd:y>34</pd:y>
+        <pd:width>737</pd:width>
+        <pd:height>67</pd:height>
+        <pd:fontColor>-16777216</pd:fontColor>
+        <pd:color>-1</pd:color>
+        <pd:type>solid</pd:type>
+        <pd:thickness>0</pd:thickness>
+        <pd:fade>true</pd:fade>
+    </pd:label>
+</pd:ProcessDefinition>

@@ -1,0 +1,128 @@
+// ----------------------------------------------------------------------------------
+// Global Variables --- EAR level
+// ----------------------------------------------------------------------------------
+Database/MIG_DatabaseType=Oracle
+Database/MIG_DBDriver=oracle.jdbc.driver.OracleDriver (thin)
+Database/MIG_DBURL=jdbc:oracle:thin:@xsp-tibdb-dev1.pac.zimmer.com:1521:tibdev
+Database/MIG_MaxConnection=10
+Database/MIG_MAXROWS=2000
+Database/MIG_Password=#!1uawfIfvLJKqRliaLaO2yqZJme3PBlKkzzyR/zyZi8A=
+Database/MIG_Timeout=120
+Database/MIG_User=CLE
+DirLedger=.
+DirTrace=.
+ExceptionService/Scheduler/MIG_PollingInterval=600000
+HawkEnabled=false
+JMSDestinationNames/MIG_EventHandler=ZBS.INTEGRATION.CLE.EVENTHANDLER
+JMSDestinationNames/MIG_ExceptionCache=ZBS.INTEGRATION.CLE.EXCEPTIONCACHE
+JMSDestinationNames/MIG_ExceptionQueue=ZBS.INTEGRATION.CLE.EXCEPTION
+JMSDestinationNames/MIG_InterfaceCache=ZBS.INTEGRATION.CLE.INTERFACECACHE
+JMSDestinationNames/MIG_LogLevelReplyQueue=ZBS.INTEGRATION.CLE.LOGLEVELREPLY
+JMSDestinationNames/MIG_LogLevelRequestTopic=ZBS.INTEGRATION.CLE.LOGLEVELREQUEST
+JMSDestinationNames/MIG_LogQueue=ZBS.INTEGRATION.CLE.LOG
+JMSDestinationNames/MIG_NotificationQueue=ZBS.INTEGRATION.CLE.NOTIFICATION
+JMSDestinationNames/MIG_ResolutionQueue=ZBS.INTEGRATION.CLE.RESOLUTION
+JMSDestinationNames/MIG_WorkflowRequestQueue=ZBS.INTEGRATION.CLE.WFREQUEST
+JMSServer/Application/MIG_ClientID=CLEAdministrator
+JMSServer/Application/MIG_JMSExpiration=100
+JMSServer/Application/MIG_JNDIContextURL=tibjmsnaming://xsp-tibemsj-dv1.pac.zimmer.com:7222
+JMSServer/Application/MIG_JNDIPassword=#!y2w/W991+tANozbva68lQ8stMuGoM+Yw
+JMSServer/Application/MIG_JNDIUser=cleuser
+JMSServer/Application/MIG_Password=#!dNSx78abYGzVloVdxpqpnYFCALfVv8CV
+JMSServer/Application/MIG_QueueConnectionFactory=XSP_FW_PRIMARY_CLEAdminUI_QCF
+JMSServer/Application/MIG_TopicConnectionFactory=XSP_FW_PRIMARY_CLEAdminUI_TCF
+JMSServer/Application/MIG_UserName=cleuser
+JMSServer/MIG_ClientID=CLEAdministrator
+JMSServer/MIG_ClientIDException=CLEException
+JMSServer/MIG_ClientIDExceptionReploy=CLEExceptionReply
+JMSServer/MIG_ClientIDLog=CLELog
+JMSServer/MIG_JMSExpiration=100
+JMSServer/MIG_JNDIContextURL=tibjmsnaming://xsp-tibemsj-dv1.pac.zimmer.com:7222
+JMSServer/MIG_JNDIPassword=#!nUh3C5UpOV2Dp1LeLCG5mJhQRUYDn6zH
+JMSServer/MIG_JNDIUser=cleuser
+JMSServer/MIG_Password=#!Pf89trnJ3zohtDasUeLEs3tSSBFbVqNT
+JMSServer/MIG_QueueConnectionFactory=XSP_FW_PRIMARY_CLEAdminUI_QCF
+JMSServer/MIG_TopicConnectionFactory=XSP_FW_PRIMARY_CLEAdminUI_TCF
+JMSServer/MIG_UserName=cleuser
+Notification/Email/MIG_From=tibco.alerts@zimmer.com
+Notification/Email/MIG_Host=pac-msg-htr1.pac.zimmer.com
+Notification/Email/MIG_SubjectPrefix=Exception::
+RVSubjectNames/ExceptionRequestSubject=cle2.exception
+RVSubjectNames/LogRequestSubject=cle2.log
+RVTransport/MIG_ExceptionCM_Name_=ExceptionCM
+RVTransport/MIG_ExceptionLedger_Filename=E:\temp\ExceptionLedger
+RVTransport/MIG_LogCM_Name=LogCM
+RVTransport/MIG_LogLedger_File=E:\temp\LogLedger
+RVTransport/RemoteRvDaemon=
+RVTransport/RvaHost=localhost
+RVTransport/RvaPort=7500
+RVTransport/RvDaemon=tcp:7500
+RVTransport/RvNetwork=
+RVTransport/RvService=7500
+Security/MIG_AdministratorRoleName=CLEAdmin
+SOAPServer/CoreServices/MIG_ExceptionHost=localhost
+SOAPServer/CoreServices/MIG_ExceptionPort=19989
+SOAPServer/CoreServices/MIG_LogReqHost=localhost
+SOAPServer/CoreServices/MIG_LogReqPort=19901
+SOAPServer/GUIServices/MIG_AdministrationHost=localhost
+SOAPServer/GUIServices/MIG_AdministrationPort=19950
+SOAPServer/GUIServices/MIG_ExceptionRuntimeHost=localhost
+SOAPServer/GUIServices/MIG_ExceptionRuntimePort=19951
+SOAPServer/GUIServices/MIG_LogLevelRuntimeHost=localhost
+SOAPServer/GUIServices/MIG_LogLevelRuntimePort=19953
+SOAPServer/GUIServices/MIG_LogRuntimeHost=localhost
+SOAPServer/GUIServices/MIG_LogRuntimePort=19952
+Testing/Debug=1
+Testing/ExceptionRptCounter=10000
+Testing/LogRptCounter=10000
+Testing/StartExceptionTestTimer=2005 JAN 01 13:49:41 CST
+TIBHawkDaemon=tcp:7474
+TIBHawkNetwork=
+TIBHawkService=7474
+Utilities/ConfigMigrationFileName=CLEMigrate.xml
+// ----------------------------------------------------------------------------------
+// CLEExceptionMgmt.par ---  Global Variables --- PAR level
+// ----------------------------------------------------------------------------------
+CLEExceptionMgmt,HawkEnabled=false
+// ----------------------------------------------------------------------------------
+// CLEExceptionMgmt.par --- Process Starter settings --- PAR level
+// ----------------------------------------------------------------------------------
+_TAG,BWProcess,CLEExceptionMgmt,ExceptionManagement/Logic/Scheduler.process,maxJob=0
+_TAG,BWProcess,CLEExceptionMgmt,ExceptionManagement/Logic/Scheduler.process,activation=true
+_TAG,BWProcess,CLEExceptionMgmt,ExceptionManagement/Logic/Scheduler.process,flowLimit=0
+_TAG,BWProcess,CLEExceptionMgmt,ExceptionManagement/Logic/OnUpdateExceptionConfiguration.process,maxJob=0
+_TAG,BWProcess,CLEExceptionMgmt,ExceptionManagement/Logic/OnUpdateExceptionConfiguration.process,activation=true
+_TAG,BWProcess,CLEExceptionMgmt,ExceptionManagement/Logic/OnUpdateExceptionConfiguration.process,flowLimit=0
+_TAG,BWProcess,CLEExceptionMgmt,ExceptionManagement/ExceptionServices/JMS Channel.process,maxJob=0
+_TAG,BWProcess,CLEExceptionMgmt,ExceptionManagement/ExceptionServices/JMS Channel.process,activation=true
+_TAG,BWProcess,CLEExceptionMgmt,ExceptionManagement/ExceptionServices/JMS Channel.process,flowLimit=0
+_TAG,BWProcess,CLEExceptionMgmt,ExceptionManagement/WorkflowServices/OnHandlingComplete.process,maxJob=0
+_TAG,BWProcess,CLEExceptionMgmt,ExceptionManagement/WorkflowServices/OnHandlingComplete.process,activation=true
+_TAG,BWProcess,CLEExceptionMgmt,ExceptionManagement/WorkflowServices/OnHandlingComplete.process,flowLimit=0
+_TAG,BWProcess,CLEExceptionMgmt,ExceptionManagement/ExceptionServices/MonitorResolutionEvents.process,maxJob=0
+_TAG,BWProcess,CLEExceptionMgmt,ExceptionManagement/ExceptionServices/MonitorResolutionEvents.process,activation=true
+_TAG,BWProcess,CLEExceptionMgmt,ExceptionManagement/ExceptionServices/MonitorResolutionEvents.process,flowLimit=0
+_TAG,BWProcess,CLEExceptionMgmt,ExceptionManagement/WorkflowServices/OnGetExceptionRequest.process,maxJob=0
+_TAG,BWProcess,CLEExceptionMgmt,ExceptionManagement/WorkflowServices/OnGetExceptionRequest.process,activation=true
+_TAG,BWProcess,CLEExceptionMgmt,ExceptionManagement/WorkflowServices/OnGetExceptionRequest.process,flowLimit=0
+_TAG,BWProcess,CLEExceptionMgmt,Plug-ins/Notification/Communication/NotificationConnector.process,maxJob=0
+_TAG,BWProcess,CLEExceptionMgmt,Plug-ins/Notification/Communication/NotificationConnector.process,activation=true
+_TAG,BWProcess,CLEExceptionMgmt,Plug-ins/Notification/Communication/NotificationConnector.process,flowLimit=0
+_TAG,BWProcess,CLEExceptionMgmt,ExceptionManagement/ExceptionServices/Handle_Exception_Request-service.serviceagent,maxJob=0
+_TAG,BWProcess,CLEExceptionMgmt,ExceptionManagement/ExceptionServices/Handle_Exception_Request-service.serviceagent,activation=true
+_TAG,BWProcess,CLEExceptionMgmt,ExceptionManagement/ExceptionServices/Handle_Exception_Request-service.serviceagent,flowLimit=0
+_TAG,Setting,CLEExceptionMgmt,threadCount=8
+_TAG,Setting,CLEExceptionMgmt,maxLogFileCount=5
+_TAG,Setting,CLEExceptionMgmt,maxLogFileSize=20000
+_TAG,Setting,CLEExceptionMgmt,java/initHeapSize=32
+_TAG,Setting,CLEExceptionMgmt,java/maxHeapSize=512
+_TAG,Setting,CLEExceptionMgmt,java/prepandClassPath=
+_TAG,Setting,CLEExceptionMgmt,java/appendClassPath=
+// ----------------------------------------------------------------------------------
+// Machine #1 --- CLEExceptionMgmt.par --- Service Instance settings --- Service level
+// ----------------------------------------------------------------------------------
+_TAG,Machine,CLEExceptionMgmt,CLEExceptionMgmt,machine=%%CLEExceptionMgmt.par-machine%%
+// ----------------------------------------------------------------------------------
+// Machine #2 --- CLEExceptionMgmt.par --- Service Instance settings --- Service level
+// ----------------------------------------------------------------------------------
+_TAG,Machine,CLEExceptionMgmt,CLEExceptionMgmt-1,machine=%%CLEExceptionMgmt.par-1-machine%%

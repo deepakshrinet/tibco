@@ -1,0 +1,53 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>AuditFlag</name>
+			<value>false</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>Boolean</type>
+			<modTime>1473553257260</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>DeleteTimerInterval</name>
+			<value>86400000</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1485547125176</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>DeletionDays</name>
+			<value>3</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1507906222050</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>Environment</name>
+			<value>DEV</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1473553258137</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>InsertStatInterval</name>
+			<value>300000</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1507840029871</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>StartTime</name>
+			<value>2016 Dec 12 09:00:00 UTC</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1485547035079</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

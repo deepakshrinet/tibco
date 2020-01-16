@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 targetNamespace="http://www.zimmer.com/V1_0/TextMsgProfileFile"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="Profiles">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Team" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="TeamIdentifier" type="xs:string" minOccurs="0"/>
+							<xs:element name="SlackNotification" type="xs:string" minOccurs="0"/>
+							<xs:element name="TextNotification" type="xs:string" minOccurs="0"/>
+							<xs:element name="ChannelURI" type="xs:string" minOccurs="0"/>
+							<xs:element name="ContactDetail" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Name" type="xs:string" minOccurs="0"/>
+										<xs:element name="Email" type="xs:string" minOccurs="0"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="MessageFilter" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Message" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

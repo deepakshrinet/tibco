@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:ns2="http://www.tibco.com/pe/EngineTypes" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns="http://www.tibco.com/CommonLE2/namespace/Public/Common/RequestHeader.xsd" xmlns:ns3="http://www.tibco.com/CommonLE/namespace/Common" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx4="http://www.tibco.com/schemas/CommonLE/Plug-ins/Notification/Resources/Schemas/SystemsInfo.xsd" xmlns:pfx3="http://www.tibco.com/schemas/CommonLE/Plug-ins/Notification/Schemas/eMail.xsd" xmlns:pfx2="http://www.tibco.com/CommonLE2/namespace/private/Common" xmlns:pfx="http://www.tibco.com/CommonLE2/namespace/Public/Notification">
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/private/Common" schemaLocation="/SharedResources/SchemaDefinitions/Private/Common/LocalExceptions.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Notification" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/Notification/NotificationMessage.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/schemas/CommonLE/Plug-ins/Notification/Schemas/eMail.xsd" schemaLocation="/Plug-ins/Notification/Resources/Schemas/eMail.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/schemas/CommonLE/Plug-ins/Notification/Resources/Schemas/SystemsInfo.xsd" schemaLocation="/Plug-ins/Notification/Resources/Schemas/SystemsInfo.xsd"/>
+    <pd:name>Plug-ins/Notification/Logic/SendNotifications.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx:NotificationMessage"/>
+    <pd:startX>26</pd:startX>
+    <pd:startY>45</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>427</pd:endX>
+    <pd:endY>45</pd:endY>
+    <pd:errorSchemas>
+        <MailNotSent ref="pfx2:MailNotSent"/>
+    </pd:errorSchemas>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1288039785055</pd:targetNamespace>
+    <pd:activity name="Send Technical Email">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>139</pd:x>
+        <pd:y>52</pd:y>
+        <config>
+            <processName>/Plug-ins/Notification/DataAccess/Email/SendTechnicalEmail.process</processName>
+        </config>
+        <pd:inputBindings>
+            <pfx3:eMail>
+                <pfx3:Subject>
+                    <xsl:value-of select="concat( $_globalVariables/ns1:GlobalVariables/Notification/Email/MIG_SubjectPrefix,&#xA;$Start/pfx:NotificationMessage/pfx:ExceptionDetail/ns:Header/ns:ApplicationID, &quot; - &quot;, &#xA;$_globalVariables/ns1:GlobalVariables/Domain, &quot;-&quot;, &#xA;$Start/pfx:NotificationMessage/pfx:ExceptionDetail/ns:Header/ns:ComponentName, &quot;---&quot;,&#xA; $Start/pfx:NotificationMessage/pfx:ExceptionDetail/ns:Header/ns:Message)"/>
+                </pfx3:Subject>
+                <pfx3:Address>
+                    <xsl:value-of select="$Start/pfx:NotificationMessage/EmailTo"/>
+                </pfx3:Address>
+                <pfx3:Body>
+                    <xsl:value-of select="concat(&#xA;&quot;Application ID&#x9;&#x9;: &quot;, $Start/pfx:NotificationMessage/pfx:ExceptionDetail/ns:Header/ns:ApplicationID, &quot;&#xD;&#xA;&quot;, &#xA;&quot;Component Name&#x9;&#x9;: &quot;, $Start/pfx:NotificationMessage/pfx:ExceptionDetail/ns:Header/ns:ComponentName, &quot;&#xD;&#xA;&quot;, &#xA;&quot;Interface ID&#x9;&#x9;: &quot;, $Start/pfx:NotificationMessage/pfx:ExceptionDetail/ns:Header/ns:InterfaceID, &quot;&#xD;&#xA;&quot;, &#xA;&quot;Time&#x9;&#x9;&#x9;: &quot;, $Start/pfx:NotificationMessage/pfx:ExceptionDetail/ns:Header/ns:Timestamp, &quot;&#xD;&#xA;&quot;, &#xA;&quot;Transaction Domain&#x9;: &quot;, $Start/pfx:NotificationMessage/pfx:ExceptionDetail/ns:Header/ns:TransactionDomain, &quot;&#xD;&#xA;&quot;, &#xA;&quot;Transaction Type&#x9;: &quot;, $Start/pfx:NotificationMessage/pfx:ExceptionDetail/ns:Header/ns:TransactionType, &quot;&#xD;&#xA;&quot;, &#xA;&quot;Transaction ID&#x9;&#x9;: &quot;, $Start/pfx:NotificationMessage/pfx:ExceptionDetail/ns:Header/ns:TransactionID, &quot;&#xD;&#xA;&quot;, &#xA;&quot;File Name&#x9;&#x9;: &quot;, $Start/pfx:NotificationMessage/pfx:ExceptionDetail/ns:Header/ns:Filename, &quot;&#xD;&#xA;&quot;, &#xA;&quot;Exception Code&#x9;&#x9;: &quot;, $Start/pfx:NotificationMessage/pfx:ExceptionDetail/ExceptionCode, &quot;&#xD;&#xA;&quot;, &#xA;&quot;Exception Category&#x9;: &quot;, $Start/pfx:NotificationMessage/pfx:ExceptionDetail/Category, &quot;&#xD;&#xA;&quot;, &#xA;&quot;Exception  Type&#x9;&#x9;: &quot;, $Start/pfx:NotificationMessage/pfx:ExceptionDetail/Type, &quot;&#xD;&#xA;&quot;, &#xA;&quot;Exception Severity&#x9;: &quot;, $Start/pfx:NotificationMessage/pfx:ExceptionDetail/Severity, &quot;&#xD;&#xA;&quot;, &#xA;&quot;Exception Message&#x9;: &quot;, $Start/pfx:NotificationMessage/pfx:ExceptionDetail/ns:Header/ns:Message, &quot;&#xD;&#xA;&quot;, &#xA;&quot;Stack Trace&#x9;&#x9;: &quot;, $Start/pfx:NotificationMessage/pfx:ExceptionDetail/Stacktrace, &quot;&#xD;, &#xD;&#xA;, &#xA;&quot;)"/>
+                </pfx3:Body>
+            </pfx3:eMail>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Send Business Email">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>317</pd:x>
+        <pd:y>183</pd:y>
+        <config>
+            <processName>/Plug-ins/Notification/DataAccess/Email/SendTechnicalEmail.process</processName>
+        </config>
+        <pd:inputBindings>
+            <pfx3:eMail>
+                <pfx3:Subject>
+                    <xsl:value-of select="concat( $_globalVariables/ns1:GlobalVariables/Notification/Email/MIG_SubjectPrefix,&#xA;$Start/pfx:NotificationMessage/pfx:ExceptionDetail/ns:Header/ns:TransactionDomain, &quot;   &quot;, &#xA;$Start/pfx:NotificationMessage/pfx:ExceptionDetail/ns:Header/ns:TransactionType )"/>
+                </pfx3:Subject>
+                <pfx3:Address>
+                    <xsl:value-of select="$Start/pfx:NotificationMessage/EmailCC"/>
+                </pfx3:Address>
+                <pfx3:Body>
+                    <xsl:value-of select="concat( &quot;An Error occurred during the integration between &quot;,  $Retrieve-System-Info/pfx4:SystemsInfo/pfx4:SourceSystem, &#xA;&quot; system and &quot;, $Retrieve-System-Info/pfx4:SystemsInfo/pfx4:TargetSystem, &quot; system.&quot;, &quot;&#xD;&#xA;&quot;, &quot;&#xD;&#xA;&quot;, &#xA;&quot; The Alert has been reported to EDI and Integration Solutions central monitoring group.&quot;, &quot;&#xD;&#xA;&quot;, &quot;&#xD;&#xA;&quot;, &#xA;&quot;Error Message =  &quot;, $Start/pfx:NotificationMessage/pfx:ExceptionDetail/ns:Header/ns:Message, &quot;&#xD;&#xA;&quot;, &#xA;&quot;Transaction ID = &quot;, $Start/pfx:NotificationMessage/pfx:ExceptionDetail/ns:Header/ns:TransactionID)"/>
+                </pfx3:Body>
+            </pfx3:eMail>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch All">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>230</pd:x>
+        <pd:y>255</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Handle Local Exception">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>421</pd:x>
+        <pd:y>263</pd:y>
+        <config>
+            <processName>/Common/Local Exception Handler.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns3:Exception>
+                <xsl:if test="$_error/ns2:ErrorReport/Msg">
+                    <ErrorMessage>
+                        <xsl:value-of select="$_error/ns2:ErrorReport/Msg"/>
+                    </ErrorMessage>
+                </xsl:if>
+                <xsl:if test="$_error/ns2:ErrorReport/MsgCode">
+                    <ErrorCode>
+                        <xsl:value-of select="$_error/ns2:ErrorReport/MsgCode"/>
+                    </ErrorCode>
+                </xsl:if>
+                <ns3:Error>
+                    <xsl:for-each select="$_error/ns2:ErrorReport">
+                        <ns3:ErrorReport>
+                            <StackTrace>
+                                <xsl:value-of select="StackTrace"/>
+                            </StackTrace>
+                            <Msg>
+                                <xsl:value-of select="Msg"/>
+                            </Msg>
+                            <FullClass>
+                                <xsl:value-of select="FullClass"/>
+                            </FullClass>
+                            <Class>
+                                <xsl:value-of select="Class"/>
+                            </Class>
+                            <ProcessStack>
+                                <xsl:value-of select="ProcessStack"/>
+                            </ProcessStack>
+                            <xsl:if test="MsgCode">
+                                <MsgCode>
+                                    <xsl:value-of select="MsgCode"/>
+                                </MsgCode>
+                            </xsl:if>
+                        </ns3:ErrorReport>
+                    </xsl:for-each>
+                </ns3:Error>
+            </ns3:Exception>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Retrieve System Info">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>141</pd:x>
+        <pd:y>183</pd:y>
+        <config>
+            <processName>/Plug-ins/Notification/Logic/RetrieveInterfaceConfiguration.process</processName>
+        </config>
+        <pd:inputBindings>
+            <Key>
+                <ApplicationID>
+                    <xsl:value-of select="$Start/pfx:NotificationMessage/pfx:ExceptionDetail/ns:Header/ns:ApplicationID"/>
+                </ApplicationID>
+                <InterfaceID>
+                    <xsl:value-of select="$Start/pfx:NotificationMessage/pfx:ExceptionDetail/ns:Header/ns:InterfaceID"/>
+                </InterfaceID>
+            </Key>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Send Technical Email</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Send Technical Email</pd:from>
+        <pd:to>Retrieve System Info</pd:to>
+        <pd:xpathDescription>Business Email</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>string-length($Start/pfx:NotificationMessage/EmailCC) !=0 and
+string-length($Start/pfx:NotificationMessage/pfx:ExceptionDetail/ns:Header/ns:InterfaceID)  !=0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Send Business Email</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Send Technical Email</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch All</pd:from>
+        <pd:to>Handle Local Exception</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Handle Local Exception</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Retrieve System Info</pd:from>
+        <pd:to>Send Business Email</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

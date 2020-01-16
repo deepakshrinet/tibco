@@ -1,0 +1,7 @@
+<data jsxid="jsxroot" jsxns="urn:tibco.com/v3.0/dynamicproperties/1">
+  <record jsxid="logColumnLeftBorder" type="jsxcellborder" jsxtext="0px solid;0px solid;1px solid #9898a5;1px solid #9898a5"></record>
+  <record jsxid="logColumnRightBorder" type="jsxcellborder" jsxtext="0px solid;1px solid #9898a5;1px solid #9898a5;0px solid"></record>
+  <record jsxid="logColumnBorder" type="jsxcellborder" jsxtext="0px solid;0px solid;1px solid #9898a5;0px solid"></record>
+  <record jsxid="logHeaderHeight" type="jsxheaderheight" jsxtext="26"></record>
+  <record jsxid="logNameColWidth" type="jsxwidth" jsxtext="180"></record>
+</data>

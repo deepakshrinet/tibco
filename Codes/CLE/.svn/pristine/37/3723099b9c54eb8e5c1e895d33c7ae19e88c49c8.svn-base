@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <pd:name>SecurityManagement/Logic/AuthenticateUser.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="UserDetails">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="username" type="xsd:string"/>
+                    <xsd:element name="password" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>27</pd:startX>
+    <pd:startY>95</pd:startY>
+    <pd:returnBindings>
+        <AuthenticationResult>
+            <Result>
+                <xsl:value-of select="$AuthenticateUser/javaCodeActivityOutput/AuthenticationResult"/>
+            </Result>
+        </AuthenticationResult>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="AuthenticationResult">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="Result" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>332</pd:endX>
+    <pd:endY>96</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1256582495423</pd:targetNamespace>
+    <pd:activity name="AuthenticateUser">
+        <pd:type>com.tibco.plugin.java.JavaActivity</pd:type>
+        <pd:resourceType>ae.javapalette.javaActivity</pd:resourceType>
+        <pd:x>154</pd:x>
+        <pd:y>95</pd:y>
+        <config>
+            <fullsource>package SecurityManagement.Logic.AuthenticateUser;
+
+import com.tibco.ext.model.authorization.*;
+import com.tibco.ext.model.common.*;
+
+import com.tibco.ext.utils.*;
+import com.tibco.ext.model.authorization.RoleFactory;
+import com.tibco.ext.model.authorization.UserFactory;
+import java.util.*;
+import java.io.*;
+@SuppressWarnings("unchecked")
+public class AuthenticateUserAuthenticateUser{
+    public static boolean matchUserPassword(String userName, char[] password) throws Exception {
+        
+        UserFactory  userFactory = UserFactory. getFactory ();
+
+        return (userFactory.getUserByName(userName).matchPassword(password));
+}
+
+
+    public static boolean matchUserPassword(User user, char[] password) throws Exception {
+        return matchUserPassword(user.getName(), password);
+    }
+/****** START SET/GET METHOD, DO NOT MODIFY *****/
+	protected String username = "";
+	protected String password = "";
+	protected String AuthenticationResult = "";
+	public String getusername() {
+		return username;
+	}
+	public void setusername(String val) {
+		username = val;
+	}
+	public String getpassword() {
+		return password;
+	}
+	public void setpassword(String val) {
+		password = val;
+	}
+	public String getAuthenticationResult() {
+		return AuthenticationResult;
+	}
+	public void setAuthenticationResult(String val) {
+		AuthenticationResult = val;
+	}
+/****** END SET/GET METHOD, DO NOT MODIFY *****/
+	public AuthenticateUserAuthenticateUser() {
+	}
+	public void invoke() throws Exception {
+/* Available Variables: DO NOT MODIFY
+	In  : String username
+	In  : String password
+	Out : String AuthenticationResult
+* Available Variables: DO NOT MODIFY *****/
+	try {
+	System.out.println("before check User");
+        boolean matched = matchUserPassword(username, password.toCharArray());
+	System.out.println("after check user");
+       if(matched)
+AuthenticationResult="Authenticated";
+else
+AuthenticationResult="NotAuthenticated";
+        } catch (Exception ex) {
+	System.out.println("Got an error");
+	ex.printStackTrace();
+}
+   
+}
+}
+</fullsource>
+            <fileName>AuthenticateUserAuthenticateUser</fileName>
+            <packageName>SecurityManagement.Logic.AuthenticateUser</packageName>
+            <inputData>
+                <row>
+                    <fieldName>username</fieldName>
+                    <fieldType>string</fieldType>
+                    <fieldRequired>required</fieldRequired>
+                </row>
+                <row>
+                    <fieldName>password</fieldName>
+                    <fieldType>string</fieldType>
+                    <fieldRequired>required</fieldRequired>
+                </row>
+            </inputData>
+            <outputData>
+                <row>
+                    <fieldName>AuthenticationResult</fieldName>
+                    <fieldType>string</fieldType>
+                    <fieldRequired>required</fieldRequired>
+                </row>
+            </outputData>
+            <byteCode>
+                <class>
+                    <name>AuthenticateUserAuthenticateUser</name>
+                    <byteCode>yv66vgAAADEAWwoALgAvCgAuADALADEAMgsAMQAzCgAVADQJABUANQkAFQA2CQAVADcKABYAOAgAOQkAOgA7CAA8CgA9AD4KAD8AQAgAQQgAQggAQwcARAgARQoAEgBGBwBHBwBIAQAIdXNlcm5hbWUBABJMamF2YS9sYW5nL1N0cmluZzsBAAhwYXNzd29yZAEAFEF1dGhlbnRpY2F0aW9uUmVzdWx0AQARbWF0Y2hVc2VyUGFzc3dvcmQBABcoTGphdmEvbGFuZy9TdHJpbmc7W0MpWgEABENvZGUBAA9MaW5lTnVtYmVyVGFibGUBAApFeGNlcHRpb25zAQAtKExjb20vdGliY28vZXh0L21vZGVsL2F1dGhvcml6YXRpb24vVXNlcjtbQylaAQALZ2V0dXNlcm5hbWUBABQoKUxqYXZhL2xhbmcvU3RyaW5nOwEAC3NldHVzZXJuYW1lAQAVKExqYXZhL2xhbmcvU3RyaW5nOylWAQALZ2V0cGFzc3dvcmQBAAtzZXRwYXNzd29yZAEAF2dldEF1dGhlbnRpY2F0aW9uUmVzdWx0AQAXc2V0QXV0aGVudGljYXRpb25SZXN1bHQBAAY8aW5pdD4BAAMoKVYBAAZpbnZva2UBAApTb3VyY2VGaWxlAQAlQXV0aGVudGljYXRlVXNlckF1dGhlbnRpY2F0ZVVzZXIuamF2YQcASQwASgBLDABMAE0HAE4MAE8AUAwAUQAiDAAbABwMABcAGAwAGQAYDAAaABgMACkAKgEAAAcAUgwAUwBUAQARYmVmb3JlIGNoZWNrIFVzZXIHAFUMAFYAJAcAVwwAWABZAQAQYWZ0ZXIgY2hlY2sgdXNlcgEADUF1dGhlbnRpY2F0ZWQBABBOb3RBdXRoZW50aWNhdGVkAQATamF2YS9sYW5nL0V4Y2VwdGlvbgEADEdvdCBhbiBlcnJvcgwAWgAqAQBKU2VjdXJpdHlNYW5hZ2VtZW50L0xvZ2ljL0F1dGhlbnRpY2F0ZVVzZXIvQXV0aGVudGljYXRlVXNlckF1dGhlbnRpY2F0ZVVzZXIBABBqYXZhL2xhbmcvT2JqZWN0AQAtY29tL3RpYmNvL2V4dC9tb2RlbC9hdXRob3JpemF0aW9uL1VzZXJGYWN0b3J5AQAKZ2V0RmFjdG9yeQEAMSgpTGNvbS90aWJjby9leHQvbW9kZWwvYXV0aG9yaXphdGlvbi9Vc2VyRmFjdG9yeTsBAA1nZXRVc2VyQnlOYW1lAQA8KExqYXZhL2xhbmcvU3RyaW5nOylMY29tL3RpYmNvL2V4dC9tb2RlbC9hdXRob3JpemF0aW9uL1VzZXI7AQAmY29tL3RpYmNvL2V4dC9tb2RlbC9hdXRob3JpemF0aW9uL1VzZXIBAA1tYXRjaFBhc3N3b3JkAQAFKFtDKVoBAAdnZXROYW1lAQAQamF2YS9sYW5nL1N5c3RlbQEAA291dAEAFUxqYXZhL2lvL1ByaW50U3RyZWFtOwEAE2phdmEvaW8vUHJpbnRTdHJlYW0BAAdwcmludGxuAQAQamF2YS9sYW5nL1N0cmluZwEAC3RvQ2hhckFycmF5AQAEKClbQwEAD3ByaW50U3RhY2tUcmFjZQAhABUAFgAAAAMABAAXABgAAAAEABkAGAAAAAQAGgAYAAAACgAJABsAHAACAB0AAAAsAAIAAwAAABC4AAFNLCq2AAIruQADAgCsAAAAAQAeAAAACgACAAAADwAEABEAHwAAAAQAAQASAAkAGwAgAAIAHQAAACMAAgACAAAACyq5AAQBACu4AAWsAAAAAQAeAAAABgABAAAAFgAfAAAABAABABIAAQAhACIAAQAdAAAAHQABAAEAAAAFKrQABrAAAAABAB4AAAAGAAEAAAAdAAEAIwAkAAEAHQAAACIAAgACAAAABiortQAGsQAAAAEAHgAAAAoAAgAAACAABQAhAAEAJQAiAAEAHQAAAB0AAQABAAAABSq0AAewAAAAAQAeAAAABgABAAAAIwABACYAJAABAB0AAAAiAAIAAgAAAAYqK7UAB7EAAAABAB4AAAAKAAIAAAAmAAUAJwABACcAIgABAB0AAAAdAAEAAQAAAAUqtAAIsAAAAAEAHgAAAAYAAQAAACkAAQAoACQAAQAdAAAAIgACAAIAAAAGKiu1AAixAAAAAQAeAAAACgACAAAALAAFAC0AAQApACoAAQAdAAAAPwACAAEAAAAXKrcACSoSCrUABioSCrUAByoSCrUACLEAAAABAB4AAAAWAAUAAAAvAAQAGQAKABoAEAAbABYAMAABACsAKgACAB0AAACLAAIAAgAAAEOyAAsSDLYADSq0AAYqtAAHtgAOuAAFPLIACxIPtgANG5kADCoSELUACKcACSoSEbUACKcAEEyyAAsSE7YADSu2ABSxAAEAAAAyADUAEgABAB4AAAAuAAsAAAA4AAgAOQAXADoAHwA7ACMAPAAsAD4AMgBCADUAPwA2AEAAPgBBAEIARAAfAAAABAABABIAAQAsAAAAAgAt</byteCode>
+                </class>
+            </byteCode>
+        </config>
+        <pd:inputBindings>
+            <javaCodeActivityInput>
+                <username>
+                    <xsl:value-of select="$Start/UserDetails/username"/>
+                </username>
+                <password>
+                    <xsl:value-of select="$Start/UserDetails/password"/>
+                </password>
+            </javaCodeActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>AuthenticateUser</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AuthenticateUser</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

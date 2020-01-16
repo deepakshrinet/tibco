@@ -1,0 +1,197 @@
+<data jsxnamespace="propsbundle" locales="">
+  <locale>
+    <record jsxid="config_tabLabel" jsxtext="Configuration"/>
+    <record jsxid="config_applicationId" jsxtext="Application Id"/>
+    <record jsxid="config_idCol" jsxtext="Id"/>
+    <record jsxid="config_nameCol" jsxtext="Name"/>
+    <record jsxid="config_descriptionCol" jsxtext="Description"/>
+    <record jsxid="config_id" jsxtext="Id:"/>
+    <record jsxid="config_name" jsxtext="Name:"/>
+    <record jsxid="config_description" jsxtext="Description:"/>
+    <record jsxid="config_applications" jsxtext="Applications"/>
+    <record jsxid="config_categories" jsxtext="Categories"/>
+    <record jsxid="config_types" jsxtext="Types"/>
+    <record jsxid="config_severities" jsxtext="Severities"/>
+    <record jsxid="config_procedures" jsxtext="Procedures"/>
+    <record jsxid="config_exceptionCodes" jsxtext="Exception Codes"/>
+    <record jsxid="config_renderConfigs" jsxtext="Render Configurations"/>
+    <record jsxid="config_interfaces" jsxtext="Interfaces"/>
+    <record jsxid="config_newItem" jsxtext="New Item"/>
+    <record jsxid="config_newItemConfigurationTip" jsxtext="Add New Configuration Item"/>
+    <record jsxid="config_removeItem" jsxtext="Remove Item"/>
+    <record jsxid="config_removeConfigurationItemTip" jsxtext="Remove Configuration Item"/>
+    <record jsxid="config_refresh" jsxtext="Refresh"/>
+    <record jsxid="config_refreshTip" jsxtext="Refresh"/>
+    <record jsxid="config_noEntriesAvailable" jsxtext="no entries available"/>
+    <record jsxid="config_noEntriesFound" jsxtext="no entries found"/>
+    <record jsxid="config_manageColumns" jsxtext="Manage Columns"/>
+    <record jsxid="config_manageColumnsTip" jsxtext="Manage Columns"/>
+    <record jsxid="config_saveChanges" jsxtext="Save Changes"/>
+    <record jsxid="config_saveChangesTip" jsxtext="Save Changes"/>
+    <record jsxid="config_confirmChangesMessage" jsxtext="There are changed records waiting to be saved. Save changes now?"/>
+	<record jsxid="config_menuNew" jsxtext="New"/>
+	<record jsxid="config_menuNewItem" jsxtext="New Item"/>
+	<record jsxid="config_menuNewItemTip" jsxtext="Add a new configuration item"/>
+	<record jsxid="config_menuView" jsxtext="View"/>
+	<record jsxid="config_menuViewTip" jsxtext="View"/>
+    <record jsxid="config_deleteConfigurationItem" jsxtext="Delete Item"/>
+    <record jsxid="config_deleteConfigurationItemTip" jsxtext="Delete the selected configuration item."/>
+    <!--  added -->
+    <record jsxid="config_editConfigurationItem" jsxtext="Edit Item"/>
+    <record jsxid="config_editConfigurationItemTip" jsxtext="Edit the selected configuration item."/>
+    <record jsxid="config_confirmDelete" jsxtext="This item will be permanetly deleted, continue?"/>
+    <record jsxid="config_requiredFieldsFailedValidation" jsxtext="The following fields failed validation: "/>
+  </locale>
+  <locale key="pt_BR">
+    <record jsxid="config_tabLabel" jsxtext="Configuração"/>
+    <record jsxid="config_applicationId" jsxtext="Id da Aplicação"/>
+    <record jsxid="config_idCol" jsxtext="Id"/>
+    <record jsxid="config_nameCol" jsxtext="Nome"/>
+    <record jsxid="config_descriptionCol" jsxtext="Descrição"/>
+    <record jsxid="config_id" jsxtext="Id:"/>
+    <record jsxid="config_name" jsxtext="Nome:"/>
+    <record jsxid="config_description" jsxtext="Descrição:"/>
+    <record jsxid="config_applications" jsxtext="Aplicações"/>
+    <record jsxid="config_categories" jsxtext="Categorias"/>
+    <record jsxid="config_types" jsxtext="Tipos"/>
+    <record jsxid="config_severities" jsxtext="Severidades"/>
+    <record jsxid="config_procedures" jsxtext="Procedimentos"/>
+    <record jsxid="config_exceptionCodes" jsxtext="Códigos de Exceção"/>
+    <record jsxid="config_renderConfigs" jsxtext="Configurações de Renderizadores"/>
+    <record jsxid="config_interfaces" jsxtext="Interfaces"/>
+    <record jsxid="config_newItem" jsxtext="Novo Item"/>
+    <record jsxid="config_newItemConfigurationTip" jsxtext="Adicionar Novo Item de Configuração"/>
+    <record jsxid="config_removeItem" jsxtext="Remover Item"/>
+    <record jsxid="config_removeConfigurationItemTip" jsxtext="Remover Item de Configuração"/>
+    <record jsxid="config_refresh" jsxtext="Atualizar"/>
+    <record jsxid="config_refreshTip" jsxtext="Atualizar"/>
+    <record jsxid="config_noEntriesAvailable" jsxtext="nenhuma entrada disponível"/>
+    <record jsxid="config_noEntriesFound" jsxtext="nenhuma entrada encontrada"/>
+    <record jsxid="config_manageColumns" jsxtext="Gerenciar Colunas"/>
+    <record jsxid="config_manageColumnsTip" jsxtext="Gerenciar Colunas"/>
+    <record jsxid="config_saveChanges" jsxtext="Salvar Alterações"/>
+    <record jsxid="config_saveChangesTip" jsxtext="Salvar Alterações"/>
+    <record jsxid="config_confirmChangesMessage" jsxtext="Existem registros alterados a serem salvos. Salvar alterações agora?"/>
+	<record jsxid="config_menuNew" jsxtext="Novo"/>
+	<record jsxid="config_menuNewItem" jsxtext="Novo Item"/>
+	<record jsxid="config_menuNewItemTip" jsxtext="Adicionar um novo item de configuração"/>
+	<record jsxid="config_menuView" jsxtext="Visualizar"/>
+	<record jsxid="config_menuViewTip" jsxtext="Visualizar"/>
+    <record jsxid="config_deleteConfigurationItem" jsxtext="Apagar Item"/>
+    <record jsxid="config_deleteConfigurationItemTip" jsxtext="Apagar o item de configuração selecionado."/>
+  </locale>
+  <locale key="es_ES">
+    <record jsxid="config_tabLabel" jsxtext="Configuración"/>
+    <record jsxid="config_applicationId" jsxtext="ID de Aplicación"/>
+    <record jsxid="config_idCol" jsxtext="Id"/>
+    <record jsxid="config_nameCol" jsxtext="Nombre"/>
+    <record jsxid="config_descriptionCol" jsxtext="Descripción"/>
+    <record jsxid="config_id" jsxtext="Id:"/>
+    <record jsxid="config_name" jsxtext="Nombre:"/>
+    <record jsxid="config_description" jsxtext="Descripción:"/>
+    <record jsxid="config_applications" jsxtext="Aplicaciones"/>
+    <record jsxid="config_categories" jsxtext="Categorías"/>
+    <record jsxid="config_types" jsxtext="Tipos"/>
+    <record jsxid="config_severities" jsxtext="Severidades"/>
+    <record jsxid="config_procedures" jsxtext="Procedimientos"/>
+    <record jsxid="config_exceptionCodes" jsxtext="Códigos de Excepción"/>
+    <record jsxid="config_renderConfigs" jsxtext="Configuraciones de Conversión"/>
+    <record jsxid="config_interfaces" jsxtext="Interfaces"/>
+    <record jsxid="config_newItem" jsxtext="Nuevo Elemento"/>
+    <record jsxid="config_newItemConfigurationTip" jsxtext="Agregar Nuevo Elemento de Configuración"/>
+    <record jsxid="config_removeItem" jsxtext="Eliminar Elemento"/>
+    <record jsxid="config_removeConfigurationItemTip" jsxtext="Eliminar Elemento de Configuración"/>
+    <record jsxid="config_refresh" jsxtext="Actualizar"/>
+    <record jsxid="config_refreshTip" jsxtext="Actualizar"/>
+    <record jsxid="config_noEntriesAvailable" jsxtext="no hay entradas disponibles"/>
+    <record jsxid="config_noEntriesFound" jsxtext="no se encontraron entradas"/>
+    <record jsxid="config_manageColumns" jsxtext="Administrar Columnas"/>
+    <record jsxid="config_manageColumnsTip" jsxtext="Administrar Columnas"/>
+    <record jsxid="config_saveChanges" jsxtext="Guardar Cambios"/>
+    <record jsxid="config_saveChangesTip" jsxtext="Guardar Cambios"/>
+    <record jsxid="config_confirmChangesMessage" jsxtext="Existen registros modificados en espera de ser guardados. Guardar cambios ahora?"/>
+	<record jsxid="config_menuNew" jsxtext="Nuevo"/>
+	<record jsxid="config_menuNewItem" jsxtext="Nuevo Elemento"/>
+	<record jsxid="config_menuNewItemTip" jsxtext="Agregar un nuevo elemento de configuración"/>
+	<record jsxid="config_menuView" jsxtext="Ver"/>
+	<record jsxid="config_menuViewTip" jsxtext="Ver"/>
+    <record jsxid="config_deleteConfigurationItem" jsxtext="Eliminar Elemento"/>
+    <record jsxid="config_deleteConfigurationItemTip" jsxtext="Eliminar el elemento de configuración seleccionado."/>
+  </locale>
+  <locale key="sv_SV">
+    <record jsxid="config_tabLabel" jsxtext="Konfiguration"/>
+    <record jsxid="config_applicationId" jsxtext="ApplikationsId"/>
+    <record jsxid="config_idCol" jsxtext="Id"/>
+    <record jsxid="config_nameCol" jsxtext="Namn"/>
+    <record jsxid="config_descriptionCol" jsxtext="Beskrivning"/>
+    <record jsxid="config_id" jsxtext="Id:"/>
+    <record jsxid="config_name" jsxtext="Namn:"/>
+    <record jsxid="config_description" jsxtext="Beskrivning:"/>
+    <record jsxid="config_applications" jsxtext="Applikationer"/>
+    <record jsxid="config_categories" jsxtext="Kategorier"/>
+    <record jsxid="config_types" jsxtext="Typer"/>
+    <record jsxid="config_severities" jsxtext="Prioriteter"/>
+    <record jsxid="config_procedures" jsxtext="Procedurer"/>
+    <record jsxid="config_exceptionCodes" jsxtext="Undantagskoder"/>
+    <record jsxid="config_renderConfigs" jsxtext="Framställningskonfigurationer"/>
+    <record jsxid="config_interfaces" jsxtext="Gränssnitt"/>
+    <record jsxid="config_newItem" jsxtext="Ny Post"/>
+    <record jsxid="config_newItemConfigurationTip" jsxtext="Lägg Till Ny Konfigurationspost"/>
+    <record jsxid="config_removeItem" jsxtext="Ta Bort Post"/>
+    <record jsxid="config_removeConfigurationItemTip" jsxtext="Ta Bort Konfigurationspost"/>
+    <record jsxid="config_refresh" jsxtext="Uppdatera vy"/>
+    <record jsxid="config_refreshTip" jsxtext="Uppdatera vy"/>
+    <record jsxid="config_noEntriesAvailable" jsxtext="inga poster tillgängliga"/>
+    <record jsxid="config_noEntriesFound" jsxtext="inga poster funna"/>
+    <record jsxid="config_manageColumns" jsxtext="Hantera Kolumner"/>
+    <record jsxid="config_manageColumnsTip" jsxtext="Hantera Kolumner"/>
+    <record jsxid="config_saveChanges" jsxtext="Spara Ändringar"/>
+    <record jsxid="config_saveChangesTip" jsxtext="Spara Ändringar"/>
+    <record jsxid="config_confirmChangesMessage" jsxtext="Det finns ändrade poster som väntar på att bli sparade. Spara ändringar nu?"/>
+	<record jsxid="config_menuNew" jsxtext="Ny"/>
+	<record jsxid="config_menuNewItem" jsxtext="Ny Post"/>
+	<record jsxid="config_menuNewItemTip" jsxtext="Lägg till en ny konfigurationspost"/>
+	<record jsxid="config_menuView" jsxtext="Visa"/>
+	<record jsxid="config_menuViewTip" jsxtext="Visa"/>
+    <record jsxid="config_deleteConfigurationItem" jsxtext="Ta Bort Post"/>
+    <record jsxid="config_deleteConfigurationItemTip" jsxtext="Ta bort den valda konfigurationsposten."/>
+  </locale>
+  <locale key="zh_CH">
+    <record jsxid="config_tabLabel" jsxtext="配置"/>
+    <record jsxid="config_applicationId" jsxtext="应用程序Id"/>
+    <record jsxid="config_idCol" jsxtext="Id"/>
+    <record jsxid="config_nameCol" jsxtext="名字"/>
+    <record jsxid="config_descriptionCol" jsxtext="描述"/>
+    <record jsxid="config_id" jsxtext="Id:"/>
+    <record jsxid="config_name" jsxtext="名字:"/>
+    <record jsxid="config_description" jsxtext="描述:"/>
+    <record jsxid="config_applications" jsxtext="应用"/>
+    <record jsxid="config_categories" jsxtext="类别"/>
+    <record jsxid="config_types" jsxtext="类型"/>
+    <record jsxid="config_severities" jsxtext="严重程度"/>
+    <record jsxid="config_procedures" jsxtext="步骤"/>
+    <record jsxid="config_exceptionCodes" jsxtext="例外码"/>
+    <record jsxid="config_renderConfigs" jsxtext="转换配置"/>
+    <record jsxid="config_interfaces" jsxtext="接口"/>
+    <record jsxid="config_newItem" jsxtext="新项目"/>
+    <record jsxid="config_newItemConfigurationTip" jsxtext="添加新配置条目"/>
+    <record jsxid="config_removeItem" jsxtext="移除条目"/>
+    <record jsxid="config_removeConfigurationItemTip" jsxtext="移除配置条目"/>
+    <record jsxid="config_refresh" jsxtext="刷新"/>
+    <record jsxid="config_refreshTip" jsxtext="刷新"/>
+    <record jsxid="config_noEntriesAvailable" jsxtext="没有条目可用"/>
+    <record jsxid="config_noEntriesFound" jsxtext="没有条目被找到"/>
+    <record jsxid="config_manageColumns" jsxtext="管理列"/>
+    <record jsxid="config_manageColumnsTip" jsxtext="管理列"/>
+    <record jsxid="config_saveChanges" jsxtext="保存改变"/>
+    <record jsxid="config_saveChangesTip" jsxtext="保存改变"/>
+    <record jsxid="config_confirmChangesMessage" jsxtext="有更改的数据等待保存。现在保存吗?"/>
+	<record jsxid="config_menuNew" jsxtext="新"/>
+	<record jsxid="config_menuNewItem" jsxtext="新条目"/>
+	<record jsxid="config_menuNewItemTip" jsxtext="加入一个新的配置条目"/>
+	<record jsxid="config_menuView" jsxtext="查看"/>
+	<record jsxid="config_menuViewTip" jsxtext="查看"/>
+    <record jsxid="config_deleteConfigurationItem" jsxtext="删除条目"/>
+    <record jsxid="config_deleteConfigurationItemTip" jsxtext="删除选中的配置条目。"/>
+  </locale>
+</data>

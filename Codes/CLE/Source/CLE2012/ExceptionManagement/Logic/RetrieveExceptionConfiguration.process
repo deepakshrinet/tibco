@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx4="http://www.tibco.com/CommonLE2/Private/Administration" xmlns:pfx3="http://www.tibco.com/CommonLE2/namespace/private/Common" xmlns:pfx2="http://www.tibco.com/pe/DeployedVarsType" xmlns:pfx="http://www.tibco.com/CommonLE2/Private/Exception">
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/Private/Exception" schemaLocation="/SharedResources/SchemaDefinitions/Private/Exception/QueryResults.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/Private/Administration" schemaLocation="/SharedResources/SchemaDefinitions/Private/Administration/QueryResults.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/Private/Exception" schemaLocation="/SharedResources/SchemaDefinitions/Private/Exception/QueryUpdate.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/private/Common" schemaLocation="/SharedResources/SchemaDefinitions/Private/Common/LocalExceptions.xsd"/>
+    <pd:name>ExceptionManagement/Logic/RetrieveExceptionConfiguration.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx:ExceptionConfigurationQuery"/>
+    <pd:startX>33</pd:startX>
+    <pd:startY>105</pd:startY>
+    <pd:returnBindings>
+        <xsl:choose>
+            <xsl:when test="count($Query-Exception-Configuration/pfx4:ExceptionConfigurationResult) > 0">
+                <xsl:copy-of select="$Query-Exception-Configuration/pfx4:ExceptionConfigurationResult"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:copy-of select="$Retrieve-Exception-Configuration/pfx4:ExceptionConfigurationResult"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType ref="pfx4:ExceptionConfigurationResult"/>
+    <pd:endX>669</pd:endX>
+    <pd:endY>264</pd:endY>
+    <pd:errorSchemas>
+        <DBError ref="pfx3:DBError"/>
+        <IDNotFound ref="pfx3:IDNotFound"/>
+        <RecNotFound ref="pfx3:ExceptionConfigurationNotFound"/>
+    </pd:errorSchemas>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1284482855898</pd:targetNamespace>
+    <pd:activity name="Retrieve Exception Configuration">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>324</pd:x>
+        <pd:y>116</pd:y>
+        <config>
+            <processName>/Administration/DataAccess/ExceptionConfiguration/Oracle/RetrieveSpecificExceptionConfiguration.process</processName>
+            <processNameXPath>concat("/Administration/DataAccess/ExceptionConfiguration/", 
+$_globalVariables/pfx2:GlobalVariables/Database/MIG_DatabaseType, 
+"/RetrieveSpecificExceptionConfiguration.process")</processNameXPath>
+        </config>
+        <pd:inputBindings>
+            <xsl:copy-of select="$Start/pfx:ExceptionConfigurationQuery"/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="GetExceptionConfigurationCache">
+        <pd:type>com.tibco.pe.core.GetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.getSharedVariable</pd:resourceType>
+        <pd:x>154</pd:x>
+        <pd:y>107</pd:y>
+        <config>
+            <variableConfig>/SharedResources/SharedVariables/ExceptionConfigurationCache.sharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Query Exception Configuration">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>324</pd:x>
+        <pd:y>270</pd:y>
+        <config>
+            <element ref="pfx4:ExceptionConfigurationResult"/>
+        </config>
+        <pd:inputBindings>
+            <xsl:variable name="var" select="$Start/pfx:ExceptionConfigurationQuery/pfx:ExceptionCode"/>
+            <xsl:variable name="var2" select="$Start/pfx:ExceptionConfigurationQuery/pfx:ApplicationID"/>
+            <xsl:for-each select="$GetExceptionConfigurationCache/pfx4:ExceptionConfigurationResults/pfx4:ExceptionConfigurationResult[pfx4:ApplicationID = $var2 ][pfx4:ExceptionCode = $var][1]">
+                <pfx4:ExceptionConfigurationResult>
+                    <pfx4:ApplicationID>
+                        <xsl:value-of select="pfx4:ApplicationID"/>
+                    </pfx4:ApplicationID>
+                    <pfx4:ExceptionCode>
+                        <xsl:value-of select="pfx4:ExceptionCode"/>
+                    </pfx4:ExceptionCode>
+                    <pfx4:CategoryName>
+                        <xsl:value-of select="pfx4:CategoryName"/>
+                    </pfx4:CategoryName>
+                    <pfx4:TypeName>
+                        <xsl:value-of select="pfx4:TypeName"/>
+                    </pfx4:TypeName>
+                    <pfx4:SeverityName>
+                        <xsl:value-of select="pfx4:SeverityName"/>
+                    </pfx4:SeverityName>
+                    <pfx4:Description>
+                        <xsl:value-of select="pfx4:Description"/>
+                    </pfx4:Description>
+                    <xsl:if test="pfx4:ExceptionTTL">
+                        <pfx4:ExceptionTTL>
+                            <xsl:value-of select="pfx4:ExceptionTTL"/>
+                        </pfx4:ExceptionTTL>
+                    </xsl:if>
+                    <xsl:if test="pfx4:NotificationChannel">
+                        <pfx4:NotificationChannel>
+                            <xsl:value-of select="pfx4:NotificationChannel"/>
+                        </pfx4:NotificationChannel>
+                    </xsl:if>
+                    <xsl:if test="pfx4:ProcedureChannel">
+                        <pfx4:ProcedureChannel>
+                            <xsl:value-of select="pfx4:ProcedureChannel"/>
+                        </pfx4:ProcedureChannel>
+                    </xsl:if>
+                    <xsl:if test="pfx4:PhysicalProcedureName">
+                        <pfx4:PhysicalProcedureName>
+                            <xsl:value-of select="pfx4:PhysicalProcedureName"/>
+                        </pfx4:PhysicalProcedureName>
+                    </xsl:if>
+                    <xsl:if test="pfx4:RoleName">
+                        <pfx4:RoleName>
+                            <xsl:value-of select="pfx4:RoleName"/>
+                        </pfx4:RoleName>
+                    </xsl:if>
+                    <xsl:if test="pfx4:EmailTo">
+                        <pfx4:EmailTo>
+                            <xsl:value-of select="pfx4:EmailTo"/>
+                        </pfx4:EmailTo>
+                    </xsl:if>
+                    <xsl:if test="pfx4:EmailCC">
+                        <pfx4:EmailCC>
+                            <xsl:value-of select="pfx4:EmailCC"/>
+                        </pfx4:EmailCC>
+                    </xsl:if>
+                    <xsl:if test="pfx4:ReplyDestination">
+                        <pfx4:ReplyDestination>
+                            <xsl:value-of select="pfx4:ReplyDestination"/>
+                        </pfx4:ReplyDestination>
+                    </xsl:if>
+                    <xsl:if test="pfx4:Instruction">
+                        <pfx4:Instruction>
+                            <xsl:value-of select="pfx4:Instruction"/>
+                        </pfx4:Instruction>
+                    </xsl:if>
+                    <xsl:if test="pfx4:EventType">
+                        <pfx4:EventType>
+                            <xsl:value-of select="pfx4:EventType"/>
+                        </pfx4:EventType>
+                    </xsl:if>
+                    <xsl:if test="pfx4:ResolveDelayInterval">
+                        <pfx4:ResolveDelayInterval>
+                            <xsl:value-of select="pfx4:ResolveDelayInterval"/>
+                        </pfx4:ResolveDelayInterval>
+                    </xsl:if>
+                </pfx4:ExceptionConfigurationResult>
+            </xsl:for-each>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:group name="Critical Section">
+        <pd:type>com.tibco.pe.core.CriticalSectionGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>441</pd:x>
+        <pd:y>31</pd:y>
+        <pd:width>139</pd:width>
+        <pd:height>140</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>criticalSection</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:scope>single</pd:scope>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>SetVariable</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>SetVariable</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="SetVariable">
+            <pd:type>com.tibco.pe.core.SetSharedVariableActivity</pd:type>
+            <pd:resourceType>ae.activities.setSharedVariable</pd:resourceType>
+            <pd:description>Note: It is possible mutiple configuraitons of the same can be cached. 
+Exception minor performance impact, there is no functional side effect.</pd:description>
+            <pd:x>507</pd:x>
+            <pd:y>109</pd:y>
+            <config>
+                <variableConfig>/SharedResources/SharedVariables/ExceptionConfigurationCache.sharedvariable</variableConfig>
+            </config>
+            <pd:inputBindings>
+                <pfx4:ExceptionConfigurationResults>
+                    <xsl:if test="count($GetExceptionConfigurationCache/pfx4:ExceptionConfigurationResults/pfx4:ExceptionConfigurationResult)>0">
+                        <xsl:copy-of select="$GetExceptionConfigurationCache/pfx4:ExceptionConfigurationResults/pfx4:ExceptionConfigurationResult"/>
+                    </xsl:if>
+                    <xsl:copy-of select="$Retrieve-Exception-Configuration/pfx4:ExceptionConfigurationResult"/>
+                </pfx4:ExceptionConfigurationResults>
+            </pd:inputBindings>
+        </pd:activity>
+    </pd:group>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>GetExceptionConfigurationCache</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Retrieve Exception Configuration</pd:from>
+        <pd:to>Critical Section</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Critical Section</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>S-Shaped</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Query Exception Configuration</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetExceptionConfigurationCache</pd:from>
+        <pd:to>Retrieve Exception Configuration</pd:to>
+        <pd:xpathDescription>First time</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>error</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetExceptionConfigurationCache</pd:from>
+        <pd:to>Query Exception Configuration</pd:to>
+        <pd:lineType>Multiple Bends</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Query Exception Configuration</pd:from>
+        <pd:to>Retrieve Exception Configuration</pd:to>
+        <pd:xpathDescription>Not Found</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>error</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

@@ -1,0 +1,57 @@
+<data jsxnamespace="propsbundle" locales="">
+  <locale>
+    <record jsxid="category_ApplicationID" jsxtext="Application ID"/>
+    <record jsxid="category_ID" jsxtext="Category ID"/>
+    <record jsxid="category_Name" jsxtext="Name"/>
+    <record jsxid="category_Description" jsxtext="Description"/>
+    <record jsxid="category_CategoryName" jsxtext="Category Name"/>
+    <record jsxid="category_CategoryID" jsxtext="Category ID"/>
+    <record jsxid="category_createNewItemCaption" jsxtext="Create New Category"/>
+    <record jsxid="category_createCategory" jsxtext="Create Category"/>
+    <record jsxid="category_createCategoryTip" jsxtext="Create Category"/>
+  </locale>
+  <locale key="pt_BR">
+    <record jsxid="category_ApplicationID" jsxtext="ID da Aplicação"/>
+    <record jsxid="category_ID" jsxtext="ID da Categoria"/>
+    <record jsxid="category_Name" jsxtext="Nome"/>
+    <record jsxid="category_Description" jsxtext="Descrição"/>
+    <record jsxid="category_CategoryName" jsxtext="Nome da Categoria"/>
+    <record jsxid="category_CategoryID" jsxtext="ID da Categoria"/>
+    <record jsxid="category_createNewItemCaption" jsxtext="Criar Nova Categoria"/>
+    <record jsxid="category_createCategory" jsxtext="Criar Categoria"/>
+    <record jsxid="category_createCategoryTip" jsxtext="Criar Categoria"/>
+  </locale>
+  <locale key="es_ES">
+    <record jsxid="category_ApplicationID" jsxtext="ID de Aplicación"/>
+    <record jsxid="category_ID" jsxtext="ID de Categoría"/>
+    <record jsxid="category_Name" jsxtext="Nombre"/>
+    <record jsxid="category_Description" jsxtext="Descripción"/>
+    <record jsxid="category_CategoryName" jsxtext="Nombre de Categoría"/>
+    <record jsxid="category_CategoryID" jsxtext="ID de Categoría"/>
+    <record jsxid="category_createNewItemCaption" jsxtext="Crear Nueva Categoría"/>
+    <record jsxid="category_createCategory" jsxtext="Crear Categoría"/>
+    <record jsxid="category_createCategoryTip" jsxtext="Crear Categoría"/>
+  </locale>
+  <locale key="sv_SV">
+    <record jsxid="category_ApplicationID" jsxtext="ApplikationsID"/>
+    <record jsxid="category_ID" jsxtext="KategoriID"/>
+    <record jsxid="category_Name" jsxtext="Namn"/>
+    <record jsxid="category_Description" jsxtext="Beskrivning"/>
+    <record jsxid="category_CategoryName" jsxtext="Kategorinamn"/>
+    <record jsxid="category_CategoryID" jsxtext="KategoriID"/>
+    <record jsxid="category_createNewItemCaption" jsxtext="Skapa Ny Kategori"/>
+    <record jsxid="category_createCategory" jsxtext="Skapa Kategori"/>
+    <record jsxid="category_createCategoryTip" jsxtext="Skapa Kategori"/>
+  </locale>
+  <locale key="zh_CH">
+    <record jsxid="category_ApplicationID" jsxtext="应用程序ID"/>
+    <record jsxid="category_ID" jsxtext="类别ID"/>
+    <record jsxid="category_Name" jsxtext="Name"/>
+    <record jsxid="category_Description" jsxtext="描述"/>
+    <record jsxid="category_CategoryName" jsxtext="类别名字"/>
+    <record jsxid="category_CategoryID" jsxtext="类别ID"/>
+    <record jsxid="category_createNewItemCaption" jsxtext="创建新类别"/>
+    <record jsxid="category_createCategory" jsxtext="创建类别"/>
+    <record jsxid="category_createCategoryTip" jsxtext="创建类别"/>
+  </locale>
+</data>

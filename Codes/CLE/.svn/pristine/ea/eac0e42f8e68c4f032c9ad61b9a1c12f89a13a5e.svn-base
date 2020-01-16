@@ -1,0 +1,357 @@
+<data jsxnamespace="propsbundle" locales="">
+  <locale>
+    <record jsxid="exception_tabLabel" jsxtext="Exceptions"/>
+    <record jsxid="exception_searchExceptions" jsxtext="Search Exceptions"/>
+    <record jsxid="exception_detail" jsxtext="Detail"/>
+    <record jsxid="exception_details" jsxtext="Details"/>
+    <record jsxid="exception_header" jsxtext="Header"/>
+    <record jsxid="exception_manageColumns" jsxtext="Manage Columns"/>
+    <record jsxid="exception_manageColumnsCaption" jsxtext="Manage Columns for Exception List"/>
+    <record jsxid="exception_stacktrace" jsxtext="Stacktrace"/>
+    <record jsxid="exception_resolve" jsxtext="Resolve"/>
+    <record jsxid="exception_statusResolved" jsxtext="Resolved"/>
+    <record jsxid="exception_statusUnresolved" jsxtext="Unresolved"/>
+    <record jsxid="exception_statusSuppressed" jsxtext="Suppressed"/>
+    <record jsxid="exception_resolveTip" jsxtext="Submit information to service to resolve selected exceptions"/>
+    <record jsxid="exception_resolveCancelTip" jsxtext="Close this window without saving or sending information"/>
+    <record jsxid="exception_resolveExceptions" jsxtext="Resolve Exceptions"/>
+    <record jsxid="exception_resolutionDescription" jsxtext="Resolution Description"/>
+    <record jsxid="exception_resolveSelectedExceptions" jsxtext="Resolve Selected Exceptions"/>
+    <record jsxid="exception_deleteSelectedExceptions" jsxtext="Delete Selected Exceptions"/>
+    <record jsxid="exception_suppressSelectedExceptions" jsxtext="Suppress Selected Exceptions"/>
+    <record jsxid="exception_transaction" jsxtext="Transaction"/>
+    <record jsxid="exception_transactionAfterResolve" jsxtext="Transaction After Resolve"/>
+    <record jsxid="exception_exceptionIdCol" jsxtext="ID" ref="EXCEPTIONID"/>
+    <record jsxid="exception_applicationIdCol" jsxtext="Application ID" ref="APPLICATIONID"/>
+    <record jsxid="exception_correlationIdCol" jsxtext="Correlation ID" ref="CORRELATIONID"/>
+    <record jsxid="exception_transIdCol" jsxtext="Trans ID" ref="TRANSID"/>
+    <record jsxid="exception_categoryCol" jsxtext="Category" ref="CATEGORY"/>
+    <record jsxid="exception_typeCol" jsxtext="Type" ref="TYPE"/>
+    <record jsxid="exception_severityCol" jsxtext="Severity" ref="SEVERITY"/>
+    <record jsxid="exception_componentNameCol" jsxtext="Component Name" ref="COMPONENTNAME"/>
+    <record jsxid="exception_transactionDomainCol" jsxtext="Transaction Domain" ref="TRANSACTIONDOMAIN"/>
+    <record jsxid="exception_timestampCol" jsxtext="Timestamp" ref="TIME_STAMP"/>
+    <record jsxid="exception_messageCol" jsxtext="Message" ref="MESSAGE"/>
+    <record jsxid="exception_statusCol" jsxtext="Status" ref="STATUS"/>
+    <record jsxid="exception_include" jsxtext="Include"/>
+    <record jsxid="exception_rebuildApplicationList" jsxtext="Rebuild Application List"/>
+    <record jsxid="exception_clearValue" jsxtext="Clear/Reset Value"/>
+    <record jsxid="exception_correlateLogs" jsxtext="Correlate Logs"/>
+    <record jsxid="exception_noRecordsFoundUsingCriteria" jsxtext="No records found using criteria."/>
+    <record jsxid="exception_tableHeader" jsxtext="The following exception ids will be resolved:"/>
+    <record jsxid="exception_listScrollInfo" jsxtext="- viewing exception records {0} to {1} of {2} -"/>
+    <record jsxid="exception_deleteMessage" jsxtext="The selected exceptions will be permanently deleted, continue with delete?"/>
+    <record jsxid="exception_suppressMessage" jsxtext="The selected exceptions will be suppressed (ignored), continue with suppress?"/>
+    <record jsxid="exception_attrExceptionInstanceID" jsxtext="Exception Instance ID"/>
+    <record jsxid="exception_attrExceptionCode" jsxtext="Exception Code"/>
+    <record jsxid="exception_attrCategory" jsxtext="Category"/>
+    <record jsxid="exception_attrType" jsxtext="Type"/>
+    <record jsxid="exception_attrSeverity" jsxtext="Severity"/>
+    <record jsxid="exception_attrReplyDestination" jsxtext="Reply Destination"/>
+    <record jsxid="exception_attrResolutionDescription" jsxtext="Resolution Description"/>
+    <record jsxid="exception_attrStatus" jsxtext="Status"/>
+    <record jsxid="exception_attrResolveDelayTime" jsxtext="Resolve Delay Time"/>
+    <record jsxid="exception_attrApplicationID" jsxtext="Application ID"/>
+    <record jsxid="exception_attrComponentName" jsxtext="Component Name"/>
+    <record jsxid="exception_attrHostname" jsxtext="Host Name"/>
+    <record jsxid="exception_attrTimestamp" jsxtext="Timestamp"/>
+    <record jsxid="exception_attrTransactionDomain" jsxtext="Transaction Domain"/>
+    <record jsxid="exception_attrTransactionType" jsxtext="Transaction Type"/>
+    <record jsxid="exception_attrTransactionID" jsxtext="Transaction ID"/>
+    <record jsxid="exception_attrCorrelationID" jsxtext="Correlation ID"/>
+    <record jsxid="exception_attrInterfaceID" jsxtext="Interface ID"/>
+    <record jsxid="exception_attrFilename" jsxtext="File Name"/>
+    <record jsxid="exception_attrRenderID" jsxtext="Render ID"/>
+    <record jsxid="exception_attrMessage" jsxtext="Message"/>
+    <record jsxid="exception_flipDetailsOrientation" jsxtext="Flip Details Orientation"/>
+    <record jsxid="exception_flipDetailsOrientationTip" jsxtext="Changes the Details View Orientation"/>
+    <!-- added -->
+    <record jsxid="exception_allApps" jsxtext="All Apps"/>
+    <record jsxid="exception_criteria" jsxtext="Criteria"/>
+    <record jsxid="exception_orderBy" jsxtext="OrderBy"/>
+    <record jsxid="exception_time_stamp" jsxtext="Time_Stamp"/>
+    <record jsxid="exception_timeFrame" jsxtext="Time Frame"/>
+    <record jsxid="exception_pastTenMinutes" jsxtext="Past 10 minutes"/>
+    <record jsxid="exception_pastThirtyMinutes" jsxtext="Past 30 minutes"/>
+    <record jsxid="exception_pastHour" jsxtext="Past hour"/>
+    <record jsxid="exception_pastSixHours" jsxtext="Past 6 hours"/>
+    <record jsxid="exception_pastTwelveHours" jsxtext="Past 12 hours"/>
+    <record jsxid="exception_pastDay" jsxtext="Past day"/>
+    <record jsxid="exception_pastTwoDays" jsxtext="Past 2 days"/>
+    <record jsxid="exception_pastWeek" jsxtext="Past week"/>
+    <record jsxid="exception_pastTwoWeeks" jsxtext="Past 2 weeks"/>
+    <record jsxid="exception_fromTimestamp" jsxtext="From Timestamp"/>
+    <record jsxid="exception_toTimestamp" jsxtext="To Timestamp"/>
+    <record jsxid="exception_timeRange" jsxtext="Time Range"/>
+    <record jsxid="exception_editTransaction" jsxtext="Edit Transaction"/>
+    <record jsxid="exception_editTransactionTip" jsxtext="Edit Transaction"/>
+  </locale>
+  <locale key="pt_BR">
+    <record jsxid="exception_tabLabel" jsxtext="Exceções"/>
+    <record jsxid="exception_searchExceptions" jsxtext="Buscar Exceções"/>
+    <record jsxid="exception_detail" jsxtext="Detalhe"/>
+    <record jsxid="exception_details" jsxtext="Detalhes"/>
+    <record jsxid="exception_header" jsxtext="Cabeçalho"/>
+    <record jsxid="exception_manageColumns" jsxtext="Gerenciar Colunas"/>
+    <record jsxid="exception_manageColumnsCaption" jsxtext="Gerenciar Colunas para Lista de Exceções"/>
+    <record jsxid="exception_stacktrace" jsxtext="Stacktrace"/>
+    <record jsxid="exception_resolve" jsxtext="Resolver"/>
+    <record jsxid="exception_statusResolved" jsxtext="Resolvido"/>
+    <record jsxid="exception_statusUnresolved" jsxtext="Não Resolvido"/>
+    <record jsxid="exception_statusSuppressed" jsxtext="Descartado"/>
+    <record jsxid="exception_resolveTip" jsxtext="Submeter informação para o serviço resolver exceções selecionadas"/>
+    <record jsxid="exception_resolveCancelTip" jsxtext="Fechar esta janela sem salvar ou enviar informação"/>
+    <record jsxid="exception_resolveExceptions" jsxtext="Resolver Exceções"/>
+    <record jsxid="exception_resolutionDescription" jsxtext="Descrição da Resolução"/>
+    <record jsxid="exception_resolveSelectedExceptions" jsxtext="Resolver Exceções Selecionadas"/>
+    <record jsxid="exception_deleteSelectedExceptions" jsxtext="Excluir Exceções Selecionadas"/>
+    <record jsxid="exception_suppressSelectedExceptions" jsxtext="Descartar Exceções Selecionadas"/>
+    <record jsxid="exception_transaction" jsxtext="Transação"/>
+    <record jsxid="exception_transactionAfterResolve" jsxtext="Transação Após Resolução"/>
+    <record jsxid="exception_exceptionIdCol" jsxtext="ID" ref="EXCEPTIONID"/>
+    <record jsxid="exception_applicationIdCol" jsxtext="ID da Aplicação" ref="APPLICATIONID"/>
+    <record jsxid="exception_correlationIdCol" jsxtext="ID de Correlação" ref="CORRELATIONID"/>
+    <record jsxid="exception_transIdCol" jsxtext="ID da Transação" ref="TRANSID"/>
+    <record jsxid="exception_categoryCol" jsxtext="Categoria" ref="CATEGORY"/>
+    <record jsxid="exception_typeCol" jsxtext="Tipo" ref="TYPE"/>
+    <record jsxid="exception_severityCol" jsxtext="Severidade" ref="SEVERITY"/>
+    <record jsxid="exception_componentNameCol" jsxtext="Nome do Componente" ref="COMPONENTNAME"/>
+    <record jsxid="exception_transactionDomainCol" jsxtext="Domínio da Transação" ref="TRANSACTIONDOMAIN"/>
+    <record jsxid="exception_timestampCol" jsxtext="Data/Hora" ref="TIME_STAMP"/>
+    <record jsxid="exception_messageCol" jsxtext="Mensagem" ref="MESSAGE"/>
+    <record jsxid="exception_statusCol" jsxtext="Status" ref="STATUS"/>
+    <record jsxid="exception_include" jsxtext="Incluir"/>
+    <record jsxid="exception_rebuildApplicationList" jsxtext="Reconstruir Lista de Aplicações"/>
+    <record jsxid="exception_clearValue" jsxtext="Limpar/Redefinir Valor"/>
+    <record jsxid="exception_correlateLogs" jsxtext="Correlacionar Logs"/>
+    <record jsxid="exception_noRecordsFoundUsingCriteria" jsxtext="Nenhum registro encontrado usando este critério."/>
+    <record jsxid="exception_tableHeader" jsxtext="Os seguintes ids de exceção serão resolvidos:"/>
+    <record jsxid="exception_listScrollInfo" jsxtext="- visualizando registros de exceção de {0} à {1} de {2} -"/>
+    <record jsxid="exception_deleteMessage" jsxtext="As exceções selecionadas serão excluídas permanentemente, continuar com a exclusão?"/>
+    <record jsxid="exception_suppressMessage" jsxtext="As exceções selecionadas serão descartadas (ignoradas), continuar com o descarte?"/>
+    <record jsxid="exception_attrExceptionInstanceID" jsxtext="ID de Instância da Exceção"/>
+    <record jsxid="exception_attrExceptionCode" jsxtext="Código de Exceção"/>
+    <record jsxid="exception_attrCategory" jsxtext="Categoria"/>
+    <record jsxid="exception_attrType" jsxtext="Tipo"/>
+    <record jsxid="exception_attrSeverity" jsxtext="Severidade"/>
+    <record jsxid="exception_attrReplyDestination" jsxtext="Destino de Resposta"/>
+    <record jsxid="exception_attrResolutionDescription" jsxtext="Descrição da Resolução"/>
+    <record jsxid="exception_attrStatus" jsxtext="Status"/>
+    <record jsxid="exception_attrResolveDelayTime" jsxtext="Tempo de Atraso da Resolução"/>
+    <record jsxid="exception_attrApplicationID" jsxtext="ID da Aplicação"/>
+    <record jsxid="exception_attrComponentName" jsxtext="Nome do Componente"/>
+    <record jsxid="exception_attrHostname" jsxtext="Nome do Host"/>
+    <record jsxid="exception_attrTimestamp" jsxtext="Data/Hora"/>
+    <record jsxid="exception_attrTransactionDomain" jsxtext="Domínio da Transação"/>
+    <record jsxid="exception_attrTransactionType" jsxtext="Tipo da Transação"/>
+    <record jsxid="exception_attrTransactionID" jsxtext="ID da Transação"/>
+    <record jsxid="exception_attrCorrelationID" jsxtext="ID de Correlação"/>
+    <record jsxid="exception_attrInterfaceID" jsxtext="ID da Interface"/>
+    <record jsxid="exception_attrFilename" jsxtext="Nome do Arquivo"/>
+    <record jsxid="exception_attrRenderID" jsxtext="ID do Renderizador"/>
+    <record jsxid="exception_attrMessage" jsxtext="Mensagem"/>
+    <record jsxid="exception_flipDetailsOrientation" jsxtext="Girar Orientação dos Detalhes"/>
+    <record jsxid="exception_flipDetailsOrientationTip" jsxtext="Alterar a Orientação da Visão de Detalhes"/>
+  </locale>
+  <locale key="es_ES">
+    <record jsxid="exception_tabLabel" jsxtext="Excepciones"/>
+    <record jsxid="exception_searchExceptions" jsxtext="Buscar Excepciones"/>
+    <record jsxid="exception_detail" jsxtext="Detalles"/>
+    <record jsxid="exception_details" jsxtext="Detalles"/>
+    <record jsxid="exception_header" jsxtext="Encabezado"/>
+    <record jsxid="exception_manageColumns" jsxtext="Administrar Columnas"/>
+    <record jsxid="exception_manageColumnsCaption" jsxtext="Administrar Columnas para Lista de Excepciones"/>
+    <record jsxid="exception_stacktrace" jsxtext="Stacktrace"/>
+    <record jsxid="exception_resolve" jsxtext="Resolver"/>
+    <record jsxid="exception_statusResolved" jsxtext="Resuelta"/>
+    <record jsxid="exception_statusUnresolved" jsxtext="Sin Resolver"/>
+    <record jsxid="exception_statusSuppressed" jsxtext="Suprimida"/>
+    <record jsxid="exception_resolveTip" jsxtext="Enviar información a servicio para resolver las excepciones seleccionadas"/>
+    <record jsxid="exception_resolveCancelTip" jsxtext="Cerrar esta ventana sin guardar o enviar información"/>
+    <record jsxid="exception_resolveExceptions" jsxtext="Resolver Excepciones"/>
+    <record jsxid="exception_resolutionDescription" jsxtext="Descripción de Resolución"/>
+    <record jsxid="exception_resolveSelectedExceptions" jsxtext="Resolver Excepciones Seleccionadas"/>
+    <record jsxid="exception_deleteSelectedExceptions" jsxtext="Eliminar Excepciones Seleccionadas"/>
+    <record jsxid="exception_suppressSelectedExceptions" jsxtext="Suprimir Excepciones Seleccionadas"/>
+    <record jsxid="exception_transaction" jsxtext="Transacción"/>
+    <record jsxid="exception_transactionAfterResolve" jsxtext="Transacción Después de Resolver"/>
+    <record jsxid="exception_exceptionIdCol" jsxtext="ID" ref="EXCEPTIONID"/>
+    <record jsxid="exception_applicationIdCol" jsxtext="ID de Aplicación" ref="APPLICATIONID"/>
+    <record jsxid="exception_correlationIdCol" jsxtext="ID de Correlación" ref="CORRELATIONID"/>
+    <record jsxid="exception_transIdCol" jsxtext="ID de Trans" ref="TRANSID"/>
+    <record jsxid="exception_categoryCol" jsxtext="Categoría" ref="Categoría"/>
+    <record jsxid="exception_typeCol" jsxtext="Tipo" ref="Tipo"/>
+    <record jsxid="exception_severityCol" jsxtext="Severidad" ref="Severidad"/>
+    <record jsxid="exception_componentNameCol" jsxtext="Nombre de Componente" ref="COMPONENTNAME"/>
+    <record jsxid="exception_transactionDomainCol" jsxtext="Dominio de Transacción" ref="TRANSACTIONDOMAIN"/>
+    <record jsxid="exception_timestampCol" jsxtext="Fecha y Hora" ref="TIME_STAMP"/>
+    <record jsxid="exception_messageCol" jsxtext="Mensaje" ref="Mensaje"/>
+    <record jsxid="exception_statusCol" jsxtext="Estatus" ref="STATUS"/>
+    <record jsxid="exception_include" jsxtext="Incluir"/>
+    <record jsxid="exception_rebuildApplicationList" jsxtext="Reconstruir Lista de Aplicación"/>
+    <record jsxid="exception_clearValue" jsxtext="Limpiar/Reiniciar Valor"/>
+    <record jsxid="exception_correlateLogs" jsxtext="Correlacionar Bitácoras"/>
+    <record jsxid="exception_noRecordsFoundUsingCriteria" jsxtext="No se encontraron registros utilizando criterios."/>
+    <record jsxid="exception_tableHeader" jsxtext="Los siguientes IDs de excepciones serán resueltos:"/>
+    <record jsxid="exception_listScrollInfo" jsxtext="- viendo registros de excepción {0} al {1} de {2} -"/>
+    <record jsxid="exception_deleteMessage" jsxtext="Las excepciones seleccionadas serán eliminadas permanentemente, ¿continuar con la eliminación?"/>
+    <record jsxid="exception_suppressMessage" jsxtext="Las excepciones seleccionadas serán suprimidas (ignoradas), ¿continuar con la supresión?"/>
+    <record jsxid="exception_attrExceptionInstanceID" jsxtext="ID de Instancia de Excepción"/>
+    <record jsxid="exception_attrExceptionCode" jsxtext="Código de Excepción"/>
+    <record jsxid="exception_attrCategory" jsxtext="Categoría"/>
+    <record jsxid="exception_attrType" jsxtext="Tipo"/>
+    <record jsxid="exception_attrSeverity" jsxtext="Severidad"/>
+    <record jsxid="exception_attrReplyDestination" jsxtext="Destino de Respuesta"/>
+    <record jsxid="exception_attrResolutionDescription" jsxtext="Descripción de Resolución"/>
+    <record jsxid="exception_attrStatus" jsxtext="Estatus"/>
+    <record jsxid="exception_attrResolveDelayTime" jsxtext="Tiempo que Tardó en Resolverse"/>
+    <record jsxid="exception_attrApplicationID" jsxtext="ID de Aplicación"/>
+    <record jsxid="exception_attrComponentName" jsxtext="Nombre de Componente"/>
+    <record jsxid="exception_attrHostname" jsxtext="Hostname"/>
+    <record jsxid="exception_attrTimestamp" jsxtext="Fecha y Hora"/>
+    <record jsxid="exception_attrTransactionDomain" jsxtext="Dominio de Transacción"/>
+    <record jsxid="exception_attrTransactionType" jsxtext="Tipo de Transacción"/>
+    <record jsxid="exception_attrTransactionID" jsxtext="ID de Transacción"/>
+    <record jsxid="exception_attrCorrelationID" jsxtext="ID de Correlación"/>
+    <record jsxid="exception_attrInterfaceID" jsxtext="ID de Interfaz"/>
+    <record jsxid="exception_attrFilename" jsxtext="Nombre de Archivo"/>
+    <record jsxid="exception_attrRenderID" jsxtext="ID de Conversión"/>
+    <record jsxid="exception_attrMessage" jsxtext="Mensaje"/>
+    <record jsxid="exception_flipDetailsOrientation" jsxtext="Voltear Orientación de Detalles"/>
+    <record jsxid="exception_flipDetailsOrientationTip" jsxtext="Modificar Orientación de Vista de Detalles"/>
+  </locale>
+  <locale key="sv_SV">
+    <record jsxid="exception_tabLabel" jsxtext="Undantag"/>
+    <record jsxid="exception_searchExceptions" jsxtext="Sök i Undantag"/>
+    <record jsxid="exception_detail" jsxtext="Detalj"/>
+    <record jsxid="exception_details" jsxtext="Detaljer"/>
+    <record jsxid="exception_header" jsxtext="Header"/>
+    <record jsxid="exception_manageColumns" jsxtext="Hantera Kolumner"/>
+    <record jsxid="exception_manageColumnsCaption" jsxtext="Hantera Kolumner för Undantagslista"/>
+    <record jsxid="exception_stacktrace" jsxtext="Stacktrace"/>
+    <record jsxid="exception_resolve" jsxtext="Lös"/>
+    <record jsxid="exception_statusResolved" jsxtext="Löst"/>
+    <record jsxid="exception_statusUnresolved" jsxtext="Icke Löst"/>
+    <record jsxid="exception_statusSuppressed" jsxtext="Avaktiverad"/>
+    <record jsxid="exception_resolveTip" jsxtext="Skicka information till tjänsten för att lösa valda undantag"/>
+    <record jsxid="exception_resolveCancelTip" jsxtext="Stäng detta fönster utan att spara eller skicka information"/>
+    <record jsxid="exception_resolveExceptions" jsxtext="Lös Undantag"/>
+    <record jsxid="exception_resolutionDescription" jsxtext="Lösningsbeskrivning"/>
+    <record jsxid="exception_resolveSelectedExceptions" jsxtext="Lös Valda Undantag"/>
+    <record jsxid="exception_deleteSelectedExceptions" jsxtext="Ta Bort Valda Undantag"/>
+    <record jsxid="exception_suppressSelectedExceptions" jsxtext="Avaktiverad Valda Undantag"/>
+    <record jsxid="exception_transaction" jsxtext="Transaktion"/>
+    <record jsxid="exception_transactionAfterResolve" jsxtext="Transaktion Efter Lösning"/>
+    <record jsxid="exception_exceptionIdCol" jsxtext="ID" ref="EXCEPTIONID"/>
+    <record jsxid="exception_applicationIdCol" jsxtext="ApplikationsID" ref="APPLICATIONID"/>
+    <record jsxid="exception_correlationIdCol" jsxtext="KorrelerationsID" ref="CORRELATIONID"/>
+    <record jsxid="exception_transIdCol" jsxtext="TransaktionsID" ref="TRANSID"/>
+    <record jsxid="exception_categoryCol" jsxtext="Kategori" ref="CATEGORY"/>
+    <record jsxid="exception_typeCol" jsxtext="Typ" ref="TYPE"/>
+    <record jsxid="exception_severityCol" jsxtext="Prioritet" ref="SEVERITY"/>
+    <record jsxid="exception_componentNameCol" jsxtext="Komponentnamn" ref="COMPONENTNAME"/>
+    <record jsxid="exception_transactionDomainCol" jsxtext="Transaktionsdomän" ref="TRANSACTIONDOMAIN"/>
+    <record jsxid="exception_timestampCol" jsxtext="Tidstämpel" ref="TIME_STAMP"/>
+    <record jsxid="exception_messageCol" jsxtext="Meddelande" ref="MESSAGE"/>
+    <record jsxid="exception_statusCol" jsxtext="Status" ref="STATUS"/>
+    <record jsxid="exception_include" jsxtext="Ta Med"/>
+    <record jsxid="exception_rebuildApplicationList" jsxtext="Återskapa Applikationslista"/>
+    <record jsxid="exception_clearValue" jsxtext="Rensa/Återställ Värde"/>
+    <record jsxid="exception_correlateLogs" jsxtext="Korrelera Loggar"/>
+    <record jsxid="exception_noRecordsFoundUsingCriteria" jsxtext="Inga poster funna med givna kriterier."/>
+    <record jsxid="exception_tableHeader" jsxtext="Följande undantag kommer att registreras som lösta:"/>
+    <record jsxid="exception_listScrollInfo" jsxtext="- visa undantagsposter {0} till {1} av {2} -"/>
+    <record jsxid="exception_deleteMessage" jsxtext="De valda undantagen kommer att tas bort permanent, fortsätt med radering?"/>
+    <record jsxid="exception_suppressMessage" jsxtext="De valda undantagen kommer att avaktiveras (ignoreras), fortsätt med avaktivering?"/>
+    <record jsxid="exception_attrExceptionInstanceID" jsxtext="InstansID för Undantag"/>
+    <record jsxid="exception_attrExceptionCode" jsxtext="Undantagskod"/>
+    <record jsxid="exception_attrCategory" jsxtext="Kategori"/>
+    <record jsxid="exception_attrType" jsxtext="Typ"/>
+    <record jsxid="exception_attrSeverity" jsxtext="Prioritet"/>
+    <record jsxid="exception_attrReplyDestination" jsxtext="Svarsdestination"/>
+    <record jsxid="exception_attrResolutionDescription" jsxtext="Lösningsbeskrivning"/>
+    <record jsxid="exception_attrStatus" jsxtext="Status"/>
+    <record jsxid="exception_attrResolveDelayTime" jsxtext="Tid för Lösningsfördröjning"/>
+    <record jsxid="exception_attrApplicationID" jsxtext="ApplikationsID"/>
+    <record jsxid="exception_attrComponentName" jsxtext="Komponentnamn"/>
+    <record jsxid="exception_attrHostname" jsxtext="Maskinnamn"/>
+    <record jsxid="exception_attrTimestamp" jsxtext="Tidstämpel"/>
+    <record jsxid="exception_attrTransactionDomain" jsxtext="Transaktionsdomän"/>
+    <record jsxid="exception_attrTransactionType" jsxtext="Transaktionstyp"/>
+    <record jsxid="exception_attrTransactionID" jsxtext="TransaktionsID"/>
+    <record jsxid="exception_attrCorrelationID" jsxtext="KorrelationsID"/>
+    <record jsxid="exception_attrInterfaceID" jsxtext="GränssnittsID"/>
+    <record jsxid="exception_attrFilename" jsxtext="Filnamn"/>
+    <record jsxid="exception_attrRenderID" jsxtext="FramställningsID"/>
+    <record jsxid="exception_attrMessage" jsxtext="Meddelande"/>
+    <record jsxid="exception_flipDetailsOrientation" jsxtext="Kasta om Detaljvyns orientering"/>
+    <record jsxid="exception_flipDetailsOrientationTip" jsxtext="Ändrar Detaljvyns orientering"/>
+  </locale>
+  <locale key="zh_CH">
+    <record jsxid="exception_tabLabel" jsxtext="例外"/>
+    <record jsxid="exception_searchExceptions" jsxtext="查找例外"/>
+    <record jsxid="exception_detail" jsxtext="细节"/>
+    <record jsxid="exception_details" jsxtext="细节"/>
+    <record jsxid="exception_header" jsxtext="头"/>
+    <record jsxid="exception_manageColumns" jsxtext="管理列"/>
+    <record jsxid="exception_manageColumnsCaption" jsxtext="管理例外目录的列"/>
+    <record jsxid="exception_stacktrace" jsxtext="堆栈"/>
+    <record jsxid="exception_resolve" jsxtext="处理"/>
+    <record jsxid="exception_statusResolved" jsxtext="处理了"/>
+    <record jsxid="exception_statusUnresolved" jsxtext="未处理"/>
+    <record jsxid="exception_statusSuppressed" jsxtext="抑制了"/>
+    <record jsxid="exception_resolveTip" jsxtext="提交信息给服务来解决选中的例外"/>
+    <record jsxid="exception_resolveCancelTip" jsxtext="关闭这个窗口并不要保存或发送信息"/>
+    <record jsxid="exception_resolveExceptions" jsxtext="处理例外"/>
+    <record jsxid="exception_resolutionDescription" jsxtext="处理描述"/>
+    <record jsxid="exception_resolveSelectedExceptions" jsxtext="处理选中的例外"/>
+    <record jsxid="exception_deleteSelectedExceptions" jsxtext="删除选中的例外"/>
+    <record jsxid="exception_suppressSelectedExceptions" jsxtext="抑制选中的例外"/>
+    <record jsxid="exception_transaction" jsxtext="事务"/>
+    <record jsxid="exception_transactionAfterResolve" jsxtext="处理后的事务"/>
+    <record jsxid="exception_exceptionIdCol" jsxtext="ID" ref="EXCEPTIONID"/>
+    <record jsxid="exception_applicationIdCol" jsxtext="程序ID" ref="APPLICATIONID"/>
+    <record jsxid="exception_correlationIdCol" jsxtext="关联ID" ref="CORRELATIONID"/>
+    <record jsxid="exception_transIdCol" jsxtext="事务ID" ref="TRANSID"/>
+    <record jsxid="exception_categoryCol" jsxtext="类别" ref="CATEGORY"/>
+    <record jsxid="exception_typeCol" jsxtext="类型" ref="TYPE"/>
+    <record jsxid="exception_severityCol" jsxtext="严重度" ref="SEVERITY"/>
+    <record jsxid="exception_componentNameCol" jsxtext="部件名字" ref="COMPONENTNAME"/>
+    <record jsxid="exception_transactionDomainCol" jsxtext="事务域" ref="TRANSACTIONDOMAIN"/>
+    <record jsxid="exception_timestampCol" jsxtext="时间戳" ref="TIME_STAMP"/>
+    <record jsxid="exception_messageCol" jsxtext="消息" ref="MESSAGE"/>
+    <record jsxid="exception_statusCol" jsxtext="状态" ref="STATUS"/>
+    <record jsxid="exception_include" jsxtext="包含"/>
+    <record jsxid="exception_rebuildApplicationList" jsxtext="重建应用程序目录"/>
+    <record jsxid="exception_clearValue" jsxtext="清空/重置值"/>
+    <record jsxid="exception_correlateLogs" jsxtext="关联日志"/>
+    <record jsxid="exception_noRecordsFoundUsingCriteria" jsxtext="没有找到规则相应的记录。"/>
+    <record jsxid="exception_tableHeader" jsxtext="下面的例外ids将被处理:"/>
+    <record jsxid="exception_listScrollInfo" jsxtext="- 查看例外记录从 {0} 到 {2} 中的 {1}   -"/>
+    <record jsxid="exception_deleteMessage" jsxtext="选中的例外将被永久删除，继续删除吗?"/>
+    <record jsxid="exception_suppressMessage" jsxtext="选中的例外将被抑制（忽视），继续抑制吗?"/>
+    <record jsxid="exception_attrExceptionInstanceID" jsxtext="例外实例ID"/>
+    <record jsxid="exception_attrExceptionCode" jsxtext="例外码"/>
+    <record jsxid="exception_attrCategory" jsxtext="类别"/>
+    <record jsxid="exception_attrType" jsxtext="类型"/>
+    <record jsxid="exception_attrSeverity" jsxtext="严重度"/>
+    <record jsxid="exception_attrReplyDestination" jsxtext="回复目的地"/>
+    <record jsxid="exception_attrResolutionDescription" jsxtext="处理描述"/>
+    <record jsxid="exception_attrStatus" jsxtext="状态"/>
+    <record jsxid="exception_attrResolveDelayTime" jsxtext="处理延迟时间"/>
+    <record jsxid="exception_attrApplicationID" jsxtext="应用程序ID"/>
+    <record jsxid="exception_attrComponentName" jsxtext="组件名字"/>
+    <record jsxid="exception_attrHostname" jsxtext="主机名字"/>
+    <record jsxid="exception_attrTimestamp" jsxtext="时间戳"/>
+    <record jsxid="exception_attrTransactionDomain" jsxtext="事务域"/>
+    <record jsxid="exception_attrTransactionType" jsxtext="事务类型"/>
+    <record jsxid="exception_attrTransactionID" jsxtext="事务ID"/>
+    <record jsxid="exception_attrCorrelationID" jsxtext="关联ID"/>
+    <record jsxid="exception_attrInterfaceID" jsxtext="接口ID"/>
+    <record jsxid="exception_attrFilename" jsxtext="文件名字"/>
+    <record jsxid="exception_attrRenderID" jsxtext="转换ID"/>
+    <record jsxid="exception_attrMessage" jsxtext="消息"/>
+    <record jsxid="exception_flipDetailsOrientation" jsxtext="翻转细节的目标"/>
+    <record jsxid="exception_flipDetailsOrientationTip" jsxtext="改变细节查看目标"/>
+  </locale>
+</data>

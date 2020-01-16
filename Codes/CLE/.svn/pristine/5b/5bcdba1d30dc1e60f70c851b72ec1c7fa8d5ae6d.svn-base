@@ -1,0 +1,28 @@
+<serialization xmlns="urn:tibco.com/v3.0" jsxversion="3.9">
+  <onBeforeDeserialize/>
+  <onAfterDeserialize><![CDATA[
+  this.onAfterPaint = function(){
+    jsx3.sleep(function(){
+    var imgSrcURI = cle.SERVER.resolveURI('images/icons/charts.gif');
+      var objGUI = cle.SERVER.getJSXByName('chartsTab').getRendered().firstChild;
+      if (objGUI != null){
+	      objGUI.style.backgroundImage = 'URL(' + imgSrcURI + ')';
+	      objGUI.style.backgroundRepeat= "no-repeat";
+	      objGUI.style.backgroundPosition = "0 1px";
+	      objGUI.style.paddingLeft = 20;
+      }
+      });
+  };
+  objJSX.onAfterPaint();
+  ]]></onAfterDeserialize>
+  <object type="jsx3.gui.Tab">
+    <variants jsxheight="20" jsxwidth="120"/>
+    <strings jsxname="chartsTab" jsxtextalign="left"/>
+    <dynamics jsxtext="chart_tabLabel" jsxtip="chart_tabTip" jsxactivecolor="activeTabColor" jsxinactivecolor="inactiveTabColor" jsxfontsize="labelFontSize" jsxborder="@Outset"/>
+    <object type="jsx3.gui.Block">
+      <variants jsxoverflow="2" jsxrelativeposition="0" jsxleft="0" jsxtop="0"/>
+      <strings jsxname="chartsTabPane" jsxwidth="100%" jsxheight="100%" jsxvisibility="visible" jsxdisplay=""/>
+      <dynamics jsxbgcolor="@Solid Light" jsxborder="@Inset"/>
+    </object>
+  </object>
+</serialization>

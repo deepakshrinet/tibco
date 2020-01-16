@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/RenderConfig"
+	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	 targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/RenderConfig"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xsd:element name="RenderConfig">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="ApplicationID" type="xsd:string"/>
+				<xsd:element name="RenderID" type="xsd:string"/>
+				<xsd:element name="XSLT" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="CSS" type="xsd:string" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="RenderConfigs">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="RenderConfig" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

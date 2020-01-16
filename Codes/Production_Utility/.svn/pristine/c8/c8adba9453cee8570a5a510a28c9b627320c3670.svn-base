@@ -1,0 +1,1273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:ns2="http://www.zimmer.com/SendEmailSchema_v_1_0.xsd" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns="http://www.tibco.com/pe/EngineTypes" xmlns:ns3="http://www.tibco.com/CommonLE2/namespace/Public/Common/RequestHeader.xsd" xmlns:Zimmer="java://CustomFunctions" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx2="http://www.tibco.com/namespaces/tnt/plugins/json" xmlns:ns12="http://www.tibco.com/CommonLE/Client/Schema/ClientInterface.xsd" xmlns:ns13="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:pfx="http://www.tibco.com/CommonLE2/namespace/Public/Exception/ExceptionRequest.xsd">
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Exception/ExceptionRequest.xsd" schemaLocation="/CLE/SharedResources/Schemas/Public/Exception/ExceptionRequest.xsd"/>
+    <pd:name>Services/Processes/HTTP_Receiver_Process.process</pd:name>
+    <pd:startName>HTTP_Trigger_Receiver</pd:startName>
+    <pd:startX>0</pd:startX>
+    <pd:startY>0</pd:startY>
+    <pd:returnBindings/>
+    <pd:starter name="HTTP_Trigger_Receiver">
+        <pd:type>com.tibco.plugin.http.HTTPEventSource</pd:type>
+        <pd:resourceType>httppalette.httpEventSource</pd:resourceType>
+        <pd:x>61</pd:x>
+        <pd:y>289</pd:y>
+        <config>
+            <outputMode>String</outputMode>
+            <defaultEncoding>UTF8</defaultEncoding>
+            <inputOutputVersion>5.3.0</inputOutputVersion>
+            <newMimeSupport>true</newMimeSupport>
+            <sharedChannel>/SharedResources/HTTP/HTTP Connection.sharedhttp</sharedChannel>
+            <parsePostData>false</parsePostData>
+            <customField/>
+            <useHTTPAuthentication>false</useHTTPAuthentication>
+            <Headers>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="Accept" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Accept-Charset" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Accept-Encoding" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Content-Type" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Content-Length" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Connection" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Cookie" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Pragma" type="xsd:string" minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </Headers>
+        </config>
+        <pd:inputBindings/>
+    </pd:starter>
+    <pd:endName>End</pd:endName>
+    <pd:endX>888</pd:endX>
+    <pd:endY>239</pd:endY>
+    <pd:errorSchemas>
+        <AuthenticationErrorSchema ref="pfx:ExceptionRequest"/>
+    </pd:errorSchemas>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1489898735246</pd:targetNamespace>
+    <pd:activity name="Send App Screen Response">
+        <pd:type>com.tibco.plugin.http.HTTPResponseActivity</pd:type>
+        <pd:resourceType>httppalette.httpWebResponse</pd:resourceType>
+        <pd:x>412</pd:x>
+        <pd:y>370</pd:y>
+        <config>
+            <closeConnection>true</closeConnection>
+            <eventSource>HTTP_Trigger_Receiver</eventSource>
+            <Headers>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="StatusLine" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Content-Type" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Set-Cookie" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Pragma" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Location" type="xsd:string" minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </Headers>
+        </config>
+        <pd:inputBindings>
+            <ResponseActivityInput>
+                <asciiContent>
+                    <xsl:value-of select="concat('&lt;html>','&lt;head>&lt;title>Trigger Tibco applications via HTTP&lt;/title>&lt;/head>',&#xA;'&lt;body bgcolor=&quot;#e6e6e6&quot; link=&quot;#000080&quot; vlink=&quot;#008080&quot; alink=&quot;#000080&quot;>','&lt;form method=&quot;POST&quot;>','&lt;p align=&quot;center&quot;>&lt;big>&lt;font color=&quot;#004080&quot; face=&quot;Arial Rounded MT Bold&quot;>&lt;em>HTTP Request to Restart  TIBCO Applications&lt;/em>&lt;/font>&lt;/big>&lt;/p&amp; gt;',&#xA;'&lt;div align=&quot;center&quot;>&lt;center>',&#xA;'&lt;table border=&quot;1&quot; style=&quot;width:24%; background-color: #f1f1c1;&quot; cellpadding=&quot;2&quot;>','&lt;tr>&lt;td width=&quot;100%&quot;>&lt;p align=&quot;center&quot;>&lt;font face=&quot;Arial&quot;>Enter the Application Name','&lt;/font>&lt;/td>&lt;/tr>','&lt;br>&lt;/br>',&#xA;'&lt;tr>&lt;td width=&quot;160%&quot; align=&quot;center&quot;>&lt;table cols=&quot;1&quot;>',&#xA;'&lt;td length=&quot;100&quot;>&lt;font color=&quot;green&quot;>Application Name &lt;/font >&lt;/td>&lt;td length=&quot;0&quot;>&lt;/td>','&lt;td length=&quot;90&quot;>&lt;input type=&quot;text&quot; name=&quot;application&quot; > &lt;/td>&lt;/tr>',&#xA;'&lt;td length=&quot;100&quot;>&lt;font color=&quot;green&quot;>Username &lt;/font >&lt;/td>&lt;td length=&quot;0&quot;>&lt;/td>','&lt;td length=&quot;90&quot;>&lt;input type=&quot;text&quot; name=&quot;username&quot; > &lt;/td>&lt;/tr>',&#xA;'&lt;td length=&quot;100&quot;>&lt;font color=&quot;green&quot;>Password &lt;/font >&lt;/td>&lt;td length=&quot;0&quot;>&lt;/td>','&lt;td length=&quot;90&quot;>&lt;input type=&quot;password&quot; name=&quot;password&quot; > &lt;/td>&lt;/tr>',&#xA;'&lt;td length=&quot;100&quot;>&lt;font color=&quot;green&quot;>Incident Required&lt;/font >&lt;/td>&lt;td length=&quot;0&quot;>&lt;/td>','&lt;td length=&quot;90&quot;> &lt;input type=&quot;radio&quot; name=&quot;Incident&quot; id=&quot;Yes&quot; value=&quot;Y&quot; checked>Y&lt;br>&lt;input type=&quot;radio&quot; name=&quot;Incident&quot; id=&quot;No&quot; value= &quot;N&quot;>N&lt;/td>&lt;/tr>',&#xA;'&lt;/table>','&lt;br>&#xA;',&#xA;'&lt;input type=&quot;submit&quot; name=&quot;Start Service&quot; value=&quot;Start&quot;>',&#xA;&#xA;'&lt;input type=&quot;submit&quot; name=&quot;Stop Service&quot; value=&quot;Stop&quot;>',&#xA;&#xA;'&lt;/center>&lt;/div>','&lt;/form>','&lt;/body&amp; gt;&lt;/html>')"/>
+                </asciiContent>
+            </ResponseActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Send Trigger MC APP Response">
+        <pd:type>com.tibco.plugin.http.HTTPResponseActivity</pd:type>
+        <pd:resourceType>httppalette.httpWebResponse</pd:resourceType>
+        <pd:x>552</pd:x>
+        <pd:y>43</pd:y>
+        <config>
+            <closeConnection>true</closeConnection>
+            <eventSource>HTTP_Trigger_Receiver</eventSource>
+            <Headers>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="StatusLine" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Content-Type" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Set-Cookie" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Pragma" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Location" type="xsd:string" minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </Headers>
+        </config>
+        <pd:inputBindings>
+            <ResponseActivityInput>
+                <asciiContent>
+                    <xsl:value-of select="concat('&lt;html>','&lt;head>&lt;title>Trigger Tibco applications via HTTP&lt;/title>&lt;/head>',&#xA;'&lt;body bgcolor=&quot;#e6e6e6&quot; link=&quot;#000080&quot; vlink=&quot;#008080&quot; alink=&quot;#000080&quot;>','&lt;p align=&quot;center&quot;>&lt;big>&lt;font color=&quot;#FF0000&quot; face=&quot;Arial Rounded MT Bold&quot;>&lt;em>Restart All  Mission Critical  Applications&lt;/em>&lt;/font>&lt;/big>&lt;/p&amp; gt;',&#xA;'&lt;div align=&quot;center&quot;>&lt;center>','All MC Interface Request Received- Check TIBCO Admin Screen for Interface Status',&#xA;&#xA;'&lt;/center>&lt;/div>','&lt;/body&amp; gt;&lt;/html>')"/>
+                </asciiContent>
+            </ResponseActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Send MC App Response">
+        <pd:type>com.tibco.plugin.http.HTTPResponseActivity</pd:type>
+        <pd:resourceType>httppalette.httpWebResponse</pd:resourceType>
+        <pd:x>309</pd:x>
+        <pd:y>467</pd:y>
+        <config>
+            <closeConnection>true</closeConnection>
+            <eventSource>HTTP_Trigger_Receiver</eventSource>
+            <Headers>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="StatusLine" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Content-Type" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Set-Cookie" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Pragma" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Location" type="xsd:string" minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </Headers>
+        </config>
+        <pd:inputBindings>
+            <ResponseActivityInput>
+                <asciiContent>
+                    <xsl:value-of select="concat('&lt;html>','&lt;head>&lt;title>Trigger Tibco applications via HTTP&lt;/title>&lt;/head>',&#xA;'&lt;body bgcolor=&quot;#e6e6e6&quot; link=&quot;#000080&quot; vlink=&quot;#008080&quot; alink=&quot;#000080&quot;>','&lt;form method=&quot;POST&quot;>','&lt;p align=&quot;center&quot;>&lt;big>&lt;font color=&quot;#FF0000&quot; face=&quot;Arial Rounded MT Bold&quot;>&lt;em>Restart All  Mission Critical  Applications&lt;/em>&lt;/font>&lt;/big>&lt;/p&amp; gt;',&#xA;'&lt;div align=&quot;center&quot;>&lt;center>',&#xA;'&lt;table border=&quot;1&quot; style=&quot;width:24%; background-color: #f1f1c1;&quot; cellpadding=&quot;2&quot;>','&lt;tr>&lt;td width=&quot;100%&quot;>&lt;p align=&quot;center&quot;>&lt;font face=&quot;Arial&quot;>Enter Credentials','&lt;/font>&lt;/td>&lt;/tr>','&lt;br>&lt;/br>',&#xA;'&lt;tr>&lt;td width=&quot;100%&quot; align=&quot;center&quot;>&lt;table cols=&quot;1&quot;>',&#xA;'&lt;td length=&quot;70&quot;>&lt;font color=&quot;green&quot;>Username &lt;/font >&lt;/td>&lt;td length=&quot;0&quot;>&lt;/td>','&lt;td length=&quot;70&quot;>&lt;input type=&quot;text&quot; name=&quot;username&quot; > &lt;/td>&lt;/tr>',&#xA;'&lt;td length=&quot;70&quot;>&lt;font color=&quot;green&quot;>Password &lt;/font >&lt;/td>&lt;td length=&quot;0&quot;>&lt;/td>','&lt;td length=&quot;70&quot;>&lt;input type=&quot;password&quot; name=&quot;password&quot; > &lt;/td>&lt;/tr>',&#xA;'&lt;/table>','&lt;br>&#xA;',&#xA;'&lt;input type=&quot;submit&quot; name=&quot;Start Service&quot; value=&quot;Start&quot;>',&#xA;&#xA;'&lt;input type=&quot;submit&quot; name=&quot;Stop Service&quot; value=&quot;Stop&quot;>',&#xA;'&lt;/center>&lt;/div>','&lt;/form>','&lt;/body&amp; gt;&lt;/html>')"/>
+                </asciiContent>
+            </ResponseActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Null">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>65</pd:x>
+        <pd:y>585</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Send Trigger Single App Response">
+        <pd:type>com.tibco.plugin.http.HTTPResponseActivity</pd:type>
+        <pd:resourceType>httppalette.httpWebResponse</pd:resourceType>
+        <pd:x>554</pd:x>
+        <pd:y>252</pd:y>
+        <config>
+            <closeConnection>true</closeConnection>
+            <eventSource>HTTP_Trigger_Receiver</eventSource>
+            <Headers>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="StatusLine" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Content-Type" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Set-Cookie" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Pragma" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Location" type="xsd:string" minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </Headers>
+        </config>
+        <pd:inputBindings>
+            <ResponseActivityInput>
+                <asciiContent>
+                    <xsl:value-of select="concat('&lt;html>','&lt;head>&lt;title>Trigger Tibco applications via HTTP&lt;/title>&lt;/head>',&#xA;'&lt;body bgcolor=&quot;#e6e6e6&quot; link=&quot;#000080&quot; vlink=&quot;#008080&quot; alink=&quot;#000080&quot;>','&lt;p align=&quot;center&quot;>&lt;big>&lt;font color=&quot;#004080&quot; face=&quot;Arial Rounded MT Bold&quot;>&lt;em>HTTP Request to Restart  TIBCO Applications&lt;/em>&lt;/font>&lt;/big>&lt;/p&amp; gt;',&#xA;'&lt;div align=&quot;center&quot;>&lt;center>','Single APP Interface Request Received',&#xA;&#xA;'&lt;/center>&lt;/div>','&lt;/body&amp; gt;&lt;/html>')"/>
+                </asciiContent>
+            </ResponseActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SetCLEHeader">
+        <pd:type>com.tibco.pe.core.SetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.setSharedVariable</pd:resourceType>
+        <pd:x>193</pd:x>
+        <pd:y>290</pd:y>
+        <config>
+            <variableConfig>/CLE/Interface/SharedVariables/CLEHeader.jobsharedvariable</variableConfig>
+            <showResult>true</showResult>
+        </config>
+        <pd:inputBindings>
+            <ns12:Header>
+                <ns12:ComponentName>
+                    <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns:ProcessContext/ProcessId)"/>
+                </ns12:ComponentName>
+                <ns12:Hostname>
+                    <xsl:value-of select="BW:getHostName()"/>
+                </ns12:Hostname>
+                <ns12:TransactionDomain>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/InterfaceRestart/TransactionDomain"/>
+                </ns12:TransactionDomain>
+                <ns12:TransactionType>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/InterfaceRestart/TransactionType"/>
+                </ns12:TransactionType>
+                <ns12:TransactionID>
+                    <xsl:value-of select="tib:format-dateTime('yyyyMMdd-HHmmss',current-dateTime())"/>
+                </ns12:TransactionID>
+                <ns12:CorrelationID>
+                    <xsl:value-of select="tib:format-dateTime('yyyyMMdd-HHmmss',current-dateTime())"/>
+                </ns12:CorrelationID>
+                <ns12:InterfaceID>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/InterfaceRestart/InterfaceId"/>
+                </ns12:InterfaceID>
+            </ns12:Header>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="InitiateSingleAPP">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>678</pd:x>
+        <pd:y>236</pd:y>
+        <config>
+            <processName>/Services/Operations/InitiateSingleAPP.process</processName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <OperationType>
+                    <xsl:value-of select="concat(substring-before(Zimmer:stringReplace(Zimmer:stringReplace($HTTP_Trigger_Receiver/ProcessStarterOutput/PostData, '%2F','/'),'+',' '),'&amp;username'),'&amp;username',substring-after(Zimmer:stringReplace($HTTP_Trigger_Receiver/ProcessStarterOutput/PostData, '%2F','/'),'&amp;username'))"/>
+                </OperationType>
+                <xsl:if test="$SetCLEHeader/ns12:Header/ns12:CorrelationID">
+                    <Correlationid>
+                        <xsl:value-of select="$SetCLEHeader/ns12:Header/ns12:CorrelationID"/>
+                    </Correlationid>
+                </xsl:if>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Send Invalid Request Response">
+        <pd:type>com.tibco.plugin.http.HTTPResponseActivity</pd:type>
+        <pd:resourceType>httppalette.httpWebResponse</pd:resourceType>
+        <pd:x>306</pd:x>
+        <pd:y>586</pd:y>
+        <config>
+            <closeConnection>true</closeConnection>
+            <eventSource>HTTP_Trigger_Receiver</eventSource>
+            <Headers>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="StatusLine" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Content-Type" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Set-Cookie" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Pragma" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Location" type="xsd:string" minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </Headers>
+        </config>
+        <pd:inputBindings>
+            <ResponseActivityInput/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="InitiateMCApp">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>661</pd:x>
+        <pd:y>35</pd:y>
+        <config>
+            <processName>/Services/Operations/InitiateMCApp.process</processName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <OperationType>
+                    <xsl:value-of select="Zimmer:stringReplace($HTTP_Trigger_Receiver/ProcessStarterOutput/PostData, '%2F','/')"/>
+                </OperationType>
+                <Correlationid>
+                    <xsl:value-of select="$SetCLEHeader/ns12:Header/ns12:CorrelationID"/>
+                </Correlationid>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="CatchUnknownException">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>1257</pd:x>
+        <pd:y>374</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="SendCatchUnknownexceptionToCLE">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>1123</pd:x>
+        <pd:y>377</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendException.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns12:ExceptionRequest>
+                <ns12:Header>
+                    <ns12:ComponentName>
+                        <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns:ProcessContext/ProcessId)"/>
+                    </ns12:ComponentName>
+                    <ns12:Hostname>
+                        <xsl:value-of select="BW:getHostName()"/>
+                    </ns12:Hostname>
+                    <ns12:TransactionDomain>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/InterfaceRestart/TransactionDomain"/>
+                    </ns12:TransactionDomain>
+                    <ns12:TransactionType>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/InterfaceRestart/TransactionType"/>
+                    </ns12:TransactionType>
+                    <ns12:TransactionID>
+                        <xsl:value-of select="if($SetCLEHeader/ns12:Header/ns12:TransactionID !='')&#xA;then $SetCLEHeader/ns12:Header/ns12:TransactionID&#xA;else tib:format-dateTime('yyyyMMdd-HHmmss', current-dateTime())"/>
+                    </ns12:TransactionID>
+                    <ns12:CorrelationID>
+                        <xsl:value-of select="if($SetCLEHeader/ns12:Header/ns12:CorrelationID !='')&#xA;then $SetCLEHeader/ns12:Header/ns12:CorrelationID&#xA;else tib:format-dateTime('yyyyMMdd-HHmmss', current-dateTime())"/>
+                    </ns12:CorrelationID>
+                    <ns12:InterfaceID>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/InterfaceRestart/InterfaceId"/>
+                    </ns12:InterfaceID>
+                    <ns12:Message>
+                        <xsl:value-of select="'Request receiver process failed'"/>
+                    </ns12:Message>
+                </ns12:Header>
+                <ns12:ExceptionCode>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/ExceptionCodes/TECHNICAL-777"/>
+                </ns12:ExceptionCode>
+                <ns12:StackTrace>
+                    <xsl:value-of select="concat(&quot;Error Message: &quot;, $_error/ns:ErrorReport/Msg, &quot;  BW MsgCode: &quot;, &#xA;$_error/ns:ErrorReport/MsgCode, &quot;&#xA;&quot;,&#xA;&quot;Stack Trace: &quot;, $_error/ns:ErrorReport/StackTrace, &quot;&#xA;&quot;,&#xA;&quot; Process Stack: &quot;, $_error/ns:ErrorReport/ProcessStack)"/>
+                </ns12:StackTrace>
+            </ns12:ExceptionRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="LogException">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>996</pd:x>
+        <pd:y>378</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendLog.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns12:LogRequest>
+                <ns12:Header>
+                    <ns12:ComponentName>
+                        <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns:ProcessContext/ProcessId)"/>
+                    </ns12:ComponentName>
+                    <ns12:Hostname>
+                        <xsl:value-of select="BW:getHostName()"/>
+                    </ns12:Hostname>
+                    <ns12:TransactionDomain>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/InterfaceRestart/TransactionDomain"/>
+                    </ns12:TransactionDomain>
+                    <ns12:TransactionType>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/InterfaceRestart/TransactionType"/>
+                    </ns12:TransactionType>
+                    <ns12:TransactionID>
+                        <xsl:value-of select="if($SetCLEHeader/ns12:Header/ns12:TransactionID !='')&#xA;then $SetCLEHeader/ns12:Header/ns12:TransactionID&#xA;else tib:format-dateTime('yyyyMMdd-HHmmss', current-dateTime())"/>
+                    </ns12:TransactionID>
+                    <ns12:CorrelationID>
+                        <xsl:value-of select="if($SetCLEHeader/ns12:Header/ns12:CorrelationID !='')&#xA;then $SetCLEHeader/ns12:Header/ns12:CorrelationID&#xA;else tib:format-dateTime('yyyyMMdd-HHmmss', current-dateTime())"/>
+                    </ns12:CorrelationID>
+                    <ns12:InterfaceID>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/InterfaceRestart/InterfaceId"/>
+                    </ns12:InterfaceID>
+                    <ns12:Message>
+                        <xsl:value-of select="'Request receiver process failed'"/>
+                    </ns12:Message>
+                    <ns12:Transaction>
+                        <xsl:value-of select="if(not(contains($HTTP_Trigger_Receiver/ProcessStarterOutput/RequestURI,'MC')))&#xA;&#xA;then concat('Request initiated by ' ,substring-before(substring-after($HTTP_Trigger_Receiver/ProcessStarterOutput/PostData, 'username='), concat(&quot;&amp;&quot;,'password')),' for application ', Zimmer:stringReplace(substring-before(substring-after($HTTP_Trigger_Receiver/ProcessStarterOutput/PostData, 'application='), concat(&quot;&amp;&quot;,'username')),'%2F','/'))&#xA;&#xA;else concat('Request initiated by ' ,substring-before(substring-after($HTTP_Trigger_Receiver/ProcessStarterOutput/PostData, 'username='), concat(&quot;&amp;&quot;,'password')),' for all MC Applications' )"/>
+                    </ns12:Transaction>
+                </ns12:Header>
+                <ns12:Status>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/Status/ERROR"/>
+                </ns12:Status>
+                <ns12:Audit>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/AuditFlag"/>
+                </ns12:Audit>
+                <ns12:LogLevel>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/Environment/CommonLE/LOGGING_LEVEL_NUM_ERROR"/>
+                </ns12:LogLevel>
+            </ns12:LogRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Send-HTTP-Response-OnError">
+        <pd:type>com.tibco.plugin.http.HTTPResponseActivity</pd:type>
+        <pd:resourceType>httppalette.httpWebResponse</pd:resourceType>
+        <pd:x>1000</pd:x>
+        <pd:y>237</pd:y>
+        <config>
+            <closeConnection>true</closeConnection>
+            <eventSource>HTTP_Trigger_Receiver</eventSource>
+            <Headers>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="StatusLine" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Content-Type" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Set-Cookie" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Pragma" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Location" type="xsd:string" minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </Headers>
+        </config>
+        <pd:inputBindings>
+            <ResponseActivityInput>
+                <asciiContent>
+                    <xsl:value-of select="if($CatchKnownException/pfx:ExceptionRequest!='')&#xA;then &#xA;if(not(contains($HTTP_Trigger_Receiver/ProcessStarterOutput/RequestURI,'MC')))&#xA;then&#xA;concat('&lt;html>','&lt;head>&lt;title>Trigger Tibco applications via HTTP&lt;/title>&lt;/head>',&#xA;'&lt;body bgcolor=&quot;#e6e6e6&quot; link=&quot;#000080&quot; vlink=&quot;#008080&quot; alink=&quot;#000080&quot;>','&lt;form method=&quot;POST&quot;>','&lt;p align=&quot;center&quot;>&lt;big>&lt;font color=&quot;#004080&quot; face=&quot;Arial Rounded MT Bold&quot;>&lt;em>HTTP Request to Restart  TIBCO Applications&lt;/em>&lt;/font>&lt;/big>&lt;/p&amp; gt;',&#xA;'&lt;div align=&quot;center&quot;>&lt;center>',$CatchKnownException/pfx:ExceptionRequest/ns3:Header/ns3:Message,'&lt;br>&#xA;',&#xA;'&lt;table border=&quot;1&quot; style=&quot;width:24%; background-color: #f1f1c1;&quot; cellpadding=&quot;2&quot;>','&lt;tr>&lt;td width=&quot;100%&quot;>&lt;p align=&quot;center&quot;>&lt;font face=&quot;Arial&quot;>Enter the Application Name','&lt;/font>&lt;/td>&lt;/tr>','&lt;br>&lt;/br>',&#xA;'&lt;tr>&lt;td width=&quot;100%&quot; align=&quot;center&quot;>&lt;table cols=&quot;1&quot;>',&#xA;'&lt;td length=&quot;70&quot;>&lt;font color=&quot;green&quot;>Application Name &lt;/font >&lt;/td>&lt;td length=&quot;0&quot;>&lt;/td>','&lt;td length=&quot;70&quot;>&lt;input type=&quot;text&quot; name=&quot;application&quot; > &lt;/td>&lt;/tr>',&#xA;'&lt;td length=&quot;70&quot;>&lt;font color=&quot;green&quot;>Username &lt;/font >&lt;/td>&lt;td length=&quot;0&quot;>&lt;/td>','&lt;td length=&quot;70&quot;>&lt;input type=&quot;text&quot; name=&quot;username&quot; > &lt;/td>&lt;/tr>',&#xA;'&lt;td length=&quot;70&quot;>&lt;font color=&quot;green&quot;>Password &lt;/font >&lt;/td>&lt;td length=&quot;0&quot;>&lt;/td>','&lt;td length=&quot;70&quot;>&lt;input type=&quot;password&quot; name=&quot;password&quot; > &lt;/td>&lt;/tr>',&#xA;'&lt;td length=&quot;70&quot;>&lt;font color=&quot;green&quot;>Incident Required&lt;/font >&lt;/td>&lt;td length=&quot;0&quot;>&lt;/td>','&lt;td length=&quot;70&quot;>&lt;input type=&quot;radio&quot; name=&quot;Incident&quot; id=&quot;Yes&quot; value=&quot;Y&quot; checked>Y&lt;br>&lt;input type=&quot;radio&quot; name=&quot;Incident&quot; id=&quot;No&quot; value= &quot;N&quot;>N&lt;/td>&lt;/tr>',&#xA;'&lt;/table>','&lt;br>&#xA;',&#xA;'&lt;input type=&quot;submit&quot; name=&quot;Start Service&quot; value=&quot;Start&quot;>',&#xA;&#xA;'&lt;input type=&quot;submit&quot; name=&quot;Stop Service&quot; value=&quot;Stop&quot;>',&#xA;&#xA;'&lt;/center>&lt;/div>','&lt;/form>','&lt;/body&amp; gt;&lt;/html>')&#xA;else&#xA;&#xA;concat('&lt;html>','&lt;head>&lt;title>Trigger Tibco applications via HTTP&lt;/title>&lt;/head>',&#xA;'&lt;body bgcolor=&quot;#e6e6e6&quot; link=&quot;#000080&quot; vlink=&quot;#008080&quot; alink=&quot;#000080&quot;>','&lt;form method=&quot;POST&quot;>','&lt;p align=&quot;center&quot;>&lt;big>&lt;font color=&quot;#FF0000&quot; face=&quot;Arial Rounded MT Bold&quot;>&lt;em>Restart All  Mission Critical  Applications&lt;/em>&lt;/font>&lt;/big>&lt;/p&amp; gt;',&#xA;'&lt;div align=&quot;center&quot;>&lt;center>',$CatchKnownException/pfx:ExceptionRequest/ns3:Header/ns3:Message,'&lt;br>&#xA;',&#xA;'&lt;table border=&quot;1&quot; style=&quot;width:24%; background-color: #f1f1c1;&quot; cellpadding=&quot;2&quot;>','&lt;tr>&lt;td width=&quot;100%&quot;>&lt;p align=&quot;center&quot;>&lt;font face=&quot;Arial&quot;>Enter Credentials','&lt;/font>&lt;/td>&lt;/tr>','&lt;br>&lt;/br>',&#xA;'&lt;tr>&lt;td width=&quot;100%&quot; align=&quot;center&quot;>&lt;table cols=&quot;1&quot;>',&#xA;'&lt;td length=&quot;70&quot;>&lt;font color=&quot;green&quot;>Username &lt;/font >&lt;/td>&lt;td length=&quot;0&quot;>&lt;/td>','&lt;td length=&quot;70&quot;>&lt;input type=&quot;text&quot; name=&quot;username&quot; > &lt;/td>&lt;/tr>',&#xA;'&lt;td length=&quot;70&quot;>&lt;font color=&quot;green&quot;>Password &lt;/font >&lt;/td>&lt;td length=&quot;0&quot;>&lt;/td>','&lt;td length=&quot;70&quot;>&lt;input type=&quot;password&quot; name=&quot;password&quot; > &lt;/td>&lt;/tr>',&#xA;'&lt;/table>','&lt;br>&#xA;',&#xA;'&lt;input type=&quot;submit&quot; name=&quot;Start Service&quot; value=&quot;Start&quot;>',&#xA;&#xA;'&lt;input type=&quot;submit&quot; name=&quot;Stop Service&quot; value=&quot;Stop&quot;>',&#xA;'&lt;/center>&lt;/div>','&lt;/form>','&lt;/body&amp; gt;&lt;/html>')&#xA;&#xA;else &#xA;concat('&lt;html>','&lt;head>&lt;title>Trigger Tibco applications via HTTP&lt;/title>&lt;/head>',&#xA;'&lt;body bgcolor=&quot;#e6e6e6&quot; link=&quot;#000080&quot; vlink=&quot;#008080&quot; alink=&quot;#000080&quot;>','&lt;p align=&quot;center&quot;>&lt;big>&lt;font color=&quot;#004080&quot; face=&quot;Arial Rounded MT Bold&quot;>&lt;em>HTTP Request to Restart  TIBCO Applications&lt;/em>&lt;/font>&lt;/big>&lt;/p&amp; gt;',&#xA;'&lt;div align=&quot;center&quot;>&lt;center>','Request failed due to some technical exception',&#xA;&#xA;'&lt;/center>&lt;/div>','&lt;/body&amp; gt;&lt;/html>')"/>
+                </asciiContent>
+            </ResponseActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Invoke AD Authentication Service">
+        <pd:type>com.tibco.plugin.json.activities.RestActivity</pd:type>
+        <pd:resourceType>ae.activities.RestActivity</pd:resourceType>
+        <pd:x>360</pd:x>
+        <pd:y>50</pd:y>
+        <config>
+            <enableProtocolUI>None</enableProtocolUI>
+            <restMethodUI>%%ApplicationDetails/ADAuthentication/Method%%</restMethodUI>
+            <restResponseType>%%ApplicationDetails/ADAuthentication/Response%%</restResponseType>
+            <authChoiceUI>No Authentication</authChoiceUI>
+            <WADLPaths/>
+            <WADLBaseURL/>
+            <restMethodIDUI/>
+            <restURI>%%ApplicationDetails/ADAuthentication/URI%%</restURI>
+            <restInputReferNode>
+                <xsd:element name="Parameters">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="Query" minOccurs="0">
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element name="UserId" type="xsd:string"/>
+                                        <xsd:element name="Password" type="xsd:normalizedString"/>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                            <xsd:element name="Header" minOccurs="0">
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element name="param" type="xsd:string" minOccurs="0"/>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                            <xsd:element name="Body" minOccurs="0">
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element name="Form" minOccurs="0">
+                                            <xsd:complexType>
+                                                <xsd:sequence>
+                                                    <xsd:element name="param" type="xsd:string" minOccurs="0"/>
+                                                </xsd:sequence>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                        <xsd:element name="Text" minOccurs="0">
+                                            <xsd:complexType>
+                                                <xsd:sequence>
+                                                    <xsd:element name="type" type="xsd:string" minOccurs="0"/>
+                                                    <xsd:element name="content" type="xsd:string" minOccurs="0"/>
+                                                </xsd:sequence>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                        <xsd:element name="Binary" minOccurs="0">
+                                            <xsd:complexType>
+                                                <xsd:sequence>
+                                                    <xsd:element name="type" type="xsd:string" minOccurs="0"/>
+                                                    <xsd:element name="content" type="xsd:base64Binary" minOccurs="0"/>
+                                                </xsd:sequence>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                        <xsd:element name="Multipart" minOccurs="0" maxOccurs="unbounded">
+                                            <xsd:complexType>
+                                                <xsd:sequence>
+                                                    <xsd:element name="content-disposition" type="xsd:string" minOccurs="0"/>
+                                                    <xsd:element name="name" type="xsd:string" minOccurs="0"/>
+                                                    <xsd:element name="filename" type="xsd:string" minOccurs="0"/>
+                                                    <xsd:element name="content-type" type="xsd:string" minOccurs="0"/>
+                                                    <xsd:element name="content-id" type="xsd:string" minOccurs="0"/>
+                                                    <xsd:element name="content" minOccurs="0">
+                                                        <xsd:complexType>
+                                                            <xsd:choice>
+                                                                <xsd:element name="binary" type="xsd:base64Binary"/>
+                                                                <xsd:element name="text" type="xsd:string"/>
+                                                                <xsd:element name="fileName" type="xsd:string"/>
+                                                            </xsd:choice>
+                                                        </xsd:complexType>
+                                                    </xsd:element>
+                                                </xsd:sequence>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </restInputReferNode>
+            <restOutputReferNode>
+                <xsd:element name="header">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="Server" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Location" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Allow" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Date" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Set-Cookie" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Pragma" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Content-Type" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Content-Length" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Content-Encoding" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Content-Range" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Last-Modifie" type="xsd:string" minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </restOutputReferNode>
+        </config>
+        <pd:inputBindings>
+            <pfx2:ActivityInput>
+                <pfx2:Parameters>
+                    <Query>
+                        <UserId>
+                            <xsl:value-of select="substring-before(substring-after($HTTP_Trigger_Receiver/ProcessStarterOutput/PostData, 'username='), concat(&quot;&amp;&quot;,'password'))"/>
+                        </UserId>
+                        <Password>
+                            <xsl:value-of select="substring-after(tib:substring-before-last($HTTP_Trigger_Receiver/ProcessStarterOutput/PostData, &quot;&amp;&quot;),'password=')"/>
+                        </Password>
+                    </Query>
+                </pfx2:Parameters>
+            </pfx2:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Incorrect credentials">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>482</pd:x>
+        <pd:y>129</pd:y>
+        <config>
+            <faultName>AuthenticationErrorSchema</faultName>
+        </config>
+        <pd:inputBindings>
+            <ns13:ActivityInput>
+                <message>
+                    <xsl:value-of select="'Invalid Username/Password !! Please try again !!'"/>
+                </message>
+                <data>
+                    <pfx:ExceptionRequest>
+                        <ns3:Header>
+                            <ns3:ApplicationID>
+                                <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/Environment/CommonLE/ApplicationID"/>
+                            </ns3:ApplicationID>
+                            <ns3:ComponentName>
+                                <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns:ProcessContext/ProcessId)"/>
+                            </ns3:ComponentName>
+                            <ns3:Hostname>
+                                <xsl:value-of select="BW:getHostName()"/>
+                            </ns3:Hostname>
+                            <ns3:Timestamp>
+                                <xsl:value-of select="current-dateTime()"/>
+                            </ns3:Timestamp>
+                            <ns3:TransactionDomain>
+                                <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/InterfaceRestart/TransactionDomain"/>
+                            </ns3:TransactionDomain>
+                            <ns3:TransactionType>
+                                <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/InterfaceRestart/TransactionType"/>
+                            </ns3:TransactionType>
+                            <ns3:TransactionID>
+                                <xsl:value-of select="if($SetCLEHeader/ns12:Header/ns12:TransactionID !='')&#xA;then $SetCLEHeader/ns12:Header/ns12:TransactionID&#xA;else tib:format-dateTime('yyyyMMdd-HHmmss', current-dateTime())"/>
+                            </ns3:TransactionID>
+                            <ns3:CorrelationID>
+                                <xsl:value-of select="if($SetCLEHeader/ns12:Header/ns12:CorrelationID !='')&#xA;then $SetCLEHeader/ns12:Header/ns12:CorrelationID&#xA;else tib:format-dateTime('yyyyMMdd-HHmmss', current-dateTime())"/>
+                            </ns3:CorrelationID>
+                            <ns3:InterfaceID>
+                                <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/InterfaceRestart/InterfaceId"/>
+                            </ns3:InterfaceID>
+                            <ns3:Message>
+                                <xsl:value-of select="'Invalid Username/Password !! Please try again !!'"/>
+                            </ns3:Message>
+                            <ns3:Transaction>
+                                <xsl:value-of select="if(not(contains($HTTP_Trigger_Receiver/ProcessStarterOutput/RequestURI,'MC')))&#xA;&#xA;then concat('Request initiated by ' ,substring-before(substring-after($HTTP_Trigger_Receiver/ProcessStarterOutput/PostData, 'username='), concat(&quot;&amp;&quot;,'password')),' for application ', Zimmer:stringReplace(substring-before(substring-after($HTTP_Trigger_Receiver/ProcessStarterOutput/PostData, 'application='), concat(&quot;&amp;&quot;,'username')),'%2F','/'))&#xA;&#xA;else concat('Request initiated by ' ,substring-before(substring-after($HTTP_Trigger_Receiver/ProcessStarterOutput/PostData, 'username='), concat(&quot;&amp;&quot;,'password')),' for all MC Applications' )"/>
+                            </ns3:Transaction>
+                        </ns3:Header>
+                        <ExceptionCode>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/ExceptionCodes/TECHNICAL-100"/>
+                        </ExceptionCode>
+                    </pfx:ExceptionRequest>
+                </data>
+            </ns13:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Invoke-AD-Authentication-Service-1">
+        <pd:type>com.tibco.plugin.json.activities.RestActivity</pd:type>
+        <pd:resourceType>ae.activities.RestActivity</pd:resourceType>
+        <pd:x>373</pd:x>
+        <pd:y>237</pd:y>
+        <config>
+            <enableProtocolUI>None</enableProtocolUI>
+            <restMethodUI>%%ApplicationDetails/ADAuthentication/Method%%</restMethodUI>
+            <restResponseType>%%ApplicationDetails/ADAuthentication/Response%%</restResponseType>
+            <authChoiceUI>No Authentication</authChoiceUI>
+            <WADLPaths/>
+            <WADLBaseURL/>
+            <restMethodIDUI/>
+            <restURI>%%ApplicationDetails/ADAuthentication/URI%%</restURI>
+            <restInputReferNode>
+                <xsd:element name="Parameters">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="Query" minOccurs="0">
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element name="UserId" type="xsd:string"/>
+                                        <xsd:element name="Password" type="xsd:normalizedString"/>
+                                        <xsd:element name="IncidentRequired" type="xsd:string"/>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                            <xsd:element name="Header" minOccurs="0">
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element name="param" type="xsd:string" minOccurs="0"/>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                            <xsd:element name="Body" minOccurs="0">
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element name="Form" minOccurs="0">
+                                            <xsd:complexType>
+                                                <xsd:sequence>
+                                                    <xsd:element name="param" type="xsd:string" minOccurs="0"/>
+                                                </xsd:sequence>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                        <xsd:element name="Text" minOccurs="0">
+                                            <xsd:complexType>
+                                                <xsd:sequence>
+                                                    <xsd:element name="type" type="xsd:string" minOccurs="0"/>
+                                                    <xsd:element name="content" type="xsd:string" minOccurs="0"/>
+                                                </xsd:sequence>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                        <xsd:element name="Binary" minOccurs="0">
+                                            <xsd:complexType>
+                                                <xsd:sequence>
+                                                    <xsd:element name="type" type="xsd:string" minOccurs="0"/>
+                                                    <xsd:element name="content" type="xsd:base64Binary" minOccurs="0"/>
+                                                </xsd:sequence>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                        <xsd:element name="Multipart" minOccurs="0" maxOccurs="unbounded">
+                                            <xsd:complexType>
+                                                <xsd:sequence>
+                                                    <xsd:element name="content-disposition" type="xsd:string" minOccurs="0"/>
+                                                    <xsd:element name="name" type="xsd:string" minOccurs="0"/>
+                                                    <xsd:element name="filename" type="xsd:string" minOccurs="0"/>
+                                                    <xsd:element name="content-type" type="xsd:string" minOccurs="0"/>
+                                                    <xsd:element name="content-id" type="xsd:string" minOccurs="0"/>
+                                                    <xsd:element name="content" minOccurs="0">
+                                                        <xsd:complexType>
+                                                            <xsd:choice>
+                                                                <xsd:element name="binary" type="xsd:base64Binary"/>
+                                                                <xsd:element name="text" type="xsd:string"/>
+                                                                <xsd:element name="fileName" type="xsd:string"/>
+                                                            </xsd:choice>
+                                                        </xsd:complexType>
+                                                    </xsd:element>
+                                                </xsd:sequence>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </restInputReferNode>
+            <restOutputReferNode>
+                <xsd:element name="header">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="Server" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Location" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Allow" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Date" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Set-Cookie" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Pragma" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Content-Type" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Content-Length" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Content-Encoding" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Content-Range" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Last-Modifie" type="xsd:string" minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </restOutputReferNode>
+        </config>
+        <pd:inputBindings>
+            <pfx2:ActivityInput>
+                <pfx2:Parameters>
+                    <Query>
+                        <UserId>
+                            <xsl:value-of select="substring-before(substring-after($HTTP_Trigger_Receiver/ProcessStarterOutput/PostData, 'username='), concat(&quot;&amp;&quot;,'password'))"/>
+                        </UserId>
+                        <Password>
+                            <xsl:value-of select="substring-after(substring-before($HTTP_Trigger_Receiver/ProcessStarterOutput/PostData, concat(&quot;&amp;&quot;,'Incident')) ,'password=')"/>
+                        </Password>
+                        <IncidentRequired>
+                            <xsl:value-of select="substring-after(tib:substring-before-last($HTTP_Trigger_Receiver/ProcessStarterOutput/PostData, &quot;&amp;&quot;),'Incident=')"/>
+                        </IncidentRequired>
+                    </Query>
+                </pfx2:Parameters>
+            </pfx2:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="EndLog-MCApp">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>809</pd:x>
+        <pd:y>35</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendLog.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns12:LogRequest>
+                <ns12:Header>
+                    <ns12:Message>
+                        <xsl:value-of select="'MC Interface request received'"/>
+                    </ns12:Message>
+                    <ns12:Transaction>
+                        <xsl:value-of select="concat('Request initiated by ' ,substring-before(substring-after($HTTP_Trigger_Receiver/ProcessStarterOutput/PostData, 'username='), concat(&quot;&amp;&quot;,'password')),' for all MC Applications' )"/>
+                    </ns12:Transaction>
+                </ns12:Header>
+                <ns12:Status>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/Status/STARTED"/>
+                </ns12:Status>
+                <ns12:Audit>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/AuditFlag"/>
+                </ns12:Audit>
+                <ns12:LogLevel>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/Environment/CommonLE/LOGGING_LEVEL_NUM_INFO"/>
+                </ns12:LogLevel>
+            </ns12:LogRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="EndLog-SingleApp">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>800</pd:x>
+        <pd:y>237</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendLog.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns12:LogRequest>
+                <ns12:Header>
+                    <ns12:Message>
+                        <xsl:value-of select="'Single APP Interface Request Received'"/>
+                    </ns12:Message>
+                    <ns12:Transaction>
+                        <xsl:value-of select="concat('Request initiated by ' ,substring-before(substring-after($HTTP_Trigger_Receiver/ProcessStarterOutput/PostData, 'username='), concat(&quot;&amp;&quot;,'password')),' for application ', Zimmer:stringReplace(Zimmer:stringReplace(substring-before(substring-after($HTTP_Trigger_Receiver/ProcessStarterOutput/PostData, 'application='), concat(&quot;&amp;&quot;,'username')),'%2F','/'),'+',' ' ))"/>
+                    </ns12:Transaction>
+                </ns12:Header>
+                <ns12:Status>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/Status/STARTED"/>
+                </ns12:Status>
+                <ns12:Audit>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/AuditFlag"/>
+                </ns12:Audit>
+                <ns12:LogLevel>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/Environment/CommonLE/LOGGING_LEVEL_NUM_INFO"/>
+                </ns12:LogLevel>
+            </ns12:LogRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="CatchKnownException">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>1270</pd:x>
+        <pd:y>113</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=ExceptionRequest namespace=http://www.tibco.com/CommonLE2/namespace/Public/Exception/ExceptionRequest.xsd</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="SendKnownExceptiontoCLE">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>1126</pd:x>
+        <pd:y>114</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendException.process</processName>
+        </config>
+        <pd:inputBindings>
+            <xsl:for-each select="$CatchKnownException/pfx:ExceptionRequest">
+                <ns12:ExceptionRequest>
+                    <xsl:for-each select="ns3:Header">
+                        <ns12:Header>
+                            <xsl:if test="ns3:ComponentName">
+                                <ns12:ComponentName>
+                                    <xsl:value-of select="ns3:ComponentName"/>
+                                </ns12:ComponentName>
+                            </xsl:if>
+                            <xsl:if test="ns3:Hostname">
+                                <ns12:Hostname>
+                                    <xsl:value-of select="ns3:Hostname"/>
+                                </ns12:Hostname>
+                            </xsl:if>
+                            <xsl:if test="ns3:TransactionDomain">
+                                <ns12:TransactionDomain>
+                                    <xsl:value-of select="ns3:TransactionDomain"/>
+                                </ns12:TransactionDomain>
+                            </xsl:if>
+                            <xsl:if test="ns3:TransactionType">
+                                <ns12:TransactionType>
+                                    <xsl:value-of select="ns3:TransactionType"/>
+                                </ns12:TransactionType>
+                            </xsl:if>
+                            <xsl:if test="ns3:TransactionID">
+                                <ns12:TransactionID>
+                                    <xsl:value-of select="ns3:TransactionID"/>
+                                </ns12:TransactionID>
+                            </xsl:if>
+                            <xsl:if test="ns3:CorrelationID">
+                                <ns12:CorrelationID>
+                                    <xsl:value-of select="ns3:CorrelationID"/>
+                                </ns12:CorrelationID>
+                            </xsl:if>
+                            <xsl:if test="ns3:InterfaceID">
+                                <ns12:InterfaceID>
+                                    <xsl:value-of select="ns3:InterfaceID"/>
+                                </ns12:InterfaceID>
+                            </xsl:if>
+                            <xsl:if test="ns3:Filename">
+                                <ns12:Filename>
+                                    <xsl:value-of select="ns3:Filename"/>
+                                </ns12:Filename>
+                            </xsl:if>
+                            <xsl:if test="ns3:Message">
+                                <ns12:Message>
+                                    <xsl:value-of select="ns3:Message"/>
+                                </ns12:Message>
+                            </xsl:if>
+                            <xsl:if test="ns3:RenderID">
+                                <ns12:RenderID>
+                                    <xsl:value-of select="ns3:RenderID"/>
+                                </ns12:RenderID>
+                            </xsl:if>
+                            <xsl:if test="ns3:DataEncoding">
+                                <ns12:DataEncoding>
+                                    <xsl:value-of select="ns3:DataEncoding"/>
+                                </ns12:DataEncoding>
+                            </xsl:if>
+                            <xsl:if test="ns3:Transaction">
+                                <ns12:Transaction>
+                                    <xsl:value-of select="ns3:Transaction"/>
+                                </ns12:Transaction>
+                            </xsl:if>
+                        </ns12:Header>
+                    </xsl:for-each>
+                    <ns12:ExceptionCode>
+                        <xsl:value-of select="ExceptionCode"/>
+                    </ns12:ExceptionCode>
+                    <xsl:if test="StackTrace">
+                        <ns12:StackTrace>
+                            <xsl:value-of select="StackTrace"/>
+                        </ns12:StackTrace>
+                    </xsl:if>
+                    <xsl:if test="Custom">
+                        <ns12:Custom>
+                            <xsl:value-of select="Custom"/>
+                        </ns12:Custom>
+                    </xsl:if>
+                    <xsl:if test="Timeout">
+                        <ns12:Timeout>
+                            <xsl:value-of select="Timeout"/>
+                        </ns12:Timeout>
+                    </xsl:if>
+                    <xsl:if test="ReplyDestination">
+                        <ns12:ReplyDestination>
+                            <xsl:value-of select="ReplyDestination"/>
+                        </ns12:ReplyDestination>
+                    </xsl:if>
+                    <xsl:if test="NotificationChannel">
+                        <ns12:NotificationChannel>
+                            <xsl:value-of select="NotificationChannel"/>
+                        </ns12:NotificationChannel>
+                    </xsl:if>
+                </ns12:ExceptionRequest>
+            </xsl:for-each>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="LogKnownException">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>991</pd:x>
+        <pd:y>116</pd:y>
+        <config>
+            <processName>/CLE/Interface/SendLog.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns12:LogRequest>
+                <xsl:for-each select="$CatchKnownException/pfx:ExceptionRequest/ns3:Header">
+                    <ns12:Header>
+                        <xsl:if test="ns3:ComponentName">
+                            <ns12:ComponentName>
+                                <xsl:value-of select="ns3:ComponentName"/>
+                            </ns12:ComponentName>
+                        </xsl:if>
+                        <xsl:if test="ns3:Hostname">
+                            <ns12:Hostname>
+                                <xsl:value-of select="ns3:Hostname"/>
+                            </ns12:Hostname>
+                        </xsl:if>
+                        <xsl:if test="ns3:TransactionDomain">
+                            <ns12:TransactionDomain>
+                                <xsl:value-of select="ns3:TransactionDomain"/>
+                            </ns12:TransactionDomain>
+                        </xsl:if>
+                        <xsl:if test="ns3:TransactionType">
+                            <ns12:TransactionType>
+                                <xsl:value-of select="ns3:TransactionType"/>
+                            </ns12:TransactionType>
+                        </xsl:if>
+                        <xsl:if test="ns3:TransactionID">
+                            <ns12:TransactionID>
+                                <xsl:value-of select="ns3:TransactionID"/>
+                            </ns12:TransactionID>
+                        </xsl:if>
+                        <xsl:if test="ns3:CorrelationID">
+                            <ns12:CorrelationID>
+                                <xsl:value-of select="ns3:CorrelationID"/>
+                            </ns12:CorrelationID>
+                        </xsl:if>
+                        <xsl:if test="ns3:InterfaceID">
+                            <ns12:InterfaceID>
+                                <xsl:value-of select="ns3:InterfaceID"/>
+                            </ns12:InterfaceID>
+                        </xsl:if>
+                        <xsl:if test="ns3:Filename">
+                            <ns12:Filename>
+                                <xsl:value-of select="ns3:Filename"/>
+                            </ns12:Filename>
+                        </xsl:if>
+                        <xsl:if test="ns3:Message">
+                            <ns12:Message>
+                                <xsl:value-of select="ns3:Message"/>
+                            </ns12:Message>
+                        </xsl:if>
+                        <xsl:if test="ns3:RenderID">
+                            <ns12:RenderID>
+                                <xsl:value-of select="ns3:RenderID"/>
+                            </ns12:RenderID>
+                        </xsl:if>
+                        <xsl:if test="ns3:DataEncoding">
+                            <ns12:DataEncoding>
+                                <xsl:value-of select="ns3:DataEncoding"/>
+                            </ns12:DataEncoding>
+                        </xsl:if>
+                        <xsl:if test="ns3:Transaction">
+                            <ns12:Transaction>
+                                <xsl:value-of select="ns3:Transaction"/>
+                            </ns12:Transaction>
+                        </xsl:if>
+                    </ns12:Header>
+                </xsl:for-each>
+                <ns12:Status>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/Status/ERROR"/>
+                </ns12:Status>
+                <ns12:Audit>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ApplicationDetails/AuditFlag"/>
+                </ns12:Audit>
+                <ns12:LogLevel>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/Environment/CommonLE/LOGGING_LEVEL_NUM_ERROR"/>
+                </ns12:LogLevel>
+            </ns12:LogRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SendMailNotification">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>737</pd:x>
+        <pd:y>133</pd:y>
+        <config>
+            <processName>/EnterpriseLibrary/Services/SendEmail/SendEmailNotification.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns2:SendEmail>
+                <ns2:From>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/SendEmail/Email_From"/>
+                </ns2:From>
+                <ns2:To>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/SendEmail/Email_To"/>
+                </ns2:To>
+                <ns2:CC>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/SendEmail/Email_CC"/>
+                </ns2:CC>
+                <ns2:Subject>
+                    <xsl:value-of select="concat($_globalVariables/ns1:GlobalVariables/ApplicationDetails/Environment, &quot; Environment&quot;, &quot; || &quot;, &quot;Interface Restart : &quot;,&#xA;Zimmer:stringReplace( tib:substring-after-last(substring-before(substring-after(substring-before&#xA;($HTTP_Trigger_Receiver/ProcessStarterOutput/PostData, &quot;username&quot;), &quot;=&quot;), &quot;&amp;&quot;), &quot;%2F&quot;), '+', '_') &#xA;)"/>
+                </ns2:Subject>
+                <ns2:BodyElement>
+                    <ns2:BodyText>
+                        <xsl:value-of select="if(exists($Invoke-AD-Authentication-Service-1) and $Invoke-AD-Authentication-Service-1!='')&#xA;then &#xA;concat&#xA;(&quot;Hi ServiceDesk Team,&lt;/br>&quot;,&quot;&lt;br>Please create a ticket and assign to TIBCO_NAM_T2 group to restart interface. Please find requested user id and interface name:&lt;/br>&quot;,&#xA;&quot;Interface_Name: &quot;,&#xA;Zimmer:stringReplace( tib:substring-after-last(substring-before(substring-after(substring-before&#xA;($HTTP_Trigger_Receiver/ProcessStarterOutput/PostData, &quot;username&quot;), &quot;=&quot;), &quot;&amp;&quot;), &quot;%2F&quot;), '+', '_'),&quot;&lt;/br>&quot;,&#xA;&quot; User_Name: &quot;,&#xA;substring-before(substring-after($HTTP_Trigger_Receiver/ProcessStarterOutput/PostData, &quot;username=&quot;), &quot;&amp;&quot;),&quot;&lt;/br>&quot;,&#xA;&quot;Environment: &quot;,$_globalVariables/ns1:GlobalVariables/ApplicationDetails/Environment,&quot;&lt;/br>&quot;,&quot;Run_Date: &quot;,current-dateTime()&#xA;)&#xA;else&#xA;concat&#xA;(&quot;Hi ServiceDesk Team,&lt;/br>&quot;,&quot;&lt;br>Please create a ticket and assign to TIBCO_NAM_T2 group to restart MC interfaces. Please find requested user id and interface name:&lt;/br>&quot;,&#xA;&quot;Interface_Name: &quot;,&#xA;Zimmer:stringReplace( tib:substring-after-last(substring-before(substring-after(substring-before&#xA;($HTTP_Trigger_Receiver/ProcessStarterOutput/PostData, &quot;username&quot;), &quot;=&quot;), &quot;&amp;&quot;), &quot;%2F&quot;), '+', '_'),&quot;&lt;/br>&quot;,&#xA;&quot; User_Name: &quot;,&#xA;substring-before(substring-after($HTTP_Trigger_Receiver/ProcessStarterOutput/PostData, &quot;username=&quot;), &quot;&amp;&quot;),&quot;&lt;/br>&quot;,&#xA;&quot;Environment: &quot;,$_globalVariables/ns1:GlobalVariables/ApplicationDetails/Environment,&quot;&lt;/br>&quot;,&quot;Run_Date: &quot;,current-dateTime()&#xA;)"/>
+                    </ns2:BodyText>
+                </ns2:BodyElement>
+                <ns2:Header>
+                    <ns2:ContentType>
+                        <xsl:value-of select="'text/html'"/>
+                    </ns2:ContentType>
+                </ns2:Header>
+            </ns2:SendEmail>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>HTTP_Trigger_Receiver</pd:from>
+        <pd:to>SetCLEHeader</pd:to>
+        <pd:xpathDescription/>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Send App Screen Response</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Send Trigger MC APP Response</pd:from>
+        <pd:to>InitiateMCApp</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Send MC App Response</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>HTTP_Trigger_Receiver</pd:from>
+        <pd:to>Null</pd:to>
+        <pd:xpathDescription>Invalid</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>contains($HTTP_Trigger_Receiver/ProcessStarterOutput/RequestURI,'favicon')</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null</pd:from>
+        <pd:to>Send Invalid Request Response</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Send Trigger Single App Response</pd:from>
+        <pd:to>InitiateSingleAPP</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SetCLEHeader</pd:from>
+        <pd:to>Invoke AD Authentication Service</pd:to>
+        <pd:xpathDescription>Trigger MC APP</pd:xpathDescription>
+        <pd:lineType>Curved</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>(exists($HTTP_Trigger_Receiver/ProcessStarterOutput/PostData) or
+$HTTP_Trigger_Receiver/ProcessStarterOutput/PostData!='')
+and
+contains($HTTP_Trigger_Receiver/ProcessStarterOutput/RequestURI,'MC')
+and
+$HTTP_Trigger_Receiver/ProcessStarterOutput/Method='POST'</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SetCLEHeader</pd:from>
+        <pd:to>Invoke-AD-Authentication-Service-1</pd:to>
+        <pd:xpathDescription>Trigger Single Apps</pd:xpathDescription>
+        <pd:lineType>Curved</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>(exists($HTTP_Trigger_Receiver/ProcessStarterOutput/PostData) or
+$HTTP_Trigger_Receiver/ProcessStarterOutput/PostData!='')
+and
+not (contains($HTTP_Trigger_Receiver/ProcessStarterOutput/RequestURI,'MC'))</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SetCLEHeader</pd:from>
+        <pd:to>Send App Screen Response</pd:to>
+        <pd:xpathDescription>Apps-Screen</pd:xpathDescription>
+        <pd:lineType>Curved</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SetCLEHeader</pd:from>
+        <pd:to>Send MC App Response</pd:to>
+        <pd:xpathDescription>MC-Screen</pd:xpathDescription>
+        <pd:lineType>Curved</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>contains($HTTP_Trigger_Receiver/ProcessStarterOutput/RequestURI,'MC')
+and
+$HTTP_Trigger_Receiver/ProcessStarterOutput/Method='GET'</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Send Invalid Request Response</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>InitiateMCApp</pd:from>
+        <pd:to>SendMailNotification</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>CatchUnknownException</pd:from>
+        <pd:to>SendCatchUnknownexceptionToCLE</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SendCatchUnknownexceptionToCLE</pd:from>
+        <pd:to>LogException</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>LogException</pd:from>
+        <pd:to>Send-HTTP-Response-OnError</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Send-HTTP-Response-OnError</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Invoke AD Authentication Service</pd:from>
+        <pd:to>Send Trigger MC APP Response</pd:to>
+        <pd:xpathDescription>AUTHENTICATED</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>upper-case(substring-before(substring-after($Invoke-AD-Authentication-Service/pfx2:RESTOutput/msg, '&lt;IsAuthenticatedResult&gt;'), '&lt;/IsAuthenticatedResult&gt;'))=upper-case('true')</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Invoke-AD-Authentication-Service-1</pd:from>
+        <pd:to>Send Trigger Single App Response</pd:to>
+        <pd:xpathDescription>AUTHENTICATED</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>upper-case(substring-before(substring-after($Invoke-AD-Authentication-Service-1/pfx2:RESTOutput/msg, '&lt;IsAuthenticatedResult&gt;'), '&lt;/IsAuthenticatedResult&gt;'))=upper-case('true')</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Invoke AD Authentication Service</pd:from>
+        <pd:to>Incorrect credentials</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Invoke-AD-Authentication-Service-1</pd:from>
+        <pd:to>Incorrect credentials</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>EndLog-MCApp</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>InitiateSingleAPP</pd:from>
+        <pd:to>SendMailNotification</pd:to>
+        <pd:xpathDescription>CreateIncident</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$InitiateSingleAPP/root/CreateIncident='Y' and 
+contains($HTTP_Trigger_Receiver/ProcessStarterOutput/PostData,"Incident=Y")</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>EndLog-SingleApp</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>CatchKnownException</pd:from>
+        <pd:to>SendKnownExceptiontoCLE</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SendKnownExceptiontoCLE</pd:from>
+        <pd:to>LogKnownException</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>LogKnownException</pd:from>
+        <pd:to>Send-HTTP-Response-OnError</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SendMailNotification</pd:from>
+        <pd:to>EndLog-SingleApp</pd:to>
+        <pd:xpathDescription>Single APP</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>exists($Invoke-AD-Authentication-Service-1) and $Invoke-AD-Authentication-Service-1!=''</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SendMailNotification</pd:from>
+        <pd:to>EndLog-MCApp</pd:to>
+        <pd:xpathDescription>MC APP</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>exists($Invoke-AD-Authentication-Service) and $Invoke-AD-Authentication-Service!=''</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>InitiateSingleAPP</pd:from>
+        <pd:to>EndLog-SingleApp</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:label>
+        <pd:name>Label</pd:name>
+        <pd:description>This process receives the request whether to restart single app or all MC apps at once . For both it will first authenticate the user and on successfull authentication it will call the initiate process. Proper response will be sent to user in case of success and error.</pd:description>
+        <pd:x>484</pd:x>
+        <pd:y>691</pd:y>
+        <pd:width>797</pd:width>
+        <pd:height>64</pd:height>
+        <pd:fontColor>-16777216</pd:fontColor>
+        <pd:color>-13312</pd:color>
+        <pd:type>solid</pd:type>
+        <pd:thickness>0</pd:thickness>
+        <pd:fade>true</pd:fade>
+    </pd:label>
+</pd:ProcessDefinition>

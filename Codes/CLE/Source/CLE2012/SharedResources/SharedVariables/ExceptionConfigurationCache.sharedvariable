@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BWSharedResource xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx3="http://www.tibco.com/CommonLE2/namespace/Public/Exception" xmlns:pfx2="http://www.tibco.com/CommonLE2/Private/Administration" xmlns:pfx="http://www.tibco.com/CommonLE2/Private/Exception">
+    <import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Exception" schemaLocation="/SharedResources/SchemaDefinitions/Public/Exception/ResolutionReply.xsd"/>
+    <import namespace="http://www.tibco.com/CommonLE2/Private/Administration" schemaLocation="/SharedResources/SchemaDefinitions/Private/Administration/QueryResults.xsd"/>
+    <name>ExceptionConfigurationCache</name>
+    <resourceType>ae.shared.sharedVariable</resourceType>
+    <config xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <persistent>false</persistent>
+        <multi-engine>false</multi-engine>
+        <initialValue>none</initialValue>
+        <xsdString ref="pfx2:ExceptionConfigurationResults"/>
+    </config>
+</BWSharedResource>

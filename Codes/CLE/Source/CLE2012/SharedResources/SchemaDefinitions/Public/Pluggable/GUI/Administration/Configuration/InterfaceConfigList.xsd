@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/InterfaceConfigList"
+	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	 targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/InterfaceConfigList"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xsd:element name="InterfaceConfigListRecord">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="InterfaceID" type="xsd:string"/>
+				<xsd:element name="InterfaceName" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="InterfaceType" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="Owner" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="SourceSystem" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="TargetSystem" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="Status" type="xsd:string"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="InterfaceConfigList">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="InterfaceConfigListRecord" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="InterfaceParentList">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="InterfaceParentRecord" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="InterfaceID" type="xsd:string"/>
+	<xsd:element name="InterfaceParentRecord">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="InterfaceID"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

@@ -1,0 +1,29 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>TECHNICAL-100</name>
+			<value>TECHNICAL-100</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1491384704959</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>TECHNICAL-101</name>
+			<value>TECHNICAL-101</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1491384704897</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>TECHNICAL-777</name>
+			<value>TECHNICAL-777</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1491384705006</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

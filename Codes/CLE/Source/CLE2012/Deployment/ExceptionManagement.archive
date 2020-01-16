@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Repository:repository xmlns:Repository="http://www.tibco.com/xmlns/repo/types/2002">
+    <enterpriseArchive>
+        <sharedArchive name="Shared Archive">
+            <resourceType>shared.archive.resource</resourceType>
+            <authorProperty>cmadhwac</authorProperty>
+            <sharedResources>/ExceptionManagement/DataAccess/MSSQL/SaveExceptionInstance.process,/ExceptionManagement/DataAccess/MSSQL/UpdateExceptionStatus.process,/ExceptionManagement/DataAccess/MSSQL/InsertNotificationTime.process,/ExceptionManagement/DataAccess/MSSQL/RetrieveExceptionsBySchedule.process,/ExceptionManagement/DataAccess/MSSQL/RetrieveExceptionDetail.process,/Administration/DataAccess/ExceptionConfiguration/MSSQL/RetrieveSpecificExceptionConfiguration.process,/Administration/DataAccess/ExceptionConfiguration/MSSQL/RetrieveExceptionConfigurationList.process,/ExceptionManagement/DataAccess/MSSQL/UpdateResolvedExceptions.process,/ExceptionManagement/DataAccess/MSSQL/UpdateNotificationTime.process,/ExceptionManagement/DataAccess/MSSQL/RetrieveLastSentTime.process,/ExceptionManagement/DataAccess/MSSQL/RetrieveExceptionsByEventType.process</sharedResources>
+            <sharedFiles/>
+            <sharedJarFiles/>
+        </sharedArchive>
+        <processArchive name="CLEExceptionMgmt">
+            <resourceType>process.archive.resource</resourceType>
+            <authorProperty>achapla</authorProperty>
+            <processProperty>/ExceptionManagement/ExceptionServices/Handle_Exception_Request-service.serviceagent,/ExceptionManagement/ExceptionServices/JMS Channel.process,/ExceptionManagement/WorkflowServices/OnGetExceptionRequest.process,/ExceptionManagement/WorkflowServices/OnHandlingComplete.process,/Plug-ins/Notification/Communication/NotificationConnector.process,/ExceptionManagement/Logic/Scheduler.process,/ExceptionManagement/ExceptionServices/MonitorResolutionEvents.process,/ExceptionManagement/Logic/OnUpdateExceptionConfiguration.process</processProperty>
+        </processArchive>
+        <versionProperty>1_3_2</versionProperty>
+        <authorProperty>baidyaa</authorProperty>
+        <addServiceSettableGvars>true</addServiceSettableGvars>
+        <name>ExceptionManagement</name>
+        <designer>
+            <lockedProperties/>
+            <fixedChildren/>
+            <resourceDescriptions/>
+        </designer>
+        <fileLocationProperty>C:\LifeIsBeautiful\EAR\ExceptionManagement.ear</fileLocationProperty>
+        <description>Mapping included to log stack trace in the send notification emails</description>
+    </enterpriseArchive>
+</Repository:repository>

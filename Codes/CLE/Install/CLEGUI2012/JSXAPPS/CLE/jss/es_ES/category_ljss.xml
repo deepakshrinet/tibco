@@ -1,0 +1,13 @@
+<data jsxnamespace="propsbundle" locales="">
+  <locale>
+    <record jsxid="category_ApplicationID" jsxtext="ID de Aplicación"/>
+    <record jsxid="category_ID" jsxtext="ID de Categoría"/>
+    <record jsxid="category_Name" jsxtext="Nombre"/>
+    <record jsxid="category_Description" jsxtext="Descripción"/>
+    <record jsxid="category_CategoryName" jsxtext="Nombre de Categoría"/>
+    <record jsxid="category_CategoryID" jsxtext="ID de Categoría"/>
+    <record jsxid="category_createNewItemCaption" jsxtext="Crear Nueva Categoría"/>
+    <record jsxid="category_createCategory" jsxtext="Crear Categoría"/>
+    <record jsxid="category_createCategoryTip" jsxtext="Crear Categoría"/>
+  </locale>
+</data>

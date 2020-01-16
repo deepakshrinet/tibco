@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/namespaces/tnt/plugins/file" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns1="http://www.tibco.com/namespaces/tnt/plugins/file/v2" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx2="http://www.zimmerbiomet.com/xsd/RestartProfile">
+    <xsd:import namespace="http://www.zimmerbiomet.com/xsd/RestartProfile" schemaLocation="/SharedResources/Schemas/XSD/RestartProfile.xsd"/>
+    <pd:name>Services/Operations/InitiateMCApp.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="OperationType" type="xsd:string"/>
+                    <xsd:element name="Correlationid" type="xsd:string" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>56</pd:startX>
+    <pd:startY>84</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>1088</pd:endX>
+    <pd:endY>152</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1489879486533</pd:targetNamespace>
+    <pd:activity name="Get Admin Password">
+        <pd:type>com.tibco.plugin.java.JavaActivity</pd:type>
+        <pd:resourceType>ae.javapalette.javaActivity</pd:resourceType>
+        <pd:x>460</pd:x>
+        <pd:y>87</pd:y>
+        <config>
+            <fullsource>package Services.Operations.InitiateMCApp;
+import java.util.*;
+import java.io.*;
+import com.tibco.pe.plugin.PluginProperties;
+public class InitiateMCAppGetAdminPassword{
+/****** START SET/GET METHOD, DO NOT MODIFY *****/
+	protected String input = "";
+	protected String output = "";
+	public String getinput() {
+		return input;
+	}
+	public void setinput(String val) {
+		input = val;
+	}
+	public String getoutput() {
+		return output;
+	}
+	public void setoutput(String val) {
+		output = val;
+	}
+/****** END SET/GET METHOD, DO NOT MODIFY *****/
+	public InitiateMCAppGetAdminPassword() {
+	}
+	public void invoke() throws Exception {
+/* Available Variables: DO NOT MODIFY
+	In  : String input
+	Out : String output
+* Available Variables: DO NOT MODIFY *****/
+
+
+
+output=PluginProperties.getProperty(input);
+}
+}
+</fullsource>
+            <fileName>InitiateMCAppGetAdminPassword</fileName>
+            <packageName>Services.Operations.InitiateMCApp</packageName>
+            <inputData>
+                <row>
+                    <fieldName>input</fieldName>
+                    <fieldType>string</fieldType>
+                    <fieldRequired>optional</fieldRequired>
+                </row>
+            </inputData>
+            <outputData>
+                <row>
+                    <fieldName>output</fieldName>
+                    <fieldType>string</fieldType>
+                    <fieldRequired>optional</fieldRequired>
+                </row>
+            </outputData>
+            <byteCode>
+                <class>
+                    <name>InitiateMCAppGetAdminPassword</name>
+                    <byteCode>yv66vgAAADMAJgkABgAaCQAGABsKAAcAHAgAHQoAHgAfBwAgBwAhAQAFaW5wdXQBABJMamF2YS9sYW5nL1N0cmluZzsBAAZvdXRwdXQBAAhnZXRpbnB1dAEAFCgpTGphdmEvbGFuZy9TdHJpbmc7AQAEQ29kZQEAD0xpbmVOdW1iZXJUYWJsZQEACHNldGlucHV0AQAVKExqYXZhL2xhbmcvU3RyaW5nOylWAQAJZ2V0b3V0cHV0AQAJc2V0b3V0cHV0AQAGPGluaXQ+AQADKClWAQAGaW52b2tlAQAKRXhjZXB0aW9ucwcAIgEAClNvdXJjZUZpbGUBACJJbml0aWF0ZU1DQXBwR2V0QWRtaW5QYXNzd29yZC5qYXZhDAAIAAkMAAoACQwAEwAUAQAABwAjDAAkACUBAD9TZXJ2aWNlcy9PcGVyYXRpb25zL0luaXRpYXRlTUNBcHAvSW5pdGlhdGVNQ0FwcEdldEFkbWluUGFzc3dvcmQBABBqYXZhL2xhbmcvT2JqZWN0AQATamF2YS9sYW5nL0V4Y2VwdGlvbgEAJGNvbS90aWJjby9wZS9wbHVnaW4vUGx1Z2luUHJvcGVydGllcwEAC2dldFByb3BlcnR5AQAmKExqYXZhL2xhbmcvU3RyaW5nOylMamF2YS9sYW5nL1N0cmluZzsAIQAGAAcAAAACAAQACAAJAAAABAAKAAkAAAAGAAEACwAMAAEADQAAAB0AAQABAAAABSq0AAGwAAAAAQAOAAAABgABAAAACgABAA8AEAABAA0AAAAiAAIAAgAAAAYqK7UAAbEAAAABAA4AAAAKAAIAAAANAAUADgABABEADAABAA0AAAAdAAEAAQAAAAUqtAACsAAAAAEADgAAAAYAAQAAABAAAQASABAAAQANAAAAIgACAAIAAAAGKiu1AAKxAAAAAQAOAAAACgACAAAAEwAFABQAAQATABQAAQANAAAANQACAAEAAAARKrcAAyoSBLUAASoSBLUAArEAAAABAA4AAAASAAQAAAAWAAQABwAKAAgAEAAXAAEAFQAUAAIADQAAACgAAgABAAAADCoqtAABuAAFtQACsQAAAAEADgAAAAoAAgAAACAACwAhABYAAAAEAAEAFwABABgAAAACABk=</byteCode>
+                </class>
+            </byteCode>
+        </config>
+        <pd:inputBindings>
+            <javaCodeActivityInput>
+                <input>
+                    <xsl:value-of select="&quot;tibco.clientVar.ApplicationDetails/InterfaceRestart/AdminPassword&quot;"/>
+                </input>
+            </javaCodeActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Read Property File">
+        <pd:type>com.tibco.plugin.file.FileReadActivity</pd:type>
+        <pd:resourceType>ae.activities.FileReadActivity</pd:resourceType>
+        <pd:x>184</pd:x>
+        <pd:y>85</pd:y>
+        <config>
+            <encoding>text</encoding>
+        </config>
+        <pd:inputBindings>
+            <ns1:ReadActivityInputClass>
+                <fileName>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ApplicationDetails/InterfaceRestart/PropertyFilePath"/>
+                </fileName>
+            </ns1:ReadActivityInputClass>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Parse Property File">
+        <pd:type>com.tibco.plugin.xml.XMLParseActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLParseActivity</pd:resourceType>
+        <pd:x>307</pd:x>
+        <pd:y>97</pd:y>
+        <config>
+            <inputStyle>text</inputStyle>
+            <xsdVersion>default</xsdVersion>
+            <validateOutput>true</validateOutput>
+            <term ref="pfx2:RestartAppList"/>
+        </config>
+        <pd:inputBindings>
+            <xmlString>
+                <xsl:value-of select="$Read-Property-File/ns2:ReadActivityOutputTextClass/fileContent/textContent"/>
+            </xmlString>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:group name="Group">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>604</pd:x>
+        <pd:y>7</pd:y>
+        <pd:width>323</pd:width>
+        <pd:height>276</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>inputLoop</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:over>$Parse-Property-File/pfx2:RestartAppList/pfx2:ApplicationName</pd:over>
+            <pd:iterationElementSlot>curr</pd:iterationElementSlot>
+            <pd:indexSlot>ind</pd:indexSlot>
+            <pd:activityOutputName/>
+            <pd:accumulateOutput>false</pd:accumulateOutput>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>StartServices</pd:to>
+            <pd:xpathDescription>Start</pd:xpathDescription>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>xpath</pd:conditionType>
+            <pd:xpath>contains($Start/root/OperationType,'Start+Service=Start')</pd:xpath>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>StopServices</pd:to>
+            <pd:xpathDescription>Stop</pd:xpathDescription>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>xpath</pd:conditionType>
+            <pd:xpath>contains($Start/root/OperationType,'Stop+Service=Stop')</pd:xpath>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>Null-1</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>otherwise</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Null-1</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>StopServices</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>StartServices</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="StartServices">
+            <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+            <pd:resourceType>ae.process.subprocess</pd:resourceType>
+            <pd:x>757</pd:x>
+            <pd:y>72</pd:y>
+            <config>
+                <processName>/Services/Operations/StartServices.process</processName>
+                <spawn>true</spawn>
+            </config>
+            <pd:inputBindings>
+                <root>
+                    <ApplicationName>
+                        <xsl:value-of select="if(contains($curr/pfx2:ApplicationName,'.par')) then tib:substring-before-last($curr/pfx2:ApplicationName, '/') else $curr/pfx2:ApplicationName"/>
+                    </ApplicationName>
+                    <xsl:if test="$Get-Admin-Password/javaCodeActivityOutput/output">
+                        <AdminPassword>
+                            <xsl:value-of select="$Get-Admin-Password/javaCodeActivityOutput/output"/>
+                        </AdminPassword>
+                    </xsl:if>
+                    <Correlationid>
+                        <xsl:value-of select="$Start/root/Correlationid"/>
+                    </Correlationid>
+                    <PARName>
+                        <xsl:value-of select="if(contains($curr/pfx2:ApplicationName,'.par')) then tib:substring-after-last($curr/pfx2:ApplicationName, '/') else 1"/>
+                    </PARName>
+                </root>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="StopServices">
+            <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+            <pd:resourceType>ae.process.subprocess</pd:resourceType>
+            <pd:x>764</pd:x>
+            <pd:y>149</pd:y>
+            <config>
+                <processName>/Services/Operations/StopServices.process</processName>
+                <spawn>true</spawn>
+            </config>
+            <pd:inputBindings>
+                <root>
+                    <ApplicationName>
+                        <xsl:value-of select="if(contains($curr/pfx2:ApplicationName,'.par')) then tib:substring-before-last($curr/pfx2:ApplicationName, '/') else $curr/pfx2:ApplicationName"/>
+                    </ApplicationName>
+                    <AdminPassword>
+                        <xsl:value-of select="$Get-Admin-Password/javaCodeActivityOutput/output"/>
+                    </AdminPassword>
+                    <Correlationid>
+                        <xsl:value-of select="$Start/root/Correlationid"/>
+                    </Correlationid>
+                    <PARName>
+                        <xsl:value-of select="if(contains($curr/pfx2:ApplicationName,'.par')) then tib:substring-after-last($curr/pfx2:ApplicationName, '/') else 1"/>
+                    </PARName>
+                </root>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="Null-1">
+            <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+            <pd:resourceType>ae.activities.null</pd:resourceType>
+            <pd:x>755</pd:x>
+            <pd:y>229</pd:y>
+            <config/>
+            <pd:inputBindings/>
+        </pd:activity>
+    </pd:group>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Read Property File</pd:to>
+        <pd:xpathDescription/>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Read Property File</pd:from>
+        <pd:to>Parse Property File</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse Property File</pd:from>
+        <pd:to>Get Admin Password</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Get Admin Password</pd:from>
+        <pd:to>Group</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:label>
+        <pd:name>Label</pd:name>
+        <pd:description>This process gets the operation name start/stop in start activity , then it fetches the apps to be restarted or stopped from the property file and calls the subprocess (start or stop) based on the values received.</pd:description>
+        <pd:x>305</pd:x>
+        <pd:y>242</pd:y>
+        <pd:width>528</pd:width>
+        <pd:height>69</pd:height>
+        <pd:fontColor>-16777216</pd:fontColor>
+        <pd:color>-13312</pd:color>
+        <pd:type>solid</pd:type>
+        <pd:thickness>0</pd:thickness>
+        <pd:fade>true</pd:fade>
+    </pd:label>
+</pd:ProcessDefinition>

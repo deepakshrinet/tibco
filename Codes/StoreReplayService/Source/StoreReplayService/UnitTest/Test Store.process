@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.zimmer.com/schemas/StoreReplayService/StoreAndReplayService/Schemas/Schema.xsd" xmlns:pfx="http://www.zimmer.com/tibco/schemas/ZBS/XSD/StoreReplayService/v1/StoreMessageSchema.xsd">
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.zimmer.com/schemas/StoreReplayService/StoreAndReplayService/Schemas/Schema.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.zimmer.com/tibco/schemas/ZBS/XSD/StoreReplayService/v1/StoreMessageSchema.xsd" schemaLocation="/EnterpriseLibrary/SharedResources/Schemas/XSD/StoreMessageSchema.xsd"/>
+    <pd:name>UnitTest/Test Store.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startX>150</pd:startX>
+    <pd:startY>64</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>450</pd:endX>
+    <pd:endY>64</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1327644244043</pd:targetNamespace>
+    <pd:activity name="JMS-Queue-Sender-1">
+        <pd:type>com.tibco.plugin.jms.JMSQueueSendActivity</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueSendActivity</pd:resourceType>
+        <pd:x>302</pd:x>
+        <pd:y>64</pd:y>
+        <config>
+            <PermittedMessageType>XML Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+                <destination>%%StoreAndReplayService/StoreService/QueueName%%</destination>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/EnterpriseLibrary/SharedResources/Connections/JMS/TIBCO_JMS_Connection.sharedjmscon</ConnectionReference>
+            <InDataxsdString ref="pfx:StoreMessage"/>
+        </config>
+        <pd:inputBindings>
+            <ns2:ActivityInput>
+                <Body>
+                    <pfx:StoreMessage>
+                        <pfx:GUID>
+                            <xsl:value-of select="89"/>
+                        </pfx:GUID>
+                        <pfx:TransactionID>
+                            <xsl:value-of select="'245'"/>
+                        </pfx:TransactionID>
+                        <pfx:OriginalDestination>
+                            <xsl:value-of select="'sample'"/>
+                        </pfx:OriginalDestination>
+                        <pfx:Reason>
+                            <xsl:value-of select="'system_error'"/>
+                        </pfx:Reason>
+                        <pfx:ApplicationName>
+                            <xsl:value-of select="'test52'"/>
+                        </pfx:ApplicationName>
+                        <pfx:TargetSystem>
+                            <xsl:value-of select="'TEST286'"/>
+                        </pfx:TargetSystem>
+                        <pfx:MessageTime>
+                            <xsl:value-of select="current-dateTime()"/>
+                        </pfx:MessageTime>
+                        <pfx:Message>
+                            <xsl:value-of select="'&lt;?xml version = &quot;1.0&quot; encoding = &quot;UTF-8&quot;?>&#xA;&lt;ProcessStarterOutput>&#xA; &lt;subject>ZBS.SRM.CAI.IDPM.PUB.MBCREATEGOODSMOVEMENT.SYNC&lt;/subject>&#xA; &lt;MessageID>ID:EMS-SERVER.CE84EB2EBC05FD82:167&lt;/MessageID>&#xA; &lt;JMSHeaders>&#xA;  &lt;ns0:JMSDestination xmlns:ns0 = &quot;http://www.tibco.com/namespaces/tnt/plugins/jms&quot;>ZBS.SRM.CAI.IDPM.PUB.MBCREATEGOODSMOVEMENT.SYNC&lt;/ns0:JMSDestination>&#xA;  &lt;ns0:JMSDeliveryMode xmlns:ns0 = &quot;http://www.tibco.com/namespaces/tnt/plugins/jms&quot;>PERSISTENT&lt;/ns0:JMSDeliveryMode>&#xA;  &lt;ns0:JMSMessageID xmlns:ns0 = &quot;http://www.tibco.com/namespaces/tnt/plugins/jms&quot;>ID:EMS-SERVER.CE84EB2EBC05FD82:167&lt;/ns0:JMSMessageID>&#xA;  &lt;ns0:JMSTimestamp xmlns:ns0 = &quot;http://www.tibco.com/namespaces/tnt/plugins/jms&quot;>1324585418092&lt;/ns0:JMSTimestamp>&#xA;  &lt;ns0:JMSExpiration xmlns:ns0 = &quot;http://www.tibco.com/namespaces/tnt/plugins/jms&quot;>0&lt;/ns0:JMSExpiration>&#xA;  &lt;ns0:JMSRedelivered xmlns:ns0 = &quot;http://www.tibco.com/namespaces/tnt/plugins/jms&quot;>false&lt;/ns0:JMSRedelivered>&#xA;  &lt;ns0:JMSPriority xmlns:ns0 = &quot;http://www.tibco.com/namespaces/tnt/plugins/jms&quot;>4&lt;/ns0:JMSPriority>&#xA; &lt;/JMSHeaders>&#xA; &lt;trackingInfo>&#xA;  &lt;id>QS6--C--HjCFmU3k-5mL0gsY6-VGg&lt;/id>&#xA;  &lt;appInfo>&#xA;   &lt;info>&#xA;    &lt;item>SAPAdapter.SRMAdapterForAllTxns-SRMAllDataADR3Adapter.IDOC.PUBLISH&lt;/item>&#xA;   &lt;/info>&#xA;  &lt;/appInfo>&#xA; &lt;/trackingInfo>&#xA; &lt;body>&#xA;  &lt;ns:MBGMCR01-4x xmlns:ae = &quot;http://www.tibco.com/xmlns/ae2xsd/2002/05&quot; xmlns:ns = &quot;http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/702/basic/IDOCS&quot; xmlns:xsi = &quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:type = &quot;ns:MBGMCR01-4x&quot;>&#xA;   &lt;EDI__DC>&#xA;    &lt;TABNAM>EDI_DC40&lt;/TABNAM>&#xA;    &lt;MANDT>200&lt;/MANDT>&#xA;    &lt;DOCNUM>0000000000009199&lt;/DOCNUM>&#xA;    &lt;DOCREL>702&lt;/DOCREL>&#xA;    &lt;STATUS>30&lt;/STATUS>&#xA;    &lt;DIRECT>1&lt;/DIRECT>&#xA;    &lt;OUTMOD>2&lt;/OUTMOD>&#xA;    &lt;EXPRSS xsi:nil = &quot;true&quot;/>&#xA;    &lt;TEST xsi:nil = &quot;true&quot;/>&#xA;    &lt;IDOCTYP>MBGMCR01&lt;/IDOCTYP>&#xA;    &lt;CIMTYP xsi:nil = &quot;true&quot;/>&#xA;    &lt;MESTYP>MBGMCR&lt;/MESTYP>&#xA;    &lt;MESCOD xsi:nil = &quot;true&quot;/>&#xA;    &lt;MESFCT xsi:nil = &quot;true&quot;/>&#xA;    &lt;STD xsi:nil = &quot;true&quot;/>&#xA;    &lt;STDVRS xsi:nil = &quot;true&quot;/>&#xA;    &lt;STDMES xsi:nil = &quot;true&quot;/>&#xA;    &lt;SNDPOR>SAPRAD&lt;/SNDPOR>&#xA;    &lt;SNDPRT>LS&lt;/SNDPRT>&#xA;    &lt;SNDPFC xsi:nil = &quot;true&quot;/>&#xA;    &lt;SNDPRN>RADCLNT200&lt;/SNDPRN>&#xA;    &lt;SNDSAD xsi:nil = &quot;true&quot;/>&#xA;    &lt;SNDLAD xsi:nil = &quot;true&quot;/>&#xA;    &lt;RCVPOR>A000000002&lt;/RCVPOR>&#xA;    &lt;RCVPRT>LS&lt;/RCVPRT>&#xA;    &lt;RCVPFC xsi:nil = &quot;true&quot;/>&#xA;    &lt;RCVPRN>SRM2TIBCO&lt;/RCVPRN>&#xA;    &lt;RCVSAD xsi:nil = &quot;true&quot;/>&#xA;    &lt;RCVLAD xsi:nil = &quot;true&quot;/>&#xA;    &lt;CREDAT>20111222&lt;/CREDAT>&#xA;    &lt;CRETIM>202337&lt;/CRETIM>&#xA;    &lt;REFINT xsi:nil = &quot;true&quot;/>&#xA;    &lt;REFGRP xsi:nil = &quot;true&quot;/>&#xA;    &lt;REFMES xsi:nil = &quot;true&quot;/>&#xA;    &lt;ARCKEY xsi:nil = &quot;true&quot;/>&#xA;    &lt;SERIAL>20111222202337&lt;/SERIAL>&#xA;   &lt;/EDI__DC>&#xA;   &lt;CHILDREN>&#xA;    &lt;E1BP2017__GM__HEAD__01>&#xA;     &lt;item>&#xA;      &lt;FIELDS>&#xA;       &lt;EDI__DD>&#xA;        &lt;SEGNAM>E2BP2017_GM_HEAD_01000&lt;/SEGNAM>&#xA;        &lt;MANDT>200&lt;/MANDT>&#xA;        &lt;DOCNUM>0000000000009199&lt;/DOCNUM>&#xA;        &lt;SEGNUM>000001&lt;/SEGNUM>&#xA;        &lt;PSGNUM>000000&lt;/PSGNUM>&#xA;        &lt;HLEVEL>01&lt;/HLEVEL>&#xA;       &lt;/EDI__DD>&#xA;       &lt;PSTNG__DATE>20111222&lt;/PSTNG__DATE>&#xA;       &lt;DOC__DATE>20111222&lt;/DOC__DATE>&#xA;       &lt;PR__UNAME>SRMTEST_EMP2&lt;/PR__UNAME>&#xA;      &lt;/FIELDS>&#xA;     &lt;/item>&#xA;    &lt;/E1BP2017__GM__HEAD__01>&#xA;    &lt;E1BP2017__GM__CODE>&#xA;     &lt;item>&#xA;      &lt;FIELDS>&#xA;       &lt;EDI__DD>&#xA;        &lt;SEGNAM>E2BP2017_GM_CODE000&lt;/SEGNAM>&#xA;        &lt;MANDT>200&lt;/MANDT>&#xA;        &lt;DOCNUM>0000000000009199&lt;/DOCNUM>&#xA;        &lt;SEGNUM>000002&lt;/SEGNUM>&#xA;        &lt;PSGNUM>000000&lt;/PSGNUM>&#xA;        &lt;HLEVEL>01&lt;/HLEVEL>&#xA;       &lt;/EDI__DD>&#xA;       &lt;GM__CODE>01&lt;/GM__CODE>&#xA;      &lt;/FIELDS>&#xA;     &lt;/item>&#xA;    &lt;/E1BP2017__GM__CODE>&#xA;    &lt;E1BP2017__GM__ITEM__CREATE>&#xA;     &lt;item>&#xA;      &lt;FIELDS>&#xA;       &lt;EDI__DD>&#xA;        &lt;SEGNAM>E2BP2017_GM_ITEM_CREATE000&lt;/SEGNAM>&#xA;        &lt;MANDT>200&lt;/MANDT>&#xA;        &lt;DOCNUM>0000000000009199&lt;/DOCNUM>&#xA;        &lt;SEGNUM>000003&lt;/SEGNUM>&#xA;        &lt;PSGNUM>000000&lt;/PSGNUM>&#xA;        &lt;HLEVEL>02&lt;/HLEVEL>&#xA;       &lt;/EDI__DD>&#xA;       &lt;PLANT>1AM&lt;/PLANT>&#xA;       &lt;MOVE__TYPE>122&lt;/MOVE__TYPE>&#xA;       &lt;S__ORD__ITEM>000000&lt;/S__ORD__ITEM>&#xA;       &lt;SCHED__LINE>0000&lt;/SCHED__LINE>&#xA;       &lt;ENTRY__QNT>5.000&lt;/ENTRY__QNT>&#xA;       &lt;ENTRY__UOM>EA&lt;/ENTRY__UOM>&#xA;       &lt;ENTRY__UOM__ISO>EA&lt;/ENTRY__UOM__ISO>&#xA;       &lt;PO__PR__QNT>0.000&lt;/PO__PR__QNT>&#xA;       &lt;PO__NUMBER>0080002378&lt;/PO__NUMBER>&#xA;       &lt;PO__ITEM>00001&lt;/PO__ITEM>&#xA;       &lt;ITEM__TEXT>Test for JDE SC&lt;/ITEM__TEXT>&#xA;       &lt;ORDER__ITNO>0000&lt;/ORDER__ITNO>&#xA;       &lt;RESERV__NO>0000000000&lt;/RESERV__NO>&#xA;       &lt;RES__ITEM>0000&lt;/RES__ITEM>&#xA;       &lt;MVT__IND>B&lt;/MVT__IND>&#xA;       &lt;MOVE__REAS>0000&lt;/MOVE__REAS>&#xA;       &lt;REF__DATE>00000000&lt;/REF__DATE>&#xA;       &lt;PROFIT__SEGM__NO>0000000000&lt;/PROFIT__SEGM__NO>&#xA;       &lt;AMOUNT__LC>0.0000&lt;/AMOUNT__LC>&#xA;       &lt;AMOUNT__SV>0.0000&lt;/AMOUNT__SV>&#xA;       &lt;REF__DOC__YR>0000&lt;/REF__DOC__YR>&#xA;       &lt;REF__DOC__IT>0001&lt;/REF__DOC__IT>&#xA;       &lt;EXPIRYDATE>00000000&lt;/EXPIRYDATE>&#xA;       &lt;PROD__DATE>00000000&lt;/PROD__DATE>&#xA;       &lt;VAL__S__ORD__ITEM>000000&lt;/VAL__S__ORD__ITEM>&#xA;       &lt;DELIV__ITEM__TO__SEARCH>000000&lt;/DELIV__ITEM__TO__SEARCH>&#xA;       &lt;SU__PL__STCK__1>0&lt;/SU__PL__STCK__1>&#xA;       &lt;ST__UN__QTYY__1>0.000&lt;/ST__UN__QTYY__1>&#xA;       &lt;SU__PL__STCK__2>0&lt;/SU__PL__STCK__2>&#xA;       &lt;ST__UN__QTYY__2>0.000&lt;/ST__UN__QTYY__2>&#xA;       &lt;MATITEM__TR__CANCEL>0000&lt;/MATITEM__TR__CANCEL>&#xA;       &lt;MATYEAR__TR__CANCEL>0000&lt;/MATYEAR__TR__CANCEL>&#xA;      &lt;/FIELDS>&#xA;     &lt;/item>&#xA;     &lt;item>&#xA;      &lt;FIELDS>&#xA;       &lt;EDI__DD>&#xA;        &lt;SEGNAM>E2BP2017_GM_ITEM_CREATE000&lt;/SEGNAM>&#xA;        &lt;MANDT>200&lt;/MANDT>&#xA;        &lt;DOCNUM>0000000000009199&lt;/DOCNUM>&#xA;        &lt;SEGNUM>000004&lt;/SEGNUM>&#xA;        &lt;PSGNUM>000000&lt;/PSGNUM>&#xA;        &lt;HLEVEL>02&lt;/HLEVEL>&#xA;       &lt;/EDI__DD>&#xA;       &lt;PLANT>1AM&lt;/PLANT>&#xA;       &lt;MOVE__TYPE>122&lt;/MOVE__TYPE>&#xA;       &lt;S__ORD__ITEM>000000&lt;/S__ORD__ITEM>&#xA;       &lt;SCHED__LINE>0000&lt;/SCHED__LINE>&#xA;       &lt;ENTRY__QNT>7.000&lt;/ENTRY__QNT>&#xA;       &lt;ENTRY__UOM>GRO&lt;/ENTRY__UOM>&#xA;       &lt;ENTRY__UOM__ISO>GRO&lt;/ENTRY__UOM__ISO>&#xA;       &lt;PO__PR__QNT>0.000&lt;/PO__PR__QNT>&#xA;       &lt;PO__NUMBER>0080002378&lt;/PO__NUMBER>&#xA;       &lt;PO__ITEM>00002&lt;/PO__ITEM>&#xA;       &lt;ITEM__TEXT>Test for JDE SC&lt;/ITEM__TEXT>&#xA;       &lt;ORDER__ITNO>0000&lt;/ORDER__ITNO>&#xA;       &lt;RESERV__NO>0000000000&lt;/RESERV__NO>&#xA;       &lt;RES__ITEM>0000&lt;/RES__ITEM>&#xA;       &lt;MVT__IND>B&lt;/MVT__IND>&#xA;       &lt;MOVE__REAS>0000&lt;/MOVE__REAS>&#xA;       &lt;REF__DATE>00000000&lt;/REF__DATE>&#xA;       &lt;PROFIT__SEGM__NO>0000000000&lt;/PROFIT__SEGM__NO>&#xA;       &lt;AMOUNT__LC>0.0000&lt;/AMOUNT__LC>&#xA;       &lt;AMOUNT__SV>0.0000&lt;/AMOUNT__SV>&#xA;       &lt;REF__DOC__YR>0000&lt;/REF__DOC__YR>&#xA;       &lt;REF__DOC__IT>0001&lt;/REF__DOC__IT>&#xA;       &lt;EXPIRYDATE>00000000&lt;/EXPIRYDATE>&#xA;       &lt;PROD__DATE>00000000&lt;/PROD__DATE>&#xA;       &lt;VAL__S__ORD__ITEM>000000&lt;/VAL__S__ORD__ITEM>&#xA;       &lt;DELIV__ITEM__TO__SEARCH>000000&lt;/DELIV__ITEM__TO__SEARCH>&#xA;       &lt;SU__PL__STCK__1>0&lt;/SU__PL__STCK__1>&#xA;       &lt;ST__UN__QTYY__1>0.000&lt;/ST__UN__QTYY__1>&#xA;       &lt;SU__PL__STCK__2>0&lt;/SU__PL__STCK__2>&#xA;       &lt;ST__UN__QTYY__2>0.000&lt;/ST__UN__QTYY__2>&#xA;       &lt;MATITEM__TR__CANCEL>0000&lt;/MATITEM__TR__CANCEL>&#xA;       &lt;MATYEAR__TR__CANCEL>0000&lt;/MATYEAR__TR__CANCEL>&#xA;      &lt;/FIELDS>&#xA;     &lt;/item>&#xA;     &lt;item>&#xA;      &lt;FIELDS>&#xA;       &lt;EDI__DD>&#xA;        &lt;SEGNAM>E2BP2017_GM_ITEM_CREATE000&lt;/SEGNAM>&#xA;        &lt;MANDT>200&lt;/MANDT>&#xA;        &lt;DOCNUM>0000000000009199&lt;/DOCNUM>&#xA;        &lt;SEGNUM>000005&lt;/SEGNUM>&#xA;        &lt;PSGNUM>000000&lt;/PSGNUM>&#xA;        &lt;HLEVEL>02&lt;/HLEVEL>&#xA;       &lt;/EDI__DD>&#xA;       &lt;PLANT>1AM&lt;/PLANT>&#xA;       &lt;MOVE__TYPE>122&lt;/MOVE__TYPE>&#xA;       &lt;S__ORD__ITEM>000000&lt;/S__ORD__ITEM>&#xA;       &lt;SCHED__LINE>0000&lt;/SCHED__LINE>&#xA;       &lt;ENTRY__QNT>4.000&lt;/ENTRY__QNT>&#xA;       &lt;ENTRY__UOM>EA&lt;/ENTRY__UOM>&#xA;       &lt;ENTRY__UOM__ISO>EA&lt;/ENTRY__UOM__ISO>&#xA;       &lt;PO__PR__QNT>0.000&lt;/PO__PR__QNT>&#xA;       &lt;PO__NUMBER>0080002378&lt;/PO__NUMBER>&#xA;       &lt;PO__ITEM>00003&lt;/PO__ITEM>&#xA;       &lt;ITEM__TEXT>Test for JDE SC&lt;/ITEM__TEXT>&#xA;       &lt;ORDER__ITNO>0000&lt;/ORDER__ITNO>&#xA;       &lt;RESERV__NO>0000000000&lt;/RESERV__NO>&#xA;       &lt;RES__ITEM>0000&lt;/RES__ITEM>&#xA;       &lt;MVT__IND>B&lt;/MVT__IND>&#xA;       &lt;MOVE__REAS>0000&lt;/MOVE__REAS>&#xA;       &lt;REF__DATE>00000000&lt;/REF__DATE>&#xA;       &lt;PROFIT__SEGM__NO>0000000000&lt;/PROFIT__SEGM__NO>&#xA;       &lt;AMOUNT__LC>0.0000&lt;/AMOUNT__LC>&#xA;       &lt;AMOUNT__SV>0.0000&lt;/AMOUNT__SV>&#xA;       &lt;REF__DOC__YR>0000&lt;/REF__DOC__YR>&#xA;       &lt;REF__DOC__IT>0001&lt;/REF__DOC__IT>&#xA;       &lt;EXPIRYDATE>00000000&lt;/EXPIRYDATE>&#xA;       &lt;PROD__DATE>00000000&lt;/PROD__DATE>&#xA;       &lt;VAL__S__ORD__ITEM>000000&lt;/VAL__S__ORD__ITEM>&#xA;       &lt;DELIV__ITEM__TO__SEARCH>000000&lt;/DELIV__ITEM__TO__SEARCH>&#xA;       &lt;SU__PL__STCK__1>0&lt;/SU__PL__STCK__1>&#xA;       &lt;ST__UN__QTYY__1>0.000&lt;/ST__UN__QTYY__1>&#xA;       &lt;SU__PL__STCK__2>0&lt;/SU__PL__STCK__2>&#xA;       &lt;ST__UN__QTYY__2>0.000&lt;/ST__UN__QTYY__2>&#xA;       &lt;MATITEM__TR__CANCEL>0000&lt;/MATITEM__TR__CANCEL>&#xA;       &lt;MATYEAR__TR__CANCEL>0000&lt;/MATYEAR__TR__CANCEL>&#xA;      &lt;/FIELDS>&#xA;     &lt;/item>&#xA;    &lt;/E1BP2017__GM__ITEM__CREATE>&#xA;   &lt;/CHILDREN>&#xA;  &lt;/ns:MBGMCR01-4x>&#xA; &lt;/body>&#xA;&lt;/ProcessStarterOutput>'"/>
+                        </pfx:Message>
+                    </pfx:StoreMessage>
+                </Body>
+            </ns2:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>JMS-Queue-Sender-1</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>JMS-Queue-Sender-1</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

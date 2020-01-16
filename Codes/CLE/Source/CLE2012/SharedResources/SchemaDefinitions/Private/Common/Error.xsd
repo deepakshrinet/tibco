@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns="http://www.tibco.com/CommonLE/namespace/Common"
+	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	 targetNamespace="http://www.tibco.com/CommonLE/namespace/Common"
+	 elementFormDefault="unqualified"
+	 attributeFormDefault="unqualified">
+	<xsd:attributeGroup name="Error"/>
+	<xsd:element name="Exception">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="ErrorMessage" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="ErrorCode" type="xsd:string" minOccurs="0"/>
+				<xsd:element ref="Error" minOccurs="0"/>
+				<xsd:element ref="Data" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ErrorReport">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="StackTrace" type="xsd:string" nillable="true"/>
+				<xsd:element name="Msg" type="xsd:string" nillable="true"/>
+				<xsd:element name="FullClass" type="xsd:string" nillable="true"/>
+				<xsd:element name="Class" type="xsd:string" nillable="true"/>
+				<xsd:element name="ProcessStack" type="xsd:string" nillable="true"/>
+				<xsd:element name="MsgCode" type="xsd:string" nillable="true" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Error">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="ErrorReport" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:attribute name="nil" type="xsd:string"/>
+	<xsd:element name="Data" type="xsd:string"/>
+</xsd:schema>

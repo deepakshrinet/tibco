@@ -1,0 +1,248 @@
+<data jsxnamespace="propsbundle" locales="">
+  <locale>
+    <record jsxid="exceptionConfig_dialogCaption" jsxtext="Create Exception Code Configuration"/>
+    <!-- form lookups -->
+    <record jsxid="exceptionConfig_type" jsxtext="Type"/>
+    <record jsxid="exceptionConfig_category" jsxtext="Category"/>
+    <record jsxid="exceptionConfig_severity" jsxtext="Severity"/>
+    <record jsxid="exceptionConfig_procedure" jsxtext="Procedure"/>
+    <record jsxid="exceptionConfig_description" jsxtext="Description"/>
+    <record jsxid="exceptionConfig_roleName" jsxtext="Role Name"/>
+    <record jsxid="exceptionConfig_replyDestination" jsxtext="Reply Destination"/>
+    <record jsxid="exceptionConfig_notificationChannel" jsxtext="Notification Channel"/>
+    <record jsxid="exceptionConfig_technicalEmail" jsxtext="Technical eMail"/>
+    <record jsxid="exceptionConfig_businessEmail" jsxtext="Business eMail"/>
+    <record jsxid="exceptionConfig_notificationFreq" jsxtext="Notification Freq"/>
+    <record jsxid="exceptionConfig_notificationFrequency" jsxtext="Notification Frequency"/>
+    <record jsxid="exceptionConfig_resolutionDelay" jsxtext="Resolution Delay"/>
+    <record jsxid="exceptionConfig_eventType" jsxtext="Event Type"/>
+    <record jsxid="exceptionConfig_instruction" jsxtext="Instruction"/>
+  <!-- table lookups -->
+    <record jsxid="exceptionConfig_ApplicationID" jsxtext="Application ID"/>
+    <record jsxid="exceptionConfig_ID" jsxtext="Procedure ID"/>
+    <record jsxid="exceptionConfig_Name" jsxtext="Name"/>
+    <record jsxid="exceptionConfig_ExceptionCode" jsxtext="Exception Code"/>
+    <record jsxid="exceptionConfig_ProcedureID" jsxtext="Procedure ID"/>
+    <record jsxid="exceptionConfig_ProcedureName" jsxtext="Procedure Name"/>
+    <record jsxid="exceptionConfig_NotificationChannel" jsxtext="Notification Channel"/>
+    <record jsxid="exceptionConfig_NotificationChannelCol" jsxtext="Notification Channel"/>
+    <record jsxid="exceptionConfig_Exceptionttl" jsxtext="Exception TTL"/>
+    <record jsxid="exceptionConfig_ExceptionttlCol" jsxtext="Exception TTL"/>
+	<record jsxid="exceptionConfig_CategoryID" jsxtext="Category ID"/>
+	<record jsxid="exceptionConfig_CategoryName" jsxtext="Category Name"/>
+	<record jsxid="exceptionConfig_TypeID" jsxtext="Type ID"/>
+	<record jsxid="exceptionConfig_TypeName" jsxtext="Type Name"/>
+	<record jsxid="exceptionConfig_SeverityID" jsxtext="Severity ID"/>
+	<record jsxid="exceptionConfig_SeverityName" jsxtext="Severity Name"/>
+	<record jsxid="exceptionConfig_Description" jsxtext="Description"/>
+	<record jsxid="exceptionConfig_ReplyDestination" jsxtext="Reply Destination"/>
+	<record jsxid="exceptionConfig_RoleName" jsxtext="Role Name"/>
+	<record jsxid="exceptionConfig_NotificationChnl" jsxtext="Notification Channel"/>
+	<record jsxid="exceptionConfig_EmailTo" jsxtext="Email To"/>
+	<record jsxid="exceptionConfig_EmailCC" jsxtext="Email CC"/>
+	<record jsxid="exceptionConfig_Exceptionttl" jsxtext="Exception TTL"/>
+	<record jsxid="exceptionConfig_Instruction" jsxtext="Instruction"/>
+	<record jsxid="exceptionConfig_EventType" jsxtext="Event Type"/>
+	<record jsxid="exceptionConfig_ResolveDelayInterval" jsxtext="Resolve Delay Interval"/>
+    <record jsxid="exceptionConfig_createNewItemCaption" jsxtext="Create New Exception Code"/>
+    <record jsxid="exceptionConfig_createExceptionCode" jsxtext="Create Exception Code"/>
+    <record jsxid="exceptionConfig_createExceptionCodeTip" jsxtext="Create Exception Code"/>
+    <record jsxid="exceptionConfig_createExceptionRequiredFieldsFailedValidation" jsxtext="The following fields failed validation: "/>
+  </locale>
+  <locale key="pt_BR">
+    <record jsxid="exceptionConfig_dialogCaption" jsxtext="Criar Configuração de Códigos de Exceção"/>
+    <!-- form lookups -->
+    <record jsxid="exceptionConfig_type" jsxtext="Tipo"/>
+    <record jsxid="exceptionConfig_category" jsxtext="Categoria"/>
+    <record jsxid="exceptionConfig_severity" jsxtext="Severidade"/>
+    <record jsxid="exceptionConfig_procedure" jsxtext="Procedimento"/>
+    <record jsxid="exceptionConfig_description" jsxtext="Descrição"/>
+    <record jsxid="exceptionConfig_roleName" jsxtext="Nome do Papel"/>
+    <record jsxid="exceptionConfig_replyDestination" jsxtext="Destino de Resposta"/>
+    <record jsxid="exceptionConfig_notificationChannel" jsxtext="Canal de Notificação"/>
+    <record jsxid="exceptionConfig_technicalEmail" jsxtext="E-mail Técnico"/>
+    <record jsxid="exceptionConfig_businessEmail" jsxtext="E-mail de Negócio"/>
+    <record jsxid="exceptionConfig_notificationFreq" jsxtext="Freq. Notificação"/>
+    <record jsxid="exceptionConfig_notificationFrequency" jsxtext="Frequência de Notificação"/>
+    <record jsxid="exceptionConfig_resolutionDelay" jsxtext="Atraso de Resolução"/>
+    <record jsxid="exceptionConfig_eventType" jsxtext="Tipo de Evento"/>
+    <record jsxid="exceptionConfig_instruction" jsxtext="Instrução"/>
+  <!-- table lookups -->
+    <record jsxid="exceptionConfig_ApplicationID" jsxtext="ID da Aplicação"/>
+    <record jsxid="exceptionConfig_ID" jsxtext="ID do Procedimento"/>
+    <record jsxid="exceptionConfig_Name" jsxtext="Nome"/>
+    <record jsxid="exceptionConfig_ExceptionCode" jsxtext="Código de Exceção"/>
+    <record jsxid="exceptionConfig_ProcedureID" jsxtext="ID do Procedimento"/>
+    <record jsxid="exceptionConfig_ProcedureName" jsxtext="Nome do Procedimento"/>
+    <record jsxid="exceptionConfig_NotificationChannel" jsxtext="Canal de Notificação"/>
+    <record jsxid="exceptionConfig_NotificationChannelCol" jsxtext="Canal de Notificação"/>
+    <record jsxid="exceptionConfig_Exceptionttl" jsxtext="Exceção TTL"/>
+    <record jsxid="exceptionConfig_ExceptionttlCol" jsxtext="Exceção TTL"/>
+	<record jsxid="exceptionConfig_CategoryID" jsxtext="ID da Categoria"/>
+	<record jsxid="exceptionConfig_CategoryName" jsxtext="Nome da Categoria"/>
+	<record jsxid="exceptionConfig_TypeName" jsxtext="Nome do Tipo"/>
+	<record jsxid="exceptionConfig_SeverityID" jsxtext="ID da Severidade"/>
+	<record jsxid="exceptionConfig_SeverityName" jsxtext="Nome da Severidade"/>
+	<record jsxid="exceptionConfig_Description" jsxtext="Descrição"/>
+	<record jsxid="exceptionConfig_ReplyDestination" jsxtext="Destino de Resposta"/>
+	<record jsxid="exceptionConfig_RoleName" jsxtext="Nome do Papel"/>
+	<record jsxid="exceptionConfig_NotificationChnl" jsxtext="Canal de Notificação"/>
+	<record jsxid="exceptionConfig_EmailTo" jsxtext="E-mail Para"/>
+	<record jsxid="exceptionConfig_EmailCC" jsxtext="E-mail CC"/>
+	<record jsxid="exceptionConfig_Exceptionttl" jsxtext="Exceção TTL"/>
+	<record jsxid="exceptionConfig_Instruction" jsxtext="Instrução"/>
+	<record jsxid="exceptionConfig_EventType" jsxtext="Tipo de Evento"/>
+	<record jsxid="exceptionConfig_ResolveDelayInterval" jsxtext="Intervalo de Atraso de Resolução"/>
+    <record jsxid="exceptionConfig_createNewItemCaption" jsxtext="Criar Novo Código de Exceção"/>
+    <record jsxid="exceptionConfig_createExceptionCode" jsxtext="Criar Código de Exceção"/>
+    <record jsxid="exceptionConfig_createExceptionCodeTip" jsxtext="Criar Código de Exceção"/>
+    <record jsxid="exceptionConfig_createExceptionRequiredFieldsFailedValidation" jsxtext="Os seguintes campos falharam na validação: "/>
+  </locale>
+  <locale key="es_ES">
+    <record jsxid="exceptionConfig_dialogCaption" jsxtext="Crear Configuración de Códigos de Excepción"/>
+    <!-- form lookups -->
+    <record jsxid="exceptionConfig_type" jsxtext="Tipo"/>
+    <record jsxid="exceptionConfig_category" jsxtext="Categoría"/>
+    <record jsxid="exceptionConfig_severity" jsxtext="Severidad"/>
+    <record jsxid="exceptionConfig_procedure" jsxtext="Procedimiento"/>
+    <record jsxid="exceptionConfig_description" jsxtext="Descripción"/>
+    <record jsxid="exceptionConfig_roleName" jsxtext="Nombre de Rol"/>
+    <record jsxid="exceptionConfig_replyDestination" jsxtext="Destino de Respuesta"/>
+    <record jsxid="exceptionConfig_notificationChannel" jsxtext="Canal de Notificación"/>
+    <record jsxid="exceptionConfig_technicalEmail" jsxtext="eMail Técnico"/>
+    <record jsxid="exceptionConfig_businessEmail" jsxtext="eMail de Negocio"/>
+    <record jsxid="exceptionConfig_notificationFreq" jsxtext="Frecuencia de Notificación"/>
+    <record jsxid="exceptionConfig_notificationFrequency" jsxtext="Frecuencia de Notificación"/>
+    <record jsxid="exceptionConfig_resolutionDelay" jsxtext="Tiempo de Resolución"/>
+    <record jsxid="exceptionConfig_eventType" jsxtext="Tipo de Evento"/>
+    <record jsxid="exceptionConfig_instruction" jsxtext="Instrucción"/>
+  <!-- table lookups -->
+    <record jsxid="exceptionConfig_ApplicationID" jsxtext="ID de Aplicación"/>
+    <record jsxid="exceptionConfig_ID" jsxtext="ID de Procedimiento"/>
+    <record jsxid="exceptionConfig_Name" jsxtext="Nombre"/>
+    <record jsxid="exceptionConfig_ExceptionCode" jsxtext="Código de Excepción"/>
+    <record jsxid="exceptionConfig_ProcedureID" jsxtext="ID de Procedimiento"/>
+    <record jsxid="exceptionConfig_ProcedureName" jsxtext="Nombre de Procedimiento"/>
+    <record jsxid="exceptionConfig_NotificationChannel" jsxtext="Canal de Notificación"/>
+    <record jsxid="exceptionConfig_NotificationChannelCol" jsxtext="Canal de Notificación"/>
+    <record jsxid="exceptionConfig_Exceptionttl" jsxtext="TTL de Excepción"/>
+    <record jsxid="exceptionConfig_ExceptionttlCol" jsxtext="TTL de Excepción"/>
+	<record jsxid="exceptionConfig_CategoryID" jsxtext="ID de Categoría"/>
+	<record jsxid="exceptionConfig_CategoryName" jsxtext="Nombre de Categoría"/>
+	<record jsxid="exceptionConfig_TypeName" jsxtext="Nombre de Tipo"/>
+	<record jsxid="exceptionConfig_SeverityID" jsxtext="ID de Severidad"/>
+	<record jsxid="exceptionConfig_SeverityName" jsxtext="Nombre de Severidad"/>
+	<record jsxid="exceptionConfig_Description" jsxtext="Descripción"/>
+	<record jsxid="exceptionConfig_ReplyDestination" jsxtext="Destino de Respuesta"/>
+	<record jsxid="exceptionConfig_RoleName" jsxtext="Nombre de Rol"/>
+	<record jsxid="exceptionConfig_NotificationChnl" jsxtext="Canal de Notificación"/>
+	<record jsxid="exceptionConfig_EmailTo" jsxtext="Email Para"/>
+	<record jsxid="exceptionConfig_EmailCC" jsxtext="Email CC"/>
+	<record jsxid="exceptionConfig_Exceptionttl" jsxtext="TTL de Excepción"/>
+	<record jsxid="exceptionConfig_Instruction" jsxtext="Instrucción"/>
+	<record jsxid="exceptionConfig_EventType" jsxtext="Tipo de Evento"/>
+	<record jsxid="exceptionConfig_ResolveDelayInterval" jsxtext="Intervalo de Tiempo de Resolución"/>
+    <record jsxid="exceptionConfig_createNewItemCaption" jsxtext="Crear Nuevo Código de Excepción"/>
+    <record jsxid="exceptionConfig_createExceptionCode" jsxtext="Crear Código de Excepción"/>
+    <record jsxid="exceptionConfig_createExceptionCodeTip" jsxtext="Crear Código de Excepción"/>
+    <record jsxid="exceptionConfig_createExceptionRequiredFieldsFailedValidation" jsxtext="Los siguientes campos fallaron la validación: "/>
+  </locale>
+  <locale key="sv_SV">
+    <record jsxid="exceptionConfig_dialogCaption" jsxtext="Skapa Undantagskod-konfiguration"/>
+    <!-- form lookups -->
+    <record jsxid="exceptionConfig_type" jsxtext="Typ"/>
+    <record jsxid="exceptionConfig_category" jsxtext="Kategori"/>
+    <record jsxid="exceptionConfig_severity" jsxtext="Prioritet"/>
+    <record jsxid="exceptionConfig_procedure" jsxtext="Procedur"/>
+    <record jsxid="exceptionConfig_description" jsxtext="Beskrivning"/>
+    <record jsxid="exceptionConfig_roleName" jsxtext="Namn på roll"/>
+    <record jsxid="exceptionConfig_replyDestination" jsxtext="Svarsdestination"/>
+    <record jsxid="exceptionConfig_notificationChannel" jsxtext="Kanal för tillkännagivanden"/>
+    <record jsxid="exceptionConfig_technicalEmail" jsxtext="Teknisk ePost"/>
+    <record jsxid="exceptionConfig_businessEmail" jsxtext="Affärs-ePost"/>
+    <record jsxid="exceptionConfig_notificationFreq" jsxtext="Frekvens för Tillkännagivanden"/>
+    <record jsxid="exceptionConfig_notificationFrequency" jsxtext="Frekvens för Tillkännagivanden"/>
+    <record jsxid="exceptionConfig_resolutionDelay" jsxtext="Lösningsfördröjning"/>
+    <record jsxid="exceptionConfig_eventType" jsxtext="Händelsetyp"/>
+    <record jsxid="exceptionConfig_instruction" jsxtext="Instruktion"/>
+  <!-- table lookups -->
+    <record jsxid="exceptionConfig_ApplicationID" jsxtext="ApplikationsID"/>
+    <record jsxid="exceptionConfig_ID" jsxtext="ProcedurID"/>
+    <record jsxid="exceptionConfig_Name" jsxtext="Namn"/>
+    <record jsxid="exceptionConfig_ExceptionCode" jsxtext="Undantagskod"/>
+    <record jsxid="exceptionConfig_ProcedureID" jsxtext="ProcedurID"/>
+    <record jsxid="exceptionConfig_ProcedureName" jsxtext="Procedurnamn"/>
+    <record jsxid="exceptionConfig_NotificationChannel" jsxtext="Kanal för tillkännagivanden"/>
+    <record jsxid="exceptionConfig_NotificationChannelCol" jsxtext="Kanal för tillkännagivanden"/>
+    <record jsxid="exceptionConfig_Exceptionttl" jsxtext="TTL för Undantag"/>
+    <record jsxid="exceptionConfig_ExceptionttlCol" jsxtext="TTL för Undantag"/>
+	<record jsxid="exceptionConfig_CategoryID" jsxtext="KategoriID"/>
+	<record jsxid="exceptionConfig_CategoryName" jsxtext="Kategorinamn"/>
+	<record jsxid="exceptionConfig_TypeName" jsxtext="Typnamn"/>
+	<record jsxid="exceptionConfig_SeverityID" jsxtext="PrioritetsID"/>
+	<record jsxid="exceptionConfig_SeverityName" jsxtext="Prioritetsnamn"/>
+	<record jsxid="exceptionConfig_Description" jsxtext="Beskrivning"/>
+	<record jsxid="exceptionConfig_ReplyDestination" jsxtext="Svarsdestination"/>
+	<record jsxid="exceptionConfig_RoleName" jsxtext="Namn på roll"/>
+	<record jsxid="exceptionConfig_NotificationChnl" jsxtext="Kanal för tillkännagivanden"/>
+	<record jsxid="exceptionConfig_EmailTo" jsxtext="Epost Till"/>
+	<record jsxid="exceptionConfig_EmailCC" jsxtext="Epost Kopia"/>
+	<record jsxid="exceptionConfig_Exceptionttl" jsxtext="TTL för Undantag"/>
+	<record jsxid="exceptionConfig_Instruction" jsxtext="Instruktion"/>
+	<record jsxid="exceptionConfig_EventType" jsxtext="Händelsetyp"/>
+	<record jsxid="exceptionConfig_ResolveDelayInterval" jsxtext="Fördröjningsintervall för Lösning"/>
+    <record jsxid="exceptionConfig_createNewItemCaption" jsxtext="Skapa ny Undantagskod"/>
+    <record jsxid="exceptionConfig_createExceptionCode" jsxtext="Skapa Undantagskod"/>
+    <record jsxid="exceptionConfig_createExceptionCodeTip" jsxtext="Skapa Undantagskod"/>
+    <record jsxid="exceptionConfig_createExceptionRequiredFieldsFailedValidation" jsxtext="Följande fält kunde inte valideras: "/>
+  </locale>
+  <locale key="zh_CH">
+    <record jsxid="exceptionConfig_dialogCaption" jsxtext="Create Exception Code Configuration"/>
+    <!-- form lookups -->
+    <record jsxid="exceptionConfig_type" jsxtext="Type"/>
+    <record jsxid="exceptionConfig_category" jsxtext="Category"/>
+    <record jsxid="exceptionConfig_severity" jsxtext="Severity"/>
+    <record jsxid="exceptionConfig_procedure" jsxtext="Procedure"/>
+    <record jsxid="exceptionConfig_description" jsxtext="Description"/>
+    <record jsxid="exceptionConfig_roleName" jsxtext="Role Name"/>
+    <record jsxid="exceptionConfig_replyDestination" jsxtext="Reply Destination"/>
+    <record jsxid="exceptionConfig_notificationChannel" jsxtext="Notification Channel"/>
+    <record jsxid="exceptionConfig_technicalEmail" jsxtext="Technical eMail"/>
+    <record jsxid="exceptionConfig_businessEmail" jsxtext="Business eMail"/>
+    <record jsxid="exceptionConfig_notificationFreq" jsxtext="Notification Freq"/>
+    <record jsxid="exceptionConfig_notificationFrequency" jsxtext="Notification Frequency"/>
+    <record jsxid="exceptionConfig_resolutionDelay" jsxtext="Resolution Delay"/>
+    <record jsxid="exceptionConfig_eventType" jsxtext="Event Type"/>
+    <record jsxid="exceptionConfig_instruction" jsxtext="Instruction"/>
+  <!-- table lookups -->
+    <record jsxid="exceptionConfig_ApplicationID" jsxtext="应用程序ID"/>
+    <record jsxid="exceptionConfig_ID" jsxtext="步骤ID"/>
+    <record jsxid="exceptionConfig_Name" jsxtext="名字"/>
+    <record jsxid="exceptionConfig_ExceptionCode" jsxtext="例外码"/>
+    <record jsxid="exceptionConfig_ProcedureID" jsxtext="步骤ID"/>
+    <record jsxid="exceptionConfig_ProcedureName" jsxtext="步骤名字"/>
+    <record jsxid="exceptionConfig_NotificationChannel" jsxtext="提醒通道"/>
+    <record jsxid="exceptionConfig_NotificationChannelCol" jsxtext="提醒通道"/>
+    <record jsxid="exceptionConfig_Exceptionttl" jsxtext="例外TTL"/>
+    <record jsxid="exceptionConfig_ExceptionttlCol" jsxtext="例外TTL"/>
+	<record jsxid="exceptionConfig_CategoryID" jsxtext="类别ID"/>
+	<record jsxid="exceptionConfig_CategoryName" jsxtext="类别名字"/>
+	<record jsxid="exceptionConfig_TypeName" jsxtext="类型名字"/>
+	<record jsxid="exceptionConfig_SeverityID" jsxtext="严重度ID"/>
+	<record jsxid="exceptionConfig_SeverityName" jsxtext="严重度名字"/>
+	<record jsxid="exceptionConfig_Description" jsxtext="描述"/>
+	<record jsxid="exceptionConfig_ReplyDestination" jsxtext="回复目的地"/>
+	<record jsxid="exceptionConfig_RoleName" jsxtext="角色名字"/>
+	<record jsxid="exceptionConfig_NotificationChnl" jsxtext="提醒通道"/>
+	<record jsxid="exceptionConfig_EmailTo" jsxtext="邮件发送"/>
+	<record jsxid="exceptionConfig_EmailCC" jsxtext="邮件抄送"/>
+	<record jsxid="exceptionConfig_Exceptionttl" jsxtext="例外TTL"/>
+	<record jsxid="exceptionConfig_Instruction" jsxtext="指示"/>
+	<record jsxid="exceptionConfig_EventType" jsxtext="事件类型"/>
+	<record jsxid="exceptionConfig_ResolveDelayInterval" jsxtext="处理延迟间隔"/>
+    <record jsxid="exceptionConfig_createNewItemCaption" jsxtext="创建新例外码"/>
+    <record jsxid="exceptionConfig_createExceptionCode" jsxtext="创建例外码"/>
+    <record jsxid="exceptionConfig_createExceptionCodeTip" jsxtext="创建例外码"/>
+    <record jsxid="exceptionConfig_createExceptionRequiredFieldsFailedValidation" jsxtext="以下的区域确认失败: "/>
+  </locale>
+</data>

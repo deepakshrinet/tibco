@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BWSharedResource>
+    <name>TIBCO_JDBC_Connection</name>
+    <resourceType>ae.shared.JDBCSharedResource</resourceType>
+    <config>
+        <driver>%%EnvVariables/TIBCO_JDBC_Connection/JDBC_DRIVER%%</driver>
+        <maxConnections>%%EnvVariables/TIBCO_JDBC_Connection/MaxConnection%%</maxConnections>
+        <loginTimeout>%%EnvVariables/TIBCO_JDBC_Connection/LoginTimeout%%</loginTimeout>
+        <connectionType>JDBC</connectionType>
+        <UseSharedJndiConfig>false</UseSharedJndiConfig>
+        <location>%%EnvVariables/TIBCO_JDBC_Connection/LoggerDBURL%%</location>
+        <user>%%EnvVariables/TIBCO_JDBC_Connection/USERNAME%%</user>
+        <password>%%EnvVariables/TIBCO_JDBC_Connection/PASSWORD%%</password>
+    </config>
+</BWSharedResource>

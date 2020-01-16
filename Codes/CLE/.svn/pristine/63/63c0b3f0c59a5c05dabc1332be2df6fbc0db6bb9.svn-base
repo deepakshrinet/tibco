@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx="http://www.tibco.com/pe/DeployedVarsType">
+    <pd:name>Utilities/Cleanup/CLEANUP ALL.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startX>27</pd:startX>
+    <pd:startY>51</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>861</pd:endX>
+    <pd:endY>195</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1286400941742</pd:targetNamespace>
+    <pd:activity name="Cleanup Logs">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>126</pd:x>
+        <pd:y>52</pd:y>
+        <config>
+            <processName>/Utilities/Cleanup/Oracle/Cleanup Log Entries.process</processName>
+            <processNameXPath>concat("/Utilities/Cleanup/", $_globalVariables/pfx:GlobalVariables/Database/MIG_DatabaseType, "/Cleanup Log Entries.process")</processNameXPath>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Cleanup ACLs">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>466</pd:x>
+        <pd:y>195</pd:y>
+        <config>
+            <processName>/Utilities/Cleanup/Oracle/Cleanup ACLs.process</processName>
+            <processNameXPath>concat("/Utilities/Cleanup/", $_globalVariables/pfx:GlobalVariables/Database/MIG_DatabaseType, "/Cleanup ACLs.process")</processNameXPath>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Cleanup App Registration">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>737</pd:x>
+        <pd:y>205</pd:y>
+        <config>
+            <processName>/Utilities/Cleanup/Oracle/Cleanup Application Registration.process</processName>
+            <processNameXPath>concat("/Utilities/Cleanup/", $_globalVariables/pfx:GlobalVariables/Database/MIG_DatabaseType, "/Cleanup Application Registration.process")</processNameXPath>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Cleanup Exception Procedure">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>503</pd:x>
+        <pd:y>63</pd:y>
+        <config>
+            <processName>/Utilities/Cleanup/Oracle/Cleanup Exception Procedure.process</processName>
+            <processNameXPath>concat("/Utilities/Cleanup/", $_globalVariables/pfx:GlobalVariables/Database/MIG_DatabaseType, "/Cleanup Exception Procedure.process")</processNameXPath>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Cleanup Exception Severity">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>60</pd:x>
+        <pd:y>200</pd:y>
+        <config>
+            <processName>/Utilities/Cleanup/Oracle/Cleanup Exception Severity.process</processName>
+            <processNameXPath>concat("/Utilities/Cleanup/", $_globalVariables/pfx:GlobalVariables/Database/MIG_DatabaseType, "/Cleanup Exception Severity.process")</processNameXPath>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Cleanup Exception Category">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>197</pd:x>
+        <pd:y>202</pd:y>
+        <config>
+            <processName>/Utilities/Cleanup/Oracle/Cleanup Exception Category.process</processName>
+            <processNameXPath>concat("/Utilities/Cleanup/", $_globalVariables/pfx:GlobalVariables/Database/MIG_DatabaseType, "/Cleanup Exception Category.process")</processNameXPath>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Cleanup Exception Type">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>339</pd:x>
+        <pd:y>202</pd:y>
+        <config>
+            <processName>/Utilities/Cleanup/Oracle/Cleanup Exception Type.process</processName>
+            <processNameXPath>concat("/Utilities/Cleanup/", $_globalVariables/pfx:GlobalVariables/Database/MIG_DatabaseType, "/Cleanup Exception Type.process")</processNameXPath>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Cleanup Exception Entries">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>241</pd:x>
+        <pd:y>65</pd:y>
+        <config>
+            <processName>/Utilities/Cleanup/Oracle/Cleanup Exception Entries.process</processName>
+            <processNameXPath>concat("/Utilities/Cleanup/", $_globalVariables/pfx:GlobalVariables/Database/MIG_DatabaseType, "/Cleanup Exception Entries.process")</processNameXPath>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Cleanup Exception Configuration">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>374</pd:x>
+        <pd:y>64</pd:y>
+        <config>
+            <processName>/Utilities/Cleanup/Oracle/Cleanup Exception Configuration.process</processName>
+            <processNameXPath>concat("/Utilities/Cleanup/", $_globalVariables/pfx:GlobalVariables/Database/MIG_DatabaseType, "/Cleanup Exception Configuration.process")</processNameXPath>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Cleanup Rendering Configuration">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>636</pd:x>
+        <pd:y>63</pd:y>
+        <config>
+            <processName>/Utilities/Cleanup/Oracle/Cleanup Rendering Configuration.process</processName>
+            <processNameXPath>concat("/Utilities/Cleanup/", $_globalVariables/pfx:GlobalVariables/Database/MIG_DatabaseType, "/Cleanup Rendering Configuration.process")</processNameXPath>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Cleanup Interface Config">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>600</pd:x>
+        <pd:y>205</pd:y>
+        <config>
+            <processName>/Utilities/Cleanup/Oracle/Cleanup Interface Config.process</processName>
+            <processNameXPath>concat("/Utilities/Cleanup/", $_globalVariables/pfx:GlobalVariables/Database/MIG_DatabaseType, "/Cleanup Interface Config.process")</processNameXPath>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Cleanup Logs</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Cleanup ACLs</pd:from>
+        <pd:to>Cleanup Interface Config</pd:to>
+        <pd:lineType>Straight</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Cleanup App Registration</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Straight</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Cleanup Exception Procedure</pd:from>
+        <pd:to>Cleanup Rendering Configuration</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Cleanup Exception Severity</pd:from>
+        <pd:to>Cleanup Exception Category</pd:to>
+        <pd:lineType>Straight</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Cleanup Exception Category</pd:from>
+        <pd:to>Cleanup Exception Type</pd:to>
+        <pd:lineType>Straight</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Cleanup Exception Entries</pd:from>
+        <pd:to>Cleanup Exception Configuration</pd:to>
+        <pd:lineType>Straight</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Cleanup Exception Type</pd:from>
+        <pd:to>Cleanup ACLs</pd:to>
+        <pd:lineType>Straight</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Cleanup Exception Configuration</pd:from>
+        <pd:to>Cleanup Exception Procedure</pd:to>
+        <pd:lineType>Straight</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Cleanup Logs</pd:from>
+        <pd:to>Cleanup Exception Entries</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Cleanup Rendering Configuration</pd:from>
+        <pd:to>Cleanup Exception Severity</pd:to>
+        <pd:lineType>Multiple Bends</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Cleanup Interface Config</pd:from>
+        <pd:to>Cleanup App Registration</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

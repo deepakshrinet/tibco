@@ -1,0 +1,12 @@
+﻿<data jsxnamespace="propsbundle" locales="">
+  <locale key="zh_CH">
+    <record jsxid="m_faultCaption" jsxtext="服务问题"/>
+    <record jsxid="CMN-01" jsxtext="发生内部错误，请连续管理员"/>
+    <record jsxid="CMN-08" jsxtext="用户不能被验证"/>
+    <record jsxid="CMN-10" jsxtext="没有可用的授权信息"/>
+    <record jsxid="LOG-01" jsxtext="没有搜索规则相应的日志记录。"/>
+    <record jsxid="BW-JDBC-100014" jsxtext="数据库错误，缺少表达规则。"/>
+    <record jsxid="BWENGINE-100031" jsxtext="输出数据无效。"/>
+    <record jsxid="no value" jsxtext="没有相应记录。"/>
+  </locale>
+</data>

@@ -1,0 +1,61 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>AppQueue</name>
+			<value>ZBS.EXEL.GTS.TRANSACTION.REQ.ASYNC1</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1472779527381</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>AuditFlag</name>
+			<value>false</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>Boolean</type>
+			<modTime>1472653533507</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>Environment</name>
+			<value>DEV</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1472653533929</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>JmsEmsUser</name>
+			<value>no value</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1472778001268</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>JmsJndiUser</name>
+			<value>no value</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1472778001331</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>ProcessedPath</name>
+			<value>\\tibpr-nas\TIB_FILESHARE\dev\PRODUCTION_UTILITY\QUEUE_REPLAY\DATA\</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1472837576948</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>TargetPath</name>
+			<value>\\tibpr-nas\TIB_FILESHARE\dev\PRODUCTION_UTILITY\QUEUE_REPLAY\PROCESSED\</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1472837576984</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

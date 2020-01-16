@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogListQuery"
+	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	 targetNamespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogListQuery"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xsd:element name="LogListQuery">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="AppIDFrom" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="AppIDTo" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="ComponentFrom" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="ComponentTo" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="TransactionDomainFrom" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="TransactionDomainTo" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="TransIDFrom" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="TransIDTo" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="DateFrom" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="DateTo" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="OrderBy" type="xsd:string" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

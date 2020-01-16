@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:ns="http://www.tibco.com/CommonLE2/Public/Common" xmlns:pfx0="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Exception/ExceptionResolution" xmlns:pfx1="http://www.tibco.com/CommonLE2/Public/Common/Dummy" xmlns:ns2="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Exception/ExceptionIDList" xmlns:ns3="http://www.tibco.com/schemas/COMMONLENEW/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Common/ListQuery.xsd" xmlns:tns="http://www.tibco.com/CommonLE2/namespace/ExceptionManagement/GUIServices" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx5="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/ExceptionManagement/ExceptionListQuery" xmlns:pfx4="http://www.tibco.com/CommonLE2/namespace/private/Common" xmlns:pfx3="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/ExceptionManagement" xmlns:pfx2="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/ExceptionManagement/ExceptionDetailQuery" xmlns:pfx6="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Exception/ExceptionList" targetNamespace="http://www.tibco.com/CommonLE2/namespace/ExceptionManagement/GUIServices">
+    <import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/ExceptionManagement/ExceptionDetailQuery" location="../../../SchemaDefinitions/Public/Pluggable/GUI/ExceptionManagement/ExceptionDetailQuery.xsd"/>
+    <import namespace="http://www.tibco.com/CommonLE2/Public/Common/Dummy" location="../../../SchemaDefinitions/Public/Pluggable/GUI/Common/DummyReturnMessage.xsd"/>
+    <import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Exception/ExceptionResolution" location="../../../SchemaDefinitions/Public/Pluggable/GUI/ExceptionManagement/ExceptionResolution.xsd"/>
+    <import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/ExceptionManagement/ExceptionListQuery" location="../../../SchemaDefinitions/Public/Pluggable/GUI/ExceptionManagement/ExceptionListQuery.xsd"/>
+    <import namespace="http://www.tibco.com/CommonLE2/namespace/private/Common" location="../../../SchemaDefinitions/Private/Common/LocalExceptions.xsd"/>
+    <import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Exception/ExceptionList" location="../../../SchemaDefinitions/Public/Pluggable/GUI/ExceptionManagement/ExceptionList.xsd"/>
+    <import namespace="http://www.tibco.com/CommonLE2/Public/Common" location="../../../SchemaDefinitions/Public/Common/ErrorMessage.xsd"/>
+    <import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Exception/ExceptionIDList" location="../../../SchemaDefinitions/Public/Pluggable/GUI/ExceptionManagement/ExceptionIDList.xsd"/>
+    <import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/ExceptionManagement" location="../../../SchemaDefinitions/Public/Pluggable/GUI/ExceptionManagement/ExceptionDetail.xsd"/>
+    <import namespace="http://www.tibco.com/schemas/COMMONLENEW/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Common/ListQuery.xsd" location="../../../SchemaDefinitions/Public/Pluggable/GUI/Common/ListQuery.xsd"/>
+    <message name="Error">
+        <part name="parameters" element="ns:Error"/>
+    </message>
+    <message name="Dummy">
+	    
+	</message>
+    <message name="ExceptionDetail">
+        <part name="parameters" element="pfx3:ExceptionDetail"/>
+    </message>
+    <message name="ExceptionDetailQuery">
+        <part element="pfx2:ExceptionDetailQuery" name="parameters"/>
+    </message>
+    <message name="ExceptionList">
+        <part element="pfx6:ExceptionList" name="parameters"/>
+    </message>
+    <message name="ExceptionListQuery">
+        <part name="parameters" element="ns3:ListQuery"/>
+    </message>
+    <message name="ExceptionResolutionRecordList">
+        <part element="pfx0:ExceptionResolutionRecordList" name="parameters"/>
+    </message>
+    <message name="ExceptionIDList">
+        <part name="part1" element="ns2:ExceptionIDList"/>
+    </message>
+    <portType name="portType">
+        <operation name="ResolveExceptionsOp">
+            <input message="tns:ExceptionResolutionRecordList"/>
+            <output message="tns:Dummy"/>
+            <fault name="fault1" message="tns:Error"/>
+        </operation>
+        <operation name="RetrieveExceptionDetailOp">
+            <input message="tns:ExceptionDetailQuery"/>
+            <output message="tns:ExceptionDetail"/>
+            <fault name="fault1" message="tns:Error"/>
+        </operation>
+        <operation name="RetrieveExceptionListOp">
+            <input message="tns:ExceptionListQuery"/>
+            <output message="tns:ExceptionList"/>
+            <fault name="fault1" message="tns:Error"/>
+        </operation>
+        <operation name="DeleteExceptionsOp">
+            <input message="tns:ExceptionIDList"/>
+            <output message="tns:Dummy"/>
+            <fault name="fault1" message="tns:Error"/>
+        </operation>
+        <operation name="RetrieveExceptionDetailNoRenderingOp">
+            <input message="tns:ExceptionDetailQuery"/>
+            <output message="tns:ExceptionDetail"/>
+            <fault name="fault1" message="tns:Error"/>
+        </operation>
+    </portType>
+</definitions>

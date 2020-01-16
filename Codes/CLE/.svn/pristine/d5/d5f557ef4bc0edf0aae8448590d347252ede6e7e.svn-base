@@ -1,0 +1,12 @@
+<data jsxnamespace="propsbundle" locales="">
+  <locale>
+    <record jsxid="typeConfig_ApplicationID" jsxtext="ID de Aplicación"/>
+    <record jsxid="typeConfig_TypeID" jsxtext="ID"/>
+    <record jsxid="typeConfig_TypeName" jsxtext="Nombre"/>
+    <record jsxid="typeConfig_Description" jsxtext="Descripción"/>
+    <record jsxid="typeConfig_createNewItemCaption" jsxtext="Crear Nuevo Tipo"/>
+    <record jsxid="typeConfig_createType" jsxtext="Crear Tipo"/>
+    <record jsxid="typeConfig_createTypeTip" jsxtext="Crear Tipo"/>
+  </locale>
+</data>
+

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:ns="http://www.tibco.com/CommonLE2/Public/Common" xmlns:pfx0="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Query" xmlns:pfx1="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfigList" xmlns:ns2="http://www.tibco.com/CommonLE2/namespace/Public/Common/IDQuery" xmlns:ns4="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Common/DeleteQuery" xmlns:ns3="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfigDetailQuery" xmlns:tns="http://www.tibco.com/CommonLE2/namespace/Administration/GUIServices/ExceptionConfiguration" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx5="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfigDetail" xmlns:pfx4="http://www.tibco.com/CommonLE2/Public/Common/Dummy" xmlns:pfx3="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig" xmlns:pfx2="http://www.tibco.com/CommonLE2/namespace/private/Common" targetNamespace="http://www.tibco.com/CommonLE2/namespace/Administration/GUIServices/ExceptionConfiguration">
+    <import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfigDetail" location="../../../SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/ExceptionConfigDetail.xsd"/>
+    <import namespace="http://www.tibco.com/CommonLE2/Public/Common/Dummy" location="../../../SchemaDefinitions/Public/Pluggable/GUI/Common/DummyReturnMessage.xsd"/>
+    <import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfig" location="../../../SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/ExceptionConfig.xsd"/>
+    <import namespace="http://www.tibco.com/CommonLE2/namespace/private/Common" location="../../../SchemaDefinitions/Private/Common/LocalExceptions.xsd"/>
+    <import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfigList" location="../../../SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/ExceptionConfigurationList.xsd"/>
+    <import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Query" location="../../../SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/ConfigurationQuery.xsd"/>
+    <import namespace="http://www.tibco.com/CommonLE2/Public/Common" location="../../../SchemaDefinitions/Public/Common/ErrorMessage.xsd"/>
+    <import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Common/IDQuery" location="../../../SchemaDefinitions/Public/Pluggable/GUI/Common/IDQuery.xsd"/>
+    <import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/ExceptionConfigDetailQuery" location="../../../SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/ExceptionConfigDetailQuery.xsd"/>
+    <import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Common/DeleteQuery" location="../../../SchemaDefinitions/Public/Pluggable/GUI/Common/DeleteQuery.xsd"/>
+    <message name="Error">
+        <part name="parameters" element="ns:Error"/>
+    </message>
+    <message name="Dummy">
+	    
+	</message>
+    <message name="ExceptionConfigDetail">
+        <part element="pfx5:ExceptionConfigDetail" name="parameters"/>
+    </message>
+    <message name="ExceptionConfigList">
+        <part element="pfx1:ExceptionConfigList" name="parameters"/>
+    </message>
+    <message name="ExceptionConfigs">
+        <part element="pfx3:ExceptionConfigs" name="parameters"/>
+    </message>
+    <message name="Query">
+        <part element="pfx0:Query" name="parameters"/>
+    </message>
+    <message name="Message">
+        <part name="part1" type="xsd:string"/>
+    </message>
+    <message name="ExceptionConfigDetailQuery">
+        <part name="part1" element="ns3:Query"/>
+    </message>
+    <message name="DeleteQuery">
+        <part name="part1" element="ns4:DeleteQueries"/>
+    </message>
+    <portType name="portType">
+        <operation name="RetrieveSpecificExceptionConfigurationListOp">
+            <input message="tns:Query"/>
+            <output message="tns:ExceptionConfigList"/>
+            <fault name="fault1" message="tns:Error"/>
+        </operation>
+        <operation name="UpdateExceptionConfigurationOp">
+            <input message="tns:ExceptionConfigs"/>
+            <output message="tns:Dummy"/>
+            <fault name="fault1" message="tns:Error"/>
+        </operation>
+        <operation name="RetrieveSpecificExceptionConfigurationOp">
+            <input message="tns:ExceptionConfigDetailQuery"/>
+            <output message="tns:ExceptionConfigDetail"/>
+            <fault name="fault1" message="tns:Error"/>
+        </operation>
+        <operation name="DeleteExceptionConfigurationOp">
+            <input message="tns:DeleteQuery"/>
+            <output message="tns:Dummy"/>
+            <fault name="fault1" message="tns:Error"/>
+        </operation>
+        <operation name="CreateExceptionConfigurationOp">
+            <input message="tns:ExceptionConfigs"/>
+            <output message="tns:Dummy"/>
+            <fault name="fault1" message="tns:Error"/>
+        </operation>
+    </portType>
+</definitions>

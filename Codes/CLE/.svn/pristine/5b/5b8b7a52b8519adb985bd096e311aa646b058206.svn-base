@@ -1,0 +1,11 @@
+﻿<data jsxnamespace="propsbundle" locales="">
+  <locale key="zh_CH">
+    <record jsxid="severity_ApplicationID" jsxtext="应用程序ID"/>
+    <record jsxid="severity_SeverityID" jsxtext="ID"/>
+    <record jsxid="severity_SeverityName" jsxtext="名字"/>
+    <record jsxid="severity_Description" jsxtext="描述"/>
+    <record jsxid="severity_createNewItemCaption" jsxtext="创建新的严重度"/>
+    <record jsxid="severity_createSeverity" jsxtext="创建严重度"/>
+    <record jsxid="severity_createSeverityTip" jsxtext="创建严重度"/>
+  </locale>
+</data>

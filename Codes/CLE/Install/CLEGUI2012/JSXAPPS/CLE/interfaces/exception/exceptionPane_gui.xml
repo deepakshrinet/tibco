@@ -1,0 +1,436 @@
+<serialization xmlns="urn:tibco.com/v3.0" jsxversion="3.9">
+  <name><![CDATA[Block - 100%]]></name>
+  <icon><![CDATA[images/prototypes/block.gif]]></icon>
+  <description><![CDATA[Simple block, relatively positioned with overflow=scroll.]]></description>
+  <onBeforeDeserialize/>
+  <onAfterDeserialize><![CDATA[
+	exceptionListSplitter.subscribe("beforeSplitterResize",cle.exception.onBeforeSplitterResize);
+	exceptionListSplitter.subscribe("afterSplitterResize",cle.exception.onAfterSplitterResize);
+  ]]></onAfterDeserialize>
+  <object type="jsx3.gui.Block">
+    <variants jsxoverflow="2"/>
+    <strings jsxname="exceptionPane" jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1"/>
+    <object type="jsx3.gui.Block">
+      <variants jsxoverflow="2"/>
+      <strings jsxname="pane2" jsxwidth="100%" jsxheight="100%"/>
+      <object type="jsx3.gui.Splitter">
+        <variants jsxleft="0" jsxtop="0"/>
+        <strings jsxname="exceptionSplitterV" jsxsubcontainer1pct="365,*"/>
+        <dynamics jsxbgcolor="splitterPaneBackground"/>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="1"/>
+          <strings jsxname="paneLeft" jsxwidth="100%" jsxheight="100%"/>
+          <dynamics jsxborder="@Inset" jsxbgcolor="@Solid Light"/>
+          <object type="jsx3.gui.LayoutGrid">
+            <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+            <strings jsxname="exceptionSearchLayout" jsxrows="26,*" jsxwidth="100%" jsxheight="100%"/>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%" jsxtextalign="right"/>
+              <dynamics jsxborder="@Outset" jsxbgcolor="mediumBG" jsxbg="@CBar Bevel TopDown"/>
+              <object type="jsx3.gui.ToolbarButton">
+                <variants jsxenabled="0"/>
+                <strings jsxname="exceptionSearchBtn" jsximage="images/icons/search.gif"/>
+                <dynamics jsxfontsize="@Normal FS" jsxtext="m_search" jsxtip="exception_searchExceptions"/>
+                <events jsxexecute="cle.exception.queryExceptions(this);"/>
+              </object>
+              <object type="jsx3.gui.Menu">
+                <variants jsxxmlasync="1"/>
+                <strings jsxname="exceptionSearchMenu" jsxxmlurl="interfaces/exception/exceptionQueryToolbarMenu_cdf.xml"/>
+                <dynamics jsxtext="m_options"/>
+              </object>
+              <object type="jsx3.gui.Menu">
+                <variants jsxxmlasync="1"/>
+                <strings jsxname="exceptionSearchContextMenu" jsxtip="menu" jsxtext="context" jsxxmlurl="interfaces/exception/exceptionSearchContextMenu_cdf.xml" jsxdisplay="none"/>
+              </object>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxname="pane2" jsxwidth="100%" jsxheight="100%"/>
+              <dynamics jsxbgcolor="@Solid Light"/>
+              <object type="jsx3.gui.Block">
+                <variants jsxoverflow="2"/>
+                <strings jsxname="exceptionQueryMatrixPane" jsxwidth="100%" jsxheight="100%"/>
+                <dynamics jsxborder="@Outset"/>
+                <object type="jsx3.gui.Matrix">
+                  <variants jsxpagingmodel="4" jsxselectionmodel="0" jsxxmlasync="0" jsxxmlbind="1" jsxrowheight="23" jsxsuppresshscroll="0" jsxsuppressvscroll="0" jsxscalewidth="0" jsxrendernavigators="1" jsxdrag="0" jsxdrop="0" jsxshare="1" jsxheaderheight="0"/>
+                  <strings jsxname="exceptionQueryMatrix" jsxbodyborder="1px solid ;1px solid #9898a5;0px solid #9898a5;0px solid" jsxheaderborder="0px solid ;1px solid #9898a5;1px solid #9898a5;0px solid" jsxxmlid="exceptionCriteria_cdf_xml" jsxrenderingmodel="hierarchical" jsxrenderingcontext="" jsxicon="jsx:///images/spc.gif" jsxmenu="exceptionSearchContextMenu" jsxxmlurl="interfaces/exception/exceptionCriteria_cdf.xml"/>
+                  <events jsxafteredit="cle.exception.queryFieldChange(this);" jsxbeforeedit="cle.utils.onBeforeEdit(this, objCOLUMN, strRECORDID);" jsxaftercommit="cle.utils.onAfterCommit(this,strRECORDID,objCOLUMN,strVALUE);"/>
+                  <xslparameters jsx_rowbg1="#FFFFFF" jsx_rowbg2="#ffffff" jsx_no_empty_indent="1" jsx_indent="0" jsx_treehead_bgcolor="#D6E1ED" jsx_use_categories="1" jsx_treehead_fontweight="Bold"/>
+                  <object type="jsx3.gui.Matrix.Column">
+                    <variants/>
+                    <strings jsxname="descriptionCol" jsxresize="0" jsxpadding="2" jsxpath="jsxtext" jsxcelltextalign="left" jsxtextalign="left" jsxborder="0px solid ;1px solid #9898a5;1px solid #9898a5;0px solid" jsxcellpadding="2" jsxcellborder="0px solid ;0px solid ;1px solid #9898a5;0px solid"/>
+                    <dynamics jsxbg="@Bevel TopDown" jsxcellbgcolor="cellMediumBG" jsxbgcolor="mediumBG" jsxtext="m_name" jsxcellfontsize="matrixCellFontSize" jsxwidth="exceptionNameColWidth"/>
+                  </object>
+                  <object type="jsx3.gui.Matrix.Column">
+                    <variants jsxwrap="0" jsxwidth="160"/>
+                    <strings jsxname="dataCol" jsxpadding="2" jsxpath="jsxvalue" jsxtextalign="left" jsxborder="0px solid ;0px solid ;1px solid #9898a5;0px solid" jsxcellborder="0px solid ;0px solid ;1px solid #9898a5;0px solid" jsxcellpadding="4" jsxcelltextalign="left" jsxformathandler="cle.utils.formatCell"/>
+                    <dynamics jsxbg="@Bevel TopDown" jsxbgcolor="@Solid Light" jsxtext="m_value" jsxcellfontsize="matrixCellFontSize"/>
+                    <object type="jsx3.gui.TextBox">
+                      <variants jsxrelativeposition="0" jsxleft="160" jsxtop="253" jsxwidth="160" jsxheight="22" jsxzindex="10"/>
+                      <strings jsxname="textboxMask" jsxdisplay="none" jsxvalue=""/>
+                      <dynamics jsxfontsize="matrixMaskFontSize"/>
+                      <events jsxkeydown="1;"/>
+                    </object>
+                    <object type="jsx3.gui.Select">
+                      <variants jsxrelativeposition="0" jsxleft="160" jsxtop="138" jsxwidth="160" jsxheight="22" jsxzindex="10"/>
+                      <strings jsxname="selectMask" jsxdisplay="none" jsxvalue=""/>
+                      <dynamics jsxfontsize="matrixMaskFontSize"/>
+                    </object>
+                    <object type="jsx3.gui.Select">
+                      <variants jsxrelativeposition="0" jsxleft="160" jsxtop="138" jsxwidth="160" jsxheight="22" jsxzindex="10"/>
+                      <strings jsxname="timeframeSelectMask" jsxdisplay="none" jsxvalue=""/>
+                      <dynamics jsxfontsize="matrixMaskFontSize"/>
+                      <events jsxselect="cle.exception.setTimeframe(this.emGetSession().matrix,this.emGetSession().recordId);"/>
+                    </object>
+                    <object type="jsx3.gui.DatePicker">
+                      <variants jsxrelativeposition="0" jsxleft="120" jsxtop="184" jsxwidth="162" jsxheight="22" jsxzindex="10" jsxdateformat="2"/>
+                      <strings jsxname="datePickerMask" jsxdisplay="none" jsxformat="yyyy-MM-dd"/>
+                      <dynamics jsxfontsize="matrixMaskFontSize"/>
+                    </object>
+                    <object type="jsx3.gui.TimePicker">
+                      <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxshowsecs="0" jsxshowmillis="0"/>
+                      <strings jsxname="timePickerMask" jsxbgcolor="#FFFFFF" jsxdisplay="none"/>
+                      <dynamics jsxfontsize="matrixMaskFontSize"/>
+                    </object>
+                    <object type="jsx3.gui.Dialog">
+                      <variants jsxwidth="300" jsxheight="100" jsxzindex="5000" jsxleft="0" jsxtop="0" jsxrelativeposition="0"/>
+                      <strings jsxname="dialogMask" jsxdisplay="none"/>
+                      <dynamics jsxbgcolor="@Solid Medium"/>
+                      <object type="jsx3.gui.WindowBar">
+                        <variants jsxheight="9"/>
+                        <strings jsxname="caption" jsxbg="" jsxborder="1px solid #d8d8e5;0px;0px;1px solid #e8e8f5;" jsxbgcolor="#f5f5fb"/>
+                        <object type="jsx3.gui.ImageButton">
+                          <variants jsxwidth="8" jsxheight="8" jsxprefetch="1" jsxtype="0" jsxstate="0"/>
+                          <strings jsxname="closebtn" jsximage="jsx:///images/dialog/close_small.gif"/>
+                          <dynamics jsxtip="jsx3.gui.Dialog.close"/>
+                          <events jsxexecute="this.getParent().getParent().commitEditMask(objEVENT);"/>
+                        </object>
+                      </object>
+                      <object type="jsx3.gui.Block">
+                        <variants jsxrelativeposition="1" jsxoverflow="2"/>
+                        <strings jsxname="block" jsxwidth="100%" jsxheight="100%"/>
+                        <object type="jsx3.gui.TextBox">
+                          <variants jsxtype="1" jsxrelativeposition="1" jsxleft="0" jsxtop="0"/>
+                          <strings jsxwidth="100%" jsxheight="100%" jsxname="textarea" jsxvalue=""/>
+                          <events jsxkeydown="1;"/>
+                        </object>
+                      </object>
+                    </object>
+                    <object type="jsx3.gui.Block">
+                      <variants jsxwidth="200" jsxheight="23" jsxleft="0" jsxtop="0" jsxrelativeposition="0"/>
+                      <strings jsxname="checkboxMask" jsxpadding="3 3 3 6" jsxdisplay="none" jsxborder="0px solid ;0px solid ;1px solid #9898a5;0px solid;"/>
+                      <dynamics jsxbgcolor="@Solid Light"/>
+                      <object type="jsx3.gui.CheckBox">
+                        <variants jsxheight="18" jsxchecked="1" jsxdefaultchecked="0"/>
+                        <strings jsxname="checkbox" jsxmargin="0 4 0 0"/>
+                        <dynamics jsxtext="exception_include" jsxfontsize="matrixMaskFontSize"/>
+                        <events jsxtoggle="var s=this.getParent().emGetSession();cle.exception.enableApp(s.matrix,s.recordId,intCHECKED);this.getParent().commitEditMask(objEVENT);"/>
+                      </object>
+                    </object>
+                    <object type="jsx3.gui.Block">
+                      <variants jsxwidth="200" jsxheight="23" jsxleft="0" jsxtop="0" jsxrelativeposition="0"/>
+                      <strings jsxname="allAppsMask" jsxpadding="3 3 3 6" jsxdisplay="none" jsxborder="0px solid ;0px solid ;1px solid #9898a5;0px solid;"/>
+                      <dynamics jsxbgcolor="@Solid Light"/>
+                      <object type="jsx3.gui.CheckBox">
+                        <variants jsxheight="18" jsxdefaultchecked="0"/>
+                        <strings jsxname="checkbox" jsxmargin="0 4 0 0"/>
+                        <dynamics jsxtext="exception_include" jsxfontsize="matrixMaskFontSize"/>
+                        <events jsxtoggle="var s=this.getParent().emGetSession();cle.exception.enableAllApps(s.matrix,intCHECKED);"/>
+                      </object>
+                    </object>
+                    <object type="jsx3.gui.Block">
+                      <variants jsxwidth="200" jsxheight="25" jsxleft="0" jsxtop="0" jsxrelativeposition="0"/>
+                      <strings jsxname="radioMask" jsxpadding="3" jsxdisplay="none"/>
+                      <dynamics jsxbgcolor="@Solid Light" jsxborder="@Inset"/>
+                      <object type="jsx3.gui.RadioButton">
+                        <variants jsxheight="18" jsxdefaultselected="1" jsxselected="0" jsxrelativeposition="1"/>
+                        <strings jsxname="radio" jsxtext="[radio button text]" jsxgroupname="group1" jsxmargin="0 4 0 0"/>
+                      </object>
+                    </object>
+                  </object>
+                </object>
+              </object>
+            </object>
+          </object>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="2"/>
+          <strings jsxname="paneRight" jsxwidth="100%" jsxheight="100%"/>
+          <dynamics jsxbgcolor="@Solid Light"/>
+          <object type="jsx3.gui.Splitter">
+            <variants jsxorientation="0" jsxleft="0" jsxtop="0"/>
+            <strings jsxname="exceptionListSplitter" jsxsubcontainer1pct="70%"/>
+            <dynamics jsxbgcolor="splitterPaneBackground"/>
+            <events jsxbeforeresize="this.publish({subject:'beforeSplitterResize',target:this});" jsxafterresize="this.publish({subject:'afterSplitterResize',target:this});"/>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxname="paneLeft" jsxwidth="100%" jsxheight="100%"/>
+              <dynamics jsxbgcolor="@Solid Light"/>
+              <object type="jsx3.gui.LayoutGrid">
+                <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+                <strings jsxname="layoutRows" jsxrows="26,*" jsxwidth="100%" jsxheight="100%"/>
+                <object type="jsx3.gui.WindowBar">
+                  <variants jsxbartype="1"/>
+                  <strings jsxname="exceptionActionsPane" jsxwidth="100%" jsxheight="100%"/>
+                  <dynamics jsxbgcolor="@Solid Light" jsxbg="@No BG Image"/>
+                  <object type="jsx3.gui.ToolbarButton">
+                    <variants/>
+                    <strings jsxname="exceptionManageColumnsBtn" jsximage="images/icons/matrix-column.gif"/>
+                    <dynamics jsxtext="exception_manageColumns"/>
+                    <events jsxexecute="cle.exception.showColumnManager(this);"/>
+                  </object>
+                  <object type="jsx3.gui.ToolbarButton">
+                    <variants jsxenabled="0"/>
+                    <strings jsxname="exceptionResolveSelectedBtn" jsximage="images/icons/green_check.gif"/>
+                    <dynamics jsxtext="exception_resolveSelectedExceptions"/>
+                    <events jsxexecute="cle.exception.showResolveExceptionsUI(this);"/>
+                  </object>
+                  <object type="jsx3.gui.ToolbarButton">
+                    <variants jsxenabled="0"/>
+                    <strings jsxname="exceptionSuppressSelectedBtn" jsximage="images/icons/lockDoc.gif"/>
+                    <dynamics jsxtext="exception_suppressSelectedExceptions"/>
+                    <events jsxexecute="cle.exception.suppressSelectedExceptions(this);"/>
+                  </object>
+                  <object type="jsx3.gui.ToolbarButton">
+                    <variants jsxenabled="0"/>
+                    <strings jsxname="exceptionDeleteSelectedBtn" jsximage="images/icons/removeDoc.gif"/>
+                    <dynamics jsxtext="exception_deleteSelectedExceptions"/>
+                    <events jsxexecute="cle.exception.deleteSelectedExceptions(this);"/>
+                  </object>
+                  <object type="jsx3.gui.Menu">
+                    <variants jsxxmlasync="1"/>
+                    <strings jsxname="exceptionContextMenu" jsxtip="menu" jsxtext="context" jsxxmlurl="interfaces/exception/exceptionContextMenu_cdf.xml" jsxdisplay="none"/>
+                  </object>
+                </object>
+                <object type="jsx3.gui.Block">
+                  <variants jsxoverflow="2"/>
+                  <strings jsxname="exceptionListPane" jsxwidth="100%" jsxheight="100%"/>
+                  <dynamics jsxborder="@Outset"/>
+                  <object type="jsx3.gui.Matrix">
+                    <variants jsxpagingmodel="3" jsxpaintqueuesize="3" jsxrowsperpanel="50" jsxpanelpoolsize="5" jsxselectionmodel="2" jsxjsxxmlasync="1" jsxxmlbind="1"/>
+                    <strings xmlns="urn:tibco.com/v3.0" jsxname="exceptionListMatrix" jsxbodyborder="1px solid #dfdfff" jsxheaderborder="1px solid #dfdfff" jsxxmlid="exceptionList_cdf" jsxrenderingmodel="hierarchical" jsxicon="jsx:///images/spc.gif" jsxmenu="exceptionContextMenu"/>
+                    <dynamics jsxscrollinfolabel="exception_listScrollInfo" jsxheaderheight="exceptionHeaderHeight" jsxbgcolor="@Solid Light"/>
+                    <events jsxexecute="cle.exception.getExceptionDetails(this, strRECORDID);" jsxselect="cle.exception.setExceptionSelection(this);" jsxmenu="cle.exception.beforeShowMenu(this,strRECORDID,objCOLUMN,objMENU);"/>
+                    <xslparameters jsx_rowbg1="#ffffff" jsx_rowbg2="#ffffff"/>
+                    <object type="jsx3.gui.Matrix.Column">
+                      <variants/>
+                      <strings jsxname="imageColumn" jsxwidth="20" jsxtext="&amp;#160;" jsxvaluetemplate="@image" jsxpadding="3" jsxcellpadding="1" jsxpath="jsximg"/>
+                      <dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="mediumBG" jsxcellborder="exceptionColumnLeftBorder"/>
+                    </object>
+                    <object type="jsx3.gui.Matrix.Column">
+                      <variants jsxwidth="80"/>
+                      <strings xmlns="urn:tibco.com/v3.0" jsxname="exceptionIdCol" jsxpadding="2" jsxcellpadding="1" jsxpath="jsxid"/>
+                      <dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="mediumBG" jsxtext="exception_exceptionIdCol" jsxcellborder="exceptionColumnBorder"/>
+                    </object>
+                    <object type="jsx3.gui.Matrix.Column">
+                      <variants jsxwidth="160"/>
+                      <strings xmlns="urn:tibco.com/v3.0" jsxname="statusCol" jsxpadding="2" jsxcellpadding="1" jsxpath="STATUS"/>
+                      <dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="mediumBG" jsxtext="exception_statusCol" jsxcellborder="exceptionColumnBorder"/>
+                    </object>
+                    <object type="jsx3.gui.Matrix.Column">
+                      <variants jsxwidth="100"/>
+                      <strings xmlns="urn:tibco.com/v3.0" jsxname="applicationIdCol" jsxpadding="2" jsxcellpadding="1" jsxpath="APPLICATIONID"/>
+                      <dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="mediumBG" jsxtext="exception_applicationIdCol" jsxcellborder="exceptionColumnBorder"/>
+                    </object>
+                    <object type="jsx3.gui.Matrix.Column">
+                      <variants jsxwidth="120"/>
+                      <strings xmlns="urn:tibco.com/v3.0" jsxname="componentNameCol" jsxpadding="2" jsxcellpadding="1" jsxpath="COMPONENTNAME"/>
+                      <dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="mediumBG" jsxtext="exception_componentNameCol" jsxcellborder="exceptionColumnBorder"/>
+                    </object>
+                    <object type="jsx3.gui.Matrix.Column">
+                      <variants jsxwidth="140"/>
+                      <strings xmlns="urn:tibco.com/v3.0" jsxname="transactionDomainCol" jsxpadding="2" jsxcellpadding="1" jsxpath="TRANSACTIONDOMAIN"/>
+                      <dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="mediumBG" jsxtext="exception_transactionDomainCol" jsxcellborder="exceptionColumnBorder"/>
+                    </object>
+                    <object type="jsx3.gui.Matrix.Column">
+                      <variants jsxwidth="170"/>
+                      <strings xmlns="urn:tibco.com/v3.0" jsxname="timestampCol" jsxpadding="2" jsxcellpadding="1" jsxpath="TIME_STAMP" jsxformathandler="cle.exception.formatCellForDate"/>
+                      <dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="mediumBG" jsxtext="exception_timestampCol" jsxcellborder="exceptionColumnBorder"/>
+                    </object>
+                    <object type="jsx3.gui.Matrix.Column">
+                      <variants jsxwidth="120"/>
+                      <strings xmlns="urn:tibco.com/v3.0" jsxname="transIdCol" jsxpadding="2" jsxcellpadding="1" jsxpath="TRANSID"/>
+                      <dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="mediumBG" jsxtext="exception_transIdCol" jsxcellborder="exceptionColumnBorder"/>
+                    </object>
+                    <object type="jsx3.gui.Matrix.Column">
+                      <variants jsxwidth="120"/>
+                      <strings xmlns="urn:tibco.com/v3.0" jsxname="correlationIdCol" jsxpadding="2" jsxcellpadding="1" jsxpath="CORRELATIONID"/>
+                      <dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="mediumBG" jsxtext="exception_correlationIdCol" jsxcellborder="exceptionColumnBorder"/>
+                    </object>
+                    <object type="jsx3.gui.Matrix.Column">
+                      <variants jsxwidth="120"/>
+                      <strings xmlns="urn:tibco.com/v3.0" jsxname="categoryCol" jsxpadding="2" jsxcellpadding="1" jsxpath="CATEGORY"/>
+                      <dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="mediumBG" jsxtext="exception_categoryCol" jsxcellborder="exceptionColumnBorder"/>
+                    </object>
+                    <object type="jsx3.gui.Matrix.Column">
+                      <variants jsxwidth="120"/>
+                      <strings xmlns="urn:tibco.com/v3.0" jsxname="typeCol" jsxpadding="2" jsxcellpadding="1" jsxpath="TYPE"/>
+                      <dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="mediumBG" jsxtext="exception_typeCol" jsxcellborder="exceptionColumnBorder"/>
+                    </object>
+                    <object type="jsx3.gui.Matrix.Column">
+                      <variants jsxwidth="120"/>
+                      <strings xmlns="urn:tibco.com/v3.0" jsxname="severityCol" jsxpadding="2" jsxcellpadding="1" jsxpath="SEVERITY"/>
+                      <dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="mediumBG" jsxtext="exception_severityCol" jsxcellborder="exceptionColumnBorder"/>
+                    </object>
+                    <object type="jsx3.gui.Matrix.Column">
+                      <variants/>
+                      <strings jsxwidth="120" xmlns="urn:tibco.com/v3.0" jsxname="exceptionMessageCol" jsxpadding="2" jsxcellpadding="1" jsxpath="MESSAGE"/>
+                      <dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="mediumBG" jsxcellborder="exceptionColumnRightBorder" jsxtext="exception_messageCol"/>
+                    </object>
+                  </object>
+                </object>
+              </object>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxname="paneRight" jsxwidth="100%" jsxheight="100%"/>
+              <dynamics jsxbgcolor="@Solid Light"/>
+              <object type="jsx3.gui.StackGroup">
+                <variants jsxoverflow="2"/>
+                <strings jsxname="stackgroupH" jsxrows="*,27,27,27"/>
+                <object type="jsx3.gui.Stack">
+                  <variants/>
+                  <strings jsxname="detailsStack"/>
+                  <dynamics jsxactivecolor="activeTabColor" jsxinactivecolor="inactiveTabColor" jsxfontsize="labelFontSize" jsxtext="exception_details"/>
+                  <object type="jsx3.gui.Block">
+                    <variants jsxoverflow="2" jsxloadtype="4"/>
+                    <strings jsxname="detailPane" jsxbgcolor="#ffffff" jsxdisplay="" jsxvisibility="visible"/>
+                    <object type="jsx3.gui.Matrix">
+                      <variants jsxpagingmodel="4" jsxselectionmodel="0" jsxxmlasync="1" jsxxmlbind="0" jsxrowheight="23" jsxsuppresshscroll="0" jsxsuppressvscroll="0" jsxscalewidth="0" jsxrendernavigators="1" jsxdrag="0" jsxdrop="0" jsxshare="0" jsxheaderheight="0"/>
+                      <strings jsxname="exceptionDetailsMatrix" jsxbodyborder="1px solid ;1px solid #9898a5;0px solid #9898a5;0px solid" jsxheaderborder="0px solid ;1px solid #9898a5;1px solid #9898a5;0px solid" jsxxmlid="exceptionDetails_cdf" jsxrenderingmodel="hierarchical" jsxicon="jsx:///images/spc.gif"/>
+                      <events jsxbeforeedit="cle.utils.onBeforeEdit(this, objCOLUMN, strRECORDID);" jsxaftercommit="cle.utils.onAfterCommit(this,strRECORDID,objCOLUMN,strVALUE);"/>
+                      <xslparameters jsx_rowbg1="#FFFFFF" jsx_rowbg2="#ffffff" jsx_no_empty_indent="1" jsx_indent="0" jsx_treehead_bgcolor="#D6E1ED" jsx_use_categories="1" jsx_treehead_fontweight="Bold"/>
+                      <object type="jsx3.gui.Matrix.Column">
+                        <variants/>
+                        <strings jsxname="descriptionCol" jsxresize="0" jsxpadding="2" jsxpath="jsxtext" jsxcelltextalign="left" jsxtextalign="left" jsxborder="0px solid ;1px solid #9898a5;1px solid #9898a5;0px solid" jsxcellpadding="2" jsxcellborder="0px solid ;0px solid ;1px solid #9898a5;1px solid #9898a5"/>
+                        <dynamics jsxbg="@Bevel TopDown" jsxcellbgcolor="cellMediumBG" jsxbgcolor="mediumBG" jsxtext="m_name" jsxcellfontsize="matrixCellFontSize" jsxwidth="exceptionNameColWidth"/>
+                      </object>
+                      <object type="jsx3.gui.Matrix.Column">
+                        <variants jsxwrap="0" jsxwidth="160"/>
+                        <strings jsxname="dataCol" jsxpadding="2" jsxpath="jsxvalue" jsxtextalign="left" jsxborder="0px solid ;0px solid ;1px solid #9898a5;0px solid" jsxcellborder="0px solid ;0px solid ;1px solid #9898a5;1px solid #9898a5" jsxcellpadding="4" jsxcelltextalign="left" jsxformathandler="cle.utils.formatCell"/>
+                        <dynamics jsxbg="@Bevel TopDown" jsxbgcolor="@Solid Light" jsxtext="m_value" jsxcellfontsize="matrixCellFontSize"/>
+                        <object type="jsx3.gui.TextBox">
+                          <variants jsxrelativeposition="0" jsxleft="160" jsxtop="253" jsxwidth="160" jsxheight="22" jsxzindex="10"/>
+                          <strings jsxname="textboxMask" jsxdisplay="none" jsxvalue=""/>
+                          <dynamics jsxfontsize="matrixMaskFontSize"/>
+                          <events jsxkeydown="1;"/>
+                        </object>
+                        <object type="jsx3.gui.Select">
+                          <variants jsxrelativeposition="0" jsxleft="160" jsxtop="138" jsxwidth="160" jsxheight="22" jsxzindex="10"/>
+                          <strings jsxname="selectMask" jsxdisplay="none" jsxvalue=""/>
+                          <dynamics jsxfontsize="matrixMaskFontSize"/>
+                        </object>
+                        <object type="jsx3.gui.Select">
+                          <variants jsxrelativeposition="0" jsxleft="160" jsxtop="138" jsxwidth="160" jsxheight="22" jsxzindex="10"/>
+                          <strings jsxname="timeframeSelectMask" jsxdisplay="none" jsxvalue=""/>
+                          <dynamics jsxfontsize="matrixMaskFontSize"/>
+                          <events jsxselect="cle.exception.setTimeframe(this.emGetSession().matrix,this.emGetSession().recordId);"/>
+                        </object>
+                        <object type="jsx3.gui.DatePicker">
+                          <variants jsxrelativeposition="0" jsxleft="120" jsxtop="184" jsxwidth="162" jsxheight="22" jsxzindex="10" jsxdateformat="2"/>
+                          <strings jsxname="datePickerMask" jsxdisplay="none" jsxformat="yyyy-MM-dd"/>
+                          <dynamics jsxfontsize="matrixMaskFontSize"/>
+                        </object>
+                        <object type="jsx3.gui.TimePicker">
+                          <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxshowsecs="0" jsxshowmillis="0"/>
+                          <strings jsxname="timePickerMask" jsxbgcolor="#FFFFFF" jsxdisplay="none"/>
+                          <dynamics jsxfontsize="matrixMaskFontSize"/>
+                        </object>
+                        <object type="jsx3.gui.Dialog">
+                          <variants jsxwidth="300" jsxheight="100" jsxzindex="5001" jsxleft="0" jsxtop="0" jsxrelativeposition="0"/>
+                          <strings jsxname="dialogMask" jsxdisplay="none"/>
+                          <dynamics jsxbgcolor="@Solid Medium"/>
+                          <object type="jsx3.gui.WindowBar">
+                            <variants jsxheight="9"/>
+                            <strings jsxname="caption" jsxbg="" jsxborder="1px solid #d8d8e5;0px;0px;1px solid #e8e8f5;" jsxbgcolor="#f5f5fb"/>
+                            <object type="jsx3.gui.ImageButton">
+                              <variants jsxwidth="8" jsxheight="8" jsxprefetch="1" jsxtype="0" jsxstate="0"/>
+                              <strings jsxname="closebtn" jsximage="jsx:///images/dialog/close_small.gif"/>
+                              <dynamics jsxtip="jsx3.gui.Dialog.close"/>
+                              <events jsxexecute="this.getParent().getParent().commitEditMask(objEVENT);"/>
+                            </object>
+                          </object>
+                          <object type="jsx3.gui.Block">
+                            <variants jsxrelativeposition="1" jsxoverflow="2"/>
+                            <strings jsxname="block" jsxwidth="100%" jsxheight="100%"/>
+                            <object type="jsx3.gui.TextBox">
+                              <variants jsxtype="1" jsxrelativeposition="1" jsxleft="0" jsxtop="0"/>
+                              <strings jsxwidth="100%" jsxheight="100%" jsxname="textarea" jsxvalue=""/>
+                              <events jsxkeydown="1;"/>
+                            </object>
+                          </object>
+                        </object>
+                        <object type="jsx3.gui.Block">
+                          <variants jsxwidth="200" jsxheight="25" jsxleft="0" jsxtop="0" jsxrelativeposition="0"/>
+                          <strings jsxname="checkboxMask" jsxpadding="3" jsxdisplay="none"/>
+                          <dynamics jsxbgcolor="@Solid Light" jsxborder="@Inset"/>
+                          <object type="jsx3.gui.CheckBox">
+                            <variants jsxheight="18" jsxchecked="1" jsxdefaultchecked="0"/>
+                            <strings jsxname="checkbox" jsxtext="Include" jsxmargin="0 4 0 0"/>
+                          </object>
+                        </object>
+                        <object type="jsx3.gui.Block">
+                          <variants jsxwidth="200" jsxheight="25" jsxleft="0" jsxtop="0" jsxrelativeposition="0"/>
+                          <strings jsxname="allAppsMask" jsxpadding="3" jsxdisplay="none"/>
+                          <dynamics jsxbgcolor="@Solid Light" jsxborder="@Inset"/>
+                          <object type="jsx3.gui.CheckBox">
+                            <variants jsxheight="18" jsxdefaultchecked="0"/>
+                            <strings jsxname="checkbox" jsxmargin="0 4 0 0"/>
+                            <dynamics jsxtext="exception_include" jsxfontsize="labelFontSize"/>
+                            <events jsxtoggle="var s=this.getParent().emGetSession();cle.exception.enableAllApps(s.matrix,intCHECKED);"/>
+                          </object>
+                        </object>
+                        <object type="jsx3.gui.Block">
+                          <variants jsxwidth="200" jsxheight="25" jsxleft="0" jsxtop="0" jsxrelativeposition="0"/>
+                          <strings jsxname="radioMask" jsxpadding="3" jsxdisplay="none"/>
+                          <dynamics jsxbgcolor="@Solid Light" jsxborder="@Inset"/>
+                          <object type="jsx3.gui.RadioButton">
+                            <variants jsxheight="18" jsxdefaultselected="1" jsxselected="0" jsxrelativeposition="1"/>
+                            <strings jsxname="radio" jsxtext="[radio button text]" jsxgroupname="group1" jsxmargin="0 4 0 0"/>
+                          </object>
+                        </object>
+                      </object>
+                    </object>
+                  </object>
+                  <object type="jsx3.gui.Menu">
+                    <variants jsxxmlasync="1" jsxfontsize="10"/>
+                    <strings jsxname="exceptionDetailsMenu" jsxtip="menu" jsxxmlurl="interfaces/exception/exceptionDetailsMenu_cdf.xml" jsxfontweight="normal"/>
+                    <dynamics jsxtext="m_options"/>
+                  </object>
+                </object>
+                <object type="jsx3.gui.Stack">
+                  <variants/>
+                  <strings jsxname="exceptionStacktraceStack"/>
+                  <dynamics jsxtext="exception_stacktrace" jsxactivecolor="activeTabColor" jsxinactivecolor="inactiveTabColor" jsxfontsize="labelFontSize"/>
+                  <object type="jsx3.gui.Block">
+                    <variants jsxoverflow="1" jsxloadtype="4"/>
+                    <strings jsxname="exceptionStacktracePane" jsxbgcolor="#ffffff" jsxdisplay="none" jsxvisibility="visible"/>
+                  </object>
+                </object>
+                <object type="jsx3.gui.Stack">
+                  <variants/>
+                  <strings jsxname="exceptionTransactionStack"/>
+                  <dynamics jsxtext="exception_transaction" jsxactivecolor="activeTabColor" jsxinactivecolor="inactiveTabColor" jsxfontsize="labelFontSize"/>
+                  <object type="jsx3.gui.Block">
+                    <variants jsxoverflow="2" jsxloadtype="4"/>
+                    <strings jsxname="exceptionTransactionPane" jsxbgcolor="#ffffff" jsxdisplay="none" jsxvisibility="visible"/>
+                  </object>
+                </object>
+                <object type="jsx3.gui.Stack">
+                  <variants/>
+                  <strings jsxname="exceptionTransactionAfterResolveStack"/>
+                  <dynamics jsxtext="exception_transactionAfterResolve" jsxactivecolor="activeTabColor" jsxinactivecolor="inactiveTabColor" jsxfontsize="labelFontSize"/>
+                  <object type="jsx3.gui.Block">
+                    <variants jsxoverflow="2" jsxloadtype="4"/>
+                    <strings jsxname="exceptionTransactionAfterResolvePane" jsxbgcolor="#ffffff" jsxdisplay="none" jsxvisibility="visible"/>
+                  </object>
+                </object>
+              </object>
+            </object>
+          </object>
+        </object>
+      </object>
+    </object>
+  </object>
+</serialization>

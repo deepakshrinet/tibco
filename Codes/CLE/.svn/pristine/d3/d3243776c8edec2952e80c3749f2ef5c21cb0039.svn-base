@@ -1,0 +1,39 @@
+<data jsxnamespace="propsbundle" locales="">
+  <locale>
+    <record jsxid="config_tabLabel" jsxtext="Configuración"/>
+    <record jsxid="config_applicationId" jsxtext="ID de Aplicación"/>
+    <record jsxid="config_idCol" jsxtext="Id"/>
+    <record jsxid="config_nameCol" jsxtext="Nombre"/>
+    <record jsxid="config_descriptionCol" jsxtext="Descripción"/>
+    <record jsxid="config_id" jsxtext="Id:"/>
+    <record jsxid="config_name" jsxtext="Nombre:"/>
+    <record jsxid="config_description" jsxtext="Descripción:"/>
+    <record jsxid="config_applications" jsxtext="Aplicaciones"/>
+    <record jsxid="config_categories" jsxtext="Categorías"/>
+    <record jsxid="config_types" jsxtext="Tipos"/>
+    <record jsxid="config_severities" jsxtext="Severidades"/>
+    <record jsxid="config_procedures" jsxtext="Procedimientos"/>
+    <record jsxid="config_exceptionCodes" jsxtext="Códigos de Excepción"/>
+    <record jsxid="config_renderConfigs" jsxtext="Configuraciones de Conversión"/>
+    <record jsxid="config_interfaces" jsxtext="Interfaces"/>
+    <record jsxid="config_newItem" jsxtext="Nuevo Elemento"/>
+    <record jsxid="config_newItemConfigurationTip" jsxtext="Agregar Nuevo Elemento de Configuración"/>
+    <record jsxid="config_removeItem" jsxtext="Eliminar Elemento"/>
+    <record jsxid="config_removeConfigurationItemTip" jsxtext="Eliminar Elemento de Configuración"/>
+    <record jsxid="config_refresh" jsxtext="Actualizar"/>
+    <record jsxid="config_refreshTip" jsxtext="Actualizar"/>
+    <record jsxid="config_noEntriesAvailable" jsxtext="no hay entradas disponibles"/>
+    <record jsxid="config_noEntriesFound" jsxtext="no se encontraron entradas"/>
+    <record jsxid="config_manageColumns" jsxtext="Administrar Columnas"/>
+    <record jsxid="config_manageColumnsTip" jsxtext="Administrar Columnas"/>
+    <record jsxid="config_saveChanges" jsxtext="Guardar Cambios"/>
+    <record jsxid="config_saveChangesTip" jsxtext="Guardar Cambios"/>
+    <record jsxid="config_confirmChangesMessage" jsxtext="Existen registros modificados en espera de ser guardados. Guardar cambios ahora?"/>
+	<record jsxid="config_menuNew" jsxtext="Nuevo"/>
+	<record jsxid="config_menuNewItem" jsxtext="Nuevo Elemento"/>
+	<record jsxid="config_menuNewItemTip" jsxtext="Agregar un nuevo elemento de configuración"/>
+	<record jsxid="config_menuView" jsxtext="Ver"/>
+	<record jsxid="config_menuViewTip" jsxtext="Ver"/>
+    <record jsxid="config_deleteConfigurationItem" jsxtext="Eliminar Elemento"/>
+    <record jsxid="config_deleteConfigurationItemTip" jsxtext="Eliminar el elemento de configuración seleccionado."/>  </locale>
+</data>

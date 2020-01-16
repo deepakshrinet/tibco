@@ -1,0 +1,89 @@
+<serialization xmlns="urn:tibco.com/v3.0" jsxversion="3.9">
+	<name><![CDATA[Layout - Top/Over]]></name>
+	<icon><![CDATA[images/prototypes/layout-over.gif]]></icon>
+	<description><![CDATA[2 top-over-bottom panes in an adaptive layout grid.]]></description>
+	<object type="jsx3.gui.LayoutGrid">
+		<variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+		<strings jsxname="layoutRows" jsxrows="28,3,*" jsxwidth="100%" jsxheight="100%"/>
+		<object type="jsx3.gui.Block">
+			<variants jsxoverflow="2"/>
+			<strings jsxname="pane1" jsxwidth="100%" jsxheight="100%"/>
+			<object type="jsx3.gui.Splitter">
+				<variants jsxleft="0" jsxtop="0"/>
+				<strings jsxname="splitterV" jsxsubcontainer1pct="250,*"/>
+				<object type="jsx3.gui.Block">
+					<variants jsxoverflow="2"/>
+					<strings jsxname="paneLeft" jsxwidth="100%" jsxheight="100%"/>
+					<dynamics jsxborder="@Outset"/>
+					<object type="jsx3.gui.WindowBar">
+						<variants jsxbartype="2"/>
+						<strings jsxname="mainMenuBar"/>
+						<dynamics jsxbgcolor="lightBG"/>
+						<object type="jsx3.gui.Menu">
+							<variants/>
+							<strings jsxname="settingsMenu" jsximage="images/icons/table_gear.png" jsxxmlurl="interfaces/shared/settingsMenu_cdf.xml" jsxxmlid="settingsMenu_cdf"/>
+							<dynamics jsxtext="m_settingsMenu" jsxtip="m_settingsMenuTip"/>
+						</object>
+					</object>
+				</object>
+				<object type="jsx3.gui.Block">
+					<variants jsxoverflow="2"/>
+					<strings jsxname="paneRight" jsxwidth="100%" jsxheight="100%"/>
+					<dynamics jsxborder="@Outset"/>
+					<object type="jsx3.gui.WindowBar">
+						<variants jsxbartype="1"/>
+						<strings jsxname="mainToolBar"/>
+						<dynamics jsxbgcolor="mediumBG"/>
+						<object type="jsx3.gui.LayoutGrid">
+							<variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+							<strings jsxname="layoutCols" jsxcols="*,120,200" jsxwidth="100%" jsxheight="100%"/>
+							<object type="jsx3.gui.Block">
+								<variants jsxoverflow="2"/>
+								<strings jsxname="pane1" jsxwidth="100%" jsxheight="100%" jsxtextalign="right"/>
+								<object type="jsx3.gui.ToolbarButton">
+									<variants jsxwidth="16" jsxheight="16" jsxprefetch="1" jsxtype="0" jsxstate="0"/>
+									<strings jsxname="logoutBtn" jsxmargin="1 4 1 0" jsximage="images/icons/logout.gif"/>
+									<dynamics jsxtext="main_logout" jsxtip="main_logoutTip" jsxfontname="@Label1 FN" jsxfontsize="buttonFontSize"/>
+									<events jsxexecute="cle.logic.logOffApplication(this,objEVENT);"/>
+								</object>
+								<object type="jsx3.gui.ToolbarButton">
+									<variants jsxwidth="16" jsxheight="16" jsxprefetch="1" jsxtype="0" jsxstate="0"/>
+									<strings jsxname="showCacheBtn" jsximage="images/icons/dialog.gif" jsxtip="Show Cache" jsxkeycode="ctrl+shift+alt+c" jsxdisplay="none"/>
+									<events jsxexecute="this.getServer().getBodyBlock().loadAndCache(this.getServer().resolveURI('interfaces/shared/cacheViewer_gui.xml'),true);"/>
+								</object>
+								<object type="jsx3.gui.ToolbarButton">
+									<variants jsxwidth="16" jsxheight="16" jsxprefetch="1" jsxtype="0" jsxstate="0"/>
+									<strings jsxname="showDomBtn" jsximage="images/icons/dialog.gif" jsxtip="Show DOM" jsxkeycode="ctrl+shift+alt+d" jsxdisplay="none"/>
+									<events jsxexecute="this.getServer().getBodyBlock().loadAndCache(this.getServer().resolveURI('interfaces/shared/domViewer_gui.xml'),true);"/>
+								</object>
+							</object>
+							<object type="jsx3.gui.Block">
+								<variants jsxoverflow="2"/>
+								<strings jsxname="loggedInAs" jsxwidth="100%" jsxheight="100%" jsxpadding="6 3 3 3" jsxtextalign="right"/>
+								<dynamics jsxfontsize="@Normal FS" jsxtext="main_loggedInAs"/>
+							</object>
+							<object type="jsx3.gui.Block">
+								<variants jsxoverflow="2"/>
+								<strings jsxname="loggedInUser" jsxwidth="100%" jsxheight="100%" jsxpadding="6 3 3 3" jsxfontweight="bold"/>
+								<dynamics jsxfontsize="@Normal FS"/>
+							</object>
+						</object>
+					</object>
+				</object>
+			</object>
+		</object>
+		<object type="jsx3.gui.Block">
+			<variants jsxoverflow="2"/>
+			<strings jsxname="spacer" jsxwidth="100%" jsxheight="100%"/>
+			<dynamics jsxbgcolor="windowbarBackground"/>
+		</object>
+		<object type="jsx3.gui.Block">
+			<variants jsxoverflow="2"/>
+			<strings jsxname="bodyPane" jsxwidth="100%" jsxheight="100%"/>
+			<object type="jsx3.gui.TabbedPane">
+				<variants selectedIndex="2" jsxselectedindex="0" jsxtabheight="22"/>
+				<strings jsxname="mainTabbedPane" jsxtextalign="0"/>
+			</object>
+		</object>
+	</object>
+</serialization>

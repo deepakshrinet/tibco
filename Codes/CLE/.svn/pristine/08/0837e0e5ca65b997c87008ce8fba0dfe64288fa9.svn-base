@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Repository:repository xmlns:Repository="http://www.tibco.com/xmlns/repo/types/2002">
+    <folder resourceType="ae.designerfolder" name="Utilities" propLocks="" allowUserToChangeIcon="false" sortContents="false" acceptsResources="true" allowDuplicates="false">
+        <description>These utilities is for development and Testing only. They should not be included in deployment.
+
+The "Refresh Environment " process is the process you should run to establish a clean environment with 
+some test data so that you can experience how CommonLE works. You don't need to run this process for 
+production.
+
+The "CLEANUP ALL" process is used to remove all data from the environment and provide a clean environment. 
+
+The "INTIALIZE ALL" process is used to establish some test data in the environment. 
+</description>
+        <fixedChildren/>
+    </folder>
+</Repository:repository>

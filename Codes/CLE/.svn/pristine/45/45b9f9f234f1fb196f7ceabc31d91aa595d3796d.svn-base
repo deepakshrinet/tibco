@@ -1,0 +1,4 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<LogDetailQuery xmlns = "http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log" xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation = "http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log file:///C:/CLE/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Log/LogDetailQuery.xsd http://www.tibco.com/CommonLE/namespace/GUI file:///C:/CLE/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Log/LogDetailQuery.xsd">
+	<LogID>1</LogID>
+</LogDetailQuery>

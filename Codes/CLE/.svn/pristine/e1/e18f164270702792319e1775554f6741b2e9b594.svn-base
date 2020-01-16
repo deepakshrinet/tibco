@@ -1,0 +1,14 @@
+﻿<data jsxnamespace="propsbundle" locales="">
+  <locale key="zh_CH">
+    <record jsxid="login_userId" jsxtext="用户Id:"/>
+    <record jsxid="login_password" jsxtext="密码:"/>
+    <record jsxid="login_buttonLogin" jsxtext="登录"/>
+    <record jsxid="login_incompleteLogin" jsxtext="不完整的登录信息"/>
+    <record jsxid="login_errorCaption" jsxtext="登录错误"/>
+    <record jsxid="login_completeLoginToContinue" jsxtext="请输入一个用户Id和密码来继续。"/>
+    <record jsxid="login_timeoutCaption" jsxtext="登录超时"/>
+    <record jsxid="login_timeoutMessage" jsxtext="服务没有响应，请稍候再试。"/>
+    <record jsxid="login_invalidRequestCaption" jsxtext="无效的服务请求"/>
+    <record jsxid="login_invalidRequestMessage" jsxtext="下面的消息仅仅确认失败: "/>
+  </locale>
+</data>

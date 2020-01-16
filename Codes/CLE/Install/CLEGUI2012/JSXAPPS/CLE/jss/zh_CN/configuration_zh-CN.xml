@@ -1,0 +1,40 @@
+﻿<data jsxnamespace="propsbundle" locales="">
+  <locale key="zh_CH">
+    <record jsxid="config_tabLabel" jsxtext="配置"/>
+    <record jsxid="config_applicationId" jsxtext="应用程序Id"/>
+    <record jsxid="config_idCol" jsxtext="Id"/>
+    <record jsxid="config_nameCol" jsxtext="名字"/>
+    <record jsxid="config_descriptionCol" jsxtext="描述"/>
+    <record jsxid="config_id" jsxtext="Id:"/>
+    <record jsxid="config_name" jsxtext="名字:"/>
+    <record jsxid="config_description" jsxtext="描述:"/>
+    <record jsxid="config_applications" jsxtext="应用"/>
+    <record jsxid="config_categories" jsxtext="类别"/>
+    <record jsxid="config_types" jsxtext="类型"/>
+    <record jsxid="config_severities" jsxtext="严重程度"/>
+    <record jsxid="config_procedures" jsxtext="步骤"/>
+    <record jsxid="config_exceptionCodes" jsxtext="例外码"/>
+    <record jsxid="config_renderConfigs" jsxtext="转换配置"/>
+    <record jsxid="config_interfaces" jsxtext="接口"/>
+    <record jsxid="config_newItem" jsxtext="新项目"/>
+    <record jsxid="config_newItemConfigurationTip" jsxtext="添加新配置条目"/>
+    <record jsxid="config_removeItem" jsxtext="移除条目"/>
+    <record jsxid="config_removeConfigurationItemTip" jsxtext="移除配置条目"/>
+    <record jsxid="config_refresh" jsxtext="刷新"/>
+    <record jsxid="config_refreshTip" jsxtext="刷新"/>
+    <record jsxid="config_noEntriesAvailable" jsxtext="没有条目可用"/>
+    <record jsxid="config_noEntriesFound" jsxtext="没有条目被找到"/>
+    <record jsxid="config_manageColumns" jsxtext="管理列"/>
+    <record jsxid="config_manageColumnsTip" jsxtext="管理列"/>
+    <record jsxid="config_saveChanges" jsxtext="保存改变"/>
+    <record jsxid="config_saveChangesTip" jsxtext="保存改变"/>
+    <record jsxid="config_confirmChangesMessage" jsxtext="有更改的数据等待保存。现在保存吗?"/>
+	<record jsxid="config_menuNew" jsxtext="新"/>
+	<record jsxid="config_menuNewItem" jsxtext="新条目"/>
+	<record jsxid="config_menuNewItemTip" jsxtext="加入一个新的配置条目"/>
+	<record jsxid="config_menuView" jsxtext="查看"/>
+	<record jsxid="config_menuViewTip" jsxtext="查看"/>
+    <record jsxid="config_deleteConfigurationItem" jsxtext="删除条目"/>
+    <record jsxid="config_deleteConfigurationItemTip" jsxtext="删除选中的配置条目。"/>
+  </locale>
+</data>

@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://xmlns.example.com/unique/default/namespace/1098735544074" xmlns:pfx="http://xmlns.example.com/unique/default/namespace/1097652867820" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns0="http://www.tibco.com/CommonLE/namespace/Custom" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx5="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Applications" xmlns:pfx4="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Query" xmlns:pfx3="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Category" xmlns:pfx2="http://www.tibco.com/pe/DeployedVarsType" xmlns:pfx8="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/InterfaceConfigDetail" xmlns:pfx7="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/RenderConfig" xmlns:pfx6="http://www.tibco.com/CommonLE2/Private/Administration" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xsd:import namespace="http://xmlns.example.com/unique/default/namespace/1097652867820" schemaLocation="/Shared Resources/Schema Definitions/Custom/ACL.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Category" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/ExceptionCategory.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/Private/Administration" schemaLocation="/SharedResources/SchemaDefinitions/Private/Administration/QueryUpdate.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/RenderConfig" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/RenderConfig.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/InterfaceConfigDetail" schemaLocation="/SharedResources/SchemaDefinitions/Public/Pluggable/GUI/Administration/Configuration/InterfaceConfigDetail.xsd"/>
+    <pd:name>Utilities/Initialization/Initialize Interface Configuration.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startX>26</pd:startX>
+    <pd:startY>168</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>724</pd:endX>
+    <pd:endY>176</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1286468393103</pd:targetNamespace>
+    <pd:activity name="Seed Interface Configuration">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>237</pd:x>
+        <pd:y>177</pd:y>
+        <config>
+            <element ref="pfx8:InterfaceConfig"/>
+        </config>
+        <pd:inputBindings>
+            <pfx8:InterfaceConfig>
+                <pfx8:ApplicationID>
+                    <xsl:value-of select="&quot;&quot;"/>
+                </pfx8:ApplicationID>
+                <pfx8:InterfaceID>
+                    <xsl:value-of select="&quot;InterfaceID&quot;"/>
+                </pfx8:InterfaceID>
+                <pfx8:InterfaceName>
+                    <xsl:value-of select="&quot;InterfaceName&quot;"/>
+                </pfx8:InterfaceName>
+                <pfx8:InterfaceType>
+                    <xsl:value-of select="&quot;Physical&quot;"/>
+                </pfx8:InterfaceType>
+                <pfx8:dbUse>
+                    <xsl:value-of select="false()"/>
+                </pfx8:dbUse>
+                <pfx8:TransComplexity>
+                    <xsl:value-of select="&quot;Medium&quot;"/>
+                </pfx8:TransComplexity>
+                <pfx8:Owner>
+                    <xsl:value-of select="&quot;Owner&quot;"/>
+                </pfx8:Owner>
+                <pfx8:SourceSystem>
+                    <xsl:value-of select="&quot;Source&quot;"/>
+                </pfx8:SourceSystem>
+                <pfx8:TargetSystem>
+                    <xsl:value-of select="&quot;Target&quot;"/>
+                </pfx8:TargetSystem>
+                <pfx8:Protocol>
+                    <xsl:value-of select="&quot;JMS&quot;"/>
+                </pfx8:Protocol>
+                <pfx8:Status>
+                    <xsl:value-of select="&quot;Status&quot;"/>
+                </pfx8:Status>
+            </pfx8:InterfaceConfig>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Get Application List">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>119</pd:x>
+        <pd:y>175</pd:y>
+        <config>
+            <processName>/Utilities/Initialization/GetApplicationList.process</processName>
+            <processNameXPath/>
+        </config>
+        <pd:inputBindings>
+            <pfx4:Query/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:group name="For each AppID">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>342</pd:x>
+        <pd:y>59</pd:y>
+        <pd:width>315</pd:width>
+        <pd:height>215</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>inputLoop</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:over>$Get-Application-List/pfx5:Applications/pfx5:Application</pd:over>
+            <pd:iterationElementSlot>AppID</pd:iterationElementSlot>
+            <pd:indexSlot>appid</pd:indexSlot>
+            <pd:activityOutputName/>
+            <pd:accumulateOutput>false</pd:accumulateOutput>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>Repeat</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Repeat</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:group name="Repeat">
+            <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+            <pd:resourceType>ae.process.group</pd:resourceType>
+            <pd:x>396</pd:x>
+            <pd:y>93</pd:y>
+            <pd:width>226</pd:width>
+            <pd:height>144</pd:height>
+            <pd:collapsedWidth>57</pd:collapsedWidth>
+            <pd:collapsedHeight>70</pd:collapsedHeight>
+            <pd:joinToggle>inherit</pd:joinToggle>
+            <config>
+                <pd:groupType>repeat</pd:groupType>
+                <pd:serializable>false</pd:serializable>
+                <pd:indexSlot>i</pd:indexSlot>
+                <pd:activityOutputName/>
+                <pd:repeatCondition>$i &gt;2</pd:repeatCondition>
+                <pd:accumulateOutput>false</pd:accumulateOutput>
+            </config>
+            <pd:inputBindings/>
+            <pd:expanded>true</pd:expanded>
+            <pd:transition>
+                <pd:from>start</pd:from>
+                <pd:to>Create Render Configureation</pd:to>
+                <pd:lineType>Straight</pd:lineType>
+                <pd:lineColor>-16777216</pd:lineColor>
+                <pd:conditionType>always</pd:conditionType>
+            </pd:transition>
+            <pd:transition>
+                <pd:from>Create Render Configureation</pd:from>
+                <pd:to>end</pd:to>
+                <pd:lineType>Straight</pd:lineType>
+                <pd:lineColor>-16777216</pd:lineColor>
+                <pd:conditionType>always</pd:conditionType>
+            </pd:transition>
+            <pd:activity name="Create Render Configureation">
+                <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+                <pd:resourceType>ae.process.subprocess</pd:resourceType>
+                <pd:x>511</pd:x>
+                <pd:y>175</pd:y>
+                <config>
+                    <processName>/Administration/DataAccess/InterfaceConfiguration/Oracle/CreateInterfaceConfiguration.process</processName>
+                    <processNameXPath>concat("/Administration/DataAccess//InterfaceConfiguration/", $_globalVariables/pfx2:GlobalVariables/Database/MIG_DatabaseType, "/CreateInterfaceConfiguration.process")</processNameXPath>
+                </config>
+                <pd:inputBindings>
+                    <pfx6:InterfaceConfiguration>
+                        <pfx6:ApplicationID>
+                            <xsl:value-of select="$AppID/pfx5:Application/pfx5:ApplicationID"/>
+                        </pfx6:ApplicationID>
+                        <pfx6:ID>
+                            <xsl:value-of select="concat($Seed-Interface-Configuration/pfx8:InterfaceConfig/pfx8:InterfaceID, $AppID/pfx5:Application/pfx5:ApplicationID, &quot;.&quot;, $i)"/>
+                        </pfx6:ID>
+                        <pfx6:Name>
+                            <xsl:value-of select="$Seed-Interface-Configuration/pfx8:InterfaceConfig/pfx8:InterfaceName"/>
+                        </pfx6:Name>
+                        <pfx6:Type>
+                            <xsl:value-of select="$Seed-Interface-Configuration/pfx8:InterfaceConfig/pfx8:InterfaceType"/>
+                        </pfx6:Type>
+                        <pfx6:dbUse>
+                            <xsl:value-of select="$Seed-Interface-Configuration/pfx8:InterfaceConfig/pfx8:dbUse"/>
+                        </pfx6:dbUse>
+                        <pfx6:TransComplexity>
+                            <xsl:value-of select="$Seed-Interface-Configuration/pfx8:InterfaceConfig/pfx8:TransComplexity"/>
+                        </pfx6:TransComplexity>
+                        <pfx6:Owner>
+                            <xsl:value-of select="$Seed-Interface-Configuration/pfx8:InterfaceConfig/pfx8:Owner"/>
+                        </pfx6:Owner>
+                        <pfx6:SourceSystem>
+                            <xsl:value-of select="$Seed-Interface-Configuration/pfx8:InterfaceConfig/pfx8:SourceSystem"/>
+                        </pfx6:SourceSystem>
+                        <pfx6:TargetSystem>
+                            <xsl:value-of select="$Seed-Interface-Configuration/pfx8:InterfaceConfig/pfx8:TargetSystem"/>
+                        </pfx6:TargetSystem>
+                        <pfx6:Protocol>
+                            <xsl:value-of select="$Seed-Interface-Configuration/pfx8:InterfaceConfig/pfx8:Protocol"/>
+                        </pfx6:Protocol>
+                        <pfx6:Status>
+                            <xsl:value-of select="$Seed-Interface-Configuration/pfx8:InterfaceConfig/pfx8:Status"/>
+                        </pfx6:Status>
+                        <pfx6:Description>
+                            <xsl:value-of select="$Seed-Interface-Configuration/pfx8:InterfaceConfig/pfx8:Description"/>
+                        </pfx6:Description>
+                        <pfx6:ParentID>
+                            <xsl:value-of select="$Seed-Interface-Configuration/pfx8:InterfaceConfig/pfx8:ParentID"/>
+                        </pfx6:ParentID>
+                    </pfx6:InterfaceConfiguration>
+                </pd:inputBindings>
+            </pd:activity>
+        </pd:group>
+    </pd:group>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Get Application List</pd:to>
+        <pd:lineType>Straight</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Get Application List</pd:from>
+        <pd:to>Seed Interface Configuration</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Seed Interface Configuration</pd:from>
+        <pd:to>For each AppID</pd:to>
+        <pd:lineType>Straight</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>For each AppID</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Straight</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

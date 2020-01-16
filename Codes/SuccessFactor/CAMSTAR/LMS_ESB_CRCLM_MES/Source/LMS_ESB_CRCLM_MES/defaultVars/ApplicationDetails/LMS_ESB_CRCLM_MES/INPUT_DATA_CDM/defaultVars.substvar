@@ -1,0 +1,53 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>CATEGORY</name>
+			<value>LSOEMPLOYEECURRICULUMRECORDS</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1481209169998</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>SCENARIO_ID</name>
+			<value>LSOEMPLOYEECURRICULUMRECORDS</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1481209170076</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>Sender_ServiceName</name>
+			<value>SAPSF</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1481209170142</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>Sender_ServiceType</name>
+			<value>TIMER</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1481207126355</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>Target_ServiceName</name>
+			<value>LSOEMPLOYEECURRICULUMRECORDS Gateway</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1481209170206</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>Target_ServiceType</name>
+			<value>JMS</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1481207126208</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

@@ -1,0 +1,39 @@
+<data jsxid="jsxroot">
+	<record jsxid="Applications" jsxtext="Applications" jsxcategory="1" jsxopen="1" uneditable="1">
+		<record jsxid="AllApps" jsxtext="{log_allApps}" jsxvalue="0" maskName="allAppsMask" dataType="Checkbox"/>
+	</record>
+	<record jsxid="criteria" jsxtext="{log_criteria}" jsxopen="1" jsxcategory="1" uneditable="1">
+		<record jsxid="OrderBy" jsxtext="{log_orderBy}" jsxvalue="Time_Stamp" maskName="selectMask" type="param">
+			<enum jsxid="Time_Stamp" jsxtext="{log_time_stamp}"/>
+			<enum jsxid="TransactionDomain" jsxtext="{log_attrTransactionDomain}"/>
+			<enum jsxid="ComponentName" jsxtext="{log_attrComponentName}"/>
+			<enum jsxid="Status" jsxtext="{log_attrStatus}"/>
+			<enum jsxid="TransactionType" jsxtext="{log_attrTransactionType}"/>
+			<enum jsxid="TransactionID" jsxtext="{log_attrTransactionID}"/>
+			<enum jsxid="CorrelationID" jsxtext="{log_attrCorrelationID}"/>
+			<enum jsxid="FileName" jsxtext="{log_attrFilename}"/>
+		</record>
+		<record jsxid="componentName" id="ComponentName" maskName="textboxMask" jsxtext="{log_attrComponentName}" jsxvalue="" type="criteria"/>
+		<record jsxid="transactionDomain" id="TransactionDomain" maskName="textboxMask" jsxtext="{log_attrTransactionDomain}" jsxvalue="" type="criteria"/>
+		<record jsxid="fileName" id="FileName" jsxtext="{log_attrFilename}" maskName="textboxMask" jsxvalue="" type="criteria"/>
+		<record jsxid="transactionType" id="TransactionType" maskName="textboxMask" jsxtext="{log_attrTransactionType}" jsxvalue="" type="criteria"/>
+		<record jsxid="transactionID" id="TransactionID" maskName="textboxMask" jsxtext="{log_attrTransactionID}" jsxvalue="" type="criteria"/>
+		<record jsxid="status" id="Status" maskName="textboxMask" jsxtext="Status" jsxvalue="" type="criteria"/>
+		<record jsxid="correlationID" id="CorrelationID" maskName="textboxMask" jsxtext="{log_attrCorrelationID}" jsxvalue="" type="criteria"/>
+	</record>
+	<record jsxid="timeRange" id="Time_Stamp" jsxtext="{log_timeRange}" jsxopen="1" jsxcategory="1" type="criteria" uneditable="1">
+		<record jsxid="timeframe" jsxtext="{log_timeFrame}" jsxvalue="" maskName="timeframeSelectMask">
+			<enum jsxid="pastTenMinutes" jsxtext="{log_pastTenMinutes}"/>
+			<enum jsxid="pastThirtyMinutes" jsxtext="{log_pastThirtyMinutes}"/>
+			<enum jsxid="pastHour" jsxtext="{log_pastHour}"/>
+			<enum jsxid="pastSixHours" jsxtext="{log_pastSixHours}"/>
+			<enum jsxid="pastTwelveHours" jsxtext="{log_pastTwelveHours}"/>
+			<enum jsxid="pastDay" jsxtext="{log_pastDay}"/>
+			<enum jsxid="pastTwoDays" jsxtext="{log_pastTwoDays}"/>
+			<enum jsxid="pastWeek" jsxtext="{log_pastWeek}"/>
+			<enum jsxid="pastTwoWeeks" jsxtext="{log_pastTwoWeeks}"/>
+		</record>
+		<record jsxid="fromTimestamp" jsxtext="{log_fromTimestamp}" jsxvalue="" maskName="textboxMask"/>
+		<record jsxid="toTimestamp" jsxtext="{log_toTimestamp}" jsxvalue="" maskName="textboxMask"/>
+	</record>
+</data>

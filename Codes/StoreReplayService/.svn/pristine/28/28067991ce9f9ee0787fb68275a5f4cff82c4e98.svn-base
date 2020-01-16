@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/namespaces/tnt/plugins/file/v2" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns1="http://www.tibco.com/namespaces/tnt/plugins/file" xmlns:ns="http://xmlns.tibco.com/2003/5/bw/plugins/tcp">
+    <pd:name>UnitTest/Outbound Test.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startX>26</pd:startX>
+    <pd:startY>34</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>646</pd:endX>
+    <pd:endY>34</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1334245909079</pd:targetNamespace>
+    <pd:activity name="Read File">
+        <pd:type>com.tibco.plugin.file.FileReadActivity</pd:type>
+        <pd:resourceType>ae.activities.FileReadActivity</pd:resourceType>
+        <pd:x>130</pd:x>
+        <pd:y>114</pd:y>
+        <config>
+            <encoding>text</encoding>
+        </config>
+        <pd:inputBindings>
+            <ns2:ReadActivityInputClass>
+                <fileName>
+                    <xsl:value-of select="'C:/603.txt'"/>
+                </fileName>
+            </ns2:ReadActivityInputClass>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Read TCP Data">
+        <pd:type>com.tibco.plugin.tcp.TCPReadActivity</pd:type>
+        <pd:resourceType>ae.activities.TCPRead</pd:resourceType>
+        <pd:x>417</pd:x>
+        <pd:y>34</pd:y>
+        <config>
+            <dataType>Text</dataType>
+            <Separator>SEPARATOR_USER_STRING</Separator>
+            <SeparatorBinary>SEPARATOR_NONE</SeparatorBinary>
+            <Encoding/>
+            <userDefinedSeparator>TIBCOCLOSE</userDefinedSeparator>
+            <timeout>20000</timeout>
+        </config>
+        <pd:inputBindings>
+            <ns:ActivityInput>
+                <ns:connection>
+                    <xsl:value-of select="$TCP-Open-Connection/ns:ActivityOutput/ns:connection"/>
+                </ns:connection>
+            </ns:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="TCP Close Connection">
+        <pd:type>com.tibco.plugin.tcp.TCPCloseConnectionActivity</pd:type>
+        <pd:resourceType>ae.activities.TCPCloseConnection</pd:resourceType>
+        <pd:x>537</pd:x>
+        <pd:y>122</pd:y>
+        <config>
+            <OpenConnectionActivity> </OpenConnectionActivity>
+        </config>
+        <pd:inputBindings>
+            <ns:ActivityInput>
+                <ns:connection>
+                    <xsl:value-of select="$TCP-Open-Connection/ns:ActivityOutput/ns:connection"/>
+                </ns:connection>
+            </ns:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="TCP Open Connection">
+        <pd:type>com.tibco.plugin.tcp.TCPOpenConnectionActivity</pd:type>
+        <pd:resourceType>ae.activities.TCPOpenConnection</pd:resourceType>
+        <pd:x>237</pd:x>
+        <pd:y>42</pd:y>
+        <config>
+            <localhost>10.201.61.145</localhost>
+            <sharedConnection>/UnitTest/SourceSystem.sharedtcp</sharedConnection>
+        </config>
+        <pd:inputBindings>
+            <ns:ActivityInput>
+                <ns:connection/>
+            </ns:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Write TCP Data">
+        <pd:type>com.tibco.plugin.tcp.TCPWriteActivity</pd:type>
+        <pd:resourceType>ae.activities.TCPWrite</pd:resourceType>
+        <pd:x>338</pd:x>
+        <pd:y>114</pd:y>
+        <config>
+            <dataType>Text</dataType>
+            <Separator>SEPARATOR_NONE</Separator>
+            <SeparatorBinary>SEPARATOR_NONE</SeparatorBinary>
+            <Encoding/>
+        </config>
+        <pd:inputBindings>
+            <ns:ActivityInput>
+                <ns:connection>
+                    <xsl:value-of select="$TCP-Open-Connection/ns:ActivityOutput/ns:connection"/>
+                </ns:connection>
+                <ns:data>
+                    <xsl:value-of select="$Read-File/ns1:ReadActivityOutputTextClass/fileContent/textContent"/>
+                </ns:data>
+            </ns:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>646</pd:x>
+        <pd:y>234</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="TCP-Close-Connection-1">
+        <pd:type>com.tibco.plugin.tcp.TCPCloseConnectionActivity</pd:type>
+        <pd:resourceType>ae.activities.TCPCloseConnection</pd:resourceType>
+        <pd:x>759</pd:x>
+        <pd:y>114</pd:y>
+        <config>
+            <OpenConnectionActivity> </OpenConnectionActivity>
+        </config>
+        <pd:inputBindings>
+            <ns:ActivityInput>
+                <ns:connection>
+                    <xsl:value-of select="$TCP-Open-Connection/ns:ActivityOutput/ns:connection"/>
+                </ns:connection>
+            </ns:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Read File</pd:from>
+        <pd:to>TCP Open Connection</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>TCP Open Connection</pd:from>
+        <pd:to>Write TCP Data</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Write TCP Data</pd:from>
+        <pd:to>Read TCP Data</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Read TCP Data</pd:from>
+        <pd:to>TCP Close Connection</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>TCP Close Connection</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch</pd:from>
+        <pd:to>TCP-Close-Connection-1</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Read File</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>TCP-Close-Connection-1</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

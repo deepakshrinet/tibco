@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BWSharedResource>
+    <name>JMS_Connection_QA</name>
+    <resourceType>ae.shared.JMSConnectionKey</resourceType>
+    <config>
+        <NamingEnvironment>
+            <UseJNDI>true</UseJNDI>
+            <ProviderURL>tcp://localhost:7222</ProviderURL>
+            <NamingURL>tibjmsnaming://vtibemsjqa:7222</NamingURL>
+            <NamingInitialContextFactory>com.tibco.tibjms.naming.TibjmsInitialContextFactory</NamingInitialContextFactory>
+            <TopicFactoryName>ZBS_TopicConnectionFactory</TopicFactoryName>
+            <QueueFactoryName>ZBS_QueueConnectionFactory</QueueFactoryName>
+            <NamingPrincipal>admin</NamingPrincipal>
+            <NamingCredential>#!SR6pq+AbmJeX+sOH3Lbb7e65UZD5PDVX19JPmVAOak0=</NamingCredential>
+        </NamingEnvironment>
+        <ConnectionAttributes>
+            <username>admin</username>
+            <password>#!q735i0DtVuKeVq0ENdnLGqLO/YsHqHEde6m7RHWSUxU=</password>
+            <clientID/>
+            <autoGenClientID>true</autoGenClientID>
+        </ConnectionAttributes>
+        <UseXACF>false</UseXACF>
+    </config>
+</BWSharedResource>

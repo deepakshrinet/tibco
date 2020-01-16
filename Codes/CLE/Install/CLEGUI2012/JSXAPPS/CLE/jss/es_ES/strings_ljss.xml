@@ -1,0 +1,33 @@
+<data jsxnamespace="propsbundle" locales="">
+  <locale>
+    <record jsxid="m_copyright" jsxtext="&amp;copy;2005-2011 TIBCO Software Inc. All Rights Reserved"/>
+    <record jsxid="m_options" jsxtext="Opciones"/>
+    <record jsxid="m_create" jsxtext="Crear"/>
+    <record jsxid="m_close" jsxtext="Cerrar"/>
+    <record jsxid="m_closeTip" jsxtext="Aplica cambios, cierra el diálogo."/>
+    <record jsxid="m_apply" jsxtext="Aplicar"/>
+    <record jsxid="m_applyTip" jsxtext="Aplica los cambios, el diálogo se mantiene abierto."/>
+    <record jsxid="m_search" jsxtext="Buscar"/>
+    <record jsxid="m_cancel" jsxtext="Cancelar"/>
+    <record jsxid="m_cancelTip" jsxtext="Cancela los cambios, cierra el diálogo."/>
+    <record jsxid="m_ok" jsxtext="OK"/>
+    <record jsxid="m_No" jsxtext="No"/>
+    <record jsxid="m_exit" jsxtext="salir"/>
+    <record jsxid="m_true" jsxtext="verdadero"/>
+    <record jsxid="m_false" jsxtext="falso"/>
+    <record jsxid="m_name" jsxtext="Nombre"/>
+    <record jsxid="m_value" jsxtext="Valor"/>
+    <record jsxid="m_confirmCaption" jsxtext="Confirmar"/>
+    <record jsxid="m_confirmUnloadApplication" jsxtext="¿Desea terminar esta sesión?"/>
+    <record jsxid="m_bannerTitle" jsxtext="Common Logging and Exception Handling"/>
+    <record jsxid="m_included" jsxtext="Incluido"/>
+    <record jsxid="m_notIncluded" jsxtext=""/>
+    <record jsxid="m_timeout" jsxtext="Tiempo Agotado"/>
+    <record jsxid="m_retrievingRecords" jsxtext="Obteniendo registros..."/>
+    <record jsxid="m_loadingData" jsxtext="cargando datos..."/>
+    <record jsxid="m_timeoutMessage" jsxtext="El servicio no responde, por favor intente de nuevo."/>
+    <record jsxid="m_columnManager" jsxtext="Administrador de Columnas"/>
+    <record jsxid="m_minutes" jsxtext="minuto(s)"/>
+    <record jsxid="m_hours" jsxtext="hora(s)"/>
+  </locale>
+</data>

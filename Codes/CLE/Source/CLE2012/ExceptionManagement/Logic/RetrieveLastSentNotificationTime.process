@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/schemas/CLE-Handlers/SharedResources/SchemaDefinitions/Private/Notification/NotificationParameters.xsd" xmlns:pfx3="http://www.tibco.com/CommonLE2/Private/Exception" xmlns:pfx2="http://www.tibco.com/pe/DeployedVarsType" xmlns:pfx="http://www.tibco.com/CommonLE2/namespace/private/Common">
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/CommonLE2/Private/Exception" schemaLocation="/SharedResources/SchemaDefinitions/Private/Exception/QueryUpdate.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/schemas/CLE-Handlers/SharedResources/SchemaDefinitions/Private/Notification/NotificationParameters.xsd" schemaLocation="/SharedResources/SchemaDefinitions/Private/Notification/NotificationParameters.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/CommonLE2/namespace/private/Common" schemaLocation="/SharedResources/SchemaDefinitions/Private/Common/LocalExceptions.xsd"/>
+    <pd:name>ExceptionManagement/Logic/RetrieveLastSentNotificationTime.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="ns:NotificationQuery"/>
+    <pd:startX>26</pd:startX>
+    <pd:startY>93</pd:startY>
+    <pd:returnBindings>
+        <ns:ResultTimeNotified>
+            <ns:TimeNotified>
+                <xsl:value-of select="$Retrieve-Last-Sent-Notification-Time/ns:ResultTimeNotified/ns:TimeNotified"/>
+            </ns:TimeNotified>
+        </ns:ResultTimeNotified>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType ref="ns:ResultTimeNotified"/>
+    <pd:endX>305</pd:endX>
+    <pd:endY>94</pd:endY>
+    <pd:errorSchemas>
+        <ExceptionRecError ref="pfx:ExceptionRecordNotFound"/>
+        <NotificationRecordNotFound ref="pfx:NotificationRecordNotFound"/>
+    </pd:errorSchemas>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1287552655335</pd:targetNamespace>
+    <pd:activity name="Retrieve Last Sent Notification Time">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>167</pd:x>
+        <pd:y>102</pd:y>
+        <config>
+            <processName>/ExceptionManagement/DataAccess/Oracle/RetrieveLastSentTime.process</processName>
+            <processNameXPath>concat("/ExceptionManagement/DataAccess/", $_globalVariables/pfx2:GlobalVariables/Database/MIG_DatabaseType, "/RetrieveLastSentTime.process")</processNameXPath>
+        </config>
+        <pd:inputBindings>
+            <xsl:copy-of select="$Start/ns:NotificationQuery"/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Retrieve Last Sent Notification Time</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Retrieve Last Sent Notification Time</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:label>
+        <pd:name>Label</pd:name>
+        <pd:description>Added the logic layer for this so that can add cache later if required.</pd:description>
+        <pd:x>476</pd:x>
+        <pd:y>84</pd:y>
+        <pd:width>213</pd:width>
+        <pd:height>49</pd:height>
+        <pd:fontColor>-16777216</pd:fontColor>
+        <pd:color>-13210</pd:color>
+        <pd:type>solid</pd:type>
+        <pd:thickness>0</pd:thickness>
+        <pd:fade>true</pd:fade>
+    </pd:label>
+</pd:ProcessDefinition>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="Resultsets">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ResultSet1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Record1" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="LOGID" type="xs:int"/>
+										<xs:element name="APPLICATIONID" type="xs:string"/>
+										<xs:element name="COMPONENTNAME" nillable="true"/>
+										<xs:element name="TRANSACTIONDOMAIN" type="xs:string" nillable="true"/>
+										<xs:element name="CORRELATIONID" type="xs:string" nillable="true" minOccurs="0"/>
+										<xs:element name="TRANSACTIONID" type="xs:string" nillable="true" minOccurs="0"/>
+										<xs:element name="TIME_STAMP" type="xs:dateTime" nillable="true" minOccurs="0"/>
+										<xs:element name="MESSAGE" type="xs:string" nillable="true" minOccurs="0"/>
+										<xs:element name="STATUS" nillable="true" minOccurs="0"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.zimmer.com/SendEmailSchema_v_1_0.xsd" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns3="http://www.tibco.com/pe/WriteToLogActivitySchema" xmlns:Zimmer="java://CustomFunctions" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions">
+    <pd:name>Processes/StorageSize.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="NASDrive" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="TotalSize" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="Team" type="xsd:string" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>143</pd:startX>
+    <pd:startY>161</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>897</pd:endX>
+    <pd:endY>161</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1510598575978</pd:targetNamespace>
+    <pd:activity name="Catch">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>519</pd:x>
+        <pd:y>386</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="External Command">
+        <pd:type>com.tibco.plugin.cmdexec.CmdExecActivity</pd:type>
+        <pd:resourceType>ae.activities.CmdExecActivity</pd:resourceType>
+        <pd:x>355</pd:x>
+        <pd:y>161</pd:y>
+        <config>
+            <outputToString>true</outputToString>
+            <lineSplit>At Operating System Line End</lineSplit>
+        </config>
+        <pd:inputBindings>
+            <CmdInput>
+                <command>
+                    <xsl:value-of select="concat(&quot;cmd /c dir&quot;,$Start/root/NASDrive)"/>
+                </command>
+            </CmdInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Log">
+        <pd:type>com.tibco.pe.core.WriteToLogActivity</pd:type>
+        <pd:resourceType>ae.activities.log</pd:resourceType>
+        <pd:x>728</pd:x>
+        <pd:y>389</pd:y>
+        <config>
+            <role>User</role>
+        </config>
+        <pd:inputBindings>
+            <ns3:ActivityInput>
+                <message>
+                    <xsl:value-of select="$Catch/exceptiondata/*"/>
+                </message>
+                <msgCode>
+                    <xsl:value-of select="'ERROR'"/>
+                </msgCode>
+            </ns3:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Map Data">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>547</pd:x>
+        <pd:y>161</pd:y>
+        <config>
+            <element>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="FreeSpace" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="TotalSpace" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="PercentageofFreeSpace" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="PercentageofUsedSpace" type="xsd:string"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </element>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <FreeSpace>
+                    <xsl:value-of select="concat(tib:round-fraction(Zimmer:stringReplace(tib:trim(substring-after(substring-before($External-Command/CmdOutputWithActivityOutput/output[count($External-Command/CmdOutputWithActivityOutput/output)],'bytes'),'(s)')), ',', '')div 1000000000,2),'GB')"/>
+                </FreeSpace>
+                <TotalSpace>
+                    <xsl:value-of select="$Start/root/TotalSize"/>
+                </TotalSpace>
+                <PercentageofFreeSpace>
+                    <xsl:value-of select="concat(tib:round-fraction((Zimmer:stringReplace(tib:trim(substring-after(substring-before($External-Command/CmdOutputWithActivityOutput/output[count($External-Command/CmdOutputWithActivityOutput/output)],'bytes'),'(s)')), ',', '')div 150000000000)*100,2),'%')"/>
+                </PercentageofFreeSpace>
+                <PercentageofUsedSpace>
+                    <xsl:value-of select="concat(tib:round-fraction(100-(Zimmer:stringReplace(tib:trim(substring-after(substring-before($External-Command/CmdOutputWithActivityOutput/output[count($External-Command/CmdOutputWithActivityOutput/output)],'bytes'),'(s)')), ',', '')div 150000000000)*100,2),'%')"/>
+                </PercentageofUsedSpace>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SendEmail">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>707</pd:x>
+        <pd:y>161</pd:y>
+        <config>
+            <processName>/EnterpriseLibrary/Services/SendEmail/SendEmailNotification.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns2:SendEmail>
+                <ns2:From>
+                    <xsl:value-of select="'tibco.alerts@zimmerbiomet.com'"/>
+                </ns2:From>
+                <ns2:To>
+                    <xsl:value-of select="'tibco.alerts.text@zimmerbiomet.com'"/>
+                </ns2:To>
+                <ns2:CC>
+                    <xsl:value-of select="'sachin.gangwar@zimmerbiomet.com'"/>
+                </ns2:CC>
+                <ns2:Subject>
+                    <xsl:value-of select="concat($Start/root/Team,&quot; NAS Storage: &quot;,'% Used Space:', $Map-Data/root/PercentageofUsedSpace,&quot;&#xA;&quot;,' Free Space=', $Map-Data/root/FreeSpace,&quot;&#xA;&quot;)"/>
+                </ns2:Subject>
+                <ns2:BodyElement>
+                    <ns2:BodyText>
+                        <xsl:value-of select="concat(&quot;Space Information for TIBCO Storage&quot;,&quot;&#xA;&quot;,&quot;&#xA;&quot;,&quot;&#xA;&quot;,&quot;&#xA;&quot;,&#xA;'Free Space :',$Map-Data/root/FreeSpace,&quot;&#xA;&quot;,&quot;&#xA;&quot;,&#xA;'Total Space :', $Map-Data/root/TotalSpace, &quot;&#xA;&quot;,&quot;&#xA;&quot;,&#xA;'% Used Space:', $Map-Data/root/PercentageofUsedSpace)"/>
+                    </ns2:BodyText>
+                </ns2:BodyElement>
+            </ns2:SendEmail>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>External Command</pd:from>
+        <pd:to>Map Data</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Map Data</pd:from>
+        <pd:to>SendEmail</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SendEmail</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch</pd:from>
+        <pd:to>Log</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Log</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>External Command</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

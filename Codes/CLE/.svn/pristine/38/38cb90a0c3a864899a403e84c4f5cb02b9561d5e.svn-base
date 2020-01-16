@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/CommonLE2/namespace/Public/Common" xmlns:pfx="http://www.tibco.com/unique/default/namespace/Log" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/CommonLE2/namespace/Public/Common/RequestHeader.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx5="http://www.tibco.com/pe/DeployedVarsType" xmlns:pfx4="http://www.tibco.com/CommonLE2/namespace/Public/Logging" xmlns:pfx3="http://www.tibco.com/CommonLE/namespace/Common" xmlns:pfx2="http://www.tibco.com/unique/default/namespace/CommonLE" xmlns:pfx7="http://www.tibco.com/CommonLE2/namespace/Public/Logging/LogRequest.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pfx6="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Configuration/Applications">
+    <xsd:import namespace="http://www.tibco.com/CommonLE/namespace/Common" schemaLocation="/Shared Resources/Schema Definitions/Common/LogRequest.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/CommonLE2/namespace/Public/Logging/LogRequest.xsd" schemaLocation="/SharedResources/SchemaDefinitions/Public/Logging/LogRequest.xsd"/>
+    <pd:name>Utilities/Initialization/Initilize Logs.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startX>27</pd:startX>
+    <pd:startY>35</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>776</pd:endX>
+    <pd:endY>35</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1285862448122</pd:targetNamespace>
+    <pd:group name="Group">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>356</pd:x>
+        <pd:y>1</pd:y>
+        <pd:width>297</pd:width>
+        <pd:height>122</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>inputLoop</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:over>$Get-Application-List/pfx6:Applications/pfx6:Application</pd:over>
+            <pd:iterationElementSlot>Application</pd:iterationElementSlot>
+            <pd:indexSlot>i</pd:indexSlot>
+            <pd:activityOutputName/>
+            <pd:accumulateOutput>false</pd:accumulateOutput>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>Save Log</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Save Log</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="Save Log">
+            <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+            <pd:resourceType>ae.process.subprocess</pd:resourceType>
+            <pd:x>493</pd:x>
+            <pd:y>68</pd:y>
+            <config>
+                <processName>/Logging/DataAccess/Oracle/SaveLogRecord.process</processName>
+                <processNameXPath>concat("/Logging/DataAccess/", $_globalVariables/pfx5:GlobalVariables/Database/MIG_DatabaseType, "/SaveLogRecord.process")</processNameXPath>
+            </config>
+            <pd:inputBindings>
+                <xsl:for-each select="$Seed-Log-Data/pfx7:LogRequest">
+                    <pfx7:LogRequest>
+                        <xsl:for-each select="ns2:Header">
+                            <ns2:Header>
+                                <ns2:ApplicationID>
+                                    <xsl:value-of select="$Application/pfx6:Application/pfx6:ApplicationID"/>
+                                </ns2:ApplicationID>
+                                <xsl:if test="ns2:ComponentName">
+                                    <ns2:ComponentName>
+                                        <xsl:value-of select="ns2:ComponentName"/>
+                                    </ns2:ComponentName>
+                                </xsl:if>
+                                <xsl:if test="ns2:Hostname">
+                                    <ns2:Hostname>
+                                        <xsl:value-of select="ns2:Hostname"/>
+                                    </ns2:Hostname>
+                                </xsl:if>
+                                <ns2:Timestamp>
+                                    <xsl:value-of select="ns2:Timestamp"/>
+                                </ns2:Timestamp>
+                                <xsl:if test="ns2:TransactionDomain">
+                                    <ns2:TransactionDomain>
+                                        <xsl:value-of select="ns2:TransactionDomain"/>
+                                    </ns2:TransactionDomain>
+                                </xsl:if>
+                                <xsl:if test="ns2:TransactionType">
+                                    <ns2:TransactionType>
+                                        <xsl:value-of select="ns2:TransactionType"/>
+                                    </ns2:TransactionType>
+                                </xsl:if>
+                                <xsl:if test="ns2:TransactionID">
+                                    <ns2:TransactionID>
+                                        <xsl:value-of select="ns2:TransactionID"/>
+                                    </ns2:TransactionID>
+                                </xsl:if>
+                                <xsl:if test="ns2:CorrelationID">
+                                    <ns2:CorrelationID>
+                                        <xsl:value-of select="ns2:CorrelationID"/>
+                                    </ns2:CorrelationID>
+                                </xsl:if>
+                                <ns2:InterfaceID>
+                                    <xsl:value-of select="concat(ns2:InterfaceID, $Application/pfx6:Application/pfx6:ApplicationID, &quot;.1&quot;)"/>
+                                </ns2:InterfaceID>
+                                <xsl:if test="ns2:Filename">
+                                    <ns2:Filename>
+                                        <xsl:value-of select="ns2:Filename"/>
+                                    </ns2:Filename>
+                                </xsl:if>
+                                <xsl:if test="ns2:Message">
+                                    <ns2:Message>
+                                        <xsl:value-of select="ns2:Message"/>
+                                    </ns2:Message>
+                                </xsl:if>
+                                <xsl:if test="ns2:RenderID">
+                                    <ns2:RenderID>
+                                        <xsl:value-of select="concat($Application/pfx6:Application/pfx6:ApplicationID, ns2:RenderID)"/>
+                                    </ns2:RenderID>
+                                </xsl:if>
+                                <xsl:if test="ns2:DataEncoding">
+                                    <ns2:DataEncoding>
+                                        <xsl:value-of select="ns2:DataEncoding"/>
+                                    </ns2:DataEncoding>
+                                </xsl:if>
+                                <xsl:if test="ns2:Transaction">
+                                    <ns2:Transaction>
+                                        <xsl:value-of select="ns2:Transaction"/>
+                                    </ns2:Transaction>
+                                </xsl:if>
+                                <xsl:copy-of select="ns2:AltKey"/>
+                            </ns2:Header>
+                        </xsl:for-each>
+                        <xsl:if test="TimeDuration">
+                            <TimeDuration>
+                                <xsl:value-of select="TimeDuration"/>
+                            </TimeDuration>
+                        </xsl:if>
+                        <xsl:if test="Category">
+                            <Category>
+                                <xsl:value-of select="Category"/>
+                            </Category>
+                        </xsl:if>
+                        <xsl:if test="Status">
+                            <Status>
+                                <xsl:value-of select="Status"/>
+                            </Status>
+                        </xsl:if>
+                        <xsl:if test="FileSize">
+                            <FileSize>
+                                <xsl:value-of select="FileSize"/>
+                            </FileSize>
+                        </xsl:if>
+                        <Audit>
+                            <xsl:value-of select="Audit"/>
+                        </Audit>
+                    </pfx7:LogRequest>
+                </xsl:for-each>
+            </pd:inputBindings>
+        </pd:activity>
+    </pd:group>
+    <pd:activity name="Seed Log Data">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>126</pd:x>
+        <pd:y>35</pd:y>
+        <config>
+            <element ref="pfx7:LogRequest"/>
+        </config>
+        <pd:inputBindings>
+            <pfx7:LogRequest>
+                <ns2:Header>
+                    <ns2:ApplicationID>
+                        <xsl:value-of select="&quot;AppID&quot;"/>
+                    </ns2:ApplicationID>
+                    <ns2:ComponentName>
+                        <xsl:value-of select="&quot;Component&quot;"/>
+                    </ns2:ComponentName>
+                    <ns2:Hostname>
+                        <xsl:value-of select="&quot;Local Host&quot;"/>
+                    </ns2:Hostname>
+                    <ns2:Timestamp>
+                        <xsl:value-of select="current-dateTime()"/>
+                    </ns2:Timestamp>
+                    <ns2:TransactionDomain>
+                        <xsl:value-of select="&quot;Sales Distribution&quot;"/>
+                    </ns2:TransactionDomain>
+                    <ns2:TransactionType>
+                        <xsl:value-of select="&quot;Order&quot;"/>
+                    </ns2:TransactionType>
+                    <ns2:TransactionID>
+                        <xsl:value-of select="&quot;Transaction ID&quot;"/>
+                    </ns2:TransactionID>
+                    <ns2:CorrelationID>
+                        <xsl:value-of select="&quot;12345&quot;"/>
+                    </ns2:CorrelationID>
+                    <ns2:InterfaceID>
+                        <xsl:value-of select="&quot;InterfaceID&quot;"/>
+                    </ns2:InterfaceID>
+                    <ns2:Filename>
+                        <xsl:value-of select="&quot;Testdata.dat&quot;"/>
+                    </ns2:Filename>
+                    <ns2:RenderID>
+                        <xsl:value-of select="&quot;-Render1&quot;"/>
+                    </ns2:RenderID>
+                    <ns2:Transaction>
+                        <xsl:value-of select="'&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?> &#xA;&lt;PurchaseOrder>     &#xA;&lt;ProcessName>PO-BESTBUY&lt;/ProcessName>     &#xA;&lt;OrderIdentifier>ORDBESTBUY0001&lt;/OrderIdentifier>    &#xA;&lt;CustomerIdentifier>BestBuy&lt;/CustomerIdentifier>     &#xA;&lt;PurchaseOrderDate>2008-05-01T09:30:14.379-07:00&lt;/PurchaseOrderDate>&#xA;&lt;Total>100000000&lt;/Total>     &#xA;&lt;Status>Received&lt;/Status>     &#xA;&lt;Location>Palo Alto&lt;/Location>     &#xA;&lt;LineItem>         &#xA;&#x9;&lt;OrderIdentifier>ip-0001&lt;/OrderIdentifier>&#xA;        &lt;LineNumber>1&lt;/LineNumber>&#xA;        &lt;Item>iPod&lt;/Item>         &#xA;        &lt;ItemIdentifier>ID-0003&lt;/ItemIdentifier>         &#xA;        &lt;ItemCategory>Electronics&lt;/ItemCategory>         &#xA;        &lt;Quantity>300&lt;/Quantity>         &#xA;        &lt;UnitPrice>399&lt;/UnitPrice>         &#xA;        &lt;price>39900&lt;/price>         &#xA;        &lt;ShipmentDate>2008-09-01T09:30:06.648-07:00&lt;/ShipmentDate>         &#xA;        &lt;ShipmentLocation>New York&lt;/ShipmentLocation>         &#xA;        &lt;Status>Shipping&lt;/Status>         &#xA;        &lt;OverBuyQty>100&lt;/OverBuyQty>     &#xA;&lt;/LineItem>   &#xA;&lt;LineItem>         &#xA;&#x9;&lt;OrderIdentifier>ip-0001&lt;/OrderIdentifier>&#xA;        &lt;LineNumber>2&lt;/LineNumber>&#xA;        &lt;Item>NIKON D300&lt;/Item>         &#xA;        &lt;ItemIdentifier>ID-0004&lt;/ItemIdentifier>         &#xA;        &lt;ItemCategory>Electronics&lt;/ItemCategory>         &#xA;        &lt;Quantity>300&lt;/Quantity>         &#xA;        &lt;UnitPrice>2000&lt;/UnitPrice>         &#xA;        &lt;price>600000&lt;/price>         &#xA;        &lt;ShipmentDate>2008-09-01T09:30:06.648-07:00&lt;/ShipmentDate>         &#xA;        &lt;ShipmentLocation>New York&lt;/ShipmentLocation>         &#xA;        &lt;Status>Shipping&lt;/Status>         &#xA;        &lt;OverBuyQty>100&lt;/OverBuyQty>     &#xA;&lt;/LineItem>     &#xA;        &#xA;&lt;/PurchaseOrder>'"/>
+                    </ns2:Transaction>
+                    <ns2:AltKey>
+                        <ns2:AltKeyName>
+                            <xsl:value-of select="&quot;CustomField1&quot;"/>
+                        </ns2:AltKeyName>
+                        <ns2:AltKeyValue>
+                            <xsl:value-of select="&quot;CF1-Value&quot;"/>
+                        </ns2:AltKeyValue>
+                    </ns2:AltKey>
+                    <ns2:AltKey>
+                        <ns2:AltKeyName>
+                            <xsl:value-of select="&quot;CustomField2&quot;"/>
+                        </ns2:AltKeyName>
+                        <ns2:AltKeyValue>
+                            <xsl:value-of select="&quot;CF2-Value&quot;"/>
+                        </ns2:AltKeyValue>
+                    </ns2:AltKey>
+                </ns2:Header>
+                <TimeDuration>
+                    <xsl:value-of select="50"/>
+                </TimeDuration>
+                <Category>
+                    <xsl:value-of select="&quot;Category - Test&quot;"/>
+                </Category>
+                <Status>
+                    <xsl:value-of select="&quot;New&quot;"/>
+                </Status>
+                <FileSize>
+                    <xsl:value-of select="100"/>
+                </FileSize>
+                <Audit>
+                    <xsl:value-of select="1"/>
+                </Audit>
+            </pfx7:LogRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Get Application List">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>259</pd:x>
+        <pd:y>43</pd:y>
+        <config>
+            <processName>/Utilities/Initialization/GetApplicationList.process</processName>
+            <processNameXPath/>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Seed Log Data</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Seed Log Data</pd:from>
+        <pd:to>Get Application List</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Get Application List</pd:from>
+        <pd:to>Group</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

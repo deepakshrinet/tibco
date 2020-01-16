@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://www.zimmer.com/v1_0/ServiceBaseTypes"
+	 targetNamespace="http://www.zimmer.com/v1_0/ServiceBaseTypes"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:annotation>
+		<xs:documentation>Calling service or application, or target service identification schema</xs:documentation>
+		<xs:documentation>
+			ServiceName		- Commonly known or defined name of the service or operation being called.
+			ServiceVersion		- (Optional) Version of the service used or targeted.
+			ServiceType		- (Optional) Class or Application Group which the Service belongs to.  Examples:
+								SYSInfoPro		- InfoPro System Service
+								SYSSalesForce	- SalseForce System Service
+								SYSCDH			- CDH System Service
+								NAGS			- NAGS Application
+								Enterprise		- Enterprise SOA Service								
+		</xs:documentation>
+	</xs:annotation>
+	<xs:annotation>
+		<xs:documentation>Information on a single Service Error (where functional processing was interrupted or compromised)</xs:documentation>
+		<xs:documentation>
+			errorCode	- Error Code returned for the particular error
+			errorLevel		- Severity of the Error being reported
+							FATAL	- Request failed to complete, and system is in a state that *all* subsequent requests will fail
+							ERROR	- Request failed to process across all specified functionality
+							WARN	- Warning, Request completed successfully, but with some recovery actions by the service.
+			errorDescription 	- Free form string providing details and further information about the error (not for stack trace or other verbose information)
+			errorStackTrace 	- Field used to hold any call stack information retained from the error catch and recovery
+			serviceOccured	- Service name in number where the error occured (where original error could be in sub-service calls)
+		</xs:documentation>
+	</xs:annotation>
+	<xs:annotation>
+		<xs:documentation>Name / Value Pair types for extending schema content without schema changes</xs:documentation>
+		<xs:documentation>
+			NVPairType - Property Name / Property value
+				NVPname	- Name of the property being specified
+				NVPvalue		- value of the named property (only string data type allowed)
+			NVPairList - Repeating list of NVPairTypes to provide a list of values
+		</xs:documentation>
+	</xs:annotation>
+	<xs:element name="ServiceInfoElement" type="ServiceInfoType"/>
+	<xs:complexType name="ServiceInfoType">
+		<xs:sequence>
+			<xs:element name="ServiceName" type="xs:string"/>
+			<xs:element name="ServiceVersion" type="xs:string" minOccurs="0"/>
+			<xs:element name="ServiceType" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ErrorTypeElement" type="ErrorType"/>
+	<xs:complexType name="ErrorType">
+		<xs:sequence>
+			<xs:element name="errorCode" type="xs:string"/>
+			<xs:element name="errorLevel" type="xs:string" minOccurs="0"/>
+			<xs:element name="errorDescription" type="xs:string"/>
+			<xs:element name="errorStackTrace" type="xs:string" minOccurs="0"/>
+			<xs:element name="serviceOccurred" type="ServiceInfoType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ErrorListTypeElement" type="ErrorListType"/>
+	<xs:complexType name="ErrorListType">
+		<xs:sequence>
+			<xs:element name="errorItem" type="ErrorType" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="NVPairListElement" type="NVPairList"/>
+	<xs:complexType name="NVPairList">
+		<xs:sequence>
+			<xs:element name="NVPitem" type="NVPairType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="NVPairTypeElement" type="NVPairType"/>
+	<xs:complexType name="NVPairType">
+		<xs:sequence>
+			<xs:element name="NVPname" type="xs:string" minOccurs="0"/>
+			<xs:element name="NVPvalue" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

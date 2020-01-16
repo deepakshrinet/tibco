@@ -1,0 +1,92 @@
+<data jsxnamespace="propsbundle" locales="">
+  <locale>
+    <record jsxid="renderConfig_ApplicationID" jsxtext="Application ID"/>
+    <record jsxid="renderConfig_RenderID" jsxtext="Render ID"/>
+    <record jsxid="renderConfig_ID" jsxtext="Render ID"/>
+    <record jsxid="renderConfig_Name" jsxtext="Name"/>
+    <record jsxid="renderConfig_Description" jsxtext="Description"/>
+    <record jsxid="renderConfig_XSLT" jsxtext="XSLT"/>
+    <record jsxid="renderConfig_CSS" jsxtext="CSS"/>
+    <record jsxid="renderConfig_addRenderConfig" jsxtext="Add"/>
+    <record jsxid="renderConfig_addRenderConfigTip" jsxtext="Add new rendering configuration."/>
+    <record jsxid="renderConfig_removeRenderConfig" jsxtext="Remove"/>
+    <record jsxid="renderConfig_removeRenderConfigTip" jsxtext="Remove the rendering configuration"/>
+    <record jsxid="renderConfig_XSLT" jsxtext="XSLT"/>
+    <record jsxid="renderConfig_CSS" jsxtext="CSS"/>
+    <record jsxid="renderConfig_createNewItemCaption" jsxtext="Create New Rendering"/>
+    <record jsxid="renderConfig_createRendering" jsxtext="Create Rendering"/>
+    <record jsxid="renderConfig_createRenderingTip" jsxtext="Create Rendering"/>
+  </locale>
+  <locale key="pt_BR">
+    <record jsxid="renderConfig_ApplicationID" jsxtext="ID da Aplicação"/>
+    <record jsxid="renderConfig_RenderID" jsxtext="ID do Renderizador"/>
+    <record jsxid="renderConfig_ID" jsxtext="ID do Renderizador"/>
+    <record jsxid="renderConfig_Name" jsxtext="Nome"/>
+    <record jsxid="renderConfig_Description" jsxtext="Descrição"/>
+    <record jsxid="renderConfig_XSLT" jsxtext="XSLT"/>
+    <record jsxid="renderConfig_CSS" jsxtext="CSS"/>
+    <record jsxid="renderConfig_addRenderConfig" jsxtext="Adicionar"/>
+    <record jsxid="renderConfig_addRenderConfigTip" jsxtext="Adicionar nova configuração de renderização."/>
+    <record jsxid="renderConfig_removeRenderConfig" jsxtext="Remover"/>
+    <record jsxid="renderConfig_removeRenderConfigTip" jsxtext="Remover configuração de renderização"/>
+    <record jsxid="renderConfig_XSLT" jsxtext="XSLT"/>
+    <record jsxid="renderConfig_CSS" jsxtext="CSS"/>
+    <record jsxid="renderConfig_createNewItemCaption" jsxtext="Criar Nova Renderização"/>
+    <record jsxid="renderConfig_createRendering" jsxtext="Criar Renderização"/>
+    <record jsxid="renderConfig_createRenderingTip" jsxtext="Criar Renderização"/>
+  </locale>
+  <locale key="es_ES">
+    <record jsxid="renderConfig_ApplicationID" jsxtext="ID de Aplicación"/>
+    <record jsxid="renderConfig_RenderID" jsxtext="ID de Conversión"/>
+    <record jsxid="renderConfig_ID" jsxtext="ID de Conversión"/>
+    <record jsxid="renderConfig_Name" jsxtext="Nombre"/>
+    <record jsxid="renderConfig_Description" jsxtext="Descripción"/>
+    <record jsxid="renderConfig_XSLT" jsxtext="XSLT"/>
+    <record jsxid="renderConfig_CSS" jsxtext="CSS"/>
+    <record jsxid="renderConfig_addRenderConfig" jsxtext="Agregar"/>
+    <record jsxid="renderConfig_addRenderConfigTip" jsxtext="Agregar nueva configuración de conversión."/>
+    <record jsxid="renderConfig_removeRenderConfig" jsxtext="Remover"/>
+    <record jsxid="renderConfig_removeRenderConfigTip" jsxtext="Remover la configuración de conversión"/>
+    <record jsxid="renderConfig_XSLT" jsxtext="XSLT"/>
+    <record jsxid="renderConfig_CSS" jsxtext="CSS"/>
+    <record jsxid="renderConfig_createNewItemCaption" jsxtext="Crear Nueva Conversión"/>
+    <record jsxid="renderConfig_createRendering" jsxtext="Crear Conversión"/>
+    <record jsxid="renderConfig_createRenderingTip" jsxtext="Crear Conversión"/>
+  </locale>
+  <locale key="sv_SV">
+    <record jsxid="renderConfig_ApplicationID" jsxtext="ApplikationID"/>
+    <record jsxid="renderConfig_RenderID" jsxtext="FramställningsID"/>
+    <record jsxid="renderConfig_ID" jsxtext="FramställningsID"/>
+    <record jsxid="renderConfig_Name" jsxtext="Namn"/>
+    <record jsxid="renderConfig_Description" jsxtext="Beskrivning"/>
+    <record jsxid="renderConfig_XSLT" jsxtext="XSLT"/>
+    <record jsxid="renderConfig_CSS" jsxtext="CSS"/>
+    <record jsxid="renderConfig_addRenderConfig" jsxtext="Lägg till"/>
+    <record jsxid="renderConfig_addRenderConfigTip" jsxtext="Lägg till ny framställningskonfiguration."/>
+    <record jsxid="renderConfig_removeRenderConfig" jsxtext="Ta bort"/>
+    <record jsxid="renderConfig_removeRenderConfigTip" jsxtext="Ta bort framställningskonfigurationen"/>
+    <record jsxid="renderConfig_XSLT" jsxtext="XSLT"/>
+    <record jsxid="renderConfig_CSS" jsxtext="CSS"/>
+    <record jsxid="renderConfig_createNewItemCaption" jsxtext="Skapa Ny Framställning"/>
+    <record jsxid="renderConfig_createRendering" jsxtext="Skapa Framställning"/>
+    <record jsxid="renderConfig_createRenderingTip" jsxtext="Skapa Framställning"/>
+  </locale>
+  <locale key="zh_CH">
+    <record jsxid="renderConfig_ApplicationID" jsxtext="应用程序ID"/>
+    <record jsxid="renderConfig_RenderID" jsxtext="转换ID"/>
+    <record jsxid="renderConfig_ID" jsxtext="转换ID"/>
+    <record jsxid="renderConfig_Name" jsxtext="名字"/>
+    <record jsxid="renderConfig_Description" jsxtext="描述"/>
+    <record jsxid="renderConfig_XSLT" jsxtext="XSLT"/>
+    <record jsxid="renderConfig_CSS" jsxtext="CSS"/>
+    <record jsxid="renderConfig_addRenderConfig" jsxtext="添加"/>
+    <record jsxid="renderConfig_addRenderConfigTip" jsxtext="添加新的转换配置。"/>
+    <record jsxid="renderConfig_removeRenderConfig" jsxtext="移除"/>
+    <record jsxid="renderConfig_removeRenderConfigTip" jsxtext="移除转换配置"/>
+    <record jsxid="renderConfig_XSLT" jsxtext="XSLT"/>
+    <record jsxid="renderConfig_CSS" jsxtext="CSS"/>
+    <record jsxid="renderConfig_createNewItemCaption" jsxtext="创建新的转换"/>
+    <record jsxid="renderConfig_createRendering" jsxtext="创建转换"/>
+    <record jsxid="renderConfig_createRenderingTip" jsxtext="创建转换"/>
+  </locale>
+</data>

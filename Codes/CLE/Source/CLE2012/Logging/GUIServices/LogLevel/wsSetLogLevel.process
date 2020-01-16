@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlPfx="http://www.tibco.com/CommonLE2/namespace/Logging/GUIServices" xmlns:ns9="http://www.tibco.com/CommonLE2/namespace/Public/Logging/LogLevelRequest.xsd" xmlns:ns12="http://www.tibco.com/schemas/MacysLTY_CLECore/SharedResources/SchemaDefinitions/Public/Logging/LogLevelCommon.xsd" xmlns:ns5="http://www.tibco.com/CommonLE2/namespace/Public/Common/IDQuery" xmlns:ns6="http://www.tibco.com/CommonLE2/Public/Common/Dummy" xmlns:ns10="http://www.tibco.com/CommonLE2/namespace/Public/CLEExtension/LogLevelRequest.xsd" xmlns:ns7="http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/'GUI/Common" xmlns:pfx="http://www.tibco.com/CommonLE/namespace/Common" xmlns:ns11="http://www.tibco.com/schemas/MacysLTY_CLECore/SharedResources/SchemaDefinitions/Public/Logging/SetLogLevelRequest" xmlns:ns8="http://www.tibco.com/CommonLE2/namespace/Public//Pluggable/GUI/Common" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://xmlns.example.com/unique/default/namespace/1163206731086" xmlns:ns1="http://www.tibco.com/pe/EngineTypes" xmlns:ns4="http://www.tibco.com/CommonLE2/Public/Common" xmlns:ns3="http://www.tibco.com/pe/DeployedVarsType" xmlns:pfx5="http://www.tibco.com/CommonLE2011/namespace/Public/CLEExtension/LogLevelReply.xsd" xmlns:pfx4="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogList" xmlns:pfx3="http://www.tibco.com/CommonLE2/namespace/Public/Pluggable/GUI/Log/LogListQuery" xmlns:pfx2="http://www.tibco.com/CommonLE2/namespace/private/Common" xmlns:pfx6="http://www.tibco.com/CommonLE2/namespace/Logging/LogLevel/GUIServices">
+    <wsdl:import namespace="http://www.tibco.com/CommonLE2/namespace/Logging/GUIServices" location="/SharedResources/WSDL/GUI/Log/intfRetrieve_Log.wsdl"/>
+    <wsdl:import namespace="http://www.tibco.com/CommonLE2/namespace/Logging/LogLevel/GUIServices" location="/SharedResources/WSDL/GUI/Log/IntfLogLevelParameters.wsdl"/>
+    <pd:name>Logging/GUIServices/LogLevel/wsSetLogLevel.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType wsMsgRef="pfx6:SetLogLevelRequest"/>
+    <pd:startX>100</pd:startX>
+    <pd:startY>66</pd:startY>
+    <pd:returnBindings>
+        <pfx6:Dummy/>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType wsMsgRef="pfx6:Dummy"/>
+    <pd:endX>384</pd:endX>
+    <pd:endY>70</pd:endY>
+    <pd:errorSchemas>
+        <Schema0 wsMsgRef="pfx6:Error"/>
+    </pd:errorSchemas>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1279835451359</pd:targetNamespace>
+    <pd:activity name="Catch All Errors">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>51</pd:x>
+        <pd:y>256</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Catch JMS Error">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>99</pd:x>
+        <pd:y>158</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=JMSError namespace=http://www.tibco.com/CommonLE2/namespace/private/Common</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Generate Internal Error">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>465</pd:x>
+        <pd:y>266</pd:y>
+        <config>
+            <faultName>Schema0</faultName>
+        </config>
+        <pd:inputBindings>
+            <ns:ActivityInput>
+                <message>
+                    <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/Exceptions/Common/Messages/InternalError"/>
+                </message>
+                <messageCode>
+                    <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/Exceptions/Common/Codes/InternalError"/>
+                </messageCode>
+                <data>
+                    <pfx6:Error>
+                        <parameters>
+                            <ns4:Error>
+                                <ns4:Message>
+                                    <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/Exceptions/Common/Messages/InternalError"/>
+                                </ns4:Message>
+                                <ns4:Code>
+                                    <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/Exceptions/Common/Codes/InternalError"/>
+                                </ns4:Code>
+                            </ns4:Error>
+                        </parameters>
+                    </pfx6:Error>
+                </data>
+            </ns:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Generate JMS Error Fault">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>252</pd:x>
+        <pd:y>170</pd:y>
+        <config>
+            <faultName>Schema0</faultName>
+        </config>
+        <pd:inputBindings>
+            <ns:ActivityInput>
+                <message>
+                    <xsl:value-of select="$Catch-JMS-Error/pfx2:JMSError/pfx2:Message"/>
+                </message>
+                <messageCode>
+                    <xsl:value-of select="$Catch-JMS-Error/pfx2:JMSError/pfx2:Code"/>
+                </messageCode>
+                <data>
+                    <pfx6:Error>
+                        <parameters>
+                            <ns4:Error>
+                                <ns4:Message>
+                                    <xsl:value-of select="$Catch-JMS-Error/pfx2:JMSError/pfx2:Message"/>
+                                </ns4:Message>
+                                <ns4:Code>
+                                    <xsl:value-of select="$Catch-JMS-Error/pfx2:JMSError/pfx2:Code"/>
+                                </ns4:Code>
+                            </ns4:Error>
+                        </parameters>
+                    </pfx6:Error>
+                </data>
+            </ns:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Local Exception Handler">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>254</pd:x>
+        <pd:y>265</pd:y>
+        <config>
+            <processName>/Common/Local Exception Handler.process</processName>
+        </config>
+        <pd:inputBindings>
+            <pfx:Exception>
+                <ErrorMessage>
+                    <xsl:value-of select="$_error/ns1:ErrorReport/Msg"/>
+                </ErrorMessage>
+                <xsl:if test="$_error/ns1:ErrorReport/MsgCode">
+                    <ErrorCode>
+                        <xsl:value-of select="$_error/ns1:ErrorReport/MsgCode"/>
+                    </ErrorCode>
+                </xsl:if>
+                <pfx:Error>
+                    <xsl:for-each select="$_error/ns1:ErrorReport">
+                        <pfx:ErrorReport>
+                            <StackTrace>
+                                <xsl:value-of select="StackTrace"/>
+                            </StackTrace>
+                            <Msg>
+                                <xsl:value-of select="Msg"/>
+                            </Msg>
+                            <FullClass>
+                                <xsl:value-of select="FullClass"/>
+                            </FullClass>
+                            <Class>
+                                <xsl:value-of select="Class"/>
+                            </Class>
+                            <ProcessStack>
+                                <xsl:value-of select="ProcessStack"/>
+                            </ProcessStack>
+                            <MsgCode>
+                                <xsl:value-of select="MsgCode"/>
+                            </MsgCode>
+                        </pfx:ErrorReport>
+                    </xsl:for-each>
+                </pfx:Error>
+            </pfx:Exception>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:group name="Group">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>165</pd:x>
+        <pd:y>0</pd:y>
+        <pd:width>143</pd:width>
+        <pd:height>122</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>inputLoop</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:over>$Start/pfx6:SetLogLevelRequest/parameters/ns10:SetLogLevelRequest/ns10:EngineLogLevelDetails/ns10:EngineLogLevel</pd:over>
+            <pd:indexSlot>index</pd:indexSlot>
+            <pd:activityOutputName/>
+            <pd:accumulateOutput>false</pd:accumulateOutput>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>SetLogLevel</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>SetLogLevel</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="SetLogLevel">
+            <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+            <pd:resourceType>ae.process.subprocess</pd:resourceType>
+            <pd:x>229</pd:x>
+            <pd:y>70</pd:y>
+            <config>
+                <processName>/Logging/Logic/LogLevel/ReqLogLevel.process</processName>
+            </config>
+            <pd:inputBindings>
+                <ns10:LogLevelRequest>
+                    <ns10:EngineName>
+                        <xsl:value-of select="$Start/pfx6:SetLogLevelRequest/parameters/ns10:SetLogLevelRequest/ns10:EngineLogLevelDetails/ns10:EngineLogLevel[$index]/ns10:EngineName"/>
+                    </ns10:EngineName>
+                    <ns10:Operation>
+                        <xsl:value-of select="'SET'"/>
+                    </ns10:Operation>
+                    <ns10:LogLevel>
+                        <xsl:value-of select="$Start/pfx6:SetLogLevelRequest/parameters/ns10:SetLogLevelRequest/ns10:EngineLogLevelDetails/ns10:EngineLogLevel[$index]/ns10:LogLevel"/>
+                    </ns10:LogLevel>
+                </ns10:LogLevelRequest>
+            </pd:inputBindings>
+        </pd:activity>
+    </pd:group>
+    <pd:transition>
+        <pd:from>Catch JMS Error</pd:from>
+        <pd:to>Generate JMS Error Fault</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch All Errors</pd:from>
+        <pd:to>Local Exception Handler</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Local Exception Handler</pd:from>
+        <pd:to>Generate Internal Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Group</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

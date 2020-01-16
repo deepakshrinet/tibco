@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://www.zimmer.com/v1_0/AuditTrackBaseType"
+	 xmlns:sbt="http://www.zimmer.com/v1_0/ServiceBaseTypes"
+	 targetNamespace="http://www.zimmer.com/v1_0/AuditTrackBaseType"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:annotation>
+		<xs:documentation>Base Type standard Service Audit and Tracking structure for all TIBCO implemented services</xs:documentation>
+		<xs:documentation>Supports passing of CLE related information in all services, although CLE does not need to be the Audit, Tracking, Monitoring solution</xs:documentation>
+		<xs:documentation>
+			auditAppName		- Audit system Application Name (can be different or the same as the set of business application defined names)
+			auditDomain		- Audit system Domain, the class of information being Audited  (e.g. Billing, Accounts, Profiles, etc.)
+			auditTransID		- Audit system Transaction ID.  The value being used to keep track of a single particular action or system activity
+			auditCorrelationID	- Audit system Correlation ID.  A value being used to correlate disparate transaction IDs (multiple activities)  to a common process.
+			auditTransType	- Audit system activity class being tracked.
+			customNVPList	- List of name/value pair times allowing for schema content extension (additional properties) without changing the schema structure.
+		</xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="http://www.zimmer.com/v1_0/ServiceBaseTypes" schemaLocation="./ServiceBaseTypes.xsd"/>
+	<xs:element name="AuditTrackBaseElement" type="AuditTrackBaseType"/>
+	<xs:complexType name="AuditTrackBaseType">
+		<xs:sequence>
+			<xs:element name="auditAppName" type="xs:string" minOccurs="0"/>
+			<xs:element name="auditDomain" type="xs:string" minOccurs="0"/>
+			<xs:element name="auditTransID" type="xs:string" minOccurs="0"/>
+			<xs:element name="auditCorrelationID" type="xs:string" minOccurs="0"/>
+			<xs:element name="FileName" type="xs:string" minOccurs="0"/>
+			<xs:element name="auditTransType" type="xs:string" minOccurs="0"/>
+			<xs:element name="auditNVPList" type="sbt:NVPairList" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="ID">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+</xs:schema>

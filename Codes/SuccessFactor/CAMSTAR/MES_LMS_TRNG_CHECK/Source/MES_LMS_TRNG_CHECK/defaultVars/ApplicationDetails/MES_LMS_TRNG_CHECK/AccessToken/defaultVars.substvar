@@ -1,0 +1,53 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>AuthorizationValue</name>
+			<value>emltbWVyLXNieDo3NGQ0MDU2MTEyMzhjMmQ4NTk5ZTY2MDhmY2Q0NTdhZDdlZTdiODEzOTBmOTk2M2RkMjI1ODM1MjU5NmQ1YTQ4NDNmM2M4NWQ4YzUxN2FiOTljNzUwM2UyMjM1YWM1Y2M=</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1491979227247</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>Content-Type</name>
+			<value>application/json</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1480425834597</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>Method</name>
+			<value>POST</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1480425834863</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>PostData</name>
+			<value>{ "grant_type":"client_credentials", "scope":{ "userId":"CSIntegration", "companyId":"zimmer-sbx", "userType":"admin", "resourceType":"learning_public_api" } } </value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1491979227309</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>RequestURI</name>
+			<value>/learning/oauth-api/rest/v1/token</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1480425835349</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>host</name>
+			<value>zimmer-sandbox.plateau.com</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1480425835630</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

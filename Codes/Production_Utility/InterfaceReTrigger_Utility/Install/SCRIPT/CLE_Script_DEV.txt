@@ -1,0 +1,68 @@
+--===============================================
+--   APPLICATIONS ApplicationName = ""
+--===============================================
+INSERT INTO APPLICATIONS(applicationid, NAME, description)VALUES ('INTERFACERETRIGGER_UTILITY', 'INTERFACERETRIGGER_UTILITY', 'Interface Re_Trigger utility for APP team');
+
+--===============================================
+--   EXCEPTIONCATEGORY
+--===============================================
+INSERT INTO EXCEPTIONCATEGORY (applicationid, ID, NAME,description)	VALUES 
+('INTERFACERETRIGGER_UTILITY', categoryid.nextval, 'System', 'System Exceptions, such as timeout, db outage,jms exception');
+INSERT INTO EXCEPTIONCATEGORY (applicationid, ID, NAME,description)	VALUES 
+('INTERFACERETRIGGER_UTILITY', categoryid.nextval, 'Technical', 'Technical Exceptions, such as java,mail,xpath exceptions.');
+INSERT INTO EXCEPTIONCATEGORY (applicationid, ID, NAME,description)	VALUES 
+('INTERFACERETRIGGER_UTILITY', categoryid.nextval, 'Business', 'Business Exceptions such as data issue, rule violation.');
+	
+--===============================================
+--   EXCEPTIONTYPE
+--===============================================
+
+Insert into EXCEPTIONTYPE (APPLICATIONID,ID,NAME,DESCRIPTION) values 
+('INTERFACERETRIGGER_UTILITY',TYPEID.nextval,'CatchAll','Generic Catch All Exception');
+
+
+
+
+--===============================================
+--   	EXCEPTIONSEVERITY
+--===============================================
+
+Insert into EXCEPTIONSEVERITY (APPLICATIONID,ID,NAME,DESCRIPTION) values 
+('INTERFACERETRIGGER_UTILITY',SEVERITYID.nextval,'CRITICAL','Condition that affects service has occurred, Immediate Corrective Action required');
+Insert into EXCEPTIONSEVERITY (APPLICATIONID,ID,NAME,DESCRIPTION) values 
+('INTERFACERETRIGGER_UTILITY',SEVERITYID.nextval,'HIGH','Problem with a relatively high severity level has occurred, It is likely that normal use of the object will be impeded');
+Insert into EXCEPTIONSEVERITY (APPLICATIONID,ID,NAME,DESCRIPTION) values 
+('INTERFACERETRIGGER_UTILITY',SEVERITYID.nextval,'MEDIUM','Problem with a relatively low severity level has occurred, It is unlikely that normal use of the object will be impeded');
+Insert into EXCEPTIONSEVERITY (APPLICATIONID,ID,NAME,DESCRIPTION) values
+ ('INTERFACERETRIGGER_UTILITY',SEVERITYID.nextval,'LOW','Problem that affects service will or could occur, Diagnostic and corrective action is recommended');
+Insert into EXCEPTIONSEVERITY (APPLICATIONID,ID,NAME,DESCRIPTION) values 
+('INTERFACERETRIGGER_UTILITY',SEVERITYID.nextval,'NORMAL','Message output is normal');
+Insert into EXCEPTIONSEVERITY (APPLICATIONID,ID,NAME,DESCRIPTION) values 
+('INTERFACERETRIGGER_UTILITY',SEVERITYID.nextval,'UNKNOWN','Severity level cannot be determined');
+--===============================================
+--   	EXCEPTIONPROCEDURE
+--===============================================
+
+--===============================================
+--   	BW EXCEPTIONCONFIG
+--===============================================
+--Common BW Exceptions
+
+
+
+Insert into EXCEPTIONCONFIG (APPLICATIONID,EXCEPTIONCODE,DESCRIPTION,CATEGORYID,TYPEID,SEVERITYID,REPLYDESTINATION,ROLENAME,PROCEDUREID,NOTIFICATIONCHNL,EMAILTO,EMAILCC,EXCEPTIONTTL,RESOLVEDELAYINTERVAL,EVENTTYPE) values 
+('INTERFACERETRIGGER_UTILITY','TECHNICAL-777','Generic Technical Exception',(SELECT EXCEPTIONCATEGORY.ID FROM EXCEPTIONCATEGORY WHERE NAME='Technical' AND APPLICATIONID='INTERFACERETRIGGER_UTILITY'),(SELECT EXCEPTIONTYPE.ID FROM EXCEPTIONTYPE WHERE NAME='CatchAll' AND APPLICATIONID='INTERFACERETRIGGER_UTILITY'),(SELECT EXCEPTIONSEVERITY.ID FROM EXCEPTIONSEVERITY WHERE NAME='HIGH' AND APPLICATIONID='INTERFACERETRIGGER_UTILITY'),null,null,null,'ZBS.INTEGRATION.CLE.NOTIFICATION','KARTIK.KHURANA@ZIMMERBIOMET.COM',null,10,0,null);
+
+
+
+
+--================================================
+--        INTERFACE CONFIG
+--================================================
+
+Insert into INTERFACECONFIG (APPLICATIONID,INTERFACEID,INTERFACENAME,INTERFACETYPE,OWNER,SOURCESYSTEM,TARGETSYSTEM,DBUSE,TRANSCOMPLEXITY,DESCRIPTION,PARENTID,STATUS,PROTOCOL) values 
+('INTERFACERETRIGGER_UTILITY','RETRIGGER','RETRIGGER','Logical','Zimmer','TIBCO','TIBCO','N','Medium',null,null,'Active',null);
+
+
+
+

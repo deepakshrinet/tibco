@@ -1,0 +1,107 @@
+<data jsxnamespace="propsbundle" locales="">
+  <locale>
+    <record jsxid="security_tabLabel" jsxtext="Security"/>
+    <record jsxid="security_appId" jsxtext="App Id"/>
+    <record jsxid="security_role" jsxtext="Role"/>
+    <record jsxid="security_configurations" jsxtext="Configurations"/>
+    <record jsxid="security_viewConfigurations" jsxtext="View Configurations"/>
+    <record jsxid="security_addConfigurations" jsxtext="Add Configurations"/>
+    <record jsxid="security_editConfigurations" jsxtext="Edit Configurations"/>
+    <record jsxid="security_deleteConfigurations" jsxtext="Delete Configurations"/>
+    <record jsxid="security_logs" jsxtext="Logs"/>
+    <record jsxid="security_viewLogs" jsxtext="View Logs"/>
+    <record jsxid="security_deleteLogs" jsxtext="Delete Logs"/>
+    <record jsxid="security_exceptions" jsxtext="Exceptions"/>
+    <record jsxid="security_viewExceptions" jsxtext="View Exceptions"/>
+    <record jsxid="security_resolveExceptions" jsxtext="Resolve Exceptions"/>
+    <record jsxid="security_deleteExceptions" jsxtext="Delete Exceptions"/>
+    <record jsxid="security_editTransactions" jsxtext="Edit Transactions"/>
+    <record jsxid="security_refresh" jsxtext="Refresh"/>
+    <record jsxid="security_refreshMessage" jsxtext="There are unsaved changes, discard changes and refresh?"/>
+    <record jsxid="security_update" jsxtext="Update"/>
+  </locale>
+  <locale key="pt_BR">
+    <record jsxid="security_tabLabel" jsxtext="Segurança"/>
+    <record jsxid="security_appId" jsxtext="ID Apl."/>
+    <record jsxid="security_role" jsxtext="Papel"/>
+    <record jsxid="security_configurations" jsxtext="Configurações"/>
+    <record jsxid="security_viewConfigurations" jsxtext="Visualizar Configurações"/>
+    <record jsxid="security_addConfigurations" jsxtext="Adicionar Configurações"/>
+    <record jsxid="security_editConfigurations" jsxtext="Editar Configurações"/>
+    <record jsxid="security_deleteConfigurations" jsxtext="Apagar Configurações"/>
+    <record jsxid="security_logs" jsxtext="Logs"/>
+    <record jsxid="security_viewLogs" jsxtext="Visualizar Logs"/>
+    <record jsxid="security_deleteLogs" jsxtext="Apagar Logs"/>
+    <record jsxid="security_exceptions" jsxtext="Exceções"/>
+    <record jsxid="security_viewExceptions" jsxtext="Visualizar Exceções"/>
+    <record jsxid="security_resolveExceptions" jsxtext="Resolver Exceções"/>
+    <record jsxid="security_deleteExceptions" jsxtext="Apagar Exceções"/>
+    <record jsxid="security_editTransactions" jsxtext="Editar Transações"/>
+    <record jsxid="security_refresh" jsxtext="Atualizar"/>
+    <record jsxid="security_refreshMessage" jsxtext="Há alterações não gravadas. Descartar as alterações e atualizar ?"/>
+    <record jsxid="security_update" jsxtext="Alterar"/>
+  </locale>
+  <locale key="es_ES">
+    <record jsxid="security_tabLabel" jsxtext="Seguridad"/>
+    <record jsxid="security_appId" jsxtext="Id de App"/>
+    <record jsxid="security_role" jsxtext="Rol"/>
+    <record jsxid="security_configurations" jsxtext="Configuraciones"/>
+    <record jsxid="security_viewConfigurations" jsxtext="Ver Configuraciones"/>
+    <record jsxid="security_addConfigurations" jsxtext="Agregar Configuraciones"/>
+    <record jsxid="security_editConfigurations" jsxtext="Editar Configuraciones"/>
+    <record jsxid="security_deleteConfigurations" jsxtext="Eliminar Configuraciones"/>
+    <record jsxid="security_logs" jsxtext="Bitácoras"/>
+    <record jsxid="security_viewLogs" jsxtext="Ver Bitácoras"/>
+    <record jsxid="security_deleteLogs" jsxtext="Eliminar Bitácoras"/>
+    <record jsxid="security_exceptions" jsxtext="Excepciones"/>
+    <record jsxid="security_viewExceptions" jsxtext="Ver Excepciones"/>
+    <record jsxid="security_resolveExceptions" jsxtext="Resolver Excepciones"/>
+    <record jsxid="security_deleteExceptions" jsxtext="Eliminar Excepciones"/>
+    <record jsxid="security_editTransactions" jsxtext="Editar Transacciones"/>
+    <record jsxid="security_refresh" jsxtext="Refrescar"/>
+    <record jsxid="security_refreshMessage" jsxtext="Existen cambios no guardados, ¿desechar cambios y refrescar?"/>
+    <record jsxid="security_update" jsxtext="Actualizar"/>
+  </locale>
+  <locale key="sv_SV">
+    <record jsxid="security_tabLabel" jsxtext="Säkerhet"/>
+    <record jsxid="security_appId" jsxtext="ApplikationsId"/>
+    <record jsxid="security_role" jsxtext="Roll"/>
+    <record jsxid="security_configurations" jsxtext="Konfigurationer"/>
+    <record jsxid="security_viewConfigurations" jsxtext="Visa Konfigurationer"/>
+    <record jsxid="security_addConfigurations" jsxtext="Lägg Till Konfigurationer"/>
+    <record jsxid="security_editConfigurations" jsxtext="Redigera Konfigurationer"/>
+    <record jsxid="security_deleteConfigurations" jsxtext="Ta Bort Configurationer"/>
+    <record jsxid="security_logs" jsxtext="Loggar"/>
+    <record jsxid="security_viewLogs" jsxtext="Visa Logsgar"/>
+    <record jsxid="security_deleteLogs" jsxtext="Ta Bort Loggar"/>
+    <record jsxid="security_exceptions" jsxtext="Undantag"/>
+    <record jsxid="security_viewExceptions" jsxtext="Visa Undantag"/>
+    <record jsxid="security_resolveExceptions" jsxtext="Lösa Undantag"/>
+    <record jsxid="security_deleteExceptions" jsxtext="Ta Bort Undantag"/>
+    <record jsxid="security_editTransactions" jsxtext="Redigera Transaktioner"/>
+    <record jsxid="security_refresh" jsxtext="Uppdatera Vy"/>
+    <record jsxid="security_refreshMessage" jsxtext="Det finns icke sparade ändringar, ignorera ändringar och uppdatera vyn?"/>
+    <record jsxid="security_update" jsxtext="Uppdatera"/>
+  </locale>
+  <locale key="zh_CH">
+    <record jsxid="security_tabLabel" jsxtext="安全"/>
+    <record jsxid="security_appId" jsxtext="应用程序Id"/>
+    <record jsxid="security_role" jsxtext="角色"/>
+    <record jsxid="security_configurations" jsxtext="配置"/>
+    <record jsxid="security_viewConfigurations" jsxtext="查看配置"/>
+    <record jsxid="security_addConfigurations" jsxtext="添加配置"/>
+    <record jsxid="security_editConfigurations" jsxtext="编辑配置"/>
+    <record jsxid="security_deleteConfigurations" jsxtext="删除配置"/>
+    <record jsxid="security_logs" jsxtext="日志"/>
+    <record jsxid="security_viewLogs" jsxtext="查看"/>
+    <record jsxid="security_deleteLogs" jsxtext="删除日志"/>
+    <record jsxid="security_exceptions" jsxtext="例外"/>
+    <record jsxid="security_viewExceptions" jsxtext="查看例外"/>
+    <record jsxid="security_resolveExceptions" jsxtext="处理例外"/>
+    <record jsxid="security_deleteExceptions" jsxtext="删除例外"/>
+    <record jsxid="security_editTransactions" jsxtext="编辑事务"/>
+    <record jsxid="security_refresh" jsxtext="刷新"/>
+    <record jsxid="security_refreshMessage" jsxtext="有未保存的改变，丢弃改变并且刷新?"/>
+    <record jsxid="security_update" jsxtext="升级"/>
+  </locale>
+</data>
